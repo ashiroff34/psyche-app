@@ -1012,58 +1012,64 @@ export default function DailyPage() {
 
   const today = new Date();
 
-  // ── Build path units from progress ──
+  // ── Build path units with sequential (Duolingo-style) locking ──
+  const applySequentialStatus = (
+    rawNodes: Omit<PathNodeConfig, "status">[],
+    isDone: (moduleId: string) => boolean
+  ): PathNodeConfig[] => {
+    let prevCompleted = true; // first node is always unlocked
+    return rawNodes.map((node) => {
+      const done = node.moduleId ? isDone(node.moduleId) : false;
+      let status: PathNodeConfig["status"];
+      if (done) {
+        status = "completed";
+      } else if (prevCompleted) {
+        status = "current";
+      } else {
+        status = "locked";
+      }
+      prevCompleted = done;
+      return { ...node, status };
+    });
+  };
+
   const buildEnneagramUnits = (): PathUnit[] => {
     const wDone = dailyProgress?.warmupDone ?? false;
     const mDone = dailyProgress?.modulesCompleted ?? [];
+    const isDone = (id: string) => id === "warmup" ? wDone : mDone.includes(id);
 
-    const nodeStatus = (id: string): PathNodeConfig["status"] => {
-      if (id === "warmup") return wDone ? "completed" : "current";
-      return mDone.includes(id) ? "completed" : "current";
-    };
-
-    const unit1Nodes: PathNodeConfig[] = [
-      { id: "warmup", moduleId: "warmup", label: "Warm-Up", sublabel: "5 quick questions", xp: 50, questionCount: 5, unitName: "Unit 1 · Foundations", gradFrom: "#10b981", gradTo: "#6366f1", status: nodeStatus("warmup") },
-      { id: "type", moduleId: "type", label: "Type Deep Dive", sublabel: "Your Enneagram type", xp: 100, questionCount: 20, unitName: "Unit 1 · Foundations", gradFrom: "#6366f1", gradTo: "#8b5cf6", status: nodeStatus("type") },
-    ];
-    const unit2Nodes: PathNodeConfig[] = [
-      { id: "cognitive", moduleId: "cognitive", label: "Cognitive Functions", sublabel: "Your function stack", xp: 75, questionCount: 15, unitName: "Unit 2 · Mind & Functions", gradFrom: "#6366f1", gradTo: "#8b5cf6", status: nodeStatus("cognitive") },
-      { id: "cross", moduleId: "cross", label: "Cross-System", sublabel: "Where systems meet", xp: 90, questionCount: 12, unitName: "Unit 2 · Mind & Functions", gradFrom: "#8b5cf6", gradTo: "#d946ef", status: nodeStatus("cross") },
-    ];
-    const unit3Nodes: PathNodeConfig[] = [
-      { id: "history", moduleId: "history", label: "History & Theory", sublabel: "Origins of the systems", xp: 75, questionCount: 12, unitName: "Unit 3 · History & Depth", gradFrom: "#8b5cf6", gradTo: "#ec4899", status: nodeStatus("history") },
+    const allRaw: Omit<PathNodeConfig, "status">[] = [
+      { id: "warmup",    moduleId: "warmup",    label: "Warm-Up",           sublabel: "5 quick questions",         xp: 50,  questionCount: 5,  unitName: "unit1", gradFrom: "#10b981", gradTo: "#6366f1" },
+      { id: "type",      moduleId: "type",      label: "Type Deep Dive",    sublabel: "Your Enneagram type",       xp: 100, questionCount: 20, unitName: "unit1", gradFrom: "#6366f1", gradTo: "#8b5cf6" },
+      { id: "cognitive", moduleId: "cognitive", label: "Cognitive Functions",sublabel: "Your function stack",      xp: 75,  questionCount: 15, unitName: "unit2", gradFrom: "#6366f1", gradTo: "#8b5cf6" },
+      { id: "cross",     moduleId: "cross",     label: "Cross-System",      sublabel: "Where systems meet",       xp: 90,  questionCount: 12, unitName: "unit2", gradFrom: "#8b5cf6", gradTo: "#d946ef" },
+      { id: "history",   moduleId: "history",   label: "History & Theory",  sublabel: "Origins of the systems",   xp: 75,  questionCount: 12, unitName: "unit3", gradFrom: "#8b5cf6", gradTo: "#ec4899" },
     ];
 
+    const nodes = applySequentialStatus(allRaw, isDone);
     return [
-      { id: "unit1", name: "Foundations", gradFrom: "#10b981", gradTo: "#6366f1", nodes: unit1Nodes },
-      { id: "unit2", name: "Mind & Functions", gradFrom: "#6366f1", gradTo: "#8b5cf6", nodes: unit2Nodes },
-      { id: "unit3", name: "History & Depth", gradFrom: "#8b5cf6", gradTo: "#ec4899", nodes: unit3Nodes },
+      { id: "unit1", name: "Foundations",       gradFrom: "#10b981", gradTo: "#6366f1", nodes: nodes.filter(n => n.unitName === "unit1") },
+      { id: "unit2", name: "Mind & Functions",  gradFrom: "#6366f1", gradTo: "#8b5cf6", nodes: nodes.filter(n => n.unitName === "unit2") },
+      { id: "unit3", name: "History & Depth",   gradFrom: "#8b5cf6", gradTo: "#ec4899", nodes: nodes.filter(n => n.unitName === "unit3") },
     ];
   };
 
   const buildJungianUnits = (): PathUnit[] => {
-    const mDone = dailyProgress?.modulesCompleted ?? [];
     const wDone = dailyProgress?.warmupDone ?? false;
-    const nodeStatus = (id: string): PathNodeConfig["status"] => {
-      if (id === "warmup") return wDone ? "completed" : "current";
-      return mDone.includes(id) ? "completed" : "current";
-    };
+    const mDone = dailyProgress?.modulesCompleted ?? [];
+    const isDone = (id: string) => id === "warmup" ? wDone : mDone.includes(id);
 
+    const allRaw: Omit<PathNodeConfig, "status">[] = [
+      { id: "j-warmup",    moduleId: "warmup",    label: "Warm-Up",            sublabel: "5 quick questions",        xp: 50,  questionCount: 5,  unitName: "unit1", gradFrom: "#3b82f6", gradTo: "#6366f1" },
+      { id: "j-cognitive", moduleId: "cognitive", label: "Cognitive Functions", sublabel: "Your Jung function stack", xp: 75,  questionCount: 15, unitName: "unit1", gradFrom: "#6366f1", gradTo: "#8b5cf6" },
+      { id: "j-cross",     moduleId: "cross",     label: "Cross-System",        sublabel: "Systems integration",     xp: 90,  questionCount: 12, unitName: "unit2", gradFrom: "#8b5cf6", gradTo: "#d946ef" },
+      { id: "j-history",   moduleId: "history",   label: "History & Theory",    sublabel: "Origins of Jungian thought", xp: 75, questionCount: 12, unitName: "unit2", gradFrom: "#8b5cf6", gradTo: "#ec4899" },
+    ];
+
+    const nodes = applySequentialStatus(allRaw, isDone);
     return [
-      {
-        id: "jungian1", name: "Function Stack", gradFrom: "#3b82f6", gradTo: "#6366f1",
-        nodes: [
-          { id: "j-warmup", moduleId: "warmup", label: "Warm-Up", sublabel: "5 quick questions", xp: 50, questionCount: 5, unitName: "Unit 1 · Function Stack", gradFrom: "#3b82f6", gradTo: "#6366f1", status: nodeStatus("warmup") },
-          { id: "j-cognitive", moduleId: "cognitive", label: "Cognitive Functions", sublabel: "Your Jung function stack", xp: 75, questionCount: 15, unitName: "Unit 1 · Function Stack", gradFrom: "#6366f1", gradTo: "#8b5cf6", status: nodeStatus("cognitive") },
-        ],
-      },
-      {
-        id: "jungian2", name: "Type Theory", gradFrom: "#6366f1", gradTo: "#8b5cf6",
-        nodes: [
-          { id: "j-cross", moduleId: "cross", label: "Cross-System", sublabel: "Systems integration", xp: 90, questionCount: 12, unitName: "Unit 2 · Type Theory", gradFrom: "#8b5cf6", gradTo: "#d946ef", status: nodeStatus("cross") },
-          { id: "j-history", moduleId: "history", label: "History & Theory", sublabel: "Origins of Jungian thought", xp: 75, questionCount: 12, unitName: "Unit 2 · Type Theory", gradFrom: "#8b5cf6", gradTo: "#ec4899", status: nodeStatus("history") },
-        ],
-      },
+      { id: "jungian1", name: "Function Stack", gradFrom: "#3b82f6", gradTo: "#6366f1", nodes: nodes.filter(n => n.unitName === "unit1") },
+      { id: "jungian2", name: "Type Theory",    gradFrom: "#6366f1", gradTo: "#8b5cf6", nodes: nodes.filter(n => n.unitName === "unit2") },
     ];
   };
 
