@@ -14,6 +14,9 @@ import { useProfile } from "@/hooks/useProfile";
 import { useGameState } from "@/hooks/useGameState";
 import PetSprite from "@/components/PetSprite";
 import NextStepBanner from "@/components/NextStepBanner";
+import HubView from "@/components/daily/HubView";
+import PathView, { type PathUnit } from "@/components/daily/PathView";
+import NodeBottomSheet, { type PathNodeConfig } from "@/components/daily/NodeBottomSheet";
 
 /* ═══════════════════════════════════════════════════════════════════════════
    UTILITY: Seeded PRNG (deterministic shuffle per day)
@@ -566,7 +569,13 @@ export default function DailyPage() {
   const { profile, loaded, trackVisit, markQuizComplete, addXP } = useProfile();
   const { state: gameStateRaw, earnXP: gameEarnXP } = useGameState();
 
-  // ── State ──
+  // ── View state (hub / path / quiz) ──
+  const [view, setView] = useState<"hub" | "path" | "quiz">("hub");
+  const [activePathTab, setActivePathTab] = useState<"enneagram" | "jungian">("enneagram");
+  const [bottomSheetNode, setBottomSheetNode] = useState<PathNodeConfig | null>(null);
+  const [quizSourceNode, setQuizSourceNode] = useState<PathNodeConfig | null>(null);
+
+  // ── Legacy tab (kept for stats tab) ──
   const [activeTab, setActiveTab] = useState<"today" | "deep" | "stats">("today");
 
   // Warmup quiz state
@@ -1003,6 +1012,84 @@ export default function DailyPage() {
 
   const today = new Date();
 
+  // ── Build path units from progress ──
+  const buildEnneagramUnits = (): PathUnit[] => {
+    const wDone = dailyProgress?.warmupDone ?? false;
+    const mDone = dailyProgress?.modulesCompleted ?? [];
+
+    const nodeStatus = (id: string): PathNodeConfig["status"] => {
+      if (id === "warmup") return wDone ? "completed" : "current";
+      return mDone.includes(id) ? "completed" : "current";
+    };
+
+    const unit1Nodes: PathNodeConfig[] = [
+      { id: "warmup", moduleId: "warmup", label: "Warm-Up", sublabel: "5 quick questions", xp: 50, questionCount: 5, unitName: "Unit 1 · Foundations", gradFrom: "#10b981", gradTo: "#6366f1", status: nodeStatus("warmup") },
+      { id: "type", moduleId: "type", label: "Type Deep Dive", sublabel: "Your Enneagram type", xp: 100, questionCount: 20, unitName: "Unit 1 · Foundations", gradFrom: "#6366f1", gradTo: "#8b5cf6", status: nodeStatus("type") },
+    ];
+    const unit2Nodes: PathNodeConfig[] = [
+      { id: "cognitive", moduleId: "cognitive", label: "Cognitive Functions", sublabel: "Your function stack", xp: 75, questionCount: 15, unitName: "Unit 2 · Mind & Functions", gradFrom: "#6366f1", gradTo: "#8b5cf6", status: nodeStatus("cognitive") },
+      { id: "cross", moduleId: "cross", label: "Cross-System", sublabel: "Where systems meet", xp: 90, questionCount: 12, unitName: "Unit 2 · Mind & Functions", gradFrom: "#8b5cf6", gradTo: "#d946ef", status: nodeStatus("cross") },
+    ];
+    const unit3Nodes: PathNodeConfig[] = [
+      { id: "history", moduleId: "history", label: "History & Theory", sublabel: "Origins of the systems", xp: 75, questionCount: 12, unitName: "Unit 3 · History & Depth", gradFrom: "#8b5cf6", gradTo: "#ec4899", status: nodeStatus("history") },
+    ];
+
+    return [
+      { id: "unit1", name: "Foundations", gradFrom: "#10b981", gradTo: "#6366f1", nodes: unit1Nodes },
+      { id: "unit2", name: "Mind & Functions", gradFrom: "#6366f1", gradTo: "#8b5cf6", nodes: unit2Nodes },
+      { id: "unit3", name: "History & Depth", gradFrom: "#8b5cf6", gradTo: "#ec4899", nodes: unit3Nodes },
+    ];
+  };
+
+  const buildJungianUnits = (): PathUnit[] => {
+    const mDone = dailyProgress?.modulesCompleted ?? [];
+    const wDone = dailyProgress?.warmupDone ?? false;
+    const nodeStatus = (id: string): PathNodeConfig["status"] => {
+      if (id === "warmup") return wDone ? "completed" : "current";
+      return mDone.includes(id) ? "completed" : "current";
+    };
+
+    return [
+      {
+        id: "jungian1", name: "Function Stack", gradFrom: "#3b82f6", gradTo: "#6366f1",
+        nodes: [
+          { id: "j-warmup", moduleId: "warmup", label: "Warm-Up", sublabel: "5 quick questions", xp: 50, questionCount: 5, unitName: "Unit 1 · Function Stack", gradFrom: "#3b82f6", gradTo: "#6366f1", status: nodeStatus("warmup") },
+          { id: "j-cognitive", moduleId: "cognitive", label: "Cognitive Functions", sublabel: "Your Jung function stack", xp: 75, questionCount: 15, unitName: "Unit 1 · Function Stack", gradFrom: "#6366f1", gradTo: "#8b5cf6", status: nodeStatus("cognitive") },
+        ],
+      },
+      {
+        id: "jungian2", name: "Type Theory", gradFrom: "#6366f1", gradTo: "#8b5cf6",
+        nodes: [
+          { id: "j-cross", moduleId: "cross", label: "Cross-System", sublabel: "Systems integration", xp: 90, questionCount: 12, unitName: "Unit 2 · Type Theory", gradFrom: "#8b5cf6", gradTo: "#d946ef", status: nodeStatus("cross") },
+          { id: "j-history", moduleId: "history", label: "History & Theory", sublabel: "Origins of Jungian thought", xp: 75, questionCount: 12, unitName: "Unit 2 · Type Theory", gradFrom: "#8b5cf6", gradTo: "#ec4899", status: nodeStatus("history") },
+        ],
+      },
+    ];
+  };
+
+  const enneagramUnits = buildEnneagramUnits();
+  const jungianUnits = buildJungianUnits();
+  const currentUnits = activePathTab === "enneagram" ? enneagramUnits : jungianUnits;
+  const allPathNodes = currentUnits.flatMap(u => u.nodes);
+  const miniPathNodes = allPathNodes.slice(0, 5);
+  const nextNode = allPathNodes.find(n => n.status !== "completed") ?? null;
+  const completedTodayCount = allPathNodes.filter(n => n.status === "completed").length;
+
+  // ── Start a node (from bottom sheet) ──
+  const startNode = (node: PathNodeConfig) => {
+    setBottomSheetNode(null);
+    setQuizSourceNode(node);
+    if (node.moduleId === "warmup") {
+      setWarmupStarted(true);
+      setView("quiz");
+      setActiveTab("today");
+    } else if (node.moduleId) {
+      startModule(node.moduleId);
+      setView("quiz");
+      setActiveTab("deep");
+    }
+  };
+
   if (!loaded) return null;
 
   // ═══════════════════════════════════════════════════════════════════════
@@ -1148,95 +1235,131 @@ export default function DailyPage() {
   // ═══════════════════════════════════════════════════════════════════════
   // RENDER
   // ═══════════════════════════════════════════════════════════════════════
+
+  // ── Hub view ──
+  if (view === "hub") {
+    return (
+      <div className="min-h-screen">
+        {showConfetti && <ConfettiParticles />}
+        <HubView
+          streak={streak}
+          totalXP={totalXP}
+          xpProgress={progressToNext}
+          xpLabel={currentMilestone.label}
+          xpToNext={nextMilestone ? nextMilestone.xp - totalXP : null}
+          nextMilestoneLabel={nextMilestone?.label ?? null}
+          enneagramType={profile.enneagramType ?? 0}
+          enneagramTypeName={profile.enneagramType ? `Type ${profile.enneagramType}` : ""}
+          jungianType={profile.cognitiveType ?? ""}
+          completedToday={completedTodayCount}
+          totalNodes={allPathNodes.length}
+          petWidget={petWidget}
+          insightData={dailyInsightData}
+          activePathTab={activePathTab}
+          onPathTabChange={setActivePathTab}
+          onContinuePath={() => setView("path")}
+          onNodeTap={(node) => setBottomSheetNode(node)}
+          miniPathNodes={miniPathNodes}
+          nextNode={nextNode}
+          streakFreezes={streakFreezes}
+        />
+        <NodeBottomSheet
+          node={bottomSheetNode}
+          onClose={() => setBottomSheetNode(null)}
+          onStart={startNode}
+          isCompleted={(id) => (dailyProgress?.modulesCompleted ?? []).includes(id)}
+        />
+        {/* Stats link */}
+        <div className="fixed bottom-20 right-4 z-30">
+          <button
+            onClick={() => { setView("quiz"); setActiveTab("stats"); }}
+            className="w-10 h-10 rounded-full bg-white shadow-lg border border-slate-100 flex items-center justify-center text-slate-500 hover:text-indigo-600 transition"
+          >
+            <BarChart3 className="w-4 h-4" />
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  // ── Path view ──
+  if (view === "path") {
+    return (
+      <div className="min-h-screen bg-white">
+        {showConfetti && <ConfettiParticles />}
+        {/* Header */}
+        <div className="sticky top-0 z-20 bg-white/90 backdrop-blur-sm border-b border-slate-100 px-4 py-3 flex items-center gap-3">
+          <button
+            onClick={() => setView("hub")}
+            className="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center hover:bg-slate-200 transition"
+          >
+            <ChevronRight className="w-4 h-4 text-slate-500 rotate-180" />
+          </button>
+          <h2 className="font-bold text-slate-800 text-base">Your Path</h2>
+          <div className="ml-auto text-sm text-slate-400">{completedTodayCount}/{allPathNodes.length} done</div>
+        </div>
+        <div className="max-w-md mx-auto px-4 pt-4">
+          <PathView
+            units={currentUnits}
+            onNodeTap={(node) => setBottomSheetNode(node)}
+            activeTab={activePathTab}
+            onTabChange={setActivePathTab}
+          />
+        </div>
+        <NodeBottomSheet
+          node={bottomSheetNode}
+          onClose={() => setBottomSheetNode(null)}
+          onStart={startNode}
+          isCompleted={(id) => (dailyProgress?.modulesCompleted ?? []).includes(id)}
+        />
+      </div>
+    );
+  }
+
+  // ── Quiz view (uses existing tab-based rendering below) ──
   return (
     <div className="min-h-screen pb-20">
       {showConfetti && <ConfettiParticles />}
 
-      <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 pt-12">
+      <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 pt-8">
 
-        {/* ── New user "start learning" prompt ── */}
-        {(() => {
-          let isNewLearner = false;
-          try { isNewLearner = localStorage.getItem("psyche-new-user-knows-type") === "true"; } catch {}
-          if (!isNewLearner) return null;
-          return (
-            <div className="mb-6 p-5 rounded-3xl bg-gradient-to-r from-emerald-500 to-teal-600 text-white shadow-lg">
-              <h3 className="font-serif font-bold text-lg mb-1">Welcome to your Daily Practice!</h3>
-              <p className="text-white/70 text-sm mb-4">This is where you&apos;ll come every day. Start with the Quick Warm-Up below — 5 questions to kick things off.</p>
-              <button
-                onClick={() => {
-                  try { localStorage.removeItem("psyche-new-user-knows-type"); } catch {}
-                  setActiveTab("today");
-                  // Scroll down to the quiz section
-                  window.scrollTo({ top: 600, behavior: "smooth" });
-                }}
-                className="flex items-center gap-2 px-5 py-2.5 bg-white text-emerald-600 rounded-xl font-semibold text-sm shadow-md hover:shadow-lg transition-all active:scale-95"
-              >
-                <Zap className="w-4 h-4" />
-                Start Learning
-              </button>
-            </div>
-          );
-        })()}
+        {/* Back to path */}
+        <button
+          onClick={() => {
+            setView(quizSourceNode ? "path" : "hub");
+            setActiveModule(null);
+            setModuleDone(false);
+            setModuleAnswers([]);
+            setWarmupStarted(false);
+          }}
+          className="flex items-center gap-1.5 text-sm text-slate-400 hover:text-slate-600 transition mb-6"
+        >
+          <ChevronRight className="w-4 h-4 rotate-180" /> Back to path
+        </button>
 
-        {/* ── Header ── */}
-        <motion.div initial={{ opacity: 1, y: 0 }} animate={{ opacity: 1, y: 0 }} className="mb-6">
-          <div className="flex items-center justify-between mb-4">
-            <div>
-              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-indigo-50 border border-indigo-100 text-indigo-600 text-xs font-medium mb-2">
-                <Sparkles className="w-3 h-3" /> Daily Practice
-              </div>
-              <h1 className="text-3xl font-serif font-bold text-slate-900">Your Practice</h1>
-              <p className="text-slate-400 text-sm mt-0.5">{today.toLocaleDateString("en-US", { weekday: "long", month: "long", day: "numeric" })}</p>
-            </div>
-            <div className="relative flex flex-col items-center p-4 rounded-2xl bg-gradient-to-br from-orange-50 to-amber-50 border border-orange-100">
-              <Flame className="w-6 h-6 text-orange-500 mb-1" />
-              <span className="text-2xl font-bold text-slate-800">{streak}</span>
-              <span className="text-[10px] text-slate-400 uppercase tracking-wider">day streak</span>
-              {/* Streak freeze shield indicator */}
-              {gameStateRaw.streakFreezes > 0 && (
-                <div className="absolute -top-1.5 -right-1.5 w-6 h-6 rounded-full bg-sky-500 flex items-center justify-center shadow-sm" title={`${gameStateRaw.streakFreezes} streak freeze${gameStateRaw.streakFreezes > 1 ? "s" : ""}`}>
-                  <span className="text-white text-[10px] font-bold">{gameStateRaw.streakFreezes}</span>
-                </div>
-              )}
-            </div>
+        {/* XP bar (compact) */}
+        <div className="flex items-center gap-3 mb-6 p-3 rounded-xl bg-white border border-slate-100 shadow-sm">
+          <Zap className="w-4 h-4 text-amber-500 shrink-0" />
+          <div className="flex-1 h-1.5 bg-slate-100 rounded-full overflow-hidden">
+            <motion.div
+              className="h-full rounded-full bg-gradient-to-r from-violet-400 to-pink-400"
+              initial={{ width: 0 }}
+              animate={{ width: `${progressToNext}%` }}
+              transition={{ duration: 0.8 }}
+            />
           </div>
+          <span className="text-xs font-medium text-slate-600 shrink-0">{totalXP} XP</span>
+          {sessionXP > 0 && (
+            <span className="text-xs text-amber-500 font-semibold shrink-0">+{sessionXP}</span>
+          )}
+        </div>
 
-          {/* XP bar */}
-          <div className="p-4 rounded-2xl bg-white border border-slate-100 shadow-sm">
-            <div className="flex items-center justify-between mb-2">
-              <div className="flex items-center gap-2">
-                <Zap className="w-4 h-4 text-amber-500" />
-                <span className="text-sm font-medium text-slate-700">
-                  {totalXP} XP -- <span className="text-indigo-600">{currentMilestone.label}</span>
-                </span>
-              </div>
-              {nextMilestone && <span className="text-xs text-slate-400">{nextMilestone.xp - totalXP} to {nextMilestone.label}</span>}
-            </div>
-            {nextMilestone && (
-              <div className="h-2 bg-slate-100 rounded-full overflow-hidden">
-                <motion.div
-                  initial={{ width: 0 }}
-                  animate={{ width: `${progressToNext}%` }}
-                  transition={{ duration: 0.8 }}
-                  className="h-full rounded-full bg-gradient-to-r from-indigo-400 to-sky-400"
-                />
-              </div>
-            )}
-            {sessionXP > 0 && (
-              <motion.div initial={{ opacity: 1 }} animate={{ opacity: 1 }} className="mt-2 text-xs text-amber-500 font-medium">
-                +{sessionXP} XP this session {isFirstQuizToday && "(2x daily bonus!)"}
-              </motion.div>
-            )}
-          </div>
-        </motion.div>
-
-        {/* ── Tab Navigation ── */}
+        {/* Stats tab toggle (for quick access) */}
         <div className="flex gap-1 p-1 bg-slate-100 rounded-xl mb-6">
           {([
-            { id: "today" as const, label: "Today's Practice", icon: Lightbulb },
+            { id: "today" as const, label: "Warm-Up", icon: Lightbulb },
             { id: "deep" as const, label: "Deep Learning", icon: GraduationCap },
-            { id: "stats" as const, label: "My Stats", icon: BarChart3 },
+            { id: "stats" as const, label: "Stats", icon: BarChart3 },
           ]).map(tab => (
             <button
               key={tab.id}
