@@ -1,0 +1,40 @@
+# dependencies
+node_modules/
+/.pnp
+.pnp.js
+
+# next.js build output
+/.next/
+/out/
+/out 2/
+/out 3/
+/out 4/
+/out 5/
+/out 6/
+/out 7/
+
+# production
+/build
+
+# misc
+.DS_Store
+*.pem
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# local env files
+.env*.local
+.env
+
+# vercel
+.vercel
+
+# typescript
+*.tsbuildinfo
+next-env.d.ts
+
+# netlify
+.netlify

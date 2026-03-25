@@ -1,0 +1,1178 @@
+/**
+ * iEQ9-Style Integrative Enneagram Assessment
+ *
+ * 175 Likert-scale statements (1 = Strongly Disagree ... 5 = Strongly Agree)
+ * grounded in the core motivations, fears, and desires described by
+ * Riso-Hudson (The Wisdom of the Enneagram), Naranjo (Character and Neurosis),
+ * and Chestnut (The Complete Enneagram).
+ *
+ * Phase 1 — Core Type Identification (90 statements, 10 per type)
+ * Phase 2 — Wing Refinement (36 statements, 4 per wing pair)
+ * Phase 3 — Instinctual Variants (30 statements, 10 per instinct)
+ * Phase 4 — Stress / Growth Lines (19 statements, ~2 per type)
+ */
+
+// ---------------------------------------------------------------------------
+// Shared interface
+// ---------------------------------------------------------------------------
+
+export interface LikertStatement {
+  id: number;
+  text: string;
+  scores: Record<string, number>; // type numbers as strings, values are weights
+  category: 'core' | 'wing' | 'instinct' | 'stress-growth';
+}
+
+// ---------------------------------------------------------------------------
+// Phase 1 — Core Type (90 statements)
+// ---------------------------------------------------------------------------
+
+export const coreStatements: LikertStatement[] = [
+  // ── Type 1: The Reformer ─────────────────────────────────────────────
+  // Core motivation: to be good, right, and virtuous; to have integrity
+  // Core fear: being corrupt, evil, or defective
+  {
+    id: 1,
+    text: 'I feel a deep inner obligation to improve things that are not as they should be.',
+    scores: { '1': 3, '6': 1 },
+    category: 'core',
+  },
+  {
+    id: 2,
+    text: 'When I make a mistake, an internal voice criticizes me far more harshly than anyone else would.',
+    scores: { '1': 3, '4': 1 },
+    category: 'core',
+  },
+  {
+    id: 3,
+    text: 'I have a strong sense of right and wrong that I cannot simply ignore.',
+    scores: { '1': 3, '6': 1 },
+    category: 'core',
+  },
+  {
+    id: 4,
+    text: 'I suppress my anger because I believe good people should not lose their temper.',
+    scores: { '1': 3, '9': 1 },
+    category: 'core',
+  },
+  {
+    id: 5,
+    text: 'I often feel that if I do not uphold standards, no one else will.',
+    scores: { '1': 3, '8': 1 },
+    category: 'core',
+  },
+  {
+    id: 6,
+    text: 'I fear that deep down there is something fundamentally wrong with me that I must correct.',
+    scores: { '1': 3, '4': 1 },
+    category: 'core',
+  },
+  {
+    id: 7,
+    text: 'I feel resentful when others cut corners or act irresponsibly without consequence.',
+    scores: { '1': 3 },
+    category: 'core',
+  },
+  {
+    id: 8,
+    text: 'I organize my environment meticulously because disorder feels morally uncomfortable.',
+    scores: { '1': 3 },
+    category: 'core',
+  },
+  {
+    id: 9,
+    text: 'I hold myself to a personal code of ethics even when no one is watching.',
+    scores: { '1': 3, '6': 1 },
+    category: 'core',
+  },
+  {
+    id: 10,
+    text: 'I long for a world where everything functions the way it truly ought to.',
+    scores: { '1': 3, '9': 1 },
+    category: 'core',
+  },
+
+  // ── Type 2: The Helper ───────────────────────────────────────────────
+  // Core motivation: to be loved and needed
+  // Core fear: being unwanted or unworthy of love
+  {
+    id: 11,
+    text: 'I instinctively sense what other people need, often before they say it.',
+    scores: { '2': 3, '9': 1 },
+    category: 'core',
+  },
+  {
+    id: 12,
+    text: 'I feel most valuable when someone truly depends on me.',
+    scores: { '2': 3 },
+    category: 'core',
+  },
+  {
+    id: 13,
+    text: 'I find it very difficult to ask others for help, even when I am struggling.',
+    scores: { '2': 3, '1': 1 },
+    category: 'core',
+  },
+  {
+    id: 14,
+    text: 'I worry that if I stopped giving, people would have no reason to keep me in their lives.',
+    scores: { '2': 3 },
+    category: 'core',
+  },
+  {
+    id: 15,
+    text: 'I reshape myself to match what I think someone close to me wants.',
+    scores: { '2': 3, '3': 1 },
+    category: 'core',
+  },
+  {
+    id: 16,
+    text: 'I sometimes feel hurt when the care I give is not reciprocated.',
+    scores: { '2': 3, '4': 1 },
+    category: 'core',
+  },
+  {
+    id: 17,
+    text: 'My self-worth rises and falls based on whether the people I love appreciate me.',
+    scores: { '2': 3, '3': 1 },
+    category: 'core',
+  },
+  {
+    id: 18,
+    text: 'I would rather attend to someone else\'s pain than sit with my own.',
+    scores: { '2': 3, '9': 1 },
+    category: 'core',
+  },
+  {
+    id: 19,
+    text: 'I can become possessive of the people I have invested in emotionally.',
+    scores: { '2': 3, '8': 1 },
+    category: 'core',
+  },
+  {
+    id: 20,
+    text: 'Deep down I fear that my own needs are too much and will drive people away.',
+    scores: { '2': 3, '4': 1 },
+    category: 'core',
+  },
+
+  // ── Type 3: The Achiever ─────────────────────────────────────────────
+  // Core motivation: to be valuable and worthwhile through accomplishments
+  // Core fear: being worthless or without inherent value
+  {
+    id: 21,
+    text: 'I automatically adjust my image depending on the audience to maximize my effectiveness.',
+    scores: { '3': 3, '2': 1 },
+    category: 'core',
+  },
+  {
+    id: 22,
+    text: 'My sense of who I am is closely tied to what I have accomplished.',
+    scores: { '3': 3 },
+    category: 'core',
+  },
+  {
+    id: 23,
+    text: 'I dread the idea of being seen as a failure more than almost anything else.',
+    scores: { '3': 3, '1': 1 },
+    category: 'core',
+  },
+  {
+    id: 24,
+    text: 'I can set feelings aside to stay productive and meet my goals.',
+    scores: { '3': 3, '5': 1 },
+    category: 'core',
+  },
+  {
+    id: 25,
+    text: 'I often do not know what I actually feel because I am so focused on performing.',
+    scores: { '3': 3 },
+    category: 'core',
+  },
+  {
+    id: 26,
+    text: 'I compare myself to others and measure how I stack up almost involuntarily.',
+    scores: { '3': 3, '4': 1 },
+    category: 'core',
+  },
+  {
+    id: 27,
+    text: 'Recognition from others energizes me more than any internal sense of satisfaction.',
+    scores: { '3': 3, '2': 1 },
+    category: 'core',
+  },
+  {
+    id: 28,
+    text: 'I fear that without my achievements, there is nothing truly lovable about me.',
+    scores: { '3': 3 },
+    category: 'core',
+  },
+  {
+    id: 29,
+    text: 'I become impatient when processes are inefficient because I need to keep moving forward.',
+    scores: { '3': 3, '8': 1 },
+    category: 'core',
+  },
+  {
+    id: 30,
+    text: 'When a project fails, I feel like I myself have failed as a person.',
+    scores: { '3': 3, '1': 1 },
+    category: 'core',
+  },
+
+  // ── Type 4: The Individualist ────────────────────────────────────────
+  // Core motivation: to find their true identity and express their uniqueness
+  // Core fear: having no personal significance or unique identity
+  {
+    id: 31,
+    text: 'I often feel fundamentally different from the people around me.',
+    scores: { '4': 3, '5': 1 },
+    category: 'core',
+  },
+  {
+    id: 32,
+    text: 'I am drawn to melancholy and find beauty in sadness that others overlook.',
+    scores: { '4': 3 },
+    category: 'core',
+  },
+  {
+    id: 33,
+    text: 'I fear being emotionally shallow or ordinary more than being in pain.',
+    scores: { '4': 3 },
+    category: 'core',
+  },
+  {
+    id: 34,
+    text: 'I long for something essential that seems to be missing from my life.',
+    scores: { '4': 3, '7': 1 },
+    category: 'core',
+  },
+  {
+    id: 35,
+    text: 'I envy others who appear to belong effortlessly while I feel like an outsider.',
+    scores: { '4': 3, '2': 1 },
+    category: 'core',
+  },
+  {
+    id: 36,
+    text: 'Authenticity is so important to me that I would rather suffer than be false.',
+    scores: { '4': 3, '1': 1 },
+    category: 'core',
+  },
+  {
+    id: 37,
+    text: 'My emotional intensity sometimes overwhelms both me and the people around me.',
+    scores: { '4': 3, '8': 1 },
+    category: 'core',
+  },
+  {
+    id: 38,
+    text: 'I withdraw when I feel misunderstood, believing no one can truly know me.',
+    scores: { '4': 3, '5': 1 },
+    category: 'core',
+  },
+  {
+    id: 39,
+    text: 'I am attracted to what is absent or unattainable rather than what is present.',
+    scores: { '4': 3 },
+    category: 'core',
+  },
+  {
+    id: 40,
+    text: 'I need to express my inner world creatively or I feel like I am suffocating.',
+    scores: { '4': 3, '7': 1 },
+    category: 'core',
+  },
+
+  // ── Type 5: The Investigator ─────────────────────────────────────────
+  // Core motivation: to be capable and competent; to understand the environment
+  // Core fear: being useless, helpless, or overwhelmed
+  {
+    id: 41,
+    text: 'I need to fully understand something before I feel ready to act on it.',
+    scores: { '5': 3, '6': 1 },
+    category: 'core',
+  },
+  {
+    id: 42,
+    text: 'Social interactions drain my energy, and I need substantial time alone to recharge.',
+    scores: { '5': 3, '9': 1 },
+    category: 'core',
+  },
+  {
+    id: 43,
+    text: 'I minimize my needs so that I will never have to depend on others.',
+    scores: { '5': 3 },
+    category: 'core',
+  },
+  {
+    id: 44,
+    text: 'I fear that the world will demand more of me than I have the resources to give.',
+    scores: { '5': 3 },
+    category: 'core',
+  },
+  {
+    id: 45,
+    text: 'I observe life from a distance before deciding whether to participate.',
+    scores: { '5': 3, '9': 1 },
+    category: 'core',
+  },
+  {
+    id: 46,
+    text: 'I hoard knowledge, time, or energy as a buffer against an intrusive world.',
+    scores: { '5': 3 },
+    category: 'core',
+  },
+  {
+    id: 47,
+    text: 'I often feel more alive in my mind than in my body or emotions.',
+    scores: { '5': 3 },
+    category: 'core',
+  },
+  {
+    id: 48,
+    text: 'I detach emotionally under pressure because feelings cloud clear thinking.',
+    scores: { '5': 3, '3': 1 },
+    category: 'core',
+  },
+  {
+    id: 49,
+    text: 'I would rather do without than ask someone for help.',
+    scores: { '5': 3, '1': 1 },
+    category: 'core',
+  },
+  {
+    id: 50,
+    text: 'Having a private inner world that no one can invade feels essential to my survival.',
+    scores: { '5': 3, '4': 1 },
+    category: 'core',
+  },
+
+  // ── Type 6: The Loyalist ─────────────────────────────────────────────
+  // Core motivation: to have security and support
+  // Core fear: being without support or guidance; being unable to survive alone
+  {
+    id: 51,
+    text: 'I scan my environment for potential dangers or hidden agendas almost automatically.',
+    scores: { '6': 3 },
+    category: 'core',
+  },
+  {
+    id: 52,
+    text: 'I question authority but also crave a trustworthy authority to believe in.',
+    scores: { '6': 3, '1': 1 },
+    category: 'core',
+  },
+  {
+    id: 53,
+    text: 'I rehearse worst-case scenarios in my mind so I will not be caught off guard.',
+    scores: { '6': 3, '5': 1 },
+    category: 'core',
+  },
+  {
+    id: 54,
+    text: 'I test people repeatedly to see if they are truly loyal before I fully trust them.',
+    scores: { '6': 3 },
+    category: 'core',
+  },
+  {
+    id: 55,
+    text: 'Self-doubt plagues me even when I have strong evidence that I am competent.',
+    scores: { '6': 3, '4': 1 },
+    category: 'core',
+  },
+  {
+    id: 56,
+    text: 'I feel safest when I belong to a group or system that has clear expectations.',
+    scores: { '6': 3, '9': 1 },
+    category: 'core',
+  },
+  {
+    id: 57,
+    text: 'I oscillate between seeking reassurance and defiantly going against the grain.',
+    scores: { '6': 3, '8': 1 },
+    category: 'core',
+  },
+  {
+    id: 58,
+    text: 'I project my fears onto situations and then react as though the worst has already happened.',
+    scores: { '6': 3 },
+    category: 'core',
+  },
+  {
+    id: 59,
+    text: 'Loyalty to my people and my commitments is one of my defining qualities.',
+    scores: { '6': 3, '2': 1 },
+    category: 'core',
+  },
+  {
+    id: 60,
+    text: 'I fear being abandoned or left without a safety net in an unpredictable world.',
+    scores: { '6': 3, '2': 1 },
+    category: 'core',
+  },
+
+  // ── Type 7: The Enthusiast ───────────────────────────────────────────
+  // Core motivation: to be happy, satisfied, and stimulated
+  // Core fear: being trapped in pain or deprivation
+  {
+    id: 61,
+    text: 'I instinctively reframe painful experiences into positive lessons or opportunities.',
+    scores: { '7': 3, '9': 1 },
+    category: 'core',
+  },
+  {
+    id: 62,
+    text: 'I keep my options open because committing to one path feels like losing all the others.',
+    scores: { '7': 3, '4': 1 },
+    category: 'core',
+  },
+  {
+    id: 63,
+    text: 'I fear being trapped in emotional pain with no escape route.',
+    scores: { '7': 3 },
+    category: 'core',
+  },
+  {
+    id: 64,
+    text: 'My mind races ahead to future possibilities rather than staying with what is happening now.',
+    scores: { '7': 3 },
+    category: 'core',
+  },
+  {
+    id: 65,
+    text: 'I consume new ideas, experiences, and stimuli at a pace others find exhausting.',
+    scores: { '7': 3, '3': 1 },
+    category: 'core',
+  },
+  {
+    id: 66,
+    text: 'I avoid grief and sadness by quickly moving on to the next exciting thing.',
+    scores: { '7': 3 },
+    category: 'core',
+  },
+  {
+    id: 67,
+    text: 'Limitations frustrate me because I believe life should be full and abundant.',
+    scores: { '7': 3, '8': 1 },
+    category: 'core',
+  },
+  {
+    id: 68,
+    text: 'I rationalize my impulses so well that I rarely feel guilty about indulging.',
+    scores: { '7': 3 },
+    category: 'core',
+  },
+  {
+    id: 69,
+    text: 'I use charm and humor to keep the mood light and to deflect uncomfortable feelings.',
+    scores: { '7': 3, '2': 1 },
+    category: 'core',
+  },
+  {
+    id: 70,
+    text: 'Deep down I am running from an emptiness that I fear would swallow me if I stopped.',
+    scores: { '7': 3, '4': 1 },
+    category: 'core',
+  },
+
+  // ── Type 8: The Challenger ───────────────────────────────────────────
+  // Core motivation: to protect themselves; to be strong and in control
+  // Core fear: being controlled, harmed, or violated by others
+  {
+    id: 71,
+    text: 'I instinctively take charge because waiting for others to lead feels intolerable.',
+    scores: { '8': 3, '3': 1 },
+    category: 'core',
+  },
+  {
+    id: 72,
+    text: 'I test people\'s strength early on to see if they can handle me at full intensity.',
+    scores: { '8': 3 },
+    category: 'core',
+  },
+  {
+    id: 73,
+    text: 'I express anger directly and immediately because holding it in feels dishonest.',
+    scores: { '8': 3, '1': 1 },
+    category: 'core',
+  },
+  {
+    id: 74,
+    text: 'I equate vulnerability with weakness, and weakness invites others to harm you.',
+    scores: { '8': 3 },
+    category: 'core',
+  },
+  {
+    id: 75,
+    text: 'I fear being controlled or manipulated by anyone, for any reason.',
+    scores: { '8': 3, '6': 1 },
+    category: 'core',
+  },
+  {
+    id: 76,
+    text: 'I will fight fiercely to protect the people and principles I care about.',
+    scores: { '8': 3, '6': 1 },
+    category: 'core',
+  },
+  {
+    id: 77,
+    text: 'I deny my own tenderness because the world punishes those who show softness.',
+    scores: { '8': 3 },
+    category: 'core',
+  },
+  {
+    id: 78,
+    text: 'I respect people who stand their ground with me far more than those who give in.',
+    scores: { '8': 3, '1': 1 },
+    category: 'core',
+  },
+  {
+    id: 79,
+    text: 'I go to excess — in work, pleasure, or conflict — because half-measures feel pointless.',
+    scores: { '8': 3, '7': 1 },
+    category: 'core',
+  },
+  {
+    id: 80,
+    text: 'I build walls of power around me so that no one can ever betray or hurt me again.',
+    scores: { '8': 3 },
+    category: 'core',
+  },
+
+  // ── Type 9: The Peacemaker ───────────────────────────────────────────
+  // Core motivation: to maintain inner stability and peace of mind
+  // Core fear: loss, separation, fragmentation, or conflict
+  {
+    id: 81,
+    text: 'I merge with the priorities and feelings of people close to me and lose track of my own.',
+    scores: { '9': 3, '2': 1 },
+    category: 'core',
+  },
+  {
+    id: 82,
+    text: 'I numb myself to my own anger because expressing it might destroy my relationships.',
+    scores: { '9': 3, '1': 1 },
+    category: 'core',
+  },
+  {
+    id: 83,
+    text: 'I go along with what others want because the cost of asserting myself feels too high.',
+    scores: { '9': 3, '6': 1 },
+    category: 'core',
+  },
+  {
+    id: 84,
+    text: 'I procrastinate on important personal decisions because choosing one thing means losing another.',
+    scores: { '9': 3, '7': 1 },
+    category: 'core',
+  },
+  {
+    id: 85,
+    text: 'I minimize my own importance so that I do not disturb the harmony around me.',
+    scores: { '9': 3 },
+    category: 'core',
+  },
+  {
+    id: 86,
+    text: 'I fear that expressing my true desires will lead to conflict and ultimately separation.',
+    scores: { '9': 3, '2': 1 },
+    category: 'core',
+  },
+  {
+    id: 87,
+    text: 'I distract myself with comfortable routines to avoid facing difficult inner truths.',
+    scores: { '9': 3, '7': 1 },
+    category: 'core',
+  },
+  {
+    id: 88,
+    text: 'People describe me as easy-going, but inside I sometimes feel invisible.',
+    scores: { '9': 3, '4': 1 },
+    category: 'core',
+  },
+  {
+    id: 89,
+    text: 'I can see every side of an argument, which makes it hard to know where I actually stand.',
+    scores: { '9': 3, '6': 1 },
+    category: 'core',
+  },
+  {
+    id: 90,
+    text: 'My deepest longing is for a sense of union — with others, with myself, and with the world.',
+    scores: { '9': 3 },
+    category: 'core',
+  },
+];
+
+// ---------------------------------------------------------------------------
+// Phase 2 — Wing Refinement (36 statements)
+// ---------------------------------------------------------------------------
+
+export const wingStatements: LikertStatement[] = [
+  // ── 1w9 / 1w2 ───────────────────────────────────────────────────────
+  {
+    id: 91,
+    text: 'I prefer to improve the world quietly through principled, steady effort rather than direct confrontation.',
+    scores: { '1': 2, '9': 2 },
+    category: 'wing',
+  },
+  {
+    id: 92,
+    text: 'I withdraw into my ideals when reality becomes too chaotic or imperfect.',
+    scores: { '1': 2, '9': 2 },
+    category: 'wing',
+  },
+  {
+    id: 93,
+    text: 'I feel compelled to correct injustice by personally helping the people affected.',
+    scores: { '1': 2, '2': 2 },
+    category: 'wing',
+  },
+  {
+    id: 94,
+    text: 'My sense of moral duty is amplified by my desire to be of service to others.',
+    scores: { '1': 2, '2': 2 },
+    category: 'wing',
+  },
+
+  // ── 2w1 / 2w3 ───────────────────────────────────────────────────────
+  {
+    id: 95,
+    text: 'I help others according to a clear moral standard of what is right and needed.',
+    scores: { '2': 2, '1': 2 },
+    category: 'wing',
+  },
+  {
+    id: 96,
+    text: 'I feel guilty if my helping is motivated by any self-interest at all.',
+    scores: { '2': 2, '1': 2 },
+    category: 'wing',
+  },
+  {
+    id: 97,
+    text: 'I want to be seen as both caring and successful — the person who has it all together.',
+    scores: { '2': 2, '3': 2 },
+    category: 'wing',
+  },
+  {
+    id: 98,
+    text: 'I charm and network strategically so that I become indispensable to the right people.',
+    scores: { '2': 2, '3': 2 },
+    category: 'wing',
+  },
+
+  // ── 3w2 / 3w4 ───────────────────────────────────────────────────────
+  {
+    id: 99,
+    text: 'I achieve partly for the recognition, but also because I genuinely want to help people through my success.',
+    scores: { '3': 2, '2': 2 },
+    category: 'wing',
+  },
+  {
+    id: 100,
+    text: 'I use personal warmth as a tool to build alliances that advance my goals.',
+    scores: { '3': 2, '2': 2 },
+    category: 'wing',
+  },
+  {
+    id: 101,
+    text: 'My drive to succeed is intertwined with a need to express something authentic and meaningful.',
+    scores: { '3': 2, '4': 2 },
+    category: 'wing',
+  },
+  {
+    id: 102,
+    text: 'I struggle between performing for approval and retreating to explore my real identity.',
+    scores: { '3': 2, '4': 2 },
+    category: 'wing',
+  },
+
+  // ── 4w3 / 4w5 ───────────────────────────────────────────────────────
+  {
+    id: 103,
+    text: 'I want my unique inner world to be visible and admired by others.',
+    scores: { '4': 2, '3': 2 },
+    category: 'wing',
+  },
+  {
+    id: 104,
+    text: 'I channel my emotional depth into polished creative work that earns recognition.',
+    scores: { '4': 2, '3': 2 },
+    category: 'wing',
+  },
+  {
+    id: 105,
+    text: 'I withdraw into intellectual analysis when my feelings become too overwhelming.',
+    scores: { '4': 2, '5': 2 },
+    category: 'wing',
+  },
+  {
+    id: 106,
+    text: 'I am a deeply private person whose rich inner life few people ever see.',
+    scores: { '4': 2, '5': 2 },
+    category: 'wing',
+  },
+
+  // ── 5w4 / 5w6 ───────────────────────────────────────────────────────
+  {
+    id: 107,
+    text: 'My pursuit of knowledge is infused with a longing for deep personal meaning.',
+    scores: { '5': 2, '4': 2 },
+    category: 'wing',
+  },
+  {
+    id: 108,
+    text: 'I see myself as an outsider-intellectual whose unconventional perspective sets me apart.',
+    scores: { '5': 2, '4': 2 },
+    category: 'wing',
+  },
+  {
+    id: 109,
+    text: 'I gather knowledge primarily to feel prepared and secure against an uncertain world.',
+    scores: { '5': 2, '6': 2 },
+    category: 'wing',
+  },
+  {
+    id: 110,
+    text: 'I align with systems and frameworks that provide reliable structure for my thinking.',
+    scores: { '5': 2, '6': 2 },
+    category: 'wing',
+  },
+
+  // ── 6w5 / 6w7 ───────────────────────────────────────────────────────
+  {
+    id: 111,
+    text: 'I manage my anxiety by retreating into careful analysis and private research.',
+    scores: { '6': 2, '5': 2 },
+    category: 'wing',
+  },
+  {
+    id: 112,
+    text: 'I am wary and perceptive, preferring to watch from the edges before committing.',
+    scores: { '6': 2, '5': 2 },
+    category: 'wing',
+  },
+  {
+    id: 113,
+    text: 'I manage my anxiety by staying busy, upbeat, and surrounded by positive people.',
+    scores: { '6': 2, '7': 2 },
+    category: 'wing',
+  },
+  {
+    id: 114,
+    text: 'I joke and lighten the mood when I feel afraid, using humor as a safety valve.',
+    scores: { '6': 2, '7': 2 },
+    category: 'wing',
+  },
+
+  // ── 7w6 / 7w8 ───────────────────────────────────────────────────────
+  {
+    id: 115,
+    text: 'I pursue excitement but also crave the security of loyal friendships and community.',
+    scores: { '7': 2, '6': 2 },
+    category: 'wing',
+  },
+  {
+    id: 116,
+    text: 'I am playful and entertaining, but beneath the fun I worry about what could go wrong.',
+    scores: { '7': 2, '6': 2 },
+    category: 'wing',
+  },
+  {
+    id: 117,
+    text: 'I go after what I want with bold, aggressive energy — pleasure and power combined.',
+    scores: { '7': 2, '8': 2 },
+    category: 'wing',
+  },
+  {
+    id: 118,
+    text: 'I have a larger-than-life presence and push past any obstacle between me and what excites me.',
+    scores: { '7': 2, '8': 2 },
+    category: 'wing',
+  },
+
+  // ── 8w7 / 8w9 ───────────────────────────────────────────────────────
+  {
+    id: 119,
+    text: 'I combine raw power with a hunger for stimulation — I want intensity and variety.',
+    scores: { '8': 2, '7': 2 },
+    category: 'wing',
+  },
+  {
+    id: 120,
+    text: 'I am confrontational and enterprising, taking big risks for big rewards.',
+    scores: { '8': 2, '7': 2 },
+    category: 'wing',
+  },
+  {
+    id: 121,
+    text: 'I wield my strength with a calm, grounded steadiness rather than explosive force.',
+    scores: { '8': 2, '9': 2 },
+    category: 'wing',
+  },
+  {
+    id: 122,
+    text: 'I protect others with quiet authority, preferring not to dominate unless provoked.',
+    scores: { '8': 2, '9': 2 },
+    category: 'wing',
+  },
+
+  // ── 9w8 / 9w1 ───────────────────────────────────────────────────────
+  {
+    id: 123,
+    text: 'I am generally easy-going, but when pushed past my limit I can surprise people with sudden forcefulness.',
+    scores: { '9': 2, '8': 2 },
+    category: 'wing',
+  },
+  {
+    id: 124,
+    text: 'I resist being controlled and express my stubbornness through passive defiance or sudden outbursts.',
+    scores: { '9': 2, '8': 2 },
+    category: 'wing',
+  },
+  {
+    id: 125,
+    text: 'I seek peace but hold myself to an internal code of what is right and proper.',
+    scores: { '9': 2, '1': 2 },
+    category: 'wing',
+  },
+  {
+    id: 126,
+    text: 'I channel my desire for harmony into quietly improving things according to my ideals.',
+    scores: { '9': 2, '1': 2 },
+    category: 'wing',
+  },
+];
+
+// ---------------------------------------------------------------------------
+// Phase 3 — Instinctual Variants (30 statements)
+// ---------------------------------------------------------------------------
+
+export const instinctStatements: LikertStatement[] = [
+  // ── Self-Preservation (sp) ───────────────────────────────────────────
+  {
+    id: 127,
+    text: 'My first concern in any new situation is whether my basic needs — food, shelter, finances — are secure.',
+    scores: { sp: 3 },
+    category: 'instinct',
+  },
+  {
+    id: 128,
+    text: 'I find deep comfort in routines and structures that keep my daily life predictable.',
+    scores: { sp: 3 },
+    category: 'instinct',
+  },
+  {
+    id: 129,
+    text: 'I tend to worry about my health, energy levels, and physical well-being more than most people.',
+    scores: { sp: 3 },
+    category: 'instinct',
+  },
+  {
+    id: 130,
+    text: 'I accumulate resources — money, supplies, skills — as insurance against future hardship.',
+    scores: { sp: 3 },
+    category: 'instinct',
+  },
+  {
+    id: 131,
+    text: 'I feel anxious when my personal environment is chaotic or my material security is uncertain.',
+    scores: { sp: 3 },
+    category: 'instinct',
+  },
+  {
+    id: 132,
+    text: 'I am highly attuned to physical sensations: hunger, fatigue, temperature, and pain.',
+    scores: { sp: 3 },
+    category: 'instinct',
+  },
+  {
+    id: 133,
+    text: 'I invest significant energy into making my home a comfortable and safe refuge.',
+    scores: { sp: 3 },
+    category: 'instinct',
+  },
+  {
+    id: 134,
+    text: 'I can appear self-contained or even reclusive because my focus turns inward toward my own survival.',
+    scores: { sp: 3 },
+    category: 'instinct',
+  },
+  {
+    id: 135,
+    text: 'I plan meals, finances, and schedules carefully to maintain a sense of stability.',
+    scores: { sp: 3 },
+    category: 'instinct',
+  },
+  {
+    id: 136,
+    text: 'When stressed, my mind immediately goes to practical concerns about sustaining myself.',
+    scores: { sp: 3 },
+    category: 'instinct',
+  },
+
+  // ── Sexual / One-to-One (sx) ─────────────────────────────────────────
+  {
+    id: 137,
+    text: 'I crave intense, one-on-one connections that go far deeper than surface socializing.',
+    scores: { sx: 3 },
+    category: 'instinct',
+  },
+  {
+    id: 138,
+    text: 'I am drawn to experiences that create a sense of fusion or total aliveness.',
+    scores: { sx: 3 },
+    category: 'instinct',
+  },
+  {
+    id: 139,
+    text: 'I feel restless and dissatisfied when my relationships lack passionate intensity.',
+    scores: { sx: 3 },
+    category: 'instinct',
+  },
+  {
+    id: 140,
+    text: 'I am highly attuned to chemistry and attraction, both romantic and platonic.',
+    scores: { sx: 3 },
+    category: 'instinct',
+  },
+  {
+    id: 141,
+    text: 'I compete for the attention and closeness of the people I value most.',
+    scores: { sx: 3 },
+    category: 'instinct',
+  },
+  {
+    id: 142,
+    text: 'I express my personality in bold, magnetic ways that make me stand out to individuals I want to connect with.',
+    scores: { sx: 3 },
+    category: 'instinct',
+  },
+  {
+    id: 143,
+    text: 'I would sacrifice comfort and security for the sake of a deeply passionate bond.',
+    scores: { sx: 3 },
+    category: 'instinct',
+  },
+  {
+    id: 144,
+    text: 'I become consumed by my closest relationships, sometimes to the exclusion of everything else.',
+    scores: { sx: 3 },
+    category: 'instinct',
+  },
+  {
+    id: 145,
+    text: 'I feel most alive when I am fully engaged with one other person in a shared emotional or creative space.',
+    scores: { sx: 3 },
+    category: 'instinct',
+  },
+  {
+    id: 146,
+    text: 'I seek transformation through intimate encounters that challenge who I am.',
+    scores: { sx: 3 },
+    category: 'instinct',
+  },
+
+  // ── Social (so) ──────────────────────────────────────────────────────
+  {
+    id: 147,
+    text: 'I naturally read group dynamics and understand where I fit in the social hierarchy.',
+    scores: { so: 3 },
+    category: 'instinct',
+  },
+  {
+    id: 148,
+    text: 'Belonging to a community or cause larger than myself gives my life meaning.',
+    scores: { so: 3 },
+    category: 'instinct',
+  },
+  {
+    id: 149,
+    text: 'I am deeply aware of social expectations and how my behavior reflects on me publicly.',
+    scores: { so: 3 },
+    category: 'instinct',
+  },
+  {
+    id: 150,
+    text: 'I feel anxious or empty when I am disconnected from a group I identify with.',
+    scores: { so: 3 },
+    category: 'instinct',
+  },
+  {
+    id: 151,
+    text: 'I invest energy in building networks and maintaining my social reputation.',
+    scores: { so: 3 },
+    category: 'instinct',
+  },
+  {
+    id: 152,
+    text: 'I am motivated by the desire to contribute to something that benefits the broader community.',
+    scores: { so: 3 },
+    category: 'instinct',
+  },
+  {
+    id: 153,
+    text: 'I pay close attention to who holds influence in a group and how alliances are formed.',
+    scores: { so: 3 },
+    category: 'instinct',
+  },
+  {
+    id: 154,
+    text: 'I adapt my behavior to maintain harmony and belonging within my social circles.',
+    scores: { so: 3 },
+    category: 'instinct',
+  },
+  {
+    id: 155,
+    text: 'Being excluded from a group I value feels like one of the worst things that could happen to me.',
+    scores: { so: 3 },
+    category: 'instinct',
+  },
+  {
+    id: 156,
+    text: 'I measure my worth partly by the role I play and the recognition I receive within my community.',
+    scores: { so: 3 },
+    category: 'instinct',
+  },
+];
+
+// ---------------------------------------------------------------------------
+// Phase 4 — Stress / Growth Lines (19 statements)
+// ---------------------------------------------------------------------------
+
+export const stressGrowthStatements: LikertStatement[] = [
+  // Type 1 → 4 (stress) / 1 → 7 (growth)
+  {
+    id: 157,
+    text: 'Under prolonged pressure, I become moody, self-pitying, and fixated on what is missing rather than what needs fixing.',
+    scores: { '1': 2, '4': 2 },
+    category: 'stress-growth',
+  },
+  {
+    id: 158,
+    text: 'At my best, I release my rigid self-control and allow myself to experience spontaneous joy.',
+    scores: { '1': 2, '7': 2 },
+    category: 'stress-growth',
+  },
+
+  // Type 2 → 8 (stress) / 2 → 4 (growth)
+  {
+    id: 159,
+    text: 'When I feel unappreciated for too long, I become aggressive, domineering, and demanding of what I am owed.',
+    scores: { '2': 2, '8': 2 },
+    category: 'stress-growth',
+  },
+  {
+    id: 160,
+    text: 'At my healthiest, I turn inward, honor my own feelings, and express my authentic emotional truth.',
+    scores: { '2': 2, '4': 2 },
+    category: 'stress-growth',
+  },
+
+  // Type 3 → 9 (stress) / 3 → 6 (growth)
+  {
+    id: 161,
+    text: 'When I hit a wall, I shut down and become passive, disengaged, and numb rather than keep pushing.',
+    scores: { '3': 2, '9': 2 },
+    category: 'stress-growth',
+  },
+  {
+    id: 162,
+    text: 'At my best, I become genuinely loyal and cooperative, valuing the team over personal glory.',
+    scores: { '3': 2, '6': 2 },
+    category: 'stress-growth',
+  },
+
+  // Type 4 → 2 (stress) / 4 → 1 (growth)
+  {
+    id: 163,
+    text: 'When I feel unseen, I cling to others and become over-involved in their lives to feel needed.',
+    scores: { '4': 2, '2': 2 },
+    category: 'stress-growth',
+  },
+  {
+    id: 164,
+    text: 'At my best, I bring discipline and objectivity to my emotional world, turning vision into principled action.',
+    scores: { '4': 2, '1': 2 },
+    category: 'stress-growth',
+  },
+
+  // Type 5 → 7 (stress) / 5 → 8 (growth)
+  {
+    id: 165,
+    text: 'Under stress, I become scattered and hyperactive, consuming ideas and distractions compulsively.',
+    scores: { '5': 2, '7': 2 },
+    category: 'stress-growth',
+  },
+  {
+    id: 166,
+    text: 'At my best, I step into decisive, grounded action and engage the world with confidence and embodied power.',
+    scores: { '5': 2, '8': 2 },
+    category: 'stress-growth',
+  },
+
+  // Type 6 → 3 (stress) / 6 → 9 (growth)
+  {
+    id: 167,
+    text: 'When my anxiety peaks, I become image-conscious and competitive, trying to prove my worth through achievement.',
+    scores: { '6': 2, '3': 2 },
+    category: 'stress-growth',
+  },
+  {
+    id: 168,
+    text: 'At my healthiest, I relax into a trusting calm, accepting life without needing constant reassurance.',
+    scores: { '6': 2, '9': 2 },
+    category: 'stress-growth',
+  },
+
+  // Type 7 → 1 (stress) / 7 → 5 (growth)
+  {
+    id: 169,
+    text: 'When trapped or frustrated, I become critical, rigid, and perfectionistic — a stark contrast to my usual spontaneity.',
+    scores: { '7': 2, '1': 2 },
+    category: 'stress-growth',
+  },
+  {
+    id: 170,
+    text: 'At my best, I slow down, go deep into a single subject, and find satisfaction in focused contemplation.',
+    scores: { '7': 2, '5': 2 },
+    category: 'stress-growth',
+  },
+
+  // Type 8 → 5 (stress) / 8 → 2 (growth)
+  {
+    id: 171,
+    text: 'When overwhelmed, I retreat behind walls of intellectual detachment, becoming secretive and withdrawn.',
+    scores: { '8': 2, '5': 2 },
+    category: 'stress-growth',
+  },
+  {
+    id: 172,
+    text: 'At my best, I open my heart, show genuine tenderness, and use my strength to nurture others.',
+    scores: { '8': 2, '2': 2 },
+    category: 'stress-growth',
+  },
+
+  // Type 9 → 6 (stress) / 9 → 3 (growth)
+  {
+    id: 173,
+    text: 'Under stress, I become anxious, rigid, and reactive, worrying about threats to the peace I depend on.',
+    scores: { '9': 2, '6': 2 },
+    category: 'stress-growth',
+  },
+  {
+    id: 174,
+    text: 'At my healthiest, I become energized, self-assured, and focused, channeling my gifts into purposeful achievement.',
+    scores: { '9': 2, '3': 2 },
+    category: 'stress-growth',
+  },
+
+  // Extra balancing statement (cross-type growth awareness)
+  {
+    id: 175,
+    text: 'I notice that my greatest personal growth comes when I move toward qualities that feel foreign to my usual personality.',
+    scores: { '1': 1, '2': 1, '3': 1, '4': 1, '5': 1, '6': 1, '7': 1, '8': 1, '9': 1 },
+    category: 'stress-growth',
+  },
+];

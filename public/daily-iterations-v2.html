@@ -1,0 +1,1527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Thyself Daily Path - 10 Iterations</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      fontFamily: {
+        sans: ['Inter', 'sans-serif'],
+        serif: ['Playfair Display', 'serif'],
+      }
+    }
+  }
+}
+</script>
+<style>
+body { font-family: 'Inter', sans-serif; }
+
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 8px rgba(251,191,36,0.4); transform: scale(1); }
+  50% { box-shadow: 0 0 20px rgba(251,191,36,0.7); transform: scale(1.05); }
+}
+@keyframes float-pet {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+@keyframes pulse-ring {
+  0%, 100% { opacity: 0.4; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.1); }
+}
+@keyframes shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+@keyframes glow-neon {
+  0%, 100% { box-shadow: 0 0 5px currentColor, 0 0 10px currentColor; }
+  50% { box-shadow: 0 0 10px currentColor, 0 0 25px currentColor, 0 0 40px currentColor; }
+}
+@keyframes twinkle {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 1; }
+}
+.animate-pulse-glow { animation: pulse-glow 2s ease-in-out infinite; }
+.animate-float { animation: float-pet 3s ease-in-out infinite; }
+.animate-pulse-ring { animation: pulse-ring 2s ease-in-out infinite; }
+.animate-shimmer {
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite;
+}
+.animate-glow-neon { animation: glow-neon 2s ease-in-out infinite; }
+.animate-twinkle { animation: twinkle 3s ease-in-out infinite; }
+
+.phone-frame {
+  width: 375px;
+  min-height: 812px;
+  border-radius: 40px;
+  border: 8px solid #1e293b;
+  overflow-y: auto;
+  background: #f8fafc;
+  scrollbar-width: thin;
+}
+.phone-frame::-webkit-scrollbar { width: 4px; }
+.phone-frame::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 2px; }
+
+.phone-frame-dark {
+  width: 375px;
+  min-height: 812px;
+  border-radius: 40px;
+  border: 8px solid #334155;
+  overflow-y: auto;
+  background: #0f172a;
+  scrollbar-width: thin;
+}
+.phone-frame-dark::-webkit-scrollbar { width: 4px; }
+.phone-frame-dark::-webkit-scrollbar-thumb { background: #475569; border-radius: 2px; }
+
+.glass { background: rgba(255,255,255,0.6); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
+.glass-dark { background: rgba(255,255,255,0.05); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
+
+.progress-ring-bg { stroke: #e2e8f0; }
+.progress-ring-fill { stroke-linecap: round; transition: stroke-dashoffset 0.5s; }
+
+.dotted-line {
+  border-left: 3px dotted #cbd5e1;
+}
+
+.node-connector {
+  position: absolute;
+  width: 3px;
+  background: repeating-linear-gradient(to bottom, #cbd5e1 0, #cbd5e1 6px, transparent 6px, transparent 12px);
+}
+</style>
+</head>
+<body class="bg-gray-100 font-sans">
+
+<!-- STICKY NAV -->
+<nav class="sticky top-0 z-50 bg-white/90 backdrop-blur shadow-sm border-b border-gray-200">
+  <div class="max-w-7xl mx-auto px-4 py-3">
+    <h1 class="text-lg font-bold text-gray-800 mb-2 font-serif">Thyself -- Daily Path Iterations</h1>
+    <div class="flex flex-wrap gap-2">
+      <a href="#iter1" class="px-3 py-1 text-xs font-semibold rounded-full bg-amber-100 text-amber-800 hover:bg-amber-200 transition">1. Classic Duo</a>
+      <a href="#iter2" class="px-3 py-1 text-xs font-semibold rounded-full bg-blue-100 text-blue-800 hover:bg-blue-200 transition">2. Glassmorphism</a>
+      <a href="#iter3" class="px-3 py-1 text-xs font-semibold rounded-full bg-purple-100 text-purple-800 hover:bg-purple-200 transition">3. Gradient Glow</a>
+      <a href="#iter4" class="px-3 py-1 text-xs font-semibold rounded-full bg-gray-200 text-gray-700 hover:bg-gray-300 transition">4. Minimal Clean</a>
+      <a href="#iter5" class="px-3 py-1 text-xs font-semibold rounded-full bg-indigo-100 text-indigo-800 hover:bg-indigo-200 transition">5. Bold Cards</a>
+      <a href="#iter6" class="px-3 py-1 text-xs font-semibold rounded-full bg-emerald-100 text-emerald-800 hover:bg-emerald-200 transition">6. Organic Flow</a>
+      <a href="#iter7" class="px-3 py-1 text-xs font-semibold rounded-full bg-rose-100 text-rose-800 hover:bg-rose-200 transition">7. Progress Rings</a>
+      <a href="#iter8" class="px-3 py-1 text-xs font-semibold rounded-full bg-slate-800 text-slate-200 hover:bg-slate-700 transition">8. Dark Mode</a>
+      <a href="#iter9" class="px-3 py-1 text-xs font-semibold rounded-full bg-teal-100 text-teal-800 hover:bg-teal-200 transition">9. Compact Dense</a>
+      <a href="#iter10" class="px-3 py-1 text-xs font-semibold rounded-full bg-violet-100 text-violet-800 hover:bg-violet-200 transition">10. Recommended</a>
+      <a href="#iter11" class="px-3 py-1 text-xs font-semibold rounded-full bg-fuchsia-100 text-fuchsia-800 hover:bg-fuchsia-200 transition">11. Rings + Glow ✦</a>
+    </div>
+  </div>
+</nav>
+
+<div class="max-w-7xl mx-auto px-4 py-8 space-y-20">
+
+
+<!-- ============================== -->
+<!-- ITERATION 1: CLASSIC DUO       -->
+<!-- ============================== -->
+<section id="iter1">
+  <h2 class="text-2xl font-bold text-gray-800 mb-2 font-serif">1. Classic Duo</h2>
+  <p class="text-gray-500 mb-6 text-sm">Faithful Duolingo layout. Completed = golden-yellow circles with check. Simple and direct.</p>
+  <div class="flex flex-wrap gap-8">
+
+    <!-- Screen A: Daily Hub -->
+    <div class="phone-frame p-0">
+      <div class="p-5 pb-0">
+        <!-- Top Stats -->
+        <div class="flex items-center justify-between mb-6">
+          <div class="flex items-center gap-1 text-orange-500 font-bold text-sm">
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M12 23c-4.97 0-9-3.58-9-8 0-3.07 2.31-6.64 4.5-9 .37-.4 1-.4 1.37 0 .9.97 1.7 2.08 2.28 3.28C12.09 7.42 13.5 6 13.5 3.5c0-.55.45-1 1-1 .2 0 .39.06.55.17C18.5 5.15 21 9.2 21 15c0 4.42-4.03 8-9 8z"/></svg>
+            <span>12</span>
+          </div>
+          <div class="flex items-center gap-1 text-yellow-500 font-bold text-sm">
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+            <span>340</span>
+          </div>
+          <div class="flex items-center gap-1">
+            <svg class="w-5 h-5 text-red-500" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            <svg class="w-5 h-5 text-red-500" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            <svg class="w-5 h-5 text-red-500" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+          </div>
+        </div>
+
+        <!-- Progress Ring -->
+        <div class="flex flex-col items-center mb-6">
+          <div class="relative">
+            <svg width="160" height="160" viewBox="0 0 160 160">
+              <circle cx="80" cy="80" r="70" fill="none" stroke="#e2e8f0" stroke-width="10"/>
+              <circle cx="80" cy="80" r="70" fill="none" stroke="#f59e0b" stroke-width="10" stroke-linecap="round"
+                stroke-dasharray="440" stroke-dashoffset="176" transform="rotate(-90 80 80)"/>
+            </svg>
+            <div class="absolute inset-0 flex flex-col items-center justify-center">
+              <span class="text-3xl font-extrabold text-gray-800">3/5</span>
+              <span class="text-xs text-gray-500 font-medium">nodes today</span>
+            </div>
+          </div>
+          <!-- Pet -->
+          <div class="animate-float mt-4">
+            <svg class="w-10 h-10" viewBox="0 0 40 40"><circle cx="20" cy="22" r="12" fill="#c4b5fd"/><circle cx="15" cy="19" r="2" fill="#1e1b4b"/><circle cx="25" cy="19" r="2" fill="#1e1b4b"/><path d="M17 25q3 3 6 0" stroke="#1e1b4b" stroke-width="1.5" fill="none" stroke-linecap="round"/><circle cx="12" cy="12" r="4" fill="#c4b5fd"/><circle cx="28" cy="12" r="4" fill="#c4b5fd"/></svg>
+          </div>
+        </div>
+
+        <!-- Continue Button -->
+        <button class="w-full bg-amber-400 hover:bg-amber-500 text-white font-bold py-3 rounded-2xl shadow-lg shadow-amber-200 transition mb-4 text-sm uppercase tracking-wide">
+          Continue Path
+        </button>
+
+        <!-- Daily Challenge -->
+        <div class="bg-amber-50 border border-amber-200 rounded-2xl p-4 mb-6">
+          <div class="flex items-center gap-2 mb-1">
+            <svg class="w-5 h-5 text-amber-500" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <span class="font-bold text-amber-800 text-sm">Daily Challenge</span>
+          </div>
+          <p class="text-amber-700 text-xs">Complete 3 nodes -- 50 bonus XP</p>
+        </div>
+      </div>
+
+      <!-- Bottom Tabs -->
+      <div class="sticky bottom-0 bg-white border-t border-gray-200 flex">
+        <button class="flex-1 py-3 text-center text-sm font-bold text-amber-600 border-b-2 border-amber-500">Enneagram</button>
+        <button class="flex-1 py-3 text-center text-sm font-medium text-gray-400">Jungian</button>
+      </div>
+    </div>
+
+    <!-- Screen B: Path View -->
+    <div class="phone-frame p-0">
+      <!-- Top Stats -->
+      <div class="sticky top-0 bg-white/95 backdrop-blur z-10 p-4 pb-2 border-b border-gray-100">
+        <div class="flex items-center justify-between mb-2">
+          <div class="flex items-center gap-1 text-orange-500 font-bold text-sm">
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M12 23c-4.97 0-9-3.58-9-8 0-3.07 2.31-6.64 4.5-9 .37-.4 1-.4 1.37 0 .9.97 1.7 2.08 2.28 3.28C12.09 7.42 13.5 6 13.5 3.5c0-.55.45-1 1-1 .2 0 .39.06.55.17C18.5 5.15 21 9.2 21 15c0 4.42-4.03 8-9 8z"/></svg>
+            <span>12</span>
+          </div>
+          <div class="flex items-center gap-1 text-yellow-500 font-bold text-sm">
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+            <span>340</span>
+          </div>
+          <div class="flex items-center gap-1">
+            <svg class="w-4 h-4 text-red-500" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            <svg class="w-4 h-4 text-red-500" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            <svg class="w-4 h-4 text-red-500" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+          </div>
+        </div>
+        <!-- Tab Toggle -->
+        <div class="flex bg-gray-100 rounded-xl p-1">
+          <button class="flex-1 py-1.5 text-xs font-bold text-white bg-amber-500 rounded-lg">Enneagram</button>
+          <button class="flex-1 py-1.5 text-xs font-medium text-gray-400">Jungian</button>
+        </div>
+      </div>
+
+      <!-- Unit 1: Foundations (completed) -->
+      <div class="bg-emerald-50 pt-4">
+        <div class="mx-4 bg-emerald-500 text-white rounded-2xl p-3 flex items-center justify-between mb-4">
+          <div>
+            <div class="text-xs font-medium opacity-80">Unit 1</div>
+            <div class="font-bold text-sm">Foundations</div>
+          </div>
+          <div class="flex items-center gap-2">
+            <div class="text-xs font-bold">100%</div>
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+          </div>
+        </div>
+
+        <!-- S-Curve Nodes (completed, golden-yellow) -->
+        <div class="relative px-4 pb-6 space-y-4">
+          <!-- Node 1 - left -->
+          <div class="ml-6 flex items-center gap-3">
+            <div class="w-14 h-14 rounded-full bg-amber-400 flex items-center justify-center shadow-md">
+              <svg class="w-6 h-6 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+            </div>
+            <span class="text-xs font-medium text-gray-500">Core Type</span>
+          </div>
+          <!-- Node 2 - center -->
+          <div class="mx-auto w-fit flex items-center gap-3">
+            <div class="w-14 h-14 rounded-full bg-amber-400 flex items-center justify-center shadow-md">
+              <svg class="w-6 h-6 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+            </div>
+            <span class="text-xs font-medium text-gray-500">Instincts</span>
+          </div>
+          <!-- Node 3 - right -->
+          <div class="ml-auto mr-6 flex items-center gap-3 flex-row-reverse">
+            <div class="w-14 h-14 rounded-full bg-amber-400 flex items-center justify-center shadow-md">
+              <svg class="w-6 h-6 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+            </div>
+            <span class="text-xs font-medium text-gray-500">Centers</span>
+          </div>
+          <!-- Node 4 - center -->
+          <div class="mx-auto w-fit flex items-center gap-3">
+            <div class="w-14 h-14 rounded-full bg-amber-400 flex items-center justify-center shadow-md">
+              <svg class="w-6 h-6 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+            </div>
+            <span class="text-xs font-medium text-gray-500">Triads</span>
+          </div>
+          <!-- Node 5 - left -->
+          <div class="ml-6 flex items-center gap-3">
+            <div class="w-14 h-14 rounded-full bg-amber-400 flex items-center justify-center shadow-md">
+              <svg class="w-6 h-6 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+            </div>
+            <span class="text-xs font-medium text-gray-500">Review</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Unit 2: Wings & Lines (in progress) -->
+      <div class="bg-indigo-50 pt-4">
+        <div class="mx-4 bg-indigo-500 text-white rounded-2xl p-3 flex items-center justify-between mb-4">
+          <div>
+            <div class="text-xs font-medium opacity-80">Unit 2</div>
+            <div class="font-bold text-sm">Wings & Lines</div>
+          </div>
+          <div class="flex items-center gap-2">
+            <div class="w-16 bg-indigo-400 rounded-full h-2"><div class="bg-white h-2 rounded-full" style="width:40%"></div></div>
+            <div class="text-xs font-bold">40%</div>
+          </div>
+        </div>
+
+        <div class="relative px-4 pb-6 space-y-4">
+          <!-- Node 6 - completed -->
+          <div class="ml-6 flex items-center gap-3">
+            <div class="w-14 h-14 rounded-full bg-emerald-500 flex items-center justify-center shadow-md">
+              <svg class="w-6 h-6 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+            </div>
+            <span class="text-xs font-medium text-gray-500">Wing Intro</span>
+          </div>
+          <!-- Node 7 - completed -->
+          <div class="mx-auto w-fit flex items-center gap-3">
+            <div class="w-14 h-14 rounded-full bg-emerald-500 flex items-center justify-center shadow-md">
+              <svg class="w-6 h-6 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+            </div>
+            <span class="text-xs font-medium text-gray-500">Your Wings</span>
+          </div>
+          <!-- Node 8 - CURRENT -->
+          <div class="ml-auto mr-6 flex items-center gap-3 flex-row-reverse">
+            <div class="relative">
+              <div class="w-14 h-14 rounded-full bg-gradient-to-br from-amber-400 to-orange-500 flex items-center justify-center shadow-lg animate-pulse-glow">
+                <svg class="w-6 h-6 text-white" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              </div>
+              <span class="absolute -top-2 -right-2 bg-amber-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full">START</span>
+            </div>
+            <div class="flex items-center gap-1">
+              <span class="text-xs font-bold text-amber-700">Integration</span>
+              <div class="animate-float">
+                <svg class="w-8 h-8" viewBox="0 0 40 40"><circle cx="20" cy="22" r="12" fill="#c4b5fd"/><circle cx="15" cy="19" r="2" fill="#1e1b4b"/><circle cx="25" cy="19" r="2" fill="#1e1b4b"/><path d="M17 25q3 3 6 0" stroke="#1e1b4b" stroke-width="1.5" fill="none" stroke-linecap="round"/><circle cx="12" cy="12" r="4" fill="#c4b5fd"/><circle cx="28" cy="12" r="4" fill="#c4b5fd"/></svg>
+              </div>
+            </div>
+          </div>
+          <!-- Node 9 - locked -->
+          <div class="mx-auto w-fit flex items-center gap-3">
+            <div class="w-14 h-14 rounded-full bg-slate-100 flex items-center justify-center border-2 border-slate-200">
+              <svg class="w-4 h-4 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 018 0v4"/></svg>
+            </div>
+            <span class="text-xs font-medium text-gray-300">Disintegration</span>
+          </div>
+          <!-- Node 10 - locked -->
+          <div class="ml-6 flex items-center gap-3">
+            <div class="w-14 h-14 rounded-full bg-slate-100 flex items-center justify-center border-2 border-slate-200">
+              <svg class="w-4 h-4 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 018 0v4"/></svg>
+            </div>
+            <span class="text-xs font-medium text-gray-300">Review</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Unit 3: Locked -->
+      <div class="bg-violet-50/50 pt-4 pb-6">
+        <div class="mx-4 bg-gray-300 text-white rounded-2xl p-3 flex items-center justify-between mb-4 opacity-60">
+          <div>
+            <div class="text-xs font-medium opacity-80">Unit 3</div>
+            <div class="font-bold text-sm">Growth & Stress</div>
+          </div>
+          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 018 0v4"/></svg>
+        </div>
+
+        <!-- Daily Insight -->
+        <div class="mx-4 bg-white rounded-2xl p-4 shadow-sm border border-gray-100">
+          <p class="text-sm text-gray-600 italic font-serif leading-relaxed">"Knowing yourself is the beginning of all wisdom."</p>
+          <p class="text-xs text-gray-400 mt-2 font-medium">-- Aristotle</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ============================== -->
+<!-- ITERATION 2: GLASSMORPHISM      -->
+<!-- ============================== -->
+<section id="iter2">
+  <h2 class="text-2xl font-bold text-gray-800 mb-2 font-serif">2. Glassmorphism</h2>
+  <p class="text-gray-500 mb-6 text-sm">Frosted glass unit cards, backdrop-blur nodes. Layered translucency.</p>
+  <div class="flex flex-wrap gap-8">
+
+    <!-- Screen A -->
+    <div class="phone-frame p-0" style="background: linear-gradient(135deg, #e0e7ff, #f3e8ff, #fce7f3);">
+      <div class="p-5 pb-0">
+        <!-- Stats -->
+        <div class="glass rounded-2xl p-3 flex items-center justify-between mb-6 border border-white/40">
+          <div class="flex items-center gap-1 text-orange-500 font-bold text-sm">
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M12 23c-4.97 0-9-3.58-9-8 0-3.07 2.31-6.64 4.5-9 .37-.4 1-.4 1.37 0 .9.97 1.7 2.08 2.28 3.28C12.09 7.42 13.5 6 13.5 3.5c0-.55.45-1 1-1 .2 0 .39.06.55.17C18.5 5.15 21 9.2 21 15c0 4.42-4.03 8-9 8z"/></svg>
+            <span>12</span>
+          </div>
+          <div class="flex items-center gap-1 text-yellow-500 font-bold text-sm">
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+            <span>340</span>
+          </div>
+          <div class="flex items-center gap-1">
+            <svg class="w-5 h-5 text-red-400" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            <svg class="w-5 h-5 text-red-400" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            <svg class="w-5 h-5 text-red-400" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+          </div>
+        </div>
+
+        <!-- Progress Ring -->
+        <div class="flex flex-col items-center mb-6">
+          <div class="relative glass rounded-full p-6 border border-white/40">
+            <svg width="140" height="140" viewBox="0 0 140 140">
+              <circle cx="70" cy="70" r="60" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="8"/>
+              <circle cx="70" cy="70" r="60" fill="none" stroke="#8b5cf6" stroke-width="8" stroke-linecap="round"
+                stroke-dasharray="377" stroke-dashoffset="151" transform="rotate(-90 70 70)"/>
+            </svg>
+            <div class="absolute inset-0 flex flex-col items-center justify-center">
+              <span class="text-3xl font-extrabold text-gray-800">3/5</span>
+              <span class="text-xs text-gray-500">nodes today</span>
+            </div>
+          </div>
+          <div class="animate-float mt-4">
+            <svg class="w-10 h-10" viewBox="0 0 40 40"><circle cx="20" cy="22" r="12" fill="#c4b5fd"/><circle cx="15" cy="19" r="2" fill="#1e1b4b"/><circle cx="25" cy="19" r="2" fill="#1e1b4b"/><path d="M17 25q3 3 6 0" stroke="#1e1b4b" stroke-width="1.5" fill="none" stroke-linecap="round"/><circle cx="12" cy="12" r="4" fill="#c4b5fd"/><circle cx="28" cy="12" r="4" fill="#c4b5fd"/></svg>
+          </div>
+        </div>
+
+        <button class="w-full glass border border-white/40 text-indigo-700 font-bold py-3 rounded-2xl shadow-lg transition mb-4 text-sm uppercase tracking-wide hover:bg-white/80">
+          Continue Path
+        </button>
+
+        <div class="glass border border-white/30 rounded-2xl p-4 mb-6">
+          <div class="flex items-center gap-2 mb-1">
+            <svg class="w-5 h-5 text-violet-500" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <span class="font-bold text-violet-800 text-sm">Daily Challenge</span>
+          </div>
+          <p class="text-violet-600 text-xs">Complete 3 nodes -- 50 bonus XP</p>
+        </div>
+      </div>
+      <div class="sticky bottom-0 glass border-t border-white/30 flex">
+        <button class="flex-1 py-3 text-center text-sm font-bold text-indigo-600 border-b-2 border-indigo-500">Enneagram</button>
+        <button class="flex-1 py-3 text-center text-sm font-medium text-gray-400">Jungian</button>
+      </div>
+    </div>
+
+    <!-- Screen B -->
+    <div class="phone-frame p-0" style="background: linear-gradient(135deg, #e0e7ff, #f3e8ff, #fce7f3);">
+      <div class="sticky top-0 glass z-10 p-4 pb-2 border-b border-white/30">
+        <div class="flex items-center justify-between mb-2">
+          <div class="flex items-center gap-1 text-orange-500 font-bold text-sm">
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M12 23c-4.97 0-9-3.58-9-8 0-3.07 2.31-6.64 4.5-9 .37-.4 1-.4 1.37 0 .9.97 1.7 2.08 2.28 3.28C12.09 7.42 13.5 6 13.5 3.5c0-.55.45-1 1-1 .2 0 .39.06.55.17C18.5 5.15 21 9.2 21 15c0 4.42-4.03 8-9 8z"/></svg>
+            <span>12</span>
+          </div>
+          <div class="flex items-center gap-1 text-yellow-500 font-bold text-sm">
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+            <span>340</span>
+          </div>
+          <div class="flex items-center gap-1">
+            <svg class="w-4 h-4 text-red-400" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            <svg class="w-4 h-4 text-red-400" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            <svg class="w-4 h-4 text-red-400" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+          </div>
+        </div>
+        <div class="flex glass rounded-xl p-1 border border-white/30">
+          <button class="flex-1 py-1.5 text-xs font-bold text-white bg-indigo-500 rounded-lg">Enneagram</button>
+          <button class="flex-1 py-1.5 text-xs font-medium text-gray-400">Jungian</button>
+        </div>
+      </div>
+
+      <!-- Unit 1 -->
+      <div class="pt-4" style="background:rgba(209,250,229,0.3)">
+        <div class="mx-4 glass border border-emerald-200/50 rounded-2xl p-3 flex items-center justify-between mb-4">
+          <div>
+            <div class="text-xs font-medium text-emerald-500">Unit 1</div>
+            <div class="font-bold text-sm text-emerald-800">Foundations</div>
+          </div>
+          <div class="flex items-center gap-2 text-emerald-600">
+            <div class="text-xs font-bold">100%</div>
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+          </div>
+        </div>
+
+        <div class="relative px-4 pb-6 space-y-4">
+          <div class="ml-6"><div class="w-14 h-14 rounded-full glass border border-emerald-300/50 flex items-center justify-center"><svg class="w-6 h-6 text-emerald-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></div></div>
+          <div class="mx-auto w-fit"><div class="w-14 h-14 rounded-full glass border border-emerald-300/50 flex items-center justify-center"><svg class="w-6 h-6 text-emerald-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></div></div>
+          <div class="ml-auto mr-6"><div class="w-14 h-14 rounded-full glass border border-emerald-300/50 flex items-center justify-center"><svg class="w-6 h-6 text-emerald-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></div></div>
+          <div class="mx-auto w-fit"><div class="w-14 h-14 rounded-full glass border border-emerald-300/50 flex items-center justify-center"><svg class="w-6 h-6 text-emerald-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></div></div>
+          <div class="ml-6"><div class="w-14 h-14 rounded-full glass border border-emerald-300/50 flex items-center justify-center"><svg class="w-6 h-6 text-emerald-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></div></div>
+        </div>
+      </div>
+
+      <!-- Unit 2 -->
+      <div class="pt-4" style="background:rgba(224,231,255,0.3)">
+        <div class="mx-4 glass border border-indigo-200/50 rounded-2xl p-3 flex items-center justify-between mb-4">
+          <div>
+            <div class="text-xs font-medium text-indigo-500">Unit 2</div>
+            <div class="font-bold text-sm text-indigo-800">Wings & Lines</div>
+          </div>
+          <div class="flex items-center gap-2 text-indigo-600">
+            <div class="w-16 bg-indigo-200/50 rounded-full h-2"><div class="bg-indigo-500 h-2 rounded-full" style="width:40%"></div></div>
+            <div class="text-xs font-bold">40%</div>
+          </div>
+        </div>
+
+        <div class="relative px-4 pb-6 space-y-4">
+          <div class="ml-6"><div class="w-14 h-14 rounded-full glass border border-emerald-300/50 flex items-center justify-center"><svg class="w-6 h-6 text-emerald-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></div></div>
+          <div class="mx-auto w-fit"><div class="w-14 h-14 rounded-full glass border border-emerald-300/50 flex items-center justify-center"><svg class="w-6 h-6 text-emerald-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></div></div>
+          <!-- CURRENT -->
+          <div class="ml-auto mr-6 flex items-center gap-2 flex-row-reverse">
+            <div class="relative">
+              <div class="w-14 h-14 rounded-full glass border-2 border-violet-400 flex items-center justify-center shadow-lg animate-pulse-glow" style="box-shadow: 0 0 20px rgba(139,92,246,0.4)">
+                <svg class="w-6 h-6 text-violet-600" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              </div>
+              <span class="absolute -top-2 -right-2 bg-violet-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full">START</span>
+            </div>
+            <div class="animate-float">
+              <svg class="w-8 h-8" viewBox="0 0 40 40"><circle cx="20" cy="22" r="12" fill="#c4b5fd"/><circle cx="15" cy="19" r="2" fill="#1e1b4b"/><circle cx="25" cy="19" r="2" fill="#1e1b4b"/><path d="M17 25q3 3 6 0" stroke="#1e1b4b" stroke-width="1.5" fill="none" stroke-linecap="round"/><circle cx="12" cy="12" r="4" fill="#c4b5fd"/><circle cx="28" cy="12" r="4" fill="#c4b5fd"/></svg>
+            </div>
+          </div>
+          <!-- Locked -->
+          <div class="mx-auto w-fit"><div class="w-14 h-14 rounded-full glass border border-gray-200/50 flex items-center justify-center opacity-50"><svg class="w-4 h-4 text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 018 0v4"/></svg></div></div>
+          <div class="ml-6"><div class="w-14 h-14 rounded-full glass border border-gray-200/50 flex items-center justify-center opacity-50"><svg class="w-4 h-4 text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 018 0v4"/></svg></div></div>
+        </div>
+      </div>
+
+      <!-- Unit 3 locked -->
+      <div class="pt-4 pb-6" style="background:rgba(245,243,255,0.3)">
+        <div class="mx-4 glass border border-gray-200/30 rounded-2xl p-3 flex items-center justify-between mb-4 opacity-50">
+          <div>
+            <div class="text-xs font-medium text-gray-400">Unit 3</div>
+            <div class="font-bold text-sm text-gray-400">Growth & Stress</div>
+          </div>
+          <svg class="w-5 h-5 text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 018 0v4"/></svg>
+        </div>
+        <div class="mx-4 glass border border-white/30 rounded-2xl p-4">
+          <p class="text-sm text-gray-600 italic font-serif">"The privilege of a lifetime is to become who you truly are."</p>
+          <p class="text-xs text-gray-400 mt-2">-- C.G. Jung</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================== -->
+<!-- ITERATION 3: GRADIENT GLOW      -->
+<!-- ============================== -->
+<section id="iter3">
+  <h2 class="text-2xl font-bold text-gray-800 mb-2 font-serif">3. Gradient Glow</h2>
+  <p class="text-gray-500 mb-6 text-sm">Nodes have soft colored shadow glows. Gradient connecting lines.</p>
+  <div class="flex flex-wrap gap-8">
+
+    <!-- Screen A -->
+    <div class="phone-frame p-5">
+      <div class="flex items-center justify-between mb-6">
+        <div class="flex items-center gap-1 text-orange-500 font-bold text-sm"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M12 23c-4.97 0-9-3.58-9-8 0-3.07 2.31-6.64 4.5-9 .37-.4 1-.4 1.37 0 .9.97 1.7 2.08 2.28 3.28C12.09 7.42 13.5 6 13.5 3.5c0-.55.45-1 1-1 .2 0 .39.06.55.17C18.5 5.15 21 9.2 21 15c0 4.42-4.03 8-9 8z"/></svg><span>12</span></div>
+        <div class="flex items-center gap-1 text-yellow-500 font-bold text-sm"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg><span>340</span></div>
+        <div class="flex items-center gap-1"><svg class="w-5 h-5 text-red-500" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg><svg class="w-5 h-5 text-red-500" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg><svg class="w-5 h-5 text-red-500" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></div>
+      </div>
+      <div class="flex flex-col items-center mb-6">
+        <div class="relative">
+          <svg width="160" height="160" viewBox="0 0 160 160">
+            <defs><linearGradient id="grad3" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#8b5cf6"/><stop offset="100%" style="stop-color:#ec4899"/></linearGradient></defs>
+            <circle cx="80" cy="80" r="70" fill="none" stroke="#f1f5f9" stroke-width="10"/>
+            <circle cx="80" cy="80" r="70" fill="none" stroke="url(#grad3)" stroke-width="10" stroke-linecap="round" stroke-dasharray="440" stroke-dashoffset="176" transform="rotate(-90 80 80)"/>
+          </svg>
+          <div class="absolute inset-0 flex flex-col items-center justify-center">
+            <span class="text-3xl font-extrabold bg-gradient-to-r from-violet-600 to-pink-500 bg-clip-text text-transparent">3/5</span>
+            <span class="text-xs text-gray-500">nodes today</span>
+          </div>
+        </div>
+        <div class="animate-float mt-4"><svg class="w-10 h-10" viewBox="0 0 40 40"><circle cx="20" cy="22" r="12" fill="#c4b5fd"/><circle cx="15" cy="19" r="2" fill="#1e1b4b"/><circle cx="25" cy="19" r="2" fill="#1e1b4b"/><path d="M17 25q3 3 6 0" stroke="#1e1b4b" stroke-width="1.5" fill="none" stroke-linecap="round"/><circle cx="12" cy="12" r="4" fill="#c4b5fd"/><circle cx="28" cy="12" r="4" fill="#c4b5fd"/></svg></div>
+      </div>
+      <button class="w-full bg-gradient-to-r from-violet-500 to-pink-500 text-white font-bold py-3 rounded-2xl shadow-lg shadow-violet-300 transition mb-4 text-sm uppercase tracking-wide hover:shadow-xl">Continue Path</button>
+      <div class="bg-gradient-to-r from-violet-50 to-pink-50 border border-violet-200 rounded-2xl p-4 mb-6">
+        <div class="flex items-center gap-2 mb-1"><svg class="w-5 h-5 text-violet-500" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><span class="font-bold text-violet-800 text-sm">Daily Challenge</span></div>
+        <p class="text-violet-600 text-xs">Complete 3 nodes -- 50 bonus XP</p>
+      </div>
+      <div class="flex bg-gray-100 rounded-xl p-1 mt-auto">
+        <button class="flex-1 py-2.5 text-xs font-bold text-white bg-gradient-to-r from-violet-500 to-pink-500 rounded-lg">Enneagram</button>
+        <button class="flex-1 py-2.5 text-xs font-medium text-gray-400">Jungian</button>
+      </div>
+    </div>
+
+    <!-- Screen B -->
+    <div class="phone-frame p-0">
+      <div class="sticky top-0 bg-white/95 backdrop-blur z-10 p-4 pb-2 border-b border-gray-100">
+        <div class="flex items-center justify-between mb-2">
+          <div class="flex items-center gap-1 text-orange-500 font-bold text-sm"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M12 23c-4.97 0-9-3.58-9-8 0-3.07 2.31-6.64 4.5-9 .37-.4 1-.4 1.37 0 .9.97 1.7 2.08 2.28 3.28C12.09 7.42 13.5 6 13.5 3.5c0-.55.45-1 1-1 .2 0 .39.06.55.17C18.5 5.15 21 9.2 21 15c0 4.42-4.03 8-9 8z"/></svg><span>12</span></div>
+          <div class="flex items-center gap-1 text-yellow-500 font-bold text-sm"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg><span>340</span></div>
+          <div class="flex items-center gap-1"><svg class="w-4 h-4 text-red-500" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg><svg class="w-4 h-4 text-red-500" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg><svg class="w-4 h-4 text-red-500" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></div>
+        </div>
+        <div class="flex bg-gray-100 rounded-xl p-1"><button class="flex-1 py-1.5 text-xs font-bold text-white bg-gradient-to-r from-violet-500 to-pink-500 rounded-lg">Enneagram</button><button class="flex-1 py-1.5 text-xs font-medium text-gray-400">Jungian</button></div>
+      </div>
+
+      <!-- Unit 1 -->
+      <div class="bg-emerald-50 pt-4">
+        <div class="mx-4 bg-gradient-to-r from-emerald-500 to-teal-500 text-white rounded-2xl p-3 flex items-center justify-between mb-4 shadow-lg shadow-emerald-200">
+          <div><div class="text-xs font-medium opacity-80">Unit 1</div><div class="font-bold text-sm">Foundations</div></div>
+          <div class="flex items-center gap-2"><div class="text-xs font-bold">100%</div><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></div>
+        </div>
+        <div class="px-4 pb-6 space-y-4">
+          <div class="ml-6"><div class="w-14 h-14 rounded-full bg-gradient-to-br from-emerald-400 to-teal-400 flex items-center justify-center shadow-lg shadow-emerald-300"><svg class="w-6 h-6 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></div></div>
+          <div class="mx-auto w-fit"><div class="w-14 h-14 rounded-full bg-gradient-to-br from-emerald-400 to-teal-400 flex items-center justify-center shadow-lg shadow-emerald-300"><svg class="w-6 h-6 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></div></div>
+          <div class="ml-auto mr-6"><div class="w-14 h-14 rounded-full bg-gradient-to-br from-emerald-400 to-teal-400 flex items-center justify-center shadow-lg shadow-emerald-300"><svg class="w-6 h-6 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></div></div>
+          <div class="mx-auto w-fit"><div class="w-14 h-14 rounded-full bg-gradient-to-br from-emerald-400 to-teal-400 flex items-center justify-center shadow-lg shadow-emerald-300"><svg class="w-6 h-6 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></div></div>
+          <div class="ml-6"><div class="w-14 h-14 rounded-full bg-gradient-to-br from-emerald-400 to-teal-400 flex items-center justify-center shadow-lg shadow-emerald-300"><svg class="w-6 h-6 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></div></div>
+        </div>
+      </div>
+
+      <!-- Unit 2 -->
+      <div class="bg-indigo-50 pt-4">
+        <div class="mx-4 bg-gradient-to-r from-indigo-500 to-violet-500 text-white rounded-2xl p-3 flex items-center justify-between mb-4 shadow-lg shadow-indigo-200">
+          <div><div class="text-xs font-medium opacity-80">Unit 2</div><div class="font-bold text-sm">Wings & Lines</div></div>
+          <div class="flex items-center gap-2"><div class="w-16 bg-indigo-400 rounded-full h-2"><div class="bg-white h-2 rounded-full" style="width:40%"></div></div><div class="text-xs font-bold">40%</div></div>
+        </div>
+        <div class="px-4 pb-6 space-y-4">
+          <div class="ml-6"><div class="w-14 h-14 rounded-full bg-gradient-to-br from-emerald-400 to-teal-400 flex items-center justify-center shadow-lg shadow-emerald-300"><svg class="w-6 h-6 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></div></div>
+          <div class="mx-auto w-fit"><div class="w-14 h-14 rounded-full bg-gradient-to-br from-emerald-400 to-teal-400 flex items-center justify-center shadow-lg shadow-emerald-300"><svg class="w-6 h-6 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></div></div>
+          <!-- CURRENT -->
+          <div class="ml-auto mr-6 flex items-center gap-2 flex-row-reverse">
+            <div class="relative">
+              <div class="w-14 h-14 rounded-full bg-gradient-to-br from-amber-400 to-orange-500 flex items-center justify-center shadow-xl shadow-amber-300 animate-pulse-glow">
+                <svg class="w-6 h-6 text-white" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              </div>
+              <span class="absolute -top-2 -right-2 bg-gradient-to-r from-amber-500 to-orange-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full shadow">START</span>
+            </div>
+            <div class="animate-float"><svg class="w-8 h-8" viewBox="0 0 40 40"><circle cx="20" cy="22" r="12" fill="#c4b5fd"/><circle cx="15" cy="19" r="2" fill="#1e1b4b"/><circle cx="25" cy="19" r="2" fill="#1e1b4b"/><path d="M17 25q3 3 6 0" stroke="#1e1b4b" stroke-width="1.5" fill="none" stroke-linecap="round"/><circle cx="12" cy="12" r="4" fill="#c4b5fd"/><circle cx="28" cy="12" r="4" fill="#c4b5fd"/></svg></div>
+          </div>
+          <div class="mx-auto w-fit"><div class="w-14 h-14 rounded-full bg-gray-100 flex items-center justify-center border-2 border-gray-200 shadow-inner"><svg class="w-4 h-4 text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 018 0v4"/></svg></div></div>
+          <div class="ml-6"><div class="w-14 h-14 rounded-full bg-gray-100 flex items-center justify-center border-2 border-gray-200 shadow-inner"><svg class="w-4 h-4 text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 018 0v4"/></svg></div></div>
+        </div>
+      </div>
+
+      <!-- Unit 3 locked -->
+      <div class="bg-violet-50/50 pt-4 pb-6">
+        <div class="mx-4 bg-gray-300 text-white rounded-2xl p-3 flex items-center justify-between mb-4 opacity-50"><div><div class="text-xs opacity-80">Unit 3</div><div class="font-bold text-sm">Growth & Stress</div></div><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 018 0v4"/></svg></div>
+        <div class="mx-4 bg-white rounded-2xl p-4 shadow-sm"><p class="text-sm text-gray-600 italic font-serif">"At the center of your being you have the answer."</p><p class="text-xs text-gray-400 mt-2">-- Lao Tzu</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================== -->
+<!-- ITERATION 4: MINIMAL CLEAN      -->
+<!-- ============================== -->
+<section id="iter4">
+  <h2 class="text-2xl font-bold text-gray-800 mb-2 font-serif">4. Minimal Clean</h2>
+  <p class="text-gray-500 mb-6 text-sm">Lots of whitespace, thin lines, subtle everything.</p>
+  <div class="flex flex-wrap gap-8">
+
+    <!-- Screen A -->
+    <div class="phone-frame p-6 bg-white" style="background:#fff">
+      <div class="flex items-center justify-between mb-10 text-gray-400 text-xs font-medium">
+        <div class="flex items-center gap-1"><svg class="w-4 h-4 text-orange-400" viewBox="0 0 24 24" fill="currentColor"><path d="M12 23c-4.97 0-9-3.58-9-8 0-3.07 2.31-6.64 4.5-9 .37-.4 1-.4 1.37 0 .9.97 1.7 2.08 2.28 3.28C12.09 7.42 13.5 6 13.5 3.5c0-.55.45-1 1-1 .2 0 .39.06.55.17C18.5 5.15 21 9.2 21 15c0 4.42-4.03 8-9 8z"/></svg><span>12</span></div>
+        <div class="flex items-center gap-1"><svg class="w-4 h-4 text-amber-400" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg><span>340 XP</span></div>
+        <div class="flex items-center gap-0.5"><svg class="w-4 h-4 text-rose-400" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg><svg class="w-4 h-4 text-rose-400" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg><svg class="w-4 h-4 text-rose-400" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></div>
+      </div>
+      <div class="flex flex-col items-center mb-10">
+        <div class="relative">
+          <svg width="140" height="140" viewBox="0 0 140 140">
+            <circle cx="70" cy="70" r="60" fill="none" stroke="#f1f5f9" stroke-width="4"/>
+            <circle cx="70" cy="70" r="60" fill="none" stroke="#94a3b8" stroke-width="4" stroke-linecap="round" stroke-dasharray="377" stroke-dashoffset="151" transform="rotate(-90 70 70)"/>
+          </svg>
+          <div class="absolute inset-0 flex flex-col items-center justify-center">
+            <span class="text-2xl font-light text-gray-800">3/5</span>
+            <span class="text-[10px] text-gray-400 tracking-widest uppercase">today</span>
+          </div>
+        </div>
+        <div class="animate-float mt-6"><svg class="w-10 h-10" viewBox="0 0 40 40"><circle cx="20" cy="22" r="12" fill="#c4b5fd"/><circle cx="15" cy="19" r="2" fill="#1e1b4b"/><circle cx="25" cy="19" r="2" fill="#1e1b4b"/><path d="M17 25q3 3 6 0" stroke="#1e1b4b" stroke-width="1.5" fill="none" stroke-linecap="round"/><circle cx="12" cy="12" r="4" fill="#c4b5fd"/><circle cx="28" cy="12" r="4" fill="#c4b5fd"/></svg></div>
+      </div>
+      <button class="w-full border border-gray-300 text-gray-700 font-medium py-3 rounded-xl transition mb-6 text-sm hover:bg-gray-50">Continue Path</button>
+      <div class="border border-gray-200 rounded-xl p-4 mb-6">
+        <p class="text-gray-500 text-xs">Daily: Complete 3 nodes for 50 bonus XP</p>
+      </div>
+      <div class="flex border-t border-gray-100 pt-4 mt-auto">
+        <button class="flex-1 text-center text-xs font-medium text-gray-800 border-b border-gray-800 pb-2">Enneagram</button>
+        <button class="flex-1 text-center text-xs font-medium text-gray-300 pb-2">Jungian</button>
+      </div>
+    </div>
+
+    <!-- Screen B -->
+    <div class="phone-frame p-0" style="background:#fff">
+      <div class="sticky top-0 bg-white z-10 p-4 pb-2 border-b border-gray-100">
+        <div class="flex items-center justify-between mb-2 text-xs text-gray-400 font-medium">
+          <div class="flex items-center gap-1"><svg class="w-4 h-4 text-orange-400" viewBox="0 0 24 24" fill="currentColor"><path d="M12 23c-4.97 0-9-3.58-9-8 0-3.07 2.31-6.64 4.5-9 .37-.4 1-.4 1.37 0 .9.97 1.7 2.08 2.28 3.28C12.09 7.42 13.5 6 13.5 3.5c0-.55.45-1 1-1 .2 0 .39.06.55.17C18.5 5.15 21 9.2 21 15c0 4.42-4.03 8-9 8z"/></svg>12</div>
+          <div class="flex items-center gap-1"><svg class="w-4 h-4 text-amber-400" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>340</div>
+          <div class="flex items-center gap-0.5"><svg class="w-3.5 h-3.5 text-rose-400" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg><svg class="w-3.5 h-3.5 text-rose-400" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg><svg class="w-3.5 h-3.5 text-rose-400" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></div>
+        </div>
+        <div class="flex"><button class="flex-1 text-xs font-medium text-gray-800 border-b border-gray-800 pb-2">Enneagram</button><button class="flex-1 text-xs font-medium text-gray-300 pb-2">Jungian</button></div>
+      </div>
+
+      <!-- Unit 1 -->
+      <div class="pt-6 px-6">
+        <div class="flex items-center justify-between mb-6"><div><span class="text-[10px] uppercase tracking-widest text-gray-400">Unit 1</span><h3 class="text-sm font-medium text-gray-700">Foundations</h3></div><span class="text-[10px] text-emerald-500 font-medium">Complete</span></div>
+        <div class="space-y-6 pb-6">
+          <div class="ml-4"><div class="w-10 h-10 rounded-full border border-emerald-300 flex items-center justify-center"><svg class="w-4 h-4 text-emerald-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></div></div>
+          <div class="mx-auto w-fit"><div class="w-10 h-10 rounded-full border border-emerald-300 flex items-center justify-center"><svg class="w-4 h-4 text-emerald-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></div></div>
+          <div class="ml-auto mr-4"><div class="w-10 h-10 rounded-full border border-emerald-300 flex items-center justify-center"><svg class="w-4 h-4 text-emerald-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></div></div>
+          <div class="mx-auto w-fit"><div class="w-10 h-10 rounded-full border border-emerald-300 flex items-center justify-center"><svg class="w-4 h-4 text-emerald-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></div></div>
+          <div class="ml-4"><div class="w-10 h-10 rounded-full border border-emerald-300 flex items-center justify-center"><svg class="w-4 h-4 text-emerald-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></div></div>
+        </div>
+        <div class="border-t border-gray-100"></div>
+      </div>
+
+      <!-- Unit 2 -->
+      <div class="pt-6 px-6">
+        <div class="flex items-center justify-between mb-6"><div><span class="text-[10px] uppercase tracking-widest text-gray-400">Unit 2</span><h3 class="text-sm font-medium text-gray-700">Wings & Lines</h3></div><span class="text-[10px] text-gray-400 font-medium">40%</span></div>
+        <div class="space-y-6 pb-6">
+          <div class="ml-4"><div class="w-10 h-10 rounded-full border border-emerald-300 flex items-center justify-center"><svg class="w-4 h-4 text-emerald-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></div></div>
+          <div class="mx-auto w-fit"><div class="w-10 h-10 rounded-full border border-emerald-300 flex items-center justify-center"><svg class="w-4 h-4 text-emerald-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></div></div>
+          <!-- CURRENT -->
+          <div class="ml-auto mr-4 flex items-center gap-2 flex-row-reverse">
+            <div class="relative"><div class="w-10 h-10 rounded-full border-2 border-gray-800 flex items-center justify-center animate-pulse-glow" style="box-shadow:0 0 0 3px rgba(0,0,0,0.05)"><svg class="w-4 h-4 text-gray-800" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div><span class="absolute -top-1 -right-3 text-[9px] font-bold text-gray-800">GO</span></div>
+            <div class="animate-float"><svg class="w-7 h-7" viewBox="0 0 40 40"><circle cx="20" cy="22" r="12" fill="#c4b5fd"/><circle cx="15" cy="19" r="2" fill="#1e1b4b"/><circle cx="25" cy="19" r="2" fill="#1e1b4b"/><path d="M17 25q3 3 6 0" stroke="#1e1b4b" stroke-width="1.5" fill="none" stroke-linecap="round"/><circle cx="12" cy="12" r="4" fill="#c4b5fd"/><circle cx="28" cy="12" r="4" fill="#c4b5fd"/></svg></div>
+          </div>
+          <div class="mx-auto w-fit"><div class="w-10 h-10 rounded-full border border-gray-200 flex items-center justify-center"><svg class="w-3.5 h-3.5 text-gray-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 018 0v4"/></svg></div></div>
+          <div class="ml-4"><div class="w-10 h-10 rounded-full border border-gray-200 flex items-center justify-center"><svg class="w-3.5 h-3.5 text-gray-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 018 0v4"/></svg></div></div>
+        </div>
+        <div class="border-t border-gray-100"></div>
+      </div>
+
+      <!-- Unit 3 -->
+      <div class="pt-6 px-6 pb-6">
+        <div class="flex items-center justify-between mb-4 opacity-40"><div><span class="text-[10px] uppercase tracking-widest text-gray-400">Unit 3</span><h3 class="text-sm font-medium text-gray-400">Growth & Stress</h3></div><svg class="w-4 h-4 text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 018 0v4"/></svg></div>
+        <div class="border border-gray-100 rounded-xl p-4"><p class="text-xs text-gray-500 italic font-serif">"One does not become enlightened by imagining figures of light, but by making the darkness conscious."</p><p class="text-[10px] text-gray-400 mt-2">-- C.G. Jung</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================== -->
+<!-- ITERATION 5: BOLD CARDS         -->
+<!-- ============================== -->
+<section id="iter5">
+  <h2 class="text-2xl font-bold text-gray-800 mb-2 font-serif">5. Bold Cards</h2>
+  <p class="text-gray-500 mb-6 text-sm">Nodes are small rounded cards (not circles) showing title + icon.</p>
+  <div class="flex flex-wrap gap-8">
+
+    <!-- Screen A -->
+    <div class="phone-frame p-5">
+      <div class="flex items-center justify-between mb-6">
+        <div class="flex items-center gap-1 text-orange-500 font-bold text-sm"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M12 23c-4.97 0-9-3.58-9-8 0-3.07 2.31-6.64 4.5-9 .37-.4 1-.4 1.37 0 .9.97 1.7 2.08 2.28 3.28C12.09 7.42 13.5 6 13.5 3.5c0-.55.45-1 1-1 .2 0 .39.06.55.17C18.5 5.15 21 9.2 21 15c0 4.42-4.03 8-9 8z"/></svg><span>12</span></div>
+        <div class="flex items-center gap-1 text-yellow-500 font-bold text-sm"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg><span>340</span></div>
+        <div class="flex items-center gap-1"><svg class="w-5 h-5 text-red-500" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg><svg class="w-5 h-5 text-red-500" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg><svg class="w-5 h-5 text-red-500" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></div>
+      </div>
+      <div class="flex flex-col items-center mb-6">
+        <div class="relative">
+          <svg width="150" height="150" viewBox="0 0 150 150"><circle cx="75" cy="75" r="65" fill="none" stroke="#e2e8f0" stroke-width="8"/><circle cx="75" cy="75" r="65" fill="none" stroke="#6366f1" stroke-width="8" stroke-linecap="round" stroke-dasharray="408" stroke-dashoffset="163" transform="rotate(-90 75 75)"/></svg>
+          <div class="absolute inset-0 flex flex-col items-center justify-center"><span class="text-3xl font-extrabold text-indigo-600">3/5</span><span class="text-xs text-gray-500">nodes today</span></div>
+        </div>
+        <div class="animate-float mt-4"><svg class="w-10 h-10" viewBox="0 0 40 40"><circle cx="20" cy="22" r="12" fill="#c4b5fd"/><circle cx="15" cy="19" r="2" fill="#1e1b4b"/><circle cx="25" cy="19" r="2" fill="#1e1b4b"/><path d="M17 25q3 3 6 0" stroke="#1e1b4b" stroke-width="1.5" fill="none" stroke-linecap="round"/><circle cx="12" cy="12" r="4" fill="#c4b5fd"/><circle cx="28" cy="12" r="4" fill="#c4b5fd"/></svg></div>
+      </div>
+      <button class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 rounded-2xl shadow-lg shadow-indigo-200 transition mb-4 text-sm">Continue Path</button>
+      <div class="bg-indigo-50 border border-indigo-200 rounded-2xl p-4 mb-6">
+        <div class="flex items-center gap-2 mb-1"><svg class="w-5 h-5 text-indigo-500" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><span class="font-bold text-indigo-800 text-sm">Daily Challenge</span></div>
+        <p class="text-indigo-600 text-xs">Complete 3 nodes -- 50 bonus XP</p>
+      </div>
+      <div class="flex bg-gray-100 rounded-xl p-1"><button class="flex-1 py-2.5 text-xs font-bold text-white bg-indigo-600 rounded-lg">Enneagram</button><button class="flex-1 py-2.5 text-xs font-medium text-gray-400">Jungian</button></div>
+    </div>
+
+    <!-- Screen B -->
+    <div class="phone-frame p-0">
+      <div class="sticky top-0 bg-white/95 backdrop-blur z-10 p-4 pb-2 border-b border-gray-100">
+        <div class="flex items-center justify-between mb-2">
+          <div class="flex items-center gap-1 text-orange-500 font-bold text-sm"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M12 23c-4.97 0-9-3.58-9-8 0-3.07 2.31-6.64 4.5-9 .37-.4 1-.4 1.37 0 .9.97 1.7 2.08 2.28 3.28C12.09 7.42 13.5 6 13.5 3.5c0-.55.45-1 1-1 .2 0 .39.06.55.17C18.5 5.15 21 9.2 21 15c0 4.42-4.03 8-9 8z"/></svg><span>12</span></div>
+          <div class="flex items-center gap-1 text-yellow-500 font-bold text-sm"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg><span>340</span></div>
+          <div class="flex items-center gap-1"><svg class="w-4 h-4 text-red-500" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg><svg class="w-4 h-4 text-red-500" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg><svg class="w-4 h-4 text-red-500" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></div>
+        </div>
+        <div class="flex bg-gray-100 rounded-xl p-1"><button class="flex-1 py-1.5 text-xs font-bold text-white bg-indigo-600 rounded-lg">Enneagram</button><button class="flex-1 py-1.5 text-xs font-medium text-gray-400">Jungian</button></div>
+      </div>
+
+      <!-- Unit 1 -->
+      <div class="bg-emerald-50 pt-4">
+        <div class="mx-4 bg-emerald-600 text-white rounded-2xl p-3 flex items-center justify-between mb-4"><div><div class="text-xs opacity-80">Unit 1</div><div class="font-bold text-sm">Foundations</div></div><div class="flex items-center gap-2"><div class="text-xs font-bold">100%</div><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></div></div>
+        <div class="px-4 pb-4 space-y-3">
+          <div class="ml-2 bg-emerald-100 rounded-xl p-3 flex items-center gap-3 w-48"><div class="w-8 h-8 rounded-lg bg-emerald-500 flex items-center justify-center flex-shrink-0"><svg class="w-4 h-4 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></div><div><div class="text-xs font-bold text-emerald-800">Core Type</div><div class="text-[10px] text-emerald-600">Lesson</div></div></div>
+          <div class="mx-auto bg-emerald-100 rounded-xl p-3 flex items-center gap-3 w-48"><div class="w-8 h-8 rounded-lg bg-emerald-500 flex items-center justify-center flex-shrink-0"><svg class="w-4 h-4 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></div><div><div class="text-xs font-bold text-emerald-800">Instincts</div><div class="text-[10px] text-emerald-600">Quiz</div></div></div>
+          <div class="ml-auto mr-2 bg-emerald-100 rounded-xl p-3 flex items-center gap-3 w-48"><div class="w-8 h-8 rounded-lg bg-emerald-500 flex items-center justify-center flex-shrink-0"><svg class="w-4 h-4 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></div><div><div class="text-xs font-bold text-emerald-800">Centers</div><div class="text-[10px] text-emerald-600">Lesson</div></div></div>
+          <div class="mx-auto bg-emerald-100 rounded-xl p-3 flex items-center gap-3 w-48"><div class="w-8 h-8 rounded-lg bg-emerald-500 flex items-center justify-center flex-shrink-0"><svg class="w-4 h-4 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></div><div><div class="text-xs font-bold text-emerald-800">Triads</div><div class="text-[10px] text-emerald-600">Reflection</div></div></div>
+          <div class="ml-2 bg-emerald-100 rounded-xl p-3 flex items-center gap-3 w-48"><div class="w-8 h-8 rounded-lg bg-emerald-500 flex items-center justify-center flex-shrink-0"><svg class="w-4 h-4 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9H4a2 2 0 01-2-2V5a2 2 0 012-2h2M18 9h2a2 2 0 002-2V5a2 2 0 00-2-2h-2M12 17v4M8 21h8M9 3h6v6a3 3 0 01-6 0V3z"/></svg></div><div><div class="text-xs font-bold text-emerald-800">Review</div><div class="text-[10px] text-emerald-600">Challenge</div></div></div>
+        </div>
+      </div>
+
+      <!-- Unit 2 -->
+      <div class="bg-indigo-50 pt-4">
+        <div class="mx-4 bg-indigo-600 text-white rounded-2xl p-3 flex items-center justify-between mb-4"><div><div class="text-xs opacity-80">Unit 2</div><div class="font-bold text-sm">Wings & Lines</div></div><div class="flex items-center gap-2"><div class="w-16 bg-indigo-400 rounded-full h-2"><div class="bg-white h-2 rounded-full" style="width:40%"></div></div><div class="text-xs font-bold">40%</div></div></div>
+        <div class="px-4 pb-4 space-y-3">
+          <div class="ml-2 bg-emerald-100 rounded-xl p-3 flex items-center gap-3 w-48"><div class="w-8 h-8 rounded-lg bg-emerald-500 flex items-center justify-center flex-shrink-0"><svg class="w-4 h-4 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></div><div><div class="text-xs font-bold text-emerald-800">Wing Intro</div><div class="text-[10px] text-emerald-600">Lesson</div></div></div>
+          <div class="mx-auto bg-emerald-100 rounded-xl p-3 flex items-center gap-3 w-48"><div class="w-8 h-8 rounded-lg bg-emerald-500 flex items-center justify-center flex-shrink-0"><svg class="w-4 h-4 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></div><div><div class="text-xs font-bold text-emerald-800">Your Wings</div><div class="text-[10px] text-emerald-600">Quiz</div></div></div>
+          <!-- CURRENT -->
+          <div class="ml-auto mr-2 flex items-center gap-2 flex-row-reverse">
+            <div class="relative bg-gradient-to-r from-amber-400 to-orange-500 rounded-xl p-3 flex items-center gap-3 w-48 animate-pulse-glow shadow-lg">
+              <div class="w-8 h-8 rounded-lg bg-white/30 flex items-center justify-center flex-shrink-0"><svg class="w-4 h-4 text-white" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
+              <div><div class="text-xs font-bold text-white">Integration</div><div class="text-[10px] text-white/80">Lesson</div></div>
+              <span class="absolute -top-2 -right-2 bg-white text-amber-600 text-[10px] font-bold px-2 py-0.5 rounded-full shadow">START</span>
+            </div>
+            <div class="animate-float"><svg class="w-8 h-8" viewBox="0 0 40 40"><circle cx="20" cy="22" r="12" fill="#c4b5fd"/><circle cx="15" cy="19" r="2" fill="#1e1b4b"/><circle cx="25" cy="19" r="2" fill="#1e1b4b"/><path d="M17 25q3 3 6 0" stroke="#1e1b4b" stroke-width="1.5" fill="none" stroke-linecap="round"/><circle cx="12" cy="12" r="4" fill="#c4b5fd"/><circle cx="28" cy="12" r="4" fill="#c4b5fd"/></svg></div>
+          </div>
+          <div class="mx-auto bg-gray-100 rounded-xl p-3 flex items-center gap-3 w-48 opacity-50"><div class="w-8 h-8 rounded-lg bg-gray-300 flex items-center justify-center flex-shrink-0"><svg class="w-4 h-4 text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 018 0v4"/></svg></div><div><div class="text-xs font-bold text-gray-400">Disintegration</div><div class="text-[10px] text-gray-400">Locked</div></div></div>
+          <div class="ml-2 bg-gray-100 rounded-xl p-3 flex items-center gap-3 w-48 opacity-50"><div class="w-8 h-8 rounded-lg bg-gray-300 flex items-center justify-center flex-shrink-0"><svg class="w-4 h-4 text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 018 0v4"/></svg></div><div><div class="text-xs font-bold text-gray-400">Review</div><div class="text-[10px] text-gray-400">Locked</div></div></div>
+        </div>
+      </div>
+
+      <!-- Unit 3 -->
+      <div class="bg-violet-50/50 pt-4 pb-6">
+        <div class="mx-4 bg-gray-300 text-white rounded-2xl p-3 flex items-center justify-between mb-4 opacity-50"><div><div class="text-xs opacity-80">Unit 3</div><div class="font-bold text-sm">Growth & Stress</div></div><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 018 0v4"/></svg></div>
+        <div class="mx-4 bg-white rounded-2xl p-4 shadow-sm border border-gray-100"><p class="text-sm text-gray-600 italic font-serif">"Your task is not to seek for love, but merely to seek and find all the barriers within yourself."</p><p class="text-xs text-gray-400 mt-2">-- Rumi</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================== -->
+<!-- ITERATION 6: ORGANIC FLOW       -->
+<!-- ============================== -->
+<section id="iter6">
+  <h2 class="text-2xl font-bold text-gray-800 mb-2 font-serif">6. Organic Flow</h2>
+  <p class="text-gray-500 mb-6 text-sm">Less rigid positioning, more natural curve feel. Nodes at varied offsets.</p>
+  <div class="flex flex-wrap gap-8">
+
+    <!-- Screen A -->
+    <div class="phone-frame p-5" style="background:linear-gradient(180deg,#f0fdf4,#f8fafc)">
+      <div class="flex items-center justify-between mb-6">
+        <div class="flex items-center gap-1 text-orange-500 font-bold text-sm"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M12 23c-4.97 0-9-3.58-9-8 0-3.07 2.31-6.64 4.5-9 .37-.4 1-.4 1.37 0 .9.97 1.7 2.08 2.28 3.28C12.09 7.42 13.5 6 13.5 3.5c0-.55.45-1 1-1 .2 0 .39.06.55.17C18.5 5.15 21 9.2 21 15c0 4.42-4.03 8-9 8z"/></svg><span>12</span></div>
+        <div class="flex items-center gap-1 text-yellow-500 font-bold text-sm"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg><span>340</span></div>
+        <div class="flex items-center gap-1"><svg class="w-5 h-5 text-red-500" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg><svg class="w-5 h-5 text-red-500" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg><svg class="w-5 h-5 text-red-500" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></div>
+      </div>
+      <div class="flex flex-col items-center mb-6">
+        <div class="relative"><svg width="150" height="150" viewBox="0 0 150 150"><circle cx="75" cy="75" r="65" fill="none" stroke="#d1fae5" stroke-width="8"/><circle cx="75" cy="75" r="65" fill="none" stroke="#10b981" stroke-width="8" stroke-linecap="round" stroke-dasharray="408" stroke-dashoffset="163" transform="rotate(-90 75 75)"/></svg><div class="absolute inset-0 flex flex-col items-center justify-center"><span class="text-3xl font-extrabold text-emerald-700">3/5</span><span class="text-xs text-gray-500">nodes today</span></div></div>
+        <div class="animate-float mt-4"><svg class="w-10 h-10" viewBox="0 0 40 40"><circle cx="20" cy="22" r="12" fill="#c4b5fd"/><circle cx="15" cy="19" r="2" fill="#1e1b4b"/><circle cx="25" cy="19" r="2" fill="#1e1b4b"/><path d="M17 25q3 3 6 0" stroke="#1e1b4b" stroke-width="1.5" fill="none" stroke-linecap="round"/><circle cx="12" cy="12" r="4" fill="#c4b5fd"/><circle cx="28" cy="12" r="4" fill="#c4b5fd"/></svg></div>
+      </div>
+      <button class="w-full bg-emerald-500 hover:bg-emerald-600 text-white font-bold py-3 rounded-2xl shadow-lg shadow-emerald-200 transition mb-4 text-sm">Continue Path</button>
+      <div class="bg-emerald-50 border border-emerald-200 rounded-2xl p-4 mb-6"><div class="flex items-center gap-2 mb-1"><svg class="w-5 h-5 text-emerald-500" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><span class="font-bold text-emerald-800 text-sm">Daily Challenge</span></div><p class="text-emerald-600 text-xs">Complete 3 nodes -- 50 bonus XP</p></div>
+      <div class="flex bg-emerald-100 rounded-xl p-1"><button class="flex-1 py-2.5 text-xs font-bold text-white bg-emerald-500 rounded-lg">Enneagram</button><button class="flex-1 py-2.5 text-xs font-medium text-gray-400">Jungian</button></div>
+    </div>
+
+    <!-- Screen B -->
+    <div class="phone-frame p-0" style="background:linear-gradient(180deg,#f0fdf4,#eef2ff,#faf5ff)">
+      <div class="sticky top-0 bg-white/90 backdrop-blur z-10 p-4 pb-2 border-b border-gray-100">
+        <div class="flex items-center justify-between mb-2">
+          <div class="flex items-center gap-1 text-orange-500 font-bold text-sm"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M12 23c-4.97 0-9-3.58-9-8 0-3.07 2.31-6.64 4.5-9 .37-.4 1-.4 1.37 0 .9.97 1.7 2.08 2.28 3.28C12.09 7.42 13.5 6 13.5 3.5c0-.55.45-1 1-1 .2 0 .39.06.55.17C18.5 5.15 21 9.2 21 15c0 4.42-4.03 8-9 8z"/></svg><span>12</span></div>
+          <div class="flex items-center gap-1 text-yellow-500 font-bold text-sm"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg><span>340</span></div>
+          <div class="flex items-center gap-1"><svg class="w-4 h-4 text-red-500" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg><svg class="w-4 h-4 text-red-500" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg><svg class="w-4 h-4 text-red-500" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></div>
+        </div>
+        <div class="flex bg-gray-100 rounded-xl p-1"><button class="flex-1 py-1.5 text-xs font-bold text-white bg-emerald-500 rounded-lg">Enneagram</button><button class="flex-1 py-1.5 text-xs font-medium text-gray-400">Jungian</button></div>
+      </div>
+
+      <!-- Unit 1 -->
+      <div class="pt-4 px-4">
+        <div class="bg-emerald-500 text-white rounded-2xl p-3 flex items-center justify-between mb-6"><div><div class="text-xs opacity-80">Unit 1</div><div class="font-bold text-sm">Foundations</div></div><div class="text-xs font-bold">100%</div></div>
+        <!-- Organic positions with varied margins -->
+        <div class="space-y-5 pb-6">
+          <div style="margin-left:10%"><div class="w-14 h-14 rounded-full bg-emerald-500 flex items-center justify-center shadow-md"><svg class="w-6 h-6 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></div></div>
+          <div style="margin-left:35%"><div class="w-14 h-14 rounded-full bg-emerald-500 flex items-center justify-center shadow-md"><svg class="w-6 h-6 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></div></div>
+          <div style="margin-left:60%"><div class="w-14 h-14 rounded-full bg-emerald-500 flex items-center justify-center shadow-md"><svg class="w-6 h-6 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></div></div>
+          <div style="margin-left:40%"><div class="w-14 h-14 rounded-full bg-emerald-500 flex items-center justify-center shadow-md"><svg class="w-6 h-6 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></div></div>
+          <div style="margin-left:15%"><div class="w-14 h-14 rounded-full bg-emerald-500 flex items-center justify-center shadow-md"><svg class="w-6 h-6 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></div></div>
+        </div>
+      </div>
+
+      <!-- Unit 2 -->
+      <div class="px-4">
+        <div class="bg-indigo-500 text-white rounded-2xl p-3 flex items-center justify-between mb-6"><div><div class="text-xs opacity-80">Unit 2</div><div class="font-bold text-sm">Wings & Lines</div></div><div class="text-xs font-bold">40%</div></div>
+        <div class="space-y-5 pb-6">
+          <div style="margin-left:20%"><div class="w-14 h-14 rounded-full bg-emerald-500 flex items-center justify-center shadow-md"><svg class="w-6 h-6 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></div></div>
+          <div style="margin-left:50%"><div class="w-14 h-14 rounded-full bg-emerald-500 flex items-center justify-center shadow-md"><svg class="w-6 h-6 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></div></div>
+          <!-- CURRENT -->
+          <div style="margin-left:30%" class="flex items-center gap-2">
+            <div class="relative"><div class="w-14 h-14 rounded-full bg-gradient-to-br from-amber-400 to-orange-500 flex items-center justify-center shadow-lg animate-pulse-glow"><svg class="w-6 h-6 text-white" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div><span class="absolute -top-2 -right-2 bg-amber-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full">START</span></div>
+            <div class="animate-float"><svg class="w-8 h-8" viewBox="0 0 40 40"><circle cx="20" cy="22" r="12" fill="#c4b5fd"/><circle cx="15" cy="19" r="2" fill="#1e1b4b"/><circle cx="25" cy="19" r="2" fill="#1e1b4b"/><path d="M17 25q3 3 6 0" stroke="#1e1b4b" stroke-width="1.5" fill="none" stroke-linecap="round"/><circle cx="12" cy="12" r="4" fill="#c4b5fd"/><circle cx="28" cy="12" r="4" fill="#c4b5fd"/></svg></div>
+          </div>
+          <div style="margin-left:55%"><div class="w-14 h-14 rounded-full bg-slate-100 flex items-center justify-center border-2 border-slate-200"><svg class="w-4 h-4 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 018 0v4"/></svg></div></div>
+          <div style="margin-left:25%"><div class="w-14 h-14 rounded-full bg-slate-100 flex items-center justify-center border-2 border-slate-200"><svg class="w-4 h-4 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 018 0v4"/></svg></div></div>
+        </div>
+      </div>
+
+      <!-- Unit 3 -->
+      <div class="px-4 pb-6">
+        <div class="bg-gray-300 text-white rounded-2xl p-3 flex items-center justify-between mb-4 opacity-50"><div><div class="text-xs opacity-80">Unit 3</div><div class="font-bold text-sm">Growth & Stress</div></div><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 018 0v4"/></svg></div>
+        <div class="bg-white rounded-2xl p-4 shadow-sm"><p class="text-sm text-gray-600 italic font-serif">"Until you make the unconscious conscious, it will direct your life and you will call it fate."</p><p class="text-xs text-gray-400 mt-2">-- C.G. Jung</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================== -->
+<!-- ITERATION 7: PROGRESS RINGS     -->
+<!-- ============================== -->
+<section id="iter7">
+  <h2 class="text-2xl font-bold text-gray-800 mb-2 font-serif">7. Progress Rings</h2>
+  <p class="text-gray-500 mb-6 text-sm">Each node has a thin ring around it (full=complete, partial=in-progress).</p>
+  <div class="flex flex-wrap gap-8">
+
+    <!-- Screen A -->
+    <div class="phone-frame p-5">
+      <div class="flex items-center justify-between mb-6"><div class="flex items-center gap-1 text-orange-500 font-bold text-sm"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M12 23c-4.97 0-9-3.58-9-8 0-3.07 2.31-6.64 4.5-9 .37-.4 1-.4 1.37 0 .9.97 1.7 2.08 2.28 3.28C12.09 7.42 13.5 6 13.5 3.5c0-.55.45-1 1-1 .2 0 .39.06.55.17C18.5 5.15 21 9.2 21 15c0 4.42-4.03 8-9 8z"/></svg><span>12</span></div><div class="flex items-center gap-1 text-yellow-500 font-bold text-sm"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg><span>340</span></div><div class="flex items-center gap-1"><svg class="w-5 h-5 text-red-500" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg><svg class="w-5 h-5 text-red-500" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg><svg class="w-5 h-5 text-red-500" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></div></div>
+      <div class="flex flex-col items-center mb-6">
+        <div class="relative"><svg width="160" height="160" viewBox="0 0 160 160"><circle cx="80" cy="80" r="70" fill="none" stroke="#e2e8f0" stroke-width="8"/><circle cx="80" cy="80" r="70" fill="none" stroke="#f43f5e" stroke-width="8" stroke-linecap="round" stroke-dasharray="440" stroke-dashoffset="176" transform="rotate(-90 80 80)"/></svg><div class="absolute inset-0 flex flex-col items-center justify-center"><span class="text-3xl font-extrabold text-rose-600">3/5</span><span class="text-xs text-gray-500">nodes today</span></div></div>
+        <div class="animate-float mt-4"><svg class="w-10 h-10" viewBox="0 0 40 40"><circle cx="20" cy="22" r="12" fill="#c4b5fd"/><circle cx="15" cy="19" r="2" fill="#1e1b4b"/><circle cx="25" cy="19" r="2" fill="#1e1b4b"/><path d="M17 25q3 3 6 0" stroke="#1e1b4b" stroke-width="1.5" fill="none" stroke-linecap="round"/><circle cx="12" cy="12" r="4" fill="#c4b5fd"/><circle cx="28" cy="12" r="4" fill="#c4b5fd"/></svg></div>
+      </div>
+      <button class="w-full bg-rose-500 hover:bg-rose-600 text-white font-bold py-3 rounded-2xl shadow-lg shadow-rose-200 transition mb-4 text-sm">Continue Path</button>
+      <div class="bg-rose-50 border border-rose-200 rounded-2xl p-4 mb-6"><div class="flex items-center gap-2 mb-1"><svg class="w-5 h-5 text-rose-500" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><span class="font-bold text-rose-800 text-sm">Daily Challenge</span></div><p class="text-rose-600 text-xs">Complete 3 nodes -- 50 bonus XP</p></div>
+      <div class="flex bg-gray-100 rounded-xl p-1"><button class="flex-1 py-2.5 text-xs font-bold text-white bg-rose-500 rounded-lg">Enneagram</button><button class="flex-1 py-2.5 text-xs font-medium text-gray-400">Jungian</button></div>
+    </div>
+
+    <!-- Screen B -->
+    <div class="phone-frame p-0">
+      <div class="sticky top-0 bg-white/95 backdrop-blur z-10 p-4 pb-2 border-b border-gray-100">
+        <div class="flex items-center justify-between mb-2"><div class="flex items-center gap-1 text-orange-500 font-bold text-sm"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M12 23c-4.97 0-9-3.58-9-8 0-3.07 2.31-6.64 4.5-9 .37-.4 1-.4 1.37 0 .9.97 1.7 2.08 2.28 3.28C12.09 7.42 13.5 6 13.5 3.5c0-.55.45-1 1-1 .2 0 .39.06.55.17C18.5 5.15 21 9.2 21 15c0 4.42-4.03 8-9 8z"/></svg><span>12</span></div><div class="flex items-center gap-1 text-yellow-500 font-bold text-sm"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg><span>340</span></div><div class="flex items-center gap-1"><svg class="w-4 h-4 text-red-500" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg><svg class="w-4 h-4 text-red-500" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg><svg class="w-4 h-4 text-red-500" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></div></div>
+        <div class="flex bg-gray-100 rounded-xl p-1"><button class="flex-1 py-1.5 text-xs font-bold text-white bg-rose-500 rounded-lg">Enneagram</button><button class="flex-1 py-1.5 text-xs font-medium text-gray-400">Jungian</button></div>
+      </div>
+
+      <!-- Unit 1 -->
+      <div class="bg-emerald-50 pt-4">
+        <div class="mx-4 bg-emerald-500 text-white rounded-2xl p-3 flex items-center justify-between mb-4"><div><div class="text-xs opacity-80">Unit 1</div><div class="font-bold text-sm">Foundations</div></div><div class="text-xs font-bold">100%</div></div>
+        <div class="px-4 pb-6 space-y-4">
+          <!-- Completed nodes with full rings -->
+          <div class="ml-6"><div class="relative w-16 h-16"><svg class="absolute inset-0" viewBox="0 0 64 64"><circle cx="32" cy="32" r="28" fill="none" stroke="#10b981" stroke-width="3"/></svg><div class="absolute inset-0 flex items-center justify-center"><div class="w-11 h-11 rounded-full bg-emerald-500 flex items-center justify-center"><svg class="w-5 h-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></div></div></div></div>
+          <div class="mx-auto w-fit"><div class="relative w-16 h-16"><svg class="absolute inset-0" viewBox="0 0 64 64"><circle cx="32" cy="32" r="28" fill="none" stroke="#10b981" stroke-width="3"/></svg><div class="absolute inset-0 flex items-center justify-center"><div class="w-11 h-11 rounded-full bg-emerald-500 flex items-center justify-center"><svg class="w-5 h-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></div></div></div></div>
+          <div class="ml-auto mr-6"><div class="relative w-16 h-16"><svg class="absolute inset-0" viewBox="0 0 64 64"><circle cx="32" cy="32" r="28" fill="none" stroke="#10b981" stroke-width="3"/></svg><div class="absolute inset-0 flex items-center justify-center"><div class="w-11 h-11 rounded-full bg-emerald-500 flex items-center justify-center"><svg class="w-5 h-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></div></div></div></div>
+          <div class="mx-auto w-fit"><div class="relative w-16 h-16"><svg class="absolute inset-0" viewBox="0 0 64 64"><circle cx="32" cy="32" r="28" fill="none" stroke="#10b981" stroke-width="3"/></svg><div class="absolute inset-0 flex items-center justify-center"><div class="w-11 h-11 rounded-full bg-emerald-500 flex items-center justify-center"><svg class="w-5 h-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></div></div></div></div>
+          <div class="ml-6"><div class="relative w-16 h-16"><svg class="absolute inset-0" viewBox="0 0 64 64"><circle cx="32" cy="32" r="28" fill="none" stroke="#10b981" stroke-width="3"/></svg><div class="absolute inset-0 flex items-center justify-center"><div class="w-11 h-11 rounded-full bg-emerald-500 flex items-center justify-center"><svg class="w-5 h-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></div></div></div></div>
+        </div>
+      </div>
+
+      <!-- Unit 2 -->
+      <div class="bg-indigo-50 pt-4">
+        <div class="mx-4 bg-indigo-500 text-white rounded-2xl p-3 flex items-center justify-between mb-4"><div><div class="text-xs opacity-80">Unit 2</div><div class="font-bold text-sm">Wings & Lines</div></div><div class="text-xs font-bold">40%</div></div>
+        <div class="px-4 pb-6 space-y-4">
+          <div class="ml-6"><div class="relative w-16 h-16"><svg class="absolute inset-0" viewBox="0 0 64 64"><circle cx="32" cy="32" r="28" fill="none" stroke="#10b981" stroke-width="3"/></svg><div class="absolute inset-0 flex items-center justify-center"><div class="w-11 h-11 rounded-full bg-emerald-500 flex items-center justify-center"><svg class="w-5 h-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></div></div></div></div>
+          <div class="mx-auto w-fit"><div class="relative w-16 h-16"><svg class="absolute inset-0" viewBox="0 0 64 64"><circle cx="32" cy="32" r="28" fill="none" stroke="#10b981" stroke-width="3"/></svg><div class="absolute inset-0 flex items-center justify-center"><div class="w-11 h-11 rounded-full bg-emerald-500 flex items-center justify-center"><svg class="w-5 h-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></div></div></div></div>
+          <!-- CURRENT with partial ring -->
+          <div class="ml-auto mr-6 flex items-center gap-2 flex-row-reverse">
+            <div class="relative w-16 h-16">
+              <svg class="absolute inset-0 animate-pulse-ring" viewBox="0 0 64 64"><circle cx="32" cy="32" r="28" fill="none" stroke="#e2e8f0" stroke-width="3"/><circle cx="32" cy="32" r="28" fill="none" stroke="#f59e0b" stroke-width="3" stroke-linecap="round" stroke-dasharray="176" stroke-dashoffset="88" transform="rotate(-90 32 32)"/></svg>
+              <div class="absolute inset-0 flex items-center justify-center"><div class="w-11 h-11 rounded-full bg-gradient-to-br from-amber-400 to-orange-500 flex items-center justify-center"><svg class="w-5 h-5 text-white" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div></div>
+              <span class="absolute -top-1 -right-1 bg-amber-500 text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full">START</span>
+            </div>
+            <div class="animate-float"><svg class="w-8 h-8" viewBox="0 0 40 40"><circle cx="20" cy="22" r="12" fill="#c4b5fd"/><circle cx="15" cy="19" r="2" fill="#1e1b4b"/><circle cx="25" cy="19" r="2" fill="#1e1b4b"/><path d="M17 25q3 3 6 0" stroke="#1e1b4b" stroke-width="1.5" fill="none" stroke-linecap="round"/><circle cx="12" cy="12" r="4" fill="#c4b5fd"/><circle cx="28" cy="12" r="4" fill="#c4b5fd"/></svg></div>
+          </div>
+          <!-- Locked with empty rings -->
+          <div class="mx-auto w-fit"><div class="relative w-16 h-16"><svg class="absolute inset-0" viewBox="0 0 64 64"><circle cx="32" cy="32" r="28" fill="none" stroke="#e2e8f0" stroke-width="3"/></svg><div class="absolute inset-0 flex items-center justify-center"><div class="w-11 h-11 rounded-full bg-slate-100 flex items-center justify-center"><svg class="w-4 h-4 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 018 0v4"/></svg></div></div></div></div>
+          <div class="ml-6"><div class="relative w-16 h-16"><svg class="absolute inset-0" viewBox="0 0 64 64"><circle cx="32" cy="32" r="28" fill="none" stroke="#e2e8f0" stroke-width="3"/></svg><div class="absolute inset-0 flex items-center justify-center"><div class="w-11 h-11 rounded-full bg-slate-100 flex items-center justify-center"><svg class="w-4 h-4 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 018 0v4"/></svg></div></div></div></div>
+        </div>
+      </div>
+
+      <!-- Unit 3 -->
+      <div class="bg-violet-50/50 pt-4 pb-6">
+        <div class="mx-4 bg-gray-300 text-white rounded-2xl p-3 flex items-center justify-between mb-4 opacity-50"><div><div class="text-xs opacity-80">Unit 3</div><div class="font-bold text-sm">Growth & Stress</div></div><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 018 0v4"/></svg></div>
+        <div class="mx-4 bg-white rounded-2xl p-4 shadow-sm"><p class="text-sm text-gray-600 italic font-serif">"The only way to make sense out of change is to plunge into it, move with it, and join the dance."</p><p class="text-xs text-gray-400 mt-2">-- Alan Watts</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================== -->
+<!-- ITERATION 8: DARK MODE          -->
+<!-- ============================== -->
+<section id="iter8">
+  <h2 class="text-2xl font-bold text-gray-800 mb-2 font-serif">8. Dark Mode</h2>
+  <p class="text-gray-500 mb-6 text-sm">Background #0f172a, glowing neon nodes, stars.</p>
+  <div class="flex flex-wrap gap-8">
+
+    <!-- Screen A -->
+    <div class="phone-frame-dark p-5 text-white relative overflow-hidden">
+      <!-- Stars -->
+      <div class="absolute inset-0 pointer-events-none">
+        <div class="absolute w-1 h-1 bg-white rounded-full animate-twinkle" style="top:8%;left:15%"></div>
+        <div class="absolute w-1 h-1 bg-white rounded-full animate-twinkle" style="top:15%;left:70%;animation-delay:0.5s"></div>
+        <div class="absolute w-0.5 h-0.5 bg-white rounded-full animate-twinkle" style="top:25%;left:40%;animation-delay:1s"></div>
+        <div class="absolute w-1 h-1 bg-white rounded-full animate-twinkle" style="top:60%;left:80%;animation-delay:1.5s"></div>
+        <div class="absolute w-0.5 h-0.5 bg-white rounded-full animate-twinkle" style="top:45%;left:25%;animation-delay:2s"></div>
+      </div>
+      <div class="relative z-10">
+        <div class="flex items-center justify-between mb-6"><div class="flex items-center gap-1 text-orange-400 font-bold text-sm"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M12 23c-4.97 0-9-3.58-9-8 0-3.07 2.31-6.64 4.5-9 .37-.4 1-.4 1.37 0 .9.97 1.7 2.08 2.28 3.28C12.09 7.42 13.5 6 13.5 3.5c0-.55.45-1 1-1 .2 0 .39.06.55.17C18.5 5.15 21 9.2 21 15c0 4.42-4.03 8-9 8z"/></svg><span>12</span></div><div class="flex items-center gap-1 text-yellow-400 font-bold text-sm"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg><span>340</span></div><div class="flex items-center gap-1"><svg class="w-5 h-5 text-red-400" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg><svg class="w-5 h-5 text-red-400" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg><svg class="w-5 h-5 text-red-400" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></div></div>
+        <div class="flex flex-col items-center mb-6">
+          <div class="relative"><svg width="160" height="160" viewBox="0 0 160 160"><circle cx="80" cy="80" r="70" fill="none" stroke="#1e293b" stroke-width="10"/><circle cx="80" cy="80" r="70" fill="none" stroke="#a78bfa" stroke-width="10" stroke-linecap="round" stroke-dasharray="440" stroke-dashoffset="176" transform="rotate(-90 80 80)" style="filter:drop-shadow(0 0 8px #a78bfa)"/></svg><div class="absolute inset-0 flex flex-col items-center justify-center"><span class="text-3xl font-extrabold text-violet-300">3/5</span><span class="text-xs text-slate-400">nodes today</span></div></div>
+          <div class="animate-float mt-4"><svg class="w-10 h-10" viewBox="0 0 40 40"><circle cx="20" cy="22" r="12" fill="#c4b5fd"/><circle cx="15" cy="19" r="2" fill="#1e1b4b"/><circle cx="25" cy="19" r="2" fill="#1e1b4b"/><path d="M17 25q3 3 6 0" stroke="#1e1b4b" stroke-width="1.5" fill="none" stroke-linecap="round"/><circle cx="12" cy="12" r="4" fill="#c4b5fd"/><circle cx="28" cy="12" r="4" fill="#c4b5fd"/></svg></div>
+        </div>
+        <button class="w-full bg-violet-600 hover:bg-violet-500 text-white font-bold py-3 rounded-2xl transition mb-4 text-sm" style="box-shadow:0 0 20px rgba(139,92,246,0.4)">Continue Path</button>
+        <div class="bg-slate-800/50 border border-violet-500/30 rounded-2xl p-4 mb-6"><div class="flex items-center gap-2 mb-1"><svg class="w-5 h-5 text-violet-400" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><span class="font-bold text-violet-300 text-sm">Daily Challenge</span></div><p class="text-slate-400 text-xs">Complete 3 nodes -- 50 bonus XP</p></div>
+        <div class="flex bg-slate-800 rounded-xl p-1"><button class="flex-1 py-2.5 text-xs font-bold text-white bg-violet-600 rounded-lg">Enneagram</button><button class="flex-1 py-2.5 text-xs font-medium text-slate-500">Jungian</button></div>
+      </div>
+    </div>
+
+    <!-- Screen B -->
+    <div class="phone-frame-dark p-0 text-white relative">
+      <!-- Stars -->
+      <div class="absolute inset-0 pointer-events-none z-0">
+        <div class="absolute w-1 h-1 bg-white rounded-full animate-twinkle" style="top:12%;left:20%"></div>
+        <div class="absolute w-0.5 h-0.5 bg-white rounded-full animate-twinkle" style="top:30%;left:60%;animation-delay:0.7s"></div>
+        <div class="absolute w-1 h-1 bg-white rounded-full animate-twinkle" style="top:50%;left:85%;animation-delay:1.2s"></div>
+        <div class="absolute w-0.5 h-0.5 bg-white rounded-full animate-twinkle" style="top:70%;left:10%;animation-delay:1.8s"></div>
+      </div>
+      <div class="sticky top-0 bg-slate-900/95 backdrop-blur z-10 p-4 pb-2 border-b border-slate-700">
+        <div class="flex items-center justify-between mb-2"><div class="flex items-center gap-1 text-orange-400 font-bold text-sm"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M12 23c-4.97 0-9-3.58-9-8 0-3.07 2.31-6.64 4.5-9 .37-.4 1-.4 1.37 0 .9.97 1.7 2.08 2.28 3.28C12.09 7.42 13.5 6 13.5 3.5c0-.55.45-1 1-1 .2 0 .39.06.55.17C18.5 5.15 21 9.2 21 15c0 4.42-4.03 8-9 8z"/></svg><span>12</span></div><div class="flex items-center gap-1 text-yellow-400 font-bold text-sm"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg><span>340</span></div><div class="flex items-center gap-1"><svg class="w-4 h-4 text-red-400" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg><svg class="w-4 h-4 text-red-400" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg><svg class="w-4 h-4 text-red-400" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></div></div>
+        <div class="flex bg-slate-800 rounded-xl p-1"><button class="flex-1 py-1.5 text-xs font-bold text-white bg-violet-600 rounded-lg">Enneagram</button><button class="flex-1 py-1.5 text-xs font-medium text-slate-500">Jungian</button></div>
+      </div>
+
+      <div class="relative z-[1]">
+        <!-- Unit 1 -->
+        <div class="pt-4" style="background:rgba(16,185,129,0.05)">
+          <div class="mx-4 bg-emerald-900/50 border border-emerald-500/30 text-emerald-300 rounded-2xl p-3 flex items-center justify-between mb-4"><div><div class="text-xs opacity-80">Unit 1</div><div class="font-bold text-sm">Foundations</div></div><div class="text-xs font-bold">100%</div></div>
+          <div class="px-4 pb-6 space-y-4">
+            <div class="ml-6"><div class="w-14 h-14 rounded-full bg-emerald-500/20 border border-emerald-400/50 flex items-center justify-center text-emerald-400" style="box-shadow:0 0 15px rgba(16,185,129,0.3)"><svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></div></div>
+            <div class="mx-auto w-fit"><div class="w-14 h-14 rounded-full bg-emerald-500/20 border border-emerald-400/50 flex items-center justify-center text-emerald-400" style="box-shadow:0 0 15px rgba(16,185,129,0.3)"><svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></div></div>
+            <div class="ml-auto mr-6"><div class="w-14 h-14 rounded-full bg-emerald-500/20 border border-emerald-400/50 flex items-center justify-center text-emerald-400" style="box-shadow:0 0 15px rgba(16,185,129,0.3)"><svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></div></div>
+            <div class="mx-auto w-fit"><div class="w-14 h-14 rounded-full bg-emerald-500/20 border border-emerald-400/50 flex items-center justify-center text-emerald-400" style="box-shadow:0 0 15px rgba(16,185,129,0.3)"><svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></div></div>
+            <div class="ml-6"><div class="w-14 h-14 rounded-full bg-emerald-500/20 border border-emerald-400/50 flex items-center justify-center text-emerald-400" style="box-shadow:0 0 15px rgba(16,185,129,0.3)"><svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></div></div>
+          </div>
+        </div>
+
+        <!-- Unit 2 -->
+        <div class="pt-4" style="background:rgba(99,102,241,0.05)">
+          <div class="mx-4 bg-indigo-900/50 border border-indigo-500/30 text-indigo-300 rounded-2xl p-3 flex items-center justify-between mb-4"><div><div class="text-xs opacity-80">Unit 2</div><div class="font-bold text-sm">Wings & Lines</div></div><div class="text-xs font-bold">40%</div></div>
+          <div class="px-4 pb-6 space-y-4">
+            <div class="ml-6"><div class="w-14 h-14 rounded-full bg-emerald-500/20 border border-emerald-400/50 flex items-center justify-center text-emerald-400" style="box-shadow:0 0 15px rgba(16,185,129,0.3)"><svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></div></div>
+            <div class="mx-auto w-fit"><div class="w-14 h-14 rounded-full bg-emerald-500/20 border border-emerald-400/50 flex items-center justify-center text-emerald-400" style="box-shadow:0 0 15px rgba(16,185,129,0.3)"><svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></div></div>
+            <!-- CURRENT - neon glow -->
+            <div class="ml-auto mr-6 flex items-center gap-2 flex-row-reverse">
+              <div class="relative"><div class="w-14 h-14 rounded-full bg-amber-500/20 border-2 border-amber-400 flex items-center justify-center text-amber-300 animate-glow-neon" style="color:#fbbf24"><svg class="w-6 h-6" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div><span class="absolute -top-2 -right-2 bg-amber-500 text-slate-900 text-[10px] font-bold px-2 py-0.5 rounded-full">START</span></div>
+              <div class="animate-float"><svg class="w-8 h-8" viewBox="0 0 40 40"><circle cx="20" cy="22" r="12" fill="#c4b5fd"/><circle cx="15" cy="19" r="2" fill="#1e1b4b"/><circle cx="25" cy="19" r="2" fill="#1e1b4b"/><path d="M17 25q3 3 6 0" stroke="#1e1b4b" stroke-width="1.5" fill="none" stroke-linecap="round"/><circle cx="12" cy="12" r="4" fill="#c4b5fd"/><circle cx="28" cy="12" r="4" fill="#c4b5fd"/></svg></div>
+            </div>
+            <div class="mx-auto w-fit"><div class="w-14 h-14 rounded-full bg-slate-800 border border-slate-600 flex items-center justify-center text-slate-500"><svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 018 0v4"/></svg></div></div>
+            <div class="ml-6"><div class="w-14 h-14 rounded-full bg-slate-800 border border-slate-600 flex items-center justify-center text-slate-500"><svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 018 0v4"/></svg></div></div>
+          </div>
+        </div>
+
+        <!-- Unit 3 -->
+        <div class="pt-4 pb-6" style="background:rgba(139,92,246,0.05)">
+          <div class="mx-4 bg-slate-800 border border-slate-700 text-slate-500 rounded-2xl p-3 flex items-center justify-between mb-4"><div><div class="text-xs opacity-80">Unit 3</div><div class="font-bold text-sm">Growth & Stress</div></div><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 018 0v4"/></svg></div>
+          <div class="mx-4 bg-slate-800/50 border border-slate-700 rounded-2xl p-4"><p class="text-sm text-slate-400 italic font-serif">"The wound is the place where the Light enters you."</p><p class="text-xs text-slate-500 mt-2">-- Rumi</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================== -->
+<!-- ITERATION 9: COMPACT DENSE      -->
+<!-- ============================== -->
+<section id="iter9">
+  <h2 class="text-2xl font-bold text-gray-800 mb-2 font-serif">9. Compact Dense</h2>
+  <p class="text-gray-500 mb-6 text-sm">Smaller nodes (w-12 h-12), tighter spacing, more visible at once.</p>
+  <div class="flex flex-wrap gap-8">
+
+    <!-- Screen A -->
+    <div class="phone-frame p-4">
+      <div class="flex items-center justify-between mb-4"><div class="flex items-center gap-1 text-orange-500 font-bold text-xs"><svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M12 23c-4.97 0-9-3.58-9-8 0-3.07 2.31-6.64 4.5-9 .37-.4 1-.4 1.37 0 .9.97 1.7 2.08 2.28 3.28C12.09 7.42 13.5 6 13.5 3.5c0-.55.45-1 1-1 .2 0 .39.06.55.17C18.5 5.15 21 9.2 21 15c0 4.42-4.03 8-9 8z"/></svg><span>12</span></div><div class="flex items-center gap-1 text-yellow-500 font-bold text-xs"><svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg><span>340</span></div><div class="flex items-center gap-0.5"><svg class="w-4 h-4 text-red-500" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg><svg class="w-4 h-4 text-red-500" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg><svg class="w-4 h-4 text-red-500" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></div></div>
+      <div class="flex flex-col items-center mb-4">
+        <div class="relative"><svg width="120" height="120" viewBox="0 0 120 120"><circle cx="60" cy="60" r="50" fill="none" stroke="#e2e8f0" stroke-width="6"/><circle cx="60" cy="60" r="50" fill="none" stroke="#0ea5e9" stroke-width="6" stroke-linecap="round" stroke-dasharray="314" stroke-dashoffset="126" transform="rotate(-90 60 60)"/></svg><div class="absolute inset-0 flex flex-col items-center justify-center"><span class="text-2xl font-extrabold text-sky-600">3/5</span><span class="text-[10px] text-gray-500">today</span></div></div>
+        <div class="animate-float mt-2"><svg class="w-8 h-8" viewBox="0 0 40 40"><circle cx="20" cy="22" r="12" fill="#c4b5fd"/><circle cx="15" cy="19" r="2" fill="#1e1b4b"/><circle cx="25" cy="19" r="2" fill="#1e1b4b"/><path d="M17 25q3 3 6 0" stroke="#1e1b4b" stroke-width="1.5" fill="none" stroke-linecap="round"/><circle cx="12" cy="12" r="4" fill="#c4b5fd"/><circle cx="28" cy="12" r="4" fill="#c4b5fd"/></svg></div>
+      </div>
+      <button class="w-full bg-sky-500 hover:bg-sky-600 text-white font-bold py-2.5 rounded-xl shadow transition mb-3 text-xs">Continue Path</button>
+      <div class="bg-sky-50 border border-sky-200 rounded-xl p-3 mb-4"><div class="flex items-center gap-1.5 mb-0.5"><svg class="w-4 h-4 text-sky-500" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><span class="font-bold text-sky-800 text-xs">Daily Challenge</span></div><p class="text-sky-600 text-[10px]">Complete 3 nodes -- 50 bonus XP</p></div>
+      <div class="flex bg-gray-100 rounded-lg p-0.5"><button class="flex-1 py-2 text-[10px] font-bold text-white bg-sky-500 rounded-lg">Enneagram</button><button class="flex-1 py-2 text-[10px] font-medium text-gray-400">Jungian</button></div>
+    </div>
+
+    <!-- Screen B -->
+    <div class="phone-frame p-0">
+      <div class="sticky top-0 bg-white/95 backdrop-blur z-10 p-3 pb-1.5 border-b border-gray-100">
+        <div class="flex items-center justify-between mb-1.5"><div class="flex items-center gap-1 text-orange-500 font-bold text-xs"><svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M12 23c-4.97 0-9-3.58-9-8 0-3.07 2.31-6.64 4.5-9 .37-.4 1-.4 1.37 0 .9.97 1.7 2.08 2.28 3.28C12.09 7.42 13.5 6 13.5 3.5c0-.55.45-1 1-1 .2 0 .39.06.55.17C18.5 5.15 21 9.2 21 15c0 4.42-4.03 8-9 8z"/></svg>12</div><div class="flex items-center gap-1 text-yellow-500 font-bold text-xs"><svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>340</div><div class="flex items-center gap-0.5"><svg class="w-3.5 h-3.5 text-red-500" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg><svg class="w-3.5 h-3.5 text-red-500" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg><svg class="w-3.5 h-3.5 text-red-500" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></div></div>
+        <div class="flex bg-gray-100 rounded-lg p-0.5"><button class="flex-1 py-1 text-[10px] font-bold text-white bg-sky-500 rounded-md">Enneagram</button><button class="flex-1 py-1 text-[10px] font-medium text-gray-400">Jungian</button></div>
+      </div>
+
+      <!-- Unit 1 -->
+      <div class="bg-emerald-50 pt-3">
+        <div class="mx-3 bg-emerald-500 text-white rounded-xl p-2 flex items-center justify-between mb-3 text-xs"><div><span class="opacity-80">Unit 1 -</span> <span class="font-bold">Foundations</span></div><span class="font-bold">100%</span></div>
+        <div class="px-3 pb-3 space-y-2">
+          <div class="ml-4"><div class="w-12 h-12 rounded-full bg-emerald-500 flex items-center justify-center"><svg class="w-5 h-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></div></div>
+          <div class="mx-auto w-fit"><div class="w-12 h-12 rounded-full bg-emerald-500 flex items-center justify-center"><svg class="w-5 h-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></div></div>
+          <div class="ml-auto mr-4"><div class="w-12 h-12 rounded-full bg-emerald-500 flex items-center justify-center"><svg class="w-5 h-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></div></div>
+          <div class="mx-auto w-fit"><div class="w-12 h-12 rounded-full bg-emerald-500 flex items-center justify-center"><svg class="w-5 h-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></div></div>
+          <div class="ml-4"><div class="w-12 h-12 rounded-full bg-emerald-500 flex items-center justify-center"><svg class="w-5 h-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></div></div>
+        </div>
+      </div>
+
+      <!-- Unit 2 -->
+      <div class="bg-indigo-50 pt-3">
+        <div class="mx-3 bg-indigo-500 text-white rounded-xl p-2 flex items-center justify-between mb-3 text-xs"><div><span class="opacity-80">Unit 2 -</span> <span class="font-bold">Wings & Lines</span></div><span class="font-bold">40%</span></div>
+        <div class="px-3 pb-3 space-y-2">
+          <div class="ml-4"><div class="w-12 h-12 rounded-full bg-emerald-500 flex items-center justify-center"><svg class="w-5 h-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></div></div>
+          <div class="mx-auto w-fit"><div class="w-12 h-12 rounded-full bg-emerald-500 flex items-center justify-center"><svg class="w-5 h-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></div></div>
+          <!-- CURRENT -->
+          <div class="ml-auto mr-4 flex items-center gap-1.5 flex-row-reverse">
+            <div class="relative"><div class="w-12 h-12 rounded-full bg-gradient-to-br from-amber-400 to-orange-500 flex items-center justify-center shadow-md animate-pulse-glow"><svg class="w-5 h-5 text-white" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div><span class="absolute -top-1.5 -right-1.5 bg-amber-500 text-white text-[8px] font-bold px-1.5 py-0.5 rounded-full">GO</span></div>
+            <div class="animate-float"><svg class="w-7 h-7" viewBox="0 0 40 40"><circle cx="20" cy="22" r="12" fill="#c4b5fd"/><circle cx="15" cy="19" r="2" fill="#1e1b4b"/><circle cx="25" cy="19" r="2" fill="#1e1b4b"/><path d="M17 25q3 3 6 0" stroke="#1e1b4b" stroke-width="1.5" fill="none" stroke-linecap="round"/><circle cx="12" cy="12" r="4" fill="#c4b5fd"/><circle cx="28" cy="12" r="4" fill="#c4b5fd"/></svg></div>
+          </div>
+          <div class="mx-auto w-fit"><div class="w-12 h-12 rounded-full bg-slate-100 border border-slate-200 flex items-center justify-center"><svg class="w-3.5 h-3.5 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 018 0v4"/></svg></div></div>
+          <div class="ml-4"><div class="w-12 h-12 rounded-full bg-slate-100 border border-slate-200 flex items-center justify-center"><svg class="w-3.5 h-3.5 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 018 0v4"/></svg></div></div>
+          <div class="mx-auto w-fit"><div class="w-12 h-12 rounded-full bg-slate-100 border border-slate-200 flex items-center justify-center"><svg class="w-3.5 h-3.5 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 018 0v4"/></svg></div></div>
+        </div>
+      </div>
+
+      <!-- Unit 3 -->
+      <div class="bg-violet-50/50 pt-3 pb-4">
+        <div class="mx-3 bg-gray-300 text-white rounded-xl p-2 flex items-center justify-between mb-3 text-xs opacity-50"><div><span class="opacity-80">Unit 3 -</span> <span class="font-bold">Growth & Stress</span></div><svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 018 0v4"/></svg></div>
+        <div class="mx-3 bg-white rounded-xl p-3 shadow-sm border border-gray-100"><p class="text-xs text-gray-600 italic font-serif">"He who knows others is wise; he who knows himself is enlightened."</p><p class="text-[10px] text-gray-400 mt-1">-- Lao Tzu</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================== -->
+<!-- ITERATION 10: RECOMMENDED       -->
+<!-- ============================== -->
+<section id="iter10">
+  <h2 class="text-2xl font-bold text-gray-800 mb-2 font-serif">10. Recommended Hybrid</h2>
+  <p class="text-gray-500 mb-6 text-sm">Combines best elements. Clean with glow accents, glass unit headers, floating pet.</p>
+  <div class="flex flex-wrap gap-8">
+
+    <!-- Screen A -->
+    <div class="phone-frame p-0" style="background:linear-gradient(180deg,#faf5ff,#f8fafc)">
+      <div class="p-5 pb-0">
+        <!-- Stats bar with glass -->
+        <div class="flex items-center justify-between mb-6 bg-white/70 backdrop-blur rounded-2xl p-3 border border-white/60 shadow-sm">
+          <div class="flex items-center gap-1.5 text-orange-500 font-bold text-sm">
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M12 23c-4.97 0-9-3.58-9-8 0-3.07 2.31-6.64 4.5-9 .37-.4 1-.4 1.37 0 .9.97 1.7 2.08 2.28 3.28C12.09 7.42 13.5 6 13.5 3.5c0-.55.45-1 1-1 .2 0 .39.06.55.17C18.5 5.15 21 9.2 21 15c0 4.42-4.03 8-9 8z"/></svg>
+            <span>12</span>
+          </div>
+          <div class="flex items-center gap-1.5 text-amber-500 font-bold text-sm">
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+            <span>340</span>
+          </div>
+          <div class="flex items-center gap-1">
+            <svg class="w-5 h-5 text-red-400" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            <svg class="w-5 h-5 text-red-400" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            <svg class="w-5 h-5 text-red-400" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+          </div>
+        </div>
+
+        <!-- Progress Ring -->
+        <div class="flex flex-col items-center mb-6">
+          <div class="relative">
+            <svg width="160" height="160" viewBox="0 0 160 160">
+              <defs><linearGradient id="grad10" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#8b5cf6"/><stop offset="50%" style="stop-color:#a78bfa"/><stop offset="100%" style="stop-color:#c4b5fd"/></linearGradient></defs>
+              <circle cx="80" cy="80" r="70" fill="none" stroke="#f1f5f9" stroke-width="8"/>
+              <circle cx="80" cy="80" r="70" fill="none" stroke="url(#grad10)" stroke-width="8" stroke-linecap="round" stroke-dasharray="440" stroke-dashoffset="176" transform="rotate(-90 80 80)" style="filter:drop-shadow(0 0 6px rgba(139,92,246,0.3))"/>
+            </svg>
+            <div class="absolute inset-0 flex flex-col items-center justify-center">
+              <span class="text-3xl font-extrabold text-violet-700">3/5</span>
+              <span class="text-xs text-gray-500 font-medium">nodes today</span>
+            </div>
+          </div>
+          <div class="animate-float mt-4">
+            <svg class="w-12 h-12" viewBox="0 0 40 40"><circle cx="20" cy="22" r="12" fill="#c4b5fd"/><circle cx="15" cy="19" r="2" fill="#1e1b4b"/><circle cx="25" cy="19" r="2" fill="#1e1b4b"/><path d="M17 25q3 3 6 0" stroke="#1e1b4b" stroke-width="1.5" fill="none" stroke-linecap="round"/><circle cx="12" cy="12" r="4" fill="#c4b5fd"/><circle cx="28" cy="12" r="4" fill="#c4b5fd"/></svg>
+          </div>
+        </div>
+
+        <!-- Button -->
+        <button class="w-full bg-gradient-to-r from-violet-600 to-indigo-600 text-white font-bold py-3.5 rounded-2xl transition mb-4 text-sm shadow-lg shadow-violet-300 hover:shadow-xl hover:shadow-violet-400">Continue Path</button>
+
+        <!-- Daily Challenge -->
+        <div class="glass border border-violet-200/50 rounded-2xl p-4 mb-6">
+          <div class="flex items-center gap-2 mb-1">
+            <svg class="w-5 h-5 text-violet-500" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <span class="font-bold text-violet-800 text-sm">Daily Challenge</span>
+          </div>
+          <p class="text-violet-600 text-xs">Complete 3 nodes -- 50 bonus XP</p>
+        </div>
+      </div>
+
+      <!-- Tabs -->
+      <div class="sticky bottom-0 bg-white/80 backdrop-blur border-t border-gray-200/50 flex">
+        <button class="flex-1 py-3 text-center text-sm font-bold text-violet-600 border-b-2 border-violet-500">Enneagram</button>
+        <button class="flex-1 py-3 text-center text-sm font-medium text-gray-400">Jungian</button>
+      </div>
+    </div>
+
+    <!-- Screen B -->
+    <div class="phone-frame p-0" style="background:linear-gradient(180deg,#f0fdf4,#eef2ff,#faf5ff,#f8fafc)">
+      <div class="sticky top-0 bg-white/80 backdrop-blur z-10 p-4 pb-2 border-b border-gray-100/50">
+        <div class="flex items-center justify-between mb-2">
+          <div class="flex items-center gap-1.5 text-orange-500 font-bold text-sm">
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M12 23c-4.97 0-9-3.58-9-8 0-3.07 2.31-6.64 4.5-9 .37-.4 1-.4 1.37 0 .9.97 1.7 2.08 2.28 3.28C12.09 7.42 13.5 6 13.5 3.5c0-.55.45-1 1-1 .2 0 .39.06.55.17C18.5 5.15 21 9.2 21 15c0 4.42-4.03 8-9 8z"/></svg>
+            <span>12</span>
+          </div>
+          <div class="flex items-center gap-1.5 text-amber-500 font-bold text-sm">
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+            <span>340</span>
+          </div>
+          <div class="flex items-center gap-1">
+            <svg class="w-4 h-4 text-red-400" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            <svg class="w-4 h-4 text-red-400" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            <svg class="w-4 h-4 text-red-400" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+          </div>
+        </div>
+        <div class="flex glass rounded-xl p-1 border border-white/40">
+          <button class="flex-1 py-1.5 text-xs font-bold text-white bg-gradient-to-r from-violet-600 to-indigo-600 rounded-lg shadow">Enneagram</button>
+          <button class="flex-1 py-1.5 text-xs font-medium text-gray-400">Jungian</button>
+        </div>
+      </div>
+
+      <!-- Unit 1 - Glass header -->
+      <div class="pt-4">
+        <div class="mx-4 glass border border-emerald-200/50 rounded-2xl p-3 flex items-center justify-between mb-4 shadow-sm">
+          <div>
+            <div class="text-xs font-medium text-emerald-500">Unit 1</div>
+            <div class="font-bold text-sm text-emerald-800">Foundations</div>
+          </div>
+          <div class="flex items-center gap-2 text-emerald-600">
+            <div class="text-xs font-bold">100%</div>
+            <div class="w-6 h-6 rounded-full bg-emerald-500 flex items-center justify-center">
+              <svg class="w-3.5 h-3.5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+            </div>
+          </div>
+        </div>
+
+        <div class="px-4 pb-6 space-y-4">
+          <div class="ml-6"><div class="w-14 h-14 rounded-full bg-emerald-500 flex items-center justify-center shadow-lg shadow-emerald-200"><svg class="w-6 h-6 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></div></div>
+          <div class="mx-auto w-fit"><div class="w-14 h-14 rounded-full bg-emerald-500 flex items-center justify-center shadow-lg shadow-emerald-200"><svg class="w-6 h-6 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></div></div>
+          <div class="ml-auto mr-6"><div class="w-14 h-14 rounded-full bg-emerald-500 flex items-center justify-center shadow-lg shadow-emerald-200"><svg class="w-6 h-6 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></div></div>
+          <div class="mx-auto w-fit"><div class="w-14 h-14 rounded-full bg-emerald-500 flex items-center justify-center shadow-lg shadow-emerald-200"><svg class="w-6 h-6 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></div></div>
+          <div class="ml-6"><div class="w-14 h-14 rounded-full bg-emerald-500 flex items-center justify-center shadow-lg shadow-emerald-200"><svg class="w-6 h-6 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></div></div>
+        </div>
+      </div>
+
+      <!-- Unit 2 - Glass header -->
+      <div class="pt-4">
+        <div class="mx-4 glass border border-indigo-200/50 rounded-2xl p-3 flex items-center justify-between mb-4 shadow-sm">
+          <div>
+            <div class="text-xs font-medium text-indigo-500">Unit 2</div>
+            <div class="font-bold text-sm text-indigo-800">Wings & Lines</div>
+          </div>
+          <div class="flex items-center gap-2 text-indigo-600">
+            <div class="w-16 bg-indigo-100 rounded-full h-2"><div class="bg-indigo-500 h-2 rounded-full" style="width:40%"></div></div>
+            <div class="text-xs font-bold">40%</div>
+          </div>
+        </div>
+
+        <div class="px-4 pb-6 space-y-4">
+          <div class="ml-6"><div class="w-14 h-14 rounded-full bg-emerald-500 flex items-center justify-center shadow-lg shadow-emerald-200"><svg class="w-6 h-6 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></div></div>
+          <div class="mx-auto w-fit"><div class="w-14 h-14 rounded-full bg-emerald-500 flex items-center justify-center shadow-lg shadow-emerald-200"><svg class="w-6 h-6 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></div></div>
+
+          <!-- CURRENT node with glow -->
+          <div class="ml-auto mr-6 flex items-center gap-3 flex-row-reverse">
+            <div class="relative">
+              <div class="w-16 h-16 rounded-full bg-gradient-to-br from-amber-400 via-orange-400 to-rose-400 flex items-center justify-center animate-pulse-glow shadow-xl shadow-amber-300">
+                <svg class="w-7 h-7 text-white" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              </div>
+              <span class="absolute -top-2 -right-2 bg-gradient-to-r from-amber-500 to-orange-500 text-white text-[10px] font-bold px-2.5 py-0.5 rounded-full shadow-md">START</span>
+            </div>
+            <div class="flex flex-col items-center">
+              <div class="animate-float">
+                <svg class="w-10 h-10" viewBox="0 0 40 40"><circle cx="20" cy="22" r="12" fill="#c4b5fd"/><circle cx="15" cy="19" r="2" fill="#1e1b4b"/><circle cx="25" cy="19" r="2" fill="#1e1b4b"/><path d="M17 25q3 3 6 0" stroke="#1e1b4b" stroke-width="1.5" fill="none" stroke-linecap="round"/><circle cx="12" cy="12" r="4" fill="#c4b5fd"/><circle cx="28" cy="12" r="4" fill="#c4b5fd"/></svg>
+              </div>
+              <span class="text-[10px] font-bold text-violet-600 mt-0.5">Integration</span>
+            </div>
+          </div>
+
+          <!-- Locked -->
+          <div class="mx-auto w-fit">
+            <div class="w-14 h-14 rounded-full bg-slate-100 flex items-center justify-center border-2 border-slate-200 shadow-inner">
+              <svg class="w-4 h-4 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 018 0v4"/></svg>
+            </div>
+          </div>
+          <div class="ml-6">
+            <div class="w-14 h-14 rounded-full bg-slate-100 flex items-center justify-center border-2 border-slate-200 shadow-inner">
+              <svg class="w-4 h-4 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 018 0v4"/></svg>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Unit 3 - locked, glass header -->
+      <div class="pt-4 pb-6">
+        <div class="mx-4 glass border border-gray-200/50 rounded-2xl p-3 flex items-center justify-between mb-4 opacity-50">
+          <div>
+            <div class="text-xs font-medium text-gray-400">Unit 3</div>
+            <div class="font-bold text-sm text-gray-400">Growth & Stress</div>
+          </div>
+          <svg class="w-5 h-5 text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 018 0v4"/></svg>
+        </div>
+
+        <!-- Daily Insight -->
+        <div class="mx-4 glass border border-violet-200/30 rounded-2xl p-4 shadow-sm">
+          <p class="text-sm text-gray-600 italic font-serif leading-relaxed">"The curious paradox is that when I accept myself just as I am, then I can change."</p>
+          <p class="text-xs text-gray-400 mt-2 font-medium">-- Carl Rogers</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+
+
+<!-- ============================== -->
+<!-- ITERATION 11: RINGS + GLOW     -->
+<!-- ============================== -->
+<section id="iter11">
+  <h2 class="text-2xl font-bold text-gray-800 mb-2 font-serif">11. Progress Rings + Gradient Glow ✦</h2>
+  <p class="text-gray-500 mb-6 text-sm">Progress Rings structure with Gradient Glow colors — each node has a glowing gradient SVG ring. Completed = full violet→pink ring + glow shadow. In-progress = animated partial ring. Locked = empty ring.</p>
+  <div class="flex flex-wrap gap-8">
+
+    <!-- Screen A: Daily Hub -->
+    <div class="phone-frame p-5" style="background:linear-gradient(160deg,#faf5ff 0%,#fdf4ff 50%,#fff1f2 100%)">
+      <!-- Top Stats -->
+      <div class="flex items-center justify-between mb-6">
+        <div class="flex items-center gap-1 text-orange-500 font-bold text-sm"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M12 23c-4.97 0-9-3.58-9-8 0-3.07 2.31-6.64 4.5-9 .37-.4 1-.4 1.37 0 .9.97 1.7 2.08 2.28 3.28C12.09 7.42 13.5 6 13.5 3.5c0-.55.45-1 1-1 .2 0 .39.06.55.17C18.5 5.15 21 9.2 21 15c0 4.42-4.03 8-9 8z"/></svg><span>12</span></div>
+        <div class="flex items-center gap-1 text-yellow-500 font-bold text-sm"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg><span>340</span></div>
+        <div class="flex items-center gap-1"><svg class="w-5 h-5 text-red-500" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg><svg class="w-5 h-5 text-red-500" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg><svg class="w-5 h-5 text-red-500" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></div>
+      </div>
+
+      <!-- Main Progress Ring (gradient) -->
+      <div class="flex flex-col items-center mb-6">
+        <div class="relative" style="filter:drop-shadow(0 0 12px rgba(139,92,246,0.35))">
+          <svg width="160" height="160" viewBox="0 0 160 160">
+            <defs>
+              <linearGradient id="grad11a" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" style="stop-color:#8b5cf6"/>
+                <stop offset="100%" style="stop-color:#ec4899"/>
+              </linearGradient>
+            </defs>
+            <circle cx="80" cy="80" r="70" fill="none" stroke="#ede9fe" stroke-width="10"/>
+            <circle cx="80" cy="80" r="70" fill="none" stroke="url(#grad11a)" stroke-width="10" stroke-linecap="round" stroke-dasharray="440" stroke-dashoffset="176" transform="rotate(-90 80 80)"/>
+          </svg>
+          <div class="absolute inset-0 flex flex-col items-center justify-center">
+            <span class="text-3xl font-extrabold bg-gradient-to-r from-violet-600 to-pink-500 bg-clip-text text-transparent">3/5</span>
+            <span class="text-xs text-gray-500">nodes today</span>
+          </div>
+        </div>
+        <!-- Pet -->
+        <div class="animate-float mt-4"><svg class="w-10 h-10" viewBox="0 0 40 40"><circle cx="20" cy="22" r="12" fill="#c4b5fd"/><circle cx="15" cy="19" r="2" fill="#1e1b4b"/><circle cx="25" cy="19" r="2" fill="#1e1b4b"/><path d="M17 25q3 3 6 0" stroke="#1e1b4b" stroke-width="1.5" fill="none" stroke-linecap="round"/><circle cx="12" cy="12" r="4" fill="#c4b5fd"/><circle cx="28" cy="12" r="4" fill="#c4b5fd"/></svg></div>
+      </div>
+
+      <!-- Continue Button -->
+      <button class="w-full bg-gradient-to-r from-violet-500 to-pink-500 text-white font-bold py-3 rounded-2xl transition mb-4 text-sm uppercase tracking-wide" style="box-shadow:0 4px 20px rgba(139,92,246,0.4)">Continue Path</button>
+
+      <!-- Daily Challenge -->
+      <div class="bg-gradient-to-r from-violet-50 to-pink-50 border border-violet-200 rounded-2xl p-4 mb-6">
+        <div class="flex items-center gap-2 mb-1"><svg class="w-5 h-5 text-violet-500" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><span class="font-bold text-violet-800 text-sm">Daily Challenge</span></div>
+        <p class="text-violet-600 text-xs">Complete 3 nodes -- 50 bonus XP</p>
+      </div>
+
+      <!-- Tabs -->
+      <div class="flex bg-violet-50 rounded-xl p-1">
+        <button class="flex-1 py-2.5 text-xs font-bold text-white bg-gradient-to-r from-violet-500 to-pink-500 rounded-lg">Enneagram</button>
+        <button class="flex-1 py-2.5 text-xs font-medium text-gray-400">Jungian</button>
+      </div>
+
+      <!-- Mini path preview -->
+      <div class="mt-4">
+        <div class="flex items-center justify-between mb-2 px-1">
+          <span class="text-[10px] font-bold uppercase tracking-widest text-violet-400">Up Next — Unit 2</span>
+          <span class="text-[10px] text-gray-400">Wings &amp; Lines</span>
+        </div>
+        <div class="flex items-center justify-between gap-1 px-1">
+          <!-- done -->
+          <div class="flex flex-col items-center gap-1">
+            <div class="relative w-10 h-10" style="filter:drop-shadow(0 0 4px rgba(139,92,246,0.5))">
+              <svg class="absolute inset-0" viewBox="0 0 40 40"><defs><linearGradient id="mn1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#8b5cf6"/><stop offset="100%" style="stop-color:#ec4899"/></linearGradient></defs><circle cx="20" cy="20" r="17" fill="none" stroke="url(#mn1)" stroke-width="2.5"/></svg>
+              <div class="absolute inset-0 flex items-center justify-center"><div class="w-7 h-7 rounded-full flex items-center justify-center" style="background:linear-gradient(135deg,#8b5cf6,#ec4899)"><svg class="w-3.5 h-3.5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></div></div>
+            </div>
+            <span class="text-[9px] text-gray-400">Intro</span>
+          </div>
+          <div class="flex-1 h-px mx-1" style="background:linear-gradient(90deg,#8b5cf6,#ec4899);opacity:0.4"></div>
+          <!-- done -->
+          <div class="flex flex-col items-center gap-1">
+            <div class="relative w-10 h-10" style="filter:drop-shadow(0 0 4px rgba(139,92,246,0.5))">
+              <svg class="absolute inset-0" viewBox="0 0 40 40"><defs><linearGradient id="mn2" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#8b5cf6"/><stop offset="100%" style="stop-color:#ec4899"/></linearGradient></defs><circle cx="20" cy="20" r="17" fill="none" stroke="url(#mn2)" stroke-width="2.5"/></svg>
+              <div class="absolute inset-0 flex items-center justify-center"><div class="w-7 h-7 rounded-full flex items-center justify-center" style="background:linear-gradient(135deg,#8b5cf6,#ec4899)"><svg class="w-3.5 h-3.5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></div></div>
+            </div>
+            <span class="text-[9px] text-gray-400">Wings</span>
+          </div>
+          <div class="flex-1 h-px mx-1 bg-gray-200"></div>
+          <!-- current -->
+          <div class="flex flex-col items-center gap-1">
+            <div class="relative w-10 h-10" style="filter:drop-shadow(0 0 6px rgba(251,146,60,0.7))">
+              <svg class="absolute inset-0 animate-pulse-ring" viewBox="0 0 40 40"><circle cx="20" cy="20" r="17" fill="none" stroke="#ede9fe" stroke-width="2.5"/><circle cx="20" cy="20" r="17" fill="none" stroke="#f59e0b" stroke-width="2.5" stroke-linecap="round" stroke-dasharray="107" stroke-dashoffset="54" transform="rotate(-90 20 20)"/></svg>
+              <div class="absolute inset-0 flex items-center justify-center"><div class="w-7 h-7 rounded-full flex items-center justify-center" style="background:linear-gradient(135deg,#f59e0b,#f97316)"><svg class="w-3 h-3 text-white" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div></div>
+            </div>
+            <span class="text-[9px] font-bold text-orange-500">Now</span>
+          </div>
+          <div class="flex-1 h-px mx-1 bg-gray-100"></div>
+          <!-- locked -->
+          <div class="flex flex-col items-center gap-1">
+            <div class="relative w-10 h-10">
+              <svg class="absolute inset-0" viewBox="0 0 40 40"><circle cx="20" cy="20" r="17" fill="none" stroke="#e2e8f0" stroke-width="2.5"/></svg>
+              <div class="absolute inset-0 flex items-center justify-center"><div class="w-7 h-7 rounded-full bg-slate-100 flex items-center justify-center"><svg class="w-3 h-3 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 018 0v4"/></svg></div></div>
+            </div>
+            <span class="text-[9px] text-gray-300">Stress</span>
+          </div>
+          <div class="flex-1 h-px mx-1 bg-gray-100"></div>
+          <!-- locked -->
+          <div class="flex flex-col items-center gap-1">
+            <div class="relative w-10 h-10">
+              <svg class="absolute inset-0" viewBox="0 0 40 40"><circle cx="20" cy="20" r="17" fill="none" stroke="#e2e8f0" stroke-width="2.5"/></svg>
+              <div class="absolute inset-0 flex items-center justify-center"><div class="w-7 h-7 rounded-full bg-slate-100 flex items-center justify-center"><svg class="w-3 h-3 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 018 0v4"/></svg></div></div>
+            </div>
+            <span class="text-[9px] text-gray-300">Review</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Daily Insight -->
+      <div class="mt-4 rounded-2xl p-4" style="background:linear-gradient(135deg,rgba(139,92,246,0.07),rgba(236,72,153,0.07));border:1px solid rgba(139,92,246,0.15)">
+        <p class="text-xs text-gray-600 italic font-serif leading-relaxed">"Between stimulus and response there is a space. In that space is our power to choose."</p>
+        <p class="text-[10px] text-gray-400 mt-1.5 font-medium">-- Viktor Frankl</p>
+      </div>
+    </div>
+
+    <!-- Screen B: Path View -->
+    <div class="phone-frame p-0" style="background:linear-gradient(160deg,#faf5ff 0%,#fdf4ff 50%,#fff1f2 100%)">
+      <!-- Sticky Header -->
+      <div class="sticky top-0 z-10 p-4 pb-2 border-b border-violet-100" style="background:rgba(250,245,255,0.95);backdrop-filter:blur(12px)">
+        <div class="flex items-center justify-between mb-2">
+          <div class="flex items-center gap-1 text-orange-500 font-bold text-sm"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M12 23c-4.97 0-9-3.58-9-8 0-3.07 2.31-6.64 4.5-9 .37-.4 1-.4 1.37 0 .9.97 1.7 2.08 2.28 3.28C12.09 7.42 13.5 6 13.5 3.5c0-.55.45-1 1-1 .2 0 .39.06.55.17C18.5 5.15 21 9.2 21 15c0 4.42-4.03 8-9 8z"/></svg><span>12</span></div>
+          <div class="flex items-center gap-1 text-yellow-500 font-bold text-sm"><svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg><span>340</span></div>
+          <div class="flex items-center gap-1"><svg class="w-4 h-4 text-red-500" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg><svg class="w-4 h-4 text-red-500" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg><svg class="w-4 h-4 text-red-500" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></div>
+        </div>
+        <div class="flex bg-violet-100 rounded-xl p-1">
+          <button class="flex-1 py-1.5 text-xs font-bold text-white bg-gradient-to-r from-violet-500 to-pink-500 rounded-lg">Enneagram</button>
+          <button class="flex-1 py-1.5 text-xs font-medium text-gray-400">Jungian</button>
+        </div>
+      </div>
+
+      <!-- Unit 1: Foundations (completed) -->
+      <div class="pt-4" style="background:linear-gradient(180deg,#f0fdf4 0%,#faf5ff 100%)">
+        <div class="mx-4 rounded-2xl p-3 flex items-center justify-between mb-4 text-white" style="background:linear-gradient(135deg,#10b981,#6366f1);box-shadow:0 4px 16px rgba(99,102,241,0.3)">
+          <div><div class="text-xs font-medium opacity-80">Unit 1</div><div class="font-bold text-sm">Foundations</div></div>
+          <div class="flex items-center gap-2"><div class="text-xs font-bold">100%</div><svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></div>
+        </div>
+        <div class="px-4 pb-6 space-y-4">
+          <!-- completed node: full gradient ring + glow -->
+          <div class="ml-6 flex items-center gap-3">
+            <div class="relative w-16 h-16" style="filter:drop-shadow(0 0 6px rgba(139,92,246,0.5))">
+              <svg class="absolute inset-0" viewBox="0 0 64 64"><defs><linearGradient id="rg11c1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#8b5cf6"/><stop offset="100%" style="stop-color:#ec4899"/></linearGradient></defs><circle cx="32" cy="32" r="28" fill="none" stroke="url(#rg11c1)" stroke-width="3"/></svg>
+              <div class="absolute inset-0 flex items-center justify-center"><div class="w-11 h-11 rounded-full flex items-center justify-center" style="background:linear-gradient(135deg,#8b5cf6,#ec4899)"><svg class="w-5 h-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></div></div>
+            </div>
+            <span class="text-xs font-medium text-gray-500">Core Type</span>
+          </div>
+          <div class="mx-auto w-fit flex items-center gap-3">
+            <div class="relative w-16 h-16" style="filter:drop-shadow(0 0 6px rgba(139,92,246,0.5))">
+              <svg class="absolute inset-0" viewBox="0 0 64 64"><defs><linearGradient id="rg11c2" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#8b5cf6"/><stop offset="100%" style="stop-color:#ec4899"/></linearGradient></defs><circle cx="32" cy="32" r="28" fill="none" stroke="url(#rg11c2)" stroke-width="3"/></svg>
+              <div class="absolute inset-0 flex items-center justify-center"><div class="w-11 h-11 rounded-full flex items-center justify-center" style="background:linear-gradient(135deg,#8b5cf6,#ec4899)"><svg class="w-5 h-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></div></div>
+            </div>
+            <span class="text-xs font-medium text-gray-500">Instincts</span>
+          </div>
+          <div class="ml-auto mr-6 flex items-center gap-3 flex-row-reverse">
+            <div class="relative w-16 h-16" style="filter:drop-shadow(0 0 6px rgba(139,92,246,0.5))">
+              <svg class="absolute inset-0" viewBox="0 0 64 64"><defs><linearGradient id="rg11c3" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#8b5cf6"/><stop offset="100%" style="stop-color:#ec4899"/></linearGradient></defs><circle cx="32" cy="32" r="28" fill="none" stroke="url(#rg11c3)" stroke-width="3"/></svg>
+              <div class="absolute inset-0 flex items-center justify-center"><div class="w-11 h-11 rounded-full flex items-center justify-center" style="background:linear-gradient(135deg,#8b5cf6,#ec4899)"><svg class="w-5 h-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></div></div>
+            </div>
+            <span class="text-xs font-medium text-gray-500">Centers</span>
+          </div>
+          <div class="mx-auto w-fit flex items-center gap-3">
+            <div class="relative w-16 h-16" style="filter:drop-shadow(0 0 6px rgba(139,92,246,0.5))">
+              <svg class="absolute inset-0" viewBox="0 0 64 64"><defs><linearGradient id="rg11c4" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#8b5cf6"/><stop offset="100%" style="stop-color:#ec4899"/></linearGradient></defs><circle cx="32" cy="32" r="28" fill="none" stroke="url(#rg11c4)" stroke-width="3"/></svg>
+              <div class="absolute inset-0 flex items-center justify-center"><div class="w-11 h-11 rounded-full flex items-center justify-center" style="background:linear-gradient(135deg,#8b5cf6,#ec4899)"><svg class="w-5 h-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></div></div>
+            </div>
+            <span class="text-xs font-medium text-gray-500">Triads</span>
+          </div>
+          <div class="ml-6 flex items-center gap-3">
+            <div class="relative w-16 h-16" style="filter:drop-shadow(0 0 6px rgba(139,92,246,0.5))">
+              <svg class="absolute inset-0" viewBox="0 0 64 64"><defs><linearGradient id="rg11c5" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#8b5cf6"/><stop offset="100%" style="stop-color:#ec4899"/></linearGradient></defs><circle cx="32" cy="32" r="28" fill="none" stroke="url(#rg11c5)" stroke-width="3"/></svg>
+              <div class="absolute inset-0 flex items-center justify-center"><div class="w-11 h-11 rounded-full flex items-center justify-center" style="background:linear-gradient(135deg,#8b5cf6,#ec4899)"><svg class="w-5 h-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></div></div>
+            </div>
+            <span class="text-xs font-medium text-gray-500">Review</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Unit 2: Wings & Lines (in progress) -->
+      <div class="pt-4" style="background:linear-gradient(180deg,#faf5ff 0%,#fdf4ff 100%)">
+        <div class="mx-4 rounded-2xl p-3 flex items-center justify-between mb-4 text-white" style="background:linear-gradient(135deg,#6366f1,#8b5cf6);box-shadow:0 4px 16px rgba(99,102,241,0.3)">
+          <div><div class="text-xs font-medium opacity-80">Unit 2</div><div class="font-bold text-sm">Wings & Lines</div></div>
+          <div class="flex items-center gap-2"><div class="w-16 rounded-full h-2" style="background:rgba(255,255,255,0.3)"><div class="h-2 rounded-full bg-white" style="width:40%"></div></div><div class="text-xs font-bold">40%</div></div>
+        </div>
+        <div class="px-4 pb-6 space-y-4">
+          <!-- completed -->
+          <div class="ml-6 flex items-center gap-3">
+            <div class="relative w-16 h-16" style="filter:drop-shadow(0 0 6px rgba(139,92,246,0.5))">
+              <svg class="absolute inset-0" viewBox="0 0 64 64"><defs><linearGradient id="rg11d1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#8b5cf6"/><stop offset="100%" style="stop-color:#ec4899"/></linearGradient></defs><circle cx="32" cy="32" r="28" fill="none" stroke="url(#rg11d1)" stroke-width="3"/></svg>
+              <div class="absolute inset-0 flex items-center justify-center"><div class="w-11 h-11 rounded-full flex items-center justify-center" style="background:linear-gradient(135deg,#8b5cf6,#ec4899)"><svg class="w-5 h-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></div></div>
+            </div>
+            <span class="text-xs font-medium text-gray-500">Wing Intro</span>
+          </div>
+          <div class="mx-auto w-fit flex items-center gap-3">
+            <div class="relative w-16 h-16" style="filter:drop-shadow(0 0 6px rgba(139,92,246,0.5))">
+              <svg class="absolute inset-0" viewBox="0 0 64 64"><defs><linearGradient id="rg11d2" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#8b5cf6"/><stop offset="100%" style="stop-color:#ec4899"/></linearGradient></defs><circle cx="32" cy="32" r="28" fill="none" stroke="url(#rg11d2)" stroke-width="3"/></svg>
+              <div class="absolute inset-0 flex items-center justify-center"><div class="w-11 h-11 rounded-full flex items-center justify-center" style="background:linear-gradient(135deg,#8b5cf6,#ec4899)"><svg class="w-5 h-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></div></div>
+            </div>
+            <span class="text-xs font-medium text-gray-500">Your Wings</span>
+          </div>
+          <!-- CURRENT: partial gradient ring + amber glow -->
+          <div class="ml-auto mr-6 flex items-center gap-2 flex-row-reverse">
+            <div class="relative w-16 h-16" style="filter:drop-shadow(0 0 10px rgba(251,146,60,0.7))">
+              <svg class="absolute inset-0 animate-pulse-ring" viewBox="0 0 64 64">
+                <circle cx="32" cy="32" r="28" fill="none" stroke="#ede9fe" stroke-width="3"/>
+                <circle cx="32" cy="32" r="28" fill="none" stroke="url(#rg11curr)" stroke-width="3" stroke-linecap="round" stroke-dasharray="176" stroke-dashoffset="88" transform="rotate(-90 32 32)"/>
+                <defs><linearGradient id="rg11curr" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#f59e0b"/><stop offset="100%" style="stop-color:#f97316"/></linearGradient></defs>
+              </svg>
+              <div class="absolute inset-0 flex items-center justify-center">
+                <div class="w-11 h-11 rounded-full flex items-center justify-center" style="background:linear-gradient(135deg,#f59e0b,#f97316)">
+                  <svg class="w-5 h-5 text-white" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                </div>
+              </div>
+              <span class="absolute -top-1 -right-1 text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full" style="background:linear-gradient(135deg,#f59e0b,#f97316)">START</span>
+            </div>
+            <div class="animate-float"><svg class="w-8 h-8" viewBox="0 0 40 40"><circle cx="20" cy="22" r="12" fill="#c4b5fd"/><circle cx="15" cy="19" r="2" fill="#1e1b4b"/><circle cx="25" cy="19" r="2" fill="#1e1b4b"/><path d="M17 25q3 3 6 0" stroke="#1e1b4b" stroke-width="1.5" fill="none" stroke-linecap="round"/><circle cx="12" cy="12" r="4" fill="#c4b5fd"/><circle cx="28" cy="12" r="4" fill="#c4b5fd"/></svg></div>
+          </div>
+          <!-- locked nodes: empty ring, slate -->
+          <div class="mx-auto w-fit">
+            <div class="relative w-16 h-16">
+              <svg class="absolute inset-0" viewBox="0 0 64 64"><circle cx="32" cy="32" r="28" fill="none" stroke="#e2e8f0" stroke-width="3"/></svg>
+              <div class="absolute inset-0 flex items-center justify-center"><div class="w-11 h-11 rounded-full bg-slate-100 flex items-center justify-center"><svg class="w-4 h-4 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 018 0v4"/></svg></div></div>
+            </div>
+          </div>
+          <div class="ml-6">
+            <div class="relative w-16 h-16">
+              <svg class="absolute inset-0" viewBox="0 0 64 64"><circle cx="32" cy="32" r="28" fill="none" stroke="#e2e8f0" stroke-width="3"/></svg>
+              <div class="absolute inset-0 flex items-center justify-center"><div class="w-11 h-11 rounded-full bg-slate-100 flex items-center justify-center"><svg class="w-4 h-4 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 018 0v4"/></svg></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Unit 3: Locked -->
+      <div class="pt-4 pb-6" style="background:rgba(245,243,255,0.5)">
+        <div class="mx-4 bg-slate-200 text-slate-400 rounded-2xl p-3 flex items-center justify-between mb-4 opacity-60">
+          <div><div class="text-xs opacity-80">Unit 3</div><div class="font-bold text-sm">Growth & Stress</div></div>
+          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 018 0v4"/></svg>
+        </div>
+        <div class="mx-4 rounded-2xl p-4 shadow-sm" style="background:linear-gradient(135deg,rgba(139,92,246,0.06),rgba(236,72,153,0.06));border:1px solid rgba(139,92,246,0.15)">
+          <p class="text-sm text-gray-600 italic font-serif leading-relaxed">"The curious paradox is that when I accept myself just as I am, then I can change."</p>
+          <p class="text-xs text-gray-400 mt-2">-- Carl Rogers</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+</div><!-- end max-w container -->
+
+<!-- Footer -->
+<div class="text-center py-8 text-gray-400 text-xs">
+  Thyself Personality App -- Daily Path Iterations -- 11 Variations
+</div>
+
+</body>
+</html>

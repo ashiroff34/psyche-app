@@ -1,0 +1,445 @@
+/**
+ * Big Five / OCEAN Personality Assessment
+ * Based on the IPIP-NEO 120-item format.
+ *
+ * The International Personality Item Pool (IPIP) is public domain.
+ * See: https://ipip.ori.org/
+ *
+ * 120 Likert-scale items: 24 per factor, 4 per facet.
+ * Approximately 40% of items are reverse-keyed to reduce acquiescence bias.
+ */
+
+export interface BigFiveItem {
+  id: number;
+  text: string;
+  factor: 'O' | 'C' | 'E' | 'A' | 'N';
+  facet: string;
+  reversed: boolean;
+}
+
+export const bigFiveItems: BigFiveItem[] = [
+  // ============================================================
+  // OPENNESS TO EXPERIENCE (O) - 24 items, 6 facets x 4 items
+  // ============================================================
+
+  // O1: Fantasy
+  { id: 1, text: "I tend to have a vivid imagination.", factor: 'O', facet: "Fantasy", reversed: false },
+  { id: 2, text: "I see myself as someone who enjoys daydreaming and letting my mind wander.", factor: 'O', facet: "Fantasy", reversed: false },
+  { id: 3, text: "I tend to have difficulty imagining things that are not real.", factor: 'O', facet: "Fantasy", reversed: true },
+  { id: 4, text: "I see myself as someone who rarely gets lost in fantasy.", factor: 'O', facet: "Fantasy", reversed: true },
+
+  // O2: Aesthetics
+  { id: 5, text: "I see myself as someone who is moved by art, music, or literature.", factor: 'O', facet: "Aesthetics", reversed: false },
+  { id: 6, text: "I tend to notice beauty in things that others might overlook.", factor: 'O', facet: "Aesthetics", reversed: false },
+  { id: 7, text: "I see myself as someone who has little interest in artistic or aesthetic experiences.", factor: 'O', facet: "Aesthetics", reversed: true },
+  { id: 8, text: "I tend to be indifferent to poetry and visual art.", factor: 'O', facet: "Aesthetics", reversed: true },
+
+  // O3: Feelings
+  { id: 9, text: "I tend to experience a wide range of emotions intensely.", factor: 'O', facet: "Feelings", reversed: false },
+  { id: 10, text: "I see myself as someone who values emotional experiences and inner feelings.", factor: 'O', facet: "Feelings", reversed: false },
+  { id: 11, text: "I tend to rarely reflect on the feelings that different situations evoke in me.", factor: 'O', facet: "Feelings", reversed: true },
+  { id: 12, text: "I see myself as someone who does not pay much attention to my moods or emotions.", factor: 'O', facet: "Feelings", reversed: true },
+
+  // O4: Actions
+  { id: 13, text: "I see myself as someone who prefers variety over routine.", factor: 'O', facet: "Actions", reversed: false },
+  { id: 14, text: "I tend to seek out new experiences and unfamiliar situations.", factor: 'O', facet: "Actions", reversed: false },
+  { id: 15, text: "I see myself as someone who prefers to stick with things I already know.", factor: 'O', facet: "Actions", reversed: true },
+  { id: 16, text: "I tend to avoid trying new activities or visiting unfamiliar places.", factor: 'O', facet: "Actions", reversed: true },
+
+  // O5: Ideas
+  { id: 17, text: "I tend to enjoy thinking about abstract concepts and theoretical problems.", factor: 'O', facet: "Ideas", reversed: false },
+  { id: 18, text: "I see myself as someone who is curious about many different topics.", factor: 'O', facet: "Ideas", reversed: false },
+  { id: 19, text: "I tend to have little interest in philosophical or intellectual discussions.", factor: 'O', facet: "Ideas", reversed: true },
+  { id: 20, text: "I see myself as someone who avoids complex or abstract thinking.", factor: 'O', facet: "Ideas", reversed: true },
+
+  // O6: Values
+  { id: 21, text: "I see myself as someone who is willing to re-examine my own values and beliefs.", factor: 'O', facet: "Values", reversed: false },
+  { id: 22, text: "I tend to consider different moral and ethical perspectives before forming opinions.", factor: 'O', facet: "Values", reversed: false },
+  { id: 23, text: "I see myself as someone who believes there is one right way to do things.", factor: 'O', facet: "Values", reversed: true },
+  { id: 24, text: "I tend to think that traditional approaches are usually the best.", factor: 'O', facet: "Values", reversed: true },
+
+  // ============================================================
+  // CONSCIENTIOUSNESS (C) - 24 items, 6 facets x 4 items
+  // ============================================================
+
+  // C1: Competence
+  { id: 25, text: "I see myself as someone who handles tasks efficiently and effectively.", factor: 'C', facet: "Competence", reversed: false },
+  { id: 26, text: "I tend to feel confident in my ability to get things done.", factor: 'C', facet: "Competence", reversed: false },
+  { id: 27, text: "I see myself as someone who often feels unprepared for the challenges I face.", factor: 'C', facet: "Competence", reversed: true },
+  { id: 28, text: "I tend to doubt whether I have the skills to accomplish what is expected of me.", factor: 'C', facet: "Competence", reversed: true },
+
+  // C2: Order
+  { id: 29, text: "I tend to keep my belongings neat and well-organized.", factor: 'C', facet: "Order", reversed: false },
+  { id: 30, text: "I see myself as someone who likes to have a place for everything.", factor: 'C', facet: "Order", reversed: false },
+  { id: 31, text: "I tend to leave my things lying around without putting them away.", factor: 'C', facet: "Order", reversed: true },
+  { id: 32, text: "I see myself as someone who does not mind a messy or cluttered environment.", factor: 'C', facet: "Order", reversed: true },
+
+  // C3: Dutifulness
+  { id: 33, text: "I see myself as someone who always tries to fulfill my obligations.", factor: 'C', facet: "Dutifulness", reversed: false },
+  { id: 34, text: "I tend to follow through on promises and commitments I make.", factor: 'C', facet: "Dutifulness", reversed: false },
+  { id: 35, text: "I see myself as someone who sometimes neglects my duties and responsibilities.", factor: 'C', facet: "Dutifulness", reversed: true },
+  { id: 36, text: "I tend to bend the rules when it suits me.", factor: 'C', facet: "Dutifulness", reversed: true },
+
+  // C4: Achievement-striving
+  { id: 37, text: "I tend to set high goals for myself and work hard to achieve them.", factor: 'C', facet: "Achievement-striving", reversed: false },
+  { id: 38, text: "I see myself as someone who strives for excellence in everything I do.", factor: 'C', facet: "Achievement-striving", reversed: false },
+  { id: 39, text: "I tend to do just enough to get by rather than pushing myself.", factor: 'C', facet: "Achievement-striving", reversed: true },
+  { id: 40, text: "I see myself as someone who lacks strong ambition or drive.", factor: 'C', facet: "Achievement-striving", reversed: true },
+
+  // C5: Self-discipline
+  { id: 41, text: "I see myself as someone who can stay focused on a task until it is finished.", factor: 'C', facet: "Self-discipline", reversed: false },
+  { id: 42, text: "I tend to persist with tasks even when they become difficult or tedious.", factor: 'C', facet: "Self-discipline", reversed: false },
+  { id: 43, text: "I tend to get distracted easily and have trouble completing what I start.", factor: 'C', facet: "Self-discipline", reversed: true },
+  { id: 44, text: "I see myself as someone who procrastinates and puts off important tasks.", factor: 'C', facet: "Self-discipline", reversed: true },
+
+  // C6: Deliberation
+  { id: 45, text: "I tend to think carefully before making decisions.", factor: 'C', facet: "Deliberation", reversed: false },
+  { id: 46, text: "I see myself as someone who weighs the pros and cons before acting.", factor: 'C', facet: "Deliberation", reversed: false },
+  { id: 47, text: "I tend to make decisions quickly without thinking them through.", factor: 'C', facet: "Deliberation", reversed: true },
+  { id: 48, text: "I see myself as someone who acts on impulse without considering the consequences.", factor: 'C', facet: "Deliberation", reversed: true },
+
+  // ============================================================
+  // EXTRAVERSION (E) - 24 items, 6 facets x 4 items
+  // ============================================================
+
+  // E1: Warmth
+  { id: 49, text: "I see myself as someone who makes friends easily and enjoys being around people.", factor: 'E', facet: "Warmth", reversed: false },
+  { id: 50, text: "I tend to show genuine warmth and affection toward others.", factor: 'E', facet: "Warmth", reversed: false },
+  { id: 51, text: "I see myself as someone who keeps others at a distance.", factor: 'E', facet: "Warmth", reversed: true },
+  { id: 52, text: "I tend to be reserved and formal in my interactions with others.", factor: 'E', facet: "Warmth", reversed: true },
+
+  // E2: Gregariousness
+  { id: 53, text: "I tend to enjoy large gatherings and social events.", factor: 'E', facet: "Gregariousness", reversed: false },
+  { id: 54, text: "I see myself as someone who loves being in the company of many people.", factor: 'E', facet: "Gregariousness", reversed: false },
+  { id: 55, text: "I tend to prefer spending time alone rather than in groups.", factor: 'E', facet: "Gregariousness", reversed: true },
+  { id: 56, text: "I see myself as someone who avoids crowds and large social gatherings.", factor: 'E', facet: "Gregariousness", reversed: true },
+
+  // E3: Assertiveness
+  { id: 57, text: "I see myself as someone who speaks up and takes charge in group situations.", factor: 'E', facet: "Assertiveness", reversed: false },
+  { id: 58, text: "I tend to express my opinions directly and confidently.", factor: 'E', facet: "Assertiveness", reversed: false },
+  { id: 59, text: "I see myself as someone who lets others make the decisions most of the time.", factor: 'E', facet: "Assertiveness", reversed: true },
+  { id: 60, text: "I tend to hold back from voicing my views in a group.", factor: 'E', facet: "Assertiveness", reversed: true },
+
+  // E4: Activity
+  { id: 61, text: "I tend to keep busy and maintain a fast-paced lifestyle.", factor: 'E', facet: "Activity", reversed: false },
+  { id: 62, text: "I see myself as someone who is always on the go and full of energy.", factor: 'E', facet: "Activity", reversed: false },
+  { id: 63, text: "I tend to take things at a slow, leisurely pace.", factor: 'E', facet: "Activity", reversed: true },
+  { id: 64, text: "I see myself as someone who prefers a calm and unhurried way of living.", factor: 'E', facet: "Activity", reversed: true },
+
+  // E5: Excitement-seeking
+  { id: 65, text: "I see myself as someone who craves excitement and thrilling experiences.", factor: 'E', facet: "Excitement-seeking", reversed: false },
+  { id: 66, text: "I tend to enjoy taking risks and seeking out new adventures.", factor: 'E', facet: "Excitement-seeking", reversed: false },
+  { id: 67, text: "I see myself as someone who avoids risky or overly stimulating situations.", factor: 'E', facet: "Excitement-seeking", reversed: true },
+  { id: 68, text: "I tend to prefer safe and predictable activities over exciting ones.", factor: 'E', facet: "Excitement-seeking", reversed: true },
+
+  // E6: Positive emotions
+  { id: 69, text: "I tend to laugh easily and feel joy in everyday moments.", factor: 'E', facet: "Positive emotions", reversed: false },
+  { id: 70, text: "I see myself as someone who radiates enthusiasm and optimism.", factor: 'E', facet: "Positive emotions", reversed: false },
+  { id: 71, text: "I tend to rarely feel strong positive emotions like excitement or joy.", factor: 'E', facet: "Positive emotions", reversed: true },
+  { id: 72, text: "I see myself as someone who is more serious than cheerful.", factor: 'E', facet: "Positive emotions", reversed: true },
+
+  // ============================================================
+  // AGREEABLENESS (A) - 24 items, 6 facets x 4 items
+  // ============================================================
+
+  // A1: Trust
+  { id: 73, text: "I see myself as someone who believes that most people are honest and well-intentioned.", factor: 'A', facet: "Trust", reversed: false },
+  { id: 74, text: "I tend to give people the benefit of the doubt.", factor: 'A', facet: "Trust", reversed: false },
+  { id: 75, text: "I see myself as someone who is suspicious of other people's motives.", factor: 'A', facet: "Trust", reversed: true },
+  { id: 76, text: "I tend to believe that others will take advantage of me if given the chance.", factor: 'A', facet: "Trust", reversed: true },
+
+  // A2: Straightforwardness
+  { id: 77, text: "I tend to be sincere and straightforward in my dealings with others.", factor: 'A', facet: "Straightforwardness", reversed: false },
+  { id: 78, text: "I see myself as someone who says what I mean without hidden agendas.", factor: 'A', facet: "Straightforwardness", reversed: false },
+  { id: 79, text: "I tend to use flattery or manipulation to get what I want.", factor: 'A', facet: "Straightforwardness", reversed: true },
+  { id: 80, text: "I see myself as someone who is willing to stretch the truth to get ahead.", factor: 'A', facet: "Straightforwardness", reversed: true },
+
+  // A3: Altruism
+  { id: 81, text: "I see myself as someone who goes out of my way to help others.", factor: 'A', facet: "Altruism", reversed: false },
+  { id: 82, text: "I tend to be generous with my time and resources.", factor: 'A', facet: "Altruism", reversed: false },
+  { id: 83, text: "I see myself as someone who is mainly concerned with my own needs.", factor: 'A', facet: "Altruism", reversed: true },
+  { id: 84, text: "I tend to focus on my own priorities rather than helping others.", factor: 'A', facet: "Altruism", reversed: true },
+
+  // A4: Compliance
+  { id: 85, text: "I tend to avoid arguments and try to find peaceful solutions.", factor: 'A', facet: "Compliance", reversed: false },
+  { id: 86, text: "I see myself as someone who yields to others to prevent conflict.", factor: 'A', facet: "Compliance", reversed: false },
+  { id: 87, text: "I tend to be combative and quick to challenge others.", factor: 'A', facet: "Compliance", reversed: true },
+  { id: 88, text: "I see myself as someone who stands my ground aggressively in a disagreement.", factor: 'A', facet: "Compliance", reversed: true },
+
+  // A5: Modesty
+  { id: 89, text: "I see myself as someone who is humble and does not seek the spotlight.", factor: 'A', facet: "Modesty", reversed: false },
+  { id: 90, text: "I tend to downplay my achievements and avoid boasting.", factor: 'A', facet: "Modesty", reversed: false },
+  { id: 91, text: "I see myself as someone who believes I am superior to most people.", factor: 'A', facet: "Modesty", reversed: true },
+  { id: 92, text: "I tend to think highly of myself compared to others.", factor: 'A', facet: "Modesty", reversed: true },
+
+  // A6: Tender-mindedness
+  { id: 93, text: "I tend to be moved by the misfortunes of others.", factor: 'A', facet: "Tender-mindedness", reversed: false },
+  { id: 94, text: "I see myself as someone who cares deeply about the welfare of others.", factor: 'A', facet: "Tender-mindedness", reversed: false },
+  { id: 95, text: "I tend to make decisions based on logic rather than feelings about people.", factor: 'A', facet: "Tender-mindedness", reversed: true },
+  { id: 96, text: "I see myself as someone who is tough-minded and not easily swayed by emotional appeals.", factor: 'A', facet: "Tender-mindedness", reversed: true },
+
+  // ============================================================
+  // NEUROTICISM (N) - 24 items, 6 facets x 4 items
+  // ============================================================
+
+  // N1: Anxiety
+  { id: 97, text: "I tend to worry a lot about things that might go wrong.", factor: 'N', facet: "Anxiety", reversed: false },
+  { id: 98, text: "I see myself as someone who often feels tense or on edge.", factor: 'N', facet: "Anxiety", reversed: false },
+  { id: 99, text: "I see myself as someone who stays calm and rarely worries.", factor: 'N', facet: "Anxiety", reversed: true },
+  { id: 100, text: "I tend to feel relaxed and at ease in most situations.", factor: 'N', facet: "Anxiety", reversed: true },
+
+  // N2: Angry hostility
+  { id: 101, text: "I tend to get frustrated and angry easily.", factor: 'N', facet: "Angry hostility", reversed: false },
+  { id: 102, text: "I see myself as someone who becomes irritable when things do not go my way.", factor: 'N', facet: "Angry hostility", reversed: false },
+  { id: 103, text: "I see myself as someone who is slow to anger and hard to provoke.", factor: 'N', facet: "Angry hostility", reversed: true },
+  { id: 104, text: "I tend to remain even-tempered even in frustrating situations.", factor: 'N', facet: "Angry hostility", reversed: true },
+
+  // N3: Depression
+  { id: 105, text: "I see myself as someone who often feels sad or hopeless.", factor: 'N', facet: "Depression", reversed: false },
+  { id: 106, text: "I tend to dwell on past mistakes and feel guilty about them.", factor: 'N', facet: "Depression", reversed: false },
+  { id: 107, text: "I see myself as someone who rarely feels down or discouraged.", factor: 'N', facet: "Depression", reversed: true },
+  { id: 108, text: "I tend to maintain a positive outlook even during difficult times.", factor: 'N', facet: "Depression", reversed: true },
+
+  // N4: Self-consciousness
+  { id: 109, text: "I tend to feel uncomfortable when I am the center of attention.", factor: 'N', facet: "Self-consciousness", reversed: false },
+  { id: 110, text: "I see myself as someone who worries about what others think of me.", factor: 'N', facet: "Self-consciousness", reversed: false },
+  { id: 111, text: "I see myself as someone who feels comfortable in social situations without worrying about being judged.", factor: 'N', facet: "Self-consciousness", reversed: true },
+  { id: 112, text: "I tend to feel at ease when speaking in front of others.", factor: 'N', facet: "Self-consciousness", reversed: true },
+
+  // N5: Impulsiveness
+  { id: 113, text: "I tend to have difficulty resisting temptations and urges.", factor: 'N', facet: "Impulsiveness", reversed: false },
+  { id: 114, text: "I see myself as someone who gives in to cravings and desires too easily.", factor: 'N', facet: "Impulsiveness", reversed: false },
+  { id: 115, text: "I see myself as someone who has strong self-control over my impulses.", factor: 'N', facet: "Impulsiveness", reversed: true },
+  { id: 116, text: "I tend to resist short-term temptations in favor of long-term goals.", factor: 'N', facet: "Impulsiveness", reversed: true },
+
+  // N6: Vulnerability
+  { id: 117, text: "I see myself as someone who feels overwhelmed when under a lot of pressure.", factor: 'N', facet: "Vulnerability", reversed: false },
+  { id: 118, text: "I tend to panic or shut down during stressful situations.", factor: 'N', facet: "Vulnerability", reversed: false },
+  { id: 119, text: "I see myself as someone who handles stress and pressure well.", factor: 'N', facet: "Vulnerability", reversed: true },
+  { id: 120, text: "I tend to stay composed and clearheaded in emergencies.", factor: 'N', facet: "Vulnerability", reversed: true },
+];
+
+export const facetDescriptions: Record<string, { factor: string; name: string; high: string; low: string }> = {
+  // Openness facets
+  "Fantasy": {
+    factor: "O",
+    name: "Fantasy",
+    high: "Has a vivid imagination and a rich inner fantasy life.",
+    low: "Prefers concrete, practical thinking over daydreaming.",
+  },
+  "Aesthetics": {
+    factor: "O",
+    name: "Aesthetics",
+    high: "Deeply appreciates art, beauty, and aesthetic experiences.",
+    low: "Has little interest in art or aesthetic matters.",
+  },
+  "Feelings": {
+    factor: "O",
+    name: "Feelings",
+    high: "Is receptive to inner emotional states and values emotional experience.",
+    low: "Pays little attention to feelings and does not consider emotions important.",
+  },
+  "Actions": {
+    factor: "O",
+    name: "Actions",
+    high: "Prefers novelty and variety; willing to try new activities.",
+    low: "Prefers familiar routines and avoids new experiences.",
+  },
+  "Ideas": {
+    factor: "O",
+    name: "Ideas",
+    high: "Is intellectually curious and enjoys abstract, theoretical thinking.",
+    low: "Has narrow intellectual interests and avoids complex ideas.",
+  },
+  "Values": {
+    factor: "O",
+    name: "Values",
+    high: "Is open to re-examining social, political, and moral values.",
+    low: "Prefers tradition and is reluctant to question established norms.",
+  },
+
+  // Conscientiousness facets
+  "Competence": {
+    factor: "C",
+    name: "Competence",
+    high: "Feels capable, effective, and well-prepared for life's challenges.",
+    low: "Often doubts personal abilities and feels unprepared.",
+  },
+  "Order": {
+    factor: "C",
+    name: "Order",
+    high: "Is well-organized, tidy, and methodical.",
+    low: "Is disorganized and does not keep things in order.",
+  },
+  "Dutifulness": {
+    factor: "C",
+    name: "Dutifulness",
+    high: "Strictly adheres to ethical principles and fulfills moral obligations.",
+    low: "Is casual about duties and may cut corners on responsibilities.",
+  },
+  "Achievement-striving": {
+    factor: "C",
+    name: "Achievement-striving",
+    high: "Sets high goals and works diligently to achieve them.",
+    low: "Is content with minimal effort and lacks strong ambition.",
+  },
+  "Self-discipline": {
+    factor: "C",
+    name: "Self-discipline",
+    high: "Persists with tasks until completion despite boredom or distractions.",
+    low: "Procrastinates and is easily discouraged or sidetracked.",
+  },
+  "Deliberation": {
+    factor: "C",
+    name: "Deliberation",
+    high: "Thinks carefully and plans ahead before acting.",
+    low: "Acts hastily without considering the consequences.",
+  },
+
+  // Extraversion facets
+  "Warmth": {
+    factor: "E",
+    name: "Warmth",
+    high: "Is affectionate and friendly; genuinely likes and connects with people.",
+    low: "Is more formal and reserved; does not readily show warmth.",
+  },
+  "Gregariousness": {
+    factor: "E",
+    name: "Gregariousness",
+    high: "Enjoys and seeks out the company of others; thrives in social groups.",
+    low: "Prefers solitude and avoids large social gatherings.",
+  },
+  "Assertiveness": {
+    factor: "E",
+    name: "Assertiveness",
+    high: "Is dominant, forceful, and socially confident; takes charge easily.",
+    low: "Prefers to stay in the background and lets others lead.",
+  },
+  "Activity": {
+    factor: "E",
+    name: "Activity",
+    high: "Leads a fast-paced, busy life and is full of vigor.",
+    low: "Prefers a slower, more leisurely pace of life.",
+  },
+  "Excitement-seeking": {
+    factor: "E",
+    name: "Excitement-seeking",
+    high: "Craves stimulation, thrills, and novel experiences.",
+    low: "Has little need for excitement and prefers calm environments.",
+  },
+  "Positive emotions": {
+    factor: "E",
+    name: "Positive emotions",
+    high: "Frequently experiences joy, happiness, and enthusiasm.",
+    low: "Is less exuberant and high-spirited; tends to be more subdued.",
+  },
+
+  // Agreeableness facets
+  "Trust": {
+    factor: "A",
+    name: "Trust",
+    high: "Believes that most people are fair and well-intentioned.",
+    low: "Is cynical and skeptical about others' motives.",
+  },
+  "Straightforwardness": {
+    factor: "A",
+    name: "Straightforwardness",
+    high: "Is frank, sincere, and genuine in interactions with others.",
+    low: "Is willing to manipulate or deceive others to get what they want.",
+  },
+  "Altruism": {
+    factor: "A",
+    name: "Altruism",
+    high: "Is actively concerned with others' welfare and generous with time and effort.",
+    low: "Is self-centered and reluctant to get involved in others' problems.",
+  },
+  "Compliance": {
+    factor: "A",
+    name: "Compliance",
+    high: "Tends to defer to others, avoid conflict, and inhibit aggression.",
+    low: "Is aggressive, competitive, and willing to fight for personal interests.",
+  },
+  "Modesty": {
+    factor: "A",
+    name: "Modesty",
+    high: "Is humble, self-effacing, and does not seek attention.",
+    low: "Believes in personal superiority and may come across as arrogant.",
+  },
+  "Tender-mindedness": {
+    factor: "A",
+    name: "Tender-mindedness",
+    high: "Is sympathetic and moved by others' needs; prioritizes the human side of decisions.",
+    low: "Is tough-minded and relies on rational logic over empathy in decision-making.",
+  },
+
+  // Neuroticism facets
+  "Anxiety": {
+    factor: "N",
+    name: "Anxiety",
+    high: "Is frequently worried, apprehensive, and prone to feeling tense.",
+    low: "Is calm, relaxed, and free from persistent worries.",
+  },
+  "Angry hostility": {
+    factor: "N",
+    name: "Angry hostility",
+    high: "Is easily angered, frustrated, and prone to irritability.",
+    low: "Is even-tempered and slow to anger.",
+  },
+  "Depression": {
+    factor: "N",
+    name: "Depression",
+    high: "Frequently experiences sadness, hopelessness, and guilt.",
+    low: "Rarely feels sad or dejected; maintains a positive mood.",
+  },
+  "Self-consciousness": {
+    factor: "N",
+    name: "Self-consciousness",
+    high: "Is easily embarrassed and overly sensitive to social evaluation.",
+    low: "Is comfortable in social situations and not bothered by what others think.",
+  },
+  "Impulsiveness": {
+    factor: "N",
+    name: "Impulsiveness",
+    high: "Has difficulty controlling cravings and urges.",
+    low: "Finds it easy to resist temptation and maintain self-control.",
+  },
+  "Vulnerability": {
+    factor: "N",
+    name: "Vulnerability",
+    high: "Feels unable to cope with stress and becomes dependent or panicky under pressure.",
+    low: "Feels capable of handling stressful situations calmly and effectively.",
+  },
+};
+
+export const factorDescriptions: Record<string, { name: string; high: string; low: string; description: string }> = {
+  O: {
+    name: "Openness to Experience",
+    high: "Imaginative, curious, and open to new ideas and experiences. Appreciates art, emotion, adventure, and unconventional perspectives.",
+    low: "Practical, conventional, and grounded. Prefers familiar routines and straightforward, concrete thinking.",
+    description: "Openness to Experience reflects the degree to which a person is intellectually curious, creative, and receptive to novel ideas, feelings, and experiences. High scorers tend to be imaginative and independent-minded; low scorers tend to be pragmatic and traditional.",
+  },
+  C: {
+    name: "Conscientiousness",
+    high: "Disciplined, organized, and dependable. Sets clear goals and follows through with determination and careful planning.",
+    low: "Flexible, spontaneous, and easygoing. May be less structured and more prone to acting on impulse.",
+    description: "Conscientiousness describes the tendency to be organized, responsible, and goal-directed. High scorers are reliable and hardworking; low scorers tend to be more laid-back and may prefer flexibility over structure.",
+  },
+  E: {
+    name: "Extraversion",
+    high: "Outgoing, energetic, and sociable. Enjoys being around people, seeks excitement, and expresses positive emotions easily.",
+    low: "Reserved, quiet, and independent. Prefers solitary activities and less stimulating environments.",
+    description: "Extraversion reflects the extent to which a person is energized by social interaction and external stimulation. High scorers are talkative, assertive, and enthusiastic; low scorers are more introspective and prefer solitude.",
+  },
+  A: {
+    name: "Agreeableness",
+    high: "Compassionate, cooperative, and trusting. Values getting along with others and tends to be considerate and helpful.",
+    low: "Competitive, skeptical, and challenging. Prioritizes personal interests and is more willing to engage in conflict.",
+    description: "Agreeableness reflects the tendency toward compassion, cooperation, and social harmony. High scorers are trusting and altruistic; low scorers are more analytical, competitive, and willing to challenge others.",
+  },
+  N: {
+    name: "Neuroticism",
+    high: "Sensitive to stress and prone to experiencing negative emotions such as anxiety, sadness, and irritability.",
+    low: "Emotionally stable, calm, and resilient. Handles stress well and rarely feels upset or overwhelmed.",
+    description: "Neuroticism describes the tendency to experience negative emotions and psychological distress. High scorers are more reactive to stress and experience more frequent mood fluctuations; low scorers are emotionally stable and even-tempered.",
+  },
+};
