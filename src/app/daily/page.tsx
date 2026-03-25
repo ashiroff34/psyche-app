@@ -81,6 +81,7 @@ interface DailyProgress {
   bestStreak: number;
   timeSpentMinutes: number;
   moduleScores: Record<string, { correct: number; total: number; xp: number }>;
+  nonQuizCompleted: string[]; // reflection/challenge node ids
 }
 
 interface DifficultyState {
@@ -727,6 +728,7 @@ export default function DailyPage() {
         bestStreak: prev?.bestStreak ?? 0,
         timeSpentMinutes: prev?.timeSpentMinutes ?? 0,
         moduleScores: prev?.moduleScores ?? {},
+        nonQuizCompleted: prev?.nonQuizCompleted ?? [],
         ...updates,
       };
       try { localStorage.setItem(`psyche-daily-${dateKey}`, JSON.stringify(updated)); } catch {}
@@ -1015,11 +1017,11 @@ export default function DailyPage() {
   // ── Build path units with sequential (Duolingo-style) locking ──
   const applySequentialStatus = (
     rawNodes: Omit<PathNodeConfig, "status">[],
-    isDone: (moduleId: string) => boolean
+    isNodeDone: (nodeId: string, moduleId: string | null) => boolean
   ): PathNodeConfig[] => {
-    let prevCompleted = true; // first node is always unlocked
+    let prevCompleted = true;
     return rawNodes.map((node) => {
-      const done = node.moduleId ? isDone(node.moduleId) : false;
+      const done = isNodeDone(node.id, node.moduleId);
       let status: PathNodeConfig["status"];
       if (done) {
         status = "completed";
@@ -1036,40 +1038,59 @@ export default function DailyPage() {
   const buildEnneagramUnits = (): PathUnit[] => {
     const wDone = dailyProgress?.warmupDone ?? false;
     const mDone = dailyProgress?.modulesCompleted ?? [];
-    const isDone = (id: string) => id === "warmup" ? wDone : mDone.includes(id);
+    const nqDone = dailyProgress?.nonQuizCompleted ?? [];
+    const isNodeDone = (id: string, moduleId: string | null) => {
+      if (moduleId === "warmup") return wDone;
+      if (moduleId) return mDone.includes(moduleId);
+      return nqDone.includes(id); // reflection/challenge
+    };
 
     const allRaw: Omit<PathNodeConfig, "status">[] = [
-      { id: "warmup",    moduleId: "warmup",    label: "Warm-Up",           sublabel: "5 quick questions",         xp: 50,  questionCount: 5,  unitName: "unit1", gradFrom: "#10b981", gradTo: "#6366f1" },
-      { id: "type",      moduleId: "type",      label: "Type Deep Dive",    sublabel: "Your Enneagram type",       xp: 100, questionCount: 20, unitName: "unit1", gradFrom: "#6366f1", gradTo: "#8b5cf6" },
-      { id: "cognitive", moduleId: "cognitive", label: "Cognitive Functions",sublabel: "Your function stack",      xp: 75,  questionCount: 15, unitName: "unit2", gradFrom: "#6366f1", gradTo: "#8b5cf6" },
-      { id: "cross",     moduleId: "cross",     label: "Cross-System",      sublabel: "Where systems meet",       xp: 90,  questionCount: 12, unitName: "unit2", gradFrom: "#8b5cf6", gradTo: "#d946ef" },
-      { id: "history",   moduleId: "history",   label: "History & Theory",  sublabel: "Origins of the systems",   xp: 75,  questionCount: 12, unitName: "unit3", gradFrom: "#8b5cf6", gradTo: "#ec4899" },
+      { id: "warmup",         moduleId: "warmup",    nodeType: "quiz",       label: "Warm-Up",            sublabel: "5 quick questions",              xp: 50,  questionCount: 5,  unitName: "unit1", gradFrom: "#10b981", gradTo: "#6366f1" },
+      { id: "type",           moduleId: "type",      nodeType: "quiz",       label: "Type Deep Dive",     sublabel: "Your Enneagram type",             xp: 100, questionCount: 20, unitName: "unit1", gradFrom: "#6366f1", gradTo: "#8b5cf6" },
+      { id: "e-reflection-1", moduleId: null,        nodeType: "reflection", label: "Reflection",         sublabel: "Journal your type experience",    xp: 40,  questionCount: 0,  unitName: "unit1", gradFrom: "#8b5cf6", gradTo: "#a78bfa",
+        prompt: "How did your Enneagram type show up in your thoughts and behaviors today? What patterns did you notice, and what might they be telling you about your core motivations?" },
+      { id: "cognitive",      moduleId: "cognitive", nodeType: "quiz",       label: "Cognitive Functions",sublabel: "Your function stack",              xp: 75,  questionCount: 15, unitName: "unit2", gradFrom: "#6366f1", gradTo: "#8b5cf6" },
+      { id: "cross",          moduleId: "cross",     nodeType: "quiz",       label: "Cross-System",       sublabel: "Where Enneagram meets Jung",      xp: 90,  questionCount: 12, unitName: "unit2", gradFrom: "#8b5cf6", gradTo: "#d946ef" },
+      { id: "e-challenge-1",  moduleId: null,        nodeType: "challenge",  label: "Growth Challenge",   sublabel: "Apply your insight to real life",  xp: 50,  questionCount: 0,  unitName: "unit2", gradFrom: "#d946ef", gradTo: "#ec4899",
+        prompt: "Describe a specific situation today where you can (or did) act from your growth direction rather than your stress direction. What would it look like to embody your integrated self right now?" },
+      { id: "history",        moduleId: "history",   nodeType: "bonus",      label: "Bonus: History",     sublabel: "Origins & theory deep dive",      xp: 75,  questionCount: 12, unitName: "unit3", gradFrom: "#8b5cf6", gradTo: "#ec4899" },
     ];
 
-    const nodes = applySequentialStatus(allRaw, isDone);
+    const nodes = applySequentialStatus(allRaw, isNodeDone);
     return [
-      { id: "unit1", name: "Foundations",       gradFrom: "#10b981", gradTo: "#6366f1", nodes: nodes.filter(n => n.unitName === "unit1") },
-      { id: "unit2", name: "Mind & Functions",  gradFrom: "#6366f1", gradTo: "#8b5cf6", nodes: nodes.filter(n => n.unitName === "unit2") },
-      { id: "unit3", name: "History & Depth",   gradFrom: "#8b5cf6", gradTo: "#ec4899", nodes: nodes.filter(n => n.unitName === "unit3") },
+      { id: "unit1", name: "Foundations",      gradFrom: "#10b981", gradTo: "#6366f1", nodes: nodes.filter(n => n.unitName === "unit1") },
+      { id: "unit2", name: "Mind & Growth",    gradFrom: "#6366f1", gradTo: "#d946ef", nodes: nodes.filter(n => n.unitName === "unit2") },
+      { id: "unit3", name: "History & Depth",  gradFrom: "#8b5cf6", gradTo: "#ec4899", nodes: nodes.filter(n => n.unitName === "unit3") },
     ];
   };
 
   const buildJungianUnits = (): PathUnit[] => {
     const wDone = dailyProgress?.warmupDone ?? false;
     const mDone = dailyProgress?.modulesCompleted ?? [];
-    const isDone = (id: string) => id === "warmup" ? wDone : mDone.includes(id);
+    const nqDone = dailyProgress?.nonQuizCompleted ?? [];
+    const isNodeDone = (id: string, moduleId: string | null) => {
+      if (moduleId === "warmup") return wDone;
+      if (moduleId) return mDone.includes(moduleId);
+      return nqDone.includes(id);
+    };
 
     const allRaw: Omit<PathNodeConfig, "status">[] = [
-      { id: "j-warmup",    moduleId: "warmup",    label: "Warm-Up",            sublabel: "5 quick questions",        xp: 50,  questionCount: 5,  unitName: "unit1", gradFrom: "#3b82f6", gradTo: "#6366f1" },
-      { id: "j-cognitive", moduleId: "cognitive", label: "Cognitive Functions", sublabel: "Your Jung function stack", xp: 75,  questionCount: 15, unitName: "unit1", gradFrom: "#6366f1", gradTo: "#8b5cf6" },
-      { id: "j-cross",     moduleId: "cross",     label: "Cross-System",        sublabel: "Systems integration",     xp: 90,  questionCount: 12, unitName: "unit2", gradFrom: "#8b5cf6", gradTo: "#d946ef" },
-      { id: "j-history",   moduleId: "history",   label: "History & Theory",    sublabel: "Origins of Jungian thought", xp: 75, questionCount: 12, unitName: "unit2", gradFrom: "#8b5cf6", gradTo: "#ec4899" },
+      { id: "j-warmup",       moduleId: "warmup",    nodeType: "quiz",       label: "Warm-Up",            sublabel: "5 quick questions",              xp: 50,  questionCount: 5,  unitName: "unit1", gradFrom: "#3b82f6", gradTo: "#6366f1" },
+      { id: "j-cognitive",    moduleId: "cognitive", nodeType: "quiz",       label: "Cognitive Functions",sublabel: "Your Jung function stack",        xp: 75,  questionCount: 15, unitName: "unit1", gradFrom: "#6366f1", gradTo: "#8b5cf6" },
+      { id: "j-reflection-1", moduleId: null,        nodeType: "reflection", label: "Reflection",         sublabel: "Journal your function stack",     xp: 40,  questionCount: 0,  unitName: "unit1", gradFrom: "#8b5cf6", gradTo: "#a78bfa",
+        prompt: "How did your dominant cognitive function influence the way you processed information or made decisions today? Notice any tension between your dominant and inferior functions." },
+      { id: "j-cross",        moduleId: "cross",     nodeType: "quiz",       label: "Cross-System",       sublabel: "Systems integration",             xp: 90,  questionCount: 12, unitName: "unit2", gradFrom: "#8b5cf6", gradTo: "#d946ef" },
+      { id: "j-history",      moduleId: "history",   nodeType: "quiz",       label: "History & Theory",   sublabel: "Origins of Jungian thought",      xp: 75,  questionCount: 12, unitName: "unit2", gradFrom: "#8b5cf6", gradTo: "#ec4899" },
+      { id: "j-challenge-1",  moduleId: null,        nodeType: "challenge",  label: "Shadow Work",        sublabel: "Engage your inferior function",   xp: 50,  questionCount: 0,  unitName: "unit2", gradFrom: "#ec4899", gradTo: "#f43f5e",
+        prompt: "Describe a moment today when your inferior function created friction or discomfort. What triggered it? What would it look like to approach it with curiosity rather than avoidance?" },
+      { id: "j-bonus",        moduleId: "cross",     nodeType: "bonus",      label: "Bonus Round",        sublabel: "Extra cross-system challenge",     xp: 60,  questionCount: 12, unitName: "unit2", gradFrom: "#f43f5e", gradTo: "#8b5cf6" },
     ];
 
-    const nodes = applySequentialStatus(allRaw, isDone);
+    const nodes = applySequentialStatus(allRaw, isNodeDone);
     return [
       { id: "jungian1", name: "Function Stack", gradFrom: "#3b82f6", gradTo: "#6366f1", nodes: nodes.filter(n => n.unitName === "unit1") },
-      { id: "jungian2", name: "Type Theory",    gradFrom: "#6366f1", gradTo: "#8b5cf6", nodes: nodes.filter(n => n.unitName === "unit2") },
+      { id: "jungian2", name: "Integration",    gradFrom: "#6366f1", gradTo: "#f43f5e", nodes: nodes.filter(n => n.unitName === "unit2") },
     ];
   };
 
@@ -1094,6 +1115,16 @@ export default function DailyPage() {
       setView("quiz");
       setActiveTab("deep");
     }
+  };
+
+  // ── Complete a reflection/challenge node ──
+  const completeNonQuizNode = (node: PathNodeConfig) => {
+    const existing = dailyProgress?.nonQuizCompleted ?? [];
+    if (existing.includes(node.id)) return;
+    saveProgress({ nonQuizCompleted: [...existing, node.id] });
+    gameEarnXP(node.xp, "reflection");
+    addXP(node.xp);
+    setSessionXP(prev => prev + node.xp);
   };
 
   if (!loaded) return null;
@@ -1273,7 +1304,13 @@ export default function DailyPage() {
           node={bottomSheetNode}
           onClose={() => setBottomSheetNode(null)}
           onStart={startNode}
-          isCompleted={(id) => (dailyProgress?.modulesCompleted ?? []).includes(id)}
+          onCompleteNonQuiz={completeNonQuizNode}
+          isCompleted={(id) => {
+            const nq = dailyProgress?.nonQuizCompleted ?? [];
+            const m = dailyProgress?.modulesCompleted ?? [];
+            const w = dailyProgress?.warmupDone ?? false;
+            return nq.includes(id) || m.includes(id) || (id === "warmup" && w);
+          }}
         />
         {/* Stats link */}
         <div className="fixed bottom-20 right-4 z-30">
@@ -1316,7 +1353,13 @@ export default function DailyPage() {
           node={bottomSheetNode}
           onClose={() => setBottomSheetNode(null)}
           onStart={startNode}
-          isCompleted={(id) => (dailyProgress?.modulesCompleted ?? []).includes(id)}
+          onCompleteNonQuiz={completeNonQuizNode}
+          isCompleted={(id) => {
+            const nq = dailyProgress?.nonQuizCompleted ?? [];
+            const m = dailyProgress?.modulesCompleted ?? [];
+            const w = dailyProgress?.warmupDone ?? false;
+            return nq.includes(id) || m.includes(id) || (id === "warmup" && w);
+          }}
         />
       </div>
     );

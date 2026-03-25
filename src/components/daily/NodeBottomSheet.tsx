@@ -1,33 +1,65 @@
 "use client";
 
+import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, Play, RotateCcw, Lock, CheckCircle, Clock, Zap } from "lucide-react";
+import { X, Play, RotateCcw, Lock, CheckCircle, Clock, Zap, PenLine, Target, Sparkles } from "lucide-react";
 
 export interface PathNodeConfig {
   id: string;
   label: string;
   sublabel: string;
   status: "completed" | "current" | "locked";
+  nodeType: "quiz" | "reflection" | "challenge" | "bonus";
   xp: number;
   questionCount: number;
-  moduleId: string | null; // null for non-quiz nodes (insight/challenge)
+  moduleId: string | null;
   unitName: string;
   gradFrom: string;
   gradTo: string;
+  prompt?: string; // for reflection/challenge nodes
 }
 
 interface Props {
   node: PathNodeConfig | null;
   onClose: () => void;
   onStart: (node: PathNodeConfig) => void;
-  isCompleted: (moduleId: string) => boolean;
+  onCompleteNonQuiz: (node: PathNodeConfig, text: string) => void;
+  isCompleted: (nodeId: string) => boolean;
 }
 
-export default function NodeBottomSheet({ node, onClose, onStart, isCompleted }: Props) {
+const MIN_WORDS = 50;
+
+function countWords(text: string): number {
+  return text.trim().split(/\s+/).filter(Boolean).length;
+}
+
+export default function NodeBottomSheet({ node, onClose, onStart, onCompleteNonQuiz, isCompleted }: Props) {
+  const [reflectionText, setReflectionText] = useState("");
+  const [submitted, setSubmitted] = useState(false);
+
   if (!node) return null;
 
-  const done = node.moduleId ? isCompleted(node.moduleId) : node.status === "completed";
+  const done = isCompleted(node.id);
   const locked = node.status === "locked";
+  const isNonQuiz = node.nodeType === "reflection" || node.nodeType === "challenge";
+  const wordCount = countWords(reflectionText);
+  const wordsMet = wordCount >= MIN_WORDS;
+
+  const NodeIcon = node.nodeType === "reflection" ? PenLine
+    : node.nodeType === "challenge" ? Target
+    : node.nodeType === "bonus" ? Sparkles
+    : Play;
+
+  const handleSubmitReflection = () => {
+    if (!wordsMet) return;
+    setSubmitted(true);
+    onCompleteNonQuiz(node, reflectionText);
+    setTimeout(() => {
+      setSubmitted(false);
+      setReflectionText("");
+      onClose();
+    }, 1200);
+  };
 
   return (
     <AnimatePresence>
@@ -48,15 +80,15 @@ export default function NodeBottomSheet({ node, onClose, onStart, isCompleted }:
             animate={{ y: 0 }}
             exit={{ y: "100%" }}
             transition={{ type: "spring", damping: 28, stiffness: 300 }}
-            className="fixed bottom-0 left-0 right-0 z-50 bg-white rounded-t-3xl shadow-2xl pb-safe"
-            style={{ maxWidth: 640, margin: "0 auto" }}
+            className="fixed bottom-0 left-0 right-0 z-50 bg-white rounded-t-3xl shadow-2xl"
+            style={{ maxWidth: 640, margin: "0 auto", maxHeight: "85vh", overflowY: "auto" }}
           >
             {/* Handle */}
-            <div className="flex justify-center pt-3 pb-1">
+            <div className="flex justify-center pt-3 pb-1 sticky top-0 bg-white z-10">
               <div className="w-10 h-1 rounded-full bg-slate-200" />
             </div>
 
-            <div className="px-6 pb-8 pt-2">
+            <div className="px-6 pb-10 pt-2">
               {/* Header */}
               <div className="flex items-start justify-between mb-5">
                 <div className="flex items-center gap-3">
@@ -96,7 +128,7 @@ export default function NodeBottomSheet({ node, onClose, onStart, isCompleted }:
                       ) : done ? (
                         <CheckCircle className="w-5 h-5 text-white" />
                       ) : (
-                        <Play className="w-5 h-5 text-white ml-0.5" />
+                        <NodeIcon className="w-5 h-5 text-white" />
                       )}
                     </div>
                   </div>
@@ -117,8 +149,8 @@ export default function NodeBottomSheet({ node, onClose, onStart, isCompleted }:
                 </button>
               </div>
 
-              {/* Stats row */}
-              {!locked && node.questionCount > 0 && (
+              {/* Stats row for quiz nodes */}
+              {!locked && node.nodeType !== "reflection" && node.nodeType !== "challenge" && node.questionCount > 0 && (
                 <div className="flex gap-3 mb-5">
                   <div className="flex-1 flex items-center gap-2 p-3 rounded-xl bg-slate-50">
                     <Clock className="w-4 h-4 text-slate-400" />
@@ -134,12 +166,29 @@ export default function NodeBottomSheet({ node, onClose, onStart, isCompleted }:
                 </div>
               )}
 
-              {/* Action buttons */}
-              {locked ? (
+              {/* XP pill for non-quiz nodes */}
+              {!locked && isNonQuiz && (
+                <div className="flex gap-3 mb-5">
+                  <div className="flex items-center gap-2 px-3 py-2 rounded-xl bg-slate-50">
+                    <Zap className="w-4 h-4 text-amber-500" />
+                    <span className="text-sm text-slate-600">+{node.xp} XP for completing</span>
+                  </div>
+                  <div className="flex items-center gap-2 px-3 py-2 rounded-xl bg-slate-50">
+                    <PenLine className="w-4 h-4 text-slate-400" />
+                    <span className="text-sm text-slate-600">Min. {MIN_WORDS} words</span>
+                  </div>
+                </div>
+              )}
+
+              {/* Locked state */}
+              {locked && (
                 <div className="w-full py-4 rounded-2xl bg-slate-100 text-slate-400 text-center font-medium text-sm">
                   Complete previous lessons to unlock
                 </div>
-              ) : (
+              )}
+
+              {/* Quiz node — Start / Practice Again */}
+              {!locked && !isNonQuiz && (
                 <button
                   onClick={() => onStart(node)}
                   className="w-full py-4 rounded-2xl font-semibold text-white text-base transition-all active:scale-[0.98]"
@@ -158,6 +207,62 @@ export default function NodeBottomSheet({ node, onClose, onStart, isCompleted }:
                     </span>
                   )}
                 </button>
+              )}
+
+              {/* Reflection / Challenge node — textarea + word count */}
+              {!locked && isNonQuiz && !done && !submitted && (
+                <div className="space-y-3">
+                  {node.prompt && (
+                    <p className="text-sm text-slate-600 leading-relaxed bg-slate-50 p-4 rounded-xl italic">
+                      &ldquo;{node.prompt}&rdquo;
+                    </p>
+                  )}
+                  <textarea
+                    className="w-full h-36 p-4 rounded-2xl border border-slate-200 text-sm text-slate-800 placeholder-slate-300 resize-none focus:outline-none focus:border-violet-300 focus:ring-2 focus:ring-violet-100 transition"
+                    placeholder="Write your reflection here..."
+                    value={reflectionText}
+                    onChange={(e) => setReflectionText(e.target.value)}
+                  />
+                  <div className="flex items-center justify-between px-1">
+                    <span className={`text-xs font-medium ${wordsMet ? "text-emerald-600" : "text-slate-400"}`}>
+                      {wordCount} / {MIN_WORDS} words {wordsMet && "✓"}
+                    </span>
+                    {!wordsMet && (
+                      <span className="text-xs text-slate-400">{MIN_WORDS - wordCount} more to go</span>
+                    )}
+                  </div>
+                  <button
+                    disabled={!wordsMet}
+                    onClick={handleSubmitReflection}
+                    className={`w-full py-4 rounded-2xl font-semibold text-white text-base transition-all ${
+                      wordsMet ? "active:scale-[0.98]" : "opacity-40 cursor-not-allowed"
+                    }`}
+                    style={wordsMet ? {
+                      background: `linear-gradient(135deg, ${node.gradFrom}, ${node.gradTo})`,
+                      boxShadow: `0 4px 20px ${node.gradFrom}55`,
+                    } : { background: "#94a3b8" }}
+                  >
+                    Mark Complete
+                  </button>
+                </div>
+              )}
+
+              {/* Already done non-quiz */}
+              {!locked && isNonQuiz && done && (
+                <div className="w-full py-4 rounded-2xl bg-emerald-50 text-emerald-700 text-center font-semibold text-sm flex items-center justify-center gap-2">
+                  <CheckCircle className="w-4 h-4" /> Completed today
+                </div>
+              )}
+
+              {/* Submitted animation */}
+              {submitted && (
+                <motion.div
+                  initial={{ scale: 0.9, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  className="w-full py-4 rounded-2xl bg-emerald-50 text-emerald-700 text-center font-semibold text-sm flex items-center justify-center gap-2"
+                >
+                  <CheckCircle className="w-4 h-4" /> Saved! +{node.xp} XP
+                </motion.div>
               )}
             </div>
           </motion.div>
