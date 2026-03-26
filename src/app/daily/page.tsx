@@ -574,7 +574,7 @@ const colorMap: Record<string, { bg: string; border: string; text: string; light
    ═══════════════════════════════════════════════════════════════════════════ */
 export default function DailyPage() {
   const { profile, loaded, trackVisit, markQuizComplete, addXP } = useProfile();
-  const { state: gameStateRaw, earnXP: gameEarnXP, loseHeart, buyHearts, xpGainAnimation, completeReading } = useGameState();
+  const { state: gameStateRaw, earnXP: gameEarnXP, loseHeart, buyHearts, xpGainAnimation, completeReading, recordTokenDrop, bumpSessionCount } = useGameState();
   const enneagramTypeForPet = profile.enneagramType ?? profile.enneagramCore;
   const { petState: livePetState } = usePetState(enneagramTypeForPet);
 
@@ -868,6 +868,7 @@ export default function DailyPage() {
   const nextWarmupQuestion = () => {
     if (warmupQ + 1 >= warmupQuestions.length) {
       setWarmupDone(true);
+      bumpSessionCount();
       saveProgress({ warmupDone: true });
 
       // Perfect section bonus
@@ -952,6 +953,7 @@ export default function DailyPage() {
   const nextModuleQuestion = () => {
     if (moduleQ + 1 >= moduleQuestions.length) {
       setModuleDone(true);
+      bumpSessionCount();
       const correctCount = moduleAnswers.filter(Boolean).length + (moduleSelected === moduleQuestions[moduleQ].ans ? 1 : 0);
       const totalCount = moduleAnswers.length + 1;
       const timeSpent = Math.round((Date.now() - moduleStartTime) / 60000);
@@ -1493,6 +1495,8 @@ export default function DailyPage() {
               instinct={(profile as Record<string, unknown>).instinct as string ?? "sp"}
               onBuyHearts={buyHearts}
               gameState={gameStateRaw}
+              sessionsSinceTokenDrop={gameStateRaw.sessionsSinceTokenDrop ?? 0}
+              onTokenDropClaimed={(amount) => recordTokenDrop(amount)}
             />
           </motion.div>
         )}

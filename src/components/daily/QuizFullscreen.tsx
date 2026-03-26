@@ -8,6 +8,7 @@ import ChibiSprite from "@/components/ChibiSprite";
 import type { ChibiState } from "@/components/ChibiSprite";
 import BadgeProgressCard from "@/components/daily/BadgeProgressCard";
 import { getBadgeProgress, type GameState, type BadgeProgress } from "@/hooks/useGameState";
+import TokenDropOverlay, { rollTokenDrop, type TokenDrop } from "@/components/daily/TokenDropOverlay";
 
 interface Question {
   id: string;
@@ -43,6 +44,8 @@ interface Props {
   instinct?: string;        // e.g. "sp", "so", "sx"
   onBuyHearts?: () => void;
   gameState?: GameState; // for badge progress hints
+  sessionsSinceTokenDrop?: number;
+  onTokenDropClaimed?: (amount: number) => void;
 }
 
 export default function QuizFullscreen({
@@ -67,9 +70,14 @@ export default function QuizFullscreen({
   instinct = "sp",
   onBuyHearts,
   gameState,
+  sessionsSinceTokenDrop = 0,
+  onTokenDropClaimed,
 }: Props) {
   const router = useRouter();
   const q = questions[currentIdx];
+
+  const [tokenDrop, setTokenDrop] = useState<TokenDrop | null | undefined>(undefined);
+  const [tokenDropRolled, setTokenDropRolled] = useState(false);
 
   // ── Countdown to next heart ────────────────────────────────────────────────
   const [nextHeartSecs, setNextHeartSecs] = useState<number | null>(null);
@@ -101,6 +109,13 @@ export default function QuizFullscreen({
     const isPerfect = correctCount === totalCount;
     const beatPersonalBest = currentStreak > 0 && longestStreak > 0 && currentStreak >= longestStreak;
     const nearBadges: BadgeProgress[] = gameState ? getBadgeProgress(gameState) : [];
+
+    // Roll token drop once when completion screen first renders
+    if (!tokenDropRolled) {
+      setTokenDropRolled(true);
+      const drop = rollTokenDrop(sessionsSinceTokenDrop);
+      setTokenDrop(drop ?? null);
+    }
 
     return (
       <div className="fixed inset-0 z-50 bg-white flex flex-col items-center justify-center px-6" style={{ maxWidth: 640, margin: "0 auto" }}>
@@ -187,6 +202,13 @@ export default function QuizFullscreen({
             Back to Path <ArrowRight className="w-5 h-5" />
           </motion.button>
         </motion.div>
+        <TokenDropOverlay
+          drop={tokenDrop ?? null}
+          onClaim={(amount) => {
+            setTokenDrop(null);
+            onTokenDropClaimed?.(amount);
+          }}
+        />
       </div>
     );
   }

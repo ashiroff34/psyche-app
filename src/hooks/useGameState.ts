@@ -83,6 +83,9 @@ export interface GameState {
   totalTokensEarned: number;
   totalTokensSpent: number;
   accountCreated: string;
+
+  // Token drop pity counter
+  sessionsSinceTokenDrop: number;
 }
 
 // ─── Constants ───────────────────────────────────────────────────────────────
@@ -444,6 +447,7 @@ function createDefaultState(): GameState {
     totalTokensEarned: 50,
     totalTokensSpent: 0,
     accountCreated: getToday(),
+    sessionsSinceTokenDrop: 0,
   };
 }
 
@@ -664,6 +668,25 @@ export function useGameState() {
     },
     [update]
   );
+
+  const recordTokenDrop = useCallback(
+    (amount: number) => {
+      update((prev) => ({
+        ...prev,
+        tokens: prev.tokens + amount,
+        totalTokensEarned: prev.totalTokensEarned + amount,
+        sessionsSinceTokenDrop: 0,
+      }));
+    },
+    [update]
+  );
+
+  const bumpSessionCount = useCallback(() => {
+    update((prev) => ({
+      ...prev,
+      sessionsSinceTokenDrop: (prev.sessionsSinceTokenDrop ?? 0) + 1,
+    }));
+  }, [update]);
 
   const earnTokens = useCallback(
     (amount: number, _source: string) => {
@@ -1139,6 +1162,8 @@ export function useGameState() {
     // Tokens
     spendTokens,
     earnTokens,
+    recordTokenDrop,
+    bumpSessionCount,
 
     // Streaks
     checkStreak,
