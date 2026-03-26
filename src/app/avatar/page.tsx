@@ -31,6 +31,7 @@ import {
   Zap,
 } from "lucide-react";
 import { useProfile } from "@/hooks/useProfile";
+import { assetPath } from "@/lib/assetPath";
 import { useGameState } from "@/hooks/useGameState";
 import {
   usePetState,
@@ -83,7 +84,7 @@ const pulseGlow = {
 
 function getChibiPath(type: number, instinct: string): string {
   const inst = instinct?.toLowerCase().slice(0, 2) || "sp";
-  return `/sprites/chibi/${type}-${inst}${type}.png`;
+  return assetPath(`/sprites/chibi/${type}-${inst}${type}.png`);
 }
 
 function getDominantInstinct(stacking?: string): string {

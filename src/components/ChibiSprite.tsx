@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
+import { assetPath } from "@/lib/assetPath";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -57,7 +58,7 @@ export default function ChibiSprite({
 
   // Build path: e.g. /sprites/chibi/5-so5.png
   const inst = instinct?.toLowerCase().slice(0, 2) || "sp";
-  const src = `/sprites/chibi/${type}-${inst}${type}.png`;
+  const src = assetPath(`/sprites/chibi/${type}-${inst}${type}.png`);
 
   let animate: Record<string, number[]> = IDLE_ANIMATE;
   let transition: Record<string, unknown> = IDLE_TRANSITION;

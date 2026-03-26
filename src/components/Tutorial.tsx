@@ -6,8 +6,10 @@ import { ChevronRight, ChevronLeft, Sparkles, RotateCcw, X, Hand, Home, Flame, C
 import OuroborosLogo from "@/components/OuroborosLogo";
 import Image from "next/image";
 
-const CB = "/sprites/chibi";
-const SS = "/tutorial";
+import { assetPath } from "@/lib/assetPath";
+
+const CB = assetPath("/sprites/chibi");
+const SS = assetPath("/tutorial");
 
 /* ═══════════════════════════════════════════════════════════════════════════
    SLIDE DATA — each slide matches its screenshot exactly

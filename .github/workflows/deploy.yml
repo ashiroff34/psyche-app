@@ -35,6 +35,7 @@ jobs:
         run: npm run build
         env:
           GITHUB_PAGES: "true"
+          NEXT_PUBLIC_BASE_PATH: "/psyche-app"
 
       - name: Upload artifact
         if: github.ref == 'refs/heads/main'

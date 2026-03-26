@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   title: "Thyself — Discover Your Mind",
   description:
     "Explore your personality through the Enneagram and Carl Jung's Cognitive Functions. AI-powered assessments, deep learning resources, and growth tools.",
-  manifest: "/manifest.json",
+  manifest: `${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}/manifest.json`,
   themeColor: "#0ea5e9",
   viewport: {
     width: "device-width",
@@ -39,8 +39,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
-        <link rel="apple-touch-icon" href="/apple-icon-180.png" sizes="180x180" />
+        <link rel="icon" href={`${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}/favicon-32.png`} sizes="32x32" type="image/png" />
+        <link rel="apple-touch-icon" href={`${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}/apple-icon-180.png`} sizes="180x180" />
         <link
           href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap"
           rel="stylesheet"
