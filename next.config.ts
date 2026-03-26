@@ -4,12 +4,12 @@ const isGithubPages = process.env.GITHUB_PAGES === "true";
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
+  output: "export",
   images: {
     unoptimized: true,
   },
-  // Static export for GitHub Pages
+  // Only set basePath/assetPrefix for GitHub Pages deployment
   ...(isGithubPages && {
-    output: "export",
     basePath: "/psyche-app",
     assetPrefix: "/psyche-app",
   }),
