@@ -139,7 +139,12 @@ function EquipmentSlot({ slot, equippedItemId, icon, label, onUnequip, onBrowse 
       >
         {item ? (
           <>
-            <span className="group-hover:opacity-0 transition-opacity">{item.emoji}</span>
+            {item.png ? (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img src={assetPath(`/shop/${item.png}.png`)} alt={item.name} className="w-9 h-9 object-contain group-hover:opacity-0 transition-opacity" />
+            ) : (
+              <span className="group-hover:opacity-0 transition-opacity">{item.emoji}</span>
+            )}
             <X className="w-4 h-4 text-rose-400 absolute opacity-0 group-hover:opacity-100 transition-opacity" />
           </>
         ) : (
@@ -185,7 +190,12 @@ function ShopItemCard({
       <div className={`w-full aspect-square rounded-lg mb-3 flex items-center justify-center text-4xl ${
         item.gradient ? `bg-gradient-to-br ${item.gradient}` : "bg-slate-700/40"
       }`}>
-        {item.emoji}
+        {item.png ? (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img src={assetPath(`/shop/${item.png}.png`)} alt={item.name} className="w-4/5 h-4/5 object-contain" />
+        ) : (
+          item.emoji
+        )}
       </div>
 
       {/* Info */}

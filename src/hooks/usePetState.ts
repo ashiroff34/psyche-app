@@ -127,15 +127,16 @@ export interface OutfitItem {
   emoji: string; // preview emoji
   cssClass: string; // visual representation class
   gradient?: string; // for backgrounds
+  png?: string; // shop/shop PNG filename (without extension), e.g. "hat-crown"
 }
 
 export const OUTFIT_ITEMS: OutfitItem[] = [
   // Hats
-  { id: "crown", name: "Crown", category: "hat", cost: 50, description: "A golden crown for royalty", emoji: "\u{1F451}", cssClass: "hat-crown" },
-  { id: "wizard-hat", name: "Wizard Hat", category: "hat", cost: 40, description: "Mystical purple wizard hat", emoji: "\u{1FA84}", cssClass: "hat-wizard" },
-  { id: "flower-crown", name: "Flower Crown", category: "hat", cost: 30, description: "A delicate ring of flowers", emoji: "\u{1F33A}", cssClass: "hat-flowers" },
-  { id: "santa-hat", name: "Santa Hat", category: "hat", cost: 60, description: "Ho ho ho! Seasonal special", emoji: "\u{1F385}", cssClass: "hat-santa" },
-  { id: "cat-ears", name: "Cat Ears", category: "hat", cost: 25, description: "Kawaii cat ear headband", emoji: "\u{1F63B}", cssClass: "hat-cat-ears" },
+  { id: "crown", name: "Crown", category: "hat", cost: 50, description: "A golden crown for royalty", emoji: "\u{1F451}", cssClass: "hat-crown", png: "hat-crown" },
+  { id: "wizard-hat", name: "Wizard Hat", category: "hat", cost: 40, description: "Mystical purple wizard hat", emoji: "\u{1FA84}", cssClass: "hat-wizard", png: "hat-wizard" },
+  { id: "flower-crown", name: "Flower Crown", category: "hat", cost: 30, description: "A delicate ring of flowers", emoji: "\u{1F33A}", cssClass: "hat-flowers", png: "hat-flower" },
+  { id: "santa-hat", name: "Santa Hat", category: "hat", cost: 60, description: "Ho ho ho! Seasonal special", emoji: "\u{1F385}", cssClass: "hat-santa", png: "hat-santa" },
+  { id: "cat-ears", name: "Cat Ears", category: "hat", cost: 25, description: "Kawaii cat ear headband", emoji: "\u{1F63B}", cssClass: "hat-cat-ears", png: "hat-catears" },
 
   // Outfits (borders/frames)
   { id: "galaxy-frame", name: "Galaxy Frame", category: "outfit", cost: 80, description: "Swirling cosmic border", emoji: "\u{1F30C}", cssClass: "frame-galaxy", gradient: "from-indigo-600 via-purple-600 to-pink-500" },
