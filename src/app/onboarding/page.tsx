@@ -714,15 +714,6 @@ export default function OnboardingPage() {
             </button>
           )}
 
-          {isLastStep && (
-            <button
-              onClick={() => { markComplete(displayName, email); router.push("/enneagram/assess"); }}
-              className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-sky-500 to-indigo-500 text-white rounded-2xl font-semibold shadow-lg shadow-sky-200/50 hover:shadow-xl hover:-translate-y-0.5 transition-all"
-            >
-              Start Enneagram Assessment
-              <ArrowRight className="w-4 h-4" />
-            </button>
-          )}
         </div>
       </div>
     </div>

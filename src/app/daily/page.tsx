@@ -12,6 +12,7 @@ import {
 } from "lucide-react";
 import { useProfile } from "@/hooks/useProfile";
 import { useGameState } from "@/hooks/useGameState";
+import { usePetState } from "@/hooks/usePetState";
 import PetSprite from "@/components/PetSprite";
 import NextStepBanner from "@/components/NextStepBanner";
 import BeginnerBanner from "@/components/BeginnerBanner";
@@ -574,6 +575,8 @@ const colorMap: Record<string, { bg: string; border: string; text: string; light
 export default function DailyPage() {
   const { profile, loaded, trackVisit, markQuizComplete, addXP } = useProfile();
   const { state: gameStateRaw, earnXP: gameEarnXP, loseHeart, buyHearts, xpGainAnimation, completeReading } = useGameState();
+  const enneagramTypeForPet = profile.enneagramType ?? profile.enneagramCore;
+  const { petState: livePetState } = usePetState(enneagramTypeForPet);
 
   // ── View state (hub / path / quiz) ──
   const [view, setView] = useState<"hub" | "path" | "quiz" | "reading">("hub");
@@ -619,14 +622,14 @@ export default function DailyPage() {
   // Streak freezes (from psyche-game-state)
   const [streakFreezes, setStreakFreezes] = useState<number>(0);
 
-  // Pet state (from psyche-pet-state)
-  const [petWidget, setPetWidget] = useState<{
-    name: string;
-    petType: number; // for PetSprite
-    health: number;
-    hunger: number;
-    isAlive: boolean;
-  } | null>(null);
+  // Pet widget — derived live from usePetState hook (always in sync)
+  const petWidget = livePetState ? {
+    name: livePetState.name,
+    petType: livePetState.type,
+    health: livePetState.health,
+    hunger: livePetState.hunger,
+    isAlive: livePetState.isAlive,
+  } : null;
 
   // Daily Insight (static, from curated collection)
   const [dailyInsightData, setDailyInsightData] = useState<{ quote: string; author: string; reflection: string; category: string } | null>(null);
@@ -682,22 +685,6 @@ export default function DailyPage() {
         setStreakFreezes(typeof gs.streakFreezes === "number" ? gs.streakFreezes : 0);
         setGameStreak(typeof gs.streakCount === "number" ? gs.streakCount : 0);
         setGameXP(typeof gs.xp === "number" ? gs.xp : 0);
-      }
-    } catch {}
-
-    // Load pet state for widget
-    try {
-      const raw = localStorage.getItem("psyche-pet-state");
-      if (raw) {
-        const ps = JSON.parse(raw);
-        const petType = typeof ps.type === "number" ? ps.type : 1;
-        setPetWidget({
-          name: typeof ps.name === "string" ? ps.name : "Your pet",
-          petType,
-          health: typeof ps.health === "number" ? ps.health : 100,
-          hunger: typeof ps.hunger === "number" ? ps.hunger : 100,
-          isAlive: ps.isAlive !== false,
-        });
       }
     } catch {}
 

@@ -219,7 +219,7 @@ export default function TutorialOverlay({ onClose }: { onClose: () => void }) {
           <span className="text-white font-semibold text-sm">App Tour</span>
         </div>
         <div className="flex items-center gap-2">
-          <button onClick={handleSkip} className="text-white/40 hover:text-white text-[11px] font-medium transition-all">Skip</button>
+          <button onClick={handleSkip} className="px-3 py-1 rounded-lg bg-white/15 hover:bg-white/25 text-white text-xs font-semibold transition-all">Skip Tutorial</button>
           <span className="text-white/50 text-[11px]">{idx + 1} / {SLIDES.length}</span>
           <button onClick={onClose} className="p-1 rounded-lg text-white/40 hover:text-white hover:bg-white/20 transition-all">
             <X className="w-4 h-4" />

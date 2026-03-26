@@ -243,6 +243,7 @@ export default function AvatarPage() {
   const { petState, loaded: petLoaded, feedPet, playWithPet, giveMedicine, revivePet, renamePet, buyItem, equipItem, unequipItem } = usePetState(enneagramType);
 
   const [activeShopCategory, setActiveShopCategory] = useState<OutfitCategory | "all">("all");
+  const [showInventory, setShowInventory] = useState(false);
   const [editingName, setEditingName] = useState(false);
   const [nameInput, setNameInput] = useState("");
   const [actionFeedback, setActionFeedback] = useState<string | null>(null);
@@ -327,7 +328,13 @@ export default function AvatarPage() {
 
   const handleBuy = (itemId: string) => {
     const ok = buyItem(itemId, spendTokens);
-    setPurchaseFeedback(ok ? "Purchased!" : "Not enough tokens!");
+    if (ok) {
+      equipItem(itemId); // auto-equip on purchase
+      setPurchaseFeedback("Purchased & equipped!");
+      setShowInventory(true);
+    } else {
+      setPurchaseFeedback("Not enough tokens!");
+    }
   };
 
   const handleEquip = (itemId: string) => {
@@ -571,6 +578,74 @@ export default function AvatarPage() {
             </div>
           )}
         </motion.section>
+
+        {/* ── INVENTORY ─────────────────────────────────────────────────────── */}
+        {(petState?.ownedItems?.length ?? 0) > 0 && (
+          <motion.section {...fadeUp} transition={{ delay: 0.18, duration: 0.5 }}>
+            <button
+              onClick={() => setShowInventory(v => !v)}
+              className="w-full flex items-center justify-between mb-3"
+            >
+              <h2 className="text-lg font-bold text-white flex items-center gap-2">
+                <ShoppingBag className="w-5 h-5 text-amber-400" />
+                Inventory
+                <span className="text-xs font-normal text-slate-400 bg-slate-700/50 px-2 py-0.5 rounded-full">
+                  {petState!.ownedItems.length} item{petState!.ownedItems.length !== 1 ? "s" : ""}
+                </span>
+              </h2>
+              <ChevronDown className={`w-4 h-4 text-slate-400 transition-transform ${showInventory ? "rotate-180" : ""}`} />
+            </button>
+
+            <AnimatePresence>
+              {showInventory && (
+                <motion.div
+                  initial={{ opacity: 0, height: 0 }}
+                  animate={{ opacity: 1, height: "auto" }}
+                  exit={{ opacity: 0, height: 0 }}
+                  className="overflow-hidden"
+                >
+                  <div className="flex gap-3 overflow-x-auto pb-2 scrollbar-none">
+                    {petState!.ownedItems.map(itemId => {
+                      const item = OUTFIT_ITEMS.find(i => i.id === itemId);
+                      if (!item) return null;
+                      const isEquipped = Object.values(petState!.equippedItems).includes(itemId);
+                      return (
+                        <div key={itemId} className={`flex-shrink-0 w-24 rounded-xl p-2 border text-center transition-all ${
+                          isEquipped ? "border-indigo-400/60 bg-indigo-950/60" : "border-slate-700/40 bg-slate-800/40"
+                        }`}>
+                          <div className={`w-full aspect-square rounded-lg mb-1.5 flex items-center justify-center text-2xl ${
+                            item.gradient ? `bg-gradient-to-br ${item.gradient}` : "bg-slate-700/40"
+                          }`}>
+                            {item.png ? (
+                              // eslint-disable-next-line @next/next/no-img-element
+                              <img src={assetPath(`/shop/${item.png}.png`)} alt={item.name} className="w-4/5 h-4/5 object-contain" />
+                            ) : item.emoji}
+                          </div>
+                          <p className="text-[10px] text-slate-300 font-medium truncate mb-1.5">{item.name}</p>
+                          {isEquipped ? (
+                            <button
+                              onClick={() => unequipItem(item.category)}
+                              className="w-full text-[10px] font-semibold text-indigo-300 bg-indigo-500/20 hover:bg-rose-500/20 hover:text-rose-300 rounded-md py-1 transition-colors"
+                            >
+                              Unequip
+                            </button>
+                          ) : (
+                            <button
+                              onClick={() => handleEquip(itemId)}
+                              className="w-full text-[10px] font-semibold text-emerald-300 bg-emerald-500/20 hover:bg-emerald-500/30 rounded-md py-1 transition-colors"
+                            >
+                              Equip
+                            </button>
+                          )}
+                        </div>
+                      );
+                    })}
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </motion.section>
+        )}
 
         {/* ══════════════════════════════════════════════════════════════════════ */}
         {/* ── YOUR PET SECTION ────────────────────────────────────────────────  */}
