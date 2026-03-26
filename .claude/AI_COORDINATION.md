@@ -213,6 +213,98 @@
 
 ---
 
+## Session: Full App Bug Audit + Opacity Fix (March 26, 2026)
+
+### What was done:
+
+**1. Fixed Daily page blank-on-load (critical visual bug):**
+- Root cause: `HubView.tsx` had all permanent content sections with `initial={{ opacity: 0 }}` in framer-motion. Combined with the `if (!loaded) return null` guard, every page load caused a 1-2 second blank flash.
+- Fix: Changed all permanent-content `motion.div` elements from `initial={{ opacity: 0, ... }}` → `initial={{ opacity: 1, ... }}`
+- Kept all `AnimatePresence` children with `opacity: 0` (they animate in/out intentionally)
+
+**2. Fixed duplicate `"use client"` in HubView.tsx:**
+- Lines 1 AND 3 both had `"use client"` — removed the duplicate
+
+**3. Fixed QuizFullscreen.tsx self-competition badge opacity:**
+- Badge section outside AnimatePresence had `initial={{ opacity: 0, y: 6 }}` → changed to `initial={{ opacity: 1, y: 0 }}`
+
+**4. Full 14-page interactive audit — all pages verified working:**
+- Home, Daily (Hub/Path/Reading/Quiz), Enneagram, Assess, Learn, Cognitive, Compare, Journal, Dashboard, Store, Game, Avatar, Profile, History, Settings
+- Node tap → NodeBottomSheet → QuizFullscreen → answer → XP toast → Correct explanation: all working
+- Zero console errors after fixes (only the known XPCelebration hooks order warning, non-crashing)
+
+**5. Committed all fixes + uncommitted work from other sessions:**
+- Commit `6e03c22`: "Fix Daily page opacity flash + audit all app pages"
+- 37 files changed, 4309 insertions(+), 117 deletions(-)
+
+### Files modified by this session:
+- `src/components/daily/HubView.tsx` — removed duplicate "use client", fixed opacity:0 initial states
+- `src/components/daily/QuizFullscreen.tsx` — fixed badge opacity:0 outside AnimatePresence
+
+### Known issues (not fixed, low priority):
+- `XPCelebration` hooks order warning in console — non-crashing, from `useGameState`'s 31+ hooks
+- `/api/subscribe-reminders` and `/api/subscribe` → 404 (routes in api-backend/ not served by Next.js dev server; both have silent try/catch)
+
+---
+
+## Session: Pet System, Shop, Hat Layering, Deployment (March 26, 2026)
+
+### What was done:
+
+**1. AnimatedPet.tsx — new PNG-based pet component:**
+- Replaced `PetSprite` (SVG) with `AnimatedPet` in `src/components/AnimatedPet.tsx`
+- Loads `/public/pets/pet-{type}.png` (9 Masko-generated chibi PNGs, 512×512 RGBA)
+- Applies CSS mood filters (brightness/saturate/sepia/grayscale) per pet status
+- Layers hat PNG on top using absolute positioning (top: -4.5%, left: 50% + translateX, width: 68%)
+- Hat calibrator tool at `/public/hat-calibrator.html` for visual positioning
+
+**2. Shop hat PNGs:**
+- `/public/shop/hat-crown.png`, `hat-wizard.png`, `hat-flower.png`, `hat-santa.png`, `hat-catears.png`
+- Shop cards now show actual PNGs instead of emoji (via `png` field on `OutfitItem`)
+- Outfit slots also show PNGs for equipped hats
+
+**3. Inventory + equipping fixes:**
+- Auto-equip on purchase: buying an item immediately equips it
+- Collapsible "Inventory" section on avatar page shows all owned items with equip/unequip buttons
+- `OutfitItem` type in `usePetState.ts` gained optional `png` field
+
+**4. Pet sync fix (daily tab):**
+- Daily page previously loaded pet state once from localStorage on mount (stale)
+- Fixed: daily page now uses `usePetState` hook directly — pet widget is always live
+
+**5. Onboarding + Tutorial UX:**
+- Removed "Start Enneagram Assessment" button from last onboarding step (path cards handle navigation)
+- "Skip Tutorial" button made larger and more visible in `Tutorial.tsx`
+
+**6. Deployment setup:**
+- `next.config.ts`: `output: "export"` now always enabled (was gated behind `GITHUB_PAGES=true`)
+- `netlify.toml`: fixed redirect from `/* → /index.html` to `/* → /:splat`
+- App is on Netlify auto-deploying from `ashiroff34/psyche-app` main branch
+
+**7. Metadata fix:**
+- Moved `themeColor` and `viewport` from `metadata` export to `viewport` export in `layout.tsx` (Next.js deprecation fix)
+
+### Files modified by this session:
+- `src/components/AnimatedPet.tsx` (new)
+- `src/app/avatar/page.tsx` (AnimatedPet, inventory, auto-equip, hat PNG in slots)
+- `src/hooks/usePetState.ts` (added `png` field to OutfitItem, hat PNG paths)
+- `src/app/daily/page.tsx` (pet sync via usePetState hook)
+- `src/app/layout.tsx` (viewport metadata fix)
+- `src/app/onboarding/page.tsx` (removed "Start Enneagram Assessment" button)
+- `src/components/Tutorial.tsx` (bigger skip button)
+- `next.config.ts` (always static export)
+- `netlify.toml` (fixed redirect)
+- `public/hat-calibrator.html` (new dev tool)
+- `public/pets/pet-1.png` through `pet-9.png` (new)
+- `public/shop/hat-crown.png`, `hat-wizard.png`, `hat-flower.png`, `hat-santa.png`, `hat-catears.png` (new)
+
+### Known issues / still pending:
+- Hat positions use same defaults for all pets — calibration per hat/pet combo not done yet
+- Frames, accessories, backgrounds have no PNGs yet (emoji only)
+- Chibi hat display (in "Your Chibi" section) still shows emoji crown, not PNG
+
+---
+
 ## How to use this file:
 1. Before starting work, read this file
 2. Check if the files you want to edit were modified by another session
