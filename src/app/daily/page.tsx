@@ -555,6 +555,7 @@ const MODULE_CONFIG = [
   { id: "cognitive", title: "Cognitive Function Deep Dive", icon: Brain, color: "sky", count: 15, time: "15 min", description: "Your cognitive function stack explored", xpBonus: 0 },
   { id: "cross", title: "Cross-System Challenge", icon: Layers, color: "violet", count: 12, time: "15 min", description: "Where Enneagram meets cognitive functions", xpBonus: 10 },
   { id: "history", title: "History & Theory", icon: History, color: "amber", count: 12, time: "15 min", description: "The minds and ideas behind the systems", xpBonus: 0 },
+  { id: "cross-bonus", title: "Bonus Round", icon: Layers, color: "violet", count: 12, time: "10 min", description: "Extra cross-system challenge", xpBonus: 0 },
 ] as const;
 
 const colorMap: Record<string, { bg: string; border: string; text: string; light: string; iconBg: string }> = {
@@ -778,7 +779,9 @@ export default function DailyPage() {
     // Map difficulty level (1-10) to question difficulty tiers
     const tier: 1 | 2 | 3 = difficulty.level <= 3 ? 1 : difficulty.level <= 6 ? 2 : 3;
 
-    let pool = QUESTION_BANK.filter(q => q.module === moduleId);
+    // "cross-bonus" is an alias for the cross module (different node ID for completion tracking)
+    const resolvedModuleId = moduleId === "cross-bonus" ? "cross" : moduleId;
+    let pool = QUESTION_BANK.filter(q => q.module === resolvedModuleId);
 
     // For type module, prefer questions specific to user's type
     if (moduleId === "type" && profile.enneagramType) {
@@ -1085,7 +1088,7 @@ export default function DailyPage() {
       { id: "j-history",      moduleId: "history",   nodeType: "quiz",       label: "History & Theory",   sublabel: "Origins of Jungian thought",      xp: 75,  questionCount: 12, unitName: "unit2", gradFrom: "#8b5cf6", gradTo: "#ec4899" },
       { id: "j-challenge-1",  moduleId: null,        nodeType: "challenge",  label: "Shadow Work",        sublabel: "Engage your inferior function",   xp: 50,  questionCount: 0,  unitName: "unit2", gradFrom: "#ec4899", gradTo: "#f43f5e",
         prompt: "Describe a moment today when your inferior function created friction or discomfort. What triggered it? What would it look like to approach it with curiosity rather than avoidance?" },
-      { id: "j-bonus",        moduleId: "cross",     nodeType: "bonus",      label: "Bonus Round",        sublabel: "Extra cross-system challenge",     xp: 60,  questionCount: 12, unitName: "unit2", gradFrom: "#f43f5e", gradTo: "#8b5cf6" },
+      { id: "j-bonus",        moduleId: "cross-bonus", nodeType: "bonus",    label: "Bonus Round",        sublabel: "Extra cross-system challenge",     xp: 60,  questionCount: 12, unitName: "unit2", gradFrom: "#f43f5e", gradTo: "#8b5cf6" },
     ];
 
     const nodes = applySequentialStatus(allRaw, isNodeDone);
@@ -1108,10 +1111,19 @@ export default function DailyPage() {
     setBottomSheetNode(null);
     setQuizSourceNode(node);
     if (node.moduleId === "warmup") {
+      // Reset local warmup state so "Practice Again" works correctly
+      setWarmupDone(false);
       setWarmupStarted(true);
+      setWarmupQ(0);
+      setWarmupSelected(null);
+      setWarmupShowExp(false);
+      setWarmupAnswers([]);
+      setSessionXP(0);
       setView("quiz");
       setActiveTab("today");
     } else if (node.moduleId) {
+      setModuleDone(false);
+      setSessionXP(0);
       startModule(node.moduleId);
       setView("quiz");
       setActiveTab("deep");
@@ -1420,9 +1432,11 @@ export default function DailyPage() {
                 setModuleSelected(null);
                 setModuleShowExp(false);
                 setWarmupStarted(false);
+                setWarmupDone(false);
                 setWarmupQ(0);
                 setWarmupSelected(null);
                 setWarmupShowExp(false);
+                setWarmupAnswers([]);
                 setSessionXP(0);
               }}
               moduleName={activeModuleName}
