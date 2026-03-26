@@ -2,9 +2,37 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Flame, Zap, Heart, ArrowRight, Sparkles, BookOpen, CheckCircle, Target, Star } from "lucide-react";
+import { Flame, Zap, Heart, ArrowRight, Sparkles, BookOpen, CheckCircle, Target, Star, Clock } from "lucide-react";
 import PetSprite from "@/components/PetSprite";
 import type { PathNodeConfig } from "./NodeBottomSheet";
+
+/* ── Midnight countdown helper ────────────────────────────────────────────── */
+function useMidnightCountdown() {
+  const [secsLeft, setSecsLeft] = useState<number>(0);
+
+  useEffect(() => {
+    const calc = () => {
+      const now = new Date();
+      const midnight = new Date();
+      midnight.setHours(24, 0, 0, 0);
+      return Math.max(0, Math.floor((midnight.getTime() - now.getTime()) / 1000));
+    };
+    setSecsLeft(calc());
+    const id = setInterval(() => setSecsLeft(calc()), 1000);
+    return () => clearInterval(id);
+  }, []);
+
+  const h = Math.floor(secsLeft / 3600);
+  const m = Math.floor((secsLeft % 3600) / 60);
+  const s = secsLeft % 60;
+  const label = h > 0
+    ? `${h}h ${String(m).padStart(2, "0")}m`
+    : `${String(m).padStart(2, "0")}:${String(s).padStart(2, "0")}`;
+  const isUrgent = secsLeft < 3 * 3600; // < 3 hours = urgent
+  const isCritical = secsLeft < 1 * 3600; // < 1 hour = critical
+
+  return { label, isUrgent, isCritical, secsLeft };
+}
 
 interface InsightData {
   quote: string;
@@ -81,6 +109,9 @@ export default function HubView({
 }: Props) {
   const overallProgress = Math.round((completedToday / Math.max(totalNodes, 1)) * 100);
   const ringCircumference = 2 * Math.PI * 52;
+  const countdown = useMidnightCountdown();
+  // Show streak countdown when: user has a streak AND hasn't finished today's practice
+  const streakAtRisk = streak > 0 && !warmupDoneToday;
 
   // Endowed progress: show a "head start" banner on first hub visit if user has XP from assessments
   const [showHeadStart, setShowHeadStart] = useState(false);
@@ -127,10 +158,43 @@ export default function HubView({
           className="flex items-center justify-between mb-8"
         >
           {/* Streak */}
-          <div className="relative flex flex-col items-center px-4 py-2.5 rounded-2xl bg-white/80 backdrop-blur-sm shadow-sm border border-orange-100">
-            <Flame className="w-5 h-5 text-orange-500 mb-0.5" />
+          <div
+            className={`relative flex flex-col items-center px-4 py-2.5 rounded-2xl backdrop-blur-sm shadow-sm transition-colors ${
+              streakAtRisk && countdown.isCritical
+                ? "bg-red-50 border border-red-200"
+                : streakAtRisk && countdown.isUrgent
+                ? "bg-orange-50 border border-orange-200"
+                : "bg-white/80 border border-orange-100"
+            }`}
+          >
+            <Flame
+              className={`w-5 h-5 mb-0.5 ${
+                streakAtRisk && countdown.isCritical
+                  ? "text-red-500 animate-pulse"
+                  : streakAtRisk && countdown.isUrgent
+                  ? "text-orange-600"
+                  : "text-orange-500"
+              }`}
+            />
             <span className="text-xl font-bold text-slate-800 leading-none">{streak}</span>
             <span className="text-[9px] text-slate-400 uppercase tracking-wide mt-0.5">streak</span>
+
+            {/* Countdown badge — shows when streak is at risk */}
+            {streakAtRisk && (
+              <div
+                className={`flex items-center gap-0.5 mt-1 px-1.5 py-0.5 rounded-full text-[9px] font-bold ${
+                  countdown.isCritical
+                    ? "bg-red-100 text-red-600"
+                    : countdown.isUrgent
+                    ? "bg-orange-100 text-orange-700"
+                    : "bg-amber-50 text-amber-600"
+                }`}
+              >
+                <Clock className="w-2.5 h-2.5" />
+                {countdown.label}
+              </div>
+            )}
+
             {longestStreak > streak && longestStreak > 0 && (
               <span className="text-[8px] text-amber-500 font-medium mt-0.5">best: {longestStreak}</span>
             )}
@@ -253,6 +317,42 @@ export default function HubView({
             </div>
           )}
         </motion.div>
+
+        {/* ── Streak-at-risk urgent banner ── */}
+        <AnimatePresence>
+          {streakAtRisk && countdown.isCritical && (
+            <motion.div
+              initial={{ opacity: 0, y: -8, scale: 0.97 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: -8, scale: 0.97 }}
+              className="mb-4 flex items-center gap-3 px-4 py-3 rounded-2xl border border-red-200 bg-red-50"
+            >
+              <Flame className="w-5 h-5 text-red-500 shrink-0 animate-pulse" />
+              <div className="flex-1 min-w-0">
+                <p className="text-sm font-bold text-red-700 leading-tight">
+                  Your {streak}-day streak ends in {countdown.label}!
+                </p>
+                <p className="text-xs text-red-500 mt-0.5">Complete today's practice before midnight.</p>
+              </div>
+            </motion.div>
+          )}
+          {streakAtRisk && countdown.isUrgent && !countdown.isCritical && (
+            <motion.div
+              initial={{ opacity: 0, y: -8, scale: 0.97 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: -8, scale: 0.97 }}
+              className="mb-4 flex items-center gap-3 px-4 py-3 rounded-2xl border border-orange-200 bg-orange-50"
+            >
+              <Flame className="w-5 h-5 text-orange-500 shrink-0" />
+              <div className="flex-1 min-w-0">
+                <p className="text-sm font-bold text-orange-700 leading-tight">
+                  {streak}-day streak at risk — {countdown.label} left
+                </p>
+                <p className="text-xs text-orange-500 mt-0.5">Don't let your streak break tonight.</p>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
 
         {/* ── Continue Path button ── */}
         <motion.div
