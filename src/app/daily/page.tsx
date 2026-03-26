@@ -17,6 +17,7 @@ import NextStepBanner from "@/components/NextStepBanner";
 import HubView from "@/components/daily/HubView";
 import PathView, { type PathUnit } from "@/components/daily/PathView";
 import NodeBottomSheet, { type PathNodeConfig } from "@/components/daily/NodeBottomSheet";
+import QuizFullscreen from "@/components/daily/QuizFullscreen";
 
 /* ═══════════════════════════════════════════════════════════════════════════
    UTILITY: Seeded PRNG (deterministic shuffle per day)
@@ -1365,14 +1366,74 @@ export default function DailyPage() {
     );
   }
 
-  // ── Quiz view (uses existing tab-based rendering below) ──
+  // ── Quiz view (fullscreen overlay + fallback content) ──
+  // Keep overlay visible after completion so the results screen shows
+  const quizIsActive =
+    (activeTab === "today" && warmupStarted) ||
+    (activeTab === "deep" && !!activeModule);
+
+  const quizCompleted =
+    (activeTab === "today" && warmupDone) ||
+    (activeTab === "deep" && moduleDone);
+
+  const activeQuestions = activeTab === "today" ? warmupQuestions : moduleQuestions;
+  const activeIdx = activeTab === "today" ? warmupQ : moduleQ;
+  const activeSelected = activeTab === "today" ? warmupSelected : moduleSelected;
+  const activeShowExp = activeTab === "today" ? warmupShowExp : moduleShowExp;
+  const activeAnswers = activeTab === "today" ? warmupAnswers : moduleAnswers;
+  const activeOnAnswer = activeTab === "today" ? handleWarmupAnswer : handleModuleAnswer;
+  const activeOnNext = activeTab === "today" ? nextWarmupQuestion : nextModuleQuestion;
+  const activeModuleName = activeTab === "today"
+    ? "Quick Warm-Up"
+    : MODULE_CONFIG.find(m => m.id === activeModule)?.title ?? "Deep Learning";
+
   return (
     <div className="min-h-screen pb-20">
       {showConfetti && <ConfettiParticles />}
 
-      <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 pt-8">
+      {/* Fullscreen quiz overlay */}
+      <AnimatePresence>
+        {quizIsActive && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.15 }}
+            className="fixed inset-0 z-50"
+          >
+            <QuizFullscreen
+              questions={activeQuestions}
+              currentIdx={activeIdx}
+              selected={activeSelected}
+              showExp={activeShowExp}
+              answers={activeAnswers}
+              onAnswer={activeOnAnswer}
+              onNext={activeOnNext}
+              onQuit={() => {
+                const dest = quizSourceNode ? "path" : "hub";
+                setView(dest);
+                setQuizSourceNode(null);
+                setActiveModule(null);
+                setModuleDone(false);
+                setModuleAnswers([]);
+                setModuleQ(0);
+                setModuleSelected(null);
+                setModuleShowExp(false);
+                setWarmupStarted(false);
+                setWarmupQ(0);
+                setWarmupSelected(null);
+                setWarmupShowExp(false);
+                setSessionXP(0);
+              }}
+              moduleName={activeModuleName}
+              sessionXP={sessionXP}
+              completed={quizCompleted}
+            />
+          </motion.div>
+        )}
+      </AnimatePresence>
 
-        {/* Back to path */}
+      <div className="max-w-2xl mx-auto px-4 pt-6">
         <button
           onClick={() => {
             setView(quizSourceNode ? "path" : "hub");
@@ -1385,46 +1446,6 @@ export default function DailyPage() {
         >
           <ChevronRight className="w-4 h-4 rotate-180" /> Back to path
         </button>
-
-        {/* XP bar (compact) */}
-        <div className="flex items-center gap-3 mb-6 p-3 rounded-xl bg-white border border-slate-100 shadow-sm">
-          <Zap className="w-4 h-4 text-amber-500 shrink-0" />
-          <div className="flex-1 h-1.5 bg-slate-100 rounded-full overflow-hidden">
-            <motion.div
-              className="h-full rounded-full bg-gradient-to-r from-violet-400 to-pink-400"
-              initial={{ width: 0 }}
-              animate={{ width: `${progressToNext}%` }}
-              transition={{ duration: 0.8 }}
-            />
-          </div>
-          <span className="text-xs font-medium text-slate-600 shrink-0">{totalXP} XP</span>
-          {sessionXP > 0 && (
-            <span className="text-xs text-amber-500 font-semibold shrink-0">+{sessionXP}</span>
-          )}
-        </div>
-
-        {/* Stats tab toggle (for quick access) */}
-        <div className="flex gap-1 p-1 bg-slate-100 rounded-xl mb-6">
-          {([
-            { id: "today" as const, label: "Warm-Up", icon: Lightbulb },
-            { id: "deep" as const, label: "Deep Learning", icon: GraduationCap },
-            { id: "stats" as const, label: "Stats", icon: BarChart3 },
-          ]).map(tab => (
-            <button
-              key={tab.id}
-              onClick={() => setActiveTab(tab.id)}
-              className={`flex-1 flex items-center justify-center gap-1.5 px-3 py-2.5 rounded-lg text-sm font-medium transition-all ${
-                activeTab === tab.id
-                  ? "bg-white text-slate-800 shadow-sm"
-                  : "text-slate-400 hover:text-slate-600"
-              }`}
-            >
-              <tab.icon className="w-4 h-4" />
-              <span className="hidden sm:inline">{tab.label}</span>
-              <span className="sm:hidden">{tab.label.split(" ")[0]}</span>
-            </button>
-          ))}
-        </div>
 
         {/* ═══════════════════════════════════════════════════════════════
            TAB 1: TODAY'S PRACTICE
