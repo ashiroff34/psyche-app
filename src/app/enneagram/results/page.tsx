@@ -39,6 +39,7 @@ import { markTopicComplete } from "@/hooks/useGameState";
 import GuidedJourney from "@/components/GuidedJourney";
 import NextStepBanner from "@/components/NextStepBanner";
 import BeginnerBanner from "@/components/BeginnerBanner";
+import GlossaryTip from "@/components/GlossaryTip";
 
 // ── Famous examples ───────────────────────────────────────────────────────
 const famousExamples: Record<number, { name: string; note: string }[]> = {
@@ -208,6 +209,8 @@ function ResultsInner() {
   const searchParams = useSearchParams();
   const { profile, loaded, updateProfile } = useProfile();
   const [activeTab, setActiveTab] = useState(0);
+  const [dailyCtaTapped, setDailyCtaTapped] = useState(false);
+  const [showDailyReminder, setShowDailyReminder] = useState(false);
 
   // Auto-open Subtypes tab when arriving from self-ID flow
   useEffect(() => {
@@ -251,6 +254,16 @@ function ResultsInner() {
     }, 900);
     return () => clearTimeout(timer);
   }, []);
+
+  // 30-second reminder to go to daily page (only when arriving from assessment)
+  const fromAssessment = !!(isSelfId || searchParams.get("assessmentLength"));
+  useEffect(() => {
+    if (!fromAssessment) return;
+    const timer = setTimeout(() => {
+      if (!dailyCtaTapped) setShowDailyReminder(true);
+    }, 30000);
+    return () => clearTimeout(timer);
+  }, [fromAssessment, dailyCtaTapped]);
 
   // Save to localStorage on mount
   useEffect(() => {
@@ -380,6 +393,7 @@ function ResultsInner() {
                   <span className="px-2 py-0.5 text-[10px] font-semibold rounded-full bg-violet-100 text-violet-600">
                     {dominantInstinct}
                   </span>
+                  <GlossaryTip term="instinct" />
                 </div>
                 <p className="text-sm font-medium text-slate-800">{instinctLabel[dominantInstinct]}</p>
                 <p className="text-xs text-slate-500 mt-0.5 leading-relaxed">{instinctDesc[dominantInstinct]}</p>
@@ -387,7 +401,11 @@ function ResultsInner() {
             )}
 
             {/* Wings quick display */}
-            <div className="mt-5 flex gap-3 flex-wrap">
+            <div className="mt-4 mb-1 flex items-center gap-1.5">
+              <span className="text-xs font-semibold text-indigo-600 uppercase tracking-wide">Wings</span>
+              <GlossaryTip term="wing" />
+            </div>
+            <div className="flex gap-3 flex-wrap">
               <div className="px-4 py-2 rounded-xl bg-white/70 border border-indigo-100 text-xs text-slate-600">
                 <span className="font-medium text-indigo-600">Wing:</span> {typeData.wings.left}
               </div>
@@ -396,9 +414,11 @@ function ResultsInner() {
               </div>
               <div className="px-4 py-2 rounded-xl bg-white/70 border border-emerald-100 text-xs text-slate-600">
                 <span className="font-medium text-emerald-600">Growth →</span> Type {typeData.integrationLine}
+                <GlossaryTip term="integration line" />
               </div>
               <div className="px-4 py-2 rounded-xl bg-white/70 border border-rose-100 text-xs text-slate-600">
                 <span className="font-medium text-rose-500">Stress →</span> Type {typeData.disintegrationLine}
+                <GlossaryTip term="disintegration line" />
               </div>
             </div>
           </div>
@@ -548,9 +568,14 @@ function ResultsInner() {
               />
 
               <div className="p-4 rounded-2xl bg-amber-50 border border-amber-100">
-                <p className="text-xs text-amber-700 leading-relaxed">
-                  <strong>Instinctual Subtypes</strong> are how your core type's energy is filtered through one of three biological instincts: Self-Preservation (SP), Sexual/One-to-One (SX), or Social (SO). The same Enneagram type can look dramatically different depending on which instinct is dominant.
-                </p>
+                <div className="flex items-start gap-2">
+                  <div className="flex-1">
+                    <p className="text-xs text-amber-700 leading-relaxed">
+                      <strong>Instinctual Subtypes</strong> are how your core type's energy is filtered through one of three biological instincts: Self-Preservation (SP), Sexual/One-to-One (SX), or Social (SO). The same Enneagram type can look dramatically different depending on which instinct is dominant.
+                    </p>
+                  </div>
+                  <GlossaryTip term="subtype" />
+                </div>
               </div>
 
               {/* How to identify your subtype */}
@@ -1061,9 +1086,9 @@ function ResultsInner() {
         </AnimatePresence>
       </div>
 
-      {/* Sticky "Continue to Profile" CTA — shown when arriving from an assessment */}
-      {isSelfId || searchParams.get("assessmentLength") ? (
-        <div className="fixed bottom-20 left-0 right-0 z-40 flex justify-center px-4 pointer-events-none">
+      {/* Sticky CTAs — shown when arriving from an assessment */}
+      {fromAssessment ? (
+        <div className="fixed bottom-20 left-0 right-0 z-40 flex flex-col items-center gap-2 px-4 pointer-events-none">
           <div className="w-full max-w-lg pointer-events-auto">
             <Link
               href="/profile"
@@ -1074,8 +1099,61 @@ function ResultsInner() {
               <ArrowRight className="w-5 h-5" />
             </Link>
           </div>
+          {!dailyCtaTapped && (
+            <div className="w-full max-w-lg pointer-events-auto">
+              <Link
+                href="/daily"
+                onClick={() => setDailyCtaTapped(true)}
+                className="flex items-center justify-center gap-2 w-full px-5 py-3 rounded-2xl bg-white/90 backdrop-blur-sm border border-emerald-100 text-emerald-700 text-sm font-medium shadow-md hover:bg-emerald-50 transition-colors"
+              >
+                <Sparkles className="w-4 h-4 text-emerald-500" />
+                <span>Whenever you&apos;re ready → Daily Practice</span>
+              </Link>
+            </div>
+          )}
         </div>
       ) : null}
+
+      {/* 30-second gentle reminder nudge */}
+      <AnimatePresence>
+        {showDailyReminder && !dailyCtaTapped && (
+          <motion.div
+            initial={{ opacity: 0, y: 20, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 20, scale: 0.95 }}
+            transition={{ type: "spring", stiffness: 300, damping: 28 }}
+            className="fixed bottom-48 right-4 z-50 w-72 bg-white rounded-3xl shadow-2xl shadow-slate-200/60 border border-slate-100 overflow-hidden"
+          >
+            <div className="h-1 w-full bg-gradient-to-r from-emerald-400 to-teal-400" />
+            <div className="p-4">
+              <div className="flex items-start gap-3">
+                <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-emerald-400 to-teal-400 flex items-center justify-center flex-shrink-0 shadow-md">
+                  <Sparkles className="w-4 h-4 text-white" />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <p className="text-sm font-semibold text-slate-800 leading-snug">Your daily practice is waiting</p>
+                  <p className="text-xs text-slate-500 mt-0.5 leading-snug">Start whenever you feel ready — no rush.</p>
+                </div>
+                <button
+                  onClick={() => setShowDailyReminder(false)}
+                  className="text-slate-300 hover:text-slate-500 transition-colors flex-shrink-0 -mt-0.5"
+                  aria-label="Dismiss"
+                >
+                  <ChevronDown className="w-4 h-4" />
+                </button>
+              </div>
+              <Link
+                href="/daily"
+                onClick={() => { setDailyCtaTapped(true); setShowDailyReminder(false); }}
+                className="mt-3 flex items-center justify-center gap-2 w-full py-2.5 rounded-2xl bg-slate-50 hover:bg-emerald-50 text-slate-700 hover:text-emerald-700 text-sm font-medium transition-all group"
+              >
+                Go to Daily Practice
+                <ArrowRight className="w-3.5 h-3.5 text-slate-400 group-hover:text-emerald-500 group-hover:translate-x-0.5 transition-all" />
+              </Link>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

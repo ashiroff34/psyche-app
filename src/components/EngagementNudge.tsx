@@ -34,7 +34,8 @@ function buildNudges(
   profile: Record<string, unknown>,
   petHealth: number,
   streakCount: number,
-  daysSinceVisit: number
+  daysSinceVisit: number,
+  doneStreakToday: boolean
 ): Nudge[] {
   const nudges: Nudge[] = [];
 
@@ -64,12 +65,26 @@ function buildNudges(
     });
   }
 
-  // Streak about to break (no activity today)
-  if (streakCount > 0) {
+  // Streak about to break — only if they haven't done their practice today yet
+  if (streakCount > 0 && !doneStreakToday) {
+    const streakUrgencyMap: Record<number, string> = {
+      1: `Your ${streakCount}-day streak isn't perfect yet — keep going.`,
+      2: `Your ${streakCount}-day streak shows your dedication. Don't let it slip.`,
+      3: `Don't let that ${streakCount}-day streak fall off your stats.`,
+      4: `${streakCount} days of meaningful practice — too beautiful to break.`,
+      5: `${streakCount} consecutive days of learning is worth protecting.`,
+      6: `You've stayed consistent for ${streakCount} days. One more keeps the pattern.`,
+      7: `Your ${streakCount}-day streak is on the line — keep the adventure going!`,
+      8: `You've built ${streakCount} days straight. Don't let anything stop you now.`,
+      9: `${streakCount} days of peaceful consistency — keep the harmony alive.`,
+    };
+    const streakMsg = (profile.enneagramType && streakUrgencyMap[profile.enneagramType as number])
+      ? streakUrgencyMap[profile.enneagramType as number]
+      : `Your ${streakCount}-day streak is at risk!`;
     nudges.push({
       id: "streak-at-risk",
       icon: <Flame className="w-4 h-4 text-white" />,
-      title: `Your ${streakCount}-day streak is at risk!`,
+      title: streakMsg,
       body: "Log any activity today to keep it alive.",
       cta: "Keep streak",
       href: "/daily",
@@ -116,14 +131,26 @@ function buildNudges(
     });
   }
 
-  // Idle fallback — generic explore prompt
+  // Idle fallback — personalized by type when available
+  const typeNudgeMap: Record<number, { title: string; body: string }> = {
+    1: { title: "Your standards are slipping", body: "Don't let your streak fall short of perfect. Daily practice awaits." },
+    2: { title: "Someone needs your insight", body: "Your reflection today could help you show up better for the people you care about." },
+    3: { title: "Your progress is stalling", body: "Keep your stats climbing — today's practice resets at midnight." },
+    4: { title: "Something meaningful awaits", body: "Today's insight was written with your type in mind. Don't miss it." },
+    5: { title: "New knowledge is waiting", body: "Your daily deep-dive resets at midnight. Feed your curiosity." },
+    6: { title: "Stay consistent", body: "Consistency builds security. Your daily practice is ready." },
+    7: { title: "New adventure inside", body: "Today's lesson has something fresh — don't let it expire." },
+    8: { title: "Take charge of your growth", body: "Your daily challenge resets at midnight. Stay in control." },
+    9: { title: "Keep the momentum going", body: "A little practice today keeps your streak alive. Don't let it fade." },
+  };
+  const typeNudge = profile.enneagramType ? typeNudgeMap[profile.enneagramType as number] : null;
   nudges.push({
     id: "idle-explore",
     icon: <Zap className="w-4 h-4 text-white" />,
-    title: "Still there?",
-    body: "Your daily growth challenge resets at midnight. Don't miss it.",
+    title: typeNudge?.title ?? "Still there?",
+    body: typeNudge?.body ?? "Your daily growth challenge resets at midnight. Don't miss it.",
     cta: "Open today's insight",
-    href: "/profile",
+    href: "/daily",
     accentClass: "from-sky-400 to-indigo-500",
   });
 
@@ -178,19 +205,22 @@ export default function EngagementNudge() {
         JSON.stringify({ ...profile, lastVisitDate: new Date().toISOString().split("T")[0] })
       );
 
-      // Get pet health from game state
+      // Get pet health, streak, and today's activity from game state
       let petHealth = 100;
       let streakCount = 0;
+      let doneStreakToday = false;
       try {
         const gs = localStorage.getItem("psyche-game-state");
         if (gs) {
           const parsed = JSON.parse(gs);
           petHealth = parsed.petHealth ?? 100;
           streakCount = parsed.streakCount ?? 0;
+          const today = new Date().toISOString().split("T")[0];
+          doneStreakToday = parsed.lastActivityDate === today;
         }
       } catch {}
 
-      const nudges = buildNudges(profile, petHealth, streakCount, daysSinceVisit);
+      const nudges = buildNudges(profile, petHealth, streakCount, daysSinceVisit, doneStreakToday);
 
       // Re-entry nudge: show after 1.5s if absent 1+ day
       if (daysSinceVisit >= 1) {
@@ -221,15 +251,18 @@ export default function EngagementNudge() {
           const profile = JSON.parse(profileRaw) as Record<string, unknown>;
           let petHealth = 100;
           let streakCount = 0;
+          let doneToday = false;
           try {
             const gs = localStorage.getItem("psyche-game-state");
             if (gs) {
               const p = JSON.parse(gs);
               petHealth = p.petHealth ?? 100;
               streakCount = p.streakCount ?? 0;
+              const today = new Date().toISOString().split("T")[0];
+              doneToday = p.lastActivityDate === today;
             }
           } catch {}
-          const nudges = buildNudges(profile, petHealth, streakCount, 0);
+          const nudges = buildNudges(profile, petHealth, streakCount, 0, doneToday);
           showNextNudge(nudges, "idle");
         } catch {}
       }, IDLE_MS);

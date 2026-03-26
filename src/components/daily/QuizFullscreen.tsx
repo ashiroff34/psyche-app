@@ -1,7 +1,9 @@
 "use client";
 
 import { motion, AnimatePresence } from "framer-motion";
-import { X, CheckCircle, XCircle, Heart, Zap, Trophy, ArrowRight } from "lucide-react";
+import { X, CheckCircle, XCircle, Heart, Zap, Trophy, ArrowRight, Star } from "lucide-react";
+import ChibiSprite from "@/components/ChibiSprite";
+import type { ChibiState } from "@/components/ChibiSprite";
 
 interface Question {
   id: string;
@@ -26,6 +28,15 @@ interface Props {
   moduleName: string;
   sessionXP: number;
   completed?: boolean;
+  // Engagement features
+  hearts?: number;          // real game-state hearts (0–5); falls back to session calc if omitted
+  maxHearts?: number;       // default 5
+  xpBonusLabel?: string | null; // e.g. "2x BONUS!" shown as a flash
+  longestStreak?: number;   // personal best for self-competition screen
+  currentStreak?: number;
+  enneagramType?: number;   // for chibi sprite
+  instinct?: string;        // e.g. "sp", "so", "sx"
+  onBuyHearts?: () => void;
 }
 
 export default function QuizFullscreen({
@@ -40,15 +51,24 @@ export default function QuizFullscreen({
   moduleName,
   sessionXP,
   completed,
+  hearts: realHearts,
+  maxHearts = 5,
+  xpBonusLabel,
+  longestStreak = 0,
+  currentStreak = 0,
+  enneagramType = 5,
+  instinct = "sp",
+  onBuyHearts,
 }: Props) {
   const q = questions[currentIdx];
 
-  // ── Completion screen ──
+  // ── Completion screen ──────────────────────────────────────────────────────
   if (completed) {
     const correctCount = answers.filter(Boolean).length;
     const totalCount = questions.length;
     const pct = totalCount > 0 ? Math.round((correctCount / totalCount) * 100) : 0;
     const isPerfect = correctCount === totalCount;
+    const beatPersonalBest = currentStreak > 0 && longestStreak > 0 && currentStreak >= longestStreak;
 
     return (
       <div className="fixed inset-0 z-50 bg-white flex flex-col items-center justify-center px-6" style={{ maxWidth: 640, margin: "0 auto" }}>
@@ -56,21 +76,33 @@ export default function QuizFullscreen({
           initial={{ scale: 0.8, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           transition={{ type: "spring", damping: 20, stiffness: 300 }}
-          className="flex flex-col items-center text-center"
+          className="flex flex-col items-center text-center w-full max-w-xs"
         >
-          {/* Trophy */}
-          <div className="w-24 h-24 rounded-full flex items-center justify-center mb-6"
-            style={{ background: isPerfect ? "linear-gradient(135deg, #fbbf24, #f59e0b)" : "linear-gradient(135deg, #8b5cf6, #d946ef)" }}>
-            <Trophy className="w-12 h-12 text-white" />
+          {/* Trophy / chibi */}
+          <div className="relative mb-6">
+            <div className="w-24 h-24 rounded-full flex items-center justify-center"
+              style={{ background: isPerfect ? "linear-gradient(135deg, #fbbf24, #f59e0b)" : "linear-gradient(135deg, #8b5cf6, #d946ef)" }}>
+              <Trophy className="w-12 h-12 text-white" />
+            </div>
+            {beatPersonalBest && (
+              <motion.div
+                initial={{ scale: 0, rotate: -20 }}
+                animate={{ scale: 1, rotate: 0 }}
+                transition={{ delay: 0.4, type: "spring" }}
+                className="absolute -top-2 -right-2 w-9 h-9 rounded-full bg-amber-400 flex items-center justify-center shadow-lg"
+              >
+                <Star className="w-5 h-5 text-white fill-white" />
+              </motion.div>
+            )}
           </div>
 
           <h2 className="text-3xl font-bold text-slate-900 mb-2">
             {isPerfect ? "Perfect!" : "Complete!"}
           </h2>
-          <p className="text-slate-500 text-base mb-8">{moduleName}</p>
+          <p className="text-slate-500 text-base mb-6">{moduleName}</p>
 
-          {/* Score */}
-          <div className="flex items-center gap-6 mb-8">
+          {/* Score row */}
+          <div className="flex items-center gap-6 mb-5">
             <div className="flex flex-col items-center">
               <span className="text-4xl font-bold text-slate-800">{correctCount}<span className="text-slate-400 text-2xl">/{totalCount}</span></span>
               <span className="text-xs text-slate-400 mt-1 uppercase tracking-wide">Correct</span>
@@ -91,11 +123,31 @@ export default function QuizFullscreen({
             )}
           </div>
 
-          {/* Back to Path button */}
+          {/* Self-competition badge */}
+          {longestStreak > 0 && (
+            <motion.div
+              initial={{ opacity: 1, y: 0 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.5 }}
+              className={`w-full px-4 py-2.5 rounded-xl mb-5 flex items-center gap-2 ${
+                beatPersonalBest
+                  ? "bg-amber-50 border border-amber-200"
+                  : "bg-slate-50 border border-slate-100"
+              }`}
+            >
+              <Star className={`w-4 h-4 shrink-0 ${beatPersonalBest ? "text-amber-500 fill-amber-500" : "text-slate-300"}`} />
+              <span className={`text-sm font-medium ${beatPersonalBest ? "text-amber-700" : "text-slate-500"}`}>
+                {beatPersonalBest
+                  ? `New personal best! ${currentStreak}-day streak 🎉`
+                  : `Personal best: ${longestStreak}-day streak. Keep going!`}
+              </span>
+            </motion.div>
+          )}
+
           <motion.button
             whileTap={{ scale: 0.97 }}
             onClick={onQuit}
-            className="w-full max-w-xs py-4 rounded-2xl font-bold text-white text-base flex items-center justify-center gap-2"
+            className="w-full py-4 rounded-2xl font-bold text-white text-base flex items-center justify-center gap-2"
             style={{ background: "linear-gradient(135deg, #8b5cf6, #d946ef)", boxShadow: "0 4px 20px rgba(139,92,246,0.4)" }}
           >
             Back to Path <ArrowRight className="w-5 h-5" />
@@ -108,16 +160,81 @@ export default function QuizFullscreen({
   if (!q) return null;
 
   const isCorrect = selected === q.ans;
-  const hearts = Math.max(0, 3 - answers.filter(a => !a).length);
+
+  // Hearts: use real game-state hearts if provided, else cosmetic session hearts
+  const displayHearts = realHearts !== undefined ? realHearts : Math.max(0, 3 - answers.filter(a => !a).length);
+  const heartsTotal = realHearts !== undefined ? maxHearts : 3;
+
   const progress = Math.round(((currentIdx) / questions.length) * 100);
   const diffLabel = q.difficulty === 1 ? "Beginner" : q.difficulty === 2 ? "Intermediate" : "Advanced";
-
   const optionLetters = ["A", "B", "C", "D"];
 
+  // Chibi state based on last answer
+  const chibiState: ChibiState = selected !== null ? (isCorrect ? "happy" : "hurt") : "idle";
+
+  // ── Out of hearts screen ───────────────────────────────────────────────────
+  if (realHearts === 0) {
+    return (
+      <div className="fixed inset-0 z-50 bg-white flex flex-col items-center justify-center px-6" style={{ maxWidth: 640, margin: "0 auto" }}>
+        <motion.div
+          initial={{ scale: 0.8, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ type: "spring", damping: 20, stiffness: 300 }}
+          className="flex flex-col items-center text-center"
+        >
+          <div className="w-20 h-20 rounded-full bg-rose-100 flex items-center justify-center mb-5">
+            <Heart className="w-10 h-10 text-rose-400" />
+          </div>
+          <h2 className="text-2xl font-bold text-slate-900 mb-2">Out of Hearts</h2>
+          <p className="text-slate-500 text-sm mb-8 max-w-xs leading-relaxed">
+            You&apos;ve used all your hearts. They refill 1 every 30 minutes — or spend 20 tokens to refill now.
+          </p>
+          <div className="flex flex-col gap-3 w-full max-w-xs">
+            {onBuyHearts && (
+              <motion.button
+                whileTap={{ scale: 0.97 }}
+                onClick={onBuyHearts}
+                className="w-full py-4 rounded-2xl font-bold text-white text-base flex items-center justify-center gap-2"
+                style={{ background: "linear-gradient(135deg, #f59e0b, #ef4444)", boxShadow: "0 4px 20px rgba(239,68,68,0.3)" }}
+              >
+                Refill Hearts (20 tokens)
+              </motion.button>
+            )}
+            <motion.button
+              whileTap={{ scale: 0.97 }}
+              onClick={onQuit}
+              className="w-full py-3.5 rounded-2xl font-semibold text-slate-600 text-base bg-slate-100 hover:bg-slate-200 transition"
+            >
+              Come back later
+            </motion.button>
+          </div>
+        </motion.div>
+      </div>
+    );
+  }
+
+  // ── Main quiz screen ───────────────────────────────────────────────────────
   return (
     <div className="fixed inset-0 z-50 bg-white flex flex-col" style={{ maxWidth: 640, margin: "0 auto" }}>
 
-      {/* ── Top bar: X | progress bar | hearts ── */}
+      {/* ── XP Bonus flash ── */}
+      <AnimatePresence>
+        {xpBonusLabel && (
+          <motion.div
+            key={xpBonusLabel}
+            initial={{ opacity: 0, y: -20, scale: 0.9 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -10, scale: 0.9 }}
+            transition={{ type: "spring", stiffness: 400, damping: 25 }}
+            className="absolute top-16 left-1/2 z-10 -translate-x-1/2 flex items-center gap-1.5 px-4 py-2 rounded-full bg-amber-400 text-white font-bold text-sm shadow-lg shadow-amber-200 pointer-events-none"
+          >
+            <Zap className="w-4 h-4 fill-white" />
+            {xpBonusLabel.replace("daily-quiz ", "")}
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* ── Top bar: X | progress | hearts ── */}
       <div className="flex items-center gap-3 px-4 pt-safe pt-4 pb-3">
         <button
           onClick={onQuit}
@@ -139,20 +256,25 @@ export default function QuizFullscreen({
 
         {/* Hearts */}
         <div className="flex items-center gap-0.5 shrink-0">
-          {[0, 1, 2].map(i => (
-            <Heart
+          {Array.from({ length: Math.min(heartsTotal, 5) }).map((_, i) => (
+            <motion.div
               key={i}
-              className={`w-5 h-5 ${i < hearts ? "text-rose-500 fill-rose-500" : "text-slate-200 fill-slate-200"}`}
-            />
+              animate={i === displayHearts && selected !== null && !isCorrect ? { scale: [1, 1.4, 1] } : {}}
+              transition={{ duration: 0.3 }}
+            >
+              <Heart
+                className={`w-5 h-5 transition-colors ${i < displayHearts ? "text-rose-500 fill-rose-500" : "text-slate-200 fill-slate-200"}`}
+              />
+            </motion.div>
           ))}
         </div>
       </div>
 
       {/* ── Main content ── */}
-      <div className="flex-1 overflow-y-auto px-5 pt-4 pb-2">
+      <div className="flex-1 overflow-y-auto px-5 pt-2 pb-2">
 
-        {/* Module + difficulty */}
-        <div className="flex items-center gap-2 mb-5">
+        {/* Module + difficulty + XP */}
+        <div className="flex items-center gap-2 mb-4">
           <span className="text-xs font-semibold text-slate-400 uppercase tracking-wider">{moduleName}</span>
           <span className="w-1 h-1 rounded-full bg-slate-300" />
           <span className={`text-xs font-medium ${
@@ -168,19 +290,34 @@ export default function QuizFullscreen({
           )}
         </div>
 
-        {/* Question */}
-        <AnimatePresence mode="wait">
-          <motion.p
-            key={q.id}
-            initial={{ opacity: 0, y: 8 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -8 }}
-            transition={{ duration: 0.2 }}
-            className="text-xl font-bold text-slate-900 leading-snug mb-8"
-          >
-            {q.q}
-          </motion.p>
-        </AnimatePresence>
+        {/* Chibi + Question row */}
+        <div className="flex items-start gap-3 mb-6">
+          {/* Chibi sprite (small, left-aligned) */}
+          <div className="shrink-0 mt-1">
+            <ChibiSprite
+              type={enneagramType}
+              instinct={instinct}
+              size={52}
+              state={chibiState}
+            />
+          </div>
+
+          {/* Question bubble */}
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={q.id}
+              initial={{ opacity: 0, x: 8 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -8 }}
+              transition={{ duration: 0.2 }}
+              className="flex-1 bg-slate-50 rounded-2xl rounded-tl-sm px-4 py-3"
+            >
+              <p className="text-base font-bold text-slate-900 leading-snug">
+                {q.q}
+              </p>
+            </motion.div>
+          </AnimatePresence>
+        </div>
 
         {/* Answer options */}
         <div className="space-y-3">
@@ -256,6 +393,11 @@ export default function QuizFullscreen({
               <span className={`font-bold text-base ${isCorrect ? "text-emerald-700" : "text-rose-700"}`}>
                 {isCorrect ? "Correct!" : "Not quite."}
               </span>
+              {!isCorrect && displayHearts > 0 && (
+                <span className="ml-auto text-xs text-rose-400 font-medium flex items-center gap-1">
+                  <Heart className="w-3 h-3 fill-rose-400" />{displayHearts} left
+                </span>
+              )}
             </div>
             <p className="text-sm text-slate-700 leading-relaxed mb-4">{q.exp}</p>
             <motion.button

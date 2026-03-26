@@ -19,6 +19,8 @@ import HubView from "@/components/daily/HubView";
 import PathView, { type PathUnit } from "@/components/daily/PathView";
 import NodeBottomSheet, { type PathNodeConfig } from "@/components/daily/NodeBottomSheet";
 import QuizFullscreen from "@/components/daily/QuizFullscreen";
+import DailyReading from "@/components/daily/DailyReading";
+import { getDailyReading } from "@/data/dailyReadings";
 
 /* ═══════════════════════════════════════════════════════════════════════════
    UTILITY: Seeded PRNG (deterministic shuffle per day)
@@ -571,10 +573,10 @@ const colorMap: Record<string, { bg: string; border: string; text: string; light
    ═══════════════════════════════════════════════════════════════════════════ */
 export default function DailyPage() {
   const { profile, loaded, trackVisit, markQuizComplete, addXP } = useProfile();
-  const { state: gameStateRaw, earnXP: gameEarnXP } = useGameState();
+  const { state: gameStateRaw, earnXP: gameEarnXP, loseHeart, buyHearts, xpGainAnimation, completeReading } = useGameState();
 
   // ── View state (hub / path / quiz) ──
-  const [view, setView] = useState<"hub" | "path" | "quiz">("hub");
+  const [view, setView] = useState<"hub" | "path" | "quiz" | "reading">("hub");
   const [activePathTab, setActivePathTab] = useState<"enneagram" | "jungian">("enneagram");
   const [bottomSheetNode, setBottomSheetNode] = useState<PathNodeConfig | null>(null);
   const [quizSourceNode, setQuizSourceNode] = useState<PathNodeConfig | null>(null);
@@ -860,6 +862,7 @@ export default function DailyPage() {
       addXP(xpGained);
       setSessionXP(prev => prev + xpGained);
     }
+    if (!correct) loseHeart();
 
     if (correct) {
       setShowConfetti(true);
@@ -923,6 +926,7 @@ export default function DailyPage() {
       addXP(xpGained);
       setSessionXP(prev => prev + xpGained);
     }
+    if (!correct) loseHeart();
 
     if (correct) {
       setShowConfetti(true);
@@ -1319,6 +1323,12 @@ export default function DailyPage() {
           miniPathNodes={miniPathNodes}
           nextNode={nextNode}
           streakFreezes={streakFreezes}
+          longestStreak={gameStateRaw.longestStreak}
+          questionsAnsweredToday={dailyProgress?.questionsAnswered ?? 0}
+          warmupDoneToday={dailyProgress?.warmupDone ?? false}
+          dailyXPEarned={gameStateRaw.dailyXPEarned}
+          readingDoneToday={gameStateRaw.dailyReadingDate === new Date().toISOString().split("T")[0]}
+          onStartReading={() => setView("reading")}
         />
         <NodeBottomSheet
           node={bottomSheetNode}
@@ -1346,6 +1356,41 @@ export default function DailyPage() {
   }
 
   // ── Path view ──
+  if (view === "reading") {
+    const today = new Date().toISOString().split("T")[0];
+    const daysSinceJoin = gameStateRaw.accountCreated
+      ? Math.floor((Date.now() - new Date(gameStateRaw.accountCreated).getTime()) / 86400000)
+      : 0;
+    const todayReading = getDailyReading(
+      profile.enneagramType ?? null,
+      daysSinceJoin,
+      gameStateRaw.completedReadingIds ?? []
+    );
+    const alreadyRead = gameStateRaw.dailyReadingDate === today;
+
+    if (!todayReading) return <div className="min-h-screen flex items-center justify-center"><p className="text-slate-400">No reading available today.</p></div>;
+
+    return (
+      <div className="min-h-screen bg-slate-50 flex flex-col">
+        <DailyReading
+          reading={todayReading}
+          alreadyCompleted={alreadyRead}
+          onBack={() => setView("hub")}
+          onComplete={(tokens, xp) => {
+            completeReading(todayReading.id, tokens, xp);
+            // Full Day bonus: all 4 quests done
+            const qDone = (dailyProgress?.questionsAnswered ?? 0) >= 5;
+            const wDone = dailyProgress?.warmupDone ?? false;
+            const xpDone = (gameStateRaw.dailyXPEarned ?? 0) >= 50;
+            if (qDone && wDone && xpDone) {
+              completeReading("full-day-bonus", 20, 0);
+            }
+          }}
+        />
+      </div>
+    );
+  }
+
   if (view === "path") {
     return (
       <div className="min-h-screen bg-white">
@@ -1449,6 +1494,14 @@ export default function DailyPage() {
               moduleName={activeModuleName}
               sessionXP={sessionXP}
               completed={quizCompleted}
+              hearts={gameStateRaw.hearts}
+              maxHearts={gameStateRaw.maxHearts ?? 5}
+              xpBonusLabel={xpGainAnimation?.source?.includes("BONUS") ? xpGainAnimation.source : null}
+              longestStreak={gameStateRaw.longestStreak}
+              currentStreak={streak}
+              enneagramType={profile.enneagramType ?? 5}
+              instinct={(profile as Record<string, unknown>).instinct as string ?? "sp"}
+              onBuyHearts={buyHearts}
             />
           </motion.div>
         )}

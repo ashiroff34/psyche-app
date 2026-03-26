@@ -35,6 +35,7 @@ import ChibiSprite, { ChibiState } from "@/components/ChibiSprite";
 import ShareableCard from "@/components/ShareableCard";
 import NextStepBanner from "@/components/NextStepBanner";
 import BeginnerBanner from "@/components/BeginnerBanner";
+import GlossaryTip from "@/components/GlossaryTip";
 
 
 const MBTI_TYPES = [
@@ -685,7 +686,16 @@ function ProfileCard({ profile }: { profile: PsycheProfile }) {
         {mbtiData && (
           <div className="space-y-4">
             <div className="p-5 rounded-2xl bg-white/80 backdrop-blur border border-indigo-100/50">
-              <div className="text-xs font-medium text-indigo-500 uppercase tracking-wider mb-2">Cognitive Type</div>
+              <div className="flex items-center gap-2 mb-2">
+                <div className="text-xs font-medium text-indigo-500 uppercase tracking-wider">Cognitive Type</div>
+                <GlossaryTip term="cognitive functions" />
+              </div>
+              <BeginnerBanner
+                dismissKey="profile-cognitive-intro"
+                message="Your cognitive type shows HOW you think — the mental tools you use most naturally. It goes deeper than MBTI letters. Tap any function abbreviation below to learn what it means."
+                primaryLabel="Learn more"
+                primaryHref="/cognitive"
+              />
               <div className="flex items-baseline gap-3">
                 <span className="text-4xl font-serif font-bold" style={{ color: mbtiData.color }}>
                   {mbtiData.code}
@@ -696,7 +706,10 @@ function ProfileCard({ profile }: { profile: PsycheProfile }) {
 
               {/* Function Stack Visualization */}
               <div className="mt-4 space-y-2">
-                <div className="text-[10px] uppercase tracking-wider text-slate-400 font-medium">Function Stack</div>
+                <div className="flex items-center gap-1.5">
+                  <div className="text-[10px] uppercase tracking-wider text-slate-400 font-medium">Function Stack</div>
+                  <GlossaryTip term="cognitive stack" />
+                </div>
                 <div className="flex gap-1.5">
                   {mbtiData.stack.map((fn, i) => {
                     const func = cognitiveFunctions.find(f => f.code === fn);
@@ -787,7 +800,7 @@ function ProfileCard({ profile }: { profile: PsycheProfile }) {
               className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-slate-50 text-slate-700 text-xs font-medium hover:bg-slate-100 transition border border-slate-100"
             >
               <Eye className="w-3.5 h-3.5" />
-              See your shadow stack
+              See your shadow stack <GlossaryTip term="shadow" />
               <ChevronRight className="w-3 h-3" />
             </Link>
           </>
@@ -1467,20 +1480,6 @@ export default function ProfilePage() {
             <ProfileCard profile={compat} />
             <PersonalizedInsights profile={compat} />
             <GrowthEdge profile={compat} />
-            <TodaysIntentionCard profile={compat} />
-
-            {/* Settings */}
-            <motion.div
-              initial={{ opacity: 1, y: 0 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.3 }}
-            >
-              <div className="flex items-center gap-3 mb-4">
-                <Settings className="w-5 h-5 text-slate-400" />
-                <h3 className="text-lg font-serif font-bold text-slate-800">App Settings</h3>
-              </div>
-              <ExperienceLevelToggle />
-            </motion.div>
           </div>
         )}
 

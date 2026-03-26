@@ -60,7 +60,21 @@ const moreItems = [
 
 function MoreMenu({ pathname }: { pathname: string }) {
   const [open, setOpen] = useState(false);
+  const [hasSeenExplore, setHasSeenExplore] = useState(true);
   const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const seen = localStorage.getItem("psyche-explore-seen");
+    if (!seen) setHasSeenExplore(false);
+  }, []);
+
+  const handleOpen = () => {
+    setOpen(!open);
+    if (!hasSeenExplore) {
+      localStorage.setItem("psyche-explore-seen", "true");
+      setHasSeenExplore(true);
+    }
+  };
 
   useEffect(() => {
     function handleClick(e: MouseEvent) {
@@ -75,11 +89,14 @@ function MoreMenu({ pathname }: { pathname: string }) {
   return (
     <div ref={ref} className="relative">
       <button
-        onClick={() => setOpen(!open)}
-        className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-slate-500 hover:bg-slate-100 text-sm font-medium transition-all"
+        onClick={handleOpen}
+        className="relative flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-slate-500 hover:bg-slate-100 text-sm font-medium transition-all"
       >
-        <MoreHorizontal className="w-4 h-4" />
+        <Compass className="w-4 h-4" />
         <span className="hidden sm:inline">Explore</span>
+        {!hasSeenExplore && (
+          <span className="absolute -top-0.5 -right-0.5 w-2 h-2 rounded-full bg-indigo-500 animate-pulse" />
+        )}
       </button>
 
       <AnimatePresence>

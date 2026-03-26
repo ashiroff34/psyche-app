@@ -51,6 +51,7 @@ import {
 import PetSprite from "@/components/PetSprite";
 import { usePetState } from "@/hooks/usePetState";
 import Confetti from "@/components/Confetti";
+import GameIntro from "@/components/GameIntro";
 
 // ─── Animations ──────────────────────────────────────────────────────────────
 
@@ -1087,6 +1088,8 @@ export default function GamePage() {
             </Link>
           </div>
         </motion.div>
+
+        <GameIntro />
 
         {/* Next Step Banner */}
         <div className="mt-2">

@@ -1,7 +1,8 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { Flame, Zap, Heart, ArrowRight, Sparkles, BookOpen } from "lucide-react";
+import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Flame, Zap, Heart, ArrowRight, Sparkles, BookOpen, CheckCircle, Target, Star } from "lucide-react";
 import PetSprite from "@/components/PetSprite";
 import type { PathNodeConfig } from "./NodeBottomSheet";
 
@@ -41,6 +42,13 @@ interface Props {
   miniPathNodes: PathNodeConfig[];
   nextNode: PathNodeConfig | null;
   streakFreezes: number;
+  // New engagement props
+  longestStreak?: number;
+  questionsAnsweredToday?: number;
+  warmupDoneToday?: boolean;
+  dailyXPEarned?: number;
+  readingDoneToday?: boolean;
+  onStartReading?: () => void;
 }
 
 export default function HubView({
@@ -51,6 +59,7 @@ export default function HubView({
   xpToNext,
   nextMilestoneLabel,
   enneagramType,
+  enneagramTypeName,
   jungianType,
   completedToday,
   totalNodes,
@@ -63,9 +72,28 @@ export default function HubView({
   miniPathNodes,
   nextNode,
   streakFreezes,
+  longestStreak = 0,
+  questionsAnsweredToday = 0,
+  warmupDoneToday = false,
+  dailyXPEarned = 0,
+  readingDoneToday = false,
+  onStartReading,
 }: Props) {
   const overallProgress = Math.round((completedToday / Math.max(totalNodes, 1)) * 100);
   const ringCircumference = 2 * Math.PI * 52;
+
+  // Endowed progress: show a "head start" banner on first hub visit if user has XP from assessments
+  const [showHeadStart, setShowHeadStart] = useState(false);
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const key = "psyche-hub-welcomed";
+    if (!localStorage.getItem(key) && totalXP > 0 && questionsAnsweredToday === 0) {
+      setShowHeadStart(true);
+      localStorage.setItem(key, "true");
+      setTimeout(() => setShowHeadStart(false), 4000);
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div
@@ -76,9 +104,25 @@ export default function HubView({
     >
       <div className="max-w-2xl mx-auto px-4 pt-10 pb-32">
 
+        {/* ── Endowed progress banner ── */}
+        <AnimatePresence>
+          {showHeadStart && (
+            <motion.div
+              initial={{ opacity: 0, y: -12, scale: 0.96 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: -8, scale: 0.96 }}
+              className="mb-5 flex items-center gap-3 px-4 py-3 rounded-2xl text-white font-medium text-sm"
+              style={{ background: "linear-gradient(135deg, #8b5cf6, #d946ef)", boxShadow: "0 4px 16px rgba(139,92,246,0.35)" }}
+            >
+              <Zap className="w-5 h-5 shrink-0 fill-white" />
+              <span>You&apos;ve already earned <strong>{totalXP} XP</strong> — you&apos;re ahead of the starting line!</span>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
         {/* ── Stats row ── */}
         <motion.div
-          initial={{ opacity: 0, y: -8 }}
+          initial={{ opacity: 1, y: 0 }}
           animate={{ opacity: 1, y: 0 }}
           className="flex items-center justify-between mb-8"
         >
@@ -87,6 +131,12 @@ export default function HubView({
             <Flame className="w-5 h-5 text-orange-500 mb-0.5" />
             <span className="text-xl font-bold text-slate-800 leading-none">{streak}</span>
             <span className="text-[9px] text-slate-400 uppercase tracking-wide mt-0.5">streak</span>
+            {longestStreak > streak && longestStreak > 0 && (
+              <span className="text-[8px] text-amber-500 font-medium mt-0.5">best: {longestStreak}</span>
+            )}
+            {streak > 0 && streak >= longestStreak && longestStreak > 0 && (
+              <Star className="absolute -top-1.5 -left-1.5 w-4 h-4 text-amber-400 fill-amber-400" />
+            )}
             {streakFreezes > 0 && (
               <div className="absolute -top-1.5 -right-1.5 w-5 h-5 rounded-full bg-sky-500 flex items-center justify-center shadow-sm">
                 <span className="text-white text-[9px] font-bold">{streakFreezes}</span>
@@ -111,7 +161,7 @@ export default function HubView({
 
         {/* ── Gradient progress ring + pet ── */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
+          initial={{ opacity: 1, scale: 1 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.1 }}
           className="flex flex-col items-center mb-8"
@@ -206,7 +256,7 @@ export default function HubView({
 
         {/* ── Continue Path button ── */}
         <motion.div
-          initial={{ opacity: 0, y: 8 }}
+          initial={{ opacity: 1, y: 0 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
           className="mb-7"
@@ -231,7 +281,7 @@ export default function HubView({
 
         {/* ── Enneagram / Jungian tab toggle ── */}
         <motion.div
-          initial={{ opacity: 0 }}
+          initial={{ opacity: 1 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.25 }}
           className="mb-5"
@@ -260,7 +310,7 @@ export default function HubView({
 
         {/* ── Mini path preview ── */}
         <motion.div
-          initial={{ opacity: 0, y: 8 }}
+          initial={{ opacity: 1, y: 0 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3 }}
           className="mb-6 p-4 rounded-2xl bg-white/80 backdrop-blur-sm shadow-sm border border-white"
@@ -345,10 +395,142 @@ export default function HubView({
           </div>
         </motion.div>
 
+        {/* ── Daily Quests ── */}
+        <motion.div
+          initial={{ opacity: 1, y: 0 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.37 }}
+          className="mb-6 p-4 rounded-2xl bg-white/80 backdrop-blur-sm shadow-sm border border-white"
+        >
+          <div className="flex items-center gap-2 mb-3">
+            <Target className="w-4 h-4 text-violet-500" />
+            <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Today&apos;s Quests</p>
+          </div>
+          {[
+            {
+              label: "Answer 5 questions",
+              done: questionsAnsweredToday >= 5,
+              progress: Math.min(questionsAnsweredToday, 5),
+              total: 5,
+              reward: "+10 XP bonus",
+            },
+            {
+              label: "Complete the warm-up",
+              done: warmupDoneToday,
+              progress: warmupDoneToday ? 1 : 0,
+              total: 1,
+              reward: "+5 tokens",
+            },
+            {
+              label: "Earn 50 XP today",
+              done: dailyXPEarned >= 50,
+              progress: Math.min(dailyXPEarned, 50),
+              total: 50,
+              reward: "+15 XP bonus",
+            },
+            {
+              label: "Complete today's reading",
+              done: readingDoneToday,
+              progress: readingDoneToday ? 1 : 0,
+              total: 1,
+              reward: "+25 tokens",
+            },
+          ].map((quest, i) => (
+            <div key={i} className={`flex items-center gap-3 py-2 ${i < 3 ? "border-b border-slate-50" : ""}`}>
+              <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center shrink-0 transition-colors ${
+                quest.done ? "border-emerald-400 bg-emerald-400" : "border-slate-200 bg-white"
+              }`}>
+                {quest.done && <CheckCircle className="w-3.5 h-3.5 text-white" />}
+              </div>
+              <div className="flex-1 min-w-0">
+                <p className={`text-sm font-medium leading-tight ${quest.done ? "text-slate-400 line-through" : "text-slate-700"}`}>
+                  {quest.label}
+                </p>
+                {!quest.done && quest.total > 1 && (
+                  <div className="mt-1 h-1 bg-slate-100 rounded-full overflow-hidden w-full">
+                    <div
+                      className="h-full rounded-full bg-gradient-to-r from-violet-400 to-pink-400 transition-all"
+                      style={{ width: `${(quest.progress / quest.total) * 100}%` }}
+                    />
+                  </div>
+                )}
+              </div>
+              <span className={`text-xs font-medium shrink-0 ${quest.done ? "text-emerald-500" : "text-amber-500"}`}>
+                {quest.reward}
+              </span>
+            </div>
+          ))}
+
+          {/* Full Day bonus */}
+          {(() => {
+            const allDone = questionsAnsweredToday >= 5 && warmupDoneToday && dailyXPEarned >= 50 && readingDoneToday;
+            return (
+              <div className={`mt-3 pt-3 border-t border-slate-100 flex items-center gap-3 rounded-xl px-3 py-2.5 transition-colors ${
+                allDone ? "bg-amber-50" : "bg-slate-50/60"
+              }`}>
+                <Star className={`w-4 h-4 shrink-0 ${allDone ? "text-amber-500" : "text-slate-300"}`} />
+                <div className="flex-1">
+                  <p className={`text-xs font-semibold ${allDone ? "text-amber-700" : "text-slate-400"}`}>Full Day Bonus</p>
+                  <p className="text-[10px] text-slate-400">Complete all 4 quests for a bonus reward</p>
+                </div>
+                <span className={`text-xs font-bold ${allDone ? "text-amber-600" : "text-slate-300"}`}>+20 tokens</span>
+              </div>
+            );
+          })()}
+        </motion.div>
+
+        {/* ── Today's Reading card ── */}
+        {onStartReading && (
+          <motion.div
+            initial={{ opacity: 1, y: 0 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.39 }}
+            className="mb-6"
+          >
+            <button
+              onClick={onStartReading}
+              className={`w-full text-left p-4 rounded-2xl border transition-all ${
+                readingDoneToday
+                  ? "bg-emerald-50 border-emerald-200"
+                  : "bg-white/80 backdrop-blur-sm border-indigo-100/60 shadow-sm hover:shadow-md"
+              }`}
+            >
+              <div className="flex items-center gap-3">
+                <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 ${
+                  readingDoneToday
+                    ? "bg-emerald-100"
+                    : "bg-gradient-to-br from-indigo-100 to-violet-100"
+                }`}>
+                  {readingDoneToday
+                    ? <CheckCircle className="w-5 h-5 text-emerald-500" />
+                    : <BookOpen className="w-5 h-5 text-indigo-500" />
+                  }
+                </div>
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center gap-1.5 mb-0.5">
+                    <span className={`text-[10px] font-bold uppercase tracking-wide ${readingDoneToday ? "text-emerald-600" : "text-indigo-600"}`}>
+                      Today&apos;s Reading
+                    </span>
+                    {!readingDoneToday && (
+                      <span className="px-1.5 py-0.5 text-[9px] font-semibold rounded-full bg-amber-100 text-amber-700">+25 tokens</span>
+                    )}
+                  </div>
+                  <p className={`text-sm font-medium ${readingDoneToday ? "text-emerald-700" : "text-slate-700"}`}>
+                    {readingDoneToday ? "Reading complete — great work!" : "Tap to read today's insight"}
+                  </p>
+                </div>
+                {!readingDoneToday && (
+                  <ArrowRight className="w-4 h-4 text-slate-400 shrink-0" />
+                )}
+              </div>
+            </button>
+          </motion.div>
+        )}
+
         {/* ── Daily insight card ── */}
         {insightData && (
           <motion.div
-            initial={{ opacity: 0, y: 8 }}
+            initial={{ opacity: 1, y: 0 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.35 }}
             className="relative overflow-hidden p-5 rounded-2xl bg-white/80 backdrop-blur-sm shadow-sm border border-indigo-100/60"

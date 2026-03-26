@@ -66,6 +66,10 @@ export interface GameState {
   // Hint tokens
   hintTokens: number;
 
+  // Daily Reading
+  completedReadingIds: string[];
+  dailyReadingDate: string; // date of last completed reading
+
   // XP history (last 7 days for chart)
   xpHistory: { date: string; xp: number }[];
 
@@ -357,6 +361,8 @@ function createDefaultState(): GameState {
     difficultyLevel: 1,
     topicProgress: {},
     hintTokens: 0,
+    completedReadingIds: [],
+    dailyReadingDate: "",
     hearts: 5,
     maxHearts: 5,
     heartsRefillTime: null,
@@ -592,6 +598,27 @@ export function useGameState() {
         ...prev,
         tokens: prev.tokens + amount,
         totalTokensEarned: prev.totalTokensEarned + amount,
+      }));
+    },
+    [update]
+  );
+
+  // ── Daily Reading ──────────────────────────────────────────────────────────
+
+  const completeReading = useCallback(
+    (readingId: string, tokenReward: number, xpReward: number) => {
+      const today = getToday();
+      update((prev) => ({
+        ...prev,
+        tokens: prev.tokens + tokenReward,
+        totalTokensEarned: prev.totalTokensEarned + tokenReward,
+        dailyXPEarned: (prev.dailyXPEarned ?? 0) + xpReward,
+        totalXPEarned: prev.totalXPEarned + xpReward,
+        xp: prev.xp + xpReward,
+        completedReadingIds: prev.completedReadingIds?.includes(readingId)
+          ? prev.completedReadingIds
+          : [...(prev.completedReadingIds ?? []), readingId],
+        dailyReadingDate: today,
       }));
     },
     [update]
@@ -1041,6 +1068,9 @@ export function useGameState() {
 
     // Daily Goal
     setDailyGoal,
+
+    // Daily Reading
+    completeReading,
 
     // Hearts
     loseHeart,

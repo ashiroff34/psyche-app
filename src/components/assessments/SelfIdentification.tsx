@@ -169,6 +169,10 @@ export default function SelfIdentification({
           <p className="text-sm text-slate-500 max-w-xl mx-auto">
             Read through all nine types. Notice which descriptions create a feeling of recognition — especially the parts about motivation, fear, and the patterns you&apos;d rather not admit to. Select 2-3 that feel closest.
           </p>
+          <p className="text-xs text-slate-400 mt-2 flex items-center justify-center gap-1">
+            <span>Tap each type to expand it</span>
+            <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
+          </p>
         </div>
 
         <div className="space-y-4">
@@ -229,49 +233,50 @@ export default function SelfIdentification({
                       transition={{ duration: 0.2 }}
                       className="overflow-hidden"
                     >
-                      <div className="px-5 pb-5 space-y-4">
-                        <p className="text-sm text-slate-600 leading-relaxed">
+                      {/* Color accent bar */}
+                      <div className="h-0.5 mx-5" style={{ backgroundColor: type.color + "40" }} />
+
+                      <div className="px-5 pb-5 pt-4 space-y-4">
+                        {/* Fear + Desire side by side */}
+                        <div className="grid grid-cols-2 gap-2">
+                          <div className="p-3 rounded-xl bg-red-50 border border-red-100/80">
+                            <div className="text-[10px] font-semibold text-red-500 uppercase tracking-wide mb-1">Core Fear</div>
+                            <p className="text-xs text-red-700 leading-snug">{type.coreFear}</p>
+                          </div>
+                          <div className="p-3 rounded-xl bg-emerald-50 border border-emerald-100/80">
+                            <div className="text-[10px] font-semibold text-emerald-600 uppercase tracking-wide mb-1">Core Desire</div>
+                            <p className="text-xs text-emerald-700 leading-snug">{type.coreDesire}</p>
+                          </div>
+                        </div>
+
+                        {/* Description — capped at 3 lines */}
+                        <p className="text-sm text-slate-500 leading-relaxed line-clamp-3">
                           {type.description}
                         </p>
 
-                        <div className="grid grid-cols-2 gap-3">
-                          <div className="p-3 rounded-xl bg-red-50/50">
-                            <div className="text-xs font-medium text-red-700 mb-1">Core Fear</div>
-                            <p className="text-xs text-red-600/80">{type.coreFear}</p>
-                          </div>
-                          <div className="p-3 rounded-xl bg-emerald-50/50">
-                            <div className="text-xs font-medium text-emerald-700 mb-1">Core Desire</div>
-                            <p className="text-xs text-emerald-600/80">{type.coreDesire}</p>
-                          </div>
-                        </div>
-
-                        <div>
-                          <div className="text-xs font-medium text-slate-500 mb-1">Core Motivation</div>
-                          <p className="text-xs text-slate-500">{type.coreMotivation}</p>
-                        </div>
-
+                        {/* Traits row */}
                         <div className="grid grid-cols-3 gap-2">
-                          <div>
-                            <div className="text-[10px] font-medium text-emerald-600 mb-1">At Their Best</div>
-                            <div className="flex flex-wrap gap-1">
+                          <div className="p-2.5 rounded-xl bg-emerald-50/60">
+                            <div className="text-[10px] font-semibold text-emerald-600 mb-1.5">At Best</div>
+                            <div className="flex flex-col gap-1">
                               {type.healthyTraits.slice(0, 3).map((t) => (
-                                <span key={t} className="px-1.5 py-0.5 text-[10px] rounded bg-emerald-50 text-emerald-600">{t}</span>
+                                <span key={t} className="text-[10px] text-emerald-700">{t}</span>
                               ))}
                             </div>
                           </div>
-                          <div>
-                            <div className="text-[10px] font-medium text-amber-600 mb-1">Average</div>
-                            <div className="flex flex-wrap gap-1">
+                          <div className="p-2.5 rounded-xl bg-amber-50/60">
+                            <div className="text-[10px] font-semibold text-amber-600 mb-1.5">Typical</div>
+                            <div className="flex flex-col gap-1">
                               {type.averageTraits.slice(0, 3).map((t) => (
-                                <span key={t} className="px-1.5 py-0.5 text-[10px] rounded bg-amber-50 text-amber-600">{t}</span>
+                                <span key={t} className="text-[10px] text-amber-700">{t}</span>
                               ))}
                             </div>
                           </div>
-                          <div>
-                            <div className="text-[10px] font-medium text-red-600 mb-1">Under Stress</div>
-                            <div className="flex flex-wrap gap-1">
+                          <div className="p-2.5 rounded-xl bg-red-50/60">
+                            <div className="text-[10px] font-semibold text-red-500 mb-1.5">Stressed</div>
+                            <div className="flex flex-col gap-1">
                               {type.unhealthyTraits.slice(0, 3).map((t) => (
-                                <span key={t} className="px-1.5 py-0.5 text-[10px] rounded bg-red-50 text-red-600">{t}</span>
+                                <span key={t} className="text-[10px] text-red-600">{t}</span>
                               ))}
                             </div>
                           </div>

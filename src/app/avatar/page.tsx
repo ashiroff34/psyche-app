@@ -44,7 +44,7 @@ import {
   type OutfitItem,
 } from "@/hooks/usePetState";
 import ChibiSprite from "@/components/ChibiSprite";
-import PetSprite from "@/components/PetSprite";
+import AnimatedPet from "@/components/AnimatedPet";
 import NextStepBanner from "@/components/NextStepBanner";
 
 // ─── Animations ──────────────────────────────────────────────────────────────
@@ -585,11 +585,11 @@ export default function AvatarPage() {
                     }`}
                     {...(petState.isAlive ? petBounce : deadPet)}
                   >
-                    {petState.isAlive ? (
-                      <PetSprite type={petDef.type} size={96} />
-                    ) : (
-                      <span className="text-5xl opacity-60">&#x1F480;</span>
-                    )}
+                    <AnimatedPet
+                      type={petDef.type}
+                      size={96}
+                      mood={petState.isAlive ? (petStatus?.status as import("@/components/AnimatedPet").PetMood) : "dead"}
+                    />
                   </motion.div>
 
                   {/* Pet Name (editable) */}
@@ -779,7 +779,7 @@ export default function AvatarPage() {
             <div className="bg-slate-800/40 border border-slate-700/40 rounded-2xl p-8 flex flex-col items-center gap-4">
               <div className="opacity-60">
                 {enneagramType ? (
-                  <PetSprite type={enneagramType} size={80} />
+                  <AnimatedPet type={enneagramType} size={80} />
                 ) : (
                   <span className="text-5xl">&#x1F423;</span>
                 )}
