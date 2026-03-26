@@ -9,8 +9,8 @@ if [ -z "$1" ]; then
   exit 1
 fi
 
-echo "🔍 Linting..."
-npm run lint
+echo "🔍 Typechecking..."
+npx tsc --noEmit
 
 echo "🏗️  Building..."
 npm run build
