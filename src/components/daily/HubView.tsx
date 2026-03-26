@@ -2,9 +2,10 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Flame, Zap, Heart, ArrowRight, Sparkles, BookOpen, CheckCircle, Target, Star, Clock } from "lucide-react";
+import { Flame, Zap, Heart, ArrowRight, Sparkles, BookOpen, CheckCircle, Target, Star, Clock, Lock, ChevronRight } from "lucide-react";
 import PetSprite from "@/components/PetSprite";
 import type { PathNodeConfig } from "./NodeBottomSheet";
+import type { PathUnit } from "./PathView";
 
 /* ── Midnight countdown helper ────────────────────────────────────────────── */
 function useMidnightCountdown() {
@@ -70,6 +71,9 @@ interface Props {
   miniPathNodes: PathNodeConfig[];
   nextNode: PathNodeConfig | null;
   streakFreezes: number;
+  // Inline path
+  units?: PathUnit[];
+  onViewFullPath?: () => void;
   // New engagement props
   longestStreak?: number;
   questionsAnsweredToday?: number;
@@ -106,6 +110,8 @@ export default function HubView({
   dailyXPEarned = 0,
   readingDoneToday = false,
   onStartReading,
+  units = [],
+  onViewFullPath,
 }: Props) {
   const overallProgress = Math.round((completedToday / Math.max(totalNodes, 1)) * 100);
   const ringCircumference = 2 * Math.PI * 52;
@@ -354,178 +360,241 @@ export default function HubView({
           )}
         </AnimatePresence>
 
-        {/* ── Continue Path button ── */}
-        <motion.div
-          initial={{ opacity: 1, y: 0 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2 }}
-          className="mb-7"
-        >
-          <button
-            onClick={onContinuePath}
-            className="w-full flex items-center justify-between px-6 py-4 rounded-2xl text-white font-semibold text-base transition-all active:scale-[0.98]"
-            style={{
-              background: "linear-gradient(135deg, #8b5cf6, #d946ef, #ec4899)",
-              boxShadow: "0 4px 20px rgba(139,92,246,0.4)",
-            }}
-          >
-            <div className="text-left">
-              <p className="font-bold text-lg leading-tight">Continue Path</p>
-              <p className="text-white/70 text-sm mt-0.5">
-                {nextNode ? nextNode.label : "All done for today!"}
-              </p>
-            </div>
-            <ArrowRight className="w-5 h-5 shrink-0" />
-          </button>
-        </motion.div>
-
-        {/* ── Enneagram / Jungian tab toggle ── */}
+        {/* ══════════════════════════════════════════════════════════════
+             ── INLINE LEARNING PATH (Duolingo-style) ──
+        ══════════════════════════════════════════════════════════════ */}
         <motion.div
           initial={{ opacity: 1 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 0.25 }}
-          className="mb-5"
+          className="mb-2"
         >
-          <div className="flex gap-1 p-1 bg-violet-50 rounded-xl">
+          {/* Section header row */}
+          <div className="flex items-center justify-between mb-3 px-1">
+            <p className="text-xs font-bold text-slate-500 uppercase tracking-widest">Your Learning Path</p>
+            {onViewFullPath && (
+              <button
+                onClick={onViewFullPath}
+                className="flex items-center gap-1 text-[11px] font-semibold text-violet-500 hover:text-violet-700 transition-colors"
+              >
+                See all units <ChevronRight className="w-3 h-3" />
+              </button>
+            )}
+          </div>
+
+          {/* Tab toggle */}
+          <div className="flex gap-1 p-1 bg-violet-50 rounded-xl mb-4">
             {(["enneagram", "jungian"] as const).map((tab) => (
               <button
                 key={tab}
                 onClick={() => onPathTabChange(tab)}
-                className={`flex-1 py-2.5 rounded-lg text-sm font-medium transition-all ${
-                  activePathTab === tab
-                    ? "text-white shadow-sm"
-                    : "text-slate-400 hover:text-slate-600"
+                className={`flex-1 py-2 rounded-lg text-sm font-medium transition-all ${
+                  activePathTab === tab ? "text-white shadow-sm" : "text-slate-400 hover:text-slate-600"
                 }`}
-                style={
-                  activePathTab === tab
-                    ? { background: "linear-gradient(135deg, #8b5cf6, #d946ef)" }
-                    : {}
-                }
+                style={activePathTab === tab ? { background: "linear-gradient(135deg,#8b5cf6,#d946ef)" } : {}}
               >
                 {tab === "enneagram" ? "Enneagram" : "Jungian"}
               </button>
             ))}
           </div>
-        </motion.div>
 
-        {/* ── Mini path preview ── */}
-        <motion.div
-          initial={{ opacity: 1, y: 0 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3 }}
-          className="mb-6 p-4 rounded-2xl bg-white/80 backdrop-blur-sm shadow-sm border border-white"
-        >
-          <div className="flex items-center justify-between mb-3 px-1">
-            {nextNode && (
-              <p className="text-[10px] font-bold text-violet-400 uppercase tracking-widest">
-                UP NEXT — {nextNode.unitName}
-              </p>
-            )}
-          </div>
+          {/* Inline path — show first active unit */}
+          {(() => {
+            const activeUnit = units[0]; // show first unit (current unit)
+            if (!activeUnit) return null;
+            const nodes = activeUnit.nodes;
+            const completedCount = nodes.filter(n => n.status === "completed").length;
+            const isFullyDone = completedCount === nodes.length;
+            const isAllLocked = nodes.every(n => n.status === "locked");
+            const pct = Math.round((completedCount / Math.max(nodes.length, 1)) * 100);
 
-          {/* Horizontal nodes row — design #11 style */}
-          <div className="flex items-center justify-between px-1">
-            {miniPathNodes.slice(0, 5).map((node, i) => (
-              <div key={node.id} className="flex items-center flex-1">
-                {/* Connector line */}
-                {i > 0 && (
-                  <div
-                    className="flex-1 h-px mx-1"
-                    style={{
-                      background:
-                        miniPathNodes[i - 1].status === "completed"
-                          ? "linear-gradient(to right,#8b5cf6,#ec4899)"
-                          : "#e2e8f0",
-                      opacity: miniPathNodes[i - 1].status === "completed" ? 0.5 : 1,
-                    }}
-                  />
-                )}
+            // S-curve offsets — Duolingo zigzag
+            const offsets = [
+              { x: 20, align: "flex-start" },
+              { x: 80, align: "center" },
+              { x: 140, align: "flex-end" },
+              { x: 80, align: "center" },
+              { x: 20, align: "flex-start" },
+            ];
 
-                {/* Mini node */}
-                <button
-                  onClick={() => onNodeTap(node)}
-                  className="relative flex flex-col items-center gap-1 flex-shrink-0"
-                  style={{
-                    filter:
-                      node.status === "completed"
-                        ? "drop-shadow(0 0 4px rgba(139,92,246,0.5))"
-                        : node.status === "current"
-                        ? "drop-shadow(0 0 6px rgba(251,146,60,0.7))"
-                        : "none",
-                  }}
+            return (
+              <div>
+                {/* Unit banner */}
+                <div
+                  className="relative flex items-center justify-between px-5 py-3.5 rounded-2xl mb-5 overflow-hidden"
+                  style={
+                    isAllLocked
+                      ? { background: "#cbd5e1" }
+                      : isFullyDone
+                      ? { background: "linear-gradient(135deg,#10b981,#6366f1)", boxShadow: "0 4px 20px rgba(99,102,241,0.3)" }
+                      : { background: "linear-gradient(135deg,#6366f1,#8b5cf6,#a855f7)", boxShadow: "0 4px 20px rgba(139,92,246,0.35)" }
+                  }
                 >
-                  <div className="relative" style={{ width: 40, height: 40 }}>
-                    <svg width="40" height="40" viewBox="0 0 40 40" className="absolute inset-0">
-                      <defs>
-                        <linearGradient id={`mini-vp-${node.id}`} x1="0%" y1="0%" x2="100%" y2="100%">
-                          <stop offset="0%" stopColor="#8b5cf6" />
-                          <stop offset="100%" stopColor="#ec4899" />
-                        </linearGradient>
-                        <linearGradient id={`mini-am-${node.id}`} x1="0%" y1="0%" x2="100%" y2="100%">
-                          <stop offset="0%" stopColor="#f59e0b" />
-                          <stop offset="100%" stopColor="#f97316" />
-                        </linearGradient>
-                      </defs>
-                      {node.status === "locked" && (
-                        <circle cx="20" cy="20" r="17" fill="none" stroke="#e2e8f0" strokeWidth="2.5" />
-                      )}
-                      {node.status === "completed" && (
-                        <circle cx="20" cy="20" r="17" fill="none" stroke={`url(#mini-vp-${node.id})`} strokeWidth="2.5" />
-                      )}
-                      {node.status === "current" && (
-                        <>
-                          <circle cx="20" cy="20" r="17" fill="none" stroke="#ede9fe" strokeWidth="2.5" />
-                          <circle cx="20" cy="20" r="17" fill="none" stroke={`url(#mini-am-${node.id})`}
-                            strokeWidth="2.5" strokeLinecap="round"
-                            strokeDasharray="53 54"
-                            style={{ transform: "rotate(-90deg)", transformOrigin: "20px 20px" }} />
-                        </>
-                      )}
-                    </svg>
-                    {/* Inner fill */}
-                    <div
-                      className="absolute rounded-full flex items-center justify-center"
-                      style={{
-                        inset: 5,
-                        background:
-                          node.status === "locked"
-                            ? "#f1f5f9"
-                            : node.status === "completed"
-                            ? "linear-gradient(135deg,#8b5cf6,#ec4899)"
-                            : "linear-gradient(135deg,#f59e0b,#f97316)",
-                      }}
-                    >
-                      {node.status === "completed" && (
-                        <svg className="w-3.5 h-3.5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
-                          <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-                        </svg>
-                      )}
-                      {node.status === "current" && (
-                        <Star className="w-3 h-3 text-white fill-white" />
-                      )}
-                      {node.status === "locked" && (
-                        <svg className="w-3 h-3 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                          <rect x="5" y="11" width="14" height="10" rx="2" />
-                          <path d="M8 11V7a4 4 0 018 0v4" />
-                        </svg>
-                      )}
-                    </div>
+                  {/* Shimmer overlay */}
+                  {!isAllLocked && (
+                    <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/10 to-white/0 pointer-events-none" />
+                  )}
+                  <div className="relative">
+                    <p className={`text-[10px] font-bold uppercase tracking-widest ${isAllLocked ? "text-slate-500" : "text-white/70"}`}>
+                      Unit 1
+                    </p>
+                    <p className={`text-base font-bold mt-0.5 ${isAllLocked ? "text-slate-500" : "text-white"}`}>
+                      {activeUnit.name}
+                    </p>
                   </div>
-                  <span
-                    className={`text-[9px] font-medium leading-tight text-center max-w-[40px] ${
-                      node.status === "current"
-                        ? "text-orange-500 font-bold"
-                        : node.status === "completed"
-                        ? "text-slate-400"
-                        : "text-gray-300"
-                    }`}
-                  >
-                    {node.status === "current" ? "Now" : node.label.split(" ")[0]}
-                  </span>
-                </button>
+                  <div className="relative flex items-center gap-2">
+                    {isAllLocked ? (
+                      <Lock className="w-5 h-5 text-slate-400" />
+                    ) : isFullyDone ? (
+                      <CheckCircle className="w-6 h-6 text-white" />
+                    ) : (
+                      <div className="flex items-center gap-2">
+                        <div className="w-20 h-2 rounded-full bg-white/25">
+                          <motion.div
+                            className="h-2 rounded-full bg-white"
+                            initial={{ width: 0 }}
+                            animate={{ width: `${pct}%` }}
+                            transition={{ duration: 0.8, delay: 0.4 }}
+                          />
+                        </div>
+                        <span className="text-xs font-bold text-white">{pct}%</span>
+                      </div>
+                    )}
+                  </div>
+                </div>
+
+                {/* S-curve nodes */}
+                <div className="relative px-2">
+                  {nodes.map((node, nodeIdx) => {
+                    const SIZE = node.status === "current" ? 72 : 60;
+                    const r = SIZE / 2 - 4;
+                    const circ = 2 * Math.PI * r;
+                    const gId = `ig-vp-${node.id}`;
+                    const gAmId = `ig-am-${node.id}`;
+
+                    // Zigzag alignment: left / center / right / center / left
+                    const rowAligns = ["justify-start", "justify-center", "justify-end", "justify-center", "justify-start"];
+                    const rowAlign = rowAligns[nodeIdx % rowAligns.length];
+                    const isLast = nodeIdx === nodes.length - 1;
+
+                    return (
+                      <div key={node.id} className="relative">
+                        {/* Connector */}
+                        {!isLast && (
+                          <div
+                            className="absolute left-1/2 -translate-x-px w-0.5 z-0"
+                            style={{
+                              top: SIZE + 4,
+                              height: node.status === "current" ? 44 : 40,
+                              background: node.status === "completed"
+                                ? "linear-gradient(to bottom, #8b5cf6, #ec4899)"
+                                : "#e2e8f0",
+                              opacity: node.status === "completed" ? 0.6 : 1,
+                            }}
+                          />
+                        )}
+
+                        {/* Node row */}
+                        <div className={`flex ${rowAlign} mb-12 relative z-10`}>
+                          <div className="flex flex-col items-center gap-2">
+                            {/* Node button */}
+                            <motion.button
+                              whileTap={{ scale: 0.92 }}
+                              whileHover={node.status !== "locked" ? { scale: 1.07 } : {}}
+                              onClick={() => onNodeTap(node)}
+                              className="relative flex-shrink-0"
+                              style={{
+                                width: SIZE,
+                                height: SIZE,
+                                filter: node.status === "completed"
+                                  ? "drop-shadow(0 0 8px rgba(139,92,246,0.55))"
+                                  : node.status === "current"
+                                  ? "drop-shadow(0 0 14px rgba(251,146,60,0.75))"
+                                  : "none",
+                              }}
+                            >
+                              <svg width={SIZE} height={SIZE} viewBox={`0 0 ${SIZE} ${SIZE}`} className="absolute inset-0">
+                                <defs>
+                                  <linearGradient id={gId} x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stopColor="#8b5cf6" />
+                                    <stop offset="100%" stopColor="#ec4899" />
+                                  </linearGradient>
+                                  <linearGradient id={gAmId} x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stopColor="#f59e0b" />
+                                    <stop offset="100%" stopColor="#f97316" />
+                                  </linearGradient>
+                                </defs>
+                                {node.status === "locked" && (
+                                  <circle cx={SIZE/2} cy={SIZE/2} r={r} fill="none" stroke="#e2e8f0" strokeWidth="3.5" />
+                                )}
+                                {node.status === "completed" && (
+                                  <circle cx={SIZE/2} cy={SIZE/2} r={r} fill="none" stroke={`url(#${gId})`} strokeWidth="3.5" />
+                                )}
+                                {node.status === "current" && (
+                                  <>
+                                    <circle cx={SIZE/2} cy={SIZE/2} r={r} fill="none" stroke="#ede9fe" strokeWidth="3.5" />
+                                    <motion.circle
+                                      cx={SIZE/2} cy={SIZE/2} r={r}
+                                      fill="none" stroke={`url(#${gAmId})`}
+                                      strokeWidth="3.5" strokeLinecap="round"
+                                      strokeDasharray={`${circ * 0.45} ${circ * 0.55}`}
+                                      transform={`rotate(-90 ${SIZE/2} ${SIZE/2})`}
+                                      animate={{ rotate: ["-90deg", "270deg"] }}
+                                      transition={{ duration: 2.5, repeat: Infinity, ease: "linear" }}
+                                      style={{ originX: "50%", originY: "50%" }}
+                                    />
+                                  </>
+                                )}
+                              </svg>
+                              {/* Inner fill */}
+                              <div
+                                className="absolute rounded-full flex items-center justify-center"
+                                style={{
+                                  inset: 6,
+                                  background: node.status === "locked"
+                                    ? "#f1f5f9"
+                                    : node.status === "completed"
+                                    ? "linear-gradient(135deg,#8b5cf6,#ec4899)"
+                                    : "linear-gradient(135deg,#f59e0b,#f97316)",
+                                }}
+                              >
+                                {node.status === "locked" && <Lock className="text-slate-400" style={{ width: SIZE*0.28, height: SIZE*0.28 }} />}
+                                {node.status === "completed" && <CheckCircle className="text-white" style={{ width: SIZE*0.32, height: SIZE*0.32 }} />}
+                                {node.status === "current" && <Star className="text-white fill-white" style={{ width: SIZE*0.3, height: SIZE*0.3 }} />}
+                              </div>
+                              {/* START badge */}
+                              {node.status === "current" && (
+                                <motion.div
+                                  className="absolute -top-1.5 left-1/2 -translate-x-1/2 px-2.5 py-0.5 rounded-full text-white text-[10px] font-bold tracking-wide shadow-lg whitespace-nowrap"
+                                  style={{ background: "linear-gradient(135deg,#f59e0b,#f97316)" }}
+                                  animate={{ y: [0, -3, 0] }}
+                                  transition={{ duration: 1.6, repeat: Infinity }}
+                                >
+                                  START
+                                </motion.div>
+                              )}
+                            </motion.button>
+
+                            {/* Label */}
+                            <div className="text-center max-w-[90px]">
+                              <p className={`text-[11px] font-semibold leading-snug ${
+                                node.status === "current" ? "text-orange-600 font-bold" :
+                                node.status === "completed" ? "text-violet-600" : "text-slate-400"
+                              }`}>
+                                {node.label}
+                              </p>
+                              {node.sublabel && (
+                                <p className="text-[10px] text-slate-400 leading-tight mt-0.5">{node.sublabel}</p>
+                              )}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
               </div>
-            ))}
-          </div>
+            );
+          })()}
         </motion.div>
 
         {/* ── Daily Quests ── */}

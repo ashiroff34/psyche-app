@@ -1316,6 +1316,8 @@ export default function DailyPage() {
           dailyXPEarned={gameStateRaw.dailyXPEarned}
           readingDoneToday={gameStateRaw.dailyReadingDate === new Date().toISOString().split("T")[0]}
           onStartReading={() => setView("reading")}
+          units={currentUnits}
+          onViewFullPath={() => setView("path")}
         />
         <NodeBottomSheet
           node={bottomSheetNode}
