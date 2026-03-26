@@ -304,25 +304,14 @@ export default function SettingsPage() {
 
   // ── Notification Handlers ────────────────────────────────────────────────
 
-  const updateNotifPrefs = async (updates: Partial<NotificationPrefs>) => {
+  const updateNotifPrefs = (updates: Partial<NotificationPrefs>) => {
     const updated = { ...notifPrefs, ...updates };
     setNotifPrefs(updated);
     saveNotificationPrefs(updated);
 
-    // If reminders are enabled and we have an email, call subscribe API
-    const userEmail = email.trim() || profile.email;
-    if (updated.dailyReminders && userEmail) {
-      try {
-        await fetch("/api/subscribe-reminders", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            email: userEmail,
-            time: updated.reminderTime,
-            enabled: updated.dailyReminders,
-          }),
-        });
-      } catch {}
+    // Preferences saved locally — push notifications handled natively by Capacitor
+    if ("dailyReminders" in updates) {
+      showToast(updates.dailyReminders ? "Reminders enabled ✓" : "Reminders turned off");
     }
   };
 
@@ -610,7 +599,7 @@ export default function SettingsPage() {
 
           <p className="text-xs text-slate-400 flex items-center gap-1.5 pt-1">
             <Info className="w-3 h-3 flex-shrink-0" />
-            Email notifications are coming soon. Your preferences are saved.
+            Push notifications are coming soon. Your preferences are saved and ready.
           </p>
         </ExpandableSection>
 

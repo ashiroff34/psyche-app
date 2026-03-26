@@ -568,19 +568,8 @@ export default function OnboardingPage() {
       localStorage.setItem("psyche-profile", JSON.stringify({ ...p, ...updates }));
       notifyProfileChanged();
 
-      // Subscribe to daily emails if valid email provided
-      if (emailVal?.trim() && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailVal.trim())) {
-        fetch("/api/subscribe", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            email: emailVal.trim(),
-            name: displayNameVal?.trim() || undefined,
-            enneagramType: p.enneagramType,
-            cognitiveType: p.cognitiveType,
-          }),
-        }).catch(() => {}); // Fire and forget — don't block onboarding
-      }
+      // Email is saved to localStorage profile above — no server subscription needed
+      // (app uses static export / Capacitor; push notifications are handled natively)
     } catch {}
   };
 
