@@ -22,8 +22,8 @@ import {
 import { notifyProfileChanged } from "@/hooks/useProfile";
 import OuroborosLogo from "@/components/OuroborosLogo";
 
-// Total visible steps = 7 (0 through 6).
-const TOTAL_STEPS = 7;
+// Total visible steps = 6 (0 through 5). Step "Why Thyself" removed — covered by Welcome.
+const TOTAL_STEPS = 6;
 
 // ── Step 0: Welcome ───────────────────────────────────────────────────────────
 
@@ -60,55 +60,6 @@ function StepWelcome() {
         ))}
       </div>
 
-      <p className="text-xs text-slate-400 italic">
-        Next: the two systems at the heart of Thyself
-      </p>
-    </div>
-  );
-}
-
-// ── Step 1: Why Thyself ──────────────────────────────────────────────────────
-
-function StepWhyThyself() {
-  return (
-    <div className="flex flex-col items-center text-center px-4">
-      <h2 className="text-3xl sm:text-4xl font-serif font-bold text-slate-900 mb-4">
-        Why Thyself?
-      </h2>
-      <p className="text-slate-500 max-w-md mx-auto mb-8">
-        Most personality apps give you a label and stop there. Thyself goes deeper.
-      </p>
-
-      <div className="w-full max-w-md space-y-4 text-left">
-        {[
-          {
-            title: "Understand WHY you do what you do",
-            desc: "Not just behaviors — Thyself maps your core motivations, fears, and the unconscious patterns driving your life.",
-          },
-          {
-            title: "Two proven systems, combined",
-            desc: "The Enneagram reveals your emotional wiring. Jung's cognitive functions reveal how you think. Together, they give you the full picture.",
-          },
-          {
-            title: "Grow every day",
-            desc: "Daily quizzes, personalized growth challenges, and a pet companion that keeps you coming back. Real change happens with consistency.",
-          },
-          {
-            title: "Go as deep as you want",
-            desc: "From beginner basics to Naranjo's clinical frameworks and Beebe's shadow model — the depth is here when you're ready.",
-          },
-        ].map((item, i) => (
-          <div key={i} className="flex gap-3 p-4 rounded-2xl bg-white/60 backdrop-blur-sm border border-slate-100">
-            <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-sky-400 to-indigo-500 flex items-center justify-center text-white text-sm font-bold flex-shrink-0 mt-0.5">
-              {i + 1}
-            </div>
-            <div>
-              <h3 className="font-semibold text-slate-800 text-sm mb-1">{item.title}</h3>
-              <p className="text-xs text-slate-500 leading-relaxed">{item.desc}</p>
-            </div>
-          </div>
-        ))}
-      </div>
     </div>
   );
 }
@@ -179,9 +130,6 @@ function StepTwoSystems() {
         </div>
       </div>
 
-      <p className="text-xs text-slate-400 text-center mt-6 italic">
-        Next: your journey through the app
-      </p>
     </div>
   );
 }
@@ -190,10 +138,8 @@ function StepTwoSystems() {
 
 function StepJourney() {
   const steps = [
-    { icon: Compass, label: "Take the Enneagram Assessment", desc: "Discover your core type, instinct, and subtype", color: "from-sky-400 to-sky-500" },
-    { icon: Brain, label: "Take the Cognitive Assessment", desc: "Find your Jungian function stack", color: "from-indigo-400 to-indigo-500" },
-    { icon: BookOpen, label: "Read your Type Deep-Dive", desc: "Subtypes, tritypes, Naranjo framework", color: "from-violet-400 to-violet-500" },
-    { icon: Flame, label: "Build a Daily Practice", desc: "Personalized quizzes, prompts, and streaks", color: "from-orange-400 to-orange-500" },
+    { icon: Compass, label: "Discover Your Type", desc: "Take the Enneagram + Cognitive assessments", color: "from-sky-400 to-sky-500" },
+    { icon: Flame, label: "Build a Daily Practice", desc: "Quizzes, growth challenges & streaks", color: "from-orange-400 to-orange-500" },
     { icon: Heart, label: "Do the Inner Work", desc: "Shadow work, reframing, integration", color: "from-rose-400 to-rose-500" },
   ];
 
@@ -204,7 +150,7 @@ function StepJourney() {
           Your Journey
         </h2>
         <p className="text-slate-500 max-w-md mx-auto">
-          A structured path from discovery to deep self-understanding.
+          Three phases, from first insight to deep integration.
         </p>
       </div>
 
@@ -296,9 +242,6 @@ function StepDifferent() {
         </div>
       </div>
 
-      <p className="text-xs text-slate-400 text-center mt-6 italic">
-        Next: tell us your name (optional) to personalise your experience
-      </p>
     </div>
   );
 }
@@ -351,7 +294,7 @@ function StepPersonalization({
         Let&apos;s make this yours
       </h2>
       <p className="text-slate-500 max-w-md mx-auto mb-8">
-        Your email keeps your progress safe and lets us send your daily insights — no spam, ever.
+        Add your email so we can notify you when new features drop and keep your progress safe.
       </p>
 
       <div className="w-full max-w-sm space-y-4">
@@ -393,13 +336,10 @@ function StepPersonalization({
         </div>
 
         <p className="text-xs text-slate-400 mt-1">
-          We&apos;ll send a personalized daily insight based on your type. Unsubscribe any time.
+          We&apos;ll notify you of new features &amp; updates. No spam, unsubscribe anytime.
         </p>
       </div>
 
-      <p className="text-xs text-slate-400 mt-8 italic">
-        Next: choose your starting path
-      </p>
     </div>
   );
 }
@@ -603,28 +543,18 @@ export default function OnboardingPage() {
 
   const renderStep = () => {
     switch (step) {
-      case 0:
-        return <StepWelcome />;
-      case 1:
-        return <StepWhyThyself />;
-      case 2:
-        return <StepTwoSystems />;
-      case 3:
-        return <StepJourney />;
-      case 4:
-        return <StepDifferent />;
-      case 5:
-        return <StepPersonalization displayName={displayName} email={email} onChangeName={setDisplayName} onChangeEmail={setEmail} />;
-      case 6:
-        return <StepChoosePath onComplete={handlePathComplete} />;
-      default:
-        return <StepWelcome />;
+      case 0: return <StepWelcome />;
+      case 1: return <StepTwoSystems />;
+      case 2: return <StepJourney />;
+      case 3: return <StepDifferent />;
+      case 4: return <StepPersonalization displayName={displayName} email={email} onChangeName={setDisplayName} onChangeEmail={setEmail} />;
+      case 5: return <StepChoosePath onComplete={handlePathComplete} />;
+      default: return <StepWelcome />;
     }
   };
 
-  // On the last step the "Next" button becomes "Go to Assessment"
+  // On the choose-path step (last), path cards handle navigation — hide Next button
   const isLastStep = step === TOTAL_STEPS - 1;
-  // On the choose-path step, the path cards handle navigation, so hide default next
   const showNextButton = !isLastStep;
 
 
@@ -671,10 +601,25 @@ export default function OnboardingPage() {
       </div>
 
       {/* Step Content */}
-      <div className="min-h-screen flex items-center justify-center pt-32 pb-32">
-        <div className="w-full max-w-3xl" key={step}>
-          {renderStep()}
-        </div>
+      <div className="min-h-screen flex items-center justify-center pt-32 pb-32 overflow-hidden">
+        <AnimatePresence mode="wait" custom={direction}>
+          <motion.div
+            key={step}
+            custom={direction}
+            variants={{
+              enter: (d: number) => ({ x: d > 0 ? 60 : -60, opacity: 0 }),
+              center: { x: 0, opacity: 1 },
+              exit: (d: number) => ({ x: d > 0 ? -60 : 60, opacity: 0 }),
+            }}
+            initial="enter"
+            animate="center"
+            exit="exit"
+            transition={{ duration: 0.22, ease: "easeInOut" }}
+            className="w-full max-w-3xl"
+          >
+            {renderStep()}
+          </motion.div>
+        </AnimatePresence>
       </div>
 
       {/* Bottom Navigation */}
