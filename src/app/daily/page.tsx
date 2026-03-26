@@ -1483,6 +1483,7 @@ export default function DailyPage() {
               completed={quizCompleted}
               hearts={gameStateRaw.hearts}
               maxHearts={gameStateRaw.maxHearts ?? 5}
+              heartsRefillTime={gameStateRaw.heartsRefillTime}
               xpBonusLabel={xpGainAnimation?.source?.includes("BONUS") ? xpGainAnimation.source : null}
               longestStreak={gameStateRaw.longestStreak}
               currentStreak={streak}

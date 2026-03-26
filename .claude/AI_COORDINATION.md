@@ -305,6 +305,55 @@
 
 ---
 
+## Session: Hearts System Fix + Read Directory (March 26, 2026)
+
+### What was done:
+
+**1. Fixed heart refill timing bug in `useGameState.ts`:**
+- Root cause: `refillHearts()` reset `heartsRefillTime` to `new Date().toISOString()` after adding hearts — destroying partial progress toward the next heart. E.g., 45 min → add 1 heart, reset timer → the 15 min progress toward the next heart was erased.
+- Fix: Advance `heartsRefillTime` by exactly `heartsToAdd * HEART_REFILL_MS` from original start, preserving partial progress.
+- Changed refill interval: 30 minutes → **10 minutes** per heart.
+- Updated auto-refill `useEffect` to use 10 min constant.
+
+**2. Added `gainHeart()` to `useGameState`:**
+- Adds 1 heart directly (used by reading rewards). Exported in hook return.
+
+**3. Updated "Out of Hearts" screen in `QuizFullscreen.tsx`:**
+- Added live countdown timer (MM:SS) showing time until next heart refills.
+- Added **"Read & Explore Types"** primary CTA → routes to `/read`.
+- Token-refill button moved to secondary (amber outlined style).
+- Copy updated: "30 minutes" → "10 minutes".
+- Added `heartsRefillTime` prop to QuizFullscreen.
+
+**4. Created `/read` reading directory page (`src/app/read/page.tsx`):**
+- Hero: "Pass the time while your hearts refill".
+- Live hearts status bar with fill animation.
+- 6 reading section cards with colors: Enneagram Types, Jungian Functions, Compare Types, Correlations, History, Sources.
+- Reading earns hearts: every 3 minutes on `/read` = +1 heart via `gainHeart()`.
+- Toast when heart earned.
+- Token shop link for fast refill.
+
+**5. Fixed `AiTypeNuanceCard` in `/enneagram/learn/page.tsx`:**
+- Was showing an empty card (AI removed, no fallback content).
+- Added `TYPE_NUANCES` — static substantive per-type insights for all 9 types.
+- Removed broken UI: "Generating insight..." subtitle, "New Insight" refresh button.
+- Cleaned unused imports: `useCallback`, `useRef`, `RefreshCw`.
+
+### Files modified by this session:
+- `src/hooks/useGameState.ts` — timing fix, 30→10 min, added `gainHeart`
+- `src/components/daily/QuizFullscreen.tsx` — new out-of-hearts screen, countdown, read button
+- `src/app/daily/page.tsx` — pass `heartsRefillTime` to QuizFullscreen
+- `src/app/read/page.tsx` — **NEW** reading directory page
+- `src/app/enneagram/learn/page.tsx` — fixed empty AiTypeNuanceCard, cleanup
+- `.claude/AI_COORDINATION.md` — updated
+
+### Known issues (pre-existing, not fixed):
+- `/api/subscribe-reminders` and `/api/subscribe` → 404 (Capacitor static export)
+- `XPCelebration` hooks order warning — non-crashing
+- Hat positions need per-hat/pet calibration (from Pet System session)
+
+---
+
 ## How to use this file:
 1. Before starting work, read this file
 2. Check if the files you want to edit were modified by another session

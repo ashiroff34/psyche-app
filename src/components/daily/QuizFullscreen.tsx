@@ -1,7 +1,9 @@
 "use client";
 
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, CheckCircle, XCircle, Heart, Zap, Trophy, ArrowRight, Star } from "lucide-react";
+import { X, CheckCircle, XCircle, Heart, Zap, Trophy, ArrowRight, Star, BookOpen, Timer } from "lucide-react";
 import ChibiSprite from "@/components/ChibiSprite";
 import type { ChibiState } from "@/components/ChibiSprite";
 
@@ -31,6 +33,7 @@ interface Props {
   // Engagement features
   hearts?: number;          // real game-state hearts (0–5); falls back to session calc if omitted
   maxHearts?: number;       // default 5
+  heartsRefillTime?: string | null; // ISO timestamp when refill timer started
   xpBonusLabel?: string | null; // e.g. "2x BONUS!" shown as a flash
   longestStreak?: number;   // personal best for self-competition screen
   currentStreak?: number;
@@ -53,6 +56,7 @@ export default function QuizFullscreen({
   completed,
   hearts: realHearts,
   maxHearts = 5,
+  heartsRefillTime,
   xpBonusLabel,
   longestStreak = 0,
   currentStreak = 0,
@@ -60,7 +64,30 @@ export default function QuizFullscreen({
   instinct = "sp",
   onBuyHearts,
 }: Props) {
+  const router = useRouter();
   const q = questions[currentIdx];
+
+  // ── Countdown to next heart ────────────────────────────────────────────────
+  const [nextHeartSecs, setNextHeartSecs] = useState<number | null>(null);
+  useEffect(() => {
+    if (!heartsRefillTime || realHearts === undefined || realHearts >= maxHearts) {
+      setNextHeartSecs(null);
+      return;
+    }
+    const REFILL_MS = 10 * 60 * 1000;
+    const refillStart = new Date(heartsRefillTime).getTime();
+    const calcSecs = () => {
+      const elapsed = Date.now() - refillStart;
+      const msIntoInterval = elapsed % REFILL_MS;
+      return Math.max(0, Math.ceil((REFILL_MS - msIntoInterval) / 1000));
+    };
+    setNextHeartSecs(calcSecs());
+    const interval = setInterval(() => {
+      const secs = calcSecs();
+      setNextHeartSecs(secs);
+    }, 1000);
+    return () => clearInterval(interval);
+  }, [heartsRefillTime, realHearts, maxHearts]);
 
   // ── Completion screen ──────────────────────────────────────────────────────
   if (completed) {
@@ -174,36 +201,75 @@ export default function QuizFullscreen({
 
   // ── Out of hearts screen ───────────────────────────────────────────────────
   if (realHearts === 0) {
+    const fmtCountdown = (secs: number) => {
+      const m = Math.floor(secs / 60);
+      const s = secs % 60;
+      return `${m}:${String(s).padStart(2, "0")}`;
+    };
+
     return (
       <div className="fixed inset-0 z-50 bg-white flex flex-col items-center justify-center px-6" style={{ maxWidth: 640, margin: "0 auto" }}>
         <motion.div
           initial={{ scale: 0.8, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           transition={{ type: "spring", damping: 20, stiffness: 300 }}
-          className="flex flex-col items-center text-center"
+          className="flex flex-col items-center text-center w-full max-w-xs"
         >
+          {/* Hearts row */}
+          <div className="flex gap-1.5 mb-4">
+            {Array.from({ length: maxHearts }).map((_, i) => (
+              <Heart key={i} className="w-6 h-6 text-slate-200 fill-slate-100" />
+            ))}
+          </div>
+
           <div className="w-20 h-20 rounded-full bg-rose-100 flex items-center justify-center mb-5">
             <Heart className="w-10 h-10 text-rose-400" />
           </div>
           <h2 className="text-2xl font-bold text-slate-900 mb-2">Out of Hearts</h2>
-          <p className="text-slate-500 text-sm mb-8 max-w-xs leading-relaxed">
-            You&apos;ve used all your hearts. They refill 1 every 30 minutes — or spend 20 tokens to refill now.
+
+          {/* Countdown timer */}
+          {nextHeartSecs !== null && (
+            <div className="flex items-center gap-2 bg-rose-50 border border-rose-100 rounded-2xl px-5 py-3 mb-4">
+              <Timer className="w-4 h-4 text-rose-400 shrink-0" />
+              <p className="text-sm font-semibold text-rose-700">
+                Next heart in{" "}
+                <span className="font-mono text-rose-600">{fmtCountdown(nextHeartSecs)}</span>
+              </p>
+            </div>
+          )}
+
+          <p className="text-slate-500 text-sm mb-6 max-w-xs leading-relaxed">
+            Hearts refill 1 every 10 minutes. Or pass the time exploring the reading library — your hearts keep refilling while you read!
           </p>
-          <div className="flex flex-col gap-3 w-full max-w-xs">
+
+          <div className="flex flex-col gap-3 w-full">
+            {/* Go Read CTA */}
+            <motion.button
+              whileTap={{ scale: 0.97 }}
+              onClick={() => { onQuit(); router.push("/read"); }}
+              className="w-full py-4 rounded-2xl font-bold text-white text-base flex items-center justify-center gap-2"
+              style={{ background: "linear-gradient(135deg, #6366f1, #8b5cf6)", boxShadow: "0 4px 20px rgba(99,102,241,0.3)" }}
+            >
+              <BookOpen className="w-5 h-5" />
+              Read &amp; Explore Types
+            </motion.button>
+
+            {/* Buy with tokens */}
             {onBuyHearts && (
               <motion.button
                 whileTap={{ scale: 0.97 }}
                 onClick={onBuyHearts}
-                className="w-full py-4 rounded-2xl font-bold text-white text-base flex items-center justify-center gap-2"
-                style={{ background: "linear-gradient(135deg, #f59e0b, #ef4444)", boxShadow: "0 4px 20px rgba(239,68,68,0.3)" }}
+                className="w-full py-3.5 rounded-2xl font-semibold text-amber-700 text-base bg-amber-50 hover:bg-amber-100 border border-amber-200 flex items-center justify-center gap-2 transition"
               >
-                Refill Hearts (20 tokens)
+                <Zap className="w-4 h-4 text-amber-500" />
+                Refill with 20 tokens
               </motion.button>
             )}
+
             <motion.button
               whileTap={{ scale: 0.97 }}
               onClick={onQuit}
-              className="w-full py-3.5 rounded-2xl font-semibold text-slate-600 text-base bg-slate-100 hover:bg-slate-200 transition"
+              className="w-full py-3 rounded-2xl font-medium text-slate-500 text-sm bg-slate-50 hover:bg-slate-100 transition"
             >
               Come back later
             </motion.button>

@@ -875,6 +875,10 @@ export function useGameState() {
   );
 
   // ── Hearts System ──────────────────────────────────────────────────────────
+  // 1 heart refills every 10 minutes. Timer advances from the original start
+  // time (not reset to "now") so partial progress is preserved across refills.
+
+  const HEART_REFILL_MS = 10 * 60 * 1000; // 10 minutes per heart
 
   const loseHeart = useCallback(() => {
     setState((prev) => {
@@ -889,23 +893,43 @@ export function useGameState() {
     });
   }, [save]);
 
-  const refillHearts = useCallback(() => {
+  const gainHeart = useCallback(() => {
     setState((prev) => {
       if (prev.hearts >= prev.maxHearts) return prev;
-      if (!prev.heartsRefillTime) return prev;
-      const elapsed = Date.now() - new Date(prev.heartsRefillTime).getTime();
-      const heartsToAdd = Math.floor(elapsed / (30 * 60 * 1000));
-      if (heartsToAdd <= 0) return prev;
-      const newHearts = Math.min(prev.maxHearts, prev.hearts + heartsToAdd);
+      const newHearts = prev.hearts + 1;
       const updated = {
         ...prev,
         hearts: newHearts,
-        heartsRefillTime: newHearts >= prev.maxHearts ? null : new Date().toISOString(),
+        heartsRefillTime: newHearts >= prev.maxHearts ? null : prev.heartsRefillTime,
       };
       save(updated);
       return updated;
     });
   }, [save]);
+
+  const refillHearts = useCallback(() => {
+    setState((prev) => {
+      if (prev.hearts >= prev.maxHearts) return prev;
+      if (!prev.heartsRefillTime) return prev;
+      const refillStart = new Date(prev.heartsRefillTime).getTime();
+      const elapsed = Date.now() - refillStart;
+      const heartsToAdd = Math.floor(elapsed / HEART_REFILL_MS);
+      if (heartsToAdd <= 0) return prev;
+      const newHearts = Math.min(prev.maxHearts, prev.hearts + heartsToAdd);
+      // Advance refill time by exactly heartsToAdd intervals — preserves partial progress
+      const newRefillTime =
+        newHearts >= prev.maxHearts
+          ? null
+          : new Date(refillStart + heartsToAdd * HEART_REFILL_MS).toISOString();
+      const updated = {
+        ...prev,
+        hearts: newHearts,
+        heartsRefillTime: newRefillTime,
+      };
+      save(updated);
+      return updated;
+    });
+  }, [save]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const buyHearts = useCallback(() => {
     setState((prev) => {
@@ -927,10 +951,10 @@ export function useGameState() {
   useEffect(() => {
     if (!loaded) return;
 
-    // Auto-refill hearts based on elapsed time
+    // Auto-refill hearts based on elapsed time (1 heart per 10 min)
     if (state.hearts < (state.maxHearts ?? 5) && state.heartsRefillTime) {
       const elapsed = Date.now() - new Date(state.heartsRefillTime).getTime();
-      const heartsToAdd = Math.floor(elapsed / (30 * 60 * 1000));
+      const heartsToAdd = Math.floor(elapsed / (10 * 60 * 1000));
       if (heartsToAdd > 0) {
         refillHearts();
       }
@@ -1074,6 +1098,7 @@ export function useGameState() {
 
     // Hearts
     loseHeart,
+    gainHeart,
     refillHearts,
     buyHearts,
 

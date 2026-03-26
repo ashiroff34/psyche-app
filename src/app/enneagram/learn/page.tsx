@@ -1,9 +1,9 @@
 "use client";
 
-import { useState, useEffect, useCallback, useRef, Suspense } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronDown, ChevronUp, TrendingUp, TrendingDown, Heart, AlertTriangle, Lightbulb, Feather, Flame, Users, Shield, Zap, Layers, Star, Brain, Eye, Swords, Lock, Sparkles, RefreshCw, BookOpen, Info } from "lucide-react";
+import { ChevronDown, ChevronUp, TrendingUp, TrendingDown, Heart, AlertTriangle, Lightbulb, Feather, Flame, Users, Shield, Zap, Layers, Star, Brain, Eye, Swords, Lock, Sparkles, BookOpen, Info } from "lucide-react";
 import { enneagramTypes, type EnneagramType } from "@/data/enneagram";
 import { subtypes, instinctualVariants, instinctualStackings } from "@/data/subtypes";
 import { tritypes, tritypeCenters } from "@/data/tritypes";
@@ -14,109 +14,46 @@ import NextStepBanner from "@/components/NextStepBanner";
 import { Compass as CompassIcon, Users2 } from "lucide-react";
 
 /* ═══════════════════════════════════════════════════════════════════
-   AI TYPE NUANCE CARD
+   TYPE NUANCE CARD — static deep insights per type
    ═══════════════════════════════════════════════════════════════════ */
+const TYPE_NUANCES: Record<number, string> = {
+  1: "Ones are often misread as simply perfectionistic, but the deeper drive is a desperate need to be good in a morally absolute sense. The inner critic isn't external — it is the One's own voice turned inward with relentless intensity. Healthy Ones learn that goodness isn't earned through flawlessness; it is expressed through acceptance of imperfection, both in themselves and the world.",
+  2: "Twos are not merely helpful — they are often running from the terror of being unwanted if they show up with needs of their own. The generosity can be genuine and the manipulation unconscious. The core wound isn't about love being withheld; it's about the belief that love must be earned through service. Growth for Twos means discovering they are allowed to receive.",
+  3: "Threes don't just want success — they want to become the image of success so completely that they lose track of who they actually are underneath. The efficiency and charm are real, but they often function as armor. The deepest fear isn't failure; it's being exposed as worthless without the achievements. Healthy Threes develop an identity that exists independently of performance.",
+  4: "Fours are not simply emotional — they are acutely attuned to the gap between what is and what could be, and they live in that gap. The longing isn't just romantic; it's ontological. They feel something essential is missing from their very being. The irony is that this intense focus on what's absent causes them to overlook the depth they already possess.",
+  5: "Fives aren't cold — they are protecting an inner world that feels easily overwhelmed and depleted by contact. The retreat into knowledge is often a substitute for the aliveness they're afraid to fully inhabit. The core fear isn't about being incompetent; it's about being incapable of surviving the demands of life. Healthy Fives discover that engagement doesn't drain them — it restores them.",
+  6: "Sixes don't simply worry — they are running an ongoing threat-detection system shaped by a foundational distrust of their own inner guidance. The loyalty they offer is a form of outsourcing authority to trusted sources. What looks like doubt is often a deep, unacknowledged competence that the Six refuses to rely on. Growth means learning to trust what they already know.",
+  7: "Sevens aren't just optimistic — they are running from pain with extraordinary creativity and speed. The mental leaping between possibilities isn't purely joyful; it's often an escape from the present moment's limitations. The deepest fear isn't being bored; it's being trapped in suffering with no exit. Healthy Sevens discover that staying with difficulty doesn't destroy them — it deepens them.",
+  8: "Eights don't simply want control — they are guarding a tenderness so fierce they learned early to armour it completely. The aggression and intensity are real, but underneath is often a profound protectiveness toward those they love. The core fear isn't weakness; it's betrayal — being vulnerable and then abandoned. Healthy Eights learn that their softness is their greatest strength.",
+  9: "Nines don't merely avoid conflict — they have learned to dissolve their own will so completely that they sometimes can't locate what they actually want. The peace they create is often real, but it comes at the cost of their own presence. The deepest pattern isn't laziness; it's a habit of self-forgetting so thorough that asserting their own perspective feels like an act of aggression. Growth means showing up as themselves.",
+};
+
 function AiTypeNuanceCard({ typeNumber }: { typeNumber: number }) {
-  const [insight, setInsight] = useState<string>("");
-  const [loading, setLoading] = useState(false);
-  const [loaded, setLoaded] = useState(false);
-  const fetchedRef = useRef(false);
+  const insight = TYPE_NUANCES[typeNumber] || "";
 
-  const fetchInsight = useCallback(async (force = false) => {
-    const cacheKey = `psyche-ai-type-nuance-${typeNumber}`;
-
-    if (!force) {
-      try {
-        const cached = sessionStorage.getItem(cacheKey);
-        if (cached) {
-          setInsight(cached);
-          setLoaded(true);
-          return;
-        }
-      } catch {}
-    }
-
-    // Get profile from localStorage for richer context
-    let profile: Record<string, unknown> = { enneagramType: typeNumber };
-    try {
-      const raw = localStorage.getItem("psyche-profile");
-      if (raw) {
-        const p = JSON.parse(raw);
-        profile = {
-          enneagramType: typeNumber,
-          instinctualStacking: p.instinctualStacking,
-          tritype: p.tritype,
-          cognitiveType: p.cognitiveType ?? p.mbtiType,
-        };
-      }
-    } catch {}
-
-    // Use static content — no AI needed
-    setLoading(false);
-    setInsight("");
-    setLoaded(true);
-  }, [typeNumber]);
-
-  useEffect(() => {
-    if (!fetchedRef.current) {
-      fetchedRef.current = true;
-      fetchInsight();
-    }
-  }, [fetchInsight]);
+  if (!insight) return null;
 
   return (
     <motion.div
       initial={{ opacity: 1, y: 0 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: 0.1 }}
       className="relative overflow-hidden rounded-2xl border border-indigo-200/70 bg-gradient-to-br from-indigo-50/80 via-violet-50/60 to-sky-50/80 p-6"
     >
-      {/* Accent border glow */}
       <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-indigo-400/10 to-violet-400/10 pointer-events-none" />
       <div className="absolute top-0 right-0 w-40 h-40 bg-gradient-to-bl from-indigo-100/40 to-transparent rounded-bl-full pointer-events-none" />
 
       <div className="relative">
-        <div className="flex items-center justify-between mb-4">
-          <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-indigo-500 to-violet-500 flex items-center justify-center shadow-sm shadow-indigo-200/50">
-              <Sparkles className="w-4 h-4 text-white" />
-            </div>
-            <div>
-              <div className="text-sm font-semibold text-indigo-700">AI Insight: Your Type&apos;s Hidden Depth</div>
-              <div className="text-[10px] text-indigo-400">Generating insight for Type {typeNumber}...</div>
-            </div>
+        <div className="flex items-center gap-3 mb-4">
+          <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-indigo-500 to-violet-500 flex items-center justify-center shadow-sm shadow-indigo-200/50">
+            <Sparkles className="w-4 h-4 text-white" />
           </div>
-          <button
-            onClick={() => fetchInsight(true)}
-            disabled={loading}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-indigo-100 hover:bg-indigo-200 text-indigo-600 text-xs font-medium transition-all disabled:opacity-50"
-            title="Generate new insight"
-          >
-            <RefreshCw className={`w-3 h-3 ${loading ? "animate-spin" : ""}`} />
-            <span>New Insight</span>
-          </button>
+          <div>
+            <div className="text-sm font-semibold text-indigo-700">Deep Nuance: Type {typeNumber}</div>
+            <div className="text-[10px] text-indigo-400">What most people miss about this type</div>
+          </div>
         </div>
 
-        {/* Loading skeleton */}
-        {loading && !insight && (
-          <div className="space-y-2.5 animate-pulse">
-            <div className="h-3.5 bg-indigo-100 rounded-full w-full" />
-            <div className="h-3.5 bg-indigo-100 rounded-full w-11/12" />
-            <div className="h-3.5 bg-indigo-100 rounded-full w-5/6" />
-            <div className="h-3.5 bg-indigo-100 rounded-full w-4/5" />
-            <div className="h-3.5 bg-indigo-100 rounded-full w-2/3" />
-          </div>
-        )}
-
-        {/* Streamed text */}
-        {insight && (
-          <p className="text-slate-700 leading-relaxed text-sm font-serif">
-            {insight}
-            {loading && (
-              <span className="inline-block w-0.5 h-4 bg-indigo-500 ml-0.5 animate-pulse" />
-            )}
-          </p>
-        )}
+        <p className="text-slate-700 leading-relaxed text-sm font-serif">{insight}</p>
       </div>
     </motion.div>
   );
