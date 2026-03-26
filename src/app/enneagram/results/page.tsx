@@ -242,6 +242,16 @@ function ResultsInner() {
     SX: "Your dominant drive is toward deep, intense one-to-one connection and experiences of aliveness.",
   };
 
+  // Fire tutorial for first-time users after they've seen their results
+  useEffect(() => {
+    const tutorialDone = localStorage.getItem("psyche-tutorial-complete") === "true";
+    if (tutorialDone) return;
+    const timer = setTimeout(() => {
+      window.dispatchEvent(new Event("psyche-start-tutorial"));
+    }, 900);
+    return () => clearTimeout(timer);
+  }, []);
+
   // Save to localStorage on mount
   useEffect(() => {
     if (!typeData) return;
@@ -1050,6 +1060,22 @@ function ResultsInner() {
           )}
         </AnimatePresence>
       </div>
+
+      {/* Sticky "Continue to Profile" CTA — shown when arriving from an assessment */}
+      {isSelfId || searchParams.get("assessmentLength") ? (
+        <div className="fixed bottom-20 left-0 right-0 z-40 flex justify-center px-4 pointer-events-none">
+          <div className="w-full max-w-lg pointer-events-auto">
+            <Link
+              href="/profile"
+              className="flex items-center justify-between w-full px-6 py-4 rounded-2xl text-white font-bold text-base shadow-xl"
+              style={{ background: "linear-gradient(135deg, #6366f1, #a855f7)", boxShadow: "0 8px 32px rgba(99,102,241,0.4)" }}
+            >
+              <span>Continue to Profile</span>
+              <ArrowRight className="w-5 h-5" />
+            </Link>
+          </div>
+        </div>
+      ) : null}
     </div>
   );
 }

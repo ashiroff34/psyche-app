@@ -4,21 +4,25 @@ import { useEffect, useState } from "react";
 import TutorialOverlay, { useTutorial } from "./Tutorial";
 
 /**
- * Only handles REPLAY from the Explore menu.
- * First-time tutorial is triggered from the onboarding page directly.
+ * Handles first-time tutorial (fired from results page after assessment)
+ * and replay from the Explore menu.
  */
 export default function TutorialProvider() {
   const { isActive, startTutorial, endTutorial } = useTutorial();
   const [shouldShow, setShouldShow] = useState(false);
 
-  // Listen for replay event from Explore menu
+  // Listen for first-time and replay tutorial events
   useEffect(() => {
     const handler = () => {
       startTutorial();
       setShouldShow(true);
     };
     window.addEventListener("psyche-replay-tutorial", handler);
-    return () => window.removeEventListener("psyche-replay-tutorial", handler);
+    window.addEventListener("psyche-start-tutorial", handler);
+    return () => {
+      window.removeEventListener("psyche-replay-tutorial", handler);
+      window.removeEventListener("psyche-start-tutorial", handler);
+    };
   }, [startTutorial]);
 
   useEffect(() => {

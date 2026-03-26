@@ -20,7 +20,6 @@ import {
   Mail,
 } from "lucide-react";
 import { notifyProfileChanged } from "@/hooks/useProfile";
-import TutorialOverlay from "@/components/Tutorial";
 import OuroborosLogo from "@/components/OuroborosLogo";
 
 // Total visible steps = 7 (0 through 6).
@@ -483,8 +482,6 @@ export default function OnboardingPage() {
   const [displayName, setDisplayName] = useState("");
   const [email, setEmail] = useState("");
 
-  const [showTutorial, setShowTutorial] = useState(false);
-
   // Check if terms already accepted (returning user)
   useEffect(() => {
     try {
@@ -588,11 +585,6 @@ export default function OnboardingPage() {
   };
 
   const next = () => {
-    // After personalization (step 5), show tutorial before Choose Path (step 6)
-    if (step === 5) {
-      setShowTutorial(true);
-      return;
-    }
     if (step < TOTAL_STEPS - 1) {
       setDirection(1);
       setStep((s) => s + 1);
@@ -646,21 +638,6 @@ export default function OnboardingPage() {
   // On the choose-path step, the path cards handle navigation, so hide default next
   const showNextButton = !isLastStep;
 
-  // Tutorial overlay shown between personalization and Choose Path
-  if (showTutorial) {
-    return (
-      <TutorialOverlay
-        onClose={() => {
-          setShowTutorial(false);
-          // Mark tutorial as complete
-          try { localStorage.setItem("psyche-tutorial-complete", "true"); localStorage.removeItem("psyche-tutorial-active"); } catch {}
-          // Advance to Choose Path
-          setDirection(1);
-          setStep(6);
-        }}
-      />
-    );
-  }
 
   return (
     <div className="min-h-screen relative overflow-hidden">
