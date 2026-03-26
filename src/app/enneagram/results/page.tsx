@@ -207,9 +207,12 @@ const tabs = ["Overview", "Subtypes", "Levels", "Growth", "Deep Psychology"];
 function ResultsInner() {
   const searchParams = useSearchParams();
   const { profile, loaded, updateProfile } = useProfile();
-  const [activeTab, setActiveTab] = useState(() =>
-    typeof window !== "undefined" && new URLSearchParams(window.location.search).get("confidence") === "self-id" ? 1 : 0
-  );
+  const [activeTab, setActiveTab] = useState(0);
+
+  // Auto-open Subtypes tab when arriving from self-ID flow
+  useEffect(() => {
+    if (searchParams.get("confidence") === "self-id") setActiveTab(1);
+  }, [searchParams]);
   const [selectedSubtype, setSelectedSubtype] = useState<string | null>(null);
   const [expandedSubtype, setExpandedSubtype] = useState<string | null>(null);
   const [selectedLevel, setSelectedLevel] = useState<number | null>(null);
