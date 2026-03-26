@@ -219,6 +219,79 @@ export const BADGE_DEFINITIONS: Omit<Badge, "earnedAt">[] = [
   { id: "comeback-kid", name: "Comeback Kid", description: "Return after 7+ days away", icon: "\u{1F91D}", category: "social" },
 ];
 
+export interface BadgeProgress {
+  id: string;
+  name: string;
+  icon: string;
+  description: string;
+  current: number;
+  target: number;
+  pct: number; // 0–100
+  label: string; // e.g. "4 / 7 days"
+}
+
+export function getBadgeProgress(state: GameState): BadgeProgress[] {
+  const earnedIds = new Set(state.badges.map((b) => b.id));
+
+  const candidates: BadgeProgress[] = [];
+
+  const add = (
+    id: string,
+    name: string,
+    icon: string,
+    description: string,
+    current: number,
+    target: number,
+    labelFn: (c: number, t: number) => string
+  ) => {
+    if (earnedIds.has(id)) return;
+    const clamped = Math.min(current, target);
+    const pct = Math.round((clamped / target) * 100);
+    if (pct < 100) {
+      candidates.push({
+        id,
+        name,
+        icon,
+        description,
+        current: clamped,
+        target,
+        pct,
+        label: labelFn(clamped, target),
+      });
+    }
+  };
+
+  // Streak badges
+  add("week-warrior", "Week Warrior", "🔥", "Maintain a 7-day streak",
+    state.streakCount, 7, (c, t) => `${c} / ${t} days`);
+  add("fortnight-fury", "Fortnight Fury", "🌀", "Maintain a 14-day streak",
+    state.streakCount, 14, (c, t) => `${c} / ${t} days`);
+  add("month-master", "Month Master", "⚡", "Maintain a 30-day streak",
+    state.streakCount, 30, (c, t) => `${c} / ${t} days`);
+  add("century-club", "Century Club", "🏆", "Maintain a 100-day streak",
+    state.streakCount, 100, (c, t) => `${c} / ${t} days`);
+
+  // Level badges
+  add("level-10", "Double Digits", "🌟", "Reach Level 10",
+    state.level, 10, (c, t) => `Level ${c} / ${t}`);
+  add("level-25", "Quarter Century", "👑", "Reach Level 25",
+    state.level, 25, (c, t) => `Level ${c} / ${t}`);
+  add("level-50", "Transcendent", "💫", "Reach Level 50",
+    state.level, 50, (c, t) => `Level ${c} / ${t}`);
+
+  // Mastery badges
+  add("deep-thinker", "Deep Thinker", "📚", "Answer 50 questions",
+    state.totalAttempted, 50, (c, t) => `${c} / ${t} questions`);
+  add("quiz-streak-10", "On Fire", "💥", "Get 10 correct in a row",
+    state.quizStreak, 10, (c, t) => `${c} / ${t} in a row`);
+  add("accuracy-ace", "Accuracy Ace", "🎯", "Answer 100 questions with 80%+ accuracy",
+    state.totalAttempted, 100, (c, t) => `${c} / ${t} questions`);
+
+  // Sort by progress % descending (closest to earning = first), take top 2
+  candidates.sort((a, b) => b.pct - a.pct);
+  return candidates.slice(0, 2);
+}
+
 // ─── Shop Items ──────────────────────────────────────────────────────────────
 
 export interface ShopItem {

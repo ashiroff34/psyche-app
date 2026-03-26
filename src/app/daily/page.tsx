@@ -1492,6 +1492,7 @@ export default function DailyPage() {
               enneagramType={profile.enneagramType ?? 5}
               instinct={(profile as Record<string, unknown>).instinct as string ?? "sp"}
               onBuyHearts={buyHearts}
+              gameState={gameStateRaw}
             />
           </motion.div>
         )}

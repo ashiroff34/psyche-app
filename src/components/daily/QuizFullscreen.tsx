@@ -6,6 +6,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import { X, CheckCircle, XCircle, Heart, Zap, Trophy, ArrowRight, Star, BookOpen, Timer } from "lucide-react";
 import ChibiSprite from "@/components/ChibiSprite";
 import type { ChibiState } from "@/components/ChibiSprite";
+import BadgeProgressCard from "@/components/daily/BadgeProgressCard";
+import { getBadgeProgress, type GameState, type BadgeProgress } from "@/hooks/useGameState";
 
 interface Question {
   id: string;
@@ -40,6 +42,7 @@ interface Props {
   enneagramType?: number;   // for chibi sprite
   instinct?: string;        // e.g. "sp", "so", "sx"
   onBuyHearts?: () => void;
+  gameState?: GameState; // for badge progress hints
 }
 
 export default function QuizFullscreen({
@@ -63,6 +66,7 @@ export default function QuizFullscreen({
   enneagramType = 5,
   instinct = "sp",
   onBuyHearts,
+  gameState,
 }: Props) {
   const router = useRouter();
   const q = questions[currentIdx];
@@ -96,6 +100,7 @@ export default function QuizFullscreen({
     const pct = totalCount > 0 ? Math.round((correctCount / totalCount) * 100) : 0;
     const isPerfect = correctCount === totalCount;
     const beatPersonalBest = currentStreak > 0 && longestStreak > 0 && currentStreak >= longestStreak;
+    const nearBadges: BadgeProgress[] = gameState ? getBadgeProgress(gameState) : [];
 
     return (
       <div className="fixed inset-0 z-50 bg-white flex flex-col items-center justify-center px-6" style={{ maxWidth: 640, margin: "0 auto" }}>
@@ -170,6 +175,8 @@ export default function QuizFullscreen({
               </span>
             </motion.div>
           )}
+
+          {nearBadges.length > 0 && <BadgeProgressCard badges={nearBadges} />}
 
           <motion.button
             whileTap={{ scale: 0.97 }}
