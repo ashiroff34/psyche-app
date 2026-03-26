@@ -38,6 +38,7 @@ import { useProfile } from "@/hooks/useProfile";
 import { markTopicComplete } from "@/hooks/useGameState";
 import GuidedJourney from "@/components/GuidedJourney";
 import NextStepBanner from "@/components/NextStepBanner";
+import BeginnerBanner from "@/components/BeginnerBanner";
 
 // ── Famous examples ───────────────────────────────────────────────────────
 const famousExamples: Record<number, { name: string; note: string }[]> = {
@@ -206,7 +207,9 @@ const tabs = ["Overview", "Subtypes", "Levels", "Growth", "Deep Psychology"];
 function ResultsInner() {
   const searchParams = useSearchParams();
   const { profile, loaded, updateProfile } = useProfile();
-  const [activeTab, setActiveTab] = useState(0);
+  const [activeTab, setActiveTab] = useState(() =>
+    typeof window !== "undefined" && new URLSearchParams(window.location.search).get("confidence") === "self-id" ? 1 : 0
+  );
   const [selectedSubtype, setSelectedSubtype] = useState<string | null>(null);
   const [expandedSubtype, setExpandedSubtype] = useState<string | null>(null);
   const [selectedLevel, setSelectedLevel] = useState<number | null>(null);
@@ -216,7 +219,9 @@ function ResultsInner() {
   const typeData = enneagramTypes.find((t) => t.number === typeNum);
 
   // iEQ9-style confidence and dual-type reporting
-  const confidence = parseInt(searchParams.get("confidence") ?? "70");
+  const confidenceParam = searchParams.get("confidence") ?? "70";
+  const isSelfId = confidenceParam === "self-id";
+  const confidence = isSelfId ? 100 : (parseInt(confidenceParam) || 70);
   const showTwo = searchParams.get("showTwo") === "true";
   const secondTypeNum = parseInt(searchParams.get("secondType") ?? "0");
   const secondTypeData = secondTypeNum ? enneagramTypes.find((t) => t.number === secondTypeNum) : null;
@@ -288,16 +293,23 @@ function ResultsInner() {
                     <Compass className="w-3 h-3" /> {showTwo ? "Top Matches (iEQ9)" : "Your Enneagram Result"}
                   </div>
                   {/* Confidence badge */}
-                  <div className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border text-xs font-medium ${
-                    confidence >= 60
-                      ? "bg-emerald-50 border-emerald-100 text-emerald-600"
-                      : confidence >= 35
-                      ? "bg-amber-50 border-amber-100 text-amber-600"
-                      : "bg-rose-50 border-rose-100 text-rose-500"
-                  }`}>
-                    <span className="w-1.5 h-1.5 rounded-full bg-current inline-block" />
-                    {confidence >= 60 ? "High confidence" : confidence >= 35 ? "Moderate confidence" : "Low confidence"} · {confidence}%
-                  </div>
+                  {isSelfId ? (
+                    <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border bg-violet-50 border-violet-100 text-violet-600 text-xs font-medium">
+                      <span className="w-1.5 h-1.5 rounded-full bg-current inline-block" />
+                      Self-Identified
+                    </div>
+                  ) : (
+                    <div className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border text-xs font-medium ${
+                      confidence >= 60
+                        ? "bg-emerald-50 border-emerald-100 text-emerald-600"
+                        : confidence >= 35
+                        ? "bg-amber-50 border-amber-100 text-amber-600"
+                        : "bg-rose-50 border-rose-100 text-rose-500"
+                    }`}>
+                      <span className="w-1.5 h-1.5 rounded-full bg-current inline-block" />
+                      {confidence >= 60 ? "High confidence" : confidence >= 35 ? "Moderate confidence" : "Low confidence"} · {confidence}%
+                    </div>
+                  )}
                 </div>
 
                 {/* Primary type */}
@@ -511,10 +523,39 @@ function ResultsInner() {
           {/* ── TAB 2: SUBTYPES ──────────────────────────────────────── */}
           {activeTab === 1 && (
             <motion.div key="subtypes" initial={{ opacity: 1, y: 0 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} className="space-y-5">
+
+              {/* Beginner guidance banner */}
+              <BeginnerBanner
+                dismissKey="results-subtypes"
+                message="Now pick your subtype — this tells the app how your type expresses itself. Read all three descriptions below and tap the one that feels most true to you."
+                primaryLabel="Confirm with an assessment"
+                primaryHref="/assessments"
+                secondaryLabel="Go to Profile"
+                secondaryHref="/profile"
+              />
+
               <div className="p-4 rounded-2xl bg-amber-50 border border-amber-100">
                 <p className="text-xs text-amber-700 leading-relaxed">
                   <strong>Instinctual Subtypes</strong> are how your core type's energy is filtered through one of three biological instincts: Self-Preservation (SP), Sexual/One-to-One (SX), or Social (SO). The same Enneagram type can look dramatically different depending on which instinct is dominant.
                 </p>
+              </div>
+
+              {/* How to identify your subtype */}
+              <div className="p-4 rounded-2xl bg-white border border-slate-100 space-y-3">
+                <p className="text-xs font-bold text-slate-700 uppercase tracking-wider">How to identify your subtype</p>
+                <div className="space-y-2.5">
+                  {[
+                    { label: "SP — Self-Preservation", q: "Do you often think about health, money, comfort, safety, or having enough? Is your energy mostly focused on taking care of yourself and your immediate environment?", color: "text-amber-700 bg-amber-50" },
+                    { label: "SX — Sexual / One-to-One", q: "Are you drawn to intensity, chemistry, and deep one-on-one connection? Do you tend to be all-or-nothing with people and experiences?", color: "text-rose-700 bg-rose-50" },
+                    { label: "SO — Social", q: "Are you aware of where you stand in groups, relationships, and society? Do you care about belonging, roles, and how you come across to others?", color: "text-sky-700 bg-sky-50" },
+                  ].map(({ label, q, color }) => (
+                    <div key={label} className={`p-3 rounded-xl ${color}`}>
+                      <p className="text-xs font-semibold mb-1">{label}</p>
+                      <p className="text-xs leading-relaxed opacity-80">{q}</p>
+                    </div>
+                  ))}
+                </div>
+                <p className="text-[11px] text-slate-400 leading-relaxed">Tip: the instinct that runs most of your daily concerns — even if you dislike it — is likely your dominant one.</p>
               </div>
 
               {/* Subtype selector */}

@@ -34,6 +34,7 @@ import { ExperienceLevelToggle } from "@/components/Tooltip";
 import ChibiSprite, { ChibiState } from "@/components/ChibiSprite";
 import ShareableCard from "@/components/ShareableCard";
 import NextStepBanner from "@/components/NextStepBanner";
+import BeginnerBanner from "@/components/BeginnerBanner";
 
 
 const MBTI_TYPES = [
@@ -1306,6 +1307,14 @@ export default function ProfilePage() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-slate-50 via-white to-sky-50/30">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
+
+        {/* Beginner onboarding banner */}
+        <BeginnerBanner
+          dismissKey="profile-page"
+          message="This is your personality profile. Explore your type below — check your instinctual subtype, wing, and tritype. When you're ready, head to your Daily Path to start learning."
+          primaryLabel="Go to Daily Path"
+          primaryHref="/daily"
+        />
 
         {/* New user welcome banner — only for "I know my type" path */}
         {showNewUserPrompt && (

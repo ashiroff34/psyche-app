@@ -14,6 +14,7 @@ import { useProfile } from "@/hooks/useProfile";
 import { useGameState } from "@/hooks/useGameState";
 import PetSprite from "@/components/PetSprite";
 import NextStepBanner from "@/components/NextStepBanner";
+import BeginnerBanner from "@/components/BeginnerBanner";
 import HubView from "@/components/daily/HubView";
 import PathView, { type PathUnit } from "@/components/daily/PathView";
 import NodeBottomSheet, { type PathNodeConfig } from "@/components/daily/NodeBottomSheet";
@@ -1291,6 +1292,12 @@ export default function DailyPage() {
     return (
       <div className="min-h-screen">
         {showConfetti && <ConfettiParticles />}
+        <BeginnerBanner
+          dismissKey="daily-hub"
+          message="You made it to your Daily Path! Tap Continue Path to start your first lesson and begin building your streak."
+          primaryLabel="Continue Path"
+          primaryOnClick={() => setView("path")}
+        />
         <HubView
           streak={streak}
           totalXP={totalXP}
