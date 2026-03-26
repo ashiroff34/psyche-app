@@ -1098,6 +1098,8 @@ export default function DailyPage() {
   const allPathNodes = currentUnits.flatMap(u => u.nodes);
   const miniPathNodes = allPathNodes.slice(0, 5);
   const nextNode = allPathNodes.find(n => n.status !== "completed") ?? null;
+  // First non-warmup, non-completed node — used for "Keep Going" after warmup
+  const postWarmupNode = allPathNodes.find(n => n.moduleId !== "warmup" && n.status !== "completed") ?? null;
   const completedTodayCount = allPathNodes.filter(n => n.status === "completed").length;
 
   // ── Start a node (from bottom sheet) ──
@@ -1497,6 +1499,19 @@ export default function DailyPage() {
               gameState={gameStateRaw}
               sessionsSinceTokenDrop={gameStateRaw.sessionsSinceTokenDrop ?? 0}
               onTokenDropClaimed={(amount) => recordTokenDrop(amount)}
+              nextNode={postWarmupNode}
+              onKeepGoing={() => {
+                if (!postWarmupNode) return;
+                // Reset quiz state then start the next node directly
+                setWarmupStarted(false);
+                setWarmupDone(false);
+                setWarmupQ(0);
+                setWarmupSelected(null);
+                setWarmupShowExp(false);
+                setWarmupAnswers([]);
+                setSessionXP(0);
+                startNode(postWarmupNode);
+              }}
             />
           </motion.div>
         )}

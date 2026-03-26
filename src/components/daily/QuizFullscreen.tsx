@@ -7,9 +7,11 @@ import { X, CheckCircle, XCircle, Heart, Zap, Trophy, ArrowRight, Star, BookOpen
 import ChibiSprite from "@/components/ChibiSprite";
 import type { ChibiState } from "@/components/ChibiSprite";
 import BadgeProgressCard from "@/components/daily/BadgeProgressCard";
+import KeepGoingCard from "@/components/daily/KeepGoingCard";
 import { getBadgeProgress, type GameState, type BadgeProgress } from "@/hooks/useGameState";
 import TokenDropOverlay, { rollTokenDrop, type TokenDrop } from "@/components/daily/TokenDropOverlay";
 import Confetti from "@/components/Confetti";
+import type { PathNodeConfig } from "@/components/daily/NodeBottomSheet";
 
 interface Question {
   id: string;
@@ -47,6 +49,8 @@ interface Props {
   gameState?: GameState; // for badge progress hints
   sessionsSinceTokenDrop?: number;
   onTokenDropClaimed?: (amount: number) => void;
+  nextNode?: PathNodeConfig | null;  // for "keep going" after warmup
+  onKeepGoing?: () => void;
 }
 
 export default function QuizFullscreen({
@@ -73,6 +77,8 @@ export default function QuizFullscreen({
   gameState,
   sessionsSinceTokenDrop = 0,
   onTokenDropClaimed,
+  nextNode,
+  onKeepGoing,
 }: Props) {
   const router = useRouter();
   const q = questions[currentIdx];
@@ -357,6 +363,14 @@ export default function QuizFullscreen({
 
           {nearBadges.length > 0 && <BadgeProgressCard badges={nearBadges} />}
 
+          {/* Keep Going card — only after warmup, only if there's a next node */}
+          {moduleName === "Warm-Up" && nextNode && onKeepGoing ? (
+            <KeepGoingCard
+              nextNode={nextNode}
+              onKeepGoing={onKeepGoing}
+              onSkip={onQuit}
+            />
+          ) : (
           <motion.button
             whileTap={{ scale: 0.97 }}
             onClick={onQuit}
@@ -365,6 +379,7 @@ export default function QuizFullscreen({
           >
             Back to Path <ArrowRight className="w-5 h-5" />
           </motion.button>
+          )}
         </motion.div>
 
         <TokenDropOverlay
