@@ -64,9 +64,12 @@ function StepWelcome() {
   );
 }
 
-// ── Step 2: Two Systems ───────────────────────────────────────────────────────
+// ── Step 1: Two Systems ───────────────────────────────────────────────────────
 
 function StepTwoSystems() {
+  const [expandedEnneagram, setExpandedEnneagram] = useState(false);
+  const [expandedCognitive, setExpandedCognitive] = useState(false);
+
   return (
     <div className="px-4">
       <div className="text-center mb-8">
@@ -79,6 +82,7 @@ function StepTwoSystems() {
       </div>
 
       <div className="grid sm:grid-cols-2 gap-6 max-w-2xl mx-auto">
+        {/* Enneagram card */}
         <div className="p-6 rounded-3xl bg-white/60 backdrop-blur-sm border border-sky-100 shadow-sm">
           <div className="w-12 h-12 rounded-2xl bg-sky-50 flex items-center justify-center mb-4">
             <Compass className="w-6 h-6 text-sky-600" />
@@ -87,7 +91,7 @@ function StepTwoSystems() {
           <p className="text-sm text-slate-500 leading-relaxed mb-4">
             Maps your core motivations, fears, and defense mechanisms through 9 interconnected personality structures.
           </p>
-          <div className="space-y-2">
+          <div className="space-y-2 mb-4">
             {[
               { label: "9 Core Types", desc: "Fundamental personality patterns" },
               { label: "3 Instincts", desc: "Self-Preservation, Social, Sexual" },
@@ -102,8 +106,32 @@ function StepTwoSystems() {
               </div>
             ))}
           </div>
+          {/* Learn more toggle */}
+          <button
+            onClick={() => setExpandedEnneagram((v) => !v)}
+            className="flex items-center gap-1.5 text-xs font-semibold text-sky-500 hover:text-sky-700 transition-colors"
+          >
+            <motion.span animate={{ rotate: expandedEnneagram ? 90 : 0 }} transition={{ duration: 0.18 }}>▶</motion.span>
+            {expandedEnneagram ? "Show less" : "Learn more"}
+          </button>
+          <AnimatePresence initial={false}>
+            {expandedEnneagram && (
+              <motion.div
+                initial={{ height: 0, opacity: 0 }}
+                animate={{ height: "auto", opacity: 1 }}
+                exit={{ height: 0, opacity: 0 }}
+                transition={{ duration: 0.22 }}
+                className="overflow-hidden"
+              >
+                <p className="text-xs text-slate-500 leading-relaxed mt-3 pt-3 border-t border-sky-100">
+                  The Enneagram reveals your <strong>WHY</strong> — your core fear, desire, and the defense mechanisms you unconsciously rely on. Rooted in Naranjo&apos;s clinical tradition and Chestnut&apos;s subtype research, it goes far deeper than popular misconceptions. Your type isn&apos;t a box — it&apos;s a map to your patterns. Understanding it helps you recognize when you&apos;re acting from fear vs. genuine choice.
+                </p>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
 
+        {/* Cognitive Functions card */}
         <div className="p-6 rounded-3xl bg-white/60 backdrop-blur-sm border border-indigo-100 shadow-sm">
           <div className="w-12 h-12 rounded-2xl bg-indigo-50 flex items-center justify-center mb-4">
             <Brain className="w-6 h-6 text-indigo-600" />
@@ -112,7 +140,7 @@ function StepTwoSystems() {
           <p className="text-sm text-slate-500 leading-relaxed mb-4">
             Reveals how your mind processes information &mdash; perceiving and judging through 8 distinct mental functions.
           </p>
-          <div className="space-y-2">
+          <div className="space-y-2 mb-4">
             {[
               { label: "8 Functions", desc: "Se, Si, Ne, Ni, Te, Ti, Fe, Fi" },
               { label: "16 Jungian Types", desc: "Unique function stacks" },
@@ -127,9 +155,31 @@ function StepTwoSystems() {
               </div>
             ))}
           </div>
+          {/* Learn more toggle */}
+          <button
+            onClick={() => setExpandedCognitive((v) => !v)}
+            className="flex items-center gap-1.5 text-xs font-semibold text-indigo-500 hover:text-indigo-700 transition-colors"
+          >
+            <motion.span animate={{ rotate: expandedCognitive ? 90 : 0 }} transition={{ duration: 0.18 }}>▶</motion.span>
+            {expandedCognitive ? "Show less" : "Learn more"}
+          </button>
+          <AnimatePresence initial={false}>
+            {expandedCognitive && (
+              <motion.div
+                initial={{ height: 0, opacity: 0 }}
+                animate={{ height: "auto", opacity: 1 }}
+                exit={{ height: 0, opacity: 0 }}
+                transition={{ duration: 0.22 }}
+                className="overflow-hidden"
+              >
+                <p className="text-xs text-slate-500 leading-relaxed mt-3 pt-3 border-t border-indigo-100">
+                  Jung&apos;s cognitive functions describe <strong>HOW you think</strong> — the mental processes you rely on most. Unlike MBTI pop-culture tests, Thyself uses the full 8-function Beebe model including your shadow stack. This reveals not just your strengths, but the unconscious functions that emerge in stress, projection, and moments of unexpected reaction.
+                </p>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
       </div>
-
     </div>
   );
 }
@@ -137,10 +187,30 @@ function StepTwoSystems() {
 // ── Step 2: Your Journey ──────────────────────────────────────────────────────
 
 function StepJourney() {
+  const [expanded, setExpanded] = useState<number | null>(null);
+
   const steps = [
-    { icon: Compass, label: "Discover Your Type", desc: "Take the Enneagram + Cognitive assessments", color: "from-sky-400 to-sky-500" },
-    { icon: Flame, label: "Build a Daily Practice", desc: "Quizzes, growth challenges & streaks", color: "from-orange-400 to-orange-500" },
-    { icon: Heart, label: "Do the Inner Work", desc: "Shadow work, reframing, integration", color: "from-rose-400 to-rose-500" },
+    {
+      icon: Compass,
+      label: "Discover Your Type",
+      desc: "Take the Enneagram + Cognitive assessments",
+      color: "from-sky-400 to-sky-500",
+      more: "You'll take two in-depth assessments using behavioral scenarios and forced-choice questions — designed to minimize self-report bias. Results unlock personalized quizzes, growth prompts, and reading material tailored to your exact type combination.",
+    },
+    {
+      icon: Flame,
+      label: "Build a Daily Practice",
+      desc: "Quizzes, growth challenges & streaks",
+      color: "from-orange-400 to-orange-500",
+      more: "Each day you get a warm-up quiz, then deeper modules on your type, integration paths, and Jungian concepts. Correct answers earn XP and tokens. Your streak tracks consistency — miss a day and it resets, but a Streak Freeze can save you.",
+    },
+    {
+      icon: Heart,
+      label: "Do the Inner Work",
+      desc: "Shadow work, reframing, integration",
+      color: "from-rose-400 to-rose-500",
+      more: "Growth means moving toward your integration direction — the type you borrow from when healthy. Reflection prompts ask you to notice your patterns in real situations. Shadow challenges invite you to engage your weaker functions with curiosity instead of avoidance.",
+    },
   ];
 
   return (
@@ -154,31 +224,46 @@ function StepJourney() {
         </p>
       </div>
 
-      <div className="max-w-md mx-auto space-y-0">
+      <div className="max-w-md mx-auto">
         {steps.map((step, i) => (
-          <div
-            key={step.label}
-            className="flex items-start gap-4"
-          >
+          <div key={step.label} className="flex items-start gap-4">
             <div className="flex flex-col items-center">
               <div className={`w-11 h-11 rounded-2xl bg-gradient-to-br ${step.color} flex items-center justify-center shadow-sm flex-shrink-0`}>
                 <step.icon className="w-5 h-5 text-white" />
               </div>
               {i < steps.length - 1 && (
-                <div className="w-0.5 h-10 bg-gradient-to-b from-slate-200 to-slate-100 my-1" />
+                <div className="w-0.5 h-full min-h-[2rem] bg-gradient-to-b from-slate-200 to-slate-100 my-1" />
               )}
             </div>
-            <div className="pt-1.5 pb-4">
+            <div className="pb-5 flex-1">
               <div className="text-sm font-semibold text-slate-800">{step.label}</div>
-              <div className="text-xs text-slate-400">{step.desc}</div>
+              <div className="text-xs text-slate-400 mb-2">{step.desc}</div>
+              <button
+                onClick={() => setExpanded(expanded === i ? null : i)}
+                className="flex items-center gap-1.5 text-xs font-semibold text-slate-400 hover:text-slate-600 transition-colors"
+              >
+                <motion.span animate={{ rotate: expanded === i ? 90 : 0 }} transition={{ duration: 0.18 }}>▶</motion.span>
+                {expanded === i ? "Show less" : "Learn more"}
+              </button>
+              <AnimatePresence initial={false}>
+                {expanded === i && (
+                  <motion.div
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{ height: "auto", opacity: 1 }}
+                    exit={{ height: 0, opacity: 0 }}
+                    transition={{ duration: 0.22 }}
+                    className="overflow-hidden"
+                  >
+                    <p className="text-xs text-slate-500 leading-relaxed mt-2 pl-1 border-l-2 border-slate-200">
+                      {step.more}
+                    </p>
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </div>
           </div>
         ))}
       </div>
-
-      <p className="text-xs text-slate-400 text-center mt-4 italic">
-        Next: what makes Thyself different from other apps
-      </p>
     </div>
   );
 }
@@ -186,6 +271,8 @@ function StepJourney() {
 // ── Step 3: What Makes This Different ────────────────────────────────────────
 
 function StepDifferent() {
+  const [expandedWhy, setExpandedWhy] = useState(false);
+
   return (
     <div className="px-4">
       <div className="text-center mb-8">
@@ -234,14 +321,35 @@ function StepDifferent() {
           </div>
         </div>
 
-        <div className="p-5 rounded-3xl bg-white/60 backdrop-blur-sm border border-slate-100 text-center">
+        <div className="p-5 rounded-3xl bg-white/60 backdrop-blur-sm border border-slate-100">
           <p className="text-sm text-slate-500 leading-relaxed">
             Every framework in Thyself is traceable to qualified clinical or academic research.
             We use forced-choice dichotomies and behavioral scenarios &mdash; not self-report bias traps.
           </p>
+          <button
+            onClick={() => setExpandedWhy((v) => !v)}
+            className="flex items-center gap-1.5 text-xs font-semibold text-slate-400 hover:text-slate-600 transition-colors mt-3"
+          >
+            <motion.span animate={{ rotate: expandedWhy ? 90 : 0 }} transition={{ duration: 0.18 }}>▶</motion.span>
+            {expandedWhy ? "Show less" : "Why does this matter?"}
+          </button>
+          <AnimatePresence initial={false}>
+            {expandedWhy && (
+              <motion.div
+                initial={{ height: 0, opacity: 0 }}
+                animate={{ height: "auto", opacity: 1 }}
+                exit={{ height: 0, opacity: 0 }}
+                transition={{ duration: 0.22 }}
+                className="overflow-hidden"
+              >
+                <p className="text-xs text-slate-500 leading-relaxed mt-3 pt-3 border-t border-slate-100">
+                  Most people type themselves as what they <em>aspire</em> to be, not what they actually are. That&apos;s self-report bias — and it&apos;s why most personality tests give you flattering but useless results. Thyself uses behavioral scenarios designed to reveal patterns you might not consciously acknowledge. The goal isn&apos;t to validate your self-image — it&apos;s to show you the parts of yourself that are harder to see.
+                </p>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
       </div>
-
     </div>
   );
 }
