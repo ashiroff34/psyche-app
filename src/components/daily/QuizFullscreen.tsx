@@ -9,6 +9,7 @@ import type { ChibiState } from "@/components/ChibiSprite";
 import BadgeProgressCard from "@/components/daily/BadgeProgressCard";
 import { getBadgeProgress, type GameState, type BadgeProgress } from "@/hooks/useGameState";
 import TokenDropOverlay, { rollTokenDrop, type TokenDrop } from "@/components/daily/TokenDropOverlay";
+import Confetti from "@/components/Confetti";
 
 interface Question {
   id: string;
@@ -79,6 +80,15 @@ export default function QuizFullscreen({
   const [tokenDrop, setTokenDrop] = useState<TokenDrop | null | undefined>(undefined);
   const [tokenDropRolled, setTokenDropRolled] = useState(false);
 
+  // ── Celebration state ──────────────────────────────────────────────────────
+  const [countActive, setCountActive] = useState(false);
+  const [countedCorrect, setCountedCorrect] = useState(0);
+  const [countedPct, setCountedPct] = useState(0);
+  const [countedXP, setCountedXP] = useState(0);
+  const [showConfetti, setShowConfetti] = useState(false);
+  const [showBestBanner, setShowBestBanner] = useState(false);
+  const [showStreakBurst, setShowStreakBurst] = useState(false);
+
   // ── Countdown to next heart ────────────────────────────────────────────────
   const [nextHeartSecs, setNextHeartSecs] = useState<number | null>(null);
   useEffect(() => {
@@ -101,6 +111,56 @@ export default function QuizFullscreen({
     return () => clearInterval(interval);
   }, [heartsRefillTime, realHearts, maxHearts]);
 
+  // ── Trigger celebration animations when quiz completes ─────────────────────
+  useEffect(() => {
+    if (!completed) return;
+    // Count-up duration
+    const DURATION = 700;
+    const steps = 30;
+    const interval = DURATION / steps;
+
+    const correctFinal = answers.filter(Boolean).length;
+    const totalCount = questions.length;
+    const pctFinal = totalCount > 0 ? Math.round((correctFinal / totalCount) * 100) : 0;
+    const isPerfectFinal = correctFinal === totalCount;
+    const beatBest = currentStreak > 0 && longestStreak > 0 && currentStreak >= longestStreak;
+
+    let step = 0;
+    const timer = setInterval(() => {
+      step++;
+      const progress = step / steps;
+      // ease-out: fast start, slow finish
+      const eased = 1 - Math.pow(1 - progress, 3);
+      setCountedCorrect(Math.round(eased * correctFinal));
+      setCountedPct(Math.round(eased * pctFinal));
+      setCountedXP(Math.round(eased * sessionXP));
+      if (step >= steps) {
+        clearInterval(timer);
+        setCountedCorrect(correctFinal);
+        setCountedPct(pctFinal);
+        setCountedXP(sessionXP);
+        setCountActive(true);
+        // Trigger celebrations after count finishes
+        if (isPerfectFinal || beatBest) {
+          setShowConfetti(true);
+          setTimeout(() => setShowConfetti(false), 3000);
+        }
+        if (beatBest) {
+          setShowBestBanner(true);
+          setTimeout(() => setShowBestBanner(false), 3500);
+        }
+        const streakMilestones = [3, 7, 14, 30, 100];
+        if (streakMilestones.includes(currentStreak)) {
+          setShowStreakBurst(true);
+          setTimeout(() => setShowStreakBurst(false), 3000);
+        }
+      }
+    }, interval);
+
+    return () => clearInterval(timer);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [completed]);
+
   // ── Completion screen ──────────────────────────────────────────────────────
   if (completed) {
     const correctCount = answers.filter(Boolean).length;
@@ -117,20 +177,111 @@ export default function QuizFullscreen({
       setTokenDrop(drop ?? null);
     }
 
+    const streakMilestones = [3, 7, 14, 30, 100];
+    const isStreakMilestone = streakMilestones.includes(currentStreak);
+
     return (
-      <div className="fixed inset-0 z-50 bg-white flex flex-col items-center justify-center px-6" style={{ maxWidth: 640, margin: "0 auto" }}>
+      <div className="fixed inset-0 z-50 flex flex-col items-center justify-center px-6"
+        style={{
+          maxWidth: 640,
+          margin: "0 auto",
+          background: isPerfect
+            ? "linear-gradient(180deg, #fffbeb 0%, #ffffff 40%)"
+            : "white",
+        }}
+      >
+        {/* Confetti — gold for perfect, purple/pink for personal best */}
+        <Confetti
+          active={showConfetti && isPerfect}
+          duration={3000}
+          particleCount={80}
+          colors={["#fbbf24", "#f59e0b", "#fcd34d", "#fde68a", "#ffffff"]}
+        />
+        <Confetti
+          active={showConfetti && !isPerfect && beatPersonalBest}
+          duration={3000}
+          particleCount={60}
+          colors={["#8b5cf6", "#d946ef", "#a78bfa", "#ec4899", "#f0abfc"]}
+        />
+
+        {/* NEW BEST banner */}
+        <AnimatePresence>
+          {showBestBanner && (
+            <motion.div
+              initial={{ y: -60, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              exit={{ y: -60, opacity: 0 }}
+              transition={{ type: "spring", damping: 18, stiffness: 300 }}
+              className="fixed top-8 left-1/2 -translate-x-1/2 z-[70] px-6 py-3 rounded-2xl font-black text-white text-lg shadow-xl"
+              style={{ background: "linear-gradient(135deg, #8b5cf6, #d946ef)", boxShadow: "0 8px 32px rgba(139,92,246,0.5)" }}
+            >
+              ⭐ NEW PERSONAL BEST! ⭐
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        {/* Streak milestone burst */}
+        <AnimatePresence>
+          {showStreakBurst && isStreakMilestone && (
+            <motion.div
+              initial={{ scale: 0, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.8, opacity: 0 }}
+              transition={{ type: "spring", damping: 14, stiffness: 260 }}
+              className="fixed inset-0 z-[65] flex items-center justify-center pointer-events-none"
+            >
+              <div className="flex flex-col items-center gap-2">
+                <motion.div
+                  animate={{ rotate: [-8, 8, -8, 8, 0], scale: [1, 1.2, 1] }}
+                  transition={{ duration: 0.6 }}
+                  className="text-7xl"
+                >
+                  🔥
+                </motion.div>
+                <motion.p
+                  initial={{ y: 10, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  transition={{ delay: 0.2 }}
+                  className="text-3xl font-black text-orange-500"
+                  style={{ textShadow: "0 2px 16px rgba(245,158,11,0.5)" }}
+                >
+                  {currentStreak}-day streak!
+                </motion.p>
+                <motion.p
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 0.4 }}
+                  className="text-base font-semibold text-orange-400"
+                >
+                  Keep the fire burning 🔥
+                </motion.p>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
         <motion.div
           initial={{ scale: 0.8, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           transition={{ type: "spring", damping: 20, stiffness: 300 }}
           className="flex flex-col items-center text-center w-full max-w-xs"
         >
-          {/* Trophy / chibi */}
+          {/* Trophy */}
           <div className="relative mb-6">
-            <div className="w-24 h-24 rounded-full flex items-center justify-center"
-              style={{ background: isPerfect ? "linear-gradient(135deg, #fbbf24, #f59e0b)" : "linear-gradient(135deg, #8b5cf6, #d946ef)" }}>
+            <motion.div
+              animate={isPerfect ? {
+                boxShadow: [
+                  "0 0 0px rgba(251,191,36,0)",
+                  "0 0 32px rgba(251,191,36,0.8)",
+                  "0 0 16px rgba(251,191,36,0.4)",
+                ],
+              } : {}}
+              transition={{ duration: 1.2, repeat: 2, ease: "easeInOut" }}
+              className="w-24 h-24 rounded-full flex items-center justify-center"
+              style={{ background: isPerfect ? "linear-gradient(135deg, #fbbf24, #f59e0b)" : "linear-gradient(135deg, #8b5cf6, #d946ef)" }}
+            >
               <Trophy className="w-12 h-12 text-white" />
-            </div>
+            </motion.div>
             {beatPersonalBest && (
               <motion.div
                 initial={{ scale: 0, rotate: -20 }}
@@ -143,28 +294,41 @@ export default function QuizFullscreen({
             )}
           </div>
 
-          <h2 className="text-3xl font-bold text-slate-900 mb-2">
-            {isPerfect ? "Perfect!" : "Complete!"}
-          </h2>
+          <motion.h2
+            animate={isPerfect ? { scale: [1, 1.08, 1] } : {}}
+            transition={{ delay: 0.3, duration: 0.5 }}
+            className="text-3xl font-bold text-slate-900 mb-2"
+          >
+            {isPerfect ? "Perfect! 🎉" : "Complete!"}
+          </motion.h2>
           <p className="text-slate-500 text-base mb-6">{moduleName}</p>
 
-          {/* Score row */}
+          {/* Score row — count-up numbers */}
           <div className="flex items-center gap-6 mb-5">
             <div className="flex flex-col items-center">
-              <span className="text-4xl font-bold text-slate-800">{correctCount}<span className="text-slate-400 text-2xl">/{totalCount}</span></span>
+              <span className="text-4xl font-bold text-slate-800">
+                {countActive ? correctCount : countedCorrect}
+                <span className="text-slate-400 text-2xl">/{totalCount}</span>
+              </span>
               <span className="text-xs text-slate-400 mt-1 uppercase tracking-wide">Correct</span>
             </div>
             <div className="w-px h-10 bg-slate-200" />
             <div className="flex flex-col items-center">
-              <span className="text-4xl font-bold text-amber-500">{pct}<span className="text-2xl">%</span></span>
+              <span className="text-4xl font-bold text-amber-500">
+                {countActive ? pct : countedPct}<span className="text-2xl">%</span>
+              </span>
               <span className="text-xs text-slate-400 mt-1 uppercase tracking-wide">Accuracy</span>
             </div>
             {sessionXP > 0 && (
               <>
                 <div className="w-px h-10 bg-slate-200" />
                 <div className="flex flex-col items-center">
-                  <span className="text-4xl font-bold text-violet-600">+{sessionXP}</span>
-                  <span className="text-xs text-slate-400 mt-1 uppercase tracking-wide flex items-center gap-0.5"><Zap className="w-3 h-3" />XP</span>
+                  <span className="text-4xl font-bold text-violet-600">
+                    +{countActive ? sessionXP : countedXP}
+                  </span>
+                  <span className="text-xs text-slate-400 mt-1 uppercase tracking-wide flex items-center gap-0.5">
+                    <Zap className="w-3 h-3" />XP
+                  </span>
                 </div>
               </>
             )}
@@ -173,9 +337,9 @@ export default function QuizFullscreen({
           {/* Self-competition badge */}
           {longestStreak > 0 && (
             <motion.div
-              initial={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.5 }}
+              transition={{ delay: 0.8 }}
               className={`w-full px-4 py-2.5 rounded-xl mb-5 flex items-center gap-2 ${
                 beatPersonalBest
                   ? "bg-amber-50 border border-amber-200"
@@ -202,6 +366,7 @@ export default function QuizFullscreen({
             Back to Path <ArrowRight className="w-5 h-5" />
           </motion.button>
         </motion.div>
+
         <TokenDropOverlay
           drop={tokenDrop ?? null}
           onClaim={(amount) => {

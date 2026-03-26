@@ -15,7 +15,7 @@ interface Particle {
   shape: "square" | "circle" | "strip";
 }
 
-const COLORS = [
+const DEFAULT_COLORS = [
   "#6366f1", "#0ea5e9", "#f59e0b", "#ec4899", "#10b981",
   "#8b5cf6", "#f97316", "#14b8a6", "#e11d48", "#3b82f6",
 ];
@@ -24,10 +24,12 @@ export default function Confetti({
   active,
   duration = 2000,
   particleCount = 60,
+  colors,
 }: {
   active: boolean;
   duration?: number;
   particleCount?: number;
+  colors?: string[];
 }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const particles = useRef<Particle[]>([]);
@@ -44,7 +46,7 @@ export default function Confetti({
         vx: (Math.random() - 0.5) * 8,
         vy: Math.random() * 3 + 2,
         size: Math.random() * 8 + 4,
-        color: COLORS[Math.floor(Math.random() * COLORS.length)],
+        color: (colors ?? DEFAULT_COLORS)[Math.floor(Math.random() * (colors ?? DEFAULT_COLORS).length)],
         rotation: Math.random() * 360,
         rotationSpeed: (Math.random() - 0.5) * 12,
         opacity: 1,
@@ -52,7 +54,7 @@ export default function Confetti({
       });
     }
     return p;
-  }, [particleCount]);
+  }, [particleCount, colors]);
 
   useEffect(() => {
     if (!active) return;
@@ -115,7 +117,7 @@ export default function Confetti({
     return () => {
       cancelAnimationFrame(animRef.current);
     };
-  }, [active, duration, createParticles]);
+  }, [active, duration, createParticles, colors]);
 
   if (!active) return null;
 
