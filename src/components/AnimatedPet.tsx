@@ -83,11 +83,11 @@ export default function AnimatedPet({
           height={size}
           style={{
             position: "absolute",
-            top: "-12%",
+            top: "-4.5%",
             left: "50%",
             transform: "translateX(-50%)",
-            width: "90%",
-            height: "90%",
+            width: "68%",
+            height: "68%",
             objectFit: "contain",
             zIndex: 3,
             pointerEvents: "none",

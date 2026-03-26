@@ -418,10 +418,11 @@ export default function SettingsPage() {
   // ── Bug Report ───────────────────────────────────────────────────────────
 
   const openBugReport = () => {
-    const to = profile.email || "support@thyself.app";
+    const to = "support@thyself.app";
     const subject = encodeURIComponent("Thyself Bug Report");
+    const userEmail = profile.email ? `\nYour email: ${profile.email}\n` : "\nYour email (optional): \n";
     const body = encodeURIComponent(
-      "Describe the bug:\n\nSteps to reproduce:\n\nExpected behavior:\n\nDevice/Browser:"
+      `Describe the bug:\n\nSteps to reproduce:\n\nExpected behavior:\n\nDevice/Browser:\n${userEmail}`
     );
     window.open(`mailto:${to}?subject=${subject}&body=${body}`, "_self");
   };
@@ -606,6 +607,11 @@ export default function SettingsPage() {
             label="Weekly progress summary"
             description="Receive a summary of your weekly activity"
           />
+
+          <p className="text-xs text-slate-400 flex items-center gap-1.5 pt-1">
+            <Info className="w-3 h-3 flex-shrink-0" />
+            Email notifications are coming soon. Your preferences are saved.
+          </p>
         </ExpandableSection>
 
         {/* ── Section 3: App Preferences ──────────────────────────────────── */}
@@ -655,15 +661,7 @@ export default function SettingsPage() {
               className="flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm text-slate-600 hover:bg-slate-50 transition-colors"
             >
               <FileText className="w-4 h-4 text-slate-400" />
-              Terms & Conditions
-              <ExternalLink className="w-3 h-3 text-slate-300 ml-auto" />
-            </Link>
-            <Link
-              href="/sources"
-              className="flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm text-slate-600 hover:bg-slate-50 transition-colors"
-            >
-              <Shield className="w-4 h-4 text-slate-400" />
-              Privacy Policy
+              Sources &amp; References
               <ExternalLink className="w-3 h-3 text-slate-300 ml-auto" />
             </Link>
           </div>

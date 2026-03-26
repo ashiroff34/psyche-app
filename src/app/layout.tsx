@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import Navigation from "@/components/Navigation";
 import RetentionBanner from "@/components/RetentionBanner";
@@ -12,14 +12,6 @@ export const metadata: Metadata = {
   description:
     "Explore your personality through the Enneagram and Carl Jung's Cognitive Functions. AI-powered assessments, deep learning resources, and growth tools.",
   manifest: `${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}/manifest.json`,
-  themeColor: "#0ea5e9",
-  viewport: {
-    width: "device-width",
-    initialScale: 1,
-    maximumScale: 1,
-    userScalable: false,
-    viewportFit: "cover",
-  },
   appleWebApp: {
     capable: true,
     statusBarStyle: "default",
@@ -29,6 +21,15 @@ export const metadata: Metadata = {
     "mobile-web-app-capable": "yes",
     "apple-mobile-web-app-capable": "yes",
   },
+};
+
+export const viewport: Viewport = {
+  themeColor: "#0ea5e9",
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
+  viewportFit: "cover",
 };
 
 export default function RootLayout({

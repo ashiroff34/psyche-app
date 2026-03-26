@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<title>Hat Calibrator</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #0f0c29; font-family: -apple-system, sans-serif; color: white;
+    display: flex; flex-direction: column; align-items: center; padding: 32px 20px 60px; gap: 20px; }
+  h1 { font-size: 20px; font-weight: 800;
+    background: linear-gradient(90deg,#a78bfa,#f472b6); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+  p { font-size: 12px; color: #475569; }
+
+  .controls { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; }
+  select { background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.15);
+    color: white; border-radius: 10px; padding: 9px 14px; font-size: 13px; cursor: pointer; outline: none; }
+
+  /* The stage — pet lives here, hat overlays on top */
+  #stage {
+    position: relative;
+    width: 220px; height: 220px;
+    background: linear-gradient(135deg, rgba(99,102,241,.25), rgba(139,92,246,.25));
+    border: 1px solid rgba(139,92,246,.35);
+    border-radius: 20px;
+    overflow: hidden; /* keep hat clipped inside for clarity */
+  }
+  #petImg { width: 100%; height: 100%; object-fit: contain; display: block; position: relative; z-index: 1; }
+  #hatImg {
+    position: absolute;
+    z-index: 2;
+    cursor: grab;
+    object-fit: contain;
+    /* default position — will be overridden by sliders */
+    top: 0px; left: 35px; width: 150px; height: 150px;
+  }
+  #hatImg:active { cursor: grabbing; }
+
+  /* Sliders */
+  .sliders { background: rgba(0,0,0,.45); border: 1px solid rgba(255,255,255,.08);
+    border-radius: 14px; padding: 18px 20px; width: 300px; display: flex; flex-direction: column; gap: 12px; }
+  .row { display: flex; align-items: center; gap: 10px; }
+  .row label { color: #94a3b8; font-size: 12px; width: 48px; text-align: right; }
+  input[type=range] { flex: 1; accent-color: #a78bfa; cursor: pointer; }
+  .num { font-family: monospace; color: #a78bfa; font-size: 14px; font-weight: 700; width: 52px; text-align: right; }
+
+  /* Code output */
+  pre { background: rgba(0,0,0,.6); border: 1px solid rgba(99,102,241,.3);
+    border-radius: 10px; padding: 14px 16px; font-size: 12px; color: #86efac;
+    width: 300px; white-space: pre-wrap; }
+
+  .copy-btn { background: linear-gradient(135deg,#6366f1,#8b5cf6); border: none;
+    border-radius: 10px; color: white; font-size: 13px; font-weight: 700;
+    padding: 11px; cursor: pointer; width: 300px; transition: opacity .15s; }
+  .copy-btn:hover { opacity: .85; }
+
+  .save-row { display: flex; gap: 8px; width: 300px; }
+  .save-btn { flex: 1; background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.12);
+    color: white; border-radius: 10px; padding: 9px; font-size: 12px; cursor: pointer; }
+  .save-btn:hover { border-color: #a78bfa; }
+
+  .saved { width: 300px; }
+  .saved h3 { font-size: 11px; color: #475569; text-transform: uppercase; letter-spacing: .08em; margin-bottom: 8px; }
+  .preset { background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.07);
+    border-radius: 9px; padding: 8px 12px; margin-bottom: 5px;
+    display: flex; justify-content: space-between; align-items: center; font-size: 11px; }
+  .preset-name { color: #c4b5fd; font-weight: 600; }
+  .preset-vals { color: #64748b; font-family: monospace; }
+  .load-btn { background: #6366f1; border: none; color: white; border-radius: 6px;
+    padding: 4px 10px; font-size: 11px; cursor: pointer; }
+</style>
+</head>
+<body>
+
+<h1>🎩 Hat Calibrator</h1>
+<p>Drag the hat on the pet, or use sliders. Copy values when done.</p>
+
+<div class="controls">
+  <select id="petSel">
+    <option value="1">Type 1 — Athena (Owl)</option>
+    <option value="2">Type 2 — Clover (Bunny)</option>
+    <option value="3">Type 3 — Blaze (Fox)</option>
+    <option value="4" selected>Type 4 — Luna (Moth)</option>
+    <option value="5">Type 5 — Corvus (Raven)</option>
+    <option value="6">Type 6 — Scout (Shiba)</option>
+    <option value="7">Type 7 — Zippy (Hummingbird)</option>
+    <option value="8">Type 8 — Ember (Dragon)</option>
+    <option value="9">Type 9 — Mochi (Cat)</option>
+  </select>
+  <select id="hatSel">
+    <option value="hat-crown">Crown 👑</option>
+    <option value="hat-wizard">Wizard Hat 🪄</option>
+    <option value="hat-flower">Flower Crown 🌺</option>
+    <option value="hat-santa">Santa Hat 🎅</option>
+    <option value="hat-catears">Cat Ears 😸</option>
+  </select>
+</div>
+
+<div id="stage">
+  <img id="petImg" src="/pets/pet-4.png" draggable="false"/>
+  <img id="hatImg" src="/shop/hat-crown.png" draggable="false"/>
+</div>
+
+<div class="sliders">
+  <div class="row">
+    <label>top</label>
+    <input type="range" id="sTop" min="-60" max="80" value="-10" step="1"/>
+    <span class="num" id="nTop">-10px</span>
+  </div>
+  <div class="row">
+    <label>left</label>
+    <input type="range" id="sLeft" min="-30" max="160" value="35" step="1"/>
+    <span class="num" id="nLeft">35px</span>
+  </div>
+  <div class="row">
+    <label>size</label>
+    <input type="range" id="sSize" min="40" max="200" value="150" step="2"/>
+    <span class="num" id="nSize">150px</span>
+  </div>
+</div>
+
+<pre id="codeOut">// drag or use sliders then copy</pre>
+<button class="copy-btn" id="copyBtn">📋 Copy values for AnimatedPet.tsx</button>
+
+<div class="save-row">
+  <button class="save-btn" id="saveBtn">💾 Save preset for this hat</button>
+</div>
+
+<div class="saved">
+  <h3>Saved presets</h3>
+  <div id="presetList"></div>
+</div>
+
+<script>
+const STAGE = 220;
+const hat   = document.getElementById('hatImg');
+const pet   = document.getElementById('petImg');
+const sTop  = document.getElementById('sTop');
+const sLeft = document.getElementById('sLeft');
+const sSize = document.getElementById('sSize');
+const nTop  = document.getElementById('nTop');
+const nLeft = document.getElementById('nLeft');
+const nSize = document.getElementById('nSize');
+const code  = document.getElementById('codeOut');
+const hatSel = document.getElementById('hatSel');
+
+function getVals() {
+  return { top: parseInt(sTop.value), left: parseInt(sLeft.value), size: parseInt(sSize.value) };
+}
+
+function apply(t, l, s) {
+  hat.style.top    = t + 'px';
+  hat.style.left   = l + 'px';
+  hat.style.width  = s + 'px';
+  hat.style.height = s + 'px';
+  sTop.value  = t; nTop.textContent  = t + 'px';
+  sLeft.value = l; nLeft.textContent = l + 'px';
+  sSize.value = s; nSize.textContent = s + 'px';
+  updateCode(t, l, s);
+}
+
+function updateCode(t, l, s) {
+  const pct = v => ((v / STAGE) * 100).toFixed(1) + '%';
+  code.textContent =
+`// ${hatSel.value}
+top:    "${t}px",   // ${pct(t)} of container
+left:   "${l}px",  // ${pct(l)} of container
+width:  "${s}px",  // ${pct(s)} of container
+height: "${s}px",`;
+}
+
+// Sliders → apply
+sTop.addEventListener('input',  () => apply(+sTop.value,  +sLeft.value, +sSize.value));
+sLeft.addEventListener('input', () => apply(+sTop.value,  +sLeft.value, +sSize.value));
+sSize.addEventListener('input', () => apply(+sTop.value,  +sLeft.value, +sSize.value));
+
+// Drag hat
+let drag = false, ox, oy, startL, startT;
+hat.addEventListener('mousedown', e => {
+  drag = true;
+  ox = e.clientX; oy = e.clientY;
+  startL = parseInt(hat.style.left) || 35;
+  startT = parseInt(hat.style.top)  || -10;
+  e.preventDefault();
+});
+document.addEventListener('mousemove', e => {
+  if (!drag) return;
+  const l = startL + (e.clientX - ox);
+  const t = startT + (e.clientY - oy);
+  apply(t, l, +sSize.value);
+});
+document.addEventListener('mouseup', () => { drag = false; });
+
+// Touch drag
+hat.addEventListener('touchstart', e => {
+  drag = true;
+  ox = e.touches[0].clientX; oy = e.touches[0].clientY;
+  startL = parseInt(hat.style.left) || 35;
+  startT = parseInt(hat.style.top)  || -10;
+  e.preventDefault();
+}, { passive: false });
+document.addEventListener('touchmove', e => {
+  if (!drag) return;
+  const l = startL + (e.touches[0].clientX - ox);
+  const t = startT + (e.touches[0].clientY - oy);
+  apply(t, l, +sSize.value);
+  e.preventDefault();
+}, { passive: false });
+document.addEventListener('touchend', () => { drag = false; });
+
+// Pet / hat switchers
+document.getElementById('petSel').addEventListener('change', e => {
+  pet.src = `/pets/pet-${e.target.value}.png`;
+});
+hatSel.addEventListener('change', e => {
+  hat.src = `/shop/${e.target.value}.png`;
+  const saved = JSON.parse(localStorage.getItem('hatPresets') || '{}');
+  const p = saved[e.target.value];
+  if (p) apply(p.top, p.left, p.size);
+  else updateCode(+sTop.value, +sLeft.value, +sSize.value);
+});
+
+// Copy
+document.getElementById('copyBtn').addEventListener('click', () => {
+  navigator.clipboard.writeText(code.textContent).then(() => {
+    document.getElementById('copyBtn').textContent = '✅ Copied!';
+    setTimeout(() => document.getElementById('copyBtn').textContent = '📋 Copy values for AnimatedPet.tsx', 1600);
+  });
+});
+
+// Save
+document.getElementById('saveBtn').addEventListener('click', () => {
+  const all = JSON.parse(localStorage.getItem('hatPresets') || '{}');
+  const { top, left, size } = getVals();
+  all[hatSel.value] = { top, left, size };
+  localStorage.setItem('hatPresets', JSON.stringify(all));
+  renderPresets();
+});
+
+function renderPresets() {
+  const all = JSON.parse(localStorage.getItem('hatPresets') || '{}');
+  const list = document.getElementById('presetList');
+  list.innerHTML = '';
+  Object.entries(all).forEach(([id, v]) => {
+    const d = document.createElement('div');
+    d.className = 'preset';
+    d.innerHTML = `<div><span class="preset-name">${id}</span><br><span class="preset-vals">top:${v.top}px left:${v.left}px size:${v.size}px</span></div><button class="load-btn" onclick="loadPreset('${id}')">Load</button>`;
+    list.appendChild(d);
+  });
+}
+
+window.loadPreset = id => {
+  const all = JSON.parse(localStorage.getItem('hatPresets') || '{}');
+  if (!all[id]) return;
+  hatSel.value = id;
+  hat.src = `/shop/${id}.png`;
+  apply(all[id].top, all[id].left, all[id].size);
+};
+
+// Init
+apply(-10, 35, 150);
+renderPresets();
+</script>
+</body>
+</html>

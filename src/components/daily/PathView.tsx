@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Lock, CheckCircle, Play, Star } from "lucide-react";
+import { Lock, CheckCircle, Star } from "lucide-react";
 import type { PathNodeConfig } from "./NodeBottomSheet";
 
 export interface PathUnit {
@@ -30,6 +30,8 @@ function GradientRingNode({
 }) {
   const r = size / 2 - 4;
   const circumference = 2 * Math.PI * r;
+  const gradId = `grad-node-${node.id}`;
+  const currGradId = `grad-curr-${node.id}`;
 
   return (
     <motion.button
@@ -37,7 +39,16 @@ function GradientRingNode({
       whileHover={node.status !== "locked" ? { scale: 1.05 } : {}}
       onClick={onClick}
       className="relative flex-shrink-0"
-      style={{ width: size, height: size }}
+      style={{
+        width: size,
+        height: size,
+        filter:
+          node.status === "completed"
+            ? "drop-shadow(0 0 6px rgba(139,92,246,0.5))"
+            : node.status === "current"
+            ? "drop-shadow(0 0 10px rgba(251,146,60,0.7))"
+            : "none",
+      }}
     >
       <svg
         width={size}
@@ -46,66 +57,49 @@ function GradientRingNode({
         className="absolute inset-0"
       >
         <defs>
-          <linearGradient id={`grad-${node.id}`} x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor={node.gradFrom} />
-            <stop offset="100%" stopColor={node.gradTo} />
+          <linearGradient id={gradId} x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor="#8b5cf6" />
+            <stop offset="100%" stopColor="#ec4899" />
+          </linearGradient>
+          <linearGradient id={currGradId} x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor="#f59e0b" />
+            <stop offset="100%" stopColor="#f97316" />
           </linearGradient>
         </defs>
 
+        {/* Locked: empty slate ring */}
         {node.status === "locked" && (
-          <circle
-            cx={size / 2}
-            cy={size / 2}
-            r={r}
-            fill="none"
-            stroke="#cbd5e1"
-            strokeWidth="2.5"
-          />
+          <circle cx={size / 2} cy={size / 2} r={r} fill="none" stroke="#e2e8f0" strokeWidth="3" />
         )}
 
+        {/* Completed: full violet→pink ring */}
         {node.status === "completed" && (
-          <circle
-            cx={size / 2}
-            cy={size / 2}
-            r={r}
-            fill="none"
-            stroke={`url(#grad-${node.id})`}
-            strokeWidth="2.5"
-            style={{
-              filter: `drop-shadow(0 0 6px ${node.gradFrom}80)`,
-            }}
-          />
+          <circle cx={size / 2} cy={size / 2} r={r} fill="none" stroke={`url(#${gradId})`} strokeWidth="3" />
         )}
 
+        {/* Current: partial amber ring, animated */}
         {node.status === "current" && (
           <>
-            <circle
-              cx={size / 2}
-              cy={size / 2}
-              r={r}
-              fill="none"
-              stroke="#fde68a"
-              strokeWidth="2.5"
-              opacity={0.4}
-            />
+            <circle cx={size / 2} cy={size / 2} r={r} fill="none" stroke="#ede9fe" strokeWidth="3" />
             <motion.circle
               cx={size / 2}
               cy={size / 2}
               r={r}
               fill="none"
-              stroke="#f59e0b"
-              strokeWidth="2.5"
-              strokeDasharray={`${circumference * 0.7} ${circumference * 0.3}`}
+              stroke={`url(#${currGradId})`}
+              strokeWidth="3"
               strokeLinecap="round"
-              style={{ rotate: -90, originX: "50%", originY: "50%" }}
+              strokeDasharray={`${circumference * 0.5} ${circumference * 0.5}`}
+              transform={`rotate(-90 ${size / 2} ${size / 2})`}
               animate={{ rotate: ["-90deg", "270deg"] }}
               transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
+              style={{ originX: "50%", originY: "50%" }}
             />
           </>
         )}
       </svg>
 
-      {/* Node fill */}
+      {/* Inner fill */}
       <div
         className="absolute rounded-full flex items-center justify-center"
         style={{
@@ -113,24 +107,27 @@ function GradientRingNode({
           background:
             node.status === "locked"
               ? "#f1f5f9"
-              : `linear-gradient(135deg, ${node.gradFrom}, ${node.gradTo})`,
-          boxShadow:
-            node.status === "locked"
-              ? "none"
               : node.status === "completed"
-              ? `0 2px 14px ${node.gradFrom}60`
-              : `0 2px 14px #f59e0b60`,
+              ? "linear-gradient(135deg,#8b5cf6,#ec4899)"
+              : "linear-gradient(135deg,#f59e0b,#f97316)",
         }}
       >
-        {node.status === "locked" && <Lock className="text-slate-400" style={{ width: size * 0.28, height: size * 0.28 }} />}
-        {node.status === "completed" && <CheckCircle className="text-white" style={{ width: size * 0.32, height: size * 0.32 }} />}
-        {node.status === "current" && <Play className="text-white ml-[2px]" style={{ width: size * 0.3, height: size * 0.3 }} />}
+        {node.status === "locked" && (
+          <Lock className="text-slate-400" style={{ width: size * 0.28, height: size * 0.28 }} />
+        )}
+        {node.status === "completed" && (
+          <CheckCircle className="text-white" style={{ width: size * 0.32, height: size * 0.32 }} />
+        )}
+        {node.status === "current" && (
+          <Star className="text-white fill-white" style={{ width: size * 0.3, height: size * 0.3 }} />
+        )}
       </div>
 
       {/* START badge on current node */}
       {node.status === "current" && (
         <motion.div
-          className="absolute -bottom-5 left-1/2 -translate-x-1/2 px-2 py-0.5 rounded-full bg-amber-400 text-white text-[9px] font-bold tracking-wide shadow-md whitespace-nowrap"
+          className="absolute -top-1 -right-1 px-1.5 py-0.5 rounded-full text-white text-[9px] font-bold tracking-wide shadow-md whitespace-nowrap"
+          style={{ background: "linear-gradient(135deg,#f59e0b,#f97316)" }}
           animate={{ y: [0, -2, 0] }}
           transition={{ duration: 1.8, repeat: Infinity }}
         >
@@ -143,19 +140,28 @@ function GradientRingNode({
 
 export default function PathView({ units, onNodeTap, activeTab, onTabChange }: Props) {
   return (
-    <div className="pb-10">
+    <div
+      className="pb-10 min-h-screen"
+      style={{ background: "linear-gradient(160deg,#faf5ff 0%,#fdf4ff 50%,#fff1f2 100%)" }}
+    >
       {/* Sticky tab header */}
-      <div className="sticky top-0 z-10 bg-white/90 backdrop-blur-sm pt-2 pb-3 border-b border-slate-100 mb-2">
-        <div className="flex gap-1 p-1 bg-slate-100 rounded-xl">
+      <div
+        className="sticky top-0 z-10 pt-2 pb-3 border-b border-violet-100 mb-2"
+        style={{ background: "rgba(250,245,255,0.95)", backdropFilter: "blur(12px)" }}
+      >
+        <div className="flex gap-1 p-1 bg-violet-50 rounded-xl">
           {(["enneagram", "jungian"] as const).map((tab) => (
             <button
               key={tab}
               onClick={() => onTabChange(tab)}
               className={`flex-1 py-2 rounded-lg text-sm font-medium transition-all ${
-                activeTab === tab
-                  ? "bg-white text-slate-800 shadow-sm"
-                  : "text-slate-400 hover:text-slate-600"
+                activeTab === tab ? "text-white shadow-sm" : "text-slate-400 hover:text-slate-600"
               }`}
+              style={
+                activeTab === tab
+                  ? { background: "linear-gradient(135deg,#8b5cf6,#ec4899)" }
+                  : {}
+              }
             >
               {tab === "enneagram" ? "Enneagram" : "Jungian"}
             </button>
@@ -167,42 +173,69 @@ export default function PathView({ units, onNodeTap, activeTab, onTabChange }: P
       <div className="space-y-2 pt-4">
         {units.map((unit, unitIdx) => {
           const nodes = unit.nodes;
+          const isAllLocked = nodes.every((n) => n.status === "locked");
+          const completedCount = nodes.filter((n) => n.status === "completed").length;
+          const isFullyDone = completedCount === nodes.length;
+          const pct = Math.round((completedCount / Math.max(nodes.length, 1)) * 100);
 
           return (
             <div key={unit.id} className="px-2">
               {/* Unit header */}
               <div
                 className="relative flex items-center justify-between px-5 py-3 rounded-2xl mb-6 overflow-hidden"
-                style={{
-                  background: `linear-gradient(135deg, ${unit.gradFrom}, ${unit.gradTo})`,
-                  opacity: unit.nodes.every((n) => n.status === "locked") ? 0.5 : 1,
-                }}
+                style={
+                  isAllLocked
+                    ? { background: "#cbd5e1", opacity: 0.6 }
+                    : isFullyDone
+                    ? {
+                        background: "linear-gradient(135deg,#10b981,#6366f1)",
+                        boxShadow: "0 4px 16px rgba(99,102,241,0.3)",
+                      }
+                    : {
+                        background: "linear-gradient(135deg,#6366f1,#8b5cf6)",
+                        boxShadow: "0 4px 16px rgba(99,102,241,0.3)",
+                      }
+                }
               >
-                <div className="absolute inset-0 opacity-10"
-                  style={{
-                    backgroundImage: "radial-gradient(circle at 80% 50%, white 0%, transparent 60%)",
-                  }}
-                />
                 <div className="relative">
-                  <p className="text-[10px] font-bold text-white/70 uppercase tracking-widest">
+                  <p
+                    className={`text-[10px] font-bold uppercase tracking-widest ${
+                      isAllLocked ? "text-slate-500" : "text-white/70"
+                    }`}
+                  >
                     Unit {unitIdx + 1}
                   </p>
-                  <p className="text-base font-bold text-white">{unit.name}</p>
+                  <p
+                    className={`text-base font-bold ${isAllLocked ? "text-slate-500" : "text-white"}`}
+                  >
+                    {unit.name}
+                  </p>
                 </div>
-                <div className="relative flex items-center gap-1">
-                  {nodes.filter((n) => n.status === "completed").map((_, i) => (
-                    <Star key={i} className="w-3.5 h-3.5 text-white/80 fill-white/80" />
-                  ))}
-                  {nodes.filter((n) => n.status !== "completed").map((_, i) => (
-                    <Star key={i} className="w-3.5 h-3.5 text-white/30" />
-                  ))}
+                <div className="relative flex items-center gap-2">
+                  {isAllLocked ? (
+                    <Lock className="w-5 h-5 text-slate-400" />
+                  ) : isFullyDone ? (
+                    <CheckCircle className="w-5 h-5 text-white" />
+                  ) : (
+                    <>
+                      <div
+                        className="w-16 h-2 rounded-full"
+                        style={{ background: "rgba(255,255,255,0.3)" }}
+                      >
+                        <div
+                          className="h-2 rounded-full bg-white transition-all"
+                          style={{ width: `${pct}%` }}
+                        />
+                      </div>
+                      <span className="text-xs font-bold text-white">{pct}%</span>
+                    </>
+                  )}
                 </div>
               </div>
 
               {/* S-curve nodes */}
               <div className="relative">
                 {nodes.map((node, nodeIdx) => {
-                  // Alternate left / center / right for S-curve effect
                   const positions = ["pl-4", "px-12", "pr-4 ml-auto", "px-12", "pl-4"];
                   const align = ["items-start", "items-center", "items-end", "items-center", "items-start"];
                   const pos = positions[nodeIdx % positions.length];
@@ -219,8 +252,9 @@ export default function PathView({ units, onNodeTap, activeTab, onTabChange }: P
                             height: 52,
                             background:
                               node.status === "completed"
-                                ? `linear-gradient(to bottom, ${node.gradTo}, ${nodes[nodeIdx + 1].gradFrom})`
+                                ? "linear-gradient(to bottom,#8b5cf6,#ec4899)"
                                 : "#e2e8f0",
+                            opacity: node.status === "completed" ? 0.5 : 1,
                           }}
                         />
                       )}
@@ -233,10 +267,22 @@ export default function PathView({ units, onNodeTap, activeTab, onTabChange }: P
                             size={64}
                             onClick={() => onNodeTap(node)}
                           />
-                          {/* Label below node */}
-                          <div className="text-center max-w-[80px]" style={{ textAlign: nodeIdx % 2 === 2 ? "right" : "left" }}>
-                            <p className="text-[11px] font-semibold text-slate-700 leading-tight">{node.label}</p>
-                            <p className="text-[10px] text-slate-400 leading-tight mt-0.5">{node.sublabel}</p>
+                          <div
+                            className="text-center max-w-[80px]"
+                            style={{ textAlign: nodeIdx % 2 === 2 ? "right" : "left" }}
+                          >
+                            <p
+                              className={`text-[11px] font-semibold leading-tight ${
+                                node.status === "current"
+                                  ? "text-orange-500 font-bold"
+                                  : "text-slate-700"
+                              }`}
+                            >
+                              {node.label}
+                            </p>
+                            <p className="text-[10px] text-slate-400 leading-tight mt-0.5">
+                              {node.sublabel}
+                            </p>
                           </div>
                         </div>
                       </div>

@@ -884,7 +884,7 @@ export default function DailyPage() {
       saveProgress({ warmupDone: true });
 
       // Perfect section bonus
-      const allCorrect = [...warmupAnswers].every(Boolean) && warmupAnswers.length === warmupQuestions.length - 1 && warmupSelected === warmupQuestions[warmupQ].ans;
+      const allCorrect = warmupAnswers.length === warmupQuestions.length && warmupAnswers.every(Boolean);
       if (allCorrect) {
         gameEarnXP(25, "perfect-score-bonus");
         addXP(25);

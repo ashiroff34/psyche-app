@@ -43,6 +43,7 @@ function useHomeState() {
   const [state, setState] = useState<"loading" | "new" | "onboarding" | "assess_prompt" | "dashboard">("loading");
   const [profile, setProfile] = useState<Record<string, any>>({});
   const [gameState, setGameState] = useState<Record<string, any>>({});
+  const [dailyProgress, setDailyProgress] = useState<Record<string, any>>({});
 
   useEffect(() => {
     try {
@@ -62,6 +63,12 @@ function useHomeState() {
         if (gs) setGameState(JSON.parse(gs));
       } catch {}
 
+      try {
+        const dateKey = new Date().toISOString().split("T")[0];
+        const dp = localStorage.getItem(`psyche-daily-${dateKey}`);
+        if (dp) setDailyProgress(JSON.parse(dp));
+      } catch {}
+
       const hasEnneagram = !!p.enneagramType;
       const hasCognitive = !!(p.cognitiveType || p.mbtiType);
 
@@ -79,7 +86,7 @@ function useHomeState() {
     }
   }, []);
 
-  return { state, profile, gameState };
+  return { state, profile, gameState, dailyProgress };
 }
 
 // ── State A: New User Hero ────────────────────────────────────────────────────
@@ -481,85 +488,100 @@ function OnboardingResumeScreen({ profile }: { profile: Record<string, any> }) {
 
 // ── State C: Dashboard ────────────────────────────────────────────────────────
 
-const pathSteps = [
-  { id: "enneagram", label: "Enneagram Type", shortLabel: "Enneagram", href: "/enneagram/assess" },
-  { id: "cognitive", label: "Cognitive Stack", shortLabel: "Cognitive", href: "/cognitive/assess" },
-  { id: "deepdive", label: "Type Deep-Dive", shortLabel: "Deep-Dive", href: "/enneagram/learn" },
-  { id: "streak", label: "7-Day Streak", shortLabel: "Streak", href: "/daily" },
-  { id: "advanced", label: "Advanced Features", shortLabel: "Advanced", href: "/game" },
+// Curriculum nodes matching the daily HubView UP NEXT strip
+const curriculumNodes = [
+  { id: "warmup",        moduleId: "warmup",   shortLabel: "Warm-Up" },
+  { id: "type",          moduleId: "type",     shortLabel: "Type" },
+  { id: "e-reflection-1",moduleId: null,       shortLabel: "Reflection" },
+  { id: "cognitive",     moduleId: "cognitive",shortLabel: "Cognitive" },
+  { id: "cross",         moduleId: "cross",    shortLabel: "Cross" },
 ];
 
-function getCompletedSteps(profile: Record<string, any>, gameState: Record<string, any>) {
-  return {
-    enneagram: !!profile.enneagramType,
-    cognitive: !!(profile.cognitiveType || profile.mbtiType),
-    deepdive: !!profile.visitedLearnPage,
-    streak: (gameState.streakCount ?? profile.streakCount ?? 0) >= 7,
-    advanced: false,
-  };
-}
-
 function PathRail({
-  profile,
-  gameState,
+  dailyProgress,
 }: {
-  profile: Record<string, any>;
-  gameState: Record<string, any>;
+  dailyProgress: Record<string, any>;
 }) {
-  const completed = getCompletedSteps(profile, gameState);
-  const firstIncomplete = pathSteps.findIndex((s) => !completed[s.id as keyof typeof completed]);
-  const activeIdx = firstIncomplete === -1 ? pathSteps.length - 1 : firstIncomplete;
+  const wDone = dailyProgress?.warmupDone ?? false;
+  const mDone: string[] = dailyProgress?.modulesCompleted ?? [];
+  const nqDone: string[] = dailyProgress?.nonQuizCompleted ?? [];
+
+  const isNodeDone = (id: string, moduleId: string | null) => {
+    if (moduleId === "warmup") return wDone;
+    if (moduleId) return mDone.includes(moduleId);
+    return nqDone.includes(id);
+  };
+
+  let prevCompleted = true;
+  const nodes = curriculumNodes.map((node) => {
+    const done = isNodeDone(node.id, node.moduleId);
+    let status: "completed" | "current" | "locked";
+    if (done) status = "completed";
+    else if (prevCompleted) status = "current";
+    else status = "locked";
+    prevCompleted = done;
+    return { ...node, status };
+  });
 
   return (
     <div className="bg-white rounded-2xl border border-slate-100 p-5 shadow-sm">
       <h3 className="text-sm font-semibold text-slate-700 mb-4">Your Path</h3>
       <div className="flex items-center gap-0">
-        {pathSteps.map((step, i) => {
-          const done = completed[step.id as keyof typeof completed];
-          const isActive = i === activeIdx;
-          const isFuture = i > activeIdx;
+        {nodes.map((node, i) => {
+          const done = node.status === "completed";
+          const isActive = node.status === "current";
 
           return (
-            <div key={step.id} className="flex items-center flex-1 min-w-0">
+            <div key={node.id} className="flex items-center flex-1 min-w-0">
               {/* Node */}
               <div className="flex flex-col items-center flex-shrink-0">
-                <Link href={isActive ? step.href : "#"} tabIndex={isActive ? 0 : -1}>
+                <Link href="/daily" tabIndex={isActive ? 0 : -1}>
                   <motion.div
                     animate={isActive ? { scale: [1, 1.08, 1] } : {}}
                     transition={isActive ? { repeat: Infinity, duration: 2, repeatDelay: 0.5, ease: "easeInOut" } : {}}
-                    className={`relative w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold transition-all ${
-                      done
-                        ? "bg-indigo-500 text-white shadow-md shadow-indigo-200/50"
+                    className="relative w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold transition-all"
+                    style={{
+                      background: done
+                        ? "linear-gradient(135deg,#8b5cf6,#ec4899)"
                         : isActive
-                        ? "bg-sky-500 text-white shadow-lg shadow-sky-200/60"
-                        : "bg-slate-100 text-slate-400"
-                    }`}
-                    style={isActive ? { boxShadow: "0 0 0 4px rgba(186, 230, 253, 0.8), 0 0 12px rgba(14, 165, 233, 0.35)" } : {}}
+                        ? "linear-gradient(135deg,#f59e0b,#f97316)"
+                        : "#f1f5f9",
+                      filter: done
+                        ? "drop-shadow(0 0 4px rgba(139,92,246,0.4))"
+                        : isActive
+                        ? "drop-shadow(0 0 6px rgba(251,146,60,0.6))"
+                        : "none",
+                    }}
                   >
                     {done ? (
-                      <CheckCircle className="w-4 h-4" />
+                      <CheckCircle className="w-4 h-4 text-white" />
                     ) : isActive ? (
-                      <ArrowRight className="w-3.5 h-3.5" />
+                      <Star className="w-3.5 h-3.5 text-white fill-white" />
                     ) : (
-                      <Lock className="w-3 h-3" />
+                      <Lock className="w-3 h-3 text-slate-400" />
                     )}
                   </motion.div>
                 </Link>
                 <span
-                  className={`text-[9px] mt-1.5 font-medium text-center leading-tight max-w-[52px] truncate ${
-                    done ? "text-indigo-600" : isActive ? "text-sky-600" : "text-slate-300"
-                  }`}
+                  className="text-[9px] mt-1.5 font-medium text-center leading-tight max-w-[52px] truncate"
+                  style={{
+                    color: done ? "#8b5cf6" : isActive ? "#f97316" : "#cbd5e1",
+                  }}
                 >
-                  {step.shortLabel}
+                  {node.shortLabel}
                 </span>
               </div>
 
               {/* Connector line */}
-              {i < pathSteps.length - 1 && (
+              {i < nodes.length - 1 && (
                 <div
-                  className={`flex-1 h-0.5 mx-1 rounded-full ${
-                    done ? "bg-indigo-200" : "bg-slate-100"
-                  }`}
+                  className="flex-1 h-0.5 mx-1 rounded-full"
+                  style={{
+                    background: done
+                      ? "linear-gradient(to right,#8b5cf6,#ec4899)"
+                      : "#e2e8f0",
+                    opacity: done ? 0.5 : 1,
+                  }}
                 />
               )}
             </div>
@@ -808,9 +830,11 @@ function StreakCelebration({ streak }: { streak: number }) {
 function DashboardScreen({
   profile,
   gameState,
+  dailyProgress,
 }: {
   profile: Record<string, any>;
   gameState: Record<string, any>;
+  dailyProgress: Record<string, any>;
 }) {
   const name = profile.displayName;
   const enneagramType = profile.enneagramType;
@@ -885,7 +909,7 @@ function DashboardScreen({
 
           {/* Path rail */}
           <div className="mb-4">
-            <PathRail profile={profile} gameState={gameState} />
+            <PathRail dailyProgress={dailyProgress} />
           </div>
         </div>
       </section>
@@ -975,7 +999,7 @@ function DashboardScreen({
 // ── Root ──────────────────────────────────────────────────────────────────────
 
 export default function HomePage() {
-  const { state, profile, gameState } = useHomeState();
+  const { state, profile, gameState, dailyProgress } = useHomeState();
   const router = useRouter();
   const touchStartX = useRef(0);
   const touchStartY = useRef(0);
@@ -1009,5 +1033,5 @@ export default function HomePage() {
   if (state === "new") return <div onTouchStart={onTouchStart} onTouchEnd={onTouchEnd}><HeroScreen /></div>;
   if (state === "onboarding") return <div onTouchStart={onTouchStart} onTouchEnd={onTouchEnd}><OnboardingResumeScreen profile={profile} /></div>;
   if (state === "assess_prompt") return <div onTouchStart={onTouchStart} onTouchEnd={onTouchEnd}><AssessPromptScreen profile={profile} /></div>;
-  return <div onTouchStart={onTouchStart} onTouchEnd={onTouchEnd}><DashboardScreen profile={profile} gameState={gameState} /></div>;
+  return <div onTouchStart={onTouchStart} onTouchEnd={onTouchEnd}><DashboardScreen profile={profile} gameState={gameState} dailyProgress={dailyProgress} /></div>;
 }

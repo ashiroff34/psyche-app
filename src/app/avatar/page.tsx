@@ -589,6 +589,7 @@ export default function AvatarPage() {
                       type={petDef.type}
                       size={96}
                       mood={petState.isAlive ? (petStatus?.status as import("@/components/AnimatedPet").PetMood) : "dead"}
+                      equippedItems={petState.equippedItems}
                     />
                   </motion.div>
 

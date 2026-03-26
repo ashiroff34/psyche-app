@@ -286,7 +286,7 @@ export default function HubView({
           transition={{ delay: 0.25 }}
           className="mb-5"
         >
-          <div className="flex gap-1 p-1 bg-white/70 backdrop-blur-sm rounded-xl border border-white shadow-sm">
+          <div className="flex gap-1 p-1 bg-violet-50 rounded-xl">
             {(["enneagram", "jungian"] as const).map((tab) => (
               <button
                 key={tab}
@@ -315,25 +315,28 @@ export default function HubView({
           transition={{ delay: 0.3 }}
           className="mb-6 p-4 rounded-2xl bg-white/80 backdrop-blur-sm shadow-sm border border-white"
         >
-          {nextNode && (
-            <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-3">
-              UP NEXT — {nextNode.unitName}
-            </p>
-          )}
+          <div className="flex items-center justify-between mb-3 px-1">
+            {nextNode && (
+              <p className="text-[10px] font-bold text-violet-400 uppercase tracking-widest">
+                UP NEXT — {nextNode.unitName}
+              </p>
+            )}
+          </div>
 
-          {/* Horizontal nodes row */}
-          <div className="flex items-center justify-between px-2">
+          {/* Horizontal nodes row — design #11 style */}
+          <div className="flex items-center justify-between px-1">
             {miniPathNodes.slice(0, 5).map((node, i) => (
-              <div key={node.id} className="flex items-center">
-                {/* Connector */}
+              <div key={node.id} className="flex items-center flex-1">
+                {/* Connector line */}
                 {i > 0 && (
                   <div
-                    className="w-6 h-0.5 -mx-1"
+                    className="flex-1 h-px mx-1"
                     style={{
                       background:
                         miniPathNodes[i - 1].status === "completed"
-                          ? `linear-gradient(to right, ${miniPathNodes[i-1].gradTo}, ${node.gradFrom})`
+                          ? "linear-gradient(to right,#8b5cf6,#ec4899)"
                           : "#e2e8f0",
+                      opacity: miniPathNodes[i - 1].status === "completed" ? 0.5 : 1,
                     }}
                   />
                 )}
@@ -341,53 +344,83 @@ export default function HubView({
                 {/* Mini node */}
                 <button
                   onClick={() => onNodeTap(node)}
-                  className="relative flex flex-col items-center gap-1"
+                  className="relative flex flex-col items-center gap-1 flex-shrink-0"
+                  style={{
+                    filter:
+                      node.status === "completed"
+                        ? "drop-shadow(0 0 4px rgba(139,92,246,0.5))"
+                        : node.status === "current"
+                        ? "drop-shadow(0 0 6px rgba(251,146,60,0.7))"
+                        : "none",
+                  }}
                 >
-                  <div className="relative" style={{ width: 36, height: 36 }}>
-                    <svg width="36" height="36" viewBox="0 0 36 36" className="absolute inset-0">
+                  <div className="relative" style={{ width: 40, height: 40 }}>
+                    <svg width="40" height="40" viewBox="0 0 40 40" className="absolute inset-0">
                       <defs>
-                        <linearGradient id={`mini-grad-${node.id}`} x1="0%" y1="0%" x2="100%" y2="100%">
-                          <stop offset="0%" stopColor={node.gradFrom} />
-                          <stop offset="100%" stopColor={node.gradTo} />
+                        <linearGradient id={`mini-vp-${node.id}`} x1="0%" y1="0%" x2="100%" y2="100%">
+                          <stop offset="0%" stopColor="#8b5cf6" />
+                          <stop offset="100%" stopColor="#ec4899" />
+                        </linearGradient>
+                        <linearGradient id={`mini-am-${node.id}`} x1="0%" y1="0%" x2="100%" y2="100%">
+                          <stop offset="0%" stopColor="#f59e0b" />
+                          <stop offset="100%" stopColor="#f97316" />
                         </linearGradient>
                       </defs>
-                      {node.status === "locked" ? (
-                        <circle cx="18" cy="18" r="15" fill="none" stroke="#cbd5e1" strokeWidth="2" />
-                      ) : node.status === "completed" ? (
-                        <circle
-                          cx="18" cy="18" r="15"
-                          fill="none"
-                          stroke={`url(#mini-grad-${node.id})`}
-                          strokeWidth="2"
-                          style={{ filter: `drop-shadow(0 0 4px ${node.gradFrom}80)` }}
-                        />
-                      ) : (
+                      {node.status === "locked" && (
+                        <circle cx="20" cy="20" r="17" fill="none" stroke="#e2e8f0" strokeWidth="2.5" />
+                      )}
+                      {node.status === "completed" && (
+                        <circle cx="20" cy="20" r="17" fill="none" stroke={`url(#mini-vp-${node.id})`} strokeWidth="2.5" />
+                      )}
+                      {node.status === "current" && (
                         <>
-                          <circle cx="18" cy="18" r="15" fill="none" stroke="#fde68a" strokeWidth="2" opacity="0.5" />
-                          <circle cx="18" cy="18" r="15" fill="none" stroke="#f59e0b" strokeWidth="2"
-                            strokeDasharray="65 30" strokeLinecap="round"
-                            style={{ transform: "rotate(-90deg)", transformOrigin: "18px 18px" }} />
+                          <circle cx="20" cy="20" r="17" fill="none" stroke="#ede9fe" strokeWidth="2.5" />
+                          <circle cx="20" cy="20" r="17" fill="none" stroke={`url(#mini-am-${node.id})`}
+                            strokeWidth="2.5" strokeLinecap="round"
+                            strokeDasharray="53 54"
+                            style={{ transform: "rotate(-90deg)", transformOrigin: "20px 20px" }} />
                         </>
                       )}
                     </svg>
+                    {/* Inner fill */}
                     <div
-                      className="absolute rounded-full"
+                      className="absolute rounded-full flex items-center justify-center"
                       style={{
-                        inset: 4,
+                        inset: 5,
                         background:
                           node.status === "locked"
                             ? "#f1f5f9"
-                            : `linear-gradient(135deg, ${node.gradFrom}, ${node.gradTo})`,
-                        boxShadow: node.status !== "locked" ? `0 1px 6px ${node.gradFrom}50` : "none",
+                            : node.status === "completed"
+                            ? "linear-gradient(135deg,#8b5cf6,#ec4899)"
+                            : "linear-gradient(135deg,#f59e0b,#f97316)",
                       }}
-                    />
+                    >
+                      {node.status === "completed" && (
+                        <svg className="w-3.5 h-3.5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                        </svg>
+                      )}
+                      {node.status === "current" && (
+                        <Star className="w-3 h-3 text-white fill-white" />
+                      )}
+                      {node.status === "locked" && (
+                        <svg className="w-3 h-3 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                          <rect x="5" y="11" width="14" height="10" rx="2" />
+                          <path d="M8 11V7a4 4 0 018 0v4" />
+                        </svg>
+                      )}
+                    </div>
                   </div>
                   <span
                     className={`text-[9px] font-medium leading-tight text-center max-w-[40px] ${
-                      node.status === "current" ? "text-amber-600" : node.status === "completed" ? "text-violet-600" : "text-slate-400"
+                      node.status === "current"
+                        ? "text-orange-500 font-bold"
+                        : node.status === "completed"
+                        ? "text-slate-400"
+                        : "text-gray-300"
                     }`}
                   >
-                    {node.label.split(" ")[0]}
+                    {node.status === "current" ? "Now" : node.label.split(" ")[0]}
                   </span>
                 </button>
               </div>
