@@ -1001,6 +1001,16 @@ function DashboardScreen({
 export default function HomePage() {
   const { state, profile, gameState, dailyProgress } = useHomeState();
   const router = useRouter();
+
+  // ── Auto-redirect returning users directly to /daily ─────────────────────
+  // Fires once after localStorage loads. Only redirects if the user already
+  // has a type set — new users and mid-onboarding users are unaffected.
+  useEffect(() => {
+    if (state === "dashboard") {
+      router.replace("/daily");
+    }
+  }, [state, router]);
+
   const touchStartX = useRef(0);
   const touchStartY = useRef(0);
 
