@@ -42,6 +42,9 @@ export default function ComebackModal() {
     // Only show once per session
     if (sessionStorage.getItem("comeback-shown") === "true") return;
 
+    // Don't show until onboarding/tutorial is complete
+    if (localStorage.getItem("psyche-tutorial-complete") !== "true") return;
+
     let profile: Record<string, unknown> = {};
     let petState: Record<string, unknown> | null = null;
 

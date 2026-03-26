@@ -82,9 +82,10 @@ export default function RetentionBanner() {
 
     // Only show to returning users (psyche-profile must exist)
     const hasProfile = !!localStorage.getItem("psyche-profile");
-    if (!hasProfile) {
-      return;
-    }
+    if (!hasProfile) return;
+
+    // Don't show until onboarding/tutorial is complete
+    if (localStorage.getItem("psyche-tutorial-complete") !== "true") return;
 
     const today = getDateKey();
 

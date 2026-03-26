@@ -161,6 +161,9 @@ export default function EngagementNudge() {
       const profileRaw = localStorage.getItem("psyche-profile");
       if (!profileRaw) return; // new user — no nudges
 
+      // Don't show until onboarding/tutorial is complete
+      if (localStorage.getItem("psyche-tutorial-complete") !== "true") return;
+
       const profile = JSON.parse(profileRaw) as Record<string, unknown>;
 
       // Calculate days since last visit
