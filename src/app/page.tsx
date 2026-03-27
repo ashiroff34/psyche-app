@@ -895,7 +895,7 @@ function DashboardScreen({
               <div className="mb-4">
                 <ChibiSprite
                   type={enneagramType}
-                  instinct={profile.instinctualStacking as string | undefined}
+                  instinct={profile.instinctualStacking}
                   size={200}
                   state="idle"
                 />
