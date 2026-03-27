@@ -5,6 +5,7 @@ import PathView, { type PathUnit } from "@/components/daily/PathView";
 import PathIteration1 from "@/components/daily/PathIteration1";
 import PathIteration2 from "@/components/daily/PathIteration2";
 import PathIteration3 from "@/components/daily/PathIteration3";
+import PathIteration4 from "@/components/daily/PathIteration4";
 import type { PathNodeConfig } from "@/components/daily/NodeBottomSheet";
 
 // ── Sample data to preview all states ───────────────────────────────────────
@@ -49,7 +50,7 @@ const handleNodeTap = (node: PathNodeConfig) => {
 };
 
 export default function PathPreviewPage() {
-  const [iteration, setIteration] = useState<0 | 1 | 2 | 3>(0);
+  const [iteration, setIteration] = useState<0 | 1 | 2 | 3 | 4>(0);
   const [activeTab, setActiveTab] = useState<"enneagram" | "jungian">("enneagram");
 
   return (
@@ -63,11 +64,12 @@ export default function PathPreviewPage() {
             { id: 1, label: "1: Classic Duo", color: "bg-green-500" },
             { id: 2, label: "2: Premium Dark", color: "bg-violet-500" },
             { id: 3, label: "3: Faithful + Thyself", color: "bg-amber-500" },
+            { id: 4, label: "4: Dark + Bold Lines", color: "bg-purple-600" },
           ].map((it) => (
             <button
               key={it.id}
-              onClick={() => setIteration(it.id as 0 | 1 | 2 | 3)}
-              className={`flex-1 py-2 rounded-lg text-xs font-bold transition-all ${
+              onClick={() => setIteration(it.id as 0 | 1 | 2 | 3 | 4)}
+              className={`py-2 px-2 rounded-lg text-[10px] font-bold transition-all ${
                 iteration === it.id
                   ? `${it.color} text-white shadow-md`
                   : "bg-gray-100 text-gray-500"
@@ -96,6 +98,9 @@ export default function PathPreviewPage() {
       )}
       {iteration === 3 && (
         <PathIteration3 units={sampleUnits} onNodeTap={handleNodeTap} streak={12} />
+      )}
+      {iteration === 4 && (
+        <PathIteration4 units={sampleUnits} onNodeTap={handleNodeTap} />
       )}
     </div>
   );
