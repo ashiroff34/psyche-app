@@ -967,6 +967,21 @@ function DashboardScreen({
           <NextUpCards profile={profile} gameState={gameState} />
         </div>
 
+        {/* Lessons — Continue Learning banner */}
+        <Link
+          href="/lessons"
+          className="flex items-center gap-4 p-4 mb-6 rounded-2xl border border-violet-200 bg-gradient-to-r from-violet-50 to-fuchsia-50 hover:shadow-md hover:-translate-y-0.5 transition-all"
+        >
+          <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-violet-500 to-fuchsia-500 flex items-center justify-center flex-shrink-0 shadow-lg shadow-violet-200/50">
+            <BookOpen className="w-6 h-6 text-white" />
+          </div>
+          <div className="flex-1 min-w-0">
+            <div className="text-base font-semibold text-slate-800">Continue Learning</div>
+            <div className="text-xs text-slate-500">Bite-sized psychology lessons</div>
+          </div>
+          <ArrowRight className="w-5 h-5 text-violet-400 flex-shrink-0" />
+        </Link>
+
         {/* Learning Units — Duolingo-style vertical path */}
         <div className="mb-10">
           <h3 className="text-sm font-semibold text-slate-700 mb-4">Your Learning Path</h3>
@@ -1074,7 +1089,7 @@ export default function HomePage() {
     );
   }
 
-  if (state === "new") return <div onTouchStart={onTouchStart} onTouchEnd={onTouchEnd}><HeroScreen /></div>;
+  if (state === "new") return <div onTouchStart={onTouchStart} onTouchEnd={onTouchEnd} className="fixed inset-0 z-[100] overflow-y-auto bg-white"><HeroScreen /></div>;
   if (state === "onboarding") return <div onTouchStart={onTouchStart} onTouchEnd={onTouchEnd}><OnboardingResumeScreen profile={profile} /></div>;
   if (state === "assess_prompt") return <div onTouchStart={onTouchStart} onTouchEnd={onTouchEnd}><AssessPromptScreen profile={profile} /></div>;
   return <div onTouchStart={onTouchStart} onTouchEnd={onTouchEnd}><DashboardScreen profile={profile} gameState={gameState} dailyProgress={dailyProgress} /></div>;

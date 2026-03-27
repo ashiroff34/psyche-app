@@ -43,6 +43,7 @@ const bottomTabs = [
 // ── "More" items (accessible from top bar) ─────────────────────────────────
 
 const moreItems = [
+  { href: "/lessons", label: "Lessons", icon: BookOpen },
   { href: "/game", label: "Progress & Badges", icon: Trophy },
   { href: "/enneagram", label: "Enneagram", icon: Compass },
   { href: "/cognitive", label: "Cognitive Functions", icon: Brain },
@@ -155,16 +156,6 @@ function MoreMenu({ pathname }: { pathname: string }) {
                 <button
                   onClick={() => {
                     setOpen(false);
-                    window.dispatchEvent(new Event("psyche-replay-tutorial"));
-                  }}
-                  className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm text-slate-600 hover:bg-slate-50 transition-all"
-                >
-                  <RotateCcw className="w-4 h-4" />
-                  Replay Tutorial
-                </button>
-                <button
-                  onClick={() => {
-                    setOpen(false);
                     let email = "support@thyself.app";
                     try {
                       const raw = localStorage.getItem("psyche-profile");
@@ -240,19 +231,34 @@ function SwipeNavigator() {
 export default function Navigation() {
   const pathname = usePathname();
   const router = useRouter();
-  const [showBlocker, setShowBlocker] = useState(false);
-
-  // Don't show nav on onboarding
+  // Don't show nav on onboarding or for brand-new users
   const isOnboarding = pathname === "/onboarding";
-
-  // Check if user is new (hasn't completed tutorial) — must use state to avoid hydration mismatch
   const [isNewUser, setIsNewUser] = useState(false);
-  const [hasPrevPage, setHasPrevPage] = useState(false);
+
   useEffect(() => {
-    const tutDone = localStorage.getItem("psyche-tutorial-complete");
-    const onbDone = localStorage.getItem("psyche-onboarding-complete");
-    if (!tutDone && !onbDone) setIsNewUser(true);
-  }, []);
+    try {
+      const profile = localStorage.getItem("psyche-profile");
+      const onboardingDone = localStorage.getItem("psyche-onboarding-complete");
+      if (!profile && !onboardingDone) setIsNewUser(true);
+      else setIsNewUser(false);
+    } catch { setIsNewUser(false); }
+  }, [pathname]);
+
+  const [hasPrevPage, setHasPrevPage] = useState(false);
+  const [storeNotifVisible, setStoreNotifVisible] = useState(false);
+
+  // Show pulsing Store dot only when user has >= 50 tokens and hasn't visited yet
+  useEffect(() => {
+    try {
+      const visited = localStorage.getItem("psyche-store-visited");
+      if (visited) { setStoreNotifVisible(false); return; }
+      const raw = localStorage.getItem("psyche-game-state");
+      if (!raw) return;
+      const gs = JSON.parse(raw);
+      const tokens = (gs.tokens as number) ?? 0;
+      setStoreNotifVisible(tokens >= 50);
+    } catch {}
+  }, [pathname]); // re-check whenever route changes (tokens may have just been awarded)
 
   // Store page history in localStorage so back button always works
   useEffect(() => {
@@ -285,18 +291,21 @@ export default function Navigation() {
     router.back();
   };
 
-  const handleNavClick = (e: React.MouseEvent, href: string) => {
-    if (isNewUser && href !== "/" && href !== "/onboarding") {
-      e.preventDefault();
-      setShowBlocker(true);
-      setTimeout(() => setShowBlocker(false), 3000);
+  const handleNavClick = (_e: React.MouseEvent, href: string) => {
+    if (href === "/store") {
+      try { localStorage.setItem("psyche-store-visited", "true"); } catch {}
+      setStoreNotifVisible(false);
     }
   };
+
+  const hideChrome = isOnboarding || isNewUser;
+
+  if (isNewUser) return null; // Completely hide nav for brand-new users — fullscreen intro
 
   return (
     <>
       {/* ── Swipe detection for tab navigation ─────────────────────────── */}
-      {!isOnboarding && <SwipeNavigator />}
+      {!hideChrome && <SwipeNavigator />}
 
       {/* ── Top Bar (minimal — logo, back, level, more) ───────────────────── */}
       <nav className="fixed top-0 left-0 right-0 z-50 glass-strong">
@@ -304,7 +313,7 @@ export default function Navigation() {
           <div className="flex items-center justify-between h-14">
             {/* Left: Back button (always present) + Logo */}
             <div className="flex items-center gap-2 flex-shrink-0">
-              {!isOnboarding && hasPrevPage && (
+              {!hideChrome && hasPrevPage && (
                 <button
                   onClick={goBack}
                   className="flex items-center gap-1 px-2 py-1.5 -ml-2 rounded-xl text-slate-500 hover:bg-slate-100 hover:text-slate-700 transition-all active:scale-95"
@@ -331,7 +340,7 @@ export default function Navigation() {
       </nav>
 
       {/* ── Bottom Tab Bar (Duolingo-style) ──────────────────────────────── */}
-      {!isOnboarding && (
+      {!hideChrome && (
         <div className="fixed bottom-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-xl border-t border-slate-100 safe-area-bottom">
           <div className="max-w-lg mx-auto flex items-center justify-around px-2 py-1">
             {bottomTabs.map((tab) => {
@@ -363,8 +372,8 @@ export default function Navigation() {
                   )}
                   <div className={`relative ${isStore ? "p-1 rounded-lg bg-gradient-to-br from-amber-100 to-orange-100" : ""}`}>
                     <Icon className={`w-5 h-5 ${isStore && !isActive ? "text-amber-600" : ""}`} />
-                    {/* Store gets a subtle glow */}
-                    {isStore && !isActive && (
+                    {/* Store gets a subtle glow — only when tokens ≥ 50 and never visited */}
+                    {isStore && !isActive && storeNotifVisible && (
                       <div className="absolute -top-0.5 -right-0.5 w-2 h-2 rounded-full bg-amber-400 animate-pulse" />
                     )}
                   </div>
@@ -378,26 +387,6 @@ export default function Navigation() {
         </div>
       )}
 
-      {/* Blocker toast for new users */}
-      <AnimatePresence>
-        {showBlocker && (
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 20 }}
-            className="fixed bottom-24 left-4 right-4 z-[60] flex items-center gap-3 px-5 py-4 bg-slate-900 text-white rounded-2xl shadow-xl"
-          >
-            <BookOpen className="w-5 h-5 text-sky-400 flex-shrink-0" />
-            <div className="flex-1">
-              <p className="text-sm font-semibold">Complete the tutorial first</p>
-              <p className="text-xs text-slate-400">Tap &quot;Start the Tutorial&quot; on the home page to get started.</p>
-            </div>
-            <button onClick={() => setShowBlocker(false)} className="p-1 text-slate-500 hover:text-white">
-              <X className="w-4 h-4" />
-            </button>
-          </motion.div>
-        )}
-      </AnimatePresence>
     </>
   );
 }
