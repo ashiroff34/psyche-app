@@ -218,7 +218,7 @@ export default function PathIteration2({ units, onNodeTap }: Props) {
                     animate={{ y: [0, -4, 0], opacity: 1 }}
                     transition={{ y: { duration: 2, repeat: Infinity }, opacity: { duration: 0.5 } }}
                   >
-                    <ChibiSprite type={4} size={44} state="happy" />
+                    <ChibiSprite type={4} instinct="sp" size={44} state="happy" />
                   </motion.div>
                 )}
 

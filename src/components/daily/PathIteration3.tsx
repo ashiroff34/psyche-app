@@ -240,7 +240,7 @@ export default function PathIteration3({ units, onNodeTap, streak = 0 }: Props) 
                       <span className="text-[10px] font-bold text-slate-600">Let&apos;s go!</span>
                       <div className="absolute -bottom-1 right-3 w-2 h-2 bg-white border-r border-b border-gray-100 rotate-45" />
                     </div>
-                    <ChibiSprite type={4} size={44} state="happy" />
+                    <ChibiSprite type={4} instinct="sp" size={44} state="happy" />
                   </motion.div>
                 )}
 
