@@ -197,30 +197,34 @@ export default function PathIteration4({ units, onNodeTap }: Props) {
                 </div>
               )}
 
-              {/* THICK glowing bezier connector */}
+              {/* THICK glowing connector lines */}
               {idx > 0 && (
                 <svg
                   className="absolute -top-12 left-0 w-full overflow-visible"
                   height="60"
                   style={{ zIndex: 0 }}
                 >
-                  {/* Glow layer (wider, blurred) */}
-                  <path
-                    d={`M ${prevXPct * 100}% 0 C ${prevXPct * 100}% 30, ${xPct * 100}% 30, ${xPct * 100}% 60`}
-                    fill="none"
+                  {/* Glow layer (wide, blurred) */}
+                  <line
+                    x1={`${prevXPct * 100}%`}
+                    y1="0"
+                    x2={`${xPct * 100}%`}
+                    y2="60"
                     stroke={
                       isCompletedLine
                         ? "rgba(52,211,153,0.35)"
                         : "rgba(139,92,246,0.15)"
                     }
-                    strokeWidth="14"
+                    strokeWidth="16"
                     strokeLinecap="round"
                     filter={isCompletedLine ? "url(#glow-emerald)" : "url(#glow-purple)"}
                   />
                   {/* Main thick line */}
-                  <path
-                    d={`M ${prevXPct * 100}% 0 C ${prevXPct * 100}% 30, ${xPct * 100}% 30, ${xPct * 100}% 60`}
-                    fill="none"
+                  <line
+                    x1={`${prevXPct * 100}%`}
+                    y1="0"
+                    x2={`${xPct * 100}%`}
+                    y2="60"
                     stroke={
                       isCompletedLine
                         ? "#34d399"
@@ -230,12 +234,14 @@ export default function PathIteration4({ units, onNodeTap }: Props) {
                     strokeLinecap="round"
                   />
                   {/* Bright center highlight */}
-                  <path
-                    d={`M ${prevXPct * 100}% 0 C ${prevXPct * 100}% 30, ${xPct * 100}% 30, ${xPct * 100}% 60`}
-                    fill="none"
+                  <line
+                    x1={`${prevXPct * 100}%`}
+                    y1="0"
+                    x2={`${xPct * 100}%`}
+                    y2="60"
                     stroke={
                       isCompletedLine
-                        ? "rgba(110,231,183,0.6)"
+                        ? "rgba(110,231,183,0.7)"
                         : "rgba(167,139,250,0.15)"
                     }
                     strokeWidth="2"
