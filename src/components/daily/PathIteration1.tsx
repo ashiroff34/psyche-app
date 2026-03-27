@@ -194,6 +194,7 @@ export default function PathIteration1({ units, onNodeTap }: Props) {
                   >
                     <ChibiSprite
                       type={4}
+                      instinct="sp"
                       size={48}
                       state="happy"
                     />
