@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
+import { enneagramTypes } from "@/data/enneagram";
 import { useRouter } from "next/navigation";
 import {
   Brain,
@@ -26,6 +27,7 @@ import {
   Clock,
   X,
   Coins,
+  Timer,
 } from "lucide-react";
 import ChibiSprite from "@/components/ChibiSprite";
 import OuroborosLogo from "@/components/OuroborosLogo";
@@ -101,29 +103,9 @@ const fadeUp = {
 };
 
 function HeroScreen() {
-  const [showToast, setShowToast] = useState(false);
-
-  const blockNav = (e: React.MouseEvent) => {
-    e.preventDefault();
-    setShowToast(true);
-    setTimeout(() => setShowToast(false), 3000);
-  };
 
   return (
     <div className="min-h-screen flex flex-col relative">
-      {/* Toast for blocked navigation */}
-      {showToast && (
-        <div className="fixed bottom-24 left-4 right-4 z-[60] flex items-center gap-3 px-5 py-4 bg-slate-900 text-white rounded-2xl shadow-xl animate-in fade-in slide-in-from-bottom-4">
-          <BookOpen className="w-5 h-5 text-sky-400 flex-shrink-0" />
-          <div className="flex-1">
-            <p className="text-sm font-semibold">Complete the tutorial first</p>
-            <p className="text-xs text-slate-400">Tap &quot;I&apos;m new here&quot; or &quot;Start the Tutorial&quot; above to begin.</p>
-          </div>
-          <button onClick={() => setShowToast(false)} className="p-1 text-slate-500 hover:text-white">
-            <X className="w-4 h-4" />
-          </button>
-        </div>
-      )}
       {/* Hero */}
       <section className="relative overflow-hidden flex-1 flex items-center">
         <div className="absolute inset-0 -z-10 bg-gradient-to-br from-sky-50 via-white to-indigo-50" />
@@ -283,9 +265,8 @@ function HeroScreen() {
               },
             ].map((item) => (
               <motion.div key={item.title} variants={fadeUp}>
-                <a
-                  href="#"
-                  onClick={blockNav}
+                <Link
+                  href="/onboarding"
                   className="group block p-6 rounded-2xl bg-white border border-slate-100 hover:border-slate-200 hover:shadow-md transition-all"
                 >
                   <div className={`w-10 h-10 rounded-xl ${item.color} flex items-center justify-center mb-4`}>
@@ -301,7 +282,7 @@ function HeroScreen() {
                   <div className="flex items-center gap-1 text-xs font-medium text-sky-500 mt-4 group-hover:gap-2 transition-all">
                     Explore <ArrowRight className="w-3 h-3" />
                   </div>
-                </a>
+                </Link>
               </motion.div>
             ))}
           </motion.div>
@@ -342,7 +323,7 @@ function HeroScreen() {
               },
             ].map((item, i) => (
               <div key={item.step}>
-                <a href="#" onClick={blockNav} className="group block p-6 rounded-2xl bg-white border border-slate-100 hover:border-sky-200 hover:shadow-lg transition-all h-full">
+                <Link href="/onboarding" className="group block p-6 rounded-2xl bg-white border border-slate-100 hover:border-sky-200 hover:shadow-lg transition-all h-full">
                   <div className={`w-10 h-10 rounded-xl bg-gradient-to-br ${item.color} flex items-center justify-center mb-4 shadow-sm`}>
                     <span className="text-white font-mono font-bold text-sm">{item.step}</span>
                   </div>
@@ -351,7 +332,7 @@ function HeroScreen() {
                   <div className="flex items-center gap-1 text-xs font-medium text-sky-500 mt-4 group-hover:gap-2 transition-all">
                     Get started <ArrowRight className="w-3 h-3" />
                   </div>
-                </a>
+                </Link>
               </div>
             ))}
           </div>
@@ -483,6 +464,53 @@ function OnboardingResumeScreen({ profile }: { profile: Record<string, any> }) {
         </div>
       </div>
     </div>
+  );
+}
+
+// ── Type Spotlight ────────────────────────────────────────────────────────────
+
+function TypeSpotlightCard() {
+  const dayOfYear = Math.floor((Date.now() - new Date(new Date().getFullYear(), 0, 0).getTime()) / 86400000);
+  const typeNum = (dayOfYear % 9) + 1;
+  const type = enneagramTypes.find((t) => t.number === typeNum)!;
+  if (!type) return null;
+  const trait = type.keyTraits[0];
+
+  return (
+    <motion.div
+      initial={{ opacity: 1, y: 0 }}
+      animate={{ opacity: 1, y: 0 }}
+      className="mb-6 overflow-hidden rounded-2xl border border-slate-100 shadow-sm bg-white"
+    >
+      <div className="h-1.5 w-full" style={{ backgroundColor: type.color }} />
+      <div className="p-4 flex items-center gap-4">
+        <div
+          className="w-12 h-12 rounded-2xl flex items-center justify-center text-white font-bold text-xl shadow-md shrink-0"
+          style={{ backgroundColor: type.color }}
+        >
+          {type.number}
+        </div>
+        <div className="flex-1 min-w-0">
+          <div className="flex items-center gap-2 mb-0.5">
+            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Type Spotlight</span>
+            <span className="px-2 py-0.5 rounded-full text-[10px] font-semibold text-white" style={{ backgroundColor: type.color }}>
+              {trait}
+            </span>
+          </div>
+          <p className="text-sm font-semibold text-slate-800">
+            Type {type.number} · {type.name}
+          </p>
+          <p className="text-xs text-slate-500 leading-snug mt-0.5 line-clamp-2">{type.brief}</p>
+        </div>
+        <Link
+          href={`/enneagram/${type.number}`}
+          className="shrink-0 px-3 py-1.5 rounded-xl text-xs font-semibold text-white transition-all hover:opacity-80"
+          style={{ backgroundColor: type.color }}
+        >
+          Explore
+        </Link>
+      </div>
+    </motion.div>
   );
 }
 
@@ -650,7 +678,7 @@ function NextUpCards({ profile, gameState }: { profile: Record<string, any>; gam
     cards.push({ label: "Discover your cognitive stack", desc: "Find out how your mind works", href: "/cognitive/assess", icon: Brain, color: "text-indigo-600", bg: "bg-indigo-50" });
   }
   if (!hasJournaledToday || !hasQuizzedToday) {
-    cards.push({ label: "Journal prompt waiting", desc: "Today's reflection is ready", href: "/daily", icon: BookOpen, color: "text-violet-600", bg: "bg-violet-50" });
+    cards.push({ label: "Inner Work prompt waiting", desc: "Today's reflection is ready", href: "/daily", icon: BookOpen, color: "text-violet-600", bg: "bg-violet-50" });
   }
   if (streak > 0 && streak < 7) {
     cards.push({ label: "Keep your streak alive", desc: `${streak}-day streak — don't break it!`, href: "/daily", icon: Flame, color: "text-orange-500", bg: "bg-orange-50" });
@@ -704,11 +732,11 @@ function NextUpCards({ profile, gameState }: { profile: Record<string, any>; gam
 function QuickAccessGrid() {
   const tiles = [
     { href: "/daily", icon: Flame, label: "Daily", color: "text-orange-500", bg: "bg-orange-50" },
-    { href: "/enneagram", icon: Compass, label: "Enneagram", color: "text-sky-600", bg: "bg-sky-50" },
-    { href: "/cognitive", icon: Brain, label: "Cognitive", color: "text-indigo-600", bg: "bg-indigo-50" },
+    { href: "/sprint", icon: Timer, label: "Sprint", color: "text-violet-600", bg: "bg-violet-50" },
+    { href: "/type-match", icon: Brain, label: "Type Match", color: "text-indigo-600", bg: "bg-indigo-50" },
+    { href: "/growth", icon: Sparkles, label: "Growth", color: "text-amber-600", bg: "bg-amber-50" },
     { href: "/game", icon: Gamepad2, label: "Game", color: "text-emerald-600", bg: "bg-emerald-50" },
-    { href: "/avatar", icon: Cat, label: "Avatar", color: "text-violet-600", bg: "bg-violet-50" },
-    { href: "/journal", icon: Beaker, label: "Inner Work", color: "text-rose-600", bg: "bg-rose-50" },
+    { href: "/avatar", icon: Cat, label: "Avatar", color: "text-pink-600", bg: "bg-pink-50" },
   ];
 
   return (
@@ -739,17 +767,19 @@ function QuickAccessGrid() {
 }
 
 const ALL_SECTIONS = [
-  { href: "/daily", icon: Flame, label: "Daily Practice", desc: "Quizzes, insights & streak", color: "text-orange-500", bg: "bg-orange-50", border: "border-orange-100" },
   { href: "/enneagram", icon: Compass, label: "Enneagram", desc: "Types, subtypes & tritypes", color: "text-sky-600", bg: "bg-sky-50", border: "border-sky-100" },
   { href: "/cognitive", icon: Brain, label: "Cognitive", desc: "Your function stack", color: "text-indigo-600", bg: "bg-indigo-50", border: "border-indigo-100" },
   { href: "/journal", icon: Beaker, label: "Inner Work", desc: "Shadow & reframe tools", color: "text-rose-600", bg: "bg-rose-50", border: "border-rose-100" },
   { href: "/game", icon: Gamepad2, label: "Progress", desc: "XP, levels & achievements", color: "text-emerald-600", bg: "bg-emerald-50", border: "border-emerald-100" },
-  { href: "/avatar", icon: Cat, label: "Pet & Avatar", desc: "Your companion", color: "text-violet-600", bg: "bg-violet-50", border: "border-violet-100" },
-  { href: "/compare", icon: Heart, label: "Compare", desc: "Type compatibility", color: "text-pink-600", bg: "bg-pink-50", border: "border-pink-100" },
+  { href: "/sprint", icon: Timer, label: "Sprint Mode", desc: "60-sec quiz blitz", color: "text-violet-600", bg: "bg-violet-50", border: "border-violet-100" },
+  { href: "/type-match", icon: Zap, label: "Type Match", desc: "Identify types from quotes", color: "text-purple-600", bg: "bg-purple-50", border: "border-purple-100" },
+  { href: "/growth", icon: Sparkles, label: "Growth Prompts", desc: "Type-specific reflection", color: "text-amber-600", bg: "bg-amber-50", border: "border-amber-100" },
+  { href: "/avatar", icon: Cat, label: "Pet & Avatar", desc: "Your companion", color: "text-pink-600", bg: "bg-pink-50", border: "border-pink-100" },
+  { href: "/compare", icon: Heart, label: "Compare", desc: "Type compatibility", color: "text-rose-600", bg: "bg-rose-50", border: "border-rose-100" },
   { href: "/history", icon: Clock, label: "History", desc: "Typology timeline", color: "text-amber-600", bg: "bg-amber-50", border: "border-amber-100" },
   { href: "/correlations", icon: ArrowRight, label: "Correlations", desc: "Enneagram × cognitive", color: "text-teal-600", bg: "bg-teal-50", border: "border-teal-100" },
   { href: "/profile", icon: UserCircle, label: "My Profile", desc: "Your full type profile", color: "text-slate-600", bg: "bg-slate-50", border: "border-slate-100" },
-  { href: "/dashboard", icon: Sparkles, label: "Dashboard", desc: "Radar chart & insights", color: "text-purple-600", bg: "bg-purple-50", border: "border-purple-100" },
+  { href: "/dashboard", icon: Target, label: "Dashboard", desc: "Radar chart & insights", color: "text-purple-600", bg: "bg-purple-50", border: "border-purple-100" },
   { href: "/store", icon: Star, label: "Store", desc: "Earn & spend tokens", color: "text-yellow-600", bg: "bg-yellow-50", border: "border-yellow-100" },
 ];
 
@@ -854,21 +884,29 @@ function DashboardScreen({
         <div className="absolute bottom-0 left-1/2 w-64 h-64 bg-violet-200/15 rounded-full blur-3xl pointer-events-none" />
 
         <div className="max-w-4xl mx-auto px-4 sm:px-6 pt-8 pb-6">
-          {/* Chibi + Greeting — centered hero */}
+          {/* Greeting → chibi mascot → type badges */}
           <div className="flex flex-col items-center text-center mb-6">
-            {enneagramType && profile.instinctualStacking && (
+            <h1 className="text-3xl sm:text-4xl font-serif font-bold text-slate-900 mb-3">
+              {getGreeting()}{name ? `, ${name}` : ""}!
+            </h1>
+
+            {/* Chibi mascot — shown whenever enneagram type is known */}
+            {enneagramType ? (
               <div className="mb-4">
                 <ChibiSprite
                   type={enneagramType}
-                  instinct={profile.instinctualStacking as string}
-                  size={160}
+                  instinct={profile.instinctualStacking as string | undefined}
+                  size={200}
                   state="idle"
                 />
               </div>
+            ) : (
+              /* Placeholder blob for users who haven't typed yet */
+              <div className="mb-4 w-40 h-40 rounded-full bg-gradient-to-br from-sky-100 to-indigo-100 flex items-center justify-center shadow-inner">
+                <span className="text-6xl">🪞</span>
+              </div>
             )}
-            <h1 className="text-3xl sm:text-4xl font-serif font-bold text-slate-900 mb-2">
-              {getGreeting()}{name ? `, ${name}` : ""}!
-            </h1>
+
             <div className="flex items-center gap-2 flex-wrap justify-center">
               {enneagramType && (
                 <span className="px-3 py-1 rounded-full bg-sky-100 text-sky-700 text-xs font-bold shadow-sm">
@@ -917,6 +955,9 @@ function DashboardScreen({
       <div className="max-w-4xl mx-auto px-4 sm:px-6 pb-24">
         {/* Streak celebration */}
         <StreakCelebration streak={streak} />
+
+        {/* Type Spotlight — daily featured type */}
+        <TypeSpotlightCard />
 
         {/* BIG hero action — Duolingo-style ONE clear thing to do */}
         <TodayHeroCard profile={profile} gameState={gameState} />
@@ -1002,14 +1043,7 @@ export default function HomePage() {
   const { state, profile, gameState, dailyProgress } = useHomeState();
   const router = useRouter();
 
-  // ── Auto-redirect returning users directly to /daily ─────────────────────
-  // Fires once after localStorage loads. Only redirects if the user already
-  // has a type set — new users and mid-onboarding users are unaffected.
-  useEffect(() => {
-    if (state === "dashboard") {
-      router.replace("/daily");
-    }
-  }, [state, router]);
+  // No auto-redirect — Home tab shows its own dashboard with chibi greeting.
 
   const touchStartX = useRef(0);
   const touchStartY = useRef(0);
