@@ -6,7 +6,6 @@ import { motion, AnimatePresence } from "framer-motion";
 import { X, CheckCircle, XCircle, Heart, Zap, Trophy, ArrowRight, Star, BookOpen, Timer } from "lucide-react";
 import ChibiSprite from "@/components/ChibiSprite";
 import type { ChibiState } from "@/components/ChibiSprite";
-import BadgeProgressCard from "@/components/daily/BadgeProgressCard";
 import KeepGoingCard from "@/components/daily/KeepGoingCard";
 import { getBadgeProgress, type GameState, type BadgeProgress } from "@/hooks/useGameState";
 import TokenDropOverlay, { rollTokenDrop, type TokenDrop } from "@/components/daily/TokenDropOverlay";
@@ -122,6 +121,18 @@ export default function QuizFullscreen({
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [answers.length, showExp]);
 
+  // ── XP flash on correct answer ───────────────────────────────────────────
+  useEffect(() => {
+    if (!showExp) return;
+    const isLastCorrect = answers[answers.length - 1] === true;
+    if (!isLastCorrect) return;
+    xpFlashKey.current += 1;
+    setXpFlash(true);
+    const t = setTimeout(() => setXpFlash(false), 900);
+    return () => clearTimeout(t);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [answers.length, showExp]);
+
   // ── Celebration state ──────────────────────────────────────────────────────
   const [countActive, setCountActive] = useState(false);
   const [countedCorrect, setCountedCorrect] = useState(0);
@@ -130,6 +141,12 @@ export default function QuizFullscreen({
   const [showConfetti, setShowConfetti] = useState(false);
   const [showBestBanner, setShowBestBanner] = useState(false);
   const [showStreakBurst, setShowStreakBurst] = useState(false);
+  const [celebrationText, setCelebrationText] = useState<string | null>(null);
+  const [showSparkle, setShowSparkle] = useState(false);
+
+  // ── Running score counter + XP flash ───────────────────────────────────────
+  const [xpFlash, setXpFlash] = useState(false);
+  const xpFlashKey = useRef(0);
 
   // ── Countdown to next heart ────────────────────────────────────────────────
   const [nextHeartSecs, setNextHeartSecs] = useState<number | null>(null);
@@ -182,10 +199,22 @@ export default function QuizFullscreen({
         setCountedPct(pctFinal);
         setCountedXP(sessionXP);
         setCountActive(true);
-        // Trigger celebrations after count finishes
-        if (isPerfectFinal || beatBest) {
+        // Tiered celebration based on accuracy
+        if (pctFinal >= 80 || beatBest) {
           setShowConfetti(true);
           setTimeout(() => setShowConfetti(false), 3000);
+        } else if (pctFinal >= 60) {
+          setShowSparkle(true);
+          setTimeout(() => setShowSparkle(false), 2500);
+        }
+        if (pctFinal >= 90) {
+          setCelebrationText("Amazing!");
+        } else if (pctFinal >= 80) {
+          setCelebrationText("Great job!");
+        } else if (pctFinal >= 60) {
+          setCelebrationText("Nice work!");
+        } else {
+          setCelebrationText("Keep practicing!");
         }
         if (beatBest) {
           setShowBestBanner(true);
@@ -227,24 +256,55 @@ export default function QuizFullscreen({
         style={{
           maxWidth: 640,
           margin: "0 auto",
-          background: isPerfect
+          background: pct >= 90
             ? "linear-gradient(180deg, #fffbeb 0%, #ffffff 40%)"
+            : pct >= 80
+            ? "linear-gradient(180deg, #f5f3ff 0%, #ffffff 40%)"
             : "white",
         }}
       >
-        {/* Confetti — gold for perfect, purple/pink for personal best */}
+        {/* Confetti — gold for 90%+, purple/pink for 80%+ or personal best */}
         <Confetti
-          active={showConfetti && isPerfect}
+          active={showConfetti && pct >= 90}
           duration={3000}
           particleCount={80}
           colors={["#fbbf24", "#f59e0b", "#fcd34d", "#fde68a", "#ffffff"]}
         />
         <Confetti
-          active={showConfetti && !isPerfect && beatPersonalBest}
+          active={showConfetti && pct < 90}
           duration={3000}
           particleCount={60}
           colors={["#8b5cf6", "#d946ef", "#a78bfa", "#ec4899", "#f0abfc"]}
         />
+
+        {/* Sparkle overlay for 60-79% accuracy */}
+        <AnimatePresence>
+          {showSparkle && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.4 }}
+              className="fixed inset-0 z-[60] pointer-events-none flex items-center justify-center"
+            >
+              {[...Array(12)].map((_, i) => (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, scale: 0 }}
+                  animate={{
+                    opacity: [0, 1, 0],
+                    scale: [0, 1.2, 0.8],
+                    x: Math.cos((i / 12) * Math.PI * 2) * 120,
+                    y: Math.sin((i / 12) * Math.PI * 2) * 120,
+                  }}
+                  transition={{ duration: 1.5, delay: i * 0.08, ease: "easeOut" }}
+                  className="absolute w-2 h-2 rounded-full"
+                  style={{ background: i % 2 === 0 ? "#fbbf24" : "#8b5cf6" }}
+                />
+              ))}
+            </motion.div>
+          )}
+        </AnimatePresence>
 
         {/* NEW BEST banner */}
         <AnimatePresence>
@@ -320,7 +380,7 @@ export default function QuizFullscreen({
               } : {}}
               transition={{ duration: 1.2, repeat: 2, ease: "easeInOut" }}
               className="w-24 h-24 rounded-full flex items-center justify-center"
-              style={{ background: isPerfect ? "linear-gradient(135deg, #fbbf24, #f59e0b)" : "linear-gradient(135deg, #8b5cf6, #d946ef)" }}
+              style={{ background: pct >= 90 ? "linear-gradient(135deg, #fbbf24, #f59e0b)" : pct >= 80 ? "linear-gradient(135deg, #8b5cf6, #d946ef)" : pct >= 60 ? "linear-gradient(135deg, #6366f1, #818cf8)" : "linear-gradient(135deg, #94a3b8, #cbd5e1)" }}
             >
               <Trophy className="w-12 h-12 text-white" />
             </motion.div>
@@ -337,11 +397,11 @@ export default function QuizFullscreen({
           </div>
 
           <motion.h2
-            animate={isPerfect ? { scale: [1, 1.08, 1] } : {}}
+            animate={pct >= 80 ? { scale: [1, 1.08, 1] } : {}}
             transition={{ delay: 0.3, duration: 0.5 }}
             className="text-3xl font-bold text-slate-900 mb-2"
           >
-            {isPerfect ? "Perfect! 🎉" : "Complete!"}
+            {celebrationText ?? "Complete!"}
           </motion.h2>
           <p className="text-slate-500 text-base mb-6">{moduleName}</p>
 
@@ -397,7 +457,42 @@ export default function QuizFullscreen({
             </motion.div>
           )}
 
-          {nearBadges.length > 0 && <BadgeProgressCard badges={nearBadges} />}
+          {/* Nearby badge progress hints */}
+          {nearBadges.length > 0 && (
+            <motion.div
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.9, duration: 0.4 }}
+              className="w-full mb-5 px-4 py-3.5 rounded-2xl bg-slate-50 border border-slate-100"
+            >
+              <div className="flex flex-col gap-3">
+                {nearBadges.slice(0, 2).map((badge, i) => {
+                  const remaining = badge.target - badge.current;
+                  return (
+                    <div key={badge.id} className="flex items-start gap-2.5">
+                      <span className="text-lg shrink-0 mt-0.5">{badge.icon}</span>
+                      <div className="flex-1 min-w-0">
+                        <p className="text-xs text-slate-600 leading-snug mb-1.5">
+                          <span className="font-bold text-slate-700">{remaining}</span>
+                          {" "}more {badge.label.includes("day") ? "days" : badge.label.includes("row") ? "in a row" : "correct answers"} for{" "}
+                          <span className="font-bold text-slate-800">&lsquo;{badge.name}&rsquo;</span> badge {badge.icon}
+                        </p>
+                        <div className="h-1.5 rounded-full bg-slate-200 overflow-hidden">
+                          <motion.div
+                            initial={{ width: 0 }}
+                            animate={{ width: `${badge.pct}%` }}
+                            transition={{ delay: 1.0 + i * 0.15, duration: 0.6, ease: "easeOut" }}
+                            className="h-full rounded-full"
+                            style={{ background: "linear-gradient(90deg, #8b5cf6, #d946ef)" }}
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </motion.div>
+          )}
 
           {/* Keep Going card — only after warmup, only if there's a next node */}
           {moduleName === "Warm-Up" && nextNode && onKeepGoing ? (
@@ -582,6 +677,28 @@ export default function QuizFullscreen({
             </motion.div>
           ))}
         </div>
+      </div>
+
+      {/* ── Running score counter ── */}
+      <div className="flex items-center justify-center gap-2 pb-1">
+        <span className="text-xs font-semibold text-slate-400">
+          <span className="text-slate-700">{answers.filter(Boolean).length}</span>
+          /{answers.length} correct
+        </span>
+        <AnimatePresence>
+          {xpFlash && (
+            <motion.span
+              key={xpFlashKey.current}
+              initial={{ opacity: 0, y: 4, scale: 0.8 }}
+              animate={{ opacity: 1, y: -2, scale: 1 }}
+              exit={{ opacity: 0, y: -10, scale: 0.8 }}
+              transition={{ duration: 0.5, ease: "easeOut" }}
+              className="text-xs font-bold text-amber-500 flex items-center gap-0.5"
+            >
+              <Zap className="w-3 h-3" />+XP
+            </motion.span>
+          )}
+        </AnimatePresence>
       </div>
 
       {/* ── Main content ── */}

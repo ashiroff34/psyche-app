@@ -8,7 +8,8 @@ import {
   Target, ChevronRight, Brain, Compass, Clock,
   BarChart3, Sparkles, ArrowRight, Copy, Check,
   Layers, History,
-  GraduationCap, Dumbbell, Crown, Snowflake, Heart, Wand2
+  GraduationCap, Dumbbell, Crown, Snowflake, Heart, Wand2,
+  AlertTriangle, Frown
 } from "lucide-react";
 import { useProfile } from "@/hooks/useProfile";
 import { useGameState, trackWeeklyEvent } from "@/hooks/useGameState";
@@ -538,7 +539,7 @@ export default function DailyPage() {
   const { profile, loaded, trackVisit, markQuizComplete, addXP } = useProfile();
   const { state: gameStateRaw, earnXP: gameEarnXP, loseHeart, buyHearts, xpGainAnimation, completeReading, recordTokenDrop, bumpSessionCount, weeklyChallenge, claimWeeklyReward } = useGameState();
   const enneagramTypeForPet = profile.enneagramType ?? profile.enneagramCore;
-  const { petState: livePetState } = usePetState(enneagramTypeForPet);
+  const { petState: livePetState, awardDailyGoalXP } = usePetState(enneagramTypeForPet);
 
   // ── View state (hub / path / quiz) ──
   const [view, setView] = useState<"hub" | "path" | "quiz" | "reading">("path");
@@ -570,6 +571,17 @@ export default function DailyPage() {
   const [correctStreak, setCorrectStreak] = useState(0);
   const [sessionXP, setSessionXP] = useState(0);
   const [copied, setCopied] = useState(false);
+
+  // Daily goal completion celebration
+  const [showDailyGoalCelebration, setShowDailyGoalCelebration] = useState(false);
+  const dailyGoalCelebratedRef = useRef(false);
+
+  // Pet level-up celebration
+  const [petLevelUpCelebration, setPetLevelUpCelebration] = useState<{ name: string; level: number; petType: number } | null>(null);
+  const prevCompanionLevelRef = useRef<number | null>(null);
+
+  // Unit completion milestone celebration
+  const [unitCelebration, setUnitCelebration] = useState<{ unitName: string; xp: number } | null>(null);
 
   // XP gain animation
   const [xpGainShow, setXpGainShow] = useState(false);
@@ -714,6 +726,29 @@ export default function DailyPage() {
     try { localStorage.setItem("psyche-difficulty", JSON.stringify(d)); } catch {}
   }, []);
 
+  // ── Check if completing a node finishes an entire unit ──
+  const checkUnitCompletionRef = useRef<(completedModuleId: string, newModulesCompleted: string[], newNonQuizCompleted: string[], newWarmupDone: boolean) => void>(() => {});
+  checkUnitCompletionRef.current = (completedModuleId: string, newModulesCompleted: string[], newNonQuizCompleted: string[], newWarmupDone: boolean) => {
+    const isNodeDone = (id: string, moduleId: string | null) => {
+      if (moduleId === "warmup") return newWarmupDone;
+      if (moduleId) return newModulesCompleted.includes(moduleId);
+      return newNonQuizCompleted.includes(id);
+    };
+
+    const units = buildEnneagramUnits();
+    for (const unit of units) {
+      const unitHasModule = unit.nodes.some(n => n.moduleId === completedModuleId);
+      if (!unitHasModule) continue;
+      const allDone = unit.nodes.every(n => isNodeDone(n.id, n.moduleId));
+      if (allDone) {
+        const unitXP = unit.nodes.reduce((sum, n) => sum + n.xp, 0);
+        setUnitCelebration({ unitName: unit.name, xp: unitXP });
+        setTimeout(() => setUnitCelebration(null), 5000);
+      }
+      break;
+    }
+  };
+
   // ── Check if first quiz of day (2x XP bonus) ──
   const isFirstQuizToday = !dailyProgress || dailyProgress.questionsAnswered === 0;
 
@@ -732,6 +767,32 @@ export default function DailyPage() {
     }
     prevXP.current = totalXP;
   }, [totalXP]);
+
+  // ── Daily Goal Completion Celebration ──
+  useEffect(() => {
+    if (gameStateRaw?.dailyGoalMet && !dailyGoalCelebratedRef.current) {
+      dailyGoalCelebratedRef.current = true;
+      setShowDailyGoalCelebration(true);
+      // Award companion XP for daily goal
+      awardDailyGoalXP();
+      setTimeout(() => setShowDailyGoalCelebration(false), 3000);
+    }
+  }, [gameStateRaw?.dailyGoalMet, awardDailyGoalXP]);
+
+  // ── Pet Level-Up Celebration ──
+  useEffect(() => {
+    if (!livePetState) return;
+    const currentLevel = livePetState.companionLevel;
+    if (prevCompanionLevelRef.current !== null && currentLevel > prevCompanionLevelRef.current) {
+      setPetLevelUpCelebration({
+        name: livePetState.name,
+        level: currentLevel,
+        petType: livePetState.type,
+      });
+      setTimeout(() => setPetLevelUpCelebration(null), 4000);
+    }
+    prevCompanionLevelRef.current = currentLevel;
+  }, [livePetState?.companionLevel, livePetState?.name, livePetState?.type]);
 
   // ── Milestones ──
   const milestones = [
@@ -889,6 +950,14 @@ export default function DailyPage() {
         setShowConfetti(true);
         setTimeout(() => setShowConfetti(false), 2000);
       }
+
+      // Check if this completes an entire unit
+      checkUnitCompletionRef.current(
+        "warmup",
+        dailyProgress?.modulesCompleted ?? [],
+        dailyProgress?.nonQuizCompleted ?? [],
+        true, // warmup is now done
+      );
     } else {
       setWarmupQ(q => q + 1);
       setWarmupSelected(null);
@@ -981,11 +1050,20 @@ export default function DailyPage() {
       const moduleScores = { ...(dailyProgress?.moduleScores ?? {}) };
       moduleScores[activeModule!] = { correct: correctCount, total: totalCount, xp: sessionXP };
 
+      const newModulesCompleted = [...(dailyProgress?.modulesCompleted ?? []), activeModule!];
       saveProgress({
-        modulesCompleted: [...(dailyProgress?.modulesCompleted ?? []), activeModule!],
+        modulesCompleted: newModulesCompleted,
         timeSpentMinutes: (dailyProgress?.timeSpentMinutes ?? 0) + timeSpent,
         moduleScores,
       });
+
+      // Check if this completes an entire unit
+      checkUnitCompletionRef.current(
+        activeModule!,
+        newModulesCompleted,
+        dailyProgress?.nonQuizCompleted ?? [],
+        dailyProgress?.warmupDone ?? false,
+      );
     } else {
       setModuleQ(q => q + 1);
       setModuleSelected(null);
@@ -1407,6 +1485,68 @@ export default function DailyPage() {
     return (
       <div className="min-h-screen" style={{ background: "#0f0a1e" }}>
         {showConfetti && <ConfettiParticles />}
+
+        {/* Unit completion milestone celebration */}
+        <AnimatePresence>
+          {unitCelebration && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.3 }}
+              className="fixed inset-0 z-[60] flex items-center justify-center px-6"
+              style={{ background: "rgba(15,10,30,0.85)", backdropFilter: "blur(8px)" }}
+              onClick={() => setUnitCelebration(null)}
+            >
+              <motion.div
+                initial={{ scale: 0.6, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                exit={{ scale: 0.8, opacity: 0 }}
+                transition={{ type: "spring", damping: 18, stiffness: 280 }}
+                className="flex flex-col items-center text-center max-w-xs"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <motion.div
+                  animate={{ scale: [1, 1.15, 1], rotate: [0, -5, 5, 0] }}
+                  transition={{ duration: 0.8, delay: 0.2 }}
+                  className="text-6xl mb-4"
+                >
+                  🏆
+                </motion.div>
+                <motion.h2
+                  initial={{ y: 12, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  transition={{ delay: 0.15 }}
+                  className="text-2xl font-black text-white mb-2"
+                >
+                  You&apos;ve mastered {unitCelebration.unitName}!
+                </motion.h2>
+                <motion.div
+                  initial={{ y: 12, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  transition={{ delay: 0.3 }}
+                  className="flex items-center gap-1.5 px-4 py-2 rounded-full mb-6"
+                  style={{ background: "rgba(139,92,246,0.2)", border: "1px solid rgba(139,92,246,0.3)" }}
+                >
+                  <Zap className="w-4 h-4 text-amber-400" />
+                  <span className="text-amber-300 font-bold text-sm">+{unitCelebration.xp} XP earned</span>
+                </motion.div>
+                <motion.button
+                  initial={{ y: 12, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  transition={{ delay: 0.45 }}
+                  whileTap={{ scale: 0.97 }}
+                  onClick={() => setUnitCelebration(null)}
+                  className="px-8 py-3.5 rounded-2xl font-bold text-white text-base flex items-center gap-2"
+                  style={{ background: "linear-gradient(135deg, #8b5cf6, #d946ef)", boxShadow: "0 4px 20px rgba(139,92,246,0.5)" }}
+                >
+                  Continue to next section <ArrowRight className="w-5 h-5" />
+                </motion.button>
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
         {/* Duolingo-style stat bar */}
         <div className="sticky top-0 z-20 px-4 py-2.5" style={{ background: "rgba(15,10,30,0.95)", backdropFilter: "blur(12px)", borderBottom: "1px solid rgba(139,92,246,0.15)" }}>
           <div className="flex items-center justify-between max-w-md mx-auto">
@@ -1496,6 +1636,29 @@ export default function DailyPage() {
             <span className="text-red-300 text-sm font-medium">Your {streak}-day streak is at risk! Complete a lesson to keep it.</span>
           </motion.div>
         )}
+        {/* Pet health warning banner — shows most urgent issue only */}
+        {livePetState && (() => {
+          const warn = !livePetState.isAlive
+            ? { icon: <AlertTriangle className="w-4 h-4 text-red-300" />, text: "Your pet needs revival! Visit the avatar page.", bg: "rgba(127,29,29,0.15)", border: "rgba(239,68,68,0.4)", textColor: "text-red-300" }
+            : livePetState.health < 20
+            ? { icon: <Heart className="w-4 h-4 text-red-400" />, text: "Your pet is sick! Give medicine before it\u2019s too late!", bg: "rgba(239,68,68,0.1)", border: "rgba(248,113,113,0.4)", textColor: "text-red-300" }
+            : livePetState.hunger < 30
+            ? { icon: <AlertTriangle className="w-4 h-4 text-orange-400" />, text: "Your pet is getting hungry! Feed them today.", bg: "rgba(251,146,60,0.1)", border: "rgba(251,146,60,0.4)", textColor: "text-orange-300" }
+            : livePetState.happiness < 30
+            ? { icon: <Frown className="w-4 h-4 text-blue-400" />, text: "Your pet seems sad. Play with them!", bg: "rgba(96,165,250,0.1)", border: "rgba(96,165,250,0.4)", textColor: "text-blue-300" }
+            : null;
+          if (!warn) return null;
+          return (
+            <div className="max-w-md mx-auto px-4 pt-3">
+              <Link href="/avatar" className="flex items-center gap-2.5 px-4 py-2.5 rounded-2xl" style={{ background: warn.bg, border: `1px solid ${warn.border}` }}>
+                <PetCompanion type={livePetState.type} size={28} />
+                {warn.icon}
+                <span className={`${warn.textColor} text-xs font-medium flex-1`}>{warn.text}</span>
+                <ChevronRight className="w-4 h-4 opacity-40" />
+              </Link>
+            </div>
+          );
+        })()}
         {/* Pet companion banner */}
         {livePetState && (
           <div className="max-w-md mx-auto px-4 pt-3">
@@ -1561,6 +1724,47 @@ export default function DailyPage() {
   return (
     <div className="min-h-screen pb-20">
       {showConfetti && <ConfettiParticles />}
+
+      {/* Daily Goal Completion Celebration */}
+      <AnimatePresence>
+        {showDailyGoalCelebration && (
+          <motion.div
+            key="daily-goal-celebration"
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.8 }}
+            transition={{ type: "spring", stiffness: 300, damping: 20 }}
+            className="fixed inset-x-0 top-16 z-[60] flex justify-center pointer-events-none"
+          >
+            <div className="bg-gradient-to-r from-amber-500/90 via-yellow-400/90 to-amber-500/90 backdrop-blur-md text-white px-6 py-4 rounded-2xl shadow-2xl border border-amber-300/30 max-w-sm mx-4 text-center">
+              <div className="text-2xl mb-1">{"\uD83C\uDF89"}</div>
+              <div className="font-bold text-lg">Daily Goal Complete!</div>
+              <div className="text-amber-100 text-sm mt-1">+15 tokens earned!</div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Pet Level-Up Celebration */}
+      <AnimatePresence>
+        {petLevelUpCelebration && (
+          <motion.div
+            key="pet-levelup-celebration"
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.8 }}
+            transition={{ type: "spring", stiffness: 300, damping: 20 }}
+            className="fixed inset-x-0 top-16 z-[60] flex justify-center pointer-events-none"
+          >
+            <div className="bg-gradient-to-r from-violet-600/90 via-purple-500/90 to-violet-600/90 backdrop-blur-md text-white px-6 py-4 rounded-2xl shadow-2xl border border-violet-300/30 max-w-sm mx-4 text-center">
+              <div className="flex justify-center mb-2">
+                <PetCompanion type={petLevelUpCelebration.petType} size={80} state="happy" />
+              </div>
+              <div className="font-bold text-lg">{petLevelUpCelebration.name} reached Level {petLevelUpCelebration.level}! {"\uD83C\uDF89"}</div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* Fullscreen quiz overlay */}
       <AnimatePresence>

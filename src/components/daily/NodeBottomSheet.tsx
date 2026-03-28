@@ -28,9 +28,24 @@ interface Props {
 }
 
 const MIN_WORDS = 50;
+const BONUS_TIER_1 = 100; // +25% XP
+const BONUS_TIER_2 = 200; // +50% XP
 
 function countWords(text: string): number {
   return text.trim().split(/\s+/).filter(Boolean).length;
+}
+
+function getXpMultiplier(wordCount: number): number {
+  if (wordCount >= BONUS_TIER_2) return 1.5;
+  if (wordCount >= BONUS_TIER_1) return 1.25;
+  return 1;
+}
+
+function getWordCountMessage(wordCount: number): { text: string; color: string } | null {
+  if (wordCount >= BONUS_TIER_2) return { text: "+50% bonus XP! Deep reflection unlocked!", color: "text-amber-500" };
+  if (wordCount >= BONUS_TIER_1) return { text: "+25% bonus XP for thoughtful reflection!", color: "text-amber-500" };
+  if (wordCount >= MIN_WORDS) return { text: "Minimum reached! Keep going for bonus XP", color: "text-emerald-600" };
+  return null;
 }
 
 export default function NodeBottomSheet({ node, onClose, onStart, onCompleteNonQuiz, isCompleted }: Props) {
@@ -50,10 +65,18 @@ export default function NodeBottomSheet({ node, onClose, onStart, onCompleteNonQ
     : node.nodeType === "bonus" ? Sparkles
     : Play;
 
+  const xpMultiplier = getXpMultiplier(wordCount);
+  const bonusXp = Math.round(node.xp * xpMultiplier);
+  const wordCountMsg = getWordCountMessage(wordCount);
+
   const handleSubmitReflection = () => {
     if (!wordsMet) return;
     setSubmitted(true);
-    onCompleteNonQuiz(node, reflectionText);
+    // Pass the node with multiplied XP when bonus applies
+    const submissionNode = xpMultiplier > 1
+      ? { ...node, xp: bonusXp }
+      : node;
+    onCompleteNonQuiz(submissionNode, reflectionText);
     setTimeout(() => {
       setSubmitted(false);
       setReflectionText("");
@@ -223,12 +246,28 @@ export default function NodeBottomSheet({ node, onClose, onStart, onCompleteNonQ
                     value={reflectionText}
                     onChange={(e) => setReflectionText(e.target.value)}
                   />
-                  <div className="flex items-center justify-between px-1">
-                    <span className={`text-xs font-medium ${wordsMet ? "text-emerald-600" : "text-slate-400"}`}>
-                      {wordCount} / {MIN_WORDS} words {wordsMet && "✓"}
-                    </span>
-                    {!wordsMet && (
-                      <span className="text-xs text-slate-400">{MIN_WORDS - wordCount} more to go</span>
+                  <div className="flex flex-col gap-1 px-1">
+                    <div className="flex items-center justify-between">
+                      <span className={`text-sm font-bold ${
+                        wordCount >= BONUS_TIER_2 ? "text-amber-500" :
+                        wordCount >= BONUS_TIER_1 ? "text-amber-500" :
+                        wordsMet ? "text-emerald-600" : "text-slate-400"
+                      }`}>
+                        {wordCount}/{MIN_WORDS} words {wordsMet && "✓"}
+                      </span>
+                      {!wordsMet && (
+                        <span className="text-xs text-slate-400">{MIN_WORDS - wordCount} more to go</span>
+                      )}
+                    </div>
+                    {wordCountMsg && (
+                      <motion.span
+                        key={wordCountMsg.text}
+                        initial={{ opacity: 0, y: 4 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        className={`text-xs font-semibold ${wordCountMsg.color}`}
+                      >
+                        {wordCount >= BONUS_TIER_2 ? "🏆" : wordCount >= BONUS_TIER_1 ? "✨" : "✓"} {wordCountMsg.text}
+                      </motion.span>
                     )}
                   </div>
                   <button
@@ -261,7 +300,7 @@ export default function NodeBottomSheet({ node, onClose, onStart, onCompleteNonQ
                   animate={{ scale: 1, opacity: 1 }}
                   className="w-full py-4 rounded-2xl bg-emerald-50 text-emerald-700 text-center font-semibold text-sm flex items-center justify-center gap-2"
                 >
-                  <CheckCircle className="w-4 h-4" /> Saved! +{node.xp} XP
+                  <CheckCircle className="w-4 h-4" /> Saved! +{bonusXp} XP{xpMultiplier > 1 && ` (${Math.round((xpMultiplier - 1) * 100)}% bonus!)`}
                 </motion.div>
               )}
             </div>

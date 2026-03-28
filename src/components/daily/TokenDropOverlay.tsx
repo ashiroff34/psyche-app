@@ -103,6 +103,35 @@ export default function TokenDropOverlay({ drop, onClaim }: Props) {
             />
           )}
 
+          {/* TOKEN DROP! Banner */}
+          <motion.div
+            initial={{ scale: 0, opacity: 0 }}
+            animate={{ scale: [0, 1.2, 1], opacity: 1 }}
+            transition={{ type: "spring", damping: 12, stiffness: 200, delay: 0.1 }}
+            className="absolute top-24 z-20 flex items-center gap-2 px-6 py-3 rounded-2xl font-black text-white text-xl shadow-2xl"
+            style={{
+              background: "linear-gradient(135deg, #f59e0b, #fbbf24, #f59e0b)",
+              boxShadow: "0 8px 40px rgba(245,158,11,0.5)",
+              pointerEvents: "none",
+            }}
+          >
+            <motion.span
+              animate={{ rotate: [0, 360] }}
+              transition={{ repeat: Infinity, duration: 2, ease: "linear" }}
+              className="text-2xl"
+            >
+              🪙
+            </motion.span>
+            TOKEN DROP!
+            <motion.span
+              animate={{ rotate: [0, -360] }}
+              transition={{ repeat: Infinity, duration: 2, ease: "linear" }}
+              className="text-2xl"
+            >
+              ⚡
+            </motion.span>
+          </motion.div>
+
           <motion.div
             initial={{ y: 80, scale: 0.7, opacity: 0 }}
             animate={{ y: 0, scale: 1, opacity: 1 }}
@@ -185,15 +214,19 @@ export default function TokenDropOverlay({ drop, onClaim }: Props) {
                 </div>
 
                 <motion.div
-                  initial={{ y: 10, opacity: 0 }}
-                  animate={{ y: 0, opacity: 1 }}
-                  transition={{ delay: 0.15 }}
+                  initial={{ y: 10, opacity: 0, scale: 0 }}
+                  animate={{ y: 0, opacity: 1, scale: [0, 1.2, 1] }}
+                  transition={{ delay: 0.15, type: "spring", damping: 10, stiffness: 200 }}
                   className="flex flex-col items-center gap-0.5"
                 >
-                  <span className="text-3xl font-black text-white"
-                    style={{ textShadow: `0 2px 12px ${cfg.glow}` }}>
-                    +{drop.amount} 🪙
-                  </span>
+                  <motion.span
+                    animate={{ scale: [1, 1.08, 1] }}
+                    transition={{ repeat: 2, duration: 0.4, delay: 0.4 }}
+                    className="text-3xl font-black text-white"
+                    style={{ textShadow: `0 2px 12px ${cfg.glow}` }}
+                  >
+                    +{drop.amount} tokens!
+                  </motion.span>
                   <span className="text-sm font-bold text-white/90">{cfg.label}</span>
                 </motion.div>
               </motion.div>
