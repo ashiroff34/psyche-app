@@ -3,7 +3,6 @@
 import { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { enneagramTypes } from "@/data/enneagram";
 import { useRouter } from "next/navigation";
 import {
   Brain,
@@ -14,23 +13,17 @@ import {
   Heart,
   UserCircle,
   Flame,
-  Trophy,
   Gamepad2,
   Cat,
   BookOpen,
-  CheckCircle,
-  Lock,
   ChevronDown,
-  Star,
   Zap,
-  Target,
-  Clock,
-  X,
   Coins,
-  Timer,
+  Swords,
 } from "lucide-react";
 import ChibiSprite from "@/components/ChibiSprite";
 import OuroborosLogo from "@/components/OuroborosLogo";
+import { getTodayInsight } from "@/data/daily-insights-index";
 
 // ── Helpers ──────────────────────────────────────────────────────────────────
 
@@ -467,400 +460,20 @@ function OnboardingResumeScreen({ profile }: { profile: Record<string, any> }) {
   );
 }
 
-// ── Type Spotlight ────────────────────────────────────────────────────────────
+// ── State C: Today Dashboard ─────────────────────────────────────────────────
 
-function TypeSpotlightCard() {
-  const dayOfYear = Math.floor((Date.now() - new Date(new Date().getFullYear(), 0, 0).getTime()) / 86400000);
-  const typeNum = (dayOfYear % 9) + 1;
-  const type = enneagramTypes.find((t) => t.number === typeNum)!;
-  if (!type) return null;
-  const trait = type.keyTraits[0];
-
-  return (
-    <motion.div
-      initial={{ opacity: 1, y: 0 }}
-      animate={{ opacity: 1, y: 0 }}
-      className="mb-6 overflow-hidden rounded-2xl border border-slate-100 shadow-sm bg-white"
-    >
-      <div className="h-1.5 w-full" style={{ backgroundColor: type.color }} />
-      <div className="p-4 flex items-center gap-4">
-        <div
-          className="w-12 h-12 rounded-2xl flex items-center justify-center text-white font-bold text-xl shadow-md shrink-0"
-          style={{ backgroundColor: type.color }}
-        >
-          {type.number}
-        </div>
-        <div className="flex-1 min-w-0">
-          <div className="flex items-center gap-2 mb-0.5">
-            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Type Spotlight</span>
-            <span className="px-2 py-0.5 rounded-full text-[10px] font-semibold text-white" style={{ backgroundColor: type.color }}>
-              {trait}
-            </span>
-          </div>
-          <p className="text-sm font-semibold text-slate-800">
-            Type {type.number} · {type.name}
-          </p>
-          <p className="text-xs text-slate-500 leading-snug mt-0.5 line-clamp-2">{type.brief}</p>
-        </div>
-        <Link
-          href={`/enneagram/${type.number}`}
-          className="shrink-0 px-3 py-1.5 rounded-xl text-xs font-semibold text-white transition-all hover:opacity-80"
-          style={{ backgroundColor: type.color }}
-        >
-          Explore
-        </Link>
-      </div>
-    </motion.div>
-  );
-}
-
-// ── State C: Dashboard ────────────────────────────────────────────────────────
-
-// Curriculum nodes matching the daily HubView UP NEXT strip
-const curriculumNodes = [
-  { id: "warmup",        moduleId: "warmup",   shortLabel: "Warm-Up" },
-  { id: "type",          moduleId: "type",     shortLabel: "Type" },
-  { id: "e-reflection-1",moduleId: null,       shortLabel: "Reflection" },
-  { id: "cognitive",     moduleId: "cognitive",shortLabel: "Cognitive" },
-  { id: "cross",         moduleId: "cross",    shortLabel: "Cross" },
-];
-
-function PathRail({
-  dailyProgress,
-}: {
-  dailyProgress: Record<string, any>;
-}) {
-  const wDone = dailyProgress?.warmupDone ?? false;
-  const mDone: string[] = dailyProgress?.modulesCompleted ?? [];
-  const nqDone: string[] = dailyProgress?.nonQuizCompleted ?? [];
-
-  const isNodeDone = (id: string, moduleId: string | null) => {
-    if (moduleId === "warmup") return wDone;
-    if (moduleId) return mDone.includes(moduleId);
-    return nqDone.includes(id);
-  };
-
-  let prevCompleted = true;
-  const nodes = curriculumNodes.map((node) => {
-    const done = isNodeDone(node.id, node.moduleId);
-    let status: "completed" | "current" | "locked";
-    if (done) status = "completed";
-    else if (prevCompleted) status = "current";
-    else status = "locked";
-    prevCompleted = done;
-    return { ...node, status };
-  });
-
-  return (
-    <div className="bg-white rounded-2xl border border-slate-100 p-5 shadow-sm">
-      <h3 className="text-sm font-semibold text-slate-700 mb-4">Your Path</h3>
-      <div className="flex items-center gap-0">
-        {nodes.map((node, i) => {
-          const done = node.status === "completed";
-          const isActive = node.status === "current";
-
-          return (
-            <div key={node.id} className="flex items-center flex-1 min-w-0">
-              {/* Node */}
-              <div className="flex flex-col items-center flex-shrink-0">
-                <Link href="/daily" tabIndex={isActive ? 0 : -1}>
-                  <motion.div
-                    animate={isActive ? { scale: [1, 1.08, 1] } : {}}
-                    transition={isActive ? { repeat: Infinity, duration: 2, repeatDelay: 0.5, ease: "easeInOut" } : {}}
-                    className="relative w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold transition-all"
-                    style={{
-                      background: done
-                        ? "linear-gradient(135deg,#8b5cf6,#ec4899)"
-                        : isActive
-                        ? "linear-gradient(135deg,#f59e0b,#f97316)"
-                        : "#f1f5f9",
-                      filter: done
-                        ? "drop-shadow(0 0 4px rgba(139,92,246,0.4))"
-                        : isActive
-                        ? "drop-shadow(0 0 6px rgba(251,146,60,0.6))"
-                        : "none",
-                    }}
-                  >
-                    {done ? (
-                      <CheckCircle className="w-4 h-4 text-white" />
-                    ) : isActive ? (
-                      <Star className="w-3.5 h-3.5 text-white fill-white" />
-                    ) : (
-                      <Lock className="w-3 h-3 text-slate-400" />
-                    )}
-                  </motion.div>
-                </Link>
-                <span
-                  className="text-[9px] mt-1.5 font-medium text-center leading-tight max-w-[52px] truncate"
-                  style={{
-                    color: done ? "#8b5cf6" : isActive ? "#f97316" : "#cbd5e1",
-                  }}
-                >
-                  {node.shortLabel}
-                </span>
-              </div>
-
-              {/* Connector line */}
-              {i < nodes.length - 1 && (
-                <div
-                  className="flex-1 h-0.5 mx-1 rounded-full"
-                  style={{
-                    background: done
-                      ? "linear-gradient(to right,#8b5cf6,#ec4899)"
-                      : "#e2e8f0",
-                    opacity: done ? 0.5 : 1,
-                  }}
-                />
-              )}
-            </div>
-          );
-        })}
-      </div>
-    </div>
-  );
-}
-
-function StatPills({
-  profile,
-  gameState,
-}: {
-  profile: Record<string, any>;
-  gameState: Record<string, any>;
-}) {
-  const streak = gameState.streakCount ?? profile.streakCount ?? 0;
-  const tokens = gameState.tokens ?? profile.tokens ?? 0;
-  const xp = gameState.xp ?? profile.xp ?? 0;
-  const level = Math.max(1, Math.floor(xp / 1000) + 1);
-
-  return (
-    <div className="flex gap-3 flex-wrap">
-      {/* Streak */}
-      <div className="flex items-center gap-2 px-4 py-2 rounded-xl bg-orange-50 border border-white/80">
-        <Flame className="w-4 h-4 text-orange-500" />
-        <span className="text-sm font-semibold text-slate-700">{streak} days</span>
-        <span className="text-xs text-slate-400">Streak</span>
-      </div>
-
-      {/* Tokens — ✦ coin symbol in amber */}
-      <div className="flex items-center gap-2 px-4 py-2 rounded-xl bg-amber-50 border border-white/80">
-        <span className="text-amber-500 text-sm font-bold leading-none">✦</span>
-        <span className="text-sm font-semibold text-slate-700">{tokens}</span>
-        <span className="text-xs text-slate-400">Tokens</span>
-      </div>
-
-      {/* XP with level badge */}
-      <div className="flex items-center gap-2 px-4 py-2 rounded-xl bg-indigo-50 border border-white/80">
-        <Zap className="w-4 h-4 text-indigo-500" />
-        <span className="text-sm font-semibold text-slate-700">{xp} XP</span>
-        <span className="text-xs text-slate-400">XP</span>
-        <span className="ml-1 px-2 py-0.5 rounded-full bg-indigo-500 text-white text-[10px] font-bold">
-          Lv {level}
-        </span>
-      </div>
-    </div>
-  );
-}
-
-function NextUpCards({ profile, gameState }: { profile: Record<string, any>; gameState: Record<string, any> }) {
-  const hasCognitive = !!(profile.cognitiveType || profile.mbtiType);
-  const streak = gameState.streakCount ?? profile.streakCount ?? 0;
-  const petName = profile.petName || "your pet";
-  const petHungry = profile.petHunger !== undefined && profile.petHunger < 30;
-  const enneagramType = profile.enneagramType;
-
-  const today = new Date().toISOString().split("T")[0];
-  const hasJournaledToday = profile.lastJournalDate === today;
-  const hasQuizzedToday = profile.completedQuizzes?.includes(`quiz-${today}`);
-
-  const cards: Array<{ label: string; desc: string; href: string; icon: any; color: string; bg: string }> = [];
-
-  if (!hasCognitive) {
-    cards.push({ label: "Discover your cognitive stack", desc: "Find out how your mind works", href: "/cognitive/assess", icon: Brain, color: "text-indigo-600", bg: "bg-indigo-50" });
-  }
-  if (!hasJournaledToday || !hasQuizzedToday) {
-    cards.push({ label: "Inner Work prompt waiting", desc: "Today's reflection is ready", href: "/daily", icon: BookOpen, color: "text-violet-600", bg: "bg-violet-50" });
-  }
-  if (streak > 0 && streak < 7) {
-    cards.push({ label: "Keep your streak alive", desc: `${streak}-day streak — don't break it!`, href: "/daily", icon: Flame, color: "text-orange-500", bg: "bg-orange-50" });
-  }
-  if (petHungry) {
-    cards.push({ label: `${petName} is hungry`, desc: "Visit your avatar to feed them", href: "/avatar", icon: Cat, color: "text-rose-500", bg: "bg-rose-50" });
-  }
-
-  // Fallback cards
-  if (cards.length < 3 && enneagramType) {
-    cards.push({ label: `Explore Type ${enneagramType} in depth`, desc: "Subtypes, tritype, and Naranjo framework", href: `/enneagram/learn?type=${enneagramType}`, icon: Compass, color: "text-sky-600", bg: "bg-sky-50" });
-  }
-  if (cards.length < 3) {
-    cards.push({ label: "Today's deep learning", desc: "Deepen your self-understanding", href: "/enneagram/learn", icon: Star, color: "text-sky-600", bg: "bg-sky-50" });
-  }
-  if (cards.length < 3) {
-    cards.push({ label: "Check your game stats", desc: "XP, achievements, and challenges", href: "/game", icon: Trophy, color: "text-amber-600", bg: "bg-amber-50" });
-  }
-
-  return (
-    <div>
-      <h3 className="text-sm font-semibold text-slate-700 mb-3">What to do next</h3>
-      <div className="grid sm:grid-cols-3 gap-3">
-        {cards.slice(0, 3).map((card, i) => (
-          <motion.div
-            key={card.label}
-            initial={{ opacity: 1, y: 0 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 + i * 0.1 }}
-          >
-            <Link
-              href={card.href}
-              className="group flex items-start gap-3 p-4 bg-white rounded-2xl border border-slate-100 hover:border-slate-200 hover:shadow-md transition-all"
-            >
-              <div className={`w-9 h-9 rounded-xl ${card.bg} flex items-center justify-center flex-shrink-0`}>
-                <card.icon className={`w-4 h-4 ${card.color}`} />
-              </div>
-              <div className="min-w-0">
-                <div className="text-sm font-semibold text-slate-800 leading-tight mb-0.5">{card.label}</div>
-                <div className="text-xs text-slate-400">{card.desc}</div>
-              </div>
-              <ArrowRight className="w-3.5 h-3.5 text-slate-300 group-hover:text-slate-500 flex-shrink-0 mt-1 group-hover:translate-x-0.5 transition-all" />
-            </Link>
-          </motion.div>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-function QuickAccessGrid() {
-  const tiles = [
-    { href: "/daily", icon: Flame, label: "Daily", color: "text-orange-500", bg: "bg-orange-50" },
-    { href: "/sprint", icon: Timer, label: "Sprint", color: "text-violet-600", bg: "bg-violet-50" },
-    { href: "/type-match", icon: Brain, label: "Type Match", color: "text-indigo-600", bg: "bg-indigo-50" },
-    { href: "/growth", icon: Sparkles, label: "Growth", color: "text-amber-600", bg: "bg-amber-50" },
-    { href: "/game", icon: Gamepad2, label: "Game", color: "text-emerald-600", bg: "bg-emerald-50" },
-    { href: "/avatar", icon: Cat, label: "Avatar", color: "text-pink-600", bg: "bg-pink-50" },
-  ];
-
-  return (
-    <div>
-      <h3 className="text-sm font-semibold text-slate-700 mb-3">Quick access</h3>
-      <div className="grid grid-cols-3 sm:grid-cols-6 gap-3">
-        {tiles.map((tile, i) => (
-          <motion.div
-            key={tile.href}
-            initial={{ opacity: 1, scale: 1 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.35 + i * 0.05 }}
-          >
-            <Link
-              href={tile.href}
-              className="flex flex-col items-center gap-2 p-4 bg-white rounded-2xl border border-slate-100 hover:border-slate-200 hover:shadow-md transition-all group"
-            >
-              <div className={`w-9 h-9 rounded-xl ${tile.bg} flex items-center justify-center`}>
-                <tile.icon className={`w-4 h-4 ${tile.color}`} />
-              </div>
-              <span className="text-xs font-medium text-slate-600">{tile.label}</span>
-            </Link>
-          </motion.div>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-const ALL_SECTIONS = [
-  { href: "/enneagram", icon: Compass, label: "Enneagram", desc: "Types, subtypes & tritypes", color: "text-sky-600", bg: "bg-sky-50", border: "border-sky-100" },
-  { href: "/cognitive", icon: Brain, label: "Cognitive", desc: "Your function stack", color: "text-indigo-600", bg: "bg-indigo-50", border: "border-indigo-100" },
-  { href: "/journal", icon: Beaker, label: "Inner Work", desc: "Shadow & reframe tools", color: "text-rose-600", bg: "bg-rose-50", border: "border-rose-100" },
-  { href: "/game", icon: Gamepad2, label: "Progress", desc: "XP, levels & achievements", color: "text-emerald-600", bg: "bg-emerald-50", border: "border-emerald-100" },
-  { href: "/sprint", icon: Timer, label: "Sprint Mode", desc: "60-sec quiz blitz", color: "text-violet-600", bg: "bg-violet-50", border: "border-violet-100" },
-  { href: "/type-match", icon: Zap, label: "Type Match", desc: "Identify types from quotes", color: "text-purple-600", bg: "bg-purple-50", border: "border-purple-100" },
-  { href: "/growth", icon: Sparkles, label: "Growth Prompts", desc: "Type-specific reflection", color: "text-amber-600", bg: "bg-amber-50", border: "border-amber-100" },
-  { href: "/avatar", icon: Cat, label: "Pet & Avatar", desc: "Your companion", color: "text-pink-600", bg: "bg-pink-50", border: "border-pink-100" },
-  { href: "/compare", icon: Heart, label: "Compare", desc: "Type compatibility", color: "text-rose-600", bg: "bg-rose-50", border: "border-rose-100" },
-  { href: "/history", icon: Clock, label: "History", desc: "Typology timeline", color: "text-amber-600", bg: "bg-amber-50", border: "border-amber-100" },
-  { href: "/correlations", icon: ArrowRight, label: "Correlations", desc: "Enneagram × cognitive", color: "text-teal-600", bg: "bg-teal-50", border: "border-teal-100" },
-  { href: "/profile", icon: UserCircle, label: "My Profile", desc: "Your full type profile", color: "text-slate-600", bg: "bg-slate-50", border: "border-slate-100" },
-  { href: "/dashboard", icon: Target, label: "Dashboard", desc: "Radar chart & insights", color: "text-purple-600", bg: "bg-purple-50", border: "border-purple-100" },
-  { href: "/store", icon: Star, label: "Store", desc: "Earn & spend tokens", color: "text-yellow-600", bg: "bg-yellow-50", border: "border-yellow-100" },
-];
-
-function TodayHeroCard({ profile, gameState }: { profile: Record<string, any>; gameState: Record<string, any> }) {
-  const hasCognitive = !!(profile.cognitiveType || profile.mbtiType);
-  const hasEnneagram = !!profile.enneagramType;
-  const streak = gameState.streakCount ?? profile.streakCount ?? 0;
-  const today = new Date().toISOString().split("T")[0];
-  const didPracticeToday = profile.lastPracticeDate === today || (gameState.lastQuizDate === today);
-
-  // Determine the ONE thing to do
-  let action: { label: string; desc: string; href: string; cta: string };
-  if (!hasEnneagram) {
-    action = { label: "Find your Enneagram type", desc: "Take the assessment to unlock your personalized experience", href: "/enneagram/assess", cta: "Start Assessment" };
-  } else if (!hasCognitive) {
-    action = { label: "Discover your cognitive stack", desc: "Map your 8 Jungian functions to complete your profile", href: "/cognitive/assess", cta: "Take Assessment" };
-  } else if (!didPracticeToday) {
-    action = { label: "Your daily practice is ready", desc: "Quiz, insight, and growth challenge — personalized to your type", href: "/daily", cta: "Start Practice" };
-  } else {
-    action = { label: "Keep exploring", desc: "Dive deeper into your type or try a new feature", href: "/enneagram/learn", cta: "Explore" };
-  }
-
-  return (
-    <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-sky-500 to-indigo-500 p-6 sm:p-8 mb-6 shadow-lg shadow-sky-200/40">
-      <div className="absolute top-0 right-0 w-40 h-40 bg-white/10 rounded-full blur-2xl pointer-events-none" />
-      <div className="absolute bottom-0 left-10 w-32 h-32 bg-white/5 rounded-full blur-xl pointer-events-none" />
-      <div className="relative">
-        <div className="flex items-center gap-2 mb-1">
-          {streak > 0 && (
-            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-white/20 text-white text-xs font-bold">
-              <Flame className="w-3 h-3" /> {streak}-day streak
-            </span>
-          )}
-          {didPracticeToday && (
-            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-white/20 text-white text-xs font-bold">
-              <CheckCircle className="w-3 h-3" /> Done today
-            </span>
-          )}
-        </div>
-        <h2 className="text-xl sm:text-2xl font-serif font-bold text-white mb-1">{action.label}</h2>
-        <p className="text-sm text-white/70 mb-5">{action.desc}</p>
-        <Link
-          href={action.href}
-          className="inline-flex items-center gap-2 px-6 py-3 bg-white text-indigo-700 rounded-2xl font-bold shadow-md hover:shadow-lg hover:-translate-y-0.5 transition-all"
-        >
-          {action.cta}
-          <ArrowRight className="w-4 h-4" />
-        </Link>
-      </div>
-    </div>
-  );
-}
-
-function StreakCelebration({ streak }: { streak: number }) {
-  const [show, setShow] = useState(true);
-  if (!show || streak < 2) return null;
-  const milestones = [7, 14, 30, 60, 100];
-  const isMilestone = milestones.includes(streak);
-  return (
-    <motion.div
-      initial={{ opacity: 1, scale: 1, y: 0 }}
-      animate={{ opacity: 1, scale: 1, y: 0 }}
-      className={`mb-4 p-4 rounded-2xl text-center ${isMilestone ? "bg-gradient-to-r from-amber-400 to-orange-500 text-white" : "bg-orange-50 border border-orange-100"}`}
-    >
-      <div className="flex items-center justify-center gap-2">
-        <Flame className={`w-5 h-5 ${isMilestone ? "text-white" : "text-orange-500"}`} />
-        <span className={`font-bold ${isMilestone ? "text-lg" : "text-sm"} ${isMilestone ? "text-white" : "text-orange-700"}`}>
-          {isMilestone ? `${streak}-day streak milestone!` : `${streak}-day streak — keep it going!`}
-        </span>
-        <button onClick={() => setShow(false)} className={`ml-2 ${isMilestone ? "text-white/60 hover:text-white" : "text-orange-300 hover:text-orange-500"}`}>
-          <X className="w-3.5 h-3.5" />
-        </button>
-      </div>
-    </motion.div>
-  );
-}
+const containerVariants = {
+  hidden: {},
+  show: { transition: { staggerChildren: 0.08 } },
+};
+const itemVariants = {
+  hidden: { opacity: 0, y: 16 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.4, ease: "easeOut" as const } },
+};
 
 function DashboardScreen({
   profile,
   gameState,
-  dailyProgress,
 }: {
   profile: Record<string, any>;
   gameState: Record<string, any>;
@@ -872,182 +485,174 @@ function DashboardScreen({
   const streak = gameState.streakCount ?? profile.streakCount ?? 0;
   const tokens = gameState.tokens ?? profile.tokens ?? 0;
   const xp = gameState.xp ?? profile.xp ?? 0;
-  const level = Math.max(1, Math.floor(xp / 1000) + 1);
+  const hearts = gameState.hearts ?? gameState.maxHearts ?? 5;
+  const insight = getTodayInsight();
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-sky-50/50 via-white to-indigo-50/30">
-      {/* Hero header — centered chibi + greeting */}
-      <section className="relative overflow-hidden">
-        <div className="absolute inset-0 -z-10 bg-gradient-to-br from-sky-100/40 via-white to-indigo-100/30" />
-        <div className="absolute top-0 left-1/4 w-96 h-96 bg-sky-200/25 rounded-full blur-3xl pointer-events-none" />
-        <div className="absolute top-20 right-1/4 w-80 h-80 bg-indigo-200/20 rounded-full blur-3xl pointer-events-none" />
-        <div className="absolute bottom-0 left-1/2 w-64 h-64 bg-violet-200/15 rounded-full blur-3xl pointer-events-none" />
+    <div className="min-h-screen bg-white">
+      <motion.div
+        variants={containerVariants}
+        initial="hidden"
+        animate="show"
+        className="max-w-lg mx-auto px-5 pt-10 pb-28"
+      >
+        {/* ── Greeting + Streak ────────────────────────────────── */}
+        <motion.div variants={itemVariants} className="mb-8">
+          <h1 className="text-2xl sm:text-3xl font-serif font-bold text-slate-900 mb-1">
+            {name ? `Hey, ${name}` : "Hey there"}
+          </h1>
+          <p className="text-sm text-slate-400">Here&apos;s your day at a glance.</p>
+        </motion.div>
 
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 pt-8 pb-6">
-          {/* Greeting → chibi mascot → type badges */}
-          <div className="flex flex-col items-center text-center mb-6">
-            <h1 className="text-3xl sm:text-4xl font-serif font-bold text-slate-900 mb-3">
-              {getGreeting()}{name ? `, ${name}` : ""}!
-            </h1>
-
-            {/* Chibi mascot — shown whenever enneagram type is known */}
-            {enneagramType ? (
-              <div className="mb-4">
-                <ChibiSprite
-                  type={enneagramType}
-                  instinct={profile.instinctualStacking}
-                  size={200}
-                  state="idle"
-                />
-              </div>
-            ) : (
-              /* Placeholder blob for users who haven't typed yet */
-              <div className="mb-4 w-40 h-40 rounded-full bg-gradient-to-br from-sky-100 to-indigo-100 flex items-center justify-center shadow-inner">
-                <span className="text-6xl">🪞</span>
+        {/* ── Streak Hero ──────────────────────────────────────── */}
+        <motion.div variants={itemVariants} className="mb-8 flex flex-col items-center">
+          <div className="relative">
+            <div className="w-24 h-24 rounded-full bg-gradient-to-br from-orange-400 to-amber-500 flex items-center justify-center shadow-lg shadow-orange-200/50">
+              <Flame className="w-10 h-10 text-white" />
+            </div>
+            {streak > 0 && (
+              <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 px-3 py-0.5 rounded-full bg-white border border-orange-200 shadow-sm">
+                <span className="text-sm font-bold text-orange-600">{streak}</span>
               </div>
             )}
-
-            <div className="flex items-center gap-2 flex-wrap justify-center">
-              {enneagramType && (
-                <span className="px-3 py-1 rounded-full bg-sky-100 text-sky-700 text-xs font-bold shadow-sm">
-                  Type {enneagramType}
-                </span>
-              )}
-              {cognitiveType && (
-                <span className="px-3 py-1 rounded-full bg-indigo-100 text-indigo-700 text-xs font-bold font-mono shadow-sm">
-                  {cognitiveType}
-                </span>
-              )}
-              {profile.instinctualStacking && (
-                <span className="px-3 py-1 rounded-full bg-violet-100 text-violet-700 text-xs font-bold shadow-sm">
-                  {profile.instinctualStacking}
-                </span>
-              )}
-            </div>
           </div>
+          <p className="mt-5 text-lg font-semibold text-slate-800">
+            {streak === 0
+              ? "Start your streak today"
+              : streak === 1
+              ? "1 day streak"
+              : `${streak} day streak`}
+          </p>
+          {streak >= 7 && (
+            <p className="text-xs text-orange-500 font-medium mt-0.5">You&apos;re on fire!</p>
+          )}
+        </motion.div>
 
-          {/* Stats row — glass pills centered */}
-          <div className="flex items-center justify-center gap-3 flex-wrap mb-6">
-            <div className="flex items-center gap-1.5 px-4 py-2 rounded-full bg-white/70 backdrop-blur-sm border border-orange-100/50 shadow-sm">
-              <Flame className="w-4 h-4 text-orange-500" />
-              <span className="text-sm font-bold text-slate-700">{streak}</span>
-              <span className="text-xs text-slate-400">streak</span>
+        {/* ── Continue Learning CTA ────────────────────────────── */}
+        <motion.div variants={itemVariants} className="mb-6">
+          <Link
+            href="/daily"
+            className="group flex items-center justify-center gap-3 w-full px-6 py-4 bg-gradient-to-r from-sky-500 to-indigo-500 text-white rounded-2xl font-bold text-lg shadow-lg shadow-sky-200/50 hover:shadow-xl hover:-translate-y-0.5 transition-all"
+          >
+            Continue Learning
+            <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+          </Link>
+        </motion.div>
+
+        {/* ── Daily Insight ────────────────────────────────────── */}
+        <motion.div variants={itemVariants} className="mb-8">
+          <div className="rounded-2xl border border-slate-100 bg-slate-50/50 p-5">
+            <p className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-3">Today&apos;s Insight</p>
+            <blockquote className="text-base font-serif text-slate-700 leading-relaxed mb-2">
+              &ldquo;{insight.quote}&rdquo;
+            </blockquote>
+            <p className="text-xs font-medium text-slate-500 mb-3">
+              — {insight.author}
+            </p>
+            <p className="text-sm text-slate-500 leading-relaxed">
+              {insight.reflection}
+            </p>
+          </div>
+        </motion.div>
+
+        {/* ── Quick Stats Row ──────────────────────────────────── */}
+        <motion.div variants={itemVariants} className="mb-8">
+          <div className="grid grid-cols-4 gap-3">
+            <div className="flex flex-col items-center gap-1.5 py-3 px-2 rounded-2xl bg-indigo-50/70 border border-indigo-100/50">
+              <Zap className="w-5 h-5 text-indigo-500" />
+              <span className="text-sm font-bold text-slate-700">{xp}</span>
+              <span className="text-[10px] text-slate-400 font-medium">XP</span>
             </div>
-            <div className="flex items-center gap-1.5 px-4 py-2 rounded-full bg-white/70 backdrop-blur-sm border border-amber-100/50 shadow-sm">
+            <div className="flex flex-col items-center gap-1.5 py-3 px-2 rounded-2xl bg-orange-50/70 border border-orange-100/50">
+              <Flame className="w-5 h-5 text-orange-500" />
+              <span className="text-sm font-bold text-slate-700">{streak}</span>
+              <span className="text-[10px] text-slate-400 font-medium">Streak</span>
+            </div>
+            <div className="flex flex-col items-center gap-1.5 py-3 px-2 rounded-2xl bg-rose-50/70 border border-rose-100/50">
+              <Heart className="w-5 h-5 text-rose-500" />
+              <span className="text-sm font-bold text-slate-700">{hearts}</span>
+              <span className="text-[10px] text-slate-400 font-medium">Hearts</span>
+            </div>
+            <div className="flex flex-col items-center gap-1.5 py-3 px-2 rounded-2xl bg-amber-50/70 border border-amber-100/50">
               <Coins className="w-4 h-4 text-amber-500" />
               <span className="text-sm font-bold text-slate-700">{tokens}</span>
-              <span className="text-xs text-slate-400">tokens</span>
-            </div>
-            <div className="flex items-center gap-1.5 px-4 py-2 rounded-full bg-white/70 backdrop-blur-sm border border-indigo-100/50 shadow-sm">
-              <Zap className="w-4 h-4 text-indigo-500" />
-              <span className="text-sm font-bold text-slate-700">Lv {level}</span>
-              <span className="text-xs text-slate-400">{xp} XP</span>
+              <span className="text-[10px] text-slate-400 font-medium">Tokens</span>
             </div>
           </div>
+        </motion.div>
 
-          {/* Path rail */}
-          <div className="mb-4">
-            <PathRail dailyProgress={dailyProgress} />
-          </div>
-        </div>
-      </section>
-
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 pb-24">
-        {/* Streak celebration */}
-        <StreakCelebration streak={streak} />
-
-        {/* Type Spotlight — daily featured type */}
-        <TypeSpotlightCard />
-
-        {/* BIG hero action — Duolingo-style ONE clear thing to do */}
-        <TodayHeroCard profile={profile} gameState={gameState} />
-
-        {/* What to do next */}
-        <div className="mb-8">
-          <NextUpCards profile={profile} gameState={gameState} />
-        </div>
-
-        {/* Lessons — Continue Learning banner */}
-        <Link
-          href="/lessons"
-          className="flex items-center gap-4 p-4 mb-6 rounded-2xl border border-violet-200 bg-gradient-to-r from-violet-50 to-fuchsia-50 hover:shadow-md hover:-translate-y-0.5 transition-all"
-        >
-          <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-violet-500 to-fuchsia-500 flex items-center justify-center flex-shrink-0 shadow-lg shadow-violet-200/50">
-            <BookOpen className="w-6 h-6 text-white" />
-          </div>
-          <div className="flex-1 min-w-0">
-            <div className="text-base font-semibold text-slate-800">Continue Learning</div>
-            <div className="text-xs text-slate-500">Bite-sized psychology lessons</div>
-          </div>
-          <ArrowRight className="w-5 h-5 text-violet-400 flex-shrink-0" />
-        </Link>
-
-        {/* Learning Units — Duolingo-style vertical path */}
-        <div className="mb-10">
-          <h3 className="text-sm font-semibold text-slate-700 mb-4">Your Learning Path</h3>
-          <div className="space-y-3">
-            {[
-              { label: "Enneagram Basics", desc: "Core types, motivations & fears", href: "/enneagram/learn", icon: Compass, color: "bg-sky-500", done: !!profile.enneagramType },
-              { label: "Find Your Type", desc: "Take the Enneagram assessment", href: "/enneagram/assess", icon: Target, color: "bg-sky-400", done: !!profile.enneagramType },
-              { label: "Cognitive Functions", desc: "Jung's 8 mental processes", href: "/cognitive/learn", icon: Brain, color: "bg-indigo-500", done: !!(profile.cognitiveType || profile.mbtiType) },
-              { label: "Your Function Stack", desc: "Discover your cognitive type", href: "/cognitive/assess", icon: Brain, color: "bg-indigo-400", done: !!(profile.cognitiveType || profile.mbtiType) },
-              { label: "Subtypes & Instincts", desc: "SP, SO, SX — how your type expresses", href: "/enneagram/learn?tab=instincts", icon: Flame, color: "bg-orange-500", done: !!profile.instinctualStacking },
-              { label: "Inner Work", desc: "Shadow dialogue, reframing, patterns", href: "/journal", icon: Beaker, color: "bg-rose-500", done: false },
-              { label: "Compare & Correlate", desc: "How types relate across systems", href: "/compare", icon: BookOpen, color: "bg-pink-500", done: false },
-            ].map((unit, i) => (
-              <Link
-                key={unit.label}
-                href={unit.href}
-                className={`flex items-center gap-4 p-4 rounded-2xl border transition-all ${
-                  unit.done
-                    ? "bg-white/80 border-emerald-100 hover:shadow-md"
-                    : "bg-white/60 border-slate-100 hover:border-sky-200 hover:shadow-md"
-                }`}
-              >
-                <div className={`w-11 h-11 rounded-xl ${unit.color} flex items-center justify-center flex-shrink-0 shadow-sm`}>
-                  {unit.done ? (
-                    <CheckCircle className="w-5 h-5 text-white" />
-                  ) : (
-                    <unit.icon className="w-5 h-5 text-white" />
-                  )}
-                </div>
-                <div className="flex-1 min-w-0">
-                  <div className="text-sm font-semibold text-slate-800">{unit.label}</div>
-                  <div className="text-xs text-slate-400">{unit.desc}</div>
-                </div>
-                {unit.done ? (
-                  <span className="text-xs font-bold text-emerald-500 px-2 py-0.5 rounded-full bg-emerald-50">Done</span>
-                ) : (
-                  <ArrowRight className="w-4 h-4 text-slate-300 flex-shrink-0" />
-                )}
-              </Link>
-            ))}
-          </div>
-        </div>
-
-        {/* Full section grid — all areas accessible */}
-        <div>
-          <h3 className="text-sm font-semibold text-slate-700 mb-4">Everything in Thyself</h3>
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
-            {ALL_SECTIONS.map((section) => (
-              <div key={section.href}>
-                <Link
-                  href={section.href}
-                  className={`group flex items-start gap-3 p-4 bg-white rounded-2xl border ${section.border} hover:shadow-md hover:-translate-y-0.5 transition-all`}
-                >
-                  <div className={`w-9 h-9 rounded-xl ${section.bg} flex items-center justify-center flex-shrink-0 mt-0.5`}>
-                    <section.icon className={`w-4 h-4 ${section.color}`} />
-                  </div>
-                  <div className="min-w-0">
-                    <div className="text-sm font-semibold text-slate-800 truncate">{section.label}</div>
-                    <div className="text-xs text-slate-400 mt-0.5 leading-tight">{section.desc}</div>
-                  </div>
-                </Link>
+        {/* ── Quick Actions ────────────────────────────────────── */}
+        <motion.div variants={itemVariants} className="mb-8">
+          <h2 className="text-sm font-semibold text-slate-700 mb-3">Quick Actions</h2>
+          <div className="grid grid-cols-3 gap-3">
+            <Link
+              href="/sprint"
+              className="group flex flex-col items-center gap-2.5 p-4 bg-white rounded-2xl border border-slate-100 hover:border-violet-200 hover:shadow-md transition-all"
+            >
+              <div className="w-11 h-11 rounded-xl bg-violet-50 flex items-center justify-center group-hover:bg-violet-100 transition-colors">
+                <Swords className="w-5 h-5 text-violet-600" />
               </div>
-            ))}
+              <span className="text-xs font-semibold text-slate-700">Practice</span>
+            </Link>
+            <Link
+              href="/read"
+              className="group flex flex-col items-center gap-2.5 p-4 bg-white rounded-2xl border border-slate-100 hover:border-sky-200 hover:shadow-md transition-all"
+            >
+              <div className="w-11 h-11 rounded-xl bg-sky-50 flex items-center justify-center group-hover:bg-sky-100 transition-colors">
+                <BookOpen className="w-5 h-5 text-sky-600" />
+              </div>
+              <span className="text-xs font-semibold text-slate-700">Read</span>
+            </Link>
+            <Link
+              href="/compare"
+              className="group flex flex-col items-center gap-2.5 p-4 bg-white rounded-2xl border border-slate-100 hover:border-pink-200 hover:shadow-md transition-all"
+            >
+              <div className="w-11 h-11 rounded-xl bg-pink-50 flex items-center justify-center group-hover:bg-pink-100 transition-colors">
+                <Brain className="w-5 h-5 text-pink-600" />
+              </div>
+              <span className="text-xs font-semibold text-slate-700">Compare</span>
+            </Link>
           </div>
-        </div>
-      </div>
+        </motion.div>
+
+        {/* ── Your Type Card ──────────────────────────────────── */}
+        {(enneagramType || cognitiveType) && (
+          <motion.div variants={itemVariants}>
+            <Link
+              href="/profile"
+              className="group flex items-center gap-4 p-4 bg-white rounded-2xl border border-slate-100 hover:border-slate-200 hover:shadow-md transition-all"
+            >
+              {enneagramType ? (
+                <div className="w-12 h-12 flex-shrink-0">
+                  <ChibiSprite
+                    type={enneagramType}
+                    instinct={profile.instinctualStacking}
+                    size={48}
+                    state="idle"
+                  />
+                </div>
+              ) : (
+                <div className="w-12 h-12 rounded-xl bg-slate-100 flex items-center justify-center flex-shrink-0">
+                  <UserCircle className="w-6 h-6 text-slate-400" />
+                </div>
+              )}
+              <div className="flex-1 min-w-0">
+                <p className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-0.5">Your Type</p>
+                <p className="text-sm font-semibold text-slate-800">
+                  {[
+                    enneagramType ? `Type ${enneagramType}` : null,
+                    cognitiveType,
+                    profile.instinctualStacking,
+                  ]
+                    .filter(Boolean)
+                    .join(" · ")}
+                </p>
+              </div>
+              <ArrowRight className="w-4 h-4 text-slate-300 group-hover:text-slate-500 flex-shrink-0 group-hover:translate-x-0.5 transition-all" />
+            </Link>
+          </motion.div>
+        )}
+      </motion.div>
     </div>
   );
 }

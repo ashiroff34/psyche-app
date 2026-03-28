@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback, useMemo } from "react";
+import { useState, useEffect, useCallback, useMemo, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import {
@@ -59,6 +59,23 @@ function getDayOfYear(): number {
 
 function getDateKey(): string {
   return new Date().toISOString().split("T")[0];
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   UTILITY: Heart refill timer formatting
+   ═══════════════════════════════════════════════════════════════════════════ */
+function formatRefillTime(isoDate: string): string {
+  const refillStart = new Date(isoDate).getTime();
+  // Hearts refill every 10 minutes (matches HEART_REFILL_MS in useGameState)
+  const REFILL_INTERVAL = 10 * 60 * 1000;
+  const elapsed = Date.now() - refillStart;
+  const timeUntilNext = REFILL_INTERVAL - (elapsed % REFILL_INTERVAL);
+  if (timeUntilNext <= 0) return "";
+  const totalMin = Math.ceil(timeUntilNext / 60000);
+  if (totalMin < 60) return `${totalMin}m`;
+  const h = Math.floor(totalMin / 60);
+  const m = totalMin % 60;
+  return m > 0 ? `${h}h ${m}m` : `${h}h`;
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
@@ -688,6 +705,10 @@ export default function DailyPage() {
   const [sessionXP, setSessionXP] = useState(0);
   const [copied, setCopied] = useState(false);
 
+  // XP gain animation
+  const [xpGainShow, setXpGainShow] = useState(false);
+  const prevXP = useRef(0);
+
   // Spaced repetition stats (loaded once at mount, updated via saveQStat)
   const [qStats, setQStats] = useState<Record<string, QStat>>({});
   useEffect(() => { setQStats(loadQStats()); }, []);
@@ -836,6 +857,15 @@ export default function DailyPage() {
   // Read streak and XP from psyche-game-state (authoritative); fall back to profile for legacy users
   const streak = gameStreak > 0 ? gameStreak : (profile.streakCount ?? 0);
   const totalXP = gameXP > 0 ? gameXP : (profile.xp ?? 0);
+
+  // XP gain animation effect
+  useEffect(() => {
+    if (totalXP > prevXP.current && prevXP.current > 0) {
+      setXpGainShow(true);
+      setTimeout(() => setXpGainShow(false), 1500);
+    }
+    prevXP.current = totalXP;
+  }, [totalXP]);
 
   // ── Milestones ──
   const milestones = [
@@ -1441,8 +1471,8 @@ export default function DailyPage() {
           units={currentUnits}
           onViewFullPath={() => setView("path")}
           tokens={gameStateRaw.tokens ?? 0}
-          instinct={(profile as Record<string, unknown>).instinct as string | undefined}
-          name={(profile as Record<string, unknown>).name as string | undefined}
+          instinct={profile.instinctualStacking}
+          name={profile.displayName}
           weeklyChallenge={weeklyChallenge}
           onClaimWeeklyReward={claimWeeklyReward}
         />
@@ -1522,12 +1552,30 @@ export default function DailyPage() {
             {/* Hearts */}
             <div className="flex items-center gap-1.5">
               <Heart className="w-5 h-5 text-red-400 fill-red-400" />
-              <span className="text-white font-bold text-sm">{gameStateRaw.hearts ?? 5}</span>
+              <div className="flex flex-col items-start">
+                <span className="text-white font-bold text-sm">{gameStateRaw.hearts ?? 5}</span>
+                {(gameStateRaw.hearts ?? 5) < (gameStateRaw.maxHearts ?? 5) && gameStateRaw.heartsRefillTime && (
+                  <span className="text-[8px] text-red-300/60">{formatRefillTime(gameStateRaw.heartsRefillTime)}</span>
+                )}
+              </div>
             </div>
             {/* XP */}
-            <div className="flex items-center gap-1.5">
+            <div className="flex items-center gap-1.5 relative">
               <Star className="w-5 h-5 text-yellow-400 fill-yellow-400" />
               <span className="text-white font-bold text-sm">{totalXP}</span>
+              <AnimatePresence>
+                {xpGainShow && (
+                  <motion.span
+                    className="absolute -top-4 left-1/2 text-yellow-300 text-xs font-bold"
+                    initial={{ y: 0, opacity: 1 }}
+                    animate={{ y: -20, opacity: 0 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 1.5 }}
+                  >
+                    +XP
+                  </motion.span>
+                )}
+              </AnimatePresence>
             </div>
             {/* Tokens */}
             <div className="flex items-center gap-1.5">
@@ -1558,6 +1606,30 @@ export default function DailyPage() {
             </div>
           </div>
         </div>
+        {/* Streak milestone celebration */}
+        {[7, 14, 30, 60, 100].includes(streak) && (
+          <motion.div
+            className="mx-4 mt-2 p-3 rounded-2xl text-center"
+            style={{ background: "linear-gradient(135deg, rgba(251,191,36,0.15), rgba(245,158,11,0.1))", border: "1px solid rgba(251,191,36,0.3)" }}
+            initial={{ scale: 0.8, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+          >
+            <span className="text-yellow-400 text-lg">🏆</span>
+            <span className="text-yellow-300 text-sm font-bold ml-2">{streak}-Day Streak!</span>
+          </motion.div>
+        )}
+        {/* Streak at risk warning */}
+        {completedTodayCount === 0 && new Date().getHours() >= 18 && streak > 0 && (
+          <motion.div
+            className="mx-4 mt-2 p-3 rounded-2xl flex items-center gap-2"
+            style={{ background: "rgba(239,68,68,0.1)", border: "1px solid rgba(239,68,68,0.3)" }}
+            animate={{ x: [-2, 2, -2, 0] }}
+            transition={{ duration: 0.5, repeat: 2 }}
+          >
+            <Flame className="w-5 h-5 text-red-400" />
+            <span className="text-red-300 text-sm font-medium">Your {streak}-day streak is at risk! Complete a lesson to keep it.</span>
+          </motion.div>
+        )}
         <div className="max-w-md mx-auto px-4 pt-4">
           <PathIteration4
             units={currentUnits}
@@ -1663,7 +1735,7 @@ export default function DailyPage() {
               longestStreak={gameStateRaw.longestStreak}
               currentStreak={streak}
               enneagramType={profile.enneagramType ?? 5}
-              instinct={(profile as Record<string, unknown>).instinct as string ?? "sp"}
+              instinct={profile.instinctualStacking ?? "sp"}
               onBuyHearts={buyHearts}
               gameState={gameStateRaw}
               sessionsSinceTokenDrop={gameStateRaw.sessionsSinceTokenDrop ?? 0}

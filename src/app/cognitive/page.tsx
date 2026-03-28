@@ -126,7 +126,7 @@ export default function CognitivePage() {
 
               <div className="flex flex-wrap gap-3">
                 <Link
-                  href="/cognitive/assess"
+                  href="/assessments"
                   className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-indigo-500 to-violet-500 text-white rounded-xl font-medium shadow-lg shadow-indigo-200/40 hover:shadow-xl transition-all"
                 >
                   <MessageCircle className="w-4 h-4" />
@@ -350,7 +350,7 @@ export default function CognitivePage() {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
         <NextStepBanner
-          href="/cognitive/assess"
+          href="/assessments"
           label="Take the cognitive assessment"
           sublabel="Discover your personal cognitive function stack"
           icon={<Brain className="w-5 h-5" />}

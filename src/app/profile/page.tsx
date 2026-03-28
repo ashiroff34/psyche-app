@@ -761,7 +761,7 @@ function ProfileCard({ profile }: { profile: PsycheProfile }) {
               style={{ width: 160, height: 160 }}
             >
               <ChibiSprite
-                type={profile.enneagramCore!}
+                type={(profile.enneagramType ?? profile.enneagramCore)!}
                 instinct={profile.instinctualStacking!}
                 size={260}
                 state={chibiState}
@@ -1031,7 +1031,7 @@ function PersonalizedInsights({ profile }: { profile: PsycheProfile }) {
             <p className="text-sm text-slate-700 leading-relaxed">
               {getTypeCombinationInsight(
                 profile.mbtiType!,
-                profile.enneagramCore!,
+                (profile.enneagramType ?? profile.enneagramCore)!,
                 profile.enneagramWing,
                 profile.instinctualStacking
               )}

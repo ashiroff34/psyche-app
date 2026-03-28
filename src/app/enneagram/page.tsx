@@ -130,7 +130,7 @@ export default function EnneagramPage() {
 
               <div className="flex flex-wrap gap-3">
                 <Link
-                  href="/enneagram/assess"
+                  href="/assessments"
                   className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-sky-500 to-indigo-500 text-white rounded-xl font-medium shadow-lg shadow-sky-200/40 hover:shadow-xl transition-all"
                 >
                   <MessageCircle className="w-4 h-4" />
@@ -279,7 +279,7 @@ export default function EnneagramPage() {
           {!myType && (
             <div className="mt-8">
               <NextStepBanner
-                href="/enneagram/assess"
+                href="/assessments"
                 label="Ready to find your type?"
                 sublabel="Take the validated assessment — results in 12–65 min depending on depth"
                 icon={<MessageCircle className="w-5 h-5" />}
