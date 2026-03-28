@@ -1,7 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { Clock } from "lucide-react";
 
 interface LikertItem {
   id: number;
@@ -39,6 +40,12 @@ export default function LikertAssessment({
   const progress = ((currentIdx + 1) / items.length) * 100;
   const item = items[currentIdx];
 
+  // ~8 seconds per question on average
+  const minsRemaining = useMemo(() => {
+    const secsLeft = (items.length - currentIdx) * 8;
+    return Math.max(1, Math.round(secsLeft / 60));
+  }, [currentIdx, items.length]);
+
   const rate = (value: number) => {
     const actualValue = item.reversed ? 6 - value : value;
     const newScores = { ...scores };
@@ -71,7 +78,13 @@ export default function LikertAssessment({
       <div className="mb-6">
         <div className="flex items-center justify-between text-xs text-slate-400 mb-2">
           <span>{title}</span>
-          <span>{currentIdx + 1} of {items.length}</span>
+          <div className="flex items-center gap-3">
+            <span className="inline-flex items-center gap-1 text-sky-600 font-medium">
+              <Clock className="w-3 h-3" />
+              ~{minsRemaining} min left
+            </span>
+            <span>{currentIdx + 1} of {items.length}</span>
+          </div>
         </div>
         <div className="h-1.5 bg-slate-100 rounded-full overflow-hidden">
           <motion.div

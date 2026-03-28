@@ -10,7 +10,7 @@ export type ChibiState = "idle" | "happy" | "sleeping" | "hurt";
 
 interface ChibiSpriteProps {
   type: number;
-  instinct: string;
+  instinct?: string;
   size?: number;
   state?: ChibiState;
   className?: string;

@@ -27,6 +27,10 @@ export interface PetState {
   ownedItems: string[];
   createdAt: string;
   totalDaysAlive: number;
+  // Companion XP / Evolution
+  companionXP: number;
+  companionLevel: number;
+  lastCompanionXPDate: string;
 }
 
 // ─── Subtype Names (Beatrice Chestnut) ───────────────────────────────────────
@@ -160,6 +164,24 @@ export const OUTFIT_ITEMS: OutfitItem[] = [
   { id: "forest-glow", name: "Forest Glow", category: "background", cost: 65, description: "Enchanted forest with fireflies", emoji: "\u{1F332}", cssClass: "bg-forest", gradient: "from-emerald-800 via-green-700 to-teal-800" },
 ];
 
+// ─── Companion XP Helpers ────────────────────────────────────────────────────
+
+export const COMPANION_XP_PER_LEVEL = 100;
+
+/** Returns companion level from accumulated XP (100 XP per level) */
+export function getCompanionLevel(xp: number): number {
+  return Math.floor(xp / COMPANION_XP_PER_LEVEL);
+}
+
+/** XP needed for the next level */
+export function xpToNextLevel(xp: number): { current: number; needed: number; pct: number } {
+  const level = getCompanionLevel(xp);
+  const base = level * COMPANION_XP_PER_LEVEL;
+  const current = xp - base;
+  const needed = COMPANION_XP_PER_LEVEL;
+  return { current, needed, pct: Math.round((current / needed) * 100) };
+}
+
 // ─── Pet Status Helpers ──────────────────────────────────────────────────────
 
 export type PetStatus = "thriving" | "happy" | "okay" | "hungry" | "sad" | "sick" | "dead";
@@ -231,6 +253,9 @@ function createDefaultPetState(type: number): PetState {
     ownedItems: [],
     createdAt: today,
     totalDaysAlive: 0,
+    companionXP: 0,
+    companionLevel: 0,
+    lastCompanionXPDate: "",
   };
 }
 
@@ -247,6 +272,10 @@ export function usePetState(enneagramType?: number) {
       const raw = localStorage.getItem(STORAGE_KEY);
       if (raw) {
         const parsed = JSON.parse(raw) as PetState;
+        // Migrate older saves that lack companion fields
+        if (parsed.companionXP === undefined) parsed.companionXP = 0;
+        if (parsed.companionLevel === undefined) parsed.companionLevel = 0;
+        if (parsed.lastCompanionXPDate === undefined) parsed.lastCompanionXPDate = "";
         setPetState(parsed);
       } else if (enneagramType) {
         // Auto-create pet if user has a type but no pet yet
@@ -483,6 +512,30 @@ export function usePetState(enneagramType?: number) {
     [update]
   );
 
+  // ── Companion XP ────────────────────────────────────────────────────────────
+
+  const gainCompanionXP = useCallback(
+    (amount: number) => {
+      update((prev) => {
+        const newXP = (prev.companionXP ?? 0) + amount;
+        const newLevel = getCompanionLevel(newXP);
+        return { ...prev, companionXP: newXP, companionLevel: newLevel };
+      });
+    },
+    [update]
+  );
+
+  /** Award companion XP once per day when the daily goal is met */
+  const awardDailyGoalXP = useCallback(() => {
+    const today = getToday();
+    update((prev) => {
+      if (prev.lastCompanionXPDate === today) return prev; // already awarded today
+      const newXP = (prev.companionXP ?? 0) + 50;
+      const newLevel = getCompanionLevel(newXP);
+      return { ...prev, companionXP: newXP, companionLevel: newLevel, lastCompanionXPDate: today };
+    });
+  }, [update]);
+
   // ── Initialize pet when type is discovered ─────────────────────────────────
 
   const initializePet = useCallback(
@@ -506,6 +559,9 @@ export function usePetState(enneagramType?: number) {
     giveMedicine,
     revivePet,
     renamePet,
+    // Companion XP
+    gainCompanionXP,
+    awardDailyGoalXP,
     // Cosmetics
     buyItem,
     equipItem,

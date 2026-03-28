@@ -86,6 +86,18 @@ export interface GameState {
 
   // Token drop pity counter
   sessionsSinceTokenDrop: number;
+
+  // XP Boost (2x for 1 hour)
+  xpBoostExpiry: string | null; // ISO timestamp when boost expires
+
+  // Weekly challenge tracking
+  weeklyStats: {
+    weekKey: string;
+    daysGoalMet: number;
+    quizCorrect: number;
+    modulesCompleted: number;
+    rewardClaimed: boolean;
+  };
 }
 
 // ─── Constants ───────────────────────────────────────────────────────────────
@@ -106,6 +118,23 @@ export function markTopicComplete(topicId: string, progressPct = 100) {
       state.topicProgress = { ...existing, [topicId]: progressPct };
       localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
     }
+  } catch {}
+}
+
+/** Call from any component to track quiz_correct or module_complete without importing the full hook */
+export function trackWeeklyEvent(type: "quiz_correct" | "module_complete") {
+  if (typeof window === "undefined") return;
+  try {
+    const weekKey = getISOWeekKey();
+    const raw = localStorage.getItem("psyche-game-state");
+    const state = raw ? JSON.parse(raw) : {};
+    const ws = state.weeklyStats?.weekKey === weekKey
+      ? { ...state.weeklyStats }
+      : { weekKey, daysGoalMet: 0, quizCorrect: 0, modulesCompleted: 0, rewardClaimed: false };
+    if (type === "quiz_correct") ws.quizCorrect = (ws.quizCorrect || 0) + 1;
+    if (type === "module_complete") ws.modulesCompleted = (ws.modulesCompleted || 0) + 1;
+    state.weeklyStats = ws;
+    localStorage.setItem("psyche-game-state", JSON.stringify(state));
   } catch {}
 }
 
@@ -313,7 +342,7 @@ export const SHOP_ITEMS: ShopItem[] = [
   { id: "pet-food", name: "Pet Food", description: "+20 health, +10 happiness", cost: 10, icon: "\u{1F356}", action: "feed", available: true },
   { id: "pet-treat", name: "Pet Treat", description: "+5 happiness", cost: 5, icon: "\u{1F36C}", action: "treat", available: true },
   { id: "hint-token", name: "Hint Token", description: "Eliminate one wrong answer in quizzes", cost: 25, icon: "\u{1F4A1}", action: "hint", available: true },
-  { id: "xp-boost", name: "XP Boost (Coming Soon)", description: "2x XP for 1 hour", cost: 200, icon: "\u{1F680}", action: "boost", available: false },
+  { id: "xp-boost", name: "XP Boost", description: "2x XP for 1 hour", cost: 200, icon: "\u{1F680}", action: "boost", available: true },
   { id: "custom-pet", name: "Custom Pet (Coming Soon)", description: "Unlock a new pet companion", cost: 500, icon: "\u{1F431}", action: "pet", available: false },
 ];
 
@@ -404,6 +433,41 @@ export function getPetMood(health: number, happiness: number, alive: boolean): s
   return "Doing okay!";
 }
 
+// ─── Weekly Challenge ─────────────────────────────────────────────────────────
+
+export interface WeeklyChallengeTemplate {
+  id: string;
+  name: string;
+  emoji: string;
+  description: string;
+  goal: number;
+  xpReward: number;
+  tokenReward: number;
+  progressKey: "daysGoalMet" | "quizCorrect" | "modulesCompleted";
+}
+
+export const WEEKLY_CHALLENGES: WeeklyChallengeTemplate[] = [
+  { id: "streak", name: "Streak Warrior", emoji: "🔥", description: "Meet your daily goal 5 days this week", goal: 5, xpReward: 100, tokenReward: 30, progressKey: "daysGoalMet" },
+  { id: "quiz", name: "Quiz Master", emoji: "🧠", description: "Answer 30 questions correctly this week", goal: 30, xpReward: 100, tokenReward: 30, progressKey: "quizCorrect" },
+  { id: "module", name: "Deep Diver", emoji: "📚", description: "Complete 3 full learning modules this week", goal: 3, xpReward: 100, tokenReward: 30, progressKey: "modulesCompleted" },
+];
+
+function getISOWeekKey(): string {
+  const d = new Date();
+  const day = d.getDay() || 7; // Mon=1 ... Sun=7
+  d.setDate(d.getDate() + 4 - day); // pivot to Thursday of current week
+  const yearStart = new Date(d.getFullYear(), 0, 1);
+  const week = Math.ceil((((d.getTime() - yearStart.getTime()) / 86400000) + 1) / 7);
+  return `${d.getFullYear()}-W${String(week).padStart(2, "0")}`;
+}
+
+export function getCurrentWeeklyChallenge(): { challenge: WeeklyChallengeTemplate; weekKey: string } {
+  const weekKey = getISOWeekKey();
+  const weekNum = parseInt(weekKey.split("-W")[1] ?? "0") || 0;
+  const challenge = WEEKLY_CHALLENGES[weekNum % WEEKLY_CHALLENGES.length];
+  return { challenge, weekKey };
+}
+
 // ─── Default State ───────────────────────────────────────────────────────────
 
 function getToday(): string {
@@ -448,6 +512,8 @@ function createDefaultState(): GameState {
     totalTokensSpent: 0,
     accountCreated: getToday(),
     sessionsSinceTokenDrop: 0,
+    xpBoostExpiry: null,
+    weeklyStats: { weekKey: "", daysGoalMet: 0, quizCorrect: 0, modulesCompleted: 0, rewardClaimed: false },
   };
 }
 
@@ -576,6 +642,9 @@ export function useGameState() {
       let bonusMultiplier = 1;
       if (Math.random() < 0.1) bonusMultiplier = 2; // 10% chance of double XP
       if (Math.random() < 0.03) bonusMultiplier = 3; // 3% chance of triple XP
+      // XP Boost shop item: 2x while active
+      const boostActive = state.xpBoostExpiry && new Date(state.xpBoostExpiry).getTime() > Date.now();
+      if (boostActive && bonusMultiplier === 1) bonusMultiplier = 2;
       const finalAmount = Math.floor(amount * bonusMultiplier);
 
       setXpGainAnimation({ amount: finalAmount, source: bonusMultiplier > 1 ? `${source} (${bonusMultiplier}x BONUS!)` : source });
@@ -618,6 +687,15 @@ export function useGameState() {
         // Keep last 30 days
         while (xpHistory.length > 30) xpHistory.shift();
 
+        // Weekly stats: track days goal was met
+        const currentWeekKey = getISOWeekKey();
+        const currentWS = prev.weeklyStats?.weekKey === currentWeekKey
+          ? { ...prev.weeklyStats }
+          : { weekKey: currentWeekKey, daysGoalMet: 0, quizCorrect: 0, modulesCompleted: 0, rewardClaimed: false };
+        if (dailyGoalMet && !prev.dailyGoalMet) {
+          currentWS.daysGoalMet = (currentWS.daysGoalMet || 0) + 1;
+        }
+
         // Token rewards: earn tokens on milestones
         let bonusTokens = 0;
         if (dailyGoalMet && !prev.dailyGoalMet) bonusTokens += 15; // daily goal completion reward
@@ -644,6 +722,7 @@ export function useGameState() {
           totalXPEarned: prev.totalXPEarned + finalAmount,
           totalTokensEarned: prev.totalTokensEarned + bonusTokens,
           xpHistory,
+          weeklyStats: currentWS,
         };
       });
     },
@@ -882,6 +961,10 @@ export function useGameState() {
             return { ...base, petHappiness: Math.min(100, base.petHappiness + 5) };
           case "hint":
             return { ...base, hintTokens: base.hintTokens + 1 };
+          case "boost": {
+            const boostExpiry = new Date(Date.now() + 60 * 60 * 1000).toISOString(); // 1 hour
+            return { ...base, xpBoostExpiry: boostExpiry };
+          }
           default:
             return base;
         }
@@ -960,6 +1043,31 @@ export function useGameState() {
     },
     [state.topicProgress]
   );
+
+  // ── Weekly Challenge ───────────────────────────────────────────────────────
+
+  const claimWeeklyReward = useCallback(() => {
+    const weekKey = getISOWeekKey();
+    update((prev) => {
+      const ws = prev.weeklyStats?.weekKey === weekKey
+        ? prev.weeklyStats
+        : { weekKey, daysGoalMet: 0, quizCorrect: 0, modulesCompleted: 0, rewardClaimed: false };
+      if (ws.rewardClaimed) return prev;
+      const { challenge } = getCurrentWeeklyChallenge();
+      const progress = ws[challenge.progressKey] ?? 0;
+      if (progress < challenge.goal) return prev;
+      const newXP = prev.xp + challenge.xpReward;
+      return {
+        ...prev,
+        xp: newXP,
+        level: getLevelFromXP(newXP),
+        tokens: prev.tokens + challenge.tokenReward,
+        totalXPEarned: prev.totalXPEarned + challenge.xpReward,
+        totalTokensEarned: prev.totalTokensEarned + challenge.tokenReward,
+        weeklyStats: { ...ws, rewardClaimed: true },
+      };
+    });
+  }, [update]);
 
   // ── Daily Goal ─────────────────────────────────────────────────────────────
 
@@ -1194,11 +1302,26 @@ export function useGameState() {
     // Daily Reading
     completeReading,
 
+    // Weekly Challenge
+    claimWeeklyReward,
+    weeklyChallenge: (() => {
+      const { challenge, weekKey } = getCurrentWeeklyChallenge();
+      const ws = state.weeklyStats?.weekKey === weekKey
+        ? state.weeklyStats
+        : { weekKey, daysGoalMet: 0, quizCorrect: 0, modulesCompleted: 0, rewardClaimed: false };
+      const progress = ws[challenge.progressKey] ?? 0;
+      return { ...challenge, progress, completed: progress >= challenge.goal, rewardClaimed: ws.rewardClaimed, weekKey };
+    })(),
+
     // Hearts
     loseHeart,
     gainHeart,
     refillHearts,
     buyHearts,
+
+    // XP Boost
+    xpBoostActive: !!(state.xpBoostExpiry && new Date(state.xpBoostExpiry).getTime() > Date.now()),
+    xpBoostExpiry: state.xpBoostExpiry,
 
     // Animations
     levelUpAnimation,

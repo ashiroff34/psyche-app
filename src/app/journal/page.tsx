@@ -324,7 +324,7 @@ function ShadowWorkExplorer() {
           Select Your Type
         </h3>
         <p className="text-sm text-slate-500 mb-4">
-          Choose your Jungian type to explore your 8-function shadow stack
+          Choose your cognitive type to explore your 8-function shadow stack
         </p>
         <TypeGrid selected={selectedType} onSelect={setSelectedType} />
       </motion.div>

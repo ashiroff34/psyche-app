@@ -30,7 +30,7 @@ export default function IEQ9IntegrativePage() {
             <ArrowLeft className="w-4 h-4" /> Back
           </button>
         </div>
-        <AssessmentGuide assessmentName="Integrative Assessment" onReady={() => setShowGuide(false)} />
+        <AssessmentGuide assessmentName="Integrative Assessment" timeEstimate="~25 min" onReady={() => setShowGuide(false)} />
       </div>
     );
   }

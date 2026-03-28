@@ -17,13 +17,14 @@ import {
   ArrowRight,
   Star,
   ArrowLeft,
+  Clock,
 } from "lucide-react";
 
 type Tab = "enneagram" | "jungian" | "scientific";
 
 const tabs: { key: Tab; label: string; icon: typeof Compass }[] = [
   { key: "enneagram", label: "Enneagram", icon: Compass },
-  { key: "jungian", label: "Jungian", icon: Brain },
+  { key: "jungian", label: "Cognitive", icon: Brain },
   { key: "scientific", label: "Scientific", icon: BarChart3 },
 ];
 
@@ -34,6 +35,7 @@ interface AssessmentCard {
   title: string;
   subtitle: string;
   description: string;
+  timeEstimate: string;
   tags: string[];
   gradient: string;
   href: string;
@@ -50,7 +52,8 @@ const assessments: AssessmentCard[] = [
     title: "Self-Identification",
     subtitle: "Read, reflect, and identify your type",
     description: "The method recommended by virtually every major Enneagram expert. Read detailed descriptions of all nine types with guided questions to help you see yourself honestly.",
-    tags: ["~10 min", "Expert recommended"],
+    timeEstimate: "~10 min",
+    tags: ["Expert recommended"],
     gradient: "from-amber-400 to-orange-500",
     href: "/assessments/essential-enneagram",
     recommended: true,
@@ -62,7 +65,8 @@ const assessments: AssessmentCard[] = [
     title: "Deep Assessment (iEQ9/WEPSS)",
     subtitle: "144-question scientific assessment",
     description: "Based on RHETI, iEQ9, and WEPSS validated instruments. Covers motivation, integration, and disintegration patterns. The most data-driven self-report option.",
-    tags: ["153 Qs", "~60 min", "iEQ9 + WEPSS"],
+    timeEstimate: "~60 min",
+    tags: ["153 Qs", "iEQ9 + WEPSS"],
     gradient: "from-indigo-500 to-violet-600",
     href: "/enneagram/assess",
     scientificPick: true,
@@ -74,7 +78,8 @@ const assessments: AssessmentCard[] = [
     title: "Essential Enneagram",
     subtitle: "Stanford paragraph identification method",
     description: "Read nine holistic descriptions and identify which patterns match your lifelong experience. Validated against expert typing interviews with ~66-68% accuracy.",
-    tags: ["~5 min", "Stanford-validated"],
+    timeEstimate: "~5 min",
+    tags: ["Stanford-validated"],
     gradient: "from-sky-400 to-blue-500",
     href: "/assessments/essential-enneagram",
   },
@@ -85,7 +90,8 @@ const assessments: AssessmentCard[] = [
     title: "Integrative Assessment",
     subtitle: "iEQ9-inspired 175-item Likert",
     description: "Rate 175 statements across core type, wing, instinctual variant, and stress/growth dimensions. The most thorough adaptive Likert assessment.",
-    tags: ["175 Qs", "~25 min"],
+    timeEstimate: "~25 min",
+    tags: ["175 Qs"],
     gradient: "from-indigo-400 to-violet-500",
     href: "/assessments/ieq9-integrative",
   },
@@ -96,7 +102,8 @@ const assessments: AssessmentCard[] = [
     title: "Adaptive Narrowing",
     subtitle: "Progressive rounds that narrow your type",
     description: "Starts broad (Head, Heart, or Gut center?) then progressively narrows through 80+ targeted questions. Each answer shapes the next.",
-    tags: ["80+ Qs", "~12 min"],
+    timeEstimate: "~12 min",
+    tags: ["80+ Qs"],
     gradient: "from-teal-400 to-cyan-500",
     href: "/assessments/personality-path",
   },
@@ -107,7 +114,8 @@ const assessments: AssessmentCard[] = [
     title: "Structured Type Assessment",
     subtitle: "Michael Caloz-inspired organized test",
     description: "12 themed sections (motivation, fear, self-image, relationships, stress, growth, and more). Rate 108 statements for a clear, organized comparison.",
-    tags: ["108 Qs", "~15 min"],
+    timeEstimate: "~15 min",
+    tags: ["108 Qs"],
     gradient: "from-violet-400 to-purple-500",
     href: "/assessments/michael-caloz",
   },
@@ -118,7 +126,8 @@ const assessments: AssessmentCard[] = [
     title: "Standard Assessment",
     subtitle: "36-question quick version",
     description: "36 core questions covering all 9 types plus 9 instinct variant questions. Good accuracy for a first pass.",
-    tags: ["45 Qs", "~15 min"],
+    timeEstimate: "~15 min",
+    tags: ["45 Qs"],
     gradient: "from-sky-400 to-indigo-500",
     href: "/enneagram/assess",
   },
@@ -129,7 +138,8 @@ const assessments: AssessmentCard[] = [
     title: "Mistype Investigator",
     subtitle: "Distinguish commonly confused types",
     description: "Already have a guess? Select type pairs you're torn between and answer 75 targeted distinguishing questions. Links to Enneagram Institute's mistype guide too.",
-    tags: ["75 Qs", "~8 min"],
+    timeEstimate: "~8 min",
+    tags: ["75 Qs"],
     gradient: "from-rose-400 to-pink-500",
     href: "/assessments/mistype-investigator",
   },
@@ -141,7 +151,8 @@ const assessments: AssessmentCard[] = [
     title: "Jungian Self-Identification",
     subtitle: "Study the functions, identify your stack",
     description: "Jung himself believed studying your own cognitive patterns was more valuable than any test. Learn the 8 functions, browse 16 type profiles, and identify which stack matches how your mind actually works.",
-    tags: ["~15 min", "Expert recommended"],
+    timeEstimate: "~15 min",
+    tags: ["Expert recommended"],
     gradient: "from-violet-400 to-purple-500",
     href: "/assessments/jungian-self-id",
     recommended: true,
@@ -153,7 +164,8 @@ const assessments: AssessmentCard[] = [
     title: "Cognitive Functions Full",
     subtitle: "68-question axis-based assessment",
     description: "Full 8-function stack analysis with IRT-informed weighting. Measures across 4 axes: Ni-Se, Ne-Si, Ti-Fe, Fi-Te.",
-    tags: ["68 Qs", "~25 min", "Most accurate"],
+    timeEstimate: "~25 min",
+    tags: ["68 Qs", "Most accurate"],
     gradient: "from-indigo-500 to-violet-600",
     href: "/cognitive/assess",
     scientificPick: true,
@@ -165,7 +177,8 @@ const assessments: AssessmentCard[] = [
     title: "Advanced Cognitive Type",
     subtitle: "80-item individual function assessment",
     description: "Goes beyond standard MBTI to individually assess all 8 cognitive functions (Se, Si, Ne, Ni, Te, Ti, Fe, Fi). 10 items per function.",
-    tags: ["80 Qs", "~12 min"],
+    timeEstimate: "~12 min",
+    tags: ["80 Qs"],
     gradient: "from-indigo-400 to-blue-500",
     href: "/assessments/cognitive-type",
   },
@@ -176,7 +189,8 @@ const assessments: AssessmentCard[] = [
     title: "Cognitive Functions Standard",
     subtitle: "36-question quick version",
     description: "Quick axis-based assessment with consistency checks. Good for a first pass at your cognitive function stack.",
-    tags: ["36 Qs", "~15 min"],
+    timeEstimate: "~15 min",
+    tags: ["36 Qs"],
     gradient: "from-sky-400 to-indigo-500",
     href: "/cognitive/assess",
   },
@@ -188,7 +202,8 @@ const assessments: AssessmentCard[] = [
     title: "Big Five Personality (OCEAN)",
     subtitle: "The scientific gold standard — 120 items",
     description: "The most scientifically validated personality model in psychology. Measures Openness, Conscientiousness, Extraversion, Agreeableness, and Neuroticism with 6 facets each.",
-    tags: ["120 Qs", "~15 min", "IPIP-NEO"],
+    timeEstimate: "~15 min",
+    tags: ["120 Qs", "IPIP-NEO"],
     gradient: "from-blue-400 to-indigo-500",
     href: "/assessments/big-five",
   },
@@ -268,10 +283,17 @@ export default function AssessmentsPage() {
                       <Icon className="w-5 h-5 text-white" />
                     </div>
                     <div className="flex-1 min-w-0">
-                      <h3 className="text-lg font-serif font-semibold text-slate-800 mb-0.5 pr-24">{assessment.title}</h3>
+                      <div className="flex items-start justify-between gap-2 mb-0.5 pr-24">
+                        <h3 className="text-lg font-serif font-semibold text-slate-800">{assessment.title}</h3>
+                      </div>
                       <p className="text-xs text-slate-400 mb-2">{assessment.subtitle}</p>
                       <p className="text-sm text-slate-500 leading-relaxed mb-3">{assessment.description}</p>
-                      <div className="flex flex-wrap gap-2">
+                      <div className="flex flex-wrap items-center gap-2">
+                        {/* Time estimate — always first and visually distinct */}
+                        <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-sky-50 border border-sky-100 text-sky-700 text-xs font-semibold">
+                          <Clock className="w-3 h-3" />
+                          {assessment.timeEstimate}
+                        </span>
                         {assessment.tags.map((t) => (
                           <span key={t} className="px-2 py-0.5 text-xs rounded-lg bg-slate-50 text-slate-500 font-medium">
                             {t}

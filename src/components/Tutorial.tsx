@@ -168,14 +168,20 @@ export default function TutorialOverlay({ onClose }: { onClose: () => void }) {
   const [idx, setIdx] = useState(0);
   const [dir, setDir] = useState(1);
   const [skipToast, setSkipToast] = useState(false);
+  const [expanded, setExpanded] = useState(false);
   const touchStartX = useRef(0);
   const touchStartY = useRef(0);
   const slide = SLIDES[idx];
   const isFirst = idx === 0;
   const isLast = idx === SLIDES.length - 1;
 
-  const next = () => { if (isLast) onClose(); else { setDir(1); setIdx(i => i + 1); } };
-  const prev = () => { if (!isFirst) { setDir(-1); setIdx(i => i - 1); } };
+  const next = () => {
+    if (isLast) onClose();
+    else { setDir(1); setIdx(i => i + 1); setExpanded(false); }
+  };
+  const prev = () => {
+    if (!isFirst) { setDir(-1); setIdx(i => i - 1); setExpanded(false); }
+  };
 
   const handleSkip = () => {
     setSkipToast(true);
@@ -208,36 +214,40 @@ export default function TutorialOverlay({ onClose }: { onClose: () => void }) {
   });
 
   return (
-    <div className="fixed inset-0 z-[9999] flex flex-col bg-gradient-to-b from-slate-50 via-white to-indigo-50/30 overflow-hidden">
+    <>
+      {/* Dim backdrop */}
+      <div className="fixed inset-0 z-[9998] bg-black/50 backdrop-blur-[2px]" onClick={onClose} />
 
-      {/* ── Header ── */}
-      <div className="bg-gradient-to-r from-sky-500 to-indigo-600 px-4 py-2.5 flex items-center justify-between flex-shrink-0">
-        <div className="flex items-center gap-2">
-          <div className="w-6 h-6 rounded-lg bg-white/20 flex items-center justify-center">
-            <OuroborosLogo size={14} />
-          </div>
-          <span className="text-white font-semibold text-sm">App Tour</span>
+      {/* Bottom sheet */}
+      <motion.div
+        className="fixed bottom-0 inset-x-0 z-[9999] bg-white rounded-t-3xl shadow-2xl overflow-hidden flex flex-col"
+        initial={{ y: "100%" }}
+        animate={{ y: 0 }}
+        exit={{ y: "100%" }}
+        transition={{ type: "spring", damping: 28, stiffness: 300 }}
+        onTouchStart={onTouchStart}
+        onTouchEnd={onTouchEnd}
+      >
+        {/* Handle */}
+        <div className="flex justify-center pt-3 pb-1 flex-shrink-0">
+          <div className="w-10 h-1 rounded-full bg-slate-200" />
         </div>
-        <div className="flex items-center gap-2">
-          <button onClick={handleSkip} className="px-3 py-1 rounded-lg bg-white/15 hover:bg-white/25 text-white text-xs font-semibold transition-all">Skip Tutorial</button>
-          <span className="text-white/50 text-[11px]">{idx + 1} / {SLIDES.length}</span>
-          <button onClick={onClose} className="p-1 rounded-lg text-white/40 hover:text-white hover:bg-white/20 transition-all">
+
+        {/* Header */}
+        <div className="flex items-center justify-between px-5 py-2 flex-shrink-0">
+          <div className="flex items-center gap-2">
+            <div className="w-7 h-7 rounded-xl bg-gradient-to-br from-sky-400 to-indigo-500 flex items-center justify-center">
+              <OuroborosLogo size={13} />
+            </div>
+            <span className="text-sm font-bold text-slate-800">App Tour</span>
+            <span className="text-xs text-slate-400">{idx + 1} / {SLIDES.length}</span>
+          </div>
+          <button onClick={onClose} className="p-1.5 rounded-xl text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition-all">
             <X className="w-4 h-4" />
           </button>
         </div>
-      </div>
 
-      {/* ── Skip toast ── */}
-      {skipToast && (
-        <div className="absolute top-16 left-4 right-4 z-[10000] flex items-center justify-center">
-          <div className="px-4 py-2 rounded-xl bg-slate-800 text-white text-xs font-medium shadow-lg">
-            You can replay the tutorial anytime from the Explore menu
-          </div>
-        </div>
-      )}
-
-      {/* ── Scrollable content ── */}
-      <div className="flex-1 overflow-y-auto" onTouchStart={onTouchStart} onTouchEnd={onTouchEnd}>
+        {/* ── Slide visual + info ── */}
         <AnimatePresence mode="wait" custom={dir}>
           <motion.div
             key={idx}
@@ -246,140 +256,96 @@ export default function TutorialOverlay({ onClose }: { onClose: () => void }) {
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: dir * -50 }}
             transition={{ type: "spring", stiffness: 300, damping: 28 }}
-            className="px-4 py-4 flex flex-col items-center gap-3"
+            className="flex flex-col items-center px-5 pt-2"
           >
-            {/* Title */}
-            <h2 className="text-xl font-serif font-bold text-slate-900 text-center">{slide.title}</h2>
-
-            {/* Phone mockup OR large chibi for final slide */}
-            <div className="relative flex-shrink-0">
-              {slide.screenshot ? (
-                <div className="relative w-[190px] rounded-[1.4rem] overflow-hidden border-[5px] border-slate-800 shadow-xl shadow-slate-300/50 bg-white mx-auto">
-                  <div className="absolute top-0 left-1/2 -translate-x-1/2 w-14 h-3.5 bg-slate-800 rounded-b-xl z-10" />
-                  <Image
-                    src={slide.screenshot}
-                    alt={slide.title}
-                    width={190}
-                    height={411}
-                    className="w-full h-auto"
-                    unoptimized
-                    priority
-                  />
-                </div>
-              ) : (
-                <div className="w-[160px] h-[160px] mx-auto flex items-center justify-center">
-                  <Image
-                    src={slide.chibi}
-                    alt="Guide"
-                    width={140}
-                    height={140}
-                    className="object-contain drop-shadow-lg"
-                    unoptimized
-                  />
-                </div>
-              )}
-
-              {/* No arrows — tab bar mockup shown below phone instead */}
-            </div>
-
-            {/* ── Navigation mockup — matches the real app exactly ── */}
-            {slide.highlightTab !== undefined && (
-              <motion.div
-                initial={{ opacity: 0, y: 8 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.2 }}
-                className="w-full max-w-[300px] space-y-1.5"
+            {/* Phone mockup or chibi for no-screenshot slides */}
+            {slide.screenshot ? (
+              <div
+                className="relative rounded-[18px] overflow-hidden border-[4px] border-slate-800 shadow-2xl bg-white mx-auto mb-4"
+                style={{ width: 160, height: 215 }}
               >
-                {/* Top bar: Ψ Thyself ... Explore */}
-                <div className="flex items-center justify-between py-1.5 px-3 bg-white/90 backdrop-blur rounded-xl border border-slate-200 shadow-sm">
-                  <div className={`flex items-center gap-1.5 ${slide.highlightTab !== "explore" ? "opacity-50" : ""}`}>
-                    <div className="w-5 h-5 rounded-lg bg-gradient-to-br from-sky-400 to-indigo-500 flex items-center justify-center">
-                      <OuroborosLogo size={10} />
-                    </div>
-                    <span className="text-[10px] font-semibold text-slate-700">Thyself</span>
-                  </div>
-                  <div className={`flex items-center gap-1 px-2 py-1 rounded-lg text-[10px] font-medium ${
-                    slide.highlightTab === "explore"
-                      ? "bg-indigo-100 ring-2 ring-indigo-400 text-indigo-600 font-bold scale-105"
-                      : "text-slate-400 opacity-50"
-                  }`}>
-                    <MoreHorizontal className="w-3 h-3" />
-                    <span>Explore</span>
-                  </div>
-                </div>
-
-                {/* Bottom tab bar */}
-                <div className="flex items-center justify-around py-1.5 px-2 bg-white/95 backdrop-blur rounded-xl border border-slate-200 shadow-sm">
-                  {([
-                    { Icon: Home, label: "Home" },
-                    { Icon: Flame, label: "Daily" },
-                    { Icon: Cat, label: "Pet" },
-                    { Icon: Coins, label: "Store" },
-                    { Icon: UserCircle, label: "Profile" },
-                  ] as const).map((tab, i) => {
-                    const active = slide.highlightTab === i;
-                    const TabIcon = tab.Icon;
-                    return (
-                      <div key={i} className={`flex flex-col items-center gap-0.5 px-2 py-1 rounded-xl transition-all ${
-                        active ? "bg-indigo-50 ring-2 ring-indigo-400 scale-110" : "opacity-35"
-                      }`}>
-                        <TabIcon className={`w-4 h-4 ${active ? "text-indigo-600" : "text-slate-400"}`} />
-                        <span className={`text-[8px] font-semibold ${active ? "text-indigo-600" : "text-slate-400"}`}>{tab.label}</span>
-                      </div>
-                    );
-                  })}
-                </div>
-              </motion.div>
+                {/* Notch */}
+                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-12 h-3 bg-slate-800 rounded-b-xl z-10" />
+                <Image
+                  src={slide.screenshot}
+                  alt={slide.title}
+                  width={160}
+                  height={346}
+                  className="w-full object-top"
+                  style={{ objectFit: "cover", objectPosition: "top" }}
+                  unoptimized
+                  priority
+                />
+              </div>
+            ) : (
+              <div className="flex items-center justify-center mb-4" style={{ height: 130 }}>
+                <Image
+                  src={slide.chibi}
+                  alt="Guide"
+                  width={110}
+                  height={110}
+                  className="object-contain drop-shadow-lg"
+                  unoptimized
+                />
+              </div>
             )}
 
-            {/* Chibi guide — contextual message */}
-            <div className="flex items-center gap-2 w-full max-w-sm">
-              <div className="w-10 h-10 rounded-full bg-white border-2 border-indigo-200 shadow-md flex items-center justify-center overflow-hidden flex-shrink-0">
-                <Image src={slide.chibi} alt="" width={28} height={28} className="object-contain" unoptimized />
+            {/* Chibi + title row */}
+            <div className="flex items-center gap-3 w-full mb-1">
+              <div className="w-9 h-9 rounded-full bg-white border-2 border-indigo-100 shadow-sm flex items-center justify-center overflow-hidden flex-shrink-0">
+                <Image src={slide.chibi} alt="" width={26} height={26} className="object-contain" unoptimized />
               </div>
-              <div className="flex-1 bg-indigo-50 rounded-2xl rounded-bl-sm px-3 py-2">
-                <p className="text-[11px] text-indigo-600 font-medium leading-snug">
-                  {slide.highlightTab === "explore"
-                    ? `This is the ${slide.title} page — find it in the ··· Explore menu!`
-                    : slide.highlightTab !== undefined
-                    ? `Tap the highlighted tab below to get here!`
-                    : `Let me show you around!`
-                  }
-                </p>
-              </div>
+              <p className="text-[15px] font-bold text-slate-900 leading-tight flex-1">{slide.title}</p>
             </div>
 
-            {/* ── Info blurbs ── */}
-            <div className="w-full max-w-sm space-y-2">
-              {/* What is this */}
-              <div className="p-3 rounded-2xl bg-white border border-slate-100 shadow-sm">
-                <p className="text-[10px] font-bold text-indigo-500 uppercase tracking-wider mb-1">What is this?</p>
-                <p className="text-[13px] text-slate-600 leading-relaxed">{slide.what}</p>
-              </div>
+            {/* Expandable details */}
+            <div className="w-full">
+              <button
+                onClick={() => setExpanded(e => !e)}
+                className="flex items-center gap-1.5 text-xs font-semibold text-indigo-500 py-1.5 hover:text-indigo-700 transition-colors"
+              >
+                <motion.span animate={{ rotate: expanded ? 90 : 0 }} transition={{ duration: 0.2 }}>
+                  <ChevronRight className="w-3.5 h-3.5" />
+                </motion.span>
+                {expanded ? "Less info" : "See details"}
+              </button>
 
-              {/* How to get there — with hand/pointer icon */}
-              <div className="p-3 rounded-2xl bg-gradient-to-r from-sky-50 to-indigo-50 border border-sky-200/60">
-                <div className="flex items-center gap-1.5 mb-1">
-                  <Hand className="w-3.5 h-3.5 text-sky-500" />
-                  <p className="text-[10px] font-bold text-sky-600 uppercase tracking-wider">How to get here</p>
-                </div>
-                <p className="text-[13px] text-slate-700 leading-relaxed">{slide.howToGet}</p>
-              </div>
+              <AnimatePresence>
+                {expanded && (
+                  <motion.div
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{ height: "auto", opacity: 1 }}
+                    exit={{ height: 0, opacity: 0 }}
+                    transition={{ duration: 0.22 }}
+                    className="overflow-hidden"
+                  >
+                    <div className="pb-2 space-y-2">
+                      <p className="text-[13px] text-slate-500 leading-relaxed">{slide.what}</p>
+                      {slide.howToGet && (
+                        <div className="flex items-start gap-1.5 bg-indigo-50 rounded-xl px-3 py-2">
+                          <Hand className="w-3.5 h-3.5 text-indigo-400 mt-0.5 flex-shrink-0" />
+                          <p className="text-[12px] text-indigo-600 leading-snug">{slide.howToGet}</p>
+                        </div>
+                      )}
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </div>
           </motion.div>
         </AnimatePresence>
-      </div>
 
-      {/* ── Bottom nav ── */}
-      <div className="flex-shrink-0 px-5 pb-5 pt-2 bg-white/80 backdrop-blur-sm border-t border-slate-100">
-        <div className="flex justify-center gap-1 mb-3">
+        {/* Dot indicators */}
+        <div className="flex justify-center gap-1.5 pt-2 pb-2 flex-shrink-0">
           {SLIDES.map((_, i) => (
             <div key={i} className={`rounded-full transition-all duration-300 ${
               i === idx ? "w-5 h-1.5 bg-indigo-500" : i < idx ? "w-1.5 h-1.5 bg-indigo-300" : "w-1.5 h-1.5 bg-slate-200"
             }`} />
           ))}
         </div>
-        <div className="flex items-center justify-between">
+
+        {/* Action buttons */}
+        <div className="flex items-center justify-between px-5 pb-8 pt-1 flex-shrink-0">
           {!isFirst ? (
             <button onClick={prev} className="flex items-center gap-1 px-4 py-2 rounded-xl text-sm font-medium text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition-all active:scale-95">
               <ChevronLeft className="w-4 h-4" /> Back
@@ -393,11 +359,20 @@ export default function TutorialOverlay({ onClose }: { onClose: () => void }) {
             onClick={next}
             className="flex items-center gap-2 px-6 py-2.5 rounded-2xl text-sm font-bold text-white bg-gradient-to-r from-sky-500 to-indigo-600 shadow-lg shadow-indigo-200/50 hover:shadow-xl transition-all active:scale-95"
           >
-            {isLast ? <><Sparkles className="w-4 h-4" /> Get Started</> : <>Continue <ChevronRight className="w-4 h-4" /></>}
+            {isLast ? <><Sparkles className="w-4 h-4" /> Let's go!</> : <>Next <ChevronRight className="w-4 h-4" /></>}
           </button>
         </div>
-      </div>
-    </div>
+
+        {/* Skip toast */}
+        {skipToast && (
+          <div className="absolute top-4 left-4 right-4 flex items-center justify-center">
+            <div className="px-4 py-2 rounded-xl bg-slate-800 text-white text-xs font-medium shadow-lg">
+              Replay anytime from ··· Explore menu
+            </div>
+          </div>
+        )}
+      </motion.div>
+    </>
   );
 }
 

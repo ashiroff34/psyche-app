@@ -40,17 +40,21 @@ import {
   OUTFIT_ITEMS,
   PET_ACTIONS,
   getPetStatusLabel,
+  getCompanionLevel,
+  xpToNextLevel,
+  COMPANION_XP_PER_LEVEL,
   type OutfitCategory,
   type OutfitItem,
 } from "@/hooks/usePetState";
 import ChibiSprite from "@/components/ChibiSprite";
 import AnimatedPet from "@/components/AnimatedPet";
 import NextStepBanner from "@/components/NextStepBanner";
+import FirstVisitTooltip from "@/components/FirstVisitTooltip";
 
 // ─── Animations ──────────────────────────────────────────────────────────────
 
 const fadeUp = {
-  initial: { opacity: 1, y: 0 },
+  initial: { opacity: 0, y: 12 },
   animate: { opacity: 1, y: 0 },
   transition: { duration: 0.5 },
 };
@@ -240,7 +244,7 @@ export default function AvatarPage() {
   const { profile, loaded: profileLoaded } = useProfile();
   const { state: gameState, loaded: gameLoaded, spendTokens } = useGameState();
   const enneagramType = profile.enneagramType ?? profile.enneagramCore;
-  const { petState, loaded: petLoaded, feedPet, playWithPet, giveMedicine, revivePet, renamePet, buyItem, equipItem, unequipItem } = usePetState(enneagramType);
+  const { petState, loaded: petLoaded, feedPet, playWithPet, giveMedicine, revivePet, renamePet, buyItem, equipItem, unequipItem, awardDailyGoalXP } = usePetState(enneagramType);
 
   const [activeShopCategory, setActiveShopCategory] = useState<OutfitCategory | "all">("all");
   const [showInventory, setShowInventory] = useState(false);
@@ -260,6 +264,11 @@ export default function AvatarPage() {
   const subtypeDisplayName = subtypeKey ? SUBTYPE_DISPLAY_NAMES[subtypeKey] : null;
   const petDef = enneagramType ? PET_DEFINITIONS.find((p) => p.type === enneagramType) : null;
   const petStatus = petState ? getPetStatusLabel(petState) : null;
+  const companionXP = petState?.companionXP ?? 0;
+  const companionLevel = getCompanionLevel(companionXP);
+  const companionXPProgress = xpToNextLevel(companionXP);
+  const isEvolved = companionLevel >= 5;
+  const isMaster = companionLevel >= 10;
 
   // Focus name input
   useEffect(() => {
@@ -282,6 +291,14 @@ export default function AvatarPage() {
       return () => clearTimeout(t);
     }
   }, [purchaseFeedback]);
+
+  // Award companion XP when daily goal is met (once per day)
+  useEffect(() => {
+    if (gameState.dailyGoalMet && petState && petLoaded) {
+      awardDailyGoalXP();
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [gameState.dailyGoalMet, petLoaded]);
 
   // Shop items filtered
   const shopItems = activeShopCategory === "all"
@@ -397,6 +414,12 @@ export default function AvatarPage() {
         </div>
       </div>
 
+      <FirstVisitTooltip
+        storageKey="psyche-visited-pet"
+        message="Earn tokens from daily quizzes — spend them here to feed and care for your pet!"
+        icon="🐾"
+      />
+
       <div className="max-w-3xl mx-auto px-4 pt-6 space-y-8">
         {/* Page Title */}
         <div>
@@ -445,17 +468,21 @@ export default function AvatarPage() {
             <div className="flex flex-col items-center">
               {/* Chibi Display with cosmetics */}
               <motion.div
-                {...pulseGlow}
+                {...(isMaster
+                  ? { animate: { boxShadow: ["0 0 20px rgba(251,191,36,0.5)", "0 0 50px rgba(251,191,36,0.9)", "0 0 20px rgba(251,191,36,0.5)"] }, transition: { repeat: Infinity, duration: 2, ease: "easeInOut" } }
+                  : isEvolved
+                  ? { animate: { boxShadow: ["0 0 16px rgba(251,191,36,0.3)", "0 0 36px rgba(251,191,36,0.65)", "0 0 16px rgba(251,191,36,0.3)"] }, transition: { repeat: Infinity, duration: 3, ease: "easeInOut" } }
+                  : pulseGlow)}
                 className={`relative w-56 h-56 sm:w-64 sm:h-64 rounded-2xl flex items-center justify-center overflow-hidden ${
                   bgItem?.gradient
                     ? `bg-gradient-to-br ${bgItem.gradient}`
                     : "bg-gradient-to-br from-indigo-900/60 to-purple-900/60"
                 }`}
                 style={frameItem?.gradient ? {
-                  border: "3px solid transparent",
+                  border: `3px solid ${isMaster ? "rgba(251,191,36,0.8)" : isEvolved ? "rgba(251,191,36,0.5)" : "transparent"}`,
                   backgroundClip: "padding-box",
                 } : {
-                  border: "3px solid rgba(99, 102, 241, 0.3)",
+                  border: `3px solid ${isMaster ? "rgba(251,191,36,0.8)" : isEvolved ? "rgba(251,191,36,0.5)" : "rgba(99, 102, 241, 0.3)"}`,
                 }}
               >
                 {/* Frame overlay */}
@@ -463,6 +490,17 @@ export default function AvatarPage() {
                   <div className={`absolute inset-0 rounded-2xl border-4 border-transparent bg-gradient-to-br ${frameItem.gradient} opacity-30 pointer-events-none`}
                     style={{ mask: "linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)", maskComposite: "xor", WebkitMaskComposite: "xor", padding: "4px" }}
                   />
+                )}
+
+                {/* Master crown badge (level 10+) */}
+                {isMaster && !hatItem && (
+                  <motion.div
+                    className="absolute top-1 left-1/2 -translate-x-1/2 z-20 text-3xl drop-shadow-lg"
+                    animate={{ y: [0, -3, 0] }}
+                    transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
+                  >
+                    👑
+                  </motion.div>
                 )}
 
                 {/* Hat */}
@@ -557,6 +595,74 @@ export default function AvatarPage() {
                     onUnequip={() => unequipItem("background")}
                     onBrowse={() => { setActiveShopCategory("background"); shopRef.current?.scrollIntoView({ behavior: "smooth" }); }}
                   />
+                </div>
+              </div>
+              {/* Companion Level */}
+              <div className="mt-6 w-full max-w-sm">
+                <div className="bg-slate-800/50 border border-slate-700/40 rounded-2xl p-4">
+                  <div className="flex items-center justify-between mb-2">
+                    <div className="flex items-center gap-2">
+                      {isMaster ? (
+                        <span className="text-lg">👑</span>
+                      ) : isEvolved ? (
+                        <motion.span
+                          className="text-lg"
+                          animate={{ scale: [1, 1.2, 1] }}
+                          transition={{ repeat: Infinity, duration: 2 }}
+                        >⭐</motion.span>
+                      ) : (
+                        <span className="text-lg">🌱</span>
+                      )}
+                      <span className="text-sm font-bold text-white">
+                        {isMaster ? "Master Companion" : isEvolved ? "Evolved Companion" : "Companion"}
+                      </span>
+                    </div>
+                    <span className={`text-xs font-bold px-2.5 py-1 rounded-full ${
+                      isMaster ? "bg-amber-500/30 text-amber-300" :
+                      isEvolved ? "bg-amber-500/20 text-amber-400" :
+                      "bg-indigo-500/20 text-indigo-300"
+                    }`}>
+                      Lv. {companionLevel}
+                    </span>
+                  </div>
+
+                  {/* XP Progress Bar */}
+                  <div className="space-y-1">
+                    <div className="h-2.5 bg-slate-700/60 rounded-full overflow-hidden">
+                      <motion.div
+                        className={`h-full rounded-full ${
+                          isMaster ? "bg-gradient-to-r from-amber-400 to-yellow-300" :
+                          isEvolved ? "bg-gradient-to-r from-amber-500 to-amber-400" :
+                          "bg-gradient-to-r from-indigo-500 to-violet-400"
+                        }`}
+                        initial={{ width: 0 }}
+                        animate={{ width: `${companionXPProgress.pct}%` }}
+                        transition={{ duration: 0.8, ease: "easeOut" }}
+                      />
+                    </div>
+                    <div className="flex justify-between text-[10px] text-slate-500">
+                      <span>{companionXPProgress.current} / {COMPANION_XP_PER_LEVEL} XP</span>
+                      <span>Lv. {companionLevel + 1} in {COMPANION_XP_PER_LEVEL - companionXPProgress.current} XP</span>
+                    </div>
+                  </div>
+
+                  {/* Evolution milestones */}
+                  <div className="mt-3 flex gap-2">
+                    <div className={`flex-1 flex items-center gap-1.5 px-2 py-1.5 rounded-lg text-[10px] font-medium ${
+                      isEvolved ? "bg-amber-500/20 text-amber-300" : "bg-slate-700/40 text-slate-500"
+                    }`}>
+                      {isEvolved ? "✅" : "🔒"} Lv.5 Gold Aura
+                    </div>
+                    <div className={`flex-1 flex items-center gap-1.5 px-2 py-1.5 rounded-lg text-[10px] font-medium ${
+                      isMaster ? "bg-amber-500/20 text-amber-300" : "bg-slate-700/40 text-slate-500"
+                    }`}>
+                      {isMaster ? "✅" : "🔒"} Lv.10 Crown
+                    </div>
+                  </div>
+
+                  <p className="mt-2 text-[10px] text-slate-500 text-center">
+                    +50 companion XP for completing your daily goal
+                  </p>
                 </div>
               </div>
             </div>

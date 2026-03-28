@@ -59,7 +59,7 @@ function getLevelFromXP(xp: number): number {
   let level = 1;
   while (getXPForLevel(level + 1) <= xp) {
     level++;
-    if (level >= 50) break;
+    if (level > 50) break;
   }
   return level;
 }
@@ -261,8 +261,7 @@ export default function RetentionBanner() {
     return () => {
       if (timerRef.current) clearTimeout(timerRef.current);
     };
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [banner]);
+  }, [banner, dismissed]);
 
   const handleDismiss = () => {
     sessionStorage.setItem("retention-banner-dismissed", "true");

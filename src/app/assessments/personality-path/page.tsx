@@ -21,7 +21,7 @@ export default function PersonalityPathPage() {
             <ArrowLeft className="w-4 h-4" /> Back
           </button>
         </div>
-        <AssessmentGuide assessmentName="Adaptive Narrowing" onReady={() => setShowGuide(false)} />
+        <AssessmentGuide assessmentName="Adaptive Narrowing" timeEstimate="~12 min" onReady={() => setShowGuide(false)} />
       </div>
     );
   }

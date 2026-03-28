@@ -36,6 +36,7 @@ import ShareableCard from "@/components/ShareableCard";
 import NextStepBanner from "@/components/NextStepBanner";
 import BeginnerBanner from "@/components/BeginnerBanner";
 import GlossaryTip from "@/components/GlossaryTip";
+import FirstVisitTooltip from "@/components/FirstVisitTooltip";
 
 
 const MBTI_TYPES = [
@@ -55,6 +56,103 @@ const INSTINCTUAL_OPTIONS = [
 ];
 
 
+// ─── Type DNA Bars ────────────────────────────────────────────────────────────
+
+function buildTypeDNA(
+  profile: import("@/hooks/useProfile").PsycheProfile,
+): { num: number; name: string; color: string; pct: number; label: string }[] {
+  // If assessment scores are available, use them directly
+  if (profile.enneagramScores && profile.enneagramScores.length > 0) {
+    const maxPct = Math.max(...profile.enneagramScores.map(s => s.percentage), 1);
+    return enneagramTypes.map(t => {
+      const s = profile.enneagramScores!.find(x => parseInt(x.key) === t.number);
+      const pct = s ? Math.round((s.percentage / maxPct) * 100) : 5;
+      return { num: t.number, name: t.name, color: t.color, pct, label: s ? `${s.percentage}%` : "—" };
+    });
+  }
+
+  // Otherwise, derive approximate bars from declared type + wing + tritype
+  const scores: Record<number, number> = {};
+  enneagramTypes.forEach(t => { scores[t.number] = 10; }); // baseline noise
+
+  const core = profile.enneagramType ?? profile.enneagramCore;
+  if (core) {
+    scores[core] = (scores[core] ?? 0) + 90;
+    // Wing
+    const wingNum = profile.enneagramWing ? parseInt(profile.enneagramWing.slice(-1)) : NaN;
+    if (!isNaN(wingNum) && wingNum >= 1 && wingNum <= 9) scores[wingNum] = (scores[wingNum] ?? 0) + 45;
+    // Integration / disintegration lines add moderate resonance
+    const typeData = enneagramTypes.find(t => t.number === core);
+    if (typeData?.integrationLine) scores[typeData.integrationLine] = (scores[typeData.integrationLine] ?? 0) + 25;
+  }
+
+  // Tritype components
+  [profile.tritypeFirst, profile.tritypeSecond, profile.tritypeThird,
+   profile.tritypeHead, profile.tritypeHeart, profile.tritypeGut].forEach((n, i) => {
+    if (n && n >= 1 && n <= 9) scores[n] = (scores[n] ?? 0) + [35, 25, 15, 30, 22, 14][i];
+  });
+
+  const maxScore = Math.max(...Object.values(scores), 1);
+  return enneagramTypes.map(t => ({
+    num: t.number,
+    name: t.name,
+    color: t.color,
+    pct: Math.round((scores[t.number] / maxScore) * 100),
+    label: t.number === core ? "Primary" : "",
+  })).sort((a, b) => b.pct - a.pct);
+}
+
+function TypeDNASection({ profile }: { profile: import("@/hooks/useProfile").PsycheProfile }) {
+  const bars = buildTypeDNA(profile);
+  const hasScores = !!(profile.enneagramScores && profile.enneagramScores.length > 0);
+  return (
+    <div className="mt-6 p-6 rounded-2xl bg-white border border-slate-100 shadow-sm">
+      <div className="flex items-center justify-between mb-4">
+        <div>
+          <h3 className="text-sm font-semibold text-slate-800">Type Resonance Map</h3>
+          <p className="text-xs text-slate-400 mt-0.5">
+            {hasScores ? "Based on your assessment results" : "Estimated from your declared type"}
+          </p>
+        </div>
+        {!hasScores && (
+          <span className="text-[10px] text-slate-400 italic bg-slate-50 border border-slate-100 rounded-full px-2 py-0.5">
+            Take the assessment for real data
+          </span>
+        )}
+      </div>
+      <div className="space-y-2">
+        {bars.map(bar => (
+          <div key={bar.num} className="flex items-center gap-3">
+            <div
+              className="w-6 h-6 rounded-lg shrink-0 flex items-center justify-center text-white text-[10px] font-bold"
+              style={{ backgroundColor: bar.color }}
+            >
+              {bar.num}
+            </div>
+            <div className="flex-1 min-w-0">
+              <div className="flex items-center justify-between mb-1">
+                <span className="text-[11px] font-medium text-slate-600 truncate">{bar.name}</span>
+                {bar.label && (
+                  <span className="text-[10px] text-slate-400 ml-2 shrink-0">{bar.label}</span>
+                )}
+              </div>
+              <div className="h-1.5 rounded-full bg-slate-100 overflow-hidden">
+                <motion.div
+                  className="h-full rounded-full"
+                  style={{ backgroundColor: bar.color }}
+                  initial={{ width: 0 }}
+                  animate={{ width: `${bar.pct}%` }}
+                  transition={{ duration: 0.6, ease: "easeOut", delay: bar.num * 0.04 }}
+                />
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 // ─── Type Combination Insights ────────────────────────────────────────────────
 
 function getTypeCombinationInsight(mbti: string, ennea: number, wing?: string, stacking?: string): string {
@@ -62,7 +160,7 @@ function getTypeCombinationInsight(mbti: string, ennea: number, wing?: string, s
   const enneaData = enneagramTypes.find(t => t.number === ennea);
   if (!mbtiData || !enneaData) return "";
 
-  const dominant = mbtiData.stack[0];
+  const dominant = mbtiData?.stack?.[0];
   const domFunc = cognitiveFunctions.find(f => f.code === dominant);
 
   const stackingData = stacking ? instinctualStackings?.find(s => s.code === stacking) : null;
@@ -85,7 +183,7 @@ function getTypeCombinationInsight(mbti: string, ennea: number, wing?: string, s
     const wingNum = parseInt(wing.charAt(wing.length - 1));
     const wingType = enneagramTypes.find(t => t.number === wingNum);
     if (wingType) {
-      parts.push(`Your ${wing} wing adds a ${wingType.name.toLowerCase()} flavor, blending ${enneaData.coreDesire.toLowerCase()} with touches of ${wingType.keyTraits[0]?.toLowerCase() || "depth"}.`);
+      parts.push(`Your ${wing} wing adds a ${wingType.name.toLowerCase()} flavor, blending ${enneaData.coreDesire.toLowerCase()} with touches of ${wingType?.keyTraits?.[0]?.toLowerCase() || "depth"}.`);
     }
   }
 
@@ -303,6 +401,8 @@ function EnneagramCorePicker({ selected, onSelect }: { selected?: number; onSele
 // ─── Section: Wing Picker ─────────────────────────────────────────────────────
 
 function WingPicker({ coreType, selected, onSelect }: { coreType: number; selected?: string; onSelect: (v: string) => void }) {
+  const validCore = typeof coreType === "number" && coreType >= 1 && coreType <= 9;
+  if (!validCore) return null;
   const leftWing = coreType === 1 ? 9 : coreType - 1;
   const rightWing = coreType === 9 ? 1 : coreType + 1;
   const options = [
@@ -641,7 +741,7 @@ function ProfileCard({ profile }: { profile: PsycheProfile }) {
 
   if (!mbtiData && !enneaData) return null;
 
-  const hasChibi = !!(profile.enneagramCore && profile.instinctualStacking);
+  const hasChibi = !!((profile.enneagramType || profile.enneagramCore) && profile.instinctualStacking);
 
   return (
     <motion.div
@@ -1248,12 +1348,7 @@ export default function ProfilePage() {
   const { profile, loaded, updateProfile } = useProfile();
   const [isEditing, setIsEditing] = useState(false);
 
-  // Auto-show editor if no profile set
-  useEffect(() => {
-    if (loaded && !profile.cognitiveType && !profile.enneagramType) {
-      setIsEditing(true);
-    }
-  }, [loaded, profile.cognitiveType, profile.enneagramType]);
+  // (Editor no longer auto-opens — the empty state card has a CTA button)
 
   const updateField = useCallback(
     (key: string, value: any) => {
@@ -1319,6 +1414,11 @@ export default function ProfilePage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-slate-50 via-white to-sky-50/30">
+      <FirstVisitTooltip
+        storageKey="psyche-visited-profile"
+        message="Set your Enneagram type here — your daily practice and chibi pet unlock once you do!"
+        icon="✨"
+      />
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
 
         {/* Beginner onboarding banner */}
@@ -1401,6 +1501,47 @@ export default function ProfilePage() {
           )}
         </motion.div>
 
+        {/* ── Empty state: no type set yet ─────────────────────────────────── */}
+        {!hasProfile && !isEditing && (
+          <motion.div
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4 }}
+            className="mb-10 rounded-3xl bg-gradient-to-br from-sky-50 via-indigo-50/60 to-violet-50 border border-sky-100 p-8 sm:p-10 text-center shadow-lg shadow-sky-100/30"
+          >
+            <div className="w-20 h-20 mx-auto mb-5 rounded-3xl bg-gradient-to-br from-sky-400 to-indigo-500 flex items-center justify-center shadow-xl shadow-sky-200/50">
+              <Sparkles className="w-10 h-10 text-white" />
+            </div>
+            <h2 className="text-2xl font-serif font-bold text-slate-800 mb-2">Your profile is empty</h2>
+            <p className="text-slate-500 text-sm max-w-md mx-auto mb-6 leading-relaxed">
+              Tell Thyself your Enneagram type and MBTI — everything personalises once you do.
+            </p>
+            <div className="flex flex-wrap justify-center gap-3 mb-8">
+              {[
+                { icon: "🐾", text: "Your chibi matches your type" },
+                { icon: "🎯", text: "Quizzes tailored to your path" },
+                { icon: "🌱", text: "Personalised growth insights" },
+              ].map((item) => (
+                <span
+                  key={item.text}
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/80 border border-sky-100 text-xs font-medium text-slate-600 shadow-sm"
+                >
+                  <span>{item.icon}</span>
+                  {item.text}
+                </span>
+              ))}
+            </div>
+            <motion.button
+              whileHover={{ scale: 1.03 }}
+              whileTap={{ scale: 0.97 }}
+              onClick={() => setIsEditing(true)}
+              className="px-8 py-3 rounded-2xl bg-gradient-to-r from-sky-500 to-indigo-500 text-white font-semibold shadow-lg shadow-sky-200/50 hover:shadow-xl transition-all"
+            >
+              Set up my profile →
+            </motion.button>
+          </motion.div>
+        )}
+
         {/* Type Input Form */}
         <AnimatePresence mode="wait">
           {isEditing && (
@@ -1415,7 +1556,9 @@ export default function ProfilePage() {
               <div className="rounded-3xl bg-white border border-slate-200 p-6 sm:p-8 shadow-lg shadow-slate-100/50">
                 <div className="flex items-center gap-3 mb-6">
                   <Settings className="w-5 h-5 text-slate-400" />
-                  <h2 className="text-lg font-serif font-bold text-slate-800">Set Your Type</h2>
+                  <h2 className="text-lg font-serif font-bold text-slate-800">
+                    {hasProfile ? "Edit Your Type" : "Set Up Your Profile"}
+                  </h2>
                 </div>
 
                 <div className="space-y-8">
@@ -1572,9 +1715,14 @@ export default function ProfilePage() {
           </motion.div>
         )}
 
+        {/* Type DNA Bars */}
+        {hasProfile && !isEditing && profile.enneagramType && (
+          <TypeDNASection profile={profile} />
+        )}
+
         {/* Shareable Profile Card */}
         {hasProfile && !isEditing && (
-          <div className="mt-10">
+          <div className="mt-6">
             <ShareableCard
               enneagramType={profile.enneagramType}
               enneagramTypeName={enneagramTypes.find(t => t.number === profile.enneagramType)?.name}

@@ -21,7 +21,7 @@ export default function EssentialEnneagramPage() {
             <ArrowLeft className="w-4 h-4" /> Back
           </button>
         </div>
-        <AssessmentGuide assessmentName="Essential Enneagram" onReady={() => setShowGuide(false)} />
+        <AssessmentGuide assessmentName="Essential Enneagram" timeEstimate="~5 min" onReady={() => setShowGuide(false)} />
       </div>
     );
   }

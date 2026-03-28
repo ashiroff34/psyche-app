@@ -825,7 +825,7 @@ function ResultsContent() {
               <h2 className="font-serif font-bold text-slate-800 text-lg mb-4">Your Function Axes</h2>
               <div className="grid sm:grid-cols-2 gap-4">
                 {axes.map(({ pair, label }) => {
-                  const preferred = bestType.fullStack.find(f => pair.includes(f));
+                  const preferred = bestType.fullStack?.find(f => pair.includes(f));
                   const notPreferred = pair.find(f => f !== preferred);
                   const prefFunc = cognitiveFunctions.find(f => f.code === preferred);
                   const otherFunc = cognitiveFunctions.find(f => f.code === notPreferred);
@@ -1265,7 +1265,7 @@ function ResultsContent() {
                   </Link>
                   <Link href="/journal" className="p-5 rounded-2xl bg-white border border-slate-100 card-hover group">
                     <Feather className="w-5 h-5 text-emerald-500 mb-3" />
-                    <h4 className="font-medium text-slate-800 text-sm mb-1">Growth Journal</h4>
+                    <h4 className="font-medium text-slate-800 text-sm mb-1">Inner Work</h4>
                     <p className="text-xs text-slate-400">Personalized prompts for your type</p>
                   </Link>
                 </div>

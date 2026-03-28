@@ -213,7 +213,7 @@ export default function DashboardPage() {
           </Link>
           <Link href="/journal" className="p-4 rounded-xl bg-white border border-slate-100 card-hover text-center">
             <Feather className="w-5 h-5 text-emerald-500 mx-auto mb-2" />
-            <span className="text-xs font-medium text-slate-600">Journal</span>
+            <span className="text-xs font-medium text-slate-600">Inner Work</span>
           </Link>
           <Link href="/enneagram/assess" className="p-4 rounded-xl bg-white border border-slate-100 card-hover text-center">
             <RotateCcw className="w-5 h-5 text-amber-500 mx-auto mb-2" />

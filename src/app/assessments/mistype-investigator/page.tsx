@@ -21,7 +21,7 @@ export default function MistypeInvestigatorPage() {
             <ArrowLeft className="w-4 h-4" /> Back
           </button>
         </div>
-        <AssessmentGuide assessmentName="Mistype Investigator" onReady={() => setShowGuide(false)} />
+        <AssessmentGuide assessmentName="Mistype Investigator" timeEstimate="~8 min" onReady={() => setShowGuide(false)} />
       </div>
     );
   }

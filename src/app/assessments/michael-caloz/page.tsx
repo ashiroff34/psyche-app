@@ -21,7 +21,7 @@ export default function MichaelCalozPage() {
             <ArrowLeft className="w-4 h-4" /> Back
           </button>
         </div>
-        <AssessmentGuide assessmentName="Structured Type Assessment" onReady={() => setShowGuide(false)} />
+        <AssessmentGuide assessmentName="Structured Type Assessment" timeEstimate="~15 min" onReady={() => setShowGuide(false)} />
       </div>
     );
   }

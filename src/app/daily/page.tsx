@@ -11,13 +11,15 @@ import {
   GraduationCap, Dumbbell, Crown, Snowflake, Heart, Wand2
 } from "lucide-react";
 import { useProfile } from "@/hooks/useProfile";
-import { useGameState } from "@/hooks/useGameState";
+import { useGameState, trackWeeklyEvent } from "@/hooks/useGameState";
 import { usePetState } from "@/hooks/usePetState";
 import PetSprite from "@/components/PetSprite";
+import ChibiSprite from "@/components/ChibiSprite";
 import NextStepBanner from "@/components/NextStepBanner";
 import BeginnerBanner from "@/components/BeginnerBanner";
+import FirstVisitTooltip from "@/components/FirstVisitTooltip";
 import HubView from "@/components/daily/HubView";
-import PathView, { type PathUnit } from "@/components/daily/PathView";
+import PathIteration4, { type PathUnit } from "@/components/daily/PathIteration4";
 import NodeBottomSheet, { type PathNodeConfig } from "@/components/daily/NodeBottomSheet";
 import QuizFullscreen from "@/components/daily/QuizFullscreen";
 import DailyReading from "@/components/daily/DailyReading";
@@ -68,7 +70,15 @@ interface Question {
   opts: string[];
   ans: number;
   exp: string;
-  difficulty: 1 | 2 | 3;
+  /**
+   * Knowledge tier:
+   *   0 = Framework intro  (what IS this system — not yet in bank)
+   *   1 = Recognition      (label/name from a hint — not yet in bank)
+   *   2 = Recall           (core-fear, passion, integration — current "easy")
+   *   3 = Application      (subtypes, harmonic groups, scenarios)
+   *   4 = Analysis         (Naranjo fixations, Riso levels, countertypes)
+   */
+  tier: 0 | 1 | 2 | 3 | 4;
   module: "type" | "cognitive" | "cross" | "history";
   typeSpecific?: number; // 0 = general, 1-9 = specific to that enneagram type
   cognitiveSpecific?: string; // e.g. "INTJ" or empty for general
@@ -284,155 +294,155 @@ const QUESTION_BANK: Question[] = [
   // ═══════════════════════════════════════════════════════════════════════
 
   // --- Type 1 ---
-  { id: qid(), q: "What is the core fear of Type 1?", opts: ["Being unloved", "Being corrupt or defective", "Being worthless", "Being abandoned"], ans: 1, exp: "Type 1's core fear is being corrupt, evil, or defective. This drives their compulsive need for integrity and correctness.", difficulty: 1, module: "type", typeSpecific: 1, tags: ["core-fear"] },
-  { id: qid(), q: "What is the passion (vice) of Type 1?", opts: ["Pride", "Anger", "Envy", "Sloth"], ans: 1, exp: "Type 1's passion is Anger -- specifically, a chronic resentment that arises from comparing reality to an ideal standard.", difficulty: 1, module: "type", typeSpecific: 1, tags: ["passion"] },
-  { id: qid(), q: "Type 1 integrates (grows) toward which type?", opts: ["Type 4", "Type 7", "Type 2", "Type 9"], ans: 1, exp: "Type 1 integrates to Type 7, becoming more spontaneous, joyful, and accepting of imperfection.", difficulty: 1, module: "type", typeSpecific: 1, tags: ["integration"] },
-  { id: qid(), q: "Type 1 disintegrates (under stress) toward which type?", opts: ["Type 4", "Type 7", "Type 2", "Type 8"], ans: 0, exp: "Under stress, Type 1 moves to Type 4, becoming moody, irrational, and feeling misunderstood.", difficulty: 1, module: "type", typeSpecific: 1, tags: ["disintegration"] },
-  { id: qid(), q: "What is the Holy Idea of Type 1 according to Ichazo?", opts: ["Holy Perfection", "Holy Will", "Holy Love", "Holy Origin"], ans: 0, exp: "Type 1's Holy Idea is Holy Perfection -- the realization that reality IS already perfect as it is, without needing correction.", difficulty: 2, module: "type", typeSpecific: 1, tags: ["holy-idea"] },
-  { id: qid(), q: "How does the Sexual (sx) Type 1 differ from the Self-Preservation (sp) Type 1?", opts: ["Sx 1 is more perfectionistic about systems; sp 1 focuses on relationships", "Sx 1 focuses on reforming their partner and close relationships; sp 1 focuses on worry and personal correctness", "Sx 1 is more withdrawn; sp 1 is more assertive", "There is no meaningful difference between subtypes"], ans: 1, exp: "Sexual 1s channel their reforming energy into close relationships (wanting to perfect the partner), while Self-Preservation 1s focus on personal anxiety and maintaining their own correctness.", difficulty: 2, module: "type", typeSpecific: 1, tags: ["subtypes"] },
-  { id: qid(), q: "In the Hornevian groups, Type 1 belongs to which group?", opts: ["Assertive", "Compliant", "Withdrawn", "Reactive"], ans: 1, exp: "Type 1 is in the Compliant group (1, 2, 6) -- they move toward people and try to earn belonging by meeting perceived standards.", difficulty: 2, module: "type", typeSpecific: 1, tags: ["hornevian"] },
-  { id: qid(), q: "What is Naranjo's character description for the Social Type 1?", opts: ["Non-Adaptability", "Inadaptability (Rigidity)", "Jealousy", "Zeal"], ans: 1, exp: "Naranjo describes the Social 1 as characterized by 'Inadaptability' or rigidity -- they become the teacher/reformer of society, holding firm to their ideals.", difficulty: 3, module: "type", typeSpecific: 1, tags: ["naranjo", "subtypes"] },
-  { id: qid(), q: "According to Riso-Hudson, what are the Levels of Development for Type 1 at their healthiest (Level 1)?", opts: ["The Wise Realist who accepts imperfection", "The Principled Teacher who corrects others gently", "The Rational Idealist who channels anger productively", "The Wise Realist -- accepting, hopeful, and discovering objective rightness beyond personal judgment"], ans: 3, exp: "At Level 1, Riso-Hudson describe the Type 1 as a Wise Realist who transcends personal judgment to discover genuinely objective moral truths, becoming accepting and hopeful.", difficulty: 3, module: "type", typeSpecific: 1, tags: ["riso-hudson", "levels"] },
-  { id: qid(), q: "What is the specific fixation of Type 1 according to Naranjo?", opts: ["Perfectionism", "Resentment", "Judging/Comparing", "Over-control"], ans: 2, exp: "Naranjo identifies the fixation of Type 1 as continuous judging and comparing -- a mental habit of measuring everything against an internal ideal standard.", difficulty: 3, module: "type", typeSpecific: 1, tags: ["naranjo", "fixation"] },
-  { id: qid(), q: "Which Enneagram type is the countertype of the Social 1?", opts: ["The Social 1 IS the countertype", "The Sexual 1 is the countertype", "The Self-Preservation 1 is the countertype", "None -- Type 1 has no countertype"], ans: 0, exp: "According to Chestnut (following Naranjo), the Social 1 is the countertype -- they look least like a typical 1 because their anger is channeled into social reform rather than personal rigidity.", difficulty: 3, module: "type", typeSpecific: 1, tags: ["countertype", "chestnut"] },
+  { id: qid(), q: "What is the core fear of Type 1?", opts: ["Being unloved", "Being corrupt or defective", "Being worthless", "Being abandoned"], ans: 1, exp: "Type 1's core fear is being corrupt, evil, or defective. This drives their compulsive need for integrity and correctness.", tier: 2, module: "type", typeSpecific: 1, tags: ["core-fear"] },
+  { id: qid(), q: "What is the passion (vice) of Type 1?", opts: ["Pride", "Anger", "Envy", "Sloth"], ans: 1, exp: "Type 1's passion is Anger -- specifically, a chronic resentment that arises from comparing reality to an ideal standard.", tier: 2, module: "type", typeSpecific: 1, tags: ["passion"] },
+  { id: qid(), q: "Type 1 integrates (grows) toward which type?", opts: ["Type 4", "Type 7", "Type 2", "Type 9"], ans: 1, exp: "Type 1 integrates to Type 7, becoming more spontaneous, joyful, and accepting of imperfection.", tier: 2, module: "type", typeSpecific: 1, tags: ["integration"] },
+  { id: qid(), q: "Type 1 disintegrates (under stress) toward which type?", opts: ["Type 4", "Type 7", "Type 2", "Type 8"], ans: 0, exp: "Under stress, Type 1 moves to Type 4, becoming moody, irrational, and feeling misunderstood.", tier: 2, module: "type", typeSpecific: 1, tags: ["disintegration"] },
+  { id: qid(), q: "What is the Holy Idea of Type 1 according to Ichazo?", opts: ["Holy Perfection", "Holy Will", "Holy Love", "Holy Origin"], ans: 0, exp: "Type 1's Holy Idea is Holy Perfection -- the realization that reality IS already perfect as it is, without needing correction.", tier: 3, module: "type", typeSpecific: 1, tags: ["holy-idea"] },
+  { id: qid(), q: "How does the Sexual (sx) Type 1 differ from the Self-Preservation (sp) Type 1?", opts: ["Sx 1 is more perfectionistic about systems; sp 1 focuses on relationships", "Sx 1 focuses on reforming their partner and close relationships; sp 1 focuses on worry and personal correctness", "Sx 1 is more withdrawn; sp 1 is more assertive", "There is no meaningful difference between subtypes"], ans: 1, exp: "Sexual 1s channel their reforming energy into close relationships (wanting to perfect the partner), while Self-Preservation 1s focus on personal anxiety and maintaining their own correctness.", tier: 3, module: "type", typeSpecific: 1, tags: ["subtypes"] },
+  { id: qid(), q: "In the Hornevian groups, Type 1 belongs to which group?", opts: ["Assertive", "Compliant", "Withdrawn", "Reactive"], ans: 1, exp: "Type 1 is in the Compliant group (1, 2, 6) -- they move toward people and try to earn belonging by meeting perceived standards.", tier: 3, module: "type", typeSpecific: 1, tags: ["hornevian"] },
+  { id: qid(), q: "What is Naranjo's character description for the Social Type 1?", opts: ["Non-Adaptability", "Inadaptability (Rigidity)", "Jealousy", "Zeal"], ans: 1, exp: "Naranjo describes the Social 1 as characterized by 'Inadaptability' or rigidity -- they become the teacher/reformer of society, holding firm to their ideals.", tier: 4, module: "type", typeSpecific: 1, tags: ["naranjo", "subtypes"] },
+  { id: qid(), q: "According to Riso-Hudson, what are the Levels of Development for Type 1 at their healthiest (Level 1)?", opts: ["The Wise Realist who accepts imperfection", "The Principled Teacher who corrects others gently", "The Rational Idealist who channels anger productively", "The Wise Realist -- accepting, hopeful, and discovering objective rightness beyond personal judgment"], ans: 3, exp: "At Level 1, Riso-Hudson describe the Type 1 as a Wise Realist who transcends personal judgment to discover genuinely objective moral truths, becoming accepting and hopeful.", tier: 4, module: "type", typeSpecific: 1, tags: ["riso-hudson", "levels"] },
+  { id: qid(), q: "What is the specific fixation of Type 1 according to Naranjo?", opts: ["Perfectionism", "Resentment", "Judging/Comparing", "Over-control"], ans: 2, exp: "Naranjo identifies the fixation of Type 1 as continuous judging and comparing -- a mental habit of measuring everything against an internal ideal standard.", tier: 4, module: "type", typeSpecific: 1, tags: ["naranjo", "fixation"] },
+  { id: qid(), q: "Which Enneagram type is the countertype of the Social 1?", opts: ["The Social 1 IS the countertype", "The Sexual 1 is the countertype", "The Self-Preservation 1 is the countertype", "None -- Type 1 has no countertype"], ans: 0, exp: "According to Chestnut (following Naranjo), the Social 1 is the countertype -- they look least like a typical 1 because their anger is channeled into social reform rather than personal rigidity.", tier: 4, module: "type", typeSpecific: 1, tags: ["countertype", "chestnut"] },
 
   // --- Type 2 ---
-  { id: qid(), q: "What is the core fear of Type 2?", opts: ["Being incompetent", "Being unwanted or unworthy of love", "Being without support", "Being controlled"], ans: 1, exp: "Type 2's core fear is being unwanted, unworthy of being loved -- driving their compulsive giving to earn love.", difficulty: 1, module: "type", typeSpecific: 2, tags: ["core-fear"] },
-  { id: qid(), q: "What is the passion (vice) of Type 2?", opts: ["Vanity", "Pride", "Envy", "Gluttony"], ans: 1, exp: "Type 2's passion is Pride -- the inflated self-image of being the one who gives, coupled with denial of their own needs.", difficulty: 1, module: "type", typeSpecific: 2, tags: ["passion"] },
-  { id: qid(), q: "Type 2 integrates toward which type?", opts: ["Type 4", "Type 8", "Type 1", "Type 6"], ans: 0, exp: "Type 2 integrates to Type 4, developing self-awareness, emotional honesty, and the ability to identify their own needs and feelings.", difficulty: 1, module: "type", typeSpecific: 2, tags: ["integration"] },
-  { id: qid(), q: "Type 2 disintegrates toward which type?", opts: ["Type 4", "Type 8", "Type 1", "Type 6"], ans: 1, exp: "Under stress, Type 2 moves to Type 8, becoming aggressive, domineering, and openly demanding recognition for their sacrifices.", difficulty: 1, module: "type", typeSpecific: 2, tags: ["disintegration"] },
-  { id: qid(), q: "How does the Sexual (sx) Type 2 differ from the Social (so) Type 2?", opts: ["Sx 2 is more withdrawn; So 2 is more aggressive", "Sx 2 focuses on seducing specific individuals; So 2 seeks influence in groups", "Sx 2 is more generous; So 2 is more selfish", "They are functionally identical"], ans: 1, exp: "Sexual 2 (Seduction/Aggression) focuses on winning over specific individuals through charm, while Social 2 (Ambition) seeks power and influence through serving the group or powerful people.", difficulty: 2, module: "type", typeSpecific: 2, tags: ["subtypes"] },
-  { id: qid(), q: "According to Naranjo, what is the fixation of Type 2?", opts: ["Flattery", "Ingratiation", "Martyrdom", "Both flattery and ingratiation"], ans: 0, exp: "Naranjo identifies Type 2's fixation as Flattery -- the cognitive habit of making themselves appealing and focusing on others' positive qualities to build connection.", difficulty: 2, module: "type", typeSpecific: 2, tags: ["naranjo", "fixation"] },
-  { id: qid(), q: "What is the virtue that counterbalances Type 2's passion of Pride?", opts: ["Humility", "Innocence", "Courage", "Sobriety"], ans: 0, exp: "The virtue of Type 2 is Humility -- a genuine recognition of their own needs, limitations, and equal humanity rather than the inflated helper identity.", difficulty: 2, module: "type", typeSpecific: 2, tags: ["virtue"] },
-  { id: qid(), q: "Which Type 2 subtype is considered the countertype?", opts: ["Self-Preservation 2", "Social 2", "Sexual 2", "None of them"], ans: 0, exp: "The Self-Preservation 2 is the countertype -- they look least like a typical 2 because they express love through being childlike and cute rather than overtly giving.", difficulty: 3, module: "type", typeSpecific: 2, tags: ["countertype", "chestnut"] },
-  { id: qid(), q: "In Riso-Hudson's system, what is the key difference between a healthy Type 2 and an average Type 2?", opts: ["Healthy 2s give without strings; average 2s give with hidden expectations", "Healthy 2s give more; average 2s give less", "There is no meaningful difference", "Healthy 2s focus on self; average 2s focus on others"], ans: 0, exp: "Healthy 2s give from genuine love without expectations, while average 2s give with invisible strings attached, unconsciously expecting reciprocation and recognition.", difficulty: 3, module: "type", typeSpecific: 2, tags: ["riso-hudson", "levels"] },
+  { id: qid(), q: "What is the core fear of Type 2?", opts: ["Being incompetent", "Being unwanted or unworthy of love", "Being without support", "Being controlled"], ans: 1, exp: "Type 2's core fear is being unwanted, unworthy of being loved -- driving their compulsive giving to earn love.", tier: 2, module: "type", typeSpecific: 2, tags: ["core-fear"] },
+  { id: qid(), q: "What is the passion (vice) of Type 2?", opts: ["Vanity", "Pride", "Envy", "Gluttony"], ans: 1, exp: "Type 2's passion is Pride -- the inflated self-image of being the one who gives, coupled with denial of their own needs.", tier: 2, module: "type", typeSpecific: 2, tags: ["passion"] },
+  { id: qid(), q: "Type 2 integrates toward which type?", opts: ["Type 4", "Type 8", "Type 1", "Type 6"], ans: 0, exp: "Type 2 integrates to Type 4, developing self-awareness, emotional honesty, and the ability to identify their own needs and feelings.", tier: 2, module: "type", typeSpecific: 2, tags: ["integration"] },
+  { id: qid(), q: "Type 2 disintegrates toward which type?", opts: ["Type 4", "Type 8", "Type 1", "Type 6"], ans: 1, exp: "Under stress, Type 2 moves to Type 8, becoming aggressive, domineering, and openly demanding recognition for their sacrifices.", tier: 2, module: "type", typeSpecific: 2, tags: ["disintegration"] },
+  { id: qid(), q: "How does the Sexual (sx) Type 2 differ from the Social (so) Type 2?", opts: ["Sx 2 is more withdrawn; So 2 is more aggressive", "Sx 2 focuses on seducing specific individuals; So 2 seeks influence in groups", "Sx 2 is more generous; So 2 is more selfish", "They are functionally identical"], ans: 1, exp: "Sexual 2 (Seduction/Aggression) focuses on winning over specific individuals through charm, while Social 2 (Ambition) seeks power and influence through serving the group or powerful people.", tier: 3, module: "type", typeSpecific: 2, tags: ["subtypes"] },
+  { id: qid(), q: "According to Naranjo, what is the fixation of Type 2?", opts: ["Flattery", "Ingratiation", "Martyrdom", "Both flattery and ingratiation"], ans: 0, exp: "Naranjo identifies Type 2's fixation as Flattery -- the cognitive habit of making themselves appealing and focusing on others' positive qualities to build connection.", tier: 3, module: "type", typeSpecific: 2, tags: ["naranjo", "fixation"] },
+  { id: qid(), q: "What is the virtue that counterbalances Type 2's passion of Pride?", opts: ["Humility", "Innocence", "Courage", "Sobriety"], ans: 0, exp: "The virtue of Type 2 is Humility -- a genuine recognition of their own needs, limitations, and equal humanity rather than the inflated helper identity.", tier: 3, module: "type", typeSpecific: 2, tags: ["virtue"] },
+  { id: qid(), q: "Which Type 2 subtype is considered the countertype?", opts: ["Self-Preservation 2", "Social 2", "Sexual 2", "None of them"], ans: 0, exp: "The Self-Preservation 2 is the countertype -- they look least like a typical 2 because they express love through being childlike and cute rather than overtly giving.", tier: 4, module: "type", typeSpecific: 2, tags: ["countertype", "chestnut"] },
+  { id: qid(), q: "In Riso-Hudson's system, what is the key difference between a healthy Type 2 and an average Type 2?", opts: ["Healthy 2s give without strings; average 2s give with hidden expectations", "Healthy 2s give more; average 2s give less", "There is no meaningful difference", "Healthy 2s focus on self; average 2s focus on others"], ans: 0, exp: "Healthy 2s give from genuine love without expectations, while average 2s give with invisible strings attached, unconsciously expecting reciprocation and recognition.", tier: 4, module: "type", typeSpecific: 2, tags: ["riso-hudson", "levels"] },
 
   // --- Type 3 ---
-  { id: qid(), q: "What is the core desire of Type 3?", opts: ["To be admired", "To feel valuable and worthwhile", "To be the best", "To be loved unconditionally"], ans: 1, exp: "Type 3's core desire is to feel valuable and worthwhile. They pursue achievement because they believe their worth comes from what they accomplish.", difficulty: 1, module: "type", typeSpecific: 3, tags: ["core-desire"] },
-  { id: qid(), q: "What is the passion (vice) of Type 3?", opts: ["Vanity (Deceit)", "Pride", "Envy", "Avarice"], ans: 0, exp: "Type 3's passion is Vanity or Deceit -- not lying to others, but self-deception: losing contact with authentic feelings in constant adaptation to what succeeds.", difficulty: 1, module: "type", typeSpecific: 3, tags: ["passion"] },
-  { id: qid(), q: "Type 3 integrates toward which type?", opts: ["Type 9", "Type 6", "Type 1", "Type 7"], ans: 1, exp: "Type 3 integrates to Type 6 -- in growth, developing genuine loyalty, cooperation, and commitment beyond self-promotion.", difficulty: 1, module: "type", typeSpecific: 3, tags: ["integration"] },
-  { id: qid(), q: "What Harmonic group does Type 3 belong to?", opts: ["Positive Outlook", "Competency", "Reactive", "Assertive"], ans: 1, exp: "Type 3 is in the Competency group (1, 3, 5) -- they manage feelings by focusing on tasks, logic, and effective problem-solving.", difficulty: 2, module: "type", typeSpecific: 3, tags: ["harmonic"] },
-  { id: qid(), q: "How does Social Type 3 differ from Sexual Type 3?", opts: ["So 3 seeks fame; sx 3 seeks intimate approval", "So 3 adapts image for social success and status; sx 3 focuses on being attractive to a specific person", "They are the same", "So 3 is more competitive; sx 3 is more cooperative"], ans: 1, exp: "Social 3 ('Prestige') adapts their image for professional/social status, while Sexual 3 promotes themselves through attractiveness and supporting a partner's success.", difficulty: 2, module: "type", typeSpecific: 3, tags: ["subtypes"] },
-  { id: qid(), q: "According to Chestnut, which Type 3 subtype is the countertype?", opts: ["Self-Preservation 3", "Social 3", "Sexual 3", "All equally represent 3"], ans: 0, exp: "Self-Preservation 3 is the countertype -- they try to be good and efficient rather than flashy, often looking like a Type 1 or 6, working hard without seeking the spotlight.", difficulty: 3, module: "type", typeSpecific: 3, tags: ["countertype", "chestnut"] },
+  { id: qid(), q: "What is the core desire of Type 3?", opts: ["To be admired", "To feel valuable and worthwhile", "To be the best", "To be loved unconditionally"], ans: 1, exp: "Type 3's core desire is to feel valuable and worthwhile. They pursue achievement because they believe their worth comes from what they accomplish.", tier: 2, module: "type", typeSpecific: 3, tags: ["core-desire"] },
+  { id: qid(), q: "What is the passion (vice) of Type 3?", opts: ["Vanity (Deceit)", "Pride", "Envy", "Avarice"], ans: 0, exp: "Type 3's passion is Vanity or Deceit -- not lying to others, but self-deception: losing contact with authentic feelings in constant adaptation to what succeeds.", tier: 2, module: "type", typeSpecific: 3, tags: ["passion"] },
+  { id: qid(), q: "Type 3 integrates toward which type?", opts: ["Type 9", "Type 6", "Type 1", "Type 7"], ans: 1, exp: "Type 3 integrates to Type 6 -- in growth, developing genuine loyalty, cooperation, and commitment beyond self-promotion.", tier: 2, module: "type", typeSpecific: 3, tags: ["integration"] },
+  { id: qid(), q: "What Harmonic group does Type 3 belong to?", opts: ["Positive Outlook", "Competency", "Reactive", "Assertive"], ans: 1, exp: "Type 3 is in the Competency group (1, 3, 5) -- they manage feelings by focusing on tasks, logic, and effective problem-solving.", tier: 3, module: "type", typeSpecific: 3, tags: ["harmonic"] },
+  { id: qid(), q: "How does Social Type 3 differ from Sexual Type 3?", opts: ["So 3 seeks fame; sx 3 seeks intimate approval", "So 3 adapts image for social success and status; sx 3 focuses on being attractive to a specific person", "They are the same", "So 3 is more competitive; sx 3 is more cooperative"], ans: 1, exp: "Social 3 ('Prestige') adapts their image for professional/social status, while Sexual 3 promotes themselves through attractiveness and supporting a partner's success.", tier: 3, module: "type", typeSpecific: 3, tags: ["subtypes"] },
+  { id: qid(), q: "According to Chestnut, which Type 3 subtype is the countertype?", opts: ["Self-Preservation 3", "Social 3", "Sexual 3", "All equally represent 3"], ans: 0, exp: "Self-Preservation 3 is the countertype -- they try to be good and efficient rather than flashy, often looking like a Type 1 or 6, working hard without seeking the spotlight.", tier: 4, module: "type", typeSpecific: 3, tags: ["countertype", "chestnut"] },
 
   // --- Type 4 ---
-  { id: qid(), q: "What is the core fear of Type 4?", opts: ["Being abandoned", "Having no identity or personal significance", "Being ordinary", "Being unloved"], ans: 1, exp: "Type 4's core fear is having no identity or personal significance -- being without a distinct, authentic self.", difficulty: 1, module: "type", typeSpecific: 4, tags: ["core-fear"] },
-  { id: qid(), q: "What is the passion (vice) of Type 4?", opts: ["Melancholy", "Envy", "Avarice", "Pride"], ans: 1, exp: "Type 4's passion is Envy -- the chronic sense that others have something essential that the 4 lacks, creating a feeling of deficiency.", difficulty: 1, module: "type", typeSpecific: 4, tags: ["passion"] },
-  { id: qid(), q: "Type 4 integrates toward which type?", opts: ["Type 1", "Type 2", "Type 7", "Type 5"], ans: 0, exp: "Type 4 integrates to Type 1 -- in growth, developing principled discipline, objectivity, and the ability to act on values rather than moods.", difficulty: 1, module: "type", typeSpecific: 4, tags: ["integration"] },
-  { id: qid(), q: "Which Enneagram center does Type 4 belong to?", opts: ["Head Center", "Heart Center", "Gut Center", "Instinctual Center"], ans: 1, exp: "Type 4 is in the Heart Center (2, 3, 4), which processes experience through feelings and identity. 4s have issues around identity and shame.", difficulty: 1, module: "type", typeSpecific: 4, tags: ["centers"] },
-  { id: qid(), q: "How does Self-Preservation Type 4 differ from Social Type 4?", opts: ["Sp 4 is more dramatic; So 4 is more internal", "Sp 4 internalizes suffering (tenacity/endurance); So 4 compares themselves to others and feels shame", "Sp 4 is extraverted; So 4 is introverted", "They are functionally identical"], ans: 1, exp: "Self-Preservation 4 (Tenacity) internalizes pain and endures without complaining, while Social 4 (Shame) compares themselves to others and feels they fall short.", difficulty: 2, module: "type", typeSpecific: 4, tags: ["subtypes"] },
-  { id: qid(), q: "According to Naranjo, what is the fixation of Type 4?", opts: ["Melancholy", "Fantasizing", "Self-absorption", "Comparison"], ans: 0, exp: "Naranjo identifies Melancholy as the fixation -- a cognitive habit of dwelling on loss, longing, and what's missing or unavailable.", difficulty: 2, module: "type", typeSpecific: 4, tags: ["naranjo", "fixation"] },
-  { id: qid(), q: "Which Type 4 subtype is considered the countertype and often mistyped?", opts: ["Self-Preservation 4", "Social 4", "Sexual 4", "None"], ans: 2, exp: "Sexual 4 (Competition) is the countertype -- they externalize their envy as competition and demands rather than withdrawing, and can look like Type 3 or 8.", difficulty: 3, module: "type", typeSpecific: 4, tags: ["countertype", "chestnut"] },
+  { id: qid(), q: "What is the core fear of Type 4?", opts: ["Being abandoned", "Having no identity or personal significance", "Being ordinary", "Being unloved"], ans: 1, exp: "Type 4's core fear is having no identity or personal significance -- being without a distinct, authentic self.", tier: 2, module: "type", typeSpecific: 4, tags: ["core-fear"] },
+  { id: qid(), q: "What is the passion (vice) of Type 4?", opts: ["Melancholy", "Envy", "Avarice", "Pride"], ans: 1, exp: "Type 4's passion is Envy -- the chronic sense that others have something essential that the 4 lacks, creating a feeling of deficiency.", tier: 2, module: "type", typeSpecific: 4, tags: ["passion"] },
+  { id: qid(), q: "Type 4 integrates toward which type?", opts: ["Type 1", "Type 2", "Type 7", "Type 5"], ans: 0, exp: "Type 4 integrates to Type 1 -- in growth, developing principled discipline, objectivity, and the ability to act on values rather than moods.", tier: 2, module: "type", typeSpecific: 4, tags: ["integration"] },
+  { id: qid(), q: "Which Enneagram center does Type 4 belong to?", opts: ["Head Center", "Heart Center", "Gut Center", "Instinctual Center"], ans: 1, exp: "Type 4 is in the Heart Center (2, 3, 4), which processes experience through feelings and identity. 4s have issues around identity and shame.", tier: 2, module: "type", typeSpecific: 4, tags: ["centers"] },
+  { id: qid(), q: "How does Self-Preservation Type 4 differ from Social Type 4?", opts: ["Sp 4 is more dramatic; So 4 is more internal", "Sp 4 internalizes suffering (tenacity/endurance); So 4 compares themselves to others and feels shame", "Sp 4 is extraverted; So 4 is introverted", "They are functionally identical"], ans: 1, exp: "Self-Preservation 4 (Tenacity) internalizes pain and endures without complaining, while Social 4 (Shame) compares themselves to others and feels they fall short.", tier: 3, module: "type", typeSpecific: 4, tags: ["subtypes"] },
+  { id: qid(), q: "According to Naranjo, what is the fixation of Type 4?", opts: ["Melancholy", "Fantasizing", "Self-absorption", "Comparison"], ans: 0, exp: "Naranjo identifies Melancholy as the fixation -- a cognitive habit of dwelling on loss, longing, and what's missing or unavailable.", tier: 3, module: "type", typeSpecific: 4, tags: ["naranjo", "fixation"] },
+  { id: qid(), q: "Which Type 4 subtype is considered the countertype and often mistyped?", opts: ["Self-Preservation 4", "Social 4", "Sexual 4", "None"], ans: 2, exp: "Sexual 4 (Competition) is the countertype -- they externalize their envy as competition and demands rather than withdrawing, and can look like Type 3 or 8.", tier: 4, module: "type", typeSpecific: 4, tags: ["countertype", "chestnut"] },
 
   // --- Type 5 ---
-  { id: qid(), q: "What is the core fear of Type 5?", opts: ["Being helpless, useless, or overwhelmed", "Being without support", "Being controlled", "Being abandoned"], ans: 0, exp: "Type 5's core fear is being helpless, useless, incapable, or overwhelmed by the demands of the world.", difficulty: 1, module: "type", typeSpecific: 5, tags: ["core-fear"] },
-  { id: qid(), q: "What is the passion (vice) of Type 5?", opts: ["Envy", "Fear", "Avarice", "Sloth"], ans: 2, exp: "Type 5's passion is Avarice -- hoarding of inner resources, energy, time, and knowledge as a way to feel safe in a demanding world.", difficulty: 1, module: "type", typeSpecific: 5, tags: ["passion"] },
-  { id: qid(), q: "Type 5 integrates toward which type?", opts: ["Type 7", "Type 8", "Type 4", "Type 1"], ans: 1, exp: "Type 5 integrates to Type 8 -- in growth, becoming more decisive, action-oriented, confident, and willing to engage physically with the world.", difficulty: 1, module: "type", typeSpecific: 5, tags: ["integration"] },
-  { id: qid(), q: "Type 5 disintegrates toward which type?", opts: ["Type 8", "Type 4", "Type 7", "Type 6"], ans: 2, exp: "Under stress, Type 5 moves to Type 7, becoming scattered, hyperactive, impulsive, and seeking stimulation to avoid inner emptiness.", difficulty: 1, module: "type", typeSpecific: 5, tags: ["disintegration"] },
-  { id: qid(), q: "How does a Sexual (sx) Type 5 differ from a Self-Preservation (sp) Type 5 in relationships?", opts: ["Sx 5 avoids all relationships; sp 5 seeks them", "Sx 5 seeks intense one-on-one connection with an idealized person; sp 5 withdraws into physical boundaries and minimal needs", "They are functionally identical in relationships", "Sx 5 is more social; sp 5 is more sexual"], ans: 1, exp: "Sexual 5 (Confidence/Totem) seeks deep, intense connection with one idealized person as their bridge to the world, while Self-Preservation 5 (Castle) builds physical walls and minimizes needs.", difficulty: 2, module: "type", typeSpecific: 5, tags: ["subtypes"] },
-  { id: qid(), q: "What is the Holy Idea of Type 5?", opts: ["Holy Omniscience", "Holy Transparency", "Holy Will", "Holy Perfection"], ans: 0, exp: "The Holy Idea of Type 5 is Holy Omniscience -- the recognition that true knowing comes through being, not through accumulation of information.", difficulty: 2, module: "type", typeSpecific: 5, tags: ["holy-idea"] },
-  { id: qid(), q: "According to Naranjo, what is the specific fixation of Type 5, and how does it manifest in the countertype (Social 5)?", opts: ["Detachment; Social 5 detaches through intellectual systems and group belonging (Totem)", "Retraction; Social 5 overconnects to compensate", "Isolation; Social 5 becomes a social butterfly", "Withholding; Social 5 gives excessively"], ans: 0, exp: "The fixation is Detachment. The Social 5 (Totem) is the countertype -- they connect through shared knowledge, ideals, or group identity, looking less withdrawn than other 5s.", difficulty: 3, module: "type", typeSpecific: 5, tags: ["naranjo", "countertype", "fixation"] },
-  { id: qid(), q: "In Riso-Hudson's Levels of Development, what characterizes a Type 5 at Level 7 (unhealthy)?", opts: ["Pioneering visionary", "Isolated nihilist cutting off from all relationships", "Eccentric provocateur detached from reality", "Hyperactive researcher"], ans: 2, exp: "At Level 7, Riso-Hudson describe the 5 as an eccentric, provocative figure increasingly cut off from reality, antagonizing others while retreating into bizarre inner worlds.", difficulty: 3, module: "type", typeSpecific: 5, tags: ["riso-hudson", "levels"] },
+  { id: qid(), q: "What is the core fear of Type 5?", opts: ["Being helpless, useless, or overwhelmed", "Being without support", "Being controlled", "Being abandoned"], ans: 0, exp: "Type 5's core fear is being helpless, useless, incapable, or overwhelmed by the demands of the world.", tier: 2, module: "type", typeSpecific: 5, tags: ["core-fear"] },
+  { id: qid(), q: "What is the passion (vice) of Type 5?", opts: ["Envy", "Fear", "Avarice", "Sloth"], ans: 2, exp: "Type 5's passion is Avarice -- hoarding of inner resources, energy, time, and knowledge as a way to feel safe in a demanding world.", tier: 2, module: "type", typeSpecific: 5, tags: ["passion"] },
+  { id: qid(), q: "Type 5 integrates toward which type?", opts: ["Type 7", "Type 8", "Type 4", "Type 1"], ans: 1, exp: "Type 5 integrates to Type 8 -- in growth, becoming more decisive, action-oriented, confident, and willing to engage physically with the world.", tier: 2, module: "type", typeSpecific: 5, tags: ["integration"] },
+  { id: qid(), q: "Type 5 disintegrates toward which type?", opts: ["Type 8", "Type 4", "Type 7", "Type 6"], ans: 2, exp: "Under stress, Type 5 moves to Type 7, becoming scattered, hyperactive, impulsive, and seeking stimulation to avoid inner emptiness.", tier: 2, module: "type", typeSpecific: 5, tags: ["disintegration"] },
+  { id: qid(), q: "How does a Sexual (sx) Type 5 differ from a Self-Preservation (sp) Type 5 in relationships?", opts: ["Sx 5 avoids all relationships; sp 5 seeks them", "Sx 5 seeks intense one-on-one connection with an idealized person; sp 5 withdraws into physical boundaries and minimal needs", "They are functionally identical in relationships", "Sx 5 is more social; sp 5 is more sexual"], ans: 1, exp: "Sexual 5 (Confidence/Totem) seeks deep, intense connection with one idealized person as their bridge to the world, while Self-Preservation 5 (Castle) builds physical walls and minimizes needs.", tier: 3, module: "type", typeSpecific: 5, tags: ["subtypes"] },
+  { id: qid(), q: "What is the Holy Idea of Type 5?", opts: ["Holy Omniscience", "Holy Transparency", "Holy Will", "Holy Perfection"], ans: 0, exp: "The Holy Idea of Type 5 is Holy Omniscience -- the recognition that true knowing comes through being, not through accumulation of information.", tier: 3, module: "type", typeSpecific: 5, tags: ["holy-idea"] },
+  { id: qid(), q: "According to Naranjo, what is the specific fixation of Type 5, and how does it manifest in the countertype (Social 5)?", opts: ["Detachment; Social 5 detaches through intellectual systems and group belonging (Totem)", "Retraction; Social 5 overconnects to compensate", "Isolation; Social 5 becomes a social butterfly", "Withholding; Social 5 gives excessively"], ans: 0, exp: "The fixation is Detachment. The Social 5 (Totem) is the countertype -- they connect through shared knowledge, ideals, or group identity, looking less withdrawn than other 5s.", tier: 4, module: "type", typeSpecific: 5, tags: ["naranjo", "countertype", "fixation"] },
+  { id: qid(), q: "In Riso-Hudson's Levels of Development, what characterizes a Type 5 at Level 7 (unhealthy)?", opts: ["Pioneering visionary", "Isolated nihilist cutting off from all relationships", "Eccentric provocateur detached from reality", "Hyperactive researcher"], ans: 2, exp: "At Level 7, Riso-Hudson describe the 5 as an eccentric, provocative figure increasingly cut off from reality, antagonizing others while retreating into bizarre inner worlds.", tier: 4, module: "type", typeSpecific: 5, tags: ["riso-hudson", "levels"] },
 
   // --- Type 6 ---
-  { id: qid(), q: "What is the core fear of Type 6?", opts: ["Being corrupt", "Being without support and guidance", "Being worthless", "Being trapped"], ans: 1, exp: "Type 6's core fear is being without support, guidance, or security -- driving vigilance, loyalty-seeking, and anxiety.", difficulty: 1, module: "type", typeSpecific: 6, tags: ["core-fear"] },
-  { id: qid(), q: "What is the passion (vice) of Type 6?", opts: ["Anger", "Envy", "Fear (Anxiety/Cowardice)", "Sloth"], ans: 2, exp: "Type 6's passion is Fear -- the constant scanning for danger and worst-case scenarios that keeps them in a state of vigilance.", difficulty: 1, module: "type", typeSpecific: 6, tags: ["passion"] },
-  { id: qid(), q: "Type 6 integrates toward which type?", opts: ["Type 3", "Type 9", "Type 1", "Type 7"], ans: 1, exp: "Type 6 integrates to Type 9 -- in growth, becoming more relaxed, trusting, peaceful, and able to rest in not-knowing.", difficulty: 1, module: "type", typeSpecific: 6, tags: ["integration"] },
-  { id: qid(), q: "What distinguishes a phobic 6 from a counterphobic 6?", opts: ["Phobic 6s are afraid; counterphobic 6s are not", "Phobic 6s move away from fear; counterphobic 6s move toward it", "Phobic 6s are introverts; counterphobic 6s are extraverts", "There is no real distinction"], ans: 1, exp: "Both phobic and counterphobic 6s experience the same core fear. Phobic 6s tend to avoid and seek safety, while counterphobic 6s charge toward what they fear to prove it can't hurt them.", difficulty: 2, module: "type", typeSpecific: 6, tags: ["subtypes"] },
-  { id: qid(), q: "According to Naranjo, which Type 6 subtype is the countertype?", opts: ["Self-Preservation 6", "Social 6", "Sexual 6 (Strength/Beauty)", "All of them equally"], ans: 2, exp: "Sexual 6 (Strength/Beauty) is the countertype -- they mask fear through intimidation and physical strength, often looking like Type 8.", difficulty: 3, module: "type", typeSpecific: 6, tags: ["countertype", "naranjo"] },
+  { id: qid(), q: "What is the core fear of Type 6?", opts: ["Being corrupt", "Being without support and guidance", "Being worthless", "Being trapped"], ans: 1, exp: "Type 6's core fear is being without support, guidance, or security -- driving vigilance, loyalty-seeking, and anxiety.", tier: 2, module: "type", typeSpecific: 6, tags: ["core-fear"] },
+  { id: qid(), q: "What is the passion (vice) of Type 6?", opts: ["Anger", "Envy", "Fear (Anxiety/Cowardice)", "Sloth"], ans: 2, exp: "Type 6's passion is Fear -- the constant scanning for danger and worst-case scenarios that keeps them in a state of vigilance.", tier: 2, module: "type", typeSpecific: 6, tags: ["passion"] },
+  { id: qid(), q: "Type 6 integrates toward which type?", opts: ["Type 3", "Type 9", "Type 1", "Type 7"], ans: 1, exp: "Type 6 integrates to Type 9 -- in growth, becoming more relaxed, trusting, peaceful, and able to rest in not-knowing.", tier: 2, module: "type", typeSpecific: 6, tags: ["integration"] },
+  { id: qid(), q: "What distinguishes a phobic 6 from a counterphobic 6?", opts: ["Phobic 6s are afraid; counterphobic 6s are not", "Phobic 6s move away from fear; counterphobic 6s move toward it", "Phobic 6s are introverts; counterphobic 6s are extraverts", "There is no real distinction"], ans: 1, exp: "Both phobic and counterphobic 6s experience the same core fear. Phobic 6s tend to avoid and seek safety, while counterphobic 6s charge toward what they fear to prove it can't hurt them.", tier: 3, module: "type", typeSpecific: 6, tags: ["subtypes"] },
+  { id: qid(), q: "According to Naranjo, which Type 6 subtype is the countertype?", opts: ["Self-Preservation 6", "Social 6", "Sexual 6 (Strength/Beauty)", "All of them equally"], ans: 2, exp: "Sexual 6 (Strength/Beauty) is the countertype -- they mask fear through intimidation and physical strength, often looking like Type 8.", tier: 4, module: "type", typeSpecific: 6, tags: ["countertype", "naranjo"] },
 
   // --- Type 7 ---
-  { id: qid(), q: "What is the core fear of Type 7?", opts: ["Being controlled", "Being deprived, trapped in pain", "Being abandoned", "Being corrupt"], ans: 1, exp: "Type 7's core fear is being deprived, trapped in emotional pain, or limited in their freedom and options.", difficulty: 1, module: "type", typeSpecific: 7, tags: ["core-fear"] },
-  { id: qid(), q: "What is the passion (vice) of Type 7?", opts: ["Lust", "Gluttony", "Avarice", "Pride"], ans: 1, exp: "Type 7's passion is Gluttony -- not just for food but for experiences, ideas, stimulation, and plans. The mind's insistence that more will bring satisfaction.", difficulty: 1, module: "type", typeSpecific: 7, tags: ["passion"] },
-  { id: qid(), q: "Type 7 integrates toward which type?", opts: ["Type 1", "Type 5", "Type 8", "Type 4"], ans: 1, exp: "Type 7 integrates to Type 5 -- in growth, developing depth, focus, and the ability to stay with one thing instead of scanning for the next.", difficulty: 1, module: "type", typeSpecific: 7, tags: ["integration"] },
-  { id: qid(), q: "Which Type 7 subtype is the countertype according to Chestnut?", opts: ["Self-Preservation 7", "Social 7 (Sacrifice)", "Sexual 7", "None"], ans: 1, exp: "Social 7 (Sacrifice) is the countertype -- they look least like typical 7s because they postpone their own pleasure for the group, appearing more like Type 2.", difficulty: 2, module: "type", typeSpecific: 7, tags: ["countertype", "chestnut"] },
-  { id: qid(), q: "What is Naranjo's term for the Self-Preservation 7?", opts: ["Sacrifice", "Suggestibility", "Family/Defender", "Glutton"], ans: 2, exp: "Naranjo describes the Self-Preservation 7 as 'Family' or 'Keeper of the Castle' -- they create networks of allies and like-minded people as a web of support.", difficulty: 3, module: "type", typeSpecific: 7, tags: ["naranjo", "subtypes"] },
+  { id: qid(), q: "What is the core fear of Type 7?", opts: ["Being controlled", "Being deprived, trapped in pain", "Being abandoned", "Being corrupt"], ans: 1, exp: "Type 7's core fear is being deprived, trapped in emotional pain, or limited in their freedom and options.", tier: 2, module: "type", typeSpecific: 7, tags: ["core-fear"] },
+  { id: qid(), q: "What is the passion (vice) of Type 7?", opts: ["Lust", "Gluttony", "Avarice", "Pride"], ans: 1, exp: "Type 7's passion is Gluttony -- not just for food but for experiences, ideas, stimulation, and plans. The mind's insistence that more will bring satisfaction.", tier: 2, module: "type", typeSpecific: 7, tags: ["passion"] },
+  { id: qid(), q: "Type 7 integrates toward which type?", opts: ["Type 1", "Type 5", "Type 8", "Type 4"], ans: 1, exp: "Type 7 integrates to Type 5 -- in growth, developing depth, focus, and the ability to stay with one thing instead of scanning for the next.", tier: 2, module: "type", typeSpecific: 7, tags: ["integration"] },
+  { id: qid(), q: "Which Type 7 subtype is the countertype according to Chestnut?", opts: ["Self-Preservation 7", "Social 7 (Sacrifice)", "Sexual 7", "None"], ans: 1, exp: "Social 7 (Sacrifice) is the countertype -- they look least like typical 7s because they postpone their own pleasure for the group, appearing more like Type 2.", tier: 3, module: "type", typeSpecific: 7, tags: ["countertype", "chestnut"] },
+  { id: qid(), q: "What is Naranjo's term for the Self-Preservation 7?", opts: ["Sacrifice", "Suggestibility", "Family/Defender", "Glutton"], ans: 2, exp: "Naranjo describes the Self-Preservation 7 as 'Family' or 'Keeper of the Castle' -- they create networks of allies and like-minded people as a web of support.", tier: 4, module: "type", typeSpecific: 7, tags: ["naranjo", "subtypes"] },
 
   // --- Type 8 ---
-  { id: qid(), q: "What is the core fear of Type 8?", opts: ["Being harmed or controlled by others", "Being abandoned", "Being worthless", "Being incompetent"], ans: 0, exp: "Type 8's core fear is being harmed, controlled, or violated by others -- driving their need for autonomy, strength, and power.", difficulty: 1, module: "type", typeSpecific: 8, tags: ["core-fear"] },
-  { id: qid(), q: "What is the passion (vice) of Type 8?", opts: ["Anger", "Lust (Excess)", "Gluttony", "Pride"], ans: 1, exp: "Type 8's passion is Lust -- not just sexual but an excess of intensity, wanting to feel fully alive through power, action, and sensory engagement.", difficulty: 1, module: "type", typeSpecific: 8, tags: ["passion"] },
-  { id: qid(), q: "Type 8 integrates toward which type?", opts: ["Type 5", "Type 2", "Type 4", "Type 9"], ans: 1, exp: "Type 8 integrates to Type 2 -- in growth, becoming more caring, open-hearted, and willing to show vulnerability and tenderness.", difficulty: 1, module: "type", typeSpecific: 8, tags: ["integration"] },
-  { id: qid(), q: "Which Type 8 subtype is the countertype and can look like a Type 2?", opts: ["Self-Preservation 8", "Social 8 (Solidarity)", "Sexual 8", "None"], ans: 1, exp: "Social 8 (Solidarity/Friendship) is the countertype -- they channel their power into protecting the weak and can appear more like a helper.", difficulty: 2, module: "type", typeSpecific: 8, tags: ["countertype", "chestnut"] },
-  { id: qid(), q: "According to Naranjo, what is the character style of Self-Preservation 8?", opts: ["Solidarity", "Possession/Surrender", "Satisfaction", "Revenge"], ans: 2, exp: "Naranjo describes Self-Preservation 8 as 'Satisfaction' -- they are the most grounded and least confrontational 8, focused on getting their material needs met.", difficulty: 3, module: "type", typeSpecific: 8, tags: ["naranjo", "subtypes"] },
+  { id: qid(), q: "What is the core fear of Type 8?", opts: ["Being harmed or controlled by others", "Being abandoned", "Being worthless", "Being incompetent"], ans: 0, exp: "Type 8's core fear is being harmed, controlled, or violated by others -- driving their need for autonomy, strength, and power.", tier: 2, module: "type", typeSpecific: 8, tags: ["core-fear"] },
+  { id: qid(), q: "What is the passion (vice) of Type 8?", opts: ["Anger", "Lust (Excess)", "Gluttony", "Pride"], ans: 1, exp: "Type 8's passion is Lust -- not just sexual but an excess of intensity, wanting to feel fully alive through power, action, and sensory engagement.", tier: 2, module: "type", typeSpecific: 8, tags: ["passion"] },
+  { id: qid(), q: "Type 8 integrates toward which type?", opts: ["Type 5", "Type 2", "Type 4", "Type 9"], ans: 1, exp: "Type 8 integrates to Type 2 -- in growth, becoming more caring, open-hearted, and willing to show vulnerability and tenderness.", tier: 2, module: "type", typeSpecific: 8, tags: ["integration"] },
+  { id: qid(), q: "Which Type 8 subtype is the countertype and can look like a Type 2?", opts: ["Self-Preservation 8", "Social 8 (Solidarity)", "Sexual 8", "None"], ans: 1, exp: "Social 8 (Solidarity/Friendship) is the countertype -- they channel their power into protecting the weak and can appear more like a helper.", tier: 3, module: "type", typeSpecific: 8, tags: ["countertype", "chestnut"] },
+  { id: qid(), q: "According to Naranjo, what is the character style of Self-Preservation 8?", opts: ["Solidarity", "Possession/Surrender", "Satisfaction", "Revenge"], ans: 2, exp: "Naranjo describes Self-Preservation 8 as 'Satisfaction' -- they are the most grounded and least confrontational 8, focused on getting their material needs met.", tier: 4, module: "type", typeSpecific: 8, tags: ["naranjo", "subtypes"] },
 
   // --- Type 9 ---
-  { id: qid(), q: "What is the core fear of Type 9?", opts: ["Being abandoned", "Loss of connection, fragmentation, separation", "Being controlled", "Being defective"], ans: 1, exp: "Type 9's core fear is loss and separation -- the fear of being fragmented, disconnected from others, or losing inner stability.", difficulty: 1, module: "type", typeSpecific: 9, tags: ["core-fear"] },
-  { id: qid(), q: "What is the passion (vice) of Type 9?", opts: ["Fear", "Anger", "Sloth (Acedia)", "Envy"], ans: 2, exp: "Type 9's passion is Sloth (Acedia) -- not physical laziness but psycho-spiritual laziness: the forgetting of one's own priorities, desires, and self.", difficulty: 1, module: "type", typeSpecific: 9, tags: ["passion"] },
-  { id: qid(), q: "Type 9 integrates toward which type?", opts: ["Type 6", "Type 3", "Type 1", "Type 7"], ans: 1, exp: "Type 9 integrates to Type 3 -- in growth, becoming more self-developing, energized, productive, and willing to pursue their own goals.", difficulty: 1, module: "type", typeSpecific: 9, tags: ["integration"] },
-  { id: qid(), q: "Which Enneagram center does Type 9 belong to, and what is their relationship to its core emotion?", opts: ["Heart Center; they repress shame", "Head Center; they repress fear", "Gut Center; they repress/fall asleep to anger", "They are at the center of all three"], ans: 2, exp: "Type 9 is in the Gut/Body Center (8, 9, 1). While 8s externalize anger and 1s internalize it, 9s fall asleep to their anger entirely.", difficulty: 2, module: "type", typeSpecific: 9, tags: ["centers"] },
-  { id: qid(), q: "According to Chestnut, which Type 9 subtype is the countertype?", opts: ["Self-Preservation 9 (Appetite)", "Social 9 (Participation)", "Sexual 9 (Fusion)", "None"], ans: 1, exp: "Social 9 (Participation) is the countertype -- they look least like a 9 because they merge with groups and activities rather than withdrawing, appearing more energetic.", difficulty: 3, module: "type", typeSpecific: 9, tags: ["countertype", "chestnut"] },
+  { id: qid(), q: "What is the core fear of Type 9?", opts: ["Being abandoned", "Loss of connection, fragmentation, separation", "Being controlled", "Being defective"], ans: 1, exp: "Type 9's core fear is loss and separation -- the fear of being fragmented, disconnected from others, or losing inner stability.", tier: 2, module: "type", typeSpecific: 9, tags: ["core-fear"] },
+  { id: qid(), q: "What is the passion (vice) of Type 9?", opts: ["Fear", "Anger", "Sloth (Acedia)", "Envy"], ans: 2, exp: "Type 9's passion is Sloth (Acedia) -- not physical laziness but psycho-spiritual laziness: the forgetting of one's own priorities, desires, and self.", tier: 2, module: "type", typeSpecific: 9, tags: ["passion"] },
+  { id: qid(), q: "Type 9 integrates toward which type?", opts: ["Type 6", "Type 3", "Type 1", "Type 7"], ans: 1, exp: "Type 9 integrates to Type 3 -- in growth, becoming more self-developing, energized, productive, and willing to pursue their own goals.", tier: 2, module: "type", typeSpecific: 9, tags: ["integration"] },
+  { id: qid(), q: "Which Enneagram center does Type 9 belong to, and what is their relationship to its core emotion?", opts: ["Heart Center; they repress shame", "Head Center; they repress fear", "Gut Center; they repress/fall asleep to anger", "They are at the center of all three"], ans: 2, exp: "Type 9 is in the Gut/Body Center (8, 9, 1). While 8s externalize anger and 1s internalize it, 9s fall asleep to their anger entirely.", tier: 3, module: "type", typeSpecific: 9, tags: ["centers"] },
+  { id: qid(), q: "According to Chestnut, which Type 9 subtype is the countertype?", opts: ["Self-Preservation 9 (Appetite)", "Social 9 (Participation)", "Sexual 9 (Fusion)", "None"], ans: 1, exp: "Social 9 (Participation) is the countertype -- they look least like a 9 because they merge with groups and activities rather than withdrawing, appearing more energetic.", tier: 4, module: "type", typeSpecific: 9, tags: ["countertype", "chestnut"] },
 
   // ═══════════════════════════════════════════════════════════════════════
   // MODULE 2: COGNITIVE FUNCTION DEEP DIVE
   // ═══════════════════════════════════════════════════════════════════════
 
   // Beginner Cognitive
-  { id: qid(), q: "How many cognitive functions did Jung describe?", opts: ["4", "6", "8", "16"], ans: 2, exp: "Jung described 8 cognitive functions: 4 function types (Thinking, Feeling, Sensing, Intuition), each with an introverted and extraverted orientation.", difficulty: 1, module: "cognitive", tags: ["basics"] },
-  { id: qid(), q: "What does 'Ni' stand for?", opts: ["Neurological Intuition", "Introverted Intuition", "Internal Navigation", "Natural Insight"], ans: 1, exp: "Ni = Introverted Intuition. It synthesizes information into singular insights, convergent future visions, and deep pattern recognition.", difficulty: 1, module: "cognitive", tags: ["basics"] },
-  { id: qid(), q: "What does 'Te' stand for?", opts: ["Thinking Extraverted", "Tertiary Expression", "Type Evaluation", "Transpersonal Ego"], ans: 0, exp: "Te = Extraverted Thinking. It organizes the external world through logic, efficiency, measurable results, and objective systems.", difficulty: 1, module: "cognitive", tags: ["basics"] },
-  { id: qid(), q: "In the MBTI/cognitive function model, the dominant function of an INTJ is:", opts: ["Te (Extraverted Thinking)", "Ni (Introverted Intuition)", "Fi (Introverted Feeling)", "Se (Extraverted Sensing)"], ans: 1, exp: "INTJ leads with Ni (Introverted Intuition) -- convergent future-oriented pattern recognition is their primary mode.", difficulty: 1, module: "cognitive", tags: ["stacks"] },
-  { id: qid(), q: "What is the auxiliary (2nd) function of an ENFP?", opts: ["Ne", "Fi", "Te", "Si"], ans: 1, exp: "ENFP's stack is Ne-Fi-Te-Si. The auxiliary function is Fi (Introverted Feeling) -- personal values and emotional authenticity.", difficulty: 1, module: "cognitive", tags: ["stacks"] },
-  { id: qid(), q: "Which cognitive function focuses on external sensory experience in the present moment?", opts: ["Si", "Se", "Ne", "Ni"], ans: 1, exp: "Se (Extraverted Sensing) engages with the present sensory world -- physical experience, action, aesthetics, and real-time observation.", difficulty: 1, module: "cognitive", tags: ["basics"] },
-  { id: qid(), q: "What is Si (Introverted Sensing)?", opts: ["Present-moment sensory awareness", "Stored sensory impressions, memory, and comparison to past experience", "External pattern recognition", "Bodily kinesthetic awareness"], ans: 1, exp: "Si stores detailed sensory impressions and compares present experience to past. It values tradition, routine, and what has been proven.", difficulty: 1, module: "cognitive", tags: ["basics"] },
-  { id: qid(), q: "What is the dominant function of an INFP?", opts: ["Ne", "Fi", "Fe", "Ni"], ans: 1, exp: "INFP leads with Fi (Introverted Feeling) -- a deep inner value system and personal emotional authenticity.", difficulty: 1, module: "cognitive", tags: ["stacks"] },
-  { id: qid(), q: "The function stack of an ESTP is:", opts: ["Se-Ti-Fe-Ni", "Te-Si-Ne-Fi", "Se-Fi-Te-Ni", "Ti-Se-Ni-Fe"], ans: 0, exp: "ESTP's function stack is Se-Ti-Fe-Ni: dominant Se (present-moment action), auxiliary Ti (internal logic), tertiary Fe, inferior Ni.", difficulty: 1, module: "cognitive", tags: ["stacks"] },
+  { id: qid(), q: "How many cognitive functions did Jung describe?", opts: ["4", "6", "8", "16"], ans: 2, exp: "Jung described 8 cognitive functions: 4 function types (Thinking, Feeling, Sensing, Intuition), each with an introverted and extraverted orientation.", tier: 2, module: "cognitive", tags: ["basics"] },
+  { id: qid(), q: "What does 'Ni' stand for?", opts: ["Neurological Intuition", "Introverted Intuition", "Internal Navigation", "Natural Insight"], ans: 1, exp: "Ni = Introverted Intuition. It synthesizes information into singular insights, convergent future visions, and deep pattern recognition.", tier: 2, module: "cognitive", tags: ["basics"] },
+  { id: qid(), q: "What does 'Te' stand for?", opts: ["Thinking Extraverted", "Tertiary Expression", "Type Evaluation", "Transpersonal Ego"], ans: 0, exp: "Te = Extraverted Thinking. It organizes the external world through logic, efficiency, measurable results, and objective systems.", tier: 2, module: "cognitive", tags: ["basics"] },
+  { id: qid(), q: "In the MBTI/cognitive function model, the dominant function of an INTJ is:", opts: ["Te (Extraverted Thinking)", "Ni (Introverted Intuition)", "Fi (Introverted Feeling)", "Se (Extraverted Sensing)"], ans: 1, exp: "INTJ leads with Ni (Introverted Intuition) -- convergent future-oriented pattern recognition is their primary mode.", tier: 2, module: "cognitive", tags: ["stacks"] },
+  { id: qid(), q: "What is the auxiliary (2nd) function of an ENFP?", opts: ["Ne", "Fi", "Te", "Si"], ans: 1, exp: "ENFP's stack is Ne-Fi-Te-Si. The auxiliary function is Fi (Introverted Feeling) -- personal values and emotional authenticity.", tier: 2, module: "cognitive", tags: ["stacks"] },
+  { id: qid(), q: "Which cognitive function focuses on external sensory experience in the present moment?", opts: ["Si", "Se", "Ne", "Ni"], ans: 1, exp: "Se (Extraverted Sensing) engages with the present sensory world -- physical experience, action, aesthetics, and real-time observation.", tier: 2, module: "cognitive", tags: ["basics"] },
+  { id: qid(), q: "What is Si (Introverted Sensing)?", opts: ["Present-moment sensory awareness", "Stored sensory impressions, memory, and comparison to past experience", "External pattern recognition", "Bodily kinesthetic awareness"], ans: 1, exp: "Si stores detailed sensory impressions and compares present experience to past. It values tradition, routine, and what has been proven.", tier: 2, module: "cognitive", tags: ["basics"] },
+  { id: qid(), q: "What is the dominant function of an INFP?", opts: ["Ne", "Fi", "Fe", "Ni"], ans: 1, exp: "INFP leads with Fi (Introverted Feeling) -- a deep inner value system and personal emotional authenticity.", tier: 2, module: "cognitive", tags: ["stacks"] },
+  { id: qid(), q: "The function stack of an ESTP is:", opts: ["Se-Ti-Fe-Ni", "Te-Si-Ne-Fi", "Se-Fi-Te-Ni", "Ti-Se-Ni-Fe"], ans: 0, exp: "ESTP's function stack is Se-Ti-Fe-Ni: dominant Se (present-moment action), auxiliary Ti (internal logic), tertiary Fe, inferior Ni.", tier: 2, module: "cognitive", tags: ["stacks"] },
 
   // Intermediate Cognitive
-  { id: qid(), q: "What is a cognitive 'loop' in function theory?", opts: ["All four functions working together harmoniously", "The dominant function connecting to the tertiary, bypassing the auxiliary", "The inferior function taking over the personality", "Shadow functions becoming conscious"], ans: 1, exp: "A loop occurs when the dominant function connects directly to the tertiary (same attitude), bypassing the auxiliary -- creating a closed, self-reinforcing unhealthy pattern.", difficulty: 2, module: "cognitive", tags: ["loops"] },
-  { id: qid(), q: "In a Ti-Si loop (INTP), what happens?", opts: ["The person becomes more socially engaged", "They get stuck in internal analysis reinforced by past data, disconnecting from external input", "They become action-oriented", "Their intuition becomes dominant"], ans: 1, exp: "In a Ti-Si loop, the INTP's internal logic (Ti) feeds on past experiences (Si) in a closed system, disconnecting from Ne's explorative external input.", difficulty: 2, module: "cognitive", tags: ["loops"] },
-  { id: qid(), q: "What is the 'Grip' experience in cognitive function theory?", opts: ["The dominant function at peak performance", "The inferior (4th) function taking over under extreme stress", "Learning to use shadow functions", "The auxiliary function becoming dominant"], ans: 1, exp: "The Grip: the inferior function takes over under extreme stress, producing out-of-character, compulsive, and often primitive behavior.", difficulty: 2, module: "cognitive", tags: ["grip"] },
-  { id: qid(), q: "An INTJ in the grip of inferior Se might:", opts: ["Become obsessed with sensory indulgence -- overeating, overexercising, or binge-watching", "Become extremely organized", "Start exploring many new ideas at once", "Become highly empathetic and people-focused"], ans: 0, exp: "When inferior Se grips an INTJ, they lose their typical restraint and become compulsively focused on sensory experiences -- food, physical sensation, or material excess.", difficulty: 2, module: "cognitive", tags: ["grip"] },
-  { id: qid(), q: "What is the difference between Fe and Fi?", opts: ["Fe is genuine; Fi is fake", "Fe orients to external emotional harmony and group values; Fi orients to internal personal values and authenticity", "Fe is about thinking; Fi is about feeling", "No meaningful difference"], ans: 1, exp: "Fe (Extraverted Feeling) reads and maintains group emotional harmony and shared values. Fi (Introverted Feeling) evaluates through a deep personal value system and individual authenticity.", difficulty: 2, module: "cognitive", tags: ["functions"] },
-  { id: qid(), q: "In Beebe's 8-function model, what archetype is assigned to the 5th function?", opts: ["Trickster", "Opposing Personality (Nemesis)", "Demon", "Senex/Witch"], ans: 1, exp: "The 5th function is the Opposing Personality (Nemesis) -- it's the shadow of the dominant and can be used defensively when the ego is threatened.", difficulty: 2, module: "cognitive", tags: ["beebe"] },
-  { id: qid(), q: "What archetype does Beebe assign to the 7th function?", opts: ["Hero", "Trickster", "Demon", "Nemesis"], ans: 1, exp: "The 7th function is the Trickster (or Deceiver) -- it can trick the ego into blind spots and is often the source of embarrassing mistakes.", difficulty: 2, module: "cognitive", tags: ["beebe"] },
-  { id: qid(), q: "Which function is in the 'Child' (3rd / Puer/Puella) position for an ENFJ?", opts: ["Fe", "Ni", "Se", "Ti"], ans: 2, exp: "ENFJ's stack is Fe-Ni-Se-Ti. The 3rd position (Child/Puer) is Se -- it's a source of playfulness and relief but also vulnerability.", difficulty: 2, module: "cognitive", tags: ["beebe", "stacks"] },
+  { id: qid(), q: "What is a cognitive 'loop' in function theory?", opts: ["All four functions working together harmoniously", "The dominant function connecting to the tertiary, bypassing the auxiliary", "The inferior function taking over the personality", "Shadow functions becoming conscious"], ans: 1, exp: "A loop occurs when the dominant function connects directly to the tertiary (same attitude), bypassing the auxiliary -- creating a closed, self-reinforcing unhealthy pattern.", tier: 3, module: "cognitive", tags: ["loops"] },
+  { id: qid(), q: "In a Ti-Si loop (INTP), what happens?", opts: ["The person becomes more socially engaged", "They get stuck in internal analysis reinforced by past data, disconnecting from external input", "They become action-oriented", "Their intuition becomes dominant"], ans: 1, exp: "In a Ti-Si loop, the INTP's internal logic (Ti) feeds on past experiences (Si) in a closed system, disconnecting from Ne's explorative external input.", tier: 3, module: "cognitive", tags: ["loops"] },
+  { id: qid(), q: "What is the 'Grip' experience in cognitive function theory?", opts: ["The dominant function at peak performance", "The inferior (4th) function taking over under extreme stress", "Learning to use shadow functions", "The auxiliary function becoming dominant"], ans: 1, exp: "The Grip: the inferior function takes over under extreme stress, producing out-of-character, compulsive, and often primitive behavior.", tier: 3, module: "cognitive", tags: ["grip"] },
+  { id: qid(), q: "An INTJ in the grip of inferior Se might:", opts: ["Become obsessed with sensory indulgence -- overeating, overexercising, or binge-watching", "Become extremely organized", "Start exploring many new ideas at once", "Become highly empathetic and people-focused"], ans: 0, exp: "When inferior Se grips an INTJ, they lose their typical restraint and become compulsively focused on sensory experiences -- food, physical sensation, or material excess.", tier: 3, module: "cognitive", tags: ["grip"] },
+  { id: qid(), q: "What is the difference between Fe and Fi?", opts: ["Fe is genuine; Fi is fake", "Fe orients to external emotional harmony and group values; Fi orients to internal personal values and authenticity", "Fe is about thinking; Fi is about feeling", "No meaningful difference"], ans: 1, exp: "Fe (Extraverted Feeling) reads and maintains group emotional harmony and shared values. Fi (Introverted Feeling) evaluates through a deep personal value system and individual authenticity.", tier: 3, module: "cognitive", tags: ["functions"] },
+  { id: qid(), q: "In Beebe's 8-function model, what archetype is assigned to the 5th function?", opts: ["Trickster", "Opposing Personality (Nemesis)", "Demon", "Senex/Witch"], ans: 1, exp: "The 5th function is the Opposing Personality (Nemesis) -- it's the shadow of the dominant and can be used defensively when the ego is threatened.", tier: 3, module: "cognitive", tags: ["beebe"] },
+  { id: qid(), q: "What archetype does Beebe assign to the 7th function?", opts: ["Hero", "Trickster", "Demon", "Nemesis"], ans: 1, exp: "The 7th function is the Trickster (or Deceiver) -- it can trick the ego into blind spots and is often the source of embarrassing mistakes.", tier: 3, module: "cognitive", tags: ["beebe"] },
+  { id: qid(), q: "Which function is in the 'Child' (3rd / Puer/Puella) position for an ENFJ?", opts: ["Fe", "Ni", "Se", "Ti"], ans: 2, exp: "ENFJ's stack is Fe-Ni-Se-Ti. The 3rd position (Child/Puer) is Se -- it's a source of playfulness and relief but also vulnerability.", tier: 3, module: "cognitive", tags: ["beebe", "stacks"] },
 
   // Advanced Cognitive
-  { id: qid(), q: "How does Se manifest differently as a Hero (dominant) function versus as a Demon (8th) function?", opts: ["No difference", "As Hero: confident engagement with physical reality; as Demon: destructive sensory overwhelm or dangerous impulsivity", "As Hero: passive observation; as Demon: active engagement", "As Hero: introverted; as Demon: extraverted"], ans: 1, exp: "Se as Hero (ESTP/ESFP) is confident, skillful engagement with the physical world. As Demon (INTJ/INFJ), it manifests as destructive overwhelm -- reckless physicality or feeling attacked by sensory reality.", difficulty: 3, module: "cognitive", tags: ["beebe", "shadow"] },
-  { id: qid(), q: "According to Beebe, what is the Anima/Animus (4th/inferior) function's role in individuation?", opts: ["It should be repressed", "It serves as the gateway to the unconscious and to psychological wholeness", "It replaces the dominant function over time", "It has no role in individuation"], ans: 1, exp: "Beebe, following Jung, sees the inferior function as the gateway to the unconscious. Engaging it consciously is central to individuation and psychological wholeness.", difficulty: 3, module: "cognitive", tags: ["beebe", "jung"] },
-  { id: qid(), q: "In an INFJ's 8-function Beebe stack, what is the 6th function (Witch/Senex)?", opts: ["Ni", "Fe", "Te", "Se"], ans: 2, exp: "INFJ's full 8-function stack: Ni-Fe-Ti-Se-Ne-Fi-Te-Si. The 6th (Witch/Senex) is Fi -- it can manifest as critical judgments of others' values.", difficulty: 3, module: "cognitive", tags: ["beebe", "stacks"] },
-  { id: qid(), q: "What is the Demon (8th) function for an ENTP, and how might it manifest?", opts: ["Si -- catastrophic attachment to negative past experiences and physical health anxiety", "Fe -- emotional manipulation", "Ni -- paranoid visions of doom", "Te -- rigid external control"], ans: 0, exp: "ENTP's stack ends with Si as the Demon (8th). It manifests as overwhelming nostalgia, health anxiety, or being haunted by past failures in a way that feels alien to the ENTP.", difficulty: 3, module: "cognitive", tags: ["beebe", "shadow"] },
-  { id: qid(), q: "How does Jung's concept of the transcendent function relate to the 8-function model?", opts: ["It is the 9th function", "It arises from the tension between conscious and unconscious functions, enabling psychological growth", "It replaces all other functions", "It is the same as the dominant function"], ans: 1, exp: "The transcendent function is not a cognitive function but a process: it arises from holding the tension between conscious attitudes and unconscious compensations, producing new synthesis.", difficulty: 3, module: "cognitive", tags: ["jung", "theory"] },
-  { id: qid(), q: "You're stressed and suddenly become obsessed with sensory overindulgence (overeating, reckless spending). If your dominant function is Ni, which function is likely in grip?", opts: ["Ne", "Fe", "Se", "Ti"], ans: 2, exp: "For Ni-dominants (INTJ/INFJ), the inferior function is Se. In the grip, Se manifests as compulsive sensory indulgence -- overeating, overspending, or physical recklessness.", difficulty: 2, module: "cognitive", tags: ["grip", "scenario"] },
-  { id: qid(), q: "An ISFJ is acting extremely critical and nitpicking logical inconsistencies in everyone's arguments. Which function is likely in the grip?", opts: ["Fe", "Ne", "Ti", "Se"], ans: 2, exp: "ISFJ's inferior function is Ne, but this behavior -- hypercritical logical nitpicking -- points to the Ti in a loop with Si, or potentially Ne manifesting as seeing all the ways things could go wrong.", difficulty: 3, module: "cognitive", tags: ["grip", "scenario"] },
+  { id: qid(), q: "How does Se manifest differently as a Hero (dominant) function versus as a Demon (8th) function?", opts: ["No difference", "As Hero: confident engagement with physical reality; as Demon: destructive sensory overwhelm or dangerous impulsivity", "As Hero: passive observation; as Demon: active engagement", "As Hero: introverted; as Demon: extraverted"], ans: 1, exp: "Se as Hero (ESTP/ESFP) is confident, skillful engagement with the physical world. As Demon (INTJ/INFJ), it manifests as destructive overwhelm -- reckless physicality or feeling attacked by sensory reality.", tier: 4, module: "cognitive", tags: ["beebe", "shadow"] },
+  { id: qid(), q: "According to Beebe, what is the Anima/Animus (4th/inferior) function's role in individuation?", opts: ["It should be repressed", "It serves as the gateway to the unconscious and to psychological wholeness", "It replaces the dominant function over time", "It has no role in individuation"], ans: 1, exp: "Beebe, following Jung, sees the inferior function as the gateway to the unconscious. Engaging it consciously is central to individuation and psychological wholeness.", tier: 4, module: "cognitive", tags: ["beebe", "jung"] },
+  { id: qid(), q: "In an INFJ's 8-function Beebe stack, what is the 6th function (Witch/Senex)?", opts: ["Ni", "Fe", "Te", "Se"], ans: 2, exp: "INFJ's full 8-function stack: Ni-Fe-Ti-Se-Ne-Fi-Te-Si. The 6th (Witch/Senex) is Fi -- it can manifest as critical judgments of others' values.", tier: 4, module: "cognitive", tags: ["beebe", "stacks"] },
+  { id: qid(), q: "What is the Demon (8th) function for an ENTP, and how might it manifest?", opts: ["Si -- catastrophic attachment to negative past experiences and physical health anxiety", "Fe -- emotional manipulation", "Ni -- paranoid visions of doom", "Te -- rigid external control"], ans: 0, exp: "ENTP's stack ends with Si as the Demon (8th). It manifests as overwhelming nostalgia, health anxiety, or being haunted by past failures in a way that feels alien to the ENTP.", tier: 4, module: "cognitive", tags: ["beebe", "shadow"] },
+  { id: qid(), q: "How does Jung's concept of the transcendent function relate to the 8-function model?", opts: ["It is the 9th function", "It arises from the tension between conscious and unconscious functions, enabling psychological growth", "It replaces all other functions", "It is the same as the dominant function"], ans: 1, exp: "The transcendent function is not a cognitive function but a process: it arises from holding the tension between conscious attitudes and unconscious compensations, producing new synthesis.", tier: 4, module: "cognitive", tags: ["jung", "theory"] },
+  { id: qid(), q: "You're stressed and suddenly become obsessed with sensory overindulgence (overeating, reckless spending). If your dominant function is Ni, which function is likely in grip?", opts: ["Ne", "Fe", "Se", "Ti"], ans: 2, exp: "For Ni-dominants (INTJ/INFJ), the inferior function is Se. In the grip, Se manifests as compulsive sensory indulgence -- overeating, overspending, or physical recklessness.", tier: 3, module: "cognitive", tags: ["grip", "scenario"] },
+  { id: qid(), q: "An ISFJ is acting extremely critical and nitpicking logical inconsistencies in everyone's arguments. Which function is likely in the grip?", opts: ["Fe", "Ne", "Ti", "Se"], ans: 2, exp: "ISFJ's inferior function is Ne, but this behavior -- hypercritical logical nitpicking -- points to the Ti in a loop with Si, or potentially Ne manifesting as seeing all the ways things could go wrong.", tier: 4, module: "cognitive", tags: ["grip", "scenario"] },
 
   // ═══════════════════════════════════════════════════════════════════════
   // MODULE 3: CROSS-SYSTEM CHALLENGE
   // ═══════════════════════════════════════════════════════════════════════
-  { id: qid(), q: "INTJs are most commonly which Enneagram type?", opts: ["Type 1", "Type 5", "Type 8", "Type 3"], ans: 1, exp: "INTJs most commonly type as Enneagram 5 -- Ni's drive for deep understanding aligns with 5's desire for competence and knowledge.", difficulty: 1, module: "cross", tags: ["correlations"] },
-  { id: qid(), q: "ENFPs are most commonly which Enneagram type?", opts: ["Type 7", "Type 4", "Type 2", "Type 9"], ans: 0, exp: "ENFPs most commonly type as Enneagram 7 -- Ne's drive for new possibilities aligns with 7's desire for stimulation and options.", difficulty: 1, module: "cross", tags: ["correlations"] },
-  { id: qid(), q: "INFPs are most commonly which Enneagram type?", opts: ["Type 9", "Type 4", "Type 2", "Type 5"], ans: 1, exp: "INFPs most commonly type as Enneagram 4 -- Fi's drive for authenticity and personal meaning aligns with 4's identity fixation and depth.", difficulty: 1, module: "cross", tags: ["correlations"] },
-  { id: qid(), q: "How might Ni-dom interact with the Type 5 passion of avarice?", opts: ["Ni would counteract avarice", "Ni could intensify 5's retreat into internal pattern-making, hoarding insights rather than sharing them", "Ni has no interaction with Enneagram passions", "Ni would make a 5 more social"], ans: 1, exp: "Ni-dominant 5s risk becoming deeply absorbed in internal pattern recognition, intensifying the avarice by hoarding ever-deeper insights without testing them in the real world.", difficulty: 2, module: "cross", tags: ["integration"] },
-  { id: qid(), q: "An ESFP Type 7 would likely struggle most with:", opts: ["Not enough sensory input", "Staying with emotional pain -- both Se and 7 move toward stimulation and away from discomfort", "Being too introverted", "Overthinking decisions"], ans: 1, exp: "Se (dominant) + Type 7 gluttony creates a powerful drive toward positive sensory experience. The growth edge for both systems points the same direction: learning to stay with discomfort.", difficulty: 2, module: "cross", tags: ["integration"] },
-  { id: qid(), q: "What growth path does integration to Type 8 suggest for a Type 5 who uses inferior Se?", opts: ["They should avoid Se entirely", "Integration to 8 and development of inferior Se both point toward embodied action and confident physical engagement", "These are contradictory growth paths", "8 integration means becoming aggressive"], ans: 1, exp: "Both paths converge: 5->8 integration means becoming more decisive, embodied, and action-oriented. Developing inferior Se means engaging with physical reality. They reinforce each other.", difficulty: 2, module: "cross", tags: ["integration", "growth"] },
-  { id: qid(), q: "An INFJ Type 4 experiencing disintegration to Type 2 might look like:", opts: ["Becoming more withdrawn", "Using Fe (auxiliary) to manipulate others into caring for them while Ni creates a narrative of being uniquely unappreciated", "Becoming highly logical", "Losing all emotional capacity"], ans: 1, exp: "INFJ 4s disintegrating to 2 could weaponize their naturally strong Fe -- seeking validation and care through emotional manipulation while Ni constructs an elaborate internal story.", difficulty: 3, module: "cross", tags: ["disintegration", "scenario"] },
-  { id: qid(), q: "How does the Ti-Fe axis in an INTP relate to the Enneagram 5's growth line to 8?", opts: ["No relationship", "Ti's detachment reinforces 5's withdrawal; Fe development and 5->8 integration both require external engagement with others", "Ti is the same as Type 5", "Fe prevents 5->8 integration"], ans: 1, exp: "INTP's Ti reinforces 5's cerebral withdrawal. Both Fe (auxiliary development) and 5->8 integration require moving outward -- engaging with people and taking action in the world.", difficulty: 3, module: "cross", tags: ["integration", "axes"] },
-  { id: qid(), q: "Why might an ENTJ Type 8 be particularly susceptible to the 8's disintegration to Type 5?", opts: ["Te-dominant 8s never disintegrate", "Under stress, the ENTJ retreats from Te's external control into Ni (introverted), and 8->5 reinforces this withdrawal into isolation and hoarding", "They aren't susceptible at all", "Te makes them immune to stress"], ans: 1, exp: "ENTJ 8s under stress move toward 5's isolation. Their Ni (auxiliary) can become a trap -- retreating from Te's external engagement into Ni's internal world, amplified by 5's avarice.", difficulty: 3, module: "cross", tags: ["disintegration", "scenario"] },
-  { id: qid(), q: "An ISFP Type 9 might struggle with which specific developmental challenge?", opts: ["Both Fi (dominant) and 9's sloth encourage internal withdrawal from conflict and self-assertion", "They would be too assertive", "Fi would override 9's patterns completely", "No particular challenge exists"], ans: 0, exp: "Fi-dominant 9s face a doubled challenge: Fi naturally turns inward, and 9's sloth forgets one's own agenda. The growth path for both (Fe development + 9->3 integration) requires external self-assertion.", difficulty: 2, module: "cross", tags: ["integration", "growth"] },
-  { id: qid(), q: "How might an ESTJ Type 1 experience their inner critic differently from an INFP Type 1?", opts: ["They wouldn't -- the inner critic is the same for all Type 1s", "ESTJ 1 externalizes criticism through Te (correcting systems and others); INFP 1 internalizes through Fi (harsh self-judgment against personal values)", "ESTJ 1 has no inner critic", "INFP 1 has no inner critic"], ans: 1, exp: "The Type 1 inner critic manifests through the cognitive stack: Te-dominant 1s direct their reforming energy outward (fixing systems), while Fi-dominant 1s turn it inward (ruthless self-evaluation).", difficulty: 3, module: "cross", tags: ["type-interaction"] },
-  { id: qid(), q: "What shared growth direction do INFJ and Type 1 integration (to Type 7) suggest?", opts: ["Becoming more rigid", "Both point toward lightness, spontaneity, and engaging with Se/sensory joy", "Becoming more analytical", "Withdrawing further"], ans: 1, exp: "INFJ's inferior Se development means engaging with sensory experience and spontaneity. Type 1's integration to 7 means embracing joy and play. Both paths converge on present-moment engagement.", difficulty: 2, module: "cross", tags: ["integration", "growth"] },
+  { id: qid(), q: "INTJs are most commonly which Enneagram type?", opts: ["Type 1", "Type 5", "Type 8", "Type 3"], ans: 1, exp: "INTJs most commonly type as Enneagram 5 -- Ni's drive for deep understanding aligns with 5's desire for competence and knowledge.", tier: 2, module: "cross", tags: ["correlations"] },
+  { id: qid(), q: "ENFPs are most commonly which Enneagram type?", opts: ["Type 7", "Type 4", "Type 2", "Type 9"], ans: 0, exp: "ENFPs most commonly type as Enneagram 7 -- Ne's drive for new possibilities aligns with 7's desire for stimulation and options.", tier: 2, module: "cross", tags: ["correlations"] },
+  { id: qid(), q: "INFPs are most commonly which Enneagram type?", opts: ["Type 9", "Type 4", "Type 2", "Type 5"], ans: 1, exp: "INFPs most commonly type as Enneagram 4 -- Fi's drive for authenticity and personal meaning aligns with 4's identity fixation and depth.", tier: 2, module: "cross", tags: ["correlations"] },
+  { id: qid(), q: "How might Ni-dom interact with the Type 5 passion of avarice?", opts: ["Ni would counteract avarice", "Ni could intensify 5's retreat into internal pattern-making, hoarding insights rather than sharing them", "Ni has no interaction with Enneagram passions", "Ni would make a 5 more social"], ans: 1, exp: "Ni-dominant 5s risk becoming deeply absorbed in internal pattern recognition, intensifying the avarice by hoarding ever-deeper insights without testing them in the real world.", tier: 3, module: "cross", tags: ["integration"] },
+  { id: qid(), q: "An ESFP Type 7 would likely struggle most with:", opts: ["Not enough sensory input", "Staying with emotional pain -- both Se and 7 move toward stimulation and away from discomfort", "Being too introverted", "Overthinking decisions"], ans: 1, exp: "Se (dominant) + Type 7 gluttony creates a powerful drive toward positive sensory experience. The growth edge for both systems points the same direction: learning to stay with discomfort.", tier: 3, module: "cross", tags: ["integration"] },
+  { id: qid(), q: "What growth path does integration to Type 8 suggest for a Type 5 who uses inferior Se?", opts: ["They should avoid Se entirely", "Integration to 8 and development of inferior Se both point toward embodied action and confident physical engagement", "These are contradictory growth paths", "8 integration means becoming aggressive"], ans: 1, exp: "Both paths converge: 5->8 integration means becoming more decisive, embodied, and action-oriented. Developing inferior Se means engaging with physical reality. They reinforce each other.", tier: 3, module: "cross", tags: ["integration", "growth"] },
+  { id: qid(), q: "An INFJ Type 4 experiencing disintegration to Type 2 might look like:", opts: ["Becoming more withdrawn", "Using Fe (auxiliary) to manipulate others into caring for them while Ni creates a narrative of being uniquely unappreciated", "Becoming highly logical", "Losing all emotional capacity"], ans: 1, exp: "INFJ 4s disintegrating to 2 could weaponize their naturally strong Fe -- seeking validation and care through emotional manipulation while Ni constructs an elaborate internal story.", tier: 4, module: "cross", tags: ["disintegration", "scenario"] },
+  { id: qid(), q: "How does the Ti-Fe axis in an INTP relate to the Enneagram 5's growth line to 8?", opts: ["No relationship", "Ti's detachment reinforces 5's withdrawal; Fe development and 5->8 integration both require external engagement with others", "Ti is the same as Type 5", "Fe prevents 5->8 integration"], ans: 1, exp: "INTP's Ti reinforces 5's cerebral withdrawal. Both Fe (auxiliary development) and 5->8 integration require moving outward -- engaging with people and taking action in the world.", tier: 4, module: "cross", tags: ["integration", "axes"] },
+  { id: qid(), q: "Why might an ENTJ Type 8 be particularly susceptible to the 8's disintegration to Type 5?", opts: ["Te-dominant 8s never disintegrate", "Under stress, the ENTJ retreats from Te's external control into Ni (introverted), and 8->5 reinforces this withdrawal into isolation and hoarding", "They aren't susceptible at all", "Te makes them immune to stress"], ans: 1, exp: "ENTJ 8s under stress move toward 5's isolation. Their Ni (auxiliary) can become a trap -- retreating from Te's external engagement into Ni's internal world, amplified by 5's avarice.", tier: 4, module: "cross", tags: ["disintegration", "scenario"] },
+  { id: qid(), q: "An ISFP Type 9 might struggle with which specific developmental challenge?", opts: ["Both Fi (dominant) and 9's sloth encourage internal withdrawal from conflict and self-assertion", "They would be too assertive", "Fi would override 9's patterns completely", "No particular challenge exists"], ans: 0, exp: "Fi-dominant 9s face a doubled challenge: Fi naturally turns inward, and 9's sloth forgets one's own agenda. The growth path for both (Fe development + 9->3 integration) requires external self-assertion.", tier: 3, module: "cross", tags: ["integration", "growth"] },
+  { id: qid(), q: "How might an ESTJ Type 1 experience their inner critic differently from an INFP Type 1?", opts: ["They wouldn't -- the inner critic is the same for all Type 1s", "ESTJ 1 externalizes criticism through Te (correcting systems and others); INFP 1 internalizes through Fi (harsh self-judgment against personal values)", "ESTJ 1 has no inner critic", "INFP 1 has no inner critic"], ans: 1, exp: "The Type 1 inner critic manifests through the cognitive stack: Te-dominant 1s direct their reforming energy outward (fixing systems), while Fi-dominant 1s turn it inward (ruthless self-evaluation).", tier: 4, module: "cross", tags: ["type-interaction"] },
+  { id: qid(), q: "What shared growth direction do INFJ and Type 1 integration (to Type 7) suggest?", opts: ["Becoming more rigid", "Both point toward lightness, spontaneity, and engaging with Se/sensory joy", "Becoming more analytical", "Withdrawing further"], ans: 1, exp: "INFJ's inferior Se development means engaging with sensory experience and spontaneity. Type 1's integration to 7 means embracing joy and play. Both paths converge on present-moment engagement.", tier: 3, module: "cross", tags: ["integration", "growth"] },
 
   // ═══════════════════════════════════════════════════════════════════════
   // MODULE 4: HISTORY & THEORY
   // ═══════════════════════════════════════════════════════════════════════
-  { id: qid(), q: "Who introduced the concept of the 27 subtypes (instinctual variants for each type)?", opts: ["Don Riso", "Oscar Ichazo", "Claudio Naranjo", "George Gurdjieff"], ans: 2, exp: "Claudio Naranjo developed the 27 subtypes by applying the three instinctual variants (SP, SX, SO) to each of the 9 types, based on Ichazo's original framework.", difficulty: 1, module: "history", tags: ["history"] },
-  { id: qid(), q: "What year did Jung publish Psychological Types?", opts: ["1912", "1921", "1935", "1943"], ans: 1, exp: "Jung published Psychological Types (Psychologische Typen) in 1921, introducing the concepts of introversion/extraversion and the four function types.", difficulty: 1, module: "history", tags: ["history", "jung"] },
-  { id: qid(), q: "Who created the MBTI based on Jung's theory?", opts: ["Carl Jung himself", "Katharine Briggs and Isabel Briggs Myers", "John Beebe", "David Keirsey"], ans: 1, exp: "Katharine Cook Briggs and her daughter Isabel Briggs Myers developed the MBTI in the 1940s-60s, operationalizing Jung's type theory into a practical assessment.", difficulty: 1, module: "history", tags: ["history", "mbti"] },
-  { id: qid(), q: "Oscar Ichazo is known for what contribution to the Enneagram?", opts: ["He invented the Enneagram symbol", "He connected the 9 types to ego fixations, Holy Ideas, passions, and virtues", "He wrote The Wisdom of the Enneagram", "He created the 27 subtypes"], ans: 1, exp: "Ichazo developed the Enneagrammatic map connecting each type to a specific ego fixation, Holy Idea, passion, and virtue -- the theoretical backbone of the system.", difficulty: 1, module: "history", tags: ["history", "ichazo"] },
-  { id: qid(), q: "What is the Enneagram symbol's geometric shape?", opts: ["A circle with a triangle and hexad (6-pointed figure)", "A simple circle with 9 points", "A star of David", "A pentagram"], ans: 0, exp: "The Enneagram symbol is a circle containing a triangle (3-6-9) and a hexad (1-4-2-8-5-7), representing the Law of Three and the Law of Seven from Gurdjieff's teaching.", difficulty: 1, module: "history", tags: ["history", "symbol"] },
-  { id: qid(), q: "What is the difference between Ichazo's Holy Ideas and Naranjo's passions?", opts: ["They are the same thing", "Holy Ideas are the higher truth each type forgets; passions are the emotional reactions to that forgetting", "Holy Ideas are for healthy types; passions are for unhealthy types", "Ichazo focused on emotions; Naranjo focused on ideals"], ans: 1, exp: "Holy Ideas represent the objective spiritual truth each type loses contact with. Passions are the emotional/instinctual compensations that arise from that loss.", difficulty: 2, module: "history", tags: ["theory", "ichazo", "naranjo"] },
-  { id: qid(), q: "How does Beebe's model extend Jung's original 4-function model?", opts: ["It adds 4 more types", "It assigns archetypal roles (Hero, Parent, Child, Anima, Nemesis, Witch, Trickster, Demon) to all 8 functions", "It removes two functions", "It adds a 9th function"], ans: 1, exp: "Beebe extended Jung's theory by mapping all 8 cognitive functions (4 conscious + 4 shadow) to Jungian archetypes, creating a model of psychological development and shadow integration.", difficulty: 2, module: "history", tags: ["beebe", "theory"] },
-  { id: qid(), q: "Don Riso and Russ Hudson are known for developing which key Enneagram framework?", opts: ["The 27 subtypes", "The Levels of Development (9 levels from healthy to unhealthy for each type)", "The Hornevian groups", "The cognitive function stacks"], ans: 1, exp: "Riso and Hudson developed the Levels of Development -- 9 levels (3 healthy, 3 average, 3 unhealthy) showing how each type manifests at different degrees of psychological health.", difficulty: 2, module: "history", tags: ["history", "riso-hudson"] },
-  { id: qid(), q: "What is the original source of the Enneagram symbol?", opts: ["Ancient Sufi tradition", "G.I. Gurdjieff introduced the symbol to the West, claiming ancient origins", "Carl Jung", "Oscar Ichazo invented it from scratch"], ans: 1, exp: "Gurdjieff introduced the Enneagram symbol in the early 20th century, using it to teach the Laws of Three and Seven. Its exact historical origins remain debated.", difficulty: 2, module: "history", tags: ["history", "gurdjieff"] },
-  { id: qid(), q: "Who developed the Tritype theory?", opts: ["Claudio Naranjo", "Katherine Chernick Fauvre", "Helen Palmer", "Don Riso"], ans: 1, exp: "Katherine Chernick Fauvre developed Tritype theory -- the idea that each person uses one type from each center (Head, Heart, Gut) as a dominant strategy.", difficulty: 2, module: "history", tags: ["history", "tritype"] },
-  { id: qid(), q: "What are the three Hornevian groups and who conceptualized them?", opts: ["Assertive/Compliant/Withdrawn -- based on Karen Horney's work, applied to the Enneagram", "Active/Passive/Neutral -- from Gurdjieff", "Thinking/Feeling/Doing -- from Naranjo", "Inner/Outer/Balanced -- from Ichazo"], ans: 0, exp: "The Hornevian groups (Assertive: 3,7,8 / Compliant: 1,2,6 / Withdrawn: 4,5,9) are based on Karen Horney's concept of neurotic trends, applied to the Enneagram by various teachers.", difficulty: 2, module: "history", tags: ["hornevian", "theory"] },
-  { id: qid(), q: "Beatrice Chestnut's primary contribution to the Enneagram field is:", opts: ["Creating the Enneagram symbol", "Detailed descriptions of all 27 subtypes and identification of countertypes", "Developing the MBTI", "Creating the Levels of Development"], ans: 1, exp: "Chestnut synthesized Naranjo's subtype teachings into comprehensive descriptions of all 27 subtypes and clearly identified which subtype is the 'countertype' for each type.", difficulty: 2, module: "history", tags: ["history", "chestnut"] },
-  { id: qid(), q: "What is the Harmonic Groups framework in the Enneagram?", opts: ["How each type sings", "Three groups showing how types cope with conflict: Positive Outlook (2,7,9), Competency (1,3,5), Reactive (4,6,8)", "The musical tones associated with each type", "A framework for tritype interactions"], ans: 1, exp: "The Harmonic Groups describe conflict resolution styles: Positive Outlook types reframe positively, Competency types manage through objectivity, and Reactive types respond with emotional intensity.", difficulty: 2, module: "history", tags: ["harmonic", "theory"] },
-  { id: qid(), q: "In what decade did Naranjo first teach the Enneagram personality types in the US?", opts: ["1950s", "1960s", "1970s", "1980s"], ans: 2, exp: "Naranjo began teaching the Enneagram of personality in the early 1970s at the Esalen Institute and at UC Berkeley's SAT groups, bringing Ichazo's framework to the US.", difficulty: 3, module: "history", tags: ["history", "naranjo"] },
-  { id: qid(), q: "What is the relationship between Gurdjieff's use of the Enneagram and the personality types we know today?", opts: ["Gurdjieff taught the 9 personality types", "Gurdjieff used the symbol for cosmological/process work, not personality; the personality application came from Ichazo and Naranjo", "They are identical systems", "Gurdjieff rejected the Enneagram symbol"], ans: 1, exp: "Gurdjieff used the Enneagram as a process diagram (food octave, etc.), not for personality typing. Ichazo connected the 9 points to ego fixations, and Naranjo developed the personality descriptions.", difficulty: 3, module: "history", tags: ["history", "gurdjieff", "ichazo"] },
-  { id: qid(), q: "What is the difference between Jung's original concept of 'types' and the modern MBTI interpretation?", opts: ["No difference", "Jung saw types as fluid tendencies with an unconscious compensatory function; MBTI treats them as more fixed categories with letter preferences", "MBTI is deeper than Jung", "Jung only described 2 types"], ans: 1, exp: "Jung viewed type as a dynamic interplay between conscious and unconscious functions. The MBTI operationalized this into more fixed letter-based categories, losing some of Jung's nuance about the unconscious.", difficulty: 3, module: "history", tags: ["jung", "mbti", "theory"] },
-  { id: qid(), q: "Helen Palmer is known for which approach to teaching the Enneagram?", opts: ["The Narrative Tradition -- using panel interviews and first-person accounts", "The scientific measurement approach", "The Levels of Development", "The subtype system"], ans: 0, exp: "Helen Palmer pioneered the Narrative Tradition, using panel interviews where people of each type share their lived experience, emphasizing phenomenology over theory.", difficulty: 3, module: "history", tags: ["history", "palmer"] },
-  { id: qid(), q: "What did Jung mean by 'individuation' and how does it relate to the 8-function model?", opts: ["Becoming more individual and unique", "The lifelong process of integrating all 8 functions -- conscious and shadow -- into a more complete personality", "Choosing which type you are", "Rejecting your inferior function"], ans: 1, exp: "Individuation is Jung's term for the lifelong process of becoming whole by integrating unconscious contents. In the 8-function model, this means developing a conscious relationship with all 8 functions, including the shadow.", difficulty: 3, module: "history", tags: ["jung", "individuation", "theory"] },
+  { id: qid(), q: "Who introduced the concept of the 27 subtypes (instinctual variants for each type)?", opts: ["Don Riso", "Oscar Ichazo", "Claudio Naranjo", "George Gurdjieff"], ans: 2, exp: "Claudio Naranjo developed the 27 subtypes by applying the three instinctual variants (SP, SX, SO) to each of the 9 types, based on Ichazo's original framework.", tier: 2, module: "history", tags: ["history"] },
+  { id: qid(), q: "What year did Jung publish Psychological Types?", opts: ["1912", "1921", "1935", "1943"], ans: 1, exp: "Jung published Psychological Types (Psychologische Typen) in 1921, introducing the concepts of introversion/extraversion and the four function types.", tier: 2, module: "history", tags: ["history", "jung"] },
+  { id: qid(), q: "Who created the MBTI based on Jung's theory?", opts: ["Carl Jung himself", "Katharine Briggs and Isabel Briggs Myers", "John Beebe", "David Keirsey"], ans: 1, exp: "Katharine Cook Briggs and her daughter Isabel Briggs Myers developed the MBTI in the 1940s-60s, operationalizing Jung's type theory into a practical assessment.", tier: 2, module: "history", tags: ["history", "mbti"] },
+  { id: qid(), q: "Oscar Ichazo is known for what contribution to the Enneagram?", opts: ["He invented the Enneagram symbol", "He connected the 9 types to ego fixations, Holy Ideas, passions, and virtues", "He wrote The Wisdom of the Enneagram", "He created the 27 subtypes"], ans: 1, exp: "Ichazo developed the Enneagrammatic map connecting each type to a specific ego fixation, Holy Idea, passion, and virtue -- the theoretical backbone of the system.", tier: 2, module: "history", tags: ["history", "ichazo"] },
+  { id: qid(), q: "What is the Enneagram symbol's geometric shape?", opts: ["A circle with a triangle and hexad (6-pointed figure)", "A simple circle with 9 points", "A star of David", "A pentagram"], ans: 0, exp: "The Enneagram symbol is a circle containing a triangle (3-6-9) and a hexad (1-4-2-8-5-7), representing the Law of Three and the Law of Seven from Gurdjieff's teaching.", tier: 2, module: "history", tags: ["history", "symbol"] },
+  { id: qid(), q: "What is the difference between Ichazo's Holy Ideas and Naranjo's passions?", opts: ["They are the same thing", "Holy Ideas are the higher truth each type forgets; passions are the emotional reactions to that forgetting", "Holy Ideas are for healthy types; passions are for unhealthy types", "Ichazo focused on emotions; Naranjo focused on ideals"], ans: 1, exp: "Holy Ideas represent the objective spiritual truth each type loses contact with. Passions are the emotional/instinctual compensations that arise from that loss.", tier: 3, module: "history", tags: ["theory", "ichazo", "naranjo"] },
+  { id: qid(), q: "How does Beebe's model extend Jung's original 4-function model?", opts: ["It adds 4 more types", "It assigns archetypal roles (Hero, Parent, Child, Anima, Nemesis, Witch, Trickster, Demon) to all 8 functions", "It removes two functions", "It adds a 9th function"], ans: 1, exp: "Beebe extended Jung's theory by mapping all 8 cognitive functions (4 conscious + 4 shadow) to Jungian archetypes, creating a model of psychological development and shadow integration.", tier: 3, module: "history", tags: ["beebe", "theory"] },
+  { id: qid(), q: "Don Riso and Russ Hudson are known for developing which key Enneagram framework?", opts: ["The 27 subtypes", "The Levels of Development (9 levels from healthy to unhealthy for each type)", "The Hornevian groups", "The cognitive function stacks"], ans: 1, exp: "Riso and Hudson developed the Levels of Development -- 9 levels (3 healthy, 3 average, 3 unhealthy) showing how each type manifests at different degrees of psychological health.", tier: 3, module: "history", tags: ["history", "riso-hudson"] },
+  { id: qid(), q: "What is the original source of the Enneagram symbol?", opts: ["Ancient Sufi tradition", "G.I. Gurdjieff introduced the symbol to the West, claiming ancient origins", "Carl Jung", "Oscar Ichazo invented it from scratch"], ans: 1, exp: "Gurdjieff introduced the Enneagram symbol in the early 20th century, using it to teach the Laws of Three and Seven. Its exact historical origins remain debated.", tier: 3, module: "history", tags: ["history", "gurdjieff"] },
+  { id: qid(), q: "Who developed the Tritype theory?", opts: ["Claudio Naranjo", "Katherine Chernick Fauvre", "Helen Palmer", "Don Riso"], ans: 1, exp: "Katherine Chernick Fauvre developed Tritype theory -- the idea that each person uses one type from each center (Head, Heart, Gut) as a dominant strategy.", tier: 3, module: "history", tags: ["history", "tritype"] },
+  { id: qid(), q: "What are the three Hornevian groups and who conceptualized them?", opts: ["Assertive/Compliant/Withdrawn -- based on Karen Horney's work, applied to the Enneagram", "Active/Passive/Neutral -- from Gurdjieff", "Thinking/Feeling/Doing -- from Naranjo", "Inner/Outer/Balanced -- from Ichazo"], ans: 0, exp: "The Hornevian groups (Assertive: 3,7,8 / Compliant: 1,2,6 / Withdrawn: 4,5,9) are based on Karen Horney's concept of neurotic trends, applied to the Enneagram by various teachers.", tier: 3, module: "history", tags: ["hornevian", "theory"] },
+  { id: qid(), q: "Beatrice Chestnut's primary contribution to the Enneagram field is:", opts: ["Creating the Enneagram symbol", "Detailed descriptions of all 27 subtypes and identification of countertypes", "Developing the MBTI", "Creating the Levels of Development"], ans: 1, exp: "Chestnut synthesized Naranjo's subtype teachings into comprehensive descriptions of all 27 subtypes and clearly identified which subtype is the 'countertype' for each type.", tier: 3, module: "history", tags: ["history", "chestnut"] },
+  { id: qid(), q: "What is the Harmonic Groups framework in the Enneagram?", opts: ["How each type sings", "Three groups showing how types cope with conflict: Positive Outlook (2,7,9), Competency (1,3,5), Reactive (4,6,8)", "The musical tones associated with each type", "A framework for tritype interactions"], ans: 1, exp: "The Harmonic Groups describe conflict resolution styles: Positive Outlook types reframe positively, Competency types manage through objectivity, and Reactive types respond with emotional intensity.", tier: 3, module: "history", tags: ["harmonic", "theory"] },
+  { id: qid(), q: "In what decade did Naranjo first teach the Enneagram personality types in the US?", opts: ["1950s", "1960s", "1970s", "1980s"], ans: 2, exp: "Naranjo began teaching the Enneagram of personality in the early 1970s at the Esalen Institute and at UC Berkeley's SAT groups, bringing Ichazo's framework to the US.", tier: 4, module: "history", tags: ["history", "naranjo"] },
+  { id: qid(), q: "What is the relationship between Gurdjieff's use of the Enneagram and the personality types we know today?", opts: ["Gurdjieff taught the 9 personality types", "Gurdjieff used the symbol for cosmological/process work, not personality; the personality application came from Ichazo and Naranjo", "They are identical systems", "Gurdjieff rejected the Enneagram symbol"], ans: 1, exp: "Gurdjieff used the Enneagram as a process diagram (food octave, etc.), not for personality typing. Ichazo connected the 9 points to ego fixations, and Naranjo developed the personality descriptions.", tier: 4, module: "history", tags: ["history", "gurdjieff", "ichazo"] },
+  { id: qid(), q: "What is the difference between Jung's original concept of 'types' and the modern MBTI interpretation?", opts: ["No difference", "Jung saw types as fluid tendencies with an unconscious compensatory function; MBTI treats them as more fixed categories with letter preferences", "MBTI is deeper than Jung", "Jung only described 2 types"], ans: 1, exp: "Jung viewed type as a dynamic interplay between conscious and unconscious functions. The MBTI operationalized this into more fixed letter-based categories, losing some of Jung's nuance about the unconscious.", tier: 4, module: "history", tags: ["jung", "mbti", "theory"] },
+  { id: qid(), q: "Helen Palmer is known for which approach to teaching the Enneagram?", opts: ["The Narrative Tradition -- using panel interviews and first-person accounts", "The scientific measurement approach", "The Levels of Development", "The subtype system"], ans: 0, exp: "Helen Palmer pioneered the Narrative Tradition, using panel interviews where people of each type share their lived experience, emphasizing phenomenology over theory.", tier: 4, module: "history", tags: ["history", "palmer"] },
+  { id: qid(), q: "What did Jung mean by 'individuation' and how does it relate to the 8-function model?", opts: ["Becoming more individual and unique", "The lifelong process of integrating all 8 functions -- conscious and shadow -- into a more complete personality", "Choosing which type you are", "Rejecting your inferior function"], ans: 1, exp: "Individuation is Jung's term for the lifelong process of becoming whole by integrating unconscious contents. In the 8-function model, this means developing a conscious relationship with all 8 functions, including the shadow.", tier: 4, module: "history", tags: ["jung", "individuation", "theory"] },
 ];
 
 /* ═══════════════════════════════════════════════════════════════════════════
@@ -570,17 +580,85 @@ const colorMap: Record<string, { bg: string; border: string; text: string; light
 };
 
 /* ═══════════════════════════════════════════════════════════════════════════
+   SPACED REPETITION — per-question stat tracking
+   ═══════════════════════════════════════════════════════════════════════════ */
+const SR_KEY = "psyche-question-stats";
+
+interface QStat {
+  seen: number;       // total times shown
+  correct: number;    // total correct answers
+  lastSeen: string;   // ISO date
+}
+
+function loadQStats(): Record<string, QStat> {
+  try {
+    const raw = localStorage.getItem(SR_KEY);
+    return raw ? JSON.parse(raw) : {};
+  } catch { return {}; }
+}
+
+function saveQStat(id: string, correct: boolean) {
+  try {
+    const stats = loadQStats();
+    const prev = stats[id] ?? { seen: 0, correct: 0, lastSeen: "" };
+    stats[id] = {
+      seen: prev.seen + 1,
+      correct: prev.correct + (correct ? 1 : 0),
+      lastSeen: new Date().toISOString().split("T")[0],
+    };
+    localStorage.setItem(SR_KEY, JSON.stringify(stats));
+  } catch {}
+}
+
+/**
+ * Pick `n` questions from `pool` using spaced-repetition weights.
+ * - Never seen: weight 3
+ * - Seen and mostly wrong (accuracy < 50%): weight 4
+ * - Seen and mixed (50–79%): weight 2
+ * - Mastered (≥80% and seen ≥3 times): weight 1
+ * Within same weight, older questions (by lastSeen) come first.
+ */
+function srSelectQuestions(pool: Question[], n: number, stats: Record<string, QStat>): Question[] {
+  if (pool.length <= n) return pool;
+  const weighted = pool.map(q => {
+    const s = stats[q.id];
+    if (!s || s.seen === 0) return { q, weight: 3, lastSeen: "" };
+    const acc = s.correct / s.seen;
+    if (acc < 0.5) return { q, weight: 4, lastSeen: s.lastSeen };
+    if (acc < 0.8) return { q, weight: 2, lastSeen: s.lastSeen };
+    return { q, weight: s.seen >= 3 ? 1 : 2, lastSeen: s.lastSeen };
+  });
+
+  // Sort: higher weight first, then older lastSeen first (empty string = never seen = prioritise)
+  weighted.sort((a, b) => {
+    if (b.weight !== a.weight) return b.weight - a.weight;
+    if (a.lastSeen === b.lastSeen) return 0;
+    if (!a.lastSeen) return -1;
+    if (!b.lastSeen) return 1;
+    return a.lastSeen < b.lastSeen ? -1 : 1;
+  });
+
+  // Take top n from sorted list, then shuffle just those to avoid a predictable ordering
+  const top = weighted.slice(0, n).map(w => w.q);
+  // Fisher-Yates with simple random (not seeded — we want variety even within same priority tier)
+  for (let i = top.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [top[i], top[j]] = [top[j], top[i]];
+  }
+  return top;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
    MAIN PAGE COMPONENT
    ═══════════════════════════════════════════════════════════════════════════ */
 export default function DailyPage() {
   const { profile, loaded, trackVisit, markQuizComplete, addXP } = useProfile();
-  const { state: gameStateRaw, earnXP: gameEarnXP, loseHeart, buyHearts, xpGainAnimation, completeReading, recordTokenDrop, bumpSessionCount } = useGameState();
+  const { state: gameStateRaw, earnXP: gameEarnXP, loseHeart, buyHearts, xpGainAnimation, completeReading, recordTokenDrop, bumpSessionCount, weeklyChallenge, claimWeeklyReward } = useGameState();
   const enneagramTypeForPet = profile.enneagramType ?? profile.enneagramCore;
   const { petState: livePetState } = usePetState(enneagramTypeForPet);
 
   // ── View state (hub / path / quiz) ──
-  const [view, setView] = useState<"hub" | "path" | "quiz" | "reading">("hub");
-  const [activePathTab, setActivePathTab] = useState<"enneagram" | "jungian">("enneagram");
+  const [view, setView] = useState<"hub" | "path" | "quiz" | "reading">("path");
   const [bottomSheetNode, setBottomSheetNode] = useState<PathNodeConfig | null>(null);
   const [quizSourceNode, setQuizSourceNode] = useState<PathNodeConfig | null>(null);
 
@@ -609,6 +687,10 @@ export default function DailyPage() {
   const [correctStreak, setCorrectStreak] = useState(0);
   const [sessionXP, setSessionXP] = useState(0);
   const [copied, setCopied] = useState(false);
+
+  // Spaced repetition stats (loaded once at mount, updated via saveQStat)
+  const [qStats, setQStats] = useState<Record<string, QStat>>({});
+  useEffect(() => { setQStats(loadQStats()); }, []);
 
   // Daily progress from localStorage
   const [dailyProgress, setDailyProgress] = useState<DailyProgress | null>(null);
@@ -639,20 +721,32 @@ export default function DailyPage() {
   const seed = getTodaySeed();
 
   // ── Daily Insight (static curated collection) ──
+  const insightFallback = {
+    quote: "The unexamined life is not worth living.",
+    author: "Socrates",
+    reflection: "Self-knowledge isn't a luxury — it's the foundation everything else is built on.",
+    category: "philosophy",
+  };
   useEffect(() => {
     if (!loaded) return;
-    import("@/data/daily-insights-index").then(({ getTodayInsight }) => {
-      const insight = getTodayInsight();
-      setDailyInsightData(insight);
-    }).catch(() => {
-      // Fallback if insights haven't loaded yet
-      setDailyInsightData({
-        quote: "The unexamined life is not worth living.",
-        author: "Socrates",
-        reflection: "Self-knowledge isn't a luxury — it's the foundation everything else is built on.",
-        category: "philosophy",
+    try {
+      import("@/data/daily-insights-index").then(({ getTodayInsight }) => {
+        try {
+          const insight = getTodayInsight();
+          if (insight?.quote && insight?.author) {
+            setDailyInsightData(insight);
+          } else {
+            setDailyInsightData(insightFallback);
+          }
+        } catch {
+          setDailyInsightData(insightFallback);
+        }
+      }).catch(() => {
+        setDailyInsightData(insightFallback);
       });
-    });
+    } catch {
+      setDailyInsightData(insightFallback);
+    }
   }, [loaded]);
 
   // ── Load from localStorage ──
@@ -766,10 +860,17 @@ export default function DailyPage() {
 
   // ── Question selection helpers ──
   const getQuestionsForModule = useCallback((moduleId: string, count: number): Question[] => {
-    // Map difficulty level (1-10) to question difficulty tiers
-    const tier: 1 | 2 | 3 = difficulty.level <= 3 ? 1 : difficulty.level <= 6 ? 2 : 3;
+    // Map user skill level (1-10) to max question tier (0-4).
+    // Tiers 0 & 1 are reserved for future intro questions.
+    // Currently the lowest available tier is 2 (recall), so new users start there.
+    //   Level 1-5  → maxTier 2 (Recall: core fears, passions, integration arrows)
+    //   Level 6-7  → maxTier 3 (Application: subtypes, harmonic/hornevian groups)
+    //   Level 8-10 → maxTier 4 (Analysis: Naranjo fixations, Riso levels, countertypes)
+    const maxTier: 2 | 3 | 4 =
+      difficulty.level <= 5 ? 2 :
+      difficulty.level <= 7 ? 3 :
+      4;
 
-    // "cross-bonus" is an alias for the cross module (different node ID for completion tracking)
     const resolvedModuleId = moduleId === "cross-bonus" ? "cross" : moduleId;
     let pool = QUESTION_BANK.filter(q => q.module === resolvedModuleId);
 
@@ -777,43 +878,51 @@ export default function DailyPage() {
     if (moduleId === "type" && profile.enneagramType) {
       const typeQ = pool.filter(q => q.typeSpecific === profile.enneagramType);
       const generalQ = pool.filter(q => !q.typeSpecific || q.typeSpecific === 0);
-      // Prioritize type-specific, fill with general
       pool = [...typeQ, ...generalQ];
     }
 
-    // Filter by difficulty tier (include current tier and one below for variety)
-    const tierQ = pool.filter(q => q.difficulty <= tier);
-    const hardQ = pool.filter(q => q.difficulty === tier);
+    // Build eligible set: all questions at or below maxTier.
+    // Graceful fallback: if the bank has no questions at/below maxTier (e.g. tier 0/1
+    // slots not yet filled), surface the lowest available tier instead.
+    let eligible = pool.filter(q => q.tier <= maxTier);
+    if (eligible.length === 0) eligible = pool;
 
-    // Mix: 60% at current tier, 40% from lower
-    const shuffledHard = shuffleWithSeed(hardQ, seed + moduleId.length);
-    const shuffledEasy = shuffleWithSeed(tierQ.filter(q => q.difficulty < tier), seed + moduleId.length + 1);
+    const atMaxTier = eligible.filter(q => q.tier === maxTier);
+    const belowMax  = eligible.filter(q => q.tier <  maxTier);
 
-    const hardCount = Math.ceil(count * 0.6);
-    const easyCount = count - hardCount;
+    // Mix: 60% at the frontier tier, 40% review from easier tiers
+    const frontierCount = Math.ceil(count * 0.6);
+    const reviewCount   = count - frontierCount;
+
+    const shuffledFrontier = shuffleWithSeed(atMaxTier, seed + moduleId.length);
+    const shuffledReview   = shuffleWithSeed(belowMax,  seed + moduleId.length + 1);
 
     const selected = [
-      ...shuffledHard.slice(0, hardCount),
-      ...shuffledEasy.slice(0, easyCount),
+      ...shuffledFrontier.slice(0, frontierCount),
+      ...shuffledReview.slice(0, reviewCount),
     ];
 
-    // If we don't have enough, fill from the whole pool
+    // If still short (sparse bank for this tier), fill from the full eligible pool
     if (selected.length < count) {
-      const remaining = shuffleWithSeed(pool.filter(q => !selected.includes(q)), seed + 99);
+      const seen = new Set(selected.map(q => q.id));
+      const remaining = shuffleWithSeed(eligible.filter(q => !seen.has(q.id)), seed + 99);
       selected.push(...remaining.slice(0, count - selected.length));
     }
 
     return shuffleWithSeed(selected, seed + moduleId.charCodeAt(0)).slice(0, count);
   }, [difficulty.level, seed, profile.enneagramType]);
 
-  // Warmup questions (5 from mixed modules)
+  // Warmup questions (5 from mixed modules) — always tier 2 (recall) for approachability
   const warmupQuestions = useMemo(() => {
-    const all = shuffleWithSeed(
-      QUESTION_BANK.filter(q => q.difficulty <= (difficulty.level <= 3 ? 1 : 2)),
-      seed
-    );
-    return all.slice(0, 5);
-  }, [seed, difficulty.level]);
+    const warmupMaxTier: 2 | 3 = difficulty.level <= 5 ? 2 : 3;
+    const pool = QUESTION_BANK.filter(q => q.tier <= warmupMaxTier);
+    const source = pool.length > 0 ? pool : QUESTION_BANK;
+    // Use spaced repetition when stats are loaded, otherwise fall back to seeded shuffle
+    if (Object.keys(qStats).length > 0 || source.some(q => qStats[q.id])) {
+      return srSelectQuestions(source, 5, qStats);
+    }
+    return shuffleWithSeed(source, seed).slice(0, 5);
+  }, [seed, difficulty.level, qStats]);
 
   // Active module questions
   const moduleQuestions = useMemo(() => {
@@ -839,6 +948,9 @@ export default function DailyPage() {
     setWarmupShowExp(true);
     const correct = idx === warmupQuestions[warmupQ].ans;
     setWarmupAnswers(prev => [...prev, correct]);
+    // Record for spaced repetition
+    saveQStat(warmupQuestions[warmupQ].id, correct);
+    if (correct) trackWeeklyEvent("quiz_correct");
 
     const newStreak = correct ? correctStreak + 1 : 0;
     setCorrectStreak(newStreak);
@@ -870,6 +982,7 @@ export default function DailyPage() {
       setWarmupDone(true);
       bumpSessionCount();
       saveProgress({ warmupDone: true });
+      trackWeeklyEvent("module_complete");
 
       // Perfect section bonus
       const allCorrect = warmupAnswers.length === warmupQuestions.length && warmupAnswers.every(Boolean);
@@ -904,6 +1017,7 @@ export default function DailyPage() {
     setModuleShowExp(true);
     const correct = idx === moduleQuestions[moduleQ].ans;
     setModuleAnswers(prev => [...prev, correct]);
+    if (correct) trackWeeklyEvent("quiz_correct");
 
     const newStreak = correct ? correctStreak + 1 : 0;
     setCorrectStreak(newStreak);
@@ -954,6 +1068,7 @@ export default function DailyPage() {
     if (moduleQ + 1 >= moduleQuestions.length) {
       setModuleDone(true);
       bumpSessionCount();
+      trackWeeklyEvent("module_complete");
       const correctCount = moduleAnswers.filter(Boolean).length + (moduleSelected === moduleQuestions[moduleQ].ans ? 1 : 0);
       const totalCount = moduleAnswers.length + 1;
       const timeSpent = Math.round((Date.now() - moduleStartTime) / 60000);
@@ -1094,7 +1209,7 @@ export default function DailyPage() {
 
   const enneagramUnits = buildEnneagramUnits();
   const jungianUnits = buildJungianUnits();
-  const currentUnits = activePathTab === "enneagram" ? enneagramUnits : jungianUnits;
+  const currentUnits = enneagramUnits;
   const allPathNodes = currentUnits.flatMap(u => u.nodes);
   const miniPathNodes = allPathNodes.slice(0, 5);
   const nextNode = allPathNodes.find(n => n.status !== "completed") ?? null;
@@ -1155,8 +1270,8 @@ export default function DailyPage() {
     const q = questions[currentIdx];
     if (!q) return null;
     const isCorrect = selected === q.ans;
-    const diffLabel = q.difficulty === 1 ? "Beginner" : q.difficulty === 2 ? "Intermediate" : "Advanced";
-    const diffColor = q.difficulty === 1 ? "text-emerald-500" : q.difficulty === 2 ? "text-amber-500" : "text-rose-500";
+    const diffLabel = q.tier <= 2 ? "Recall" : q.tier === 3 ? "Application" : "Analysis";
+    const diffColor = q.tier <= 2 ? "text-emerald-500" : q.tier === 3 ? "text-amber-500" : "text-rose-500";
 
     return (
       <div>
@@ -1287,6 +1402,11 @@ export default function DailyPage() {
     return (
       <div className="min-h-screen">
         {showConfetti && <ConfettiParticles />}
+        <FirstVisitTooltip
+          storageKey="psyche-visited-daily"
+          message="Complete your daily goal to earn XP, tokens, and build your streak 🔥"
+          icon="🎯"
+        />
         <BeginnerBanner
           dismissKey="daily-hub"
           message="You made it to your Daily Path! Tap Continue Path to start your first lesson and begin building your streak."
@@ -1307,8 +1427,6 @@ export default function DailyPage() {
           totalNodes={allPathNodes.length}
           petWidget={petWidget}
           insightData={dailyInsightData}
-          activePathTab={activePathTab}
-          onPathTabChange={setActivePathTab}
           onContinuePath={() => setView("path")}
           onNodeTap={(node) => setBottomSheetNode(node)}
           miniPathNodes={miniPathNodes}
@@ -1322,6 +1440,11 @@ export default function DailyPage() {
           onStartReading={() => setView("reading")}
           units={currentUnits}
           onViewFullPath={() => setView("path")}
+          tokens={gameStateRaw.tokens ?? 0}
+          instinct={(profile as Record<string, unknown>).instinct as string | undefined}
+          name={(profile as Record<string, unknown>).name as string | undefined}
+          weeklyChallenge={weeklyChallenge}
+          onClaimWeeklyReward={claimWeeklyReward}
         />
         <NodeBottomSheet
           node={bottomSheetNode}
@@ -1386,25 +1509,71 @@ export default function DailyPage() {
 
   if (view === "path") {
     return (
-      <div className="min-h-screen bg-white">
+      <div className="min-h-screen" style={{ background: "#0f0a1e" }}>
         {showConfetti && <ConfettiParticles />}
-        {/* Header */}
-        <div className="sticky top-0 z-20 bg-white/90 backdrop-blur-sm border-b border-slate-100 px-4 py-3 flex items-center gap-3">
-          <button
-            onClick={() => setView("hub")}
-            className="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center hover:bg-slate-200 transition"
-          >
-            <ChevronRight className="w-4 h-4 text-slate-500 rotate-180" />
-          </button>
-          <h2 className="font-bold text-slate-800 text-base">Your Path</h2>
-          <div className="ml-auto text-sm text-slate-400">{completedTodayCount}/{allPathNodes.length} done</div>
+        {/* Duolingo-style stat bar */}
+        <div className="sticky top-0 z-20 px-4 py-2.5" style={{ background: "rgba(15,10,30,0.95)", backdropFilter: "blur(12px)", borderBottom: "1px solid rgba(139,92,246,0.15)" }}>
+          <div className="flex items-center justify-between max-w-md mx-auto">
+            {/* Streak */}
+            <div className="flex items-center gap-1.5">
+              <Flame className="w-5 h-5 text-orange-400" />
+              <span className="text-white font-bold text-sm">{streak}</span>
+            </div>
+            {/* Hearts */}
+            <div className="flex items-center gap-1.5">
+              <Heart className="w-5 h-5 text-red-400 fill-red-400" />
+              <span className="text-white font-bold text-sm">{gameStateRaw.hearts ?? 5}</span>
+            </div>
+            {/* XP */}
+            <div className="flex items-center gap-1.5">
+              <Star className="w-5 h-5 text-yellow-400 fill-yellow-400" />
+              <span className="text-white font-bold text-sm">{totalXP}</span>
+            </div>
+            {/* Tokens */}
+            <div className="flex items-center gap-1.5">
+              <Zap className="w-5 h-5 text-emerald-400" />
+              <span className="text-white font-bold text-sm">{gameStateRaw.tokens ?? 0}</span>
+            </div>
+            {/* Progress */}
+            <div className="flex items-center gap-1.5">
+              <span className="text-violet-400/60 text-xs font-medium">{completedTodayCount}/{allPathNodes.length}</span>
+            </div>
+          </div>
+          {/* XP progress bar */}
+          <div className="max-w-md mx-auto mt-1.5">
+            <div className="h-1.5 rounded-full overflow-hidden" style={{ background: "rgba(139,92,246,0.2)" }}>
+              <div
+                className="h-full rounded-full transition-all duration-500"
+                style={{
+                  width: `${Math.min(progressToNext, 100)}%`,
+                  background: "linear-gradient(90deg, #8b5cf6, #a855f7)",
+                }}
+              />
+            </div>
+            <div className="flex justify-between mt-0.5">
+              <span className="text-[9px] text-violet-400/50 font-medium">{currentMilestone.label}</span>
+              {nextMilestone && (
+                <span className="text-[9px] text-violet-400/50 font-medium">{nextMilestone.xp - totalXP} XP to {nextMilestone.label}</span>
+              )}
+            </div>
+          </div>
         </div>
         <div className="max-w-md mx-auto px-4 pt-4">
-          <PathView
+          <PathIteration4
             units={currentUnits}
             onNodeTap={(node) => setBottomSheetNode(node)}
-            activeTab={activePathTab}
-            onTabChange={setActivePathTab}
+            enneagramType={enneagramTypeForPet}
+            instinct={profile.instinctualStacking ?? "sp"}
+            petSlot={
+              livePetState ? (
+                <ChibiSprite
+                  type={livePetState.type}
+                  instinct={profile.instinctualStacking ?? "sp"}
+                  size={40}
+                  state={livePetState.isAlive ? "idle" : "hurt"}
+                />
+              ) : undefined
+            }
           />
         </div>
         <NodeBottomSheet
@@ -1770,7 +1939,7 @@ export default function DailyPage() {
                 <div>
                   <p className="text-sm font-semibold text-slate-800">Difficulty Level {difficulty.level}/10</p>
                   <p className="text-xs text-slate-400">
-                    {difficulty.level <= 3 ? "Beginner" : difficulty.level <= 6 ? "Intermediate" : "Advanced"} -- {difficulty.correctAtLevel}/{difficulty.totalAtLevel} at this level
+                    {difficulty.level <= 5 ? "Recall" : difficulty.level <= 7 ? "Application" : "Analysis"} -- {difficulty.correctAtLevel}/{difficulty.totalAtLevel} at this level
                   </p>
                 </div>
               </div>

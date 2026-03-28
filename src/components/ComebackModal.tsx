@@ -73,7 +73,7 @@ export default function ComebackModal() {
 
     setData({
       petName: typeof petState?.name === "string" ? petState.name : "Your pet",
-      petType: petType ?? enneagramType ?? 1,
+      petType: (petState?.type ?? enneagramType ?? 1) as number,
       petHealth: typeof petState?.health === "number" ? petState.health : null,
       petHunger: typeof petState?.hunger === "number" ? petState.hunger : null,
       petAlive: petState?.isAlive !== false,

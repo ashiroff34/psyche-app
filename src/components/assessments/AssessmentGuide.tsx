@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowRight, ArrowLeft, BookOpen, AlertTriangle, Brain, Heart, Shield, Lightbulb, CheckCircle } from "lucide-react";
+import { ArrowRight, ArrowLeft, BookOpen, AlertTriangle, Brain, Heart, Shield, Lightbulb, CheckCircle, Clock } from "lucide-react";
 
 const guideSteps = [
   {
@@ -52,9 +52,11 @@ const guideSteps = [
 export default function AssessmentGuide({
   onReady,
   assessmentName,
+  timeEstimate,
 }: {
   onReady: () => void;
   assessmentName: string;
+  timeEstimate?: string;
 }) {
   const [step, setStep] = useState(0);
   const [skipped, setSkipped] = useState(false);
@@ -71,9 +73,15 @@ export default function AssessmentGuide({
         <h2 className="text-xl font-serif font-bold text-slate-900 mb-1">
           Before You Begin
         </h2>
-        <p className="text-sm text-slate-500">
+        <p className="text-sm text-slate-500 mb-3">
           {assessmentName} — {guideSteps.length} tips for the most accurate results
         </p>
+        {timeEstimate && (
+          <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-sky-50 border border-sky-100 text-sky-700 text-xs font-semibold">
+            <Clock className="w-3.5 h-3.5" />
+            This assessment takes about {timeEstimate}
+          </div>
+        )}
       </div>
 
       {/* Progress dots */}

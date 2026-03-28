@@ -3,13 +3,13 @@
 /**
  * ITERATION 4: "Premium Dark + Bold Lines"
  *
- * Premium Dark aesthetic (Iteration 2) but with thick, glowing connector lines:
+ * Premium Dark aesthetic with thick, glowing connector lines:
  * - Deep purple/navy background with glowing nodes
  * - Completed = emerald with crown badge, Current = violet with pulse rings
  * - Locked = frosted dark gray
- * - THICK glowing bezier curves (6px + glow filter) connecting nodes
+ * - THICK glowing lines (6px + glow filter) connecting nodes
  * - Completed lines glow emerald, locked lines glow faint purple
- * - Chibi sits on top of current node
+ * - Chibi sits on top of current node, pet floats alongside
  * - Section dividers with gradient lines
  * - XP indicators on completed nodes
  */
@@ -30,6 +30,12 @@ export interface PathUnit {
 interface Props {
   units: PathUnit[];
   onNodeTap: (node: PathNodeConfig) => void;
+  /** Enneagram type number (1-9) for chibi/pet display */
+  enneagramType?: number;
+  /** Instinctual variant for chibi display */
+  instinct?: string;
+  /** Pet component to render alongside the path */
+  petSlot?: React.ReactNode;
 }
 
 function PremiumNode({
@@ -144,7 +150,7 @@ function PremiumNode({
   );
 }
 
-export default function PathIteration4({ units, onNodeTap }: Props) {
+export default function PathIteration4({ units, onNodeTap, enneagramType, instinct, petSlot }: Props) {
   const allNodes = units.flatMap((u) => u.nodes);
   const currentIdx = allNodes.findIndex((n) => n.status === "current");
 
@@ -155,6 +161,7 @@ export default function PathIteration4({ units, onNodeTap }: Props) {
       className="pb-20 min-h-screen"
       style={{ background: "linear-gradient(180deg, #0f0a1e 0%, #1a1035 50%, #0f172a 100%)" }}
     >
+
       {/* SVG glow filter definitions */}
       <svg width="0" height="0" className="absolute">
         <defs>
@@ -178,7 +185,7 @@ export default function PathIteration4({ units, onNodeTap }: Props) {
             idx === 0 || !units[unitIdx]?.nodes.some((n) => n.id === allNodes[idx - 1]?.id);
 
           const showChibi = idx === currentIdx;
-          const rowHeight = node.status === "current" ? 170 : 120;
+          const rowHeight = node.status === "current" ? 210 : 120;
 
           // Previous node position for connector
           const prevXPct = idx > 0 ? positions[(idx - 1) % positions.length] : 0;
@@ -263,12 +270,24 @@ export default function PathIteration4({ units, onNodeTap }: Props) {
                 {/* Chibi sits on current node */}
                 {showChibi && (
                   <motion.div
-                    className="absolute -top-12 z-10"
+                    className="absolute -top-24 z-10"
                     initial={{ y: 10, opacity: 0 }}
-                    animate={{ y: [0, -4, 0], opacity: 1 }}
+                    animate={{ y: [0, -5, 0], opacity: 1 }}
                     transition={{ y: { duration: 2, repeat: Infinity }, opacity: { duration: 0.5 } }}
                   >
-                    <ChibiSprite type={4} instinct="sp" size={44} state="happy" />
+                    <ChibiSprite type={enneagramType ?? 4} instinct={instinct ?? "sp"} size={96} state="happy" />
+                  </motion.div>
+                )}
+                {/* Pet companion floats next to chibi */}
+                {showChibi && petSlot && (
+                  <motion.div
+                    className="absolute -top-14 z-10"
+                    style={{ left: 56 }}
+                    initial={{ x: 10, opacity: 0 }}
+                    animate={{ y: [0, -3, 0], opacity: 1 }}
+                    transition={{ y: { duration: 2.5, repeat: Infinity, delay: 0.5 }, opacity: { duration: 0.6 } }}
+                  >
+                    {petSlot}
                   </motion.div>
                 )}
 

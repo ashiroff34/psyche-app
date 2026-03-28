@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, CheckCircle, XCircle, Heart, Zap, Trophy, ArrowRight, Star, BookOpen, Timer } from "lucide-react";
@@ -19,7 +19,7 @@ interface Question {
   opts: string[];
   ans: number;
   exp: string;
-  difficulty: 1 | 2 | 3;
+  tier: 0 | 1 | 2 | 3 | 4;
   module: string;
   tags: string[];
 }
@@ -83,8 +83,44 @@ export default function QuizFullscreen({
   const router = useRouter();
   const q = questions[currentIdx];
 
+  // Track session start time for elapsed duration display
+  const sessionStartRef = useRef(Date.now());
+  const sessionDurationSecs = Math.round((Date.now() - sessionStartRef.current) / 1000);
+
   const [tokenDrop, setTokenDrop] = useState<TokenDrop | null | undefined>(undefined);
   const [tokenDropRolled, setTokenDropRolled] = useState(false);
+
+  // ── Mid-session momentum toast ─────────────────────────────────────────────
+  const [momentumToast, setMomentumToast] = useState<string | null>(null);
+
+  // Compute consecutive correct answers at the tail of the answers array
+  const correctStreak = (() => {
+    let count = 0;
+    for (let i = answers.length - 1; i >= 0; i--) {
+      if (answers[i]) count++;
+      else break;
+    }
+    return count;
+  })();
+
+  // Fire toast when streak crosses a milestone AND we just got one right
+  useEffect(() => {
+    if (!showExp) return;
+    const isLastCorrect = answers[answers.length - 1] === true;
+    if (!isLastCorrect) return;
+
+    let msg: string | null = null;
+    if (correctStreak === 3) msg = "🔥 3 in a row! Keep going!";
+    else if (correctStreak === 5) msg = "⚡ On fire! 5 in a row!";
+    else if (correctStreak === 10) msg = "🏆 Unstoppable! 10 correct!";
+
+    if (msg) {
+      setMomentumToast(msg);
+      const t = setTimeout(() => setMomentumToast(null), 1800);
+      return () => clearTimeout(t);
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [answers.length, showExp]);
 
   // ── Celebration state ──────────────────────────────────────────────────────
   const [countActive, setCountActive] = useState(false);
@@ -369,6 +405,9 @@ export default function QuizFullscreen({
               nextNode={nextNode}
               onKeepGoing={onKeepGoing}
               onSkip={onQuit}
+              sessionDurationSecs={sessionDurationSecs}
+              correctCount={answers.filter(Boolean).length}
+              totalCount={questions.length}
             />
           ) : (
           <motion.button
@@ -402,7 +441,7 @@ export default function QuizFullscreen({
   const heartsTotal = realHearts !== undefined ? maxHearts : 3;
 
   const progress = Math.round(((currentIdx) / questions.length) * 100);
-  const diffLabel = q.difficulty === 1 ? "Beginner" : q.difficulty === 2 ? "Intermediate" : "Advanced";
+  const diffLabel = q.tier <= 2 ? "Recall" : q.tier === 3 ? "Application" : "Analysis";
   const optionLetters = ["A", "B", "C", "D"];
 
   // Chibi state based on last answer
@@ -553,7 +592,7 @@ export default function QuizFullscreen({
           <span className="text-xs font-semibold text-slate-400 uppercase tracking-wider">{moduleName}</span>
           <span className="w-1 h-1 rounded-full bg-slate-300" />
           <span className={`text-xs font-medium ${
-            q.difficulty === 1 ? "text-emerald-500" : q.difficulty === 2 ? "text-amber-500" : "text-rose-500"
+            q.tier <= 2 ? "text-emerald-500" : q.tier === 3 ? "text-amber-500" : "text-rose-500"
           }`}>{diffLabel}</span>
           {sessionXP > 0 && (
             <>
@@ -648,6 +687,24 @@ export default function QuizFullscreen({
           })}
         </div>
       </div>
+
+      {/* ── Momentum toast ── */}
+      <AnimatePresence>
+        {momentumToast && (
+          <motion.div
+            key={momentumToast}
+            initial={{ opacity: 0, y: 16, scale: 0.92 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -8, scale: 0.95 }}
+            transition={{ type: "spring", damping: 20, stiffness: 320 }}
+            className="absolute bottom-36 left-1/2 -translate-x-1/2 z-20 pointer-events-none"
+          >
+            <div className="flex items-center gap-2 px-5 py-2.5 rounded-full bg-slate-900 text-white text-sm font-bold shadow-xl whitespace-nowrap">
+              {momentumToast}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* ── Bottom feedback sheet ── */}
       <AnimatePresence>

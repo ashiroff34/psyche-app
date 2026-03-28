@@ -29,8 +29,10 @@ import {
   Brain,
   Compass,
   ArrowRight,
+  Share2,
 } from "lucide-react";
 import NextStepBanner from "@/components/NextStepBanner";
+import StreakShareCard from "@/components/StreakShareCard";
 import {
   useGameState,
   BADGE_DEFINITIONS,
@@ -56,7 +58,7 @@ import GameIntro from "@/components/GameIntro";
 // ─── Animations ──────────────────────────────────────────────────────────────
 
 const fadeUp = {
-  initial: { opacity: 1, y: 0 },
+  initial: { opacity: 0, y: 12 },
   animate: { opacity: 1, y: 0 },
   transition: { duration: 0.3 },
 };
@@ -186,10 +188,22 @@ function StatPill({
 
 // ─── Section Components ──────────────────────────────────────────────────────
 
-function HeaderSection({ state, xpProgress }: { state: any; xpProgress: any }) {
+function HeaderSection({
+  state,
+  xpProgress,
+  enneagramType,
+  cognitiveType,
+}: {
+  state: any;
+  xpProgress: any;
+  enneagramType?: number;
+  cognitiveType?: string;
+}) {
   const leagueColor = LEAGUE_COLORS[state.league as League];
+  const [showShareCard, setShowShareCard] = useState(false);
 
   return (
+    <>
     <motion.div {...fadeUp} className="mb-8">
       {/* Top Stats Bar */}
       <div className="flex flex-wrap items-center gap-3 mb-6">
@@ -199,11 +213,18 @@ function HeaderSection({ state, xpProgress }: { state: any; xpProgress: any }) {
           <span className="text-sm font-semibold">{LEAGUE_NAMES[state.league as League]}</span>
         </div>
 
-        {/* Streak */}
-        <div className="flex items-center gap-2 px-4 py-2 rounded-2xl bg-orange-50 border border-orange-200">
+        {/* Streak — with share button */}
+        <div className="flex items-center gap-2 pl-4 pr-2 py-2 rounded-2xl bg-orange-50 border border-orange-200">
           <Flame className="w-4 h-4 text-orange-500" />
           <span className="text-sm font-mono font-semibold text-orange-600">{state.streakCount}</span>
           <span className="text-[10px] text-orange-400 uppercase tracking-wider">streak</span>
+          <button
+            onClick={() => setShowShareCard(true)}
+            className="ml-1 p-1 rounded-lg text-orange-400 hover:text-orange-600 hover:bg-orange-100 transition-all"
+            title="Share your streak"
+          >
+            <Share2 className="w-3.5 h-3.5" />
+          </button>
         </div>
 
         {/* Tokens */}
@@ -238,6 +259,21 @@ function HeaderSection({ state, xpProgress }: { state: any; xpProgress: any }) {
         level={xpProgress.currentLevel}
       />
     </motion.div>
+
+    {/* Streak Share Card modal */}
+    {showShareCard && (
+      <StreakShareCard
+        streak={state.streakCount}
+        longestStreak={state.longestStreak}
+        level={xpProgress.currentLevel}
+        league={state.league}
+        totalXP={state.xp}
+        enneagramType={enneagramType}
+        cognitiveType={cognitiveType}
+        onClose={() => setShowShareCard(false)}
+      />
+    )}
+    </>
   );
 }
 
@@ -945,15 +981,22 @@ export default function GamePage() {
   const game = useGameState();
   const { state, loaded } = game;
 
-  // Read enneagram type for pet
+  // Read enneagram type + cognitive type for pet and share card
   const [petType, setPetType] = useState<number>(1);
+  const [profileEnneagram, setProfileEnneagram] = useState<number | undefined>();
+  const [profileCognitive, setProfileCognitive] = useState<string | undefined>();
   useEffect(() => {
     try {
       const raw = localStorage.getItem("psyche-profile");
       if (raw) {
         const profile = JSON.parse(raw);
         const t = profile.enneagramType ?? profile.enneagramCore;
-        if (typeof t === "number" && t >= 1 && t <= 9) setPetType(t);
+        if (typeof t === "number" && t >= 1 && t <= 9) {
+          setPetType(t);
+          setProfileEnneagram(t);
+        }
+        const c = profile.cognitiveType ?? profile.mbtiType;
+        if (c) setProfileCognitive(c);
       }
     } catch {}
   }, []);
@@ -1020,7 +1063,12 @@ export default function GamePage() {
         </motion.div>
 
         {/* Header Stats */}
-        <HeaderSection state={state} xpProgress={xpProgress} />
+        <HeaderSection
+          state={state}
+          xpProgress={xpProgress}
+          enneagramType={profileEnneagram}
+          cognitiveType={profileCognitive}
+        />
 
         {/* Main Grid */}
         <div className="grid lg:grid-cols-3 gap-6 mb-6">
@@ -1060,13 +1108,26 @@ export default function GamePage() {
 
         {/* Quick Actions */}
         <motion.div {...fadeUp} transition={{ delay: 0.45 }} className="p-6 rounded-3xl bg-gradient-to-br from-sky-500 to-indigo-600 text-white shadow-lg">
-          <h3 className="text-lg font-serif font-semibold mb-3">Ready to earn XP?</h3>
+          <h3 className="text-lg font-serif font-semibold mb-1">Ready to earn XP?</h3>
+          <p className="text-white/60 text-xs mb-4">Quick games earn XP fast</p>
           <div className="flex flex-wrap gap-3">
             <Link
               href="/daily"
               className="inline-flex items-center gap-2 px-5 py-2.5 bg-white/15 hover:bg-white/25 text-white rounded-xl text-sm font-medium transition-all backdrop-blur-sm border border-white/20"
             >
               <Flame className="w-4 h-4" /> Daily Quiz
+            </Link>
+            <Link
+              href="/sprint"
+              className="inline-flex items-center gap-2 px-5 py-2.5 bg-white/25 hover:bg-white/35 text-white rounded-xl text-sm font-bold transition-all backdrop-blur-sm border border-white/30"
+            >
+              <Award className="w-4 h-4" /> Sprint Mode ⚡
+            </Link>
+            <Link
+              href="/type-match"
+              className="inline-flex items-center gap-2 px-5 py-2.5 bg-white/15 hover:bg-white/25 text-white rounded-xl text-sm font-medium transition-all backdrop-blur-sm border border-white/20"
+            >
+              <Brain className="w-4 h-4" /> Type Match
             </Link>
             <Link
               href="/enneagram/learn"
@@ -1079,12 +1140,6 @@ export default function GamePage() {
               className="inline-flex items-center gap-2 px-5 py-2.5 bg-white/15 hover:bg-white/25 text-white rounded-xl text-sm font-medium transition-all backdrop-blur-sm border border-white/20"
             >
               <Brain className="w-4 h-4" /> Learn Cognitive
-            </Link>
-            <Link
-              href="/journal"
-              className="inline-flex items-center gap-2 px-5 py-2.5 bg-white/15 hover:bg-white/25 text-white rounded-xl text-sm font-medium transition-all backdrop-blur-sm border border-white/20"
-            >
-              <BookOpen className="w-4 h-4" /> Inner Work
             </Link>
           </div>
         </motion.div>

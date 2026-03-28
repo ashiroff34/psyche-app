@@ -2,10 +2,19 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Flame, Zap, Heart, ArrowRight, Sparkles, BookOpen, CheckCircle, Target, Star, Clock, Lock, ChevronRight } from "lucide-react";
+import { Flame, Zap, Heart, ArrowRight, Sparkles, BookOpen, CheckCircle, Target, Star, Clock, Lock, ChevronRight, Coins } from "lucide-react";
+import WeeklyChallengeCard from "./WeeklyChallengeCard";
 import PetSprite from "@/components/PetSprite";
+import ChibiSprite from "@/components/ChibiSprite";
 import type { PathNodeConfig } from "./NodeBottomSheet";
 import type { PathUnit } from "./PathView";
+
+function getGreeting() {
+  const h = new Date().getHours();
+  if (h < 12) return "Good morning";
+  if (h < 17) return "Good afternoon";
+  return "Good evening";
+}
 
 /* ── Midnight countdown helper ────────────────────────────────────────────── */
 function useMidnightCountdown() {
@@ -64,8 +73,6 @@ interface Props {
   totalNodes: number;
   petWidget: PetWidget | null;
   insightData: InsightData | null;
-  activePathTab: "enneagram" | "jungian";
-  onPathTabChange: (tab: "enneagram" | "jungian") => void;
   onContinuePath: () => void;
   onNodeTap: (node: PathNodeConfig) => void;
   miniPathNodes: PathNodeConfig[];
@@ -74,6 +81,11 @@ interface Props {
   // Inline path
   units?: PathUnit[];
   onViewFullPath?: () => void;
+  // Token balance
+  tokens?: number;
+  // Chibi greeting mascot
+  instinct?: string;
+  name?: string;
   // New engagement props
   longestStreak?: number;
   questionsAnsweredToday?: number;
@@ -81,6 +93,13 @@ interface Props {
   dailyXPEarned?: number;
   readingDoneToday?: boolean;
   onStartReading?: () => void;
+  // Weekly challenge
+  weeklyChallenge?: {
+    id: string; name: string; emoji: string; description: string;
+    goal: number; xpReward: number; tokenReward: number;
+    progress: number; completed: boolean; rewardClaimed: boolean;
+  };
+  onClaimWeeklyReward?: () => void;
 }
 
 export default function HubView({
@@ -97,8 +116,6 @@ export default function HubView({
   totalNodes,
   petWidget,
   insightData,
-  activePathTab,
-  onPathTabChange,
   onContinuePath,
   onNodeTap,
   miniPathNodes,
@@ -112,6 +129,11 @@ export default function HubView({
   onStartReading,
   units = [],
   onViewFullPath,
+  tokens = 0,
+  instinct,
+  name,
+  weeklyChallenge,
+  onClaimWeeklyReward,
 }: Props) {
   const overallProgress = Math.round((completedToday / Math.max(totalNodes, 1)) * 100);
   const ringCircumference = 2 * Math.PI * 52;
@@ -131,6 +153,22 @@ export default function HubView({
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  // First-time token explainer — shows once after user earns their first tokens
+  const [showTokenTooltip, setShowTokenTooltip] = useState(false);
+  useEffect(() => {
+    if (typeof window === "undefined" || tokens <= 0) return;
+    const seen = localStorage.getItem("psyche-token-tooltip-seen");
+    if (!seen) {
+      setShowTokenTooltip(true);
+      const t = setTimeout(() => {
+        setShowTokenTooltip(false);
+        localStorage.setItem("psyche-token-tooltip-seen", "true");
+      }, 5000);
+      return () => clearTimeout(t);
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [tokens]);
 
   return (
     <div
@@ -218,7 +256,7 @@ export default function HubView({
           <div className="flex flex-col items-center px-4 py-2.5 rounded-2xl bg-white/80 backdrop-blur-sm shadow-sm border border-amber-100">
             <Zap className="w-5 h-5 text-amber-500 mb-0.5" />
             <span className="text-xl font-bold text-slate-800 leading-none">{totalXP.toLocaleString()}</span>
-            <span className="text-[9px] text-slate-400 uppercase tracking-wide mt-0.5">{xpLabel}</span>
+            <span className="text-[9px] text-slate-400 tracking-wide mt-0.5">{xpLabel}</span>
           </div>
 
           {/* Hearts / daily done */}
@@ -228,6 +266,64 @@ export default function HubView({
             <span className="text-[9px] text-slate-400 uppercase tracking-wide mt-0.5">done today</span>
           </div>
         </motion.div>
+
+        {/* ── Token balance chip + first-time explainer ── */}
+        <AnimatePresence>
+          {tokens > 0 && (
+            <motion.div
+              key="token-chip"
+              initial={{ opacity: 0, y: -6, scale: 0.95 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              transition={{ type: "spring", damping: 22, stiffness: 300 }}
+              className="flex justify-center -mt-4 mb-6"
+            >
+              <div className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-amber-50 border border-amber-200 shadow-sm">
+                <Coins className="w-3.5 h-3.5 text-amber-500" />
+                <span className="text-sm font-bold text-amber-700">{tokens.toLocaleString()}</span>
+                <span className="text-xs text-amber-500 font-medium">tokens</span>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        {/* First-time token tooltip */}
+        <AnimatePresence>
+          {showTokenTooltip && (
+            <motion.div
+              key="token-tooltip"
+              initial={{ opacity: 0, y: 8, scale: 0.97 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: -8, scale: 0.97 }}
+              transition={{ type: "spring", damping: 20, stiffness: 280 }}
+              className="mb-5 rounded-2xl overflow-hidden"
+              style={{ boxShadow: "0 4px 20px rgba(245,158,11,0.25)" }}
+            >
+              <div
+                className="px-4 py-3 flex items-start gap-3"
+                style={{ background: "linear-gradient(135deg, #fef3c7 0%, #fde68a 100%)", border: "1px solid #fbbf24" }}
+              >
+                <div className="text-2xl shrink-0 mt-0.5">🪙</div>
+                <div className="flex-1">
+                  <p className="text-sm font-bold text-amber-900">You earned tokens!</p>
+                  <p className="text-xs text-amber-700 mt-0.5 leading-relaxed">
+                    Tokens are your in-app currency. Spend them in the{" "}
+                    <span className="font-semibold">Store</span> on streak freezes, pet accessories, and more.
+                  </p>
+                </div>
+                <button
+                  onClick={() => {
+                    setShowTokenTooltip(false);
+                    try { localStorage.setItem("psyche-token-tooltip-seen", "true"); } catch {}
+                  }}
+                  className="text-amber-500 hover:text-amber-700 text-lg leading-none shrink-0 mt-0.5"
+                >
+                  ×
+                </button>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
 
         {/* ── Gradient progress ring + pet ── */}
         <motion.div
@@ -287,12 +383,15 @@ export default function HubView({
               />
             </svg>
 
-            {/* Center content — pet or % */}
+            {/* Center content — chibi or % */}
             <div className="absolute inset-0 flex flex-col items-center justify-center">
-              {petWidget?.isAlive ? (
-                <div className="flex flex-col items-center">
-                  <PetSprite type={petWidget.petType} size={52} />
-                </div>
+              {enneagramType ? (
+                <ChibiSprite
+                  type={enneagramType}
+                  instinct={instinct}
+                  size={64}
+                  state={warmupDoneToday ? "happy" : "idle"}
+                />
               ) : (
                 <div className="flex flex-col items-center">
                   <span className="text-3xl font-bold text-slate-800">{overallProgress}%</span>
@@ -320,6 +419,22 @@ export default function HubView({
                   transition={{ duration: 1, delay: 0.5 }}
                 />
               </div>
+            </div>
+          )}
+
+          {/* Type identity pills */}
+          {(enneagramType > 0 || jungianType) && (
+            <div className="flex items-center gap-2 mt-3 flex-wrap justify-center">
+              {enneagramType > 0 && (
+                <span className="px-2.5 py-1 rounded-full bg-violet-100 text-violet-700 text-[11px] font-bold">
+                  Type {enneagramType}
+                </span>
+              )}
+              {jungianType && (
+                <span className="px-2.5 py-1 rounded-full bg-indigo-100 text-indigo-700 text-[11px] font-bold font-mono">
+                  {jungianType}
+                </span>
+              )}
             </div>
           )}
         </motion.div>
@@ -379,22 +494,6 @@ export default function HubView({
                 See all units <ChevronRight className="w-3 h-3" />
               </button>
             )}
-          </div>
-
-          {/* Tab toggle */}
-          <div className="flex gap-1 p-1 bg-violet-50 rounded-xl mb-4">
-            {(["enneagram", "jungian"] as const).map((tab) => (
-              <button
-                key={tab}
-                onClick={() => onPathTabChange(tab)}
-                className={`flex-1 py-2 rounded-lg text-sm font-medium transition-all ${
-                  activePathTab === tab ? "text-white shadow-sm" : "text-slate-400 hover:text-slate-600"
-                }`}
-                style={activePathTab === tab ? { background: "linear-gradient(135deg,#8b5cf6,#d946ef)" } : {}}
-              >
-                {tab === "enneagram" ? "Enneagram" : "Jungian"}
-              </button>
-            ))}
           </div>
 
           {/* Inline path — show first active unit */}
@@ -680,6 +779,14 @@ export default function HubView({
             );
           })()}
         </motion.div>
+
+        {/* ── Weekly Challenge ── */}
+        {weeklyChallenge && (
+          <WeeklyChallengeCard
+            challenge={weeklyChallenge}
+            onClaim={onClaimWeeklyReward ?? (() => {})}
+          />
+        )}
 
         {/* ── Today's Reading card ── */}
         {onStartReading && (

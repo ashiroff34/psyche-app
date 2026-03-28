@@ -218,7 +218,7 @@ function TypeInAction({ typeNumber, typeColor }: { typeNumber: number; typeColor
 
 function TypeDetail({ type }: { type: EnneagramType }) {
   const typeSubtypes = subtypes.filter((s) => s.type === type.number);
-  const relatedTritypes = tritypes.filter((t) => t.code.includes(String(type.number)));
+  const relatedTritypes = tritypes.filter((t) => t.code.split("").map(Number).includes(type.number));
 
   return (
     <div className="max-w-3xl mx-auto page-enter">
@@ -359,12 +359,12 @@ function TypeDetail({ type }: { type: EnneagramType }) {
               <div className="p-3 rounded-xl bg-emerald-50 border border-emerald-100 text-center">
                 <div className="text-xs text-emerald-600 mb-1">Integration (Growth)</div>
                 <div className="font-serif font-semibold text-slate-800">→ Type {type.integrationLine}</div>
-                <div className="text-xs text-slate-500 mt-0.5">{enneagramTypes[type.integrationLine - 1]?.name}</div>
+                <div className="text-xs text-slate-500 mt-0.5">{enneagramTypes.find(t => t.number === type.integrationLine)?.name}</div>
               </div>
               <div className="p-3 rounded-xl bg-rose-50 border border-rose-100 text-center">
                 <div className="text-xs text-rose-600 mb-1">Disintegration (Stress)</div>
                 <div className="font-serif font-semibold text-slate-800">→ Type {type.disintegrationLine}</div>
-                <div className="text-xs text-slate-500 mt-0.5">{enneagramTypes[type.disintegrationLine - 1]?.name}</div>
+                <div className="text-xs text-slate-500 mt-0.5">{enneagramTypes.find(t => t.number === type.disintegrationLine)?.name}</div>
               </div>
             </div>
             <div className="space-y-2">
@@ -701,7 +701,7 @@ function LearnContent() {
               })}
             </div>
             {selectedType ? (
-              <TypeDetail key={selectedType} type={enneagramTypes.find((t) => t.number === selectedType)!} />
+              {(() => { const t = enneagramTypes.find((t) => t.number === selectedType); return t ? <TypeDetail key={selectedType} type={t} /> : <p className="text-sm text-slate-400">Type not found.</p>; })()}
             ) : null}
           </>
         )}

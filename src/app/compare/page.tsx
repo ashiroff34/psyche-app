@@ -2,7 +2,7 @@
 
 import { useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowLeftRight, Sparkles, Users, Zap, TrendingUp, Heart } from "lucide-react";
+import { ArrowLeftRight, Sparkles, Users, Zap, TrendingUp, Heart, Share2, Copy, Check, Info } from "lucide-react";
 import { enneagramTypes } from "@/data/enneagram";
 import NextStepBanner from "@/components/NextStepBanner";
 
@@ -37,8 +37,9 @@ function areWingNeighbors(a: number, b: number): boolean {
 
 function calculateScore(a: number, b: number): number {
   let score = 10;
-  const typeA = enneagramTypes.find((t) => t.number === a)!;
-  const typeB = enneagramTypes.find((t) => t.number === b)!;
+  const typeA = enneagramTypes.find((t) => t.number === a);
+  const typeB = enneagramTypes.find((t) => t.number === b);
+  if (!typeA || !typeB) return score;
   if (getHarmonicGroup(a) === getHarmonicGroup(b)) score += 30;
   if (typeA.integrationLine === b || typeB.integrationLine === a) score += 25;
   if (getCenter(a) === getCenter(b)) score += 20;
@@ -610,8 +611,9 @@ const TYPE_PAIR_CONTENT: Record<string, PairContent> = {
 
 // ─── Dynamic fallback ──────────────────────────────────────────────────────────
 function buildDynamicContent(a: number, b: number): PairContent {
-  const typeA = enneagramTypes.find((t) => t.number === a)!;
-  const typeB = enneagramTypes.find((t) => t.number === b)!;
+  const typeA = enneagramTypes.find((t) => t.number === a);
+  const typeB = enneagramTypes.find((t) => t.number === b);
+  if (!typeA || !typeB) return { score: 0, label: "Unknown", summary: "Could not find type data.", strengths: [], challenges: [], tips: [] };
   const score = calculateScore(a, b);
   const label = getScoreLabel(score);
   const centerA = getCenter(a);
@@ -730,14 +732,15 @@ function TypeGrid({
 
 // ─── Quick Facts Strip ─────────────────────────────────────────────────────────
 function QuickFacts({ typeA, typeB }: { typeA: number; typeB: number }) {
-  const a = enneagramTypes.find((t) => t.number === typeA)!;
-  const b = enneagramTypes.find((t) => t.number === typeB)!;
+  const a = enneagramTypes.find((t) => t.number === typeA);
+  const b = enneagramTypes.find((t) => t.number === typeB);
+  if (!a || !b) return <p className="text-sm text-slate-400">Type data not found.</p>;
   return (
     <div className="grid grid-cols-2 gap-3">
       {[a, b].map((t, i) => (
         <motion.div
           key={t.number}
-          initial={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: i * 0.1 }}
           className="bg-white/80 backdrop-blur-md rounded-2xl border border-slate-100 p-4 space-y-3"
@@ -787,8 +790,10 @@ function TabPanel({ typeA, typeB, content }: { typeA: number; typeB: number; con
     together: null, friction: null, growth: null, reallife: null,
   });
 
-  const a = enneagramTypes.find((t) => t.number === typeA)!;
-  const b = enneagramTypes.find((t) => t.number === typeB)!;
+  const a = enneagramTypes.find((t) => t.number === typeA);
+  const b = enneagramTypes.find((t) => t.number === typeB);
+
+  if (!a || !b) return <p className="text-sm text-slate-400">Type data not found.</p>;
 
   return (
     <div className="bg-white/80 backdrop-blur-md rounded-3xl border border-indigo-100/80 shadow-sm overflow-hidden">
@@ -1039,9 +1044,12 @@ function CompatibilityMeter({ typeA, typeB }: { typeA: number; typeB: number }) 
         <span className="text-[10px] text-slate-400">More natural</span>
       </div>
       <p className="text-xs text-slate-500 leading-relaxed">{desc}</p>
-      <p className="text-[10px] text-slate-400 mt-2 italic">
-        Note: All type pairings can work. This reflects typical dynamics, not deterministic outcomes.
-      </p>
+      <div className="flex items-start gap-1.5 mt-2">
+        <Info className="w-3 h-3 text-slate-300 mt-0.5 shrink-0" />
+        <p className="text-[10px] text-slate-400 italic leading-relaxed">
+          Based on Enneagram structural patterns — not a prediction of relationship success. Individual health, growth, and context matter far more than type.
+        </p>
+      </div>
     </div>
   );
 }
@@ -1049,6 +1057,7 @@ function CompatibilityMeter({ typeA, typeB }: { typeA: number; typeB: number }) 
 export default function ComparePage() {
   const [typeA, setTypeA] = useState<number | null>(null);
   const [typeB, setTypeB] = useState<number | null>(null);
+  const [copied, setCopied] = useState(false);
 
   const bothSelected = typeA !== null && typeB !== null;
   const pairContent = bothSelected ? getPairContent(typeA!, typeB!) : null;
@@ -1056,6 +1065,22 @@ export default function ComparePage() {
   const handleSwap = () => {
     setTypeA(typeB);
     setTypeB(typeA);
+  };
+
+  const handleShare = async () => {
+    if (!typeA || !typeB || !pairContent) return;
+    const nameA = enneagramTypes.find(t => t.number === typeA)?.name ?? `Type ${typeA}`;
+    const nameB = enneagramTypes.find(t => t.number === typeB)?.name ?? `Type ${typeB}`;
+    const score = calculateScore(typeA, typeB);
+    const label = getScoreLabel(score);
+    const text = `${nameA} + ${nameB}: ${label}\n\n"${pairContent.summary}"\n\nExplore your type on Thyself →`;
+    if (navigator.share) {
+      try { await navigator.share({ title: `${nameA} & ${nameB} Compatibility`, text }); } catch {}
+    } else {
+      await navigator.clipboard.writeText(text);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    }
   };
 
   return (
@@ -1110,22 +1135,37 @@ export default function ComparePage() {
                       Same-type pairing — see how two {enneagramTypes.find(t => t.number === typeA)?.name}s relate
                     </p>
                   )}
-                  <div className="flex items-center gap-3">
-                    <div className="flex items-center gap-1.5">
-                      <div className="w-8 h-8 rounded-xl flex items-center justify-center text-white text-sm font-bold" style={{ backgroundColor: enneagramTypes.find(t => t.number === typeA)?.color }}>
-                        {typeA}
+                  <div className="flex items-center justify-between gap-3">
+                    <div className="flex items-center gap-3 flex-wrap">
+                      <div className="flex items-center gap-1.5">
+                        <div className="w-8 h-8 rounded-xl flex items-center justify-center text-white text-sm font-bold" style={{ backgroundColor: enneagramTypes.find(t => t.number === typeA)?.color }}>
+                          {typeA}
+                        </div>
+                        <span className="text-sm font-medium text-slate-700">{enneagramTypes.find(t => t.number === typeA)?.name}</span>
                       </div>
-                      <span className="text-sm font-medium text-slate-700">{enneagramTypes.find(t => t.number === typeA)?.name}</span>
-                    </div>
-                    <span className="text-slate-300 text-lg">+</span>
-                    <div className="flex items-center gap-1.5">
-                      <div className="w-8 h-8 rounded-xl flex items-center justify-center text-white text-sm font-bold" style={{ backgroundColor: enneagramTypes.find(t => t.number === typeB)?.color }}>
-                        {typeB}
+                      <span className="text-slate-300 text-lg">+</span>
+                      <div className="flex items-center gap-1.5">
+                        <div className="w-8 h-8 rounded-xl flex items-center justify-center text-white text-sm font-bold" style={{ backgroundColor: enneagramTypes.find(t => t.number === typeB)?.color }}>
+                          {typeB}
+                        </div>
+                        <span className="text-sm font-medium text-slate-700">{enneagramTypes.find(t => t.number === typeB)?.name}</span>
                       </div>
-                      <span className="text-sm font-medium text-slate-700">{enneagramTypes.find(t => t.number === typeB)?.name}</span>
                     </div>
+                    {/* Share button */}
+                    <motion.button
+                      whileTap={{ scale: 0.93 }}
+                      onClick={handleShare}
+                      className="shrink-0 flex items-center gap-1.5 px-3 py-2 rounded-xl bg-indigo-50 border border-indigo-100 text-indigo-600 text-xs font-medium hover:bg-indigo-100 transition-colors"
+                    >
+                      {copied ? <><Check className="w-3.5 h-3.5" />Copied!</> : <><Share2 className="w-3.5 h-3.5" />Share</>}
+                    </motion.button>
                   </div>
+
                   <p className="text-slate-600 text-sm leading-relaxed">{pairContent.summary}</p>
+
+                  {/* Vibe meter */}
+                  <CompatibilityMeter typeA={typeA!} typeB={typeB!} />
+
                   <div className="flex flex-wrap gap-2">
                     {[
                       getCenter(typeA!) === getCenter(typeB!) && `Shared ${getCenter(typeA!)} Center`,

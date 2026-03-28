@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import {
@@ -29,11 +29,12 @@ import {
   Gamepad2,
 } from "lucide-react";
 import NextStepBanner from "@/components/NextStepBanner";
+import FirstVisitTooltip from "@/components/FirstVisitTooltip";
 
 // ─── Animations ──────────────────────────────────────────────────────────────
 
 const fadeUp = {
-  initial: { opacity: 1, y: 0 },
+  initial: { opacity: 0, y: 12 },
   animate: { opacity: 1, y: 0 },
   transition: { duration: 0.3 },
 };
@@ -43,7 +44,7 @@ const stagger = {
 };
 
 const cardItem = {
-  initial: { opacity: 1, y: 0, scale: 1 },
+  initial: { opacity: 0, y: 12, scale: 0.97 },
   animate: { opacity: 1, y: 0, scale: 1 },
   transition: { type: "spring", stiffness: 260, damping: 24 },
 };
@@ -142,6 +143,17 @@ const PREMIUM_ITEMS = [
 export default function StorePage() {
   const [billingCycle, setBillingCycle] = useState<"monthly" | "annual">("annual");
   const [purchaseToast, setPurchaseToast] = useState<string | null>(null);
+  const [tokenBalance, setTokenBalance] = useState<number | null>(null);
+
+  useEffect(() => {
+    try {
+      const raw = localStorage.getItem("psyche-game-state");
+      const gs = raw ? JSON.parse(raw) : {};
+      setTokenBalance((gs.tokens as number) ?? 0);
+    } catch {
+      setTokenBalance(0);
+    }
+  }, []);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-amber-50/30 to-slate-50">
@@ -151,6 +163,12 @@ export default function StorePage() {
         <div className="absolute top-1/3 -left-48 w-80 h-80 rounded-full bg-gradient-to-br from-sky-200/25 to-indigo-200/15 blur-3xl" />
         <div className="absolute bottom-0 right-1/4 w-72 h-72 rounded-full bg-gradient-to-br from-purple-200/20 to-rose-200/15 blur-3xl" />
       </div>
+
+      <FirstVisitTooltip
+        storageKey="psyche-visited-store"
+        message="Earn free tokens daily by completing your practice — no purchase needed!"
+        icon="🪙"
+      />
 
       <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 pb-24">
         {/* Back nav */}
@@ -177,6 +195,42 @@ export default function StorePage() {
             Get tokens to unlock pets, outfits, and streak freezes &mdash; or go Pro for the ultimate Thyself experience.
           </p>
         </motion.div>
+
+        {/* ── Token Balance Bar ────────────────────────────────────────────────── */}
+        {tokenBalance !== null && (
+          <motion.div {...fadeUp} transition={{ delay: 0.05 }} className="mb-10">
+            {tokenBalance === 0 ? (
+              /* Zero-state: guide user to earn tokens first */
+              <div className="flex flex-col sm:flex-row items-center gap-5 p-6 rounded-3xl bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-200/60 shadow-sm">
+                <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-amber-400 to-orange-500 flex items-center justify-center shadow-lg shadow-amber-200/50 flex-shrink-0">
+                  <Coins className="w-7 h-7 text-white" />
+                </div>
+                <div className="flex-1 text-center sm:text-left">
+                  <p className="font-bold text-slate-800 mb-0.5">You have 0 tokens right now</p>
+                  <p className="text-sm text-slate-500">
+                    Complete your daily practice to earn tokens for free — then come back to spend them!
+                  </p>
+                </div>
+                <Link
+                  href="/daily"
+                  className="flex-shrink-0 flex items-center gap-2 px-5 py-2.5 rounded-2xl bg-gradient-to-r from-amber-400 to-orange-500 text-white text-sm font-bold shadow-md hover:shadow-lg transition-all active:scale-95"
+                >
+                  <Flame className="w-4 h-4" />
+                  Go earn tokens
+                </Link>
+              </div>
+            ) : (
+              /* Has tokens: show balance */
+              <div className="flex items-center gap-3 px-5 py-3 rounded-2xl bg-white/80 border border-amber-100 shadow-sm w-fit">
+                <Coins className="w-5 h-5 text-amber-500" />
+                <span className="text-sm font-medium text-slate-600">Your balance:</span>
+                <span className="text-lg font-extrabold bg-gradient-to-r from-amber-500 to-orange-500 bg-clip-text text-transparent">
+                  {tokenBalance.toLocaleString()} tokens
+                </span>
+              </div>
+            )}
+          </motion.div>
+        )}
 
         {/* ══════════════════════════════════════════════════════════════════════
            SECTION 1: Token Packs
@@ -490,7 +544,7 @@ export default function StorePage() {
       <AnimatePresence>
         {purchaseToast && (
           <motion.div
-            initial={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 20 }}
             className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 px-6 py-3 rounded-2xl bg-slate-800 text-white text-sm font-medium shadow-xl"

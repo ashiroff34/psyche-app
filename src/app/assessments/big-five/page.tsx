@@ -98,7 +98,7 @@ export default function BigFivePage() {
             <ArrowLeft className="w-4 h-4" /> Back
           </button>
         </div>
-        <AssessmentGuide assessmentName="Big Five Personality (OCEAN)" onReady={() => setShowGuide(false)} />
+        <AssessmentGuide assessmentName="Big Five Personality (OCEAN)" timeEstimate="~15 min" onReady={() => setShowGuide(false)} />
       </div>
     );
   }

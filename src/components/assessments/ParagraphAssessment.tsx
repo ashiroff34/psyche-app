@@ -12,7 +12,7 @@ interface TypeParagraph {
 interface NarrowingQuestion {
   types: number[];
   question: string;
-  options: { text: string; scores: Record<number, number> }[];
+  options: { text: string; scores: Record<string, number> }[];
 }
 
 export default function ParagraphAssessment({
@@ -27,7 +27,7 @@ export default function ParagraphAssessment({
   const [phase, setPhase] = useState<"read" | "narrow" | "done">("read");
   const [selectedParagraphs, setSelectedParagraphs] = useState<number[]>([]);
   const [narrowIdx, setNarrowIdx] = useState(0);
-  const [scores, setScores] = useState<Record<number, number>>({});
+  const [scores, setScores] = useState<Record<string, number>>({});
 
   const relevantNarrowing = narrowingQuestions.filter((q) =>
     q.types.some((t) => selectedParagraphs.includes(t))
@@ -41,15 +41,15 @@ export default function ParagraphAssessment({
     }
   };
 
-  const answerNarrowing = (option: { text: string; scores: Record<number, number> }) => {
+  const answerNarrowing = (option: { text: string; scores: Record<string, number> }) => {
     const newScores = { ...scores };
     Object.entries(option.scores).forEach(([key, val]) => {
-      newScores[parseInt(key)] = (newScores[parseInt(key)] || 0) + val;
+      newScores[key] = (newScores[key] || 0) + val;
     });
     // Add base score for selected paragraphs
     if (narrowIdx === 0) {
       selectedParagraphs.forEach((num, i) => {
-        newScores[num] = (newScores[num] || 0) + (3 - i) * 3;
+        newScores[String(num)] = (newScores[String(num)] || 0) + (3 - i) * 3;
       });
     }
     setScores(newScores);
@@ -128,7 +128,7 @@ export default function ParagraphAssessment({
                 if (relevantNarrowing.length > 0) {
                   setPhase("narrow");
                 } else {
-                  const newScores: Record<number, number> = {};
+                  const newScores: Record<string, number> = {};
                   selectedParagraphs.forEach((num, i) => {
                     newScores[num] = (3 - i) * 3;
                   });
