@@ -22,7 +22,7 @@ import {
   Swords,
 } from "lucide-react";
 import ChibiSprite from "@/components/ChibiSprite";
-import PetSprite from "@/components/PetSprite";
+import PetCompanion from "@/components/PetCompanion";
 import OuroborosLogo from "@/components/OuroborosLogo";
 import { getTodayInsight } from "@/data/daily-insights-index";
 
@@ -586,7 +586,7 @@ function DashboardScreen({
               className="group flex items-center gap-4 p-4 bg-white rounded-2xl border border-slate-100 hover:border-slate-200 hover:shadow-md transition-all"
             >
               <div className="w-16 h-16 flex-shrink-0">
-                <PetSprite type={enneagramType ?? 4} size={64} />
+                <PetCompanion type={enneagramType ?? 4} size={64} />
               </div>
               <div className="flex-1 min-w-0">
                 <p className="text-sm font-semibold text-slate-800 mb-0.5">

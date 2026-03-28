@@ -6,7 +6,7 @@ import Link from "next/link";
 import { Timer, Zap, CheckCircle, XCircle, Trophy, ArrowRight, Flame, Star } from "lucide-react";
 import { useGameState } from "@/hooks/useGameState";
 import { typeQuizQuestions } from "@/data/type-quizzes";
-import PetSprite from "@/components/PetSprite";
+import PetCompanion from "@/components/PetCompanion";
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
@@ -183,7 +183,7 @@ export default function SprintPage() {
           </div>
           <div className="flex items-center justify-center gap-2 mb-2">
             <h1 className="text-3xl font-serif font-bold text-slate-900">Sprint Mode</h1>
-            <PetSprite type={petType} size={48} />
+            <PetCompanion type={petType} size={48} />
           </div>
           <p className="text-slate-500 text-sm mb-8 leading-relaxed">
             Answer as many questions as you can in <strong>60 seconds</strong>.<br/>
@@ -263,7 +263,7 @@ export default function SprintPage() {
 
           {/* Pet reaction */}
           <div className="bg-white rounded-2xl border border-slate-100 shadow-sm p-4 mb-4 flex items-center gap-4">
-            <PetSprite type={petType} size={56} />
+            <PetCompanion type={petType} size={56} state="happy" />
             <p className="text-sm font-medium text-slate-600">
               {accuracy >= 90
                 ? "Your companion is proud!"

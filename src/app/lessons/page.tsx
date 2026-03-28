@@ -15,7 +15,7 @@ import {
 import { LESSON_UNITS } from "@/data/lessons";
 import { useLessonProgress } from "@/hooks/useLessonProgress";
 import { useProfile } from "@/hooks/useProfile";
-import PetSprite from "@/components/PetSprite";
+import PetCompanion from "@/components/PetCompanion";
 
 // ── Unit Status Helpers ──────────────────────────────────────────────────────
 
@@ -403,7 +403,7 @@ export default function LessonsPage() {
       {/* Pet study buddy */}
       <div className="px-4 sm:px-6 max-w-2xl mx-auto">
         <div className="flex items-center gap-3 bg-indigo-50/60 border border-indigo-100/40 rounded-2xl px-4 py-3 mb-6">
-          <PetSprite type={profile?.enneagramType ?? 4} size={44} />
+          <PetCompanion type={profile?.enneagramType ?? 4} size={44} />
           <span className="text-xs text-indigo-600 font-medium">{petMessage}</span>
         </div>
       </div>
