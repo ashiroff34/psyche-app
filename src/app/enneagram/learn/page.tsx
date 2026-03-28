@@ -701,7 +701,7 @@ function LearnContent() {
               })}
             </div>
             {selectedType ? (
-              {(() => { const t = enneagramTypes.find((t) => t.number === selectedType); return t ? <TypeDetail key={selectedType} type={t} /> : <p className="text-sm text-slate-400">Type not found.</p>; })()}
+              (() => { const t = enneagramTypes.find((et) => et.number === selectedType); return t ? <TypeDetail key={selectedType} type={t} /> : <p className="text-sm text-slate-400">Type not found.</p>; })()
             ) : null}
           </>
         )}

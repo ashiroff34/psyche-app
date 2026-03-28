@@ -613,7 +613,7 @@ const TYPE_PAIR_CONTENT: Record<string, PairContent> = {
 function buildDynamicContent(a: number, b: number): PairContent {
   const typeA = enneagramTypes.find((t) => t.number === a);
   const typeB = enneagramTypes.find((t) => t.number === b);
-  if (!typeA || !typeB) return { score: 0, label: "Unknown", summary: "Could not find type data.", strengths: [], challenges: [], tips: [] };
+  if (!typeA || !typeB) return { score: 0, label: "Unknown", summary: "Could not find type data.", together: { strengths: [], sharedValues: [], superpower: "" }, friction: { coreTension: "", typeATriggers: [], typeBTriggers: [], recurringMisunderstanding: "" }, growth: { typeALearns: "", typeBLearns: "", healthyVision: "" }, realLife: { romantic: "", friends: "", work: "", famousPairs: [] } };
   const score = calculateScore(a, b);
   const label = getScoreLabel(score);
   const centerA = getCenter(a);
