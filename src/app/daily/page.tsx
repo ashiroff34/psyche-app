@@ -1496,21 +1496,29 @@ export default function DailyPage() {
             <span className="text-red-300 text-sm font-medium">Your {streak}-day streak is at risk! Complete a lesson to keep it.</span>
           </motion.div>
         )}
+        {/* Pet companion banner */}
+        {livePetState && (
+          <div className="max-w-md mx-auto px-4 pt-3">
+            <Link href="/avatar" className="flex items-center gap-3 px-4 py-2.5 rounded-2xl" style={{ background: "rgba(139,92,246,0.08)", border: "1px solid rgba(139,92,246,0.15)" }}>
+              <PetCompanion type={livePetState.type} size={36} />
+              <div className="flex-1 min-w-0">
+                <span className="text-violet-300 text-xs font-semibold">{livePetState.name || "Your Pet"}</span>
+                <span className="text-violet-400/50 text-[10px] ml-2">
+                  {livePetState.isAlive
+                    ? livePetState.health > 80 ? "Thriving!" : livePetState.hunger < 30 ? "Hungry..." : "Happy"
+                    : "Needs revival!"}
+                </span>
+              </div>
+              <ChevronRight className="w-4 h-4 text-violet-400/40" />
+            </Link>
+          </div>
+        )}
         <div className="max-w-md mx-auto px-4 pt-4">
           <PathIteration4
             units={currentUnits}
             onNodeTap={(node) => setBottomSheetNode(node)}
             enneagramType={enneagramTypeForPet}
             instinct={profile.instinctualStacking ?? "sp"}
-            petSlot={
-              livePetState ? (
-                <PetCompanion
-                  type={livePetState.type}
-                  size={40}
-                  state={livePetState.isAlive ? "idle" : "idle"}
-                />
-              ) : undefined
-            }
           />
         </div>
         <NodeBottomSheet
