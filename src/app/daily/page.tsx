@@ -13,7 +13,7 @@ import {
 import { useProfile } from "@/hooks/useProfile";
 import { useGameState, trackWeeklyEvent } from "@/hooks/useGameState";
 import { usePetState } from "@/hooks/usePetState";
-import PetSprite from "@/components/PetSprite";
+import PetCompanion from "@/components/PetCompanion";
 import ChibiSprite from "@/components/ChibiSprite";
 import NextStepBanner from "@/components/NextStepBanner";
 import BeginnerBanner from "@/components/BeginnerBanner";
@@ -1504,11 +1504,10 @@ export default function DailyPage() {
             instinct={profile.instinctualStacking ?? "sp"}
             petSlot={
               livePetState ? (
-                <ChibiSprite
+                <PetCompanion
                   type={livePetState.type}
-                  instinct={profile.instinctualStacking ?? "sp"}
                   size={40}
-                  state={livePetState.isAlive ? "idle" : "hurt"}
+                  state={livePetState.isAlive ? "idle" : "idle"}
                 />
               ) : undefined
             }
@@ -1653,7 +1652,7 @@ export default function DailyPage() {
               >
                 <div className="flex items-center gap-4 p-4 rounded-2xl bg-white border border-slate-100 shadow-sm">
                   <div className="w-12 h-12 shrink-0">
-                    <PetSprite type={petWidget.petType} size={48} />
+                    <PetCompanion type={petWidget.petType} size={48} />
                   </div>
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center justify-between mb-1.5">
