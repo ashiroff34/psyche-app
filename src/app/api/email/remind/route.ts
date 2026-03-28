@@ -1,7 +1,11 @@
 import { Resend } from "resend";
 import { NextResponse } from "next/server";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+function getResend() {
+  const key = process.env.RESEND_API_KEY;
+  if (!key) throw new Error("RESEND_API_KEY not configured");
+  return new Resend(key);
+}
 
 export async function POST(req: Request) {
   try {
@@ -26,7 +30,7 @@ export async function POST(req: Request) {
             ? "You're building a powerful habit. Keep the momentum going."
             : "Every day you show up is a step toward deeper self-knowledge.";
 
-    const { data, error } = await resend.emails.send({
+    const { data, error } = await getResend().emails.send({
       from: "Thyself <onboarding@resend.dev>",
       to: [to],
       subject: currentStreak > 0

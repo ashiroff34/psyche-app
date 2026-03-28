@@ -22,6 +22,7 @@ import {
   Swords,
 } from "lucide-react";
 import ChibiSprite from "@/components/ChibiSprite";
+import PetSprite from "@/components/PetSprite";
 import OuroborosLogo from "@/components/OuroborosLogo";
 import { getTodayInsight } from "@/data/daily-insights-index";
 
@@ -488,6 +489,44 @@ function DashboardScreen({
   const hearts = gameState.hearts ?? gameState.maxHearts ?? 5;
   const insight = getTodayInsight();
 
+  const [petState, setPetState] = useState<Record<string, any> | null>(null);
+  useEffect(() => {
+    try {
+      const raw = localStorage.getItem("psyche-pet-state");
+      if (raw) setPetState(JSON.parse(raw));
+    } catch {}
+  }, []);
+
+  const petStatus = petState
+    ? !petState.isAlive ? "Dead"
+    : petState.health < 20 ? "Sick"
+    : petState.happiness < 30 ? "Sad"
+    : petState.hunger < 30 ? "Hungry"
+    : petState.health > 80 && petState.happiness > 80 && petState.hunger > 80 ? "Thriving"
+    : petState.health > 50 && petState.happiness > 50 && petState.hunger > 50 ? "Happy"
+    : "Okay"
+    : null;
+
+  const petStatusColor: Record<string, string> = {
+    Dead: "text-gray-500",
+    Sick: "text-red-500",
+    Sad: "text-blue-400",
+    Hungry: "text-orange-500",
+    Thriving: "text-emerald-500",
+    Happy: "text-green-500",
+    Okay: "text-yellow-500",
+  };
+
+  const petHealthBarColor: Record<string, string> = {
+    Dead: "bg-gray-400",
+    Sick: "bg-red-500",
+    Sad: "bg-blue-400",
+    Hungry: "bg-orange-500",
+    Thriving: "bg-emerald-500",
+    Happy: "bg-green-500",
+    Okay: "bg-yellow-500",
+  };
+
   return (
     <div className="min-h-screen bg-white">
       <motion.div
@@ -537,6 +576,50 @@ function DashboardScreen({
             Continue Learning
             <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
           </Link>
+        </motion.div>
+
+        {/* ── Pet Companion ──────────────────────────────────── */}
+        <motion.div variants={itemVariants} className="mb-6">
+          {petState ? (
+            <Link
+              href="/avatar"
+              className="group flex items-center gap-4 p-4 bg-white rounded-2xl border border-slate-100 hover:border-slate-200 hover:shadow-md transition-all"
+            >
+              <div className="w-16 h-16 flex-shrink-0">
+                <PetSprite type={enneagramType ?? 4} size={64} />
+              </div>
+              <div className="flex-1 min-w-0">
+                <p className="text-sm font-semibold text-slate-800 mb-0.5">
+                  {petState.name || "Your Companion"}
+                </p>
+                {!petState.isAlive ? (
+                  <p className="text-xs font-medium text-red-500">Needs revival!</p>
+                ) : (
+                  <p className={`text-xs font-medium ${petStatusColor[petStatus!]}`}>
+                    {petStatus}
+                  </p>
+                )}
+                <div className="mt-2 w-full h-1.5 bg-slate-100 rounded-full overflow-hidden">
+                  <div
+                    className={`h-full rounded-full transition-all ${petHealthBarColor[petStatus!]}`}
+                    style={{ width: `${Math.max(0, Math.min(100, petState.health ?? 0))}%` }}
+                  />
+                </div>
+              </div>
+              <ArrowRight className="w-4 h-4 text-slate-300 group-hover:text-slate-500 flex-shrink-0 group-hover:translate-x-0.5 transition-all" />
+            </Link>
+          ) : (
+            <Link
+              href="/avatar"
+              className="group flex items-center justify-center gap-3 w-full px-6 py-4 bg-white rounded-2xl border border-slate-100 hover:border-slate-200 hover:shadow-md transition-all"
+            >
+              <Cat className="w-5 h-5 text-slate-400 group-hover:text-slate-600 transition-colors" />
+              <span className="text-sm font-semibold text-slate-600 group-hover:text-slate-800 transition-colors">
+                Meet your companion
+              </span>
+              <ArrowRight className="w-4 h-4 text-slate-300 group-hover:text-slate-500 group-hover:translate-x-0.5 transition-all" />
+            </Link>
+          )}
         </motion.div>
 
         {/* ── Daily Insight ────────────────────────────────────── */}

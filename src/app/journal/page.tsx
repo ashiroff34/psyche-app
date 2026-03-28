@@ -32,6 +32,7 @@ import {
 } from "lucide-react";
 import { cognitiveFunctions, mbtiTypes } from "@/data/cognitive-functions";
 import NextStepBanner from "@/components/NextStepBanner";
+import PetSprite from "@/components/PetSprite";
 import {
   shadowPositions,
   functionLoops,
@@ -1748,6 +1749,17 @@ function PatternTracker() {
 
 export default function InnerWorkLabPage() {
   const [activeTab, setActiveTab] = useState<TabId>("shadow");
+  const [enneagramType, setEnneagramType] = useState<number>(4);
+
+  useEffect(() => {
+    try {
+      const raw = localStorage.getItem("psyche-profile");
+      if (raw) {
+        const profile = JSON.parse(raw);
+        if (profile.enneagramType) setEnneagramType(Number(profile.enneagramType));
+      }
+    } catch {}
+  }, []);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-sky-50 via-indigo-50/30 to-purple-50/20 py-12 sm:py-16">
@@ -1775,6 +1787,12 @@ export default function InnerWorkLabPage() {
             simulate type dynamics, reframe problems, and track patterns.
           </p>
         </motion.div>
+
+        {/* Pet Companion */}
+        <div className="flex items-center gap-3 bg-slate-50 border border-slate-100 rounded-2xl px-4 py-2.5 mb-6 mx-auto max-w-lg">
+          <PetSprite type={enneagramType} size={40} />
+          <span className="text-xs text-slate-500 italic">Your companion sits with you in reflection</span>
+        </div>
 
         {/* Tab Navigation */}
         <motion.div

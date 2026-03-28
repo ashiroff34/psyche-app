@@ -1,7 +1,11 @@
 import { Resend } from "resend";
 import { NextResponse } from "next/server";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+function getResend() {
+  const key = process.env.RESEND_API_KEY;
+  if (!key) throw new Error("RESEND_API_KEY not configured");
+  return new Resend(key);
+}
 
 const ENNEAGRAM_NAMES: Record<number, string> = {
   1: "The Reformer",
@@ -43,7 +47,7 @@ export async function POST(req: Request) {
     const color = ENNEAGRAM_COLORS[enneagramType] || "#3498DB";
     const senderName = fromName || "Someone";
 
-    const { data, error } = await resend.emails.send({
+    const { data, error } = await getResend().emails.send({
       from: "Thyself <onboarding@resend.dev>",
       to: [to],
       subject: `${senderName} shared their personality results with you`,

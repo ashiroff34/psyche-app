@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { Sparkles, ChevronRight, RefreshCw, Check, ArrowRight, Leaf } from "lucide-react";
 import { enneagramTypes } from "@/data/enneagram";
+import PetSprite from "@/components/PetSprite";
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
@@ -241,6 +242,18 @@ export default function GrowthPage() {
                   Save Reflection
                 </motion.button>
               )}
+
+              {/* Pet companion */}
+              <div className="mt-4 bg-violet-50/50 border border-violet-100/50 rounded-2xl p-3 flex items-center gap-3">
+                <PetSprite type={activeType ?? 4} size={48} />
+                <p className="text-sm text-violet-600/80 leading-snug">
+                  {saved
+                    ? "Your companion feels your growth!"
+                    : reflectionText.trim()
+                    ? "Keep going, your companion is listening..."
+                    : "Your companion waits patiently..."}
+                </p>
+              </div>
             </div>
 
             {/* All prompts for this type */}

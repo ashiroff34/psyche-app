@@ -6,6 +6,7 @@ import Link from "next/link";
 import { Timer, Zap, CheckCircle, XCircle, Trophy, ArrowRight, Flame, Star } from "lucide-react";
 import { useGameState } from "@/hooks/useGameState";
 import { typeQuizQuestions } from "@/data/type-quizzes";
+import PetSprite from "@/components/PetSprite";
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
@@ -49,6 +50,20 @@ export default function SprintPage() {
   const [totalXP, setTotalXP] = useState(0);
   const [showXPPop, setShowXPPop] = useState<number | null>(null);
   const startTimeRef = useRef<number>(0);
+  const [petType, setPetType] = useState<number>(4);
+
+  // Read enneagram type from localStorage
+  useEffect(() => {
+    try {
+      const raw = localStorage.getItem("psyche-profile");
+      if (raw) {
+        const profile = JSON.parse(raw);
+        if (profile.type && typeof profile.type === "number") {
+          setPetType(profile.type);
+        }
+      }
+    } catch {}
+  }, []);
 
   const currentQ = questions[qIndex];
   const correct = answers.filter((a) => a.correct).length;
@@ -166,7 +181,10 @@ export default function SprintPage() {
           <div className="inline-flex items-center justify-center w-20 h-20 rounded-3xl bg-gradient-to-br from-violet-500 to-purple-600 shadow-xl shadow-violet-200/60 mb-6 mx-auto">
             <Timer className="w-9 h-9 text-white" />
           </div>
-          <h1 className="text-3xl font-serif font-bold text-slate-900 mb-2">Sprint Mode</h1>
+          <div className="flex items-center justify-center gap-2 mb-2">
+            <h1 className="text-3xl font-serif font-bold text-slate-900">Sprint Mode</h1>
+            <PetSprite type={petType} size={48} />
+          </div>
           <p className="text-slate-500 text-sm mb-8 leading-relaxed">
             Answer as many questions as you can in <strong>60 seconds</strong>.<br/>
             Build streaks for bonus XP. No hearts lost — just go fast.
@@ -241,6 +259,18 @@ export default function SprintPage() {
                 </div>
               ))}
             </div>
+          </div>
+
+          {/* Pet reaction */}
+          <div className="bg-white rounded-2xl border border-slate-100 shadow-sm p-4 mb-4 flex items-center gap-4">
+            <PetSprite type={petType} size={56} />
+            <p className="text-sm font-medium text-slate-600">
+              {accuracy >= 90
+                ? "Your companion is proud!"
+                : accuracy >= 50
+                ? "Your companion cheers you on!"
+                : "Your companion believes in you!"}
+            </p>
           </div>
 
           {/* XP earned */}

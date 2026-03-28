@@ -15,6 +15,7 @@ import {
 import { LESSON_UNITS } from "@/data/lessons";
 import { useLessonProgress } from "@/hooks/useLessonProgress";
 import { useProfile } from "@/hooks/useProfile";
+import PetSprite from "@/components/PetSprite";
 
 // ── Unit Status Helpers ──────────────────────────────────────────────────────
 
@@ -357,7 +358,17 @@ function OverallProgress() {
 // ── Main Page ────────────────────────────────────────────────────────────────
 
 export default function LessonsPage() {
-  const { loaded } = useLessonProgress();
+  const { loaded, isUnitCompleted } = useLessonProgress();
+  const { profile } = useProfile();
+
+  const completedCount = LESSON_UNITS.filter((u) => isUnitCompleted(u.id)).length;
+  const totalUnits = LESSON_UNITS.length;
+  const petMessage =
+    completedCount === 0
+      ? "Your companion is excited to learn with you!"
+      : completedCount >= totalUnits
+      ? "Your companion is so proud!"
+      : "Your companion has been studying hard!";
 
   if (!loaded) {
     return (
@@ -387,6 +398,14 @@ export default function LessonsPage() {
 
         {/* Overall progress bar */}
         <OverallProgress />
+      </div>
+
+      {/* Pet study buddy */}
+      <div className="px-4 sm:px-6 max-w-2xl mx-auto">
+        <div className="flex items-center gap-3 bg-indigo-50/60 border border-indigo-100/40 rounded-2xl px-4 py-3 mb-6">
+          <PetSprite type={profile?.enneagramType ?? 4} size={44} />
+          <span className="text-xs text-indigo-600 font-medium">{petMessage}</span>
+        </div>
       </div>
 
       {/* Unit list */}
