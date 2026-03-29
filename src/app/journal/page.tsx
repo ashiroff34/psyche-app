@@ -1202,7 +1202,7 @@ function CognitiveReframeTool() {
                   <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-indigo-500 to-violet-500 flex items-center justify-center">
                     <Brain className="w-3.5 h-3.5 text-white" />
                   </div>
-                  <span className="text-sm font-semibold text-indigo-700">AI Reframe</span>
+                  <span className="text-sm font-semibold text-indigo-700">Reframe</span>
                 </div>
                 {aiResponse ? (
                   <div className="text-sm text-slate-700 leading-relaxed whitespace-pre-wrap font-serif">

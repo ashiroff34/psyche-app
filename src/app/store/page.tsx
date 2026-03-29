@@ -113,7 +113,7 @@ const TOKEN_USES = [
 const PRO_FEATURES = [
   { icon: Eye, label: "Ad-free experience" },
   { icon: Palette, label: "10 exclusive avatar outfits & backgrounds" },
-  { icon: Brain, label: "Unlimited AI coaching sessions" },
+  { icon: Brain, label: "Unlimited coaching sessions" },
   { icon: Target, label: "Advanced type analysis reports" },
   { icon: Zap, label: "Priority access to new features" },
   { icon: Coins, label: "500 bonus tokens every month" },

@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Trophy, Star, Zap, ArrowRight } from "lucide-react";
-import Confetti from "@/components/Confetti";
+import { useRewards } from "@/components/Rewards";
 
 interface Props {
   score: number; // 0–100
@@ -16,8 +16,8 @@ interface Props {
 export default function LessonComplete({ score, xpEarned, perfectRun, lessonTitle, onContinue }: Props) {
   const [countedScore, setCountedScore] = useState(0);
   const [countedXP, setCountedXP] = useState(0);
-  const [showConfetti, setShowConfetti] = useState(false);
   const [countDone, setCountDone] = useState(false);
+  const { confettiBurst, bigConfetti } = useRewards();
 
   const passed = score >= 80;
 
@@ -43,8 +43,11 @@ export default function LessonComplete({ score, xpEarned, perfectRun, lessonTitl
 
         // Trigger confetti after count finishes
         if (passed) {
-          setShowConfetti(true);
-          setTimeout(() => setShowConfetti(false), 3000);
+          if (perfectRun) {
+            bigConfetti();
+          } else {
+            confettiBurst();
+          }
         }
       }
     }, interval);
@@ -72,20 +75,6 @@ export default function LessonComplete({ score, xpEarned, perfectRun, lessonTitl
           : "white",
       }}
     >
-      {/* Confetti */}
-      <Confetti
-        active={showConfetti && perfectRun}
-        duration={3000}
-        particleCount={80}
-        colors={["#fbbf24", "#f59e0b", "#fcd34d", "#fde68a", "#ffffff"]}
-      />
-      <Confetti
-        active={showConfetti && passed && !perfectRun}
-        duration={2500}
-        particleCount={50}
-        colors={["#8b5cf6", "#d946ef", "#a78bfa", "#ec4899", "#f0abfc"]}
-      />
-
       <motion.div
         initial={{ scale: 0.8, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}

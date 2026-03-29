@@ -9,7 +9,7 @@ import type { ChibiState } from "@/components/ChibiSprite";
 import KeepGoingCard from "@/components/daily/KeepGoingCard";
 import { getBadgeProgress, type GameState, type BadgeProgress } from "@/hooks/useGameState";
 import TokenDropOverlay, { rollTokenDrop, type TokenDrop } from "@/components/daily/TokenDropOverlay";
-import Confetti from "@/components/Confetti";
+import { useRewards } from "@/components/Rewards";
 import type { PathNodeConfig } from "@/components/daily/NodeBottomSheet";
 
 interface Question {
@@ -134,11 +134,11 @@ export default function QuizFullscreen({
   }, [answers.length, showExp]);
 
   // ── Celebration state ──────────────────────────────────────────────────────
+  const { confettiBurst, bigConfetti } = useRewards();
   const [countActive, setCountActive] = useState(false);
   const [countedCorrect, setCountedCorrect] = useState(0);
   const [countedPct, setCountedPct] = useState(0);
   const [countedXP, setCountedXP] = useState(0);
-  const [showConfetti, setShowConfetti] = useState(false);
   const [showBestBanner, setShowBestBanner] = useState(false);
   const [showStreakBurst, setShowStreakBurst] = useState(false);
   const [celebrationText, setCelebrationText] = useState<string | null>(null);
@@ -201,8 +201,11 @@ export default function QuizFullscreen({
         setCountActive(true);
         // Tiered celebration based on accuracy
         if (pctFinal >= 80 || beatBest) {
-          setShowConfetti(true);
-          setTimeout(() => setShowConfetti(false), 3000);
+          if (pctFinal >= 90) {
+            bigConfetti();
+          } else {
+            confettiBurst();
+          }
         } else if (pctFinal >= 60) {
           setShowSparkle(true);
           setTimeout(() => setShowSparkle(false), 2500);
@@ -263,20 +266,6 @@ export default function QuizFullscreen({
             : "white",
         }}
       >
-        {/* Confetti — gold for 90%+, purple/pink for 80%+ or personal best */}
-        <Confetti
-          active={showConfetti && pct >= 90}
-          duration={3000}
-          particleCount={80}
-          colors={["#fbbf24", "#f59e0b", "#fcd34d", "#fde68a", "#ffffff"]}
-        />
-        <Confetti
-          active={showConfetti && pct < 90}
-          duration={3000}
-          particleCount={60}
-          colors={["#8b5cf6", "#d946ef", "#a78bfa", "#ec4899", "#f0abfc"]}
-        />
-
         {/* Sparkle overlay for 60-79% accuracy */}
         <AnimatePresence>
           {showSparkle && (

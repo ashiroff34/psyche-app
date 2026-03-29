@@ -114,7 +114,7 @@ const SLIDES: Slide[] = [
   },
   {
     title: "Where real growth happens",
-    what: "Four powerful tools: Shadow Work, Dynamics Simulation, AI-powered Reframing, and Pattern Tracking. Ever wondered what your shadow functions look like? Find out here.",
+    what: "Four powerful tools: Shadow Work, Dynamics Simulation, Cognitive Reframing, and Pattern Tracking. Ever wondered what your shadow functions look like? Find out here.",
     howToGet: "Tap ··· Explore → 'Inner Work'. The home screen 'Journal prompt waiting' card also takes you directly here.",
     screenshot: `${SS}/journal.jpg`,
     chibi: `${CB}/4-sx4.png`,
@@ -293,7 +293,7 @@ export default function TutorialOverlay({ onClose }: { onClose: () => void }) {
             {/* Chibi + title row */}
             <div className="flex items-center gap-3 w-full mb-1">
               <div className="w-9 h-9 rounded-full bg-white border-2 border-indigo-100 shadow-sm flex items-center justify-center overflow-hidden flex-shrink-0">
-                <Image src={slide.chibi} alt="" width={26} height={26} className="object-contain" unoptimized />
+                <Image src={slide.chibi} alt={slide.title} width={26} height={26} className="object-contain" unoptimized />
               </div>
               <p className="text-[15px] font-bold text-slate-900 leading-tight flex-1">{slide.title}</p>
             </div>

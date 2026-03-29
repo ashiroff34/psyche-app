@@ -4,14 +4,15 @@ import Navigation from "@/components/Navigation";
 import RetentionBanner from "@/components/RetentionBanner";
 import ComebackModal from "@/components/ComebackModal";
 import EngagementNudge from "@/components/EngagementNudge";
-import XPCelebration from "@/components/XPCelebration";
 import TutorialProvider from "@/components/TutorialProvider";
 import { assetPath } from "@/lib/assetPath";
+import { RewardAnchors } from "@/components/Rewards";
+import { Toaster } from "sonner";
 
 export const metadata: Metadata = {
   title: "Thyself — Discover Your Mind",
   description:
-    "Explore your personality through the Enneagram and Carl Jung's Cognitive Functions. AI-powered assessments, deep learning resources, and growth tools.",
+    "Explore your personality through the Enneagram and Carl Jung's Cognitive Functions. Interactive assessments, deep learning resources, and growth tools.",
   manifest: assetPath("/manifest.json"),
   appleWebApp: {
     capable: true,
@@ -56,7 +57,15 @@ export default function RootLayout({
       <body className="min-h-screen">
         <Navigation />
         <ComebackModal />
-        <XPCelebration />
+        <Toaster
+          position="top-center"
+          toastOptions={{
+            unstyled: true,
+            classNames: { toast: "w-full flex justify-center" },
+          }}
+          gap={8}
+        />
+        <RewardAnchors />
         <main className="pt-14 pb-20">{children}</main>
         <TutorialProvider />
         <RetentionBanner />

@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { BookOpen, Clock, Coins, Zap, CheckCircle, ChevronLeft, Sparkles } from "lucide-react";
+import { useRewards } from "@/components/Rewards";
 import type { Reading } from "@/data/dailyReadings";
 
 interface DailyReadingProps {
@@ -20,7 +21,7 @@ export default function DailyReading({ reading, onComplete, onBack, alreadyCompl
   const [secondsOnPage, setSecondsOnPage] = useState(0);
   const [unlocked, setUnlocked] = useState(alreadyCompleted);
   const [collected, setCollected] = useState(alreadyCompleted);
-  const [showConfetti, setShowConfetti] = useState(false);
+  const { confettiBurst } = useRewards();
   const contentRef = useRef<HTMLDivElement>(null);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
 
@@ -55,8 +56,7 @@ export default function DailyReading({ reading, onComplete, onBack, alreadyCompl
 
   const handleCollect = () => {
     setCollected(true);
-    setShowConfetti(true);
-    setTimeout(() => setShowConfetti(false), 2000);
+    confettiBurst();
     onComplete(reading.tokenReward, reading.xpReward);
   };
 
@@ -206,35 +206,6 @@ export default function DailyReading({ reading, onComplete, onBack, alreadyCompl
         </div>
       </div>
 
-      {/* Confetti burst */}
-      <AnimatePresence>
-        {showConfetti && (
-          <motion.div
-            initial={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 pointer-events-none z-50 flex items-center justify-center"
-          >
-            {[...Array(12)].map((_, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 1, y: 0, x: 0, scale: 1 }}
-                animate={{
-                  opacity: 0,
-                  y: -120 - Math.random() * 80,
-                  x: (Math.random() - 0.5) * 200,
-                  scale: 0,
-                  rotate: Math.random() * 360,
-                }}
-                transition={{ duration: 1.2, delay: i * 0.05 }}
-                className="absolute w-3 h-3 rounded-sm"
-                style={{
-                  backgroundColor: ["#6366f1", "#a855f7", "#f59e0b", "#10b981", "#f43f5e"][i % 5],
-                }}
-              />
-            ))}
-          </motion.div>
-        )}
-      </AnimatePresence>
     </div>
   );
 }

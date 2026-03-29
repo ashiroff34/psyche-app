@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
@@ -102,6 +102,7 @@ function Toggle({
       <button
         role="switch"
         aria-checked={checked}
+        aria-label={label}
         onClick={() => onChange(!checked)}
         className={`relative w-11 h-6 rounded-full transition-colors flex-shrink-0 ${
           checked ? "bg-sky-500" : "bg-slate-200"
@@ -268,9 +269,11 @@ export default function SettingsPage() {
 
   // Toast
   const [toast, setToast] = useState("");
+  const toastTimerRef = useRef<NodeJS.Timeout>(undefined);
   const showToast = useCallback((msg: string) => {
+    clearTimeout(toastTimerRef.current);
     setToast(msg);
-    setTimeout(() => setToast(""), 2500);
+    toastTimerRef.current = setTimeout(() => setToast(""), 2500);
   }, []);
 
   // Load initial state

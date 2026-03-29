@@ -52,7 +52,7 @@ import {
 } from "@/hooks/useGameState";
 import PetSprite from "@/components/PetSprite";
 import { usePetState } from "@/hooks/usePetState";
-import Confetti from "@/components/Confetti";
+import { useRewards } from "@/components/Rewards";
 import GameIntro from "@/components/GameIntro";
 
 // ─── Animations ──────────────────────────────────────────────────────────────
@@ -894,7 +894,6 @@ function StatsSection({ state }: { state: any }) {
 function LevelUpOverlay({ level }: { level: number }) {
   return (
     <>
-    <Confetti active={true} duration={3000} particleCount={80} />
     <motion.div
       initial={{ opacity: 1 }}
       animate={{ opacity: 1 }}
@@ -980,6 +979,16 @@ function XPGainToast({ amount, source }: { amount: number; source: string }) {
 export default function GamePage() {
   const game = useGameState();
   const { state, loaded } = game;
+  const { bigConfetti, balloonBurst } = useRewards();
+
+  // Fire confetti on level-up / badge animations
+  useEffect(() => {
+    if (game.levelUpAnimation) bigConfetti();
+  }, [game.levelUpAnimation, bigConfetti]);
+
+  useEffect(() => {
+    if (game.badgeUnlockAnimation) balloonBurst();
+  }, [game.badgeUnlockAnimation, balloonBurst]);
 
   // Read enneagram type + cognitive type for pet and share card
   const [petType, setPetType] = useState<number>(1);

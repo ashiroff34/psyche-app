@@ -14,10 +14,12 @@ import {
 import { useProfile } from "@/hooks/useProfile";
 import { useGameState, trackWeeklyEvent } from "@/hooks/useGameState";
 import { usePetState } from "@/hooks/usePetState";
+import SlotCounter from "react-slot-counter";
 import PetCompanion from "@/components/PetCompanion";
 import ChibiSprite from "@/components/ChibiSprite";
 import NextStepBanner from "@/components/NextStepBanner";
 import BeginnerBanner from "@/components/BeginnerBanner";
+import { useRewards } from "@/components/Rewards";
 import FirstVisitTooltip from "@/components/FirstVisitTooltip";
 import HubView from "@/components/daily/HubView";
 import PathIteration4, { type PathUnit } from "@/components/daily/PathIteration4";
@@ -330,34 +332,6 @@ const QUESTION_BANK: Question[] = typeQuizQuestions.map((tq) => ({
 
 
 /* ═══════════════════════════════════════════════════════════════════════════
-   CONFETTI PARTICLE COMPONENT
-   ═══════════════════════════════════════════════════════════════════════════ */
-function ConfettiParticles() {
-  const particles = useMemo(() =>
-    Array.from({ length: 24 }, (_, i) => ({
-      id: i,
-      x: Math.random() * 100,
-      color: ["#6366f1", "#f59e0b", "#10b981", "#f43f5e", "#8b5cf6", "#06b6d4"][i % 6],
-      delay: Math.random() * 0.3,
-      size: 4 + Math.random() * 6,
-      rotation: Math.random() * 360,
-    })), []);
-
-  return (
-    <div className="fixed inset-0 pointer-events-none z-50">
-      {particles.map((p) => (
-        <motion.div
-          key={p.id}
-          initial={{ opacity: 1, y: "50vh", x: `${p.x}vw`, rotate: 0, scale: 1 }}
-          animate={{ opacity: 0, y: "-20vh", x: `${p.x + (Math.random() - 0.5) * 30}vw`, rotate: p.rotation + 720, scale: 0.5 }}
-          transition={{ duration: 1.5, delay: p.delay, ease: "easeOut" }}
-          style={{ width: p.size, height: p.size, backgroundColor: p.color, borderRadius: p.size > 7 ? "50%" : "1px", position: "absolute" }}
-        />
-      ))}
-    </div>
-  );
-}
-
 /* ═══════════════════════════════════════════════════════════════════════════
    STREAK FLAME COMPONENT
    ═══════════════════════════════════════════════════════════════════════════ */
@@ -568,7 +542,8 @@ export default function DailyPage() {
   const [moduleStartTime, setModuleStartTime] = useState<number>(0);
 
   // Engagement
-  const [showConfetti, setShowConfetti] = useState(false);
+  const { confettiBurst, bigConfetti, emojiRain } = useRewards();
+
   const [correctStreak, setCorrectStreak] = useState(0);
   const [sessionXP, setSessionXP] = useState(0);
   const [copied, setCopied] = useState(false);
@@ -629,24 +604,23 @@ export default function DailyPage() {
   };
   useEffect(() => {
     if (!loaded) return;
-    try {
-      import("@/data/daily-insights-index").then(({ getTodayInsight }) => {
-        try {
-          const insight = getTodayInsight();
-          if (insight?.quote && insight?.author) {
-            setDailyInsightData(insight);
-          } else {
-            setDailyInsightData(insightFallback);
-          }
-        } catch {
+    let cancelled = false;
+    import("@/data/daily-insights-index").then(({ getTodayInsight }) => {
+      if (cancelled) return;
+      try {
+        const insight = getTodayInsight();
+        if (insight?.quote && insight?.author) {
+          setDailyInsightData(insight);
+        } else {
           setDailyInsightData(insightFallback);
         }
-      }).catch(() => {
+      } catch {
         setDailyInsightData(insightFallback);
-      });
-    } catch {
-      setDailyInsightData(insightFallback);
-    }
+      }
+    }).catch(() => {
+      if (!cancelled) setDailyInsightData(insightFallback);
+    });
+    return () => { cancelled = true; };
   }, [loaded]);
 
   // ── Load from localStorage ──
@@ -921,10 +895,7 @@ export default function DailyPage() {
     }
     if (!correct) loseHeart();
 
-    if (correct) {
-      setShowConfetti(true);
-      setTimeout(() => setShowConfetti(false), 1500);
-    }
+    if (correct) confettiBurst();
 
     saveProgress({
       questionsAnswered: (dailyProgress?.questionsAnswered ?? 0) + 1,
@@ -948,8 +919,7 @@ export default function DailyPage() {
         gameEarnXP(25, "perfect-score-bonus");
         addXP(25);
         setSessionXP(prev => prev + 25);
-        setShowConfetti(true);
-        setTimeout(() => setShowConfetti(false), 2000);
+        bigConfetti();
       }
 
       // Check if this completes an entire unit
@@ -996,10 +966,7 @@ export default function DailyPage() {
     }
     if (!correct) loseHeart();
 
-    if (correct) {
-      setShowConfetti(true);
-      setTimeout(() => setShowConfetti(false), 1500);
-    }
+    if (correct) confettiBurst();
 
     saveProgress({
       questionsAnswered: (dailyProgress?.questionsAnswered ?? 0) + 1,
@@ -1044,8 +1011,7 @@ export default function DailyPage() {
         gameEarnXP(25, "perfect-score-bonus");
         addXP(25);
         setSessionXP(prev => prev + 25);
-        setShowConfetti(true);
-        setTimeout(() => setShowConfetti(false), 2000);
+        bigConfetti();
       }
 
       const moduleScores = { ...(dailyProgress?.moduleScores ?? {}) };
@@ -1377,7 +1343,7 @@ export default function DailyPage() {
   if (view === "hub") {
     return (
       <div className="min-h-screen">
-        {showConfetti && <ConfettiParticles />}
+        {/* Confetti handled by react-rewards anchors in layout */}
         <FirstVisitTooltip
           storageKey="psyche-visited-daily"
           message="Complete your daily goal to earn XP, tokens, and build your streak 🔥"
@@ -1486,7 +1452,7 @@ export default function DailyPage() {
   if (view === "path") {
     return (
       <div className="min-h-screen" style={{ background: "#0f0a1e" }}>
-        {showConfetti && <ConfettiParticles />}
+        {/* Confetti handled by react-rewards anchors in layout */}
 
         {/* Unit completion milestone celebration */}
         <AnimatePresence>
@@ -1555,7 +1521,7 @@ export default function DailyPage() {
             {/* Streak */}
             <div className="flex items-center gap-1.5">
               <Flame className="w-5 h-5 text-orange-400" />
-              <span className="text-white font-bold text-sm">{streak}</span>
+              <SlotCounter value={streak} sequentialAnimationMode charClassName="text-white font-bold text-sm" duration={0.6} />
             </div>
             {/* Hearts */}
             <div className="flex items-center gap-1.5">
@@ -1570,7 +1536,7 @@ export default function DailyPage() {
             {/* XP */}
             <div className="flex items-center gap-1.5 relative">
               <Star className="w-5 h-5 text-yellow-400 fill-yellow-400" />
-              <span className="text-white font-bold text-sm">{totalXP}</span>
+              <SlotCounter value={totalXP} sequentialAnimationMode charClassName="text-white font-bold text-sm" duration={0.6} />
               <AnimatePresence>
                 {xpGainShow && (
                   <motion.span
@@ -1588,7 +1554,7 @@ export default function DailyPage() {
             {/* Tokens */}
             <div className="flex items-center gap-1.5">
               <Zap className="w-5 h-5 text-emerald-400" />
-              <span className="text-white font-bold text-sm">{gameStateRaw.tokens ?? 0}</span>
+              <SlotCounter value={gameStateRaw.tokens ?? 0} sequentialAnimationMode charClassName="text-white font-bold text-sm" duration={0.6} />
             </div>
             {/* Progress */}
             <div className="flex items-center gap-1.5">
@@ -1725,8 +1691,6 @@ export default function DailyPage() {
 
   return (
     <div className="min-h-screen pb-20">
-      {showConfetti && <ConfettiParticles />}
-
       {/* Daily Goal Completion Celebration */}
       <AnimatePresence>
         {showDailyGoalCelebration && (
