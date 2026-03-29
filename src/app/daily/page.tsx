@@ -475,6 +475,7 @@ interface QStat {
 }
 
 function loadQStats(): Record<string, QStat> {
+  if (typeof window === "undefined") return {};
   try {
     const raw = localStorage.getItem(SR_KEY);
     return raw ? JSON.parse(raw) : {};
@@ -745,7 +746,7 @@ export default function DailyPage() {
         setUnitCelebration({ unitName: unit.name, xp: unitXP });
         setTimeout(() => setUnitCelebration(null), 5000);
       }
-      break;
+      break; // Found the unit containing this module; no need to check others
     }
   };
 
@@ -805,7 +806,7 @@ export default function DailyPage() {
     { xp: 5000, label: "Depth Psychologist" },
     { xp: 10000, label: "Integration Master" },
   ];
-  const currentMilestone = milestones.filter(m => totalXP >= m.xp).pop()!;
+  const currentMilestone = milestones.filter(m => totalXP >= m.xp).pop() ?? milestones[0];
   const nextMilestone = milestones.find(m => totalXP < m.xp);
   const progressToNext = nextMilestone ? Math.round(((totalXP - currentMilestone.xp) / (nextMilestone.xp - currentMilestone.xp)) * 100) : 100;
 
@@ -1034,7 +1035,7 @@ export default function DailyPage() {
       setModuleDone(true);
       bumpSessionCount();
       trackWeeklyEvent("module_complete");
-      const correctCount = moduleAnswers.filter(Boolean).length + (moduleSelected === moduleQuestions[moduleQ].ans ? 1 : 0);
+      const correctCount = moduleAnswers.filter(Boolean).length + (moduleSelected === moduleQuestions[moduleQ]?.ans ? 1 : 0);
       const totalCount = moduleAnswers.length + 1;
       const timeSpent = Math.round((Date.now() - moduleStartTime) / 60000);
 
@@ -1086,6 +1087,7 @@ export default function DailyPage() {
   const totalCorrectToday = dailyProgress?.correctAnswers ?? 0;
   const accuracyToday = totalAnsweredToday > 0 ? Math.round((totalCorrectToday / totalAnsweredToday) * 100) : 0;
   const totalAnsweredAllTime = useMemo(() => {
+    if (!loaded || typeof window === "undefined") return 0;
     let total = 0;
     for (let i = 0; i < 365; i++) {
       const d = new Date();
