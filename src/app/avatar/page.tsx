@@ -799,13 +799,15 @@ export default function AvatarPage() {
                         />
                         <button
                           onClick={handleNameSubmit}
-                          className="p-1 text-emerald-400 hover:text-emerald-300"
+                          aria-label="Save name"
+                          className="p-2 text-emerald-400 hover:text-emerald-300"
                         >
                           <Check className="w-4 h-4" />
                         </button>
                         <button
                           onClick={() => setEditingName(false)}
-                          className="p-1 text-slate-400 hover:text-slate-300"
+                          aria-label="Cancel"
+                          className="p-2 text-slate-400 hover:text-slate-300"
                         >
                           <X className="w-4 h-4" />
                         </button>

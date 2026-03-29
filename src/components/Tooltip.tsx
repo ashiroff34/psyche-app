@@ -21,7 +21,8 @@ export function TermTooltip({ term, children }: { term: string; children?: React
       {children || term}
       <button
         onClick={(e) => { e.stopPropagation(); setOpen(!open); }}
-        className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-sky-100 hover:bg-sky-200 transition shrink-0"
+        aria-label={`What is ${term}?`}
+        className="inline-flex items-center justify-center w-6 h-6 rounded-full bg-sky-100 hover:bg-sky-200 transition shrink-0"
       >
         <HelpCircle className="w-3 h-3 text-sky-500" />
       </button>

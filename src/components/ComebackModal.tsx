@@ -156,7 +156,8 @@ export default function ComebackModal() {
                 {/* Close button */}
                 <button
                   onClick={handleClose}
-                  className="absolute top-4 right-4 p-1.5 rounded-xl text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition"
+                  aria-label="Close"
+                  className="absolute top-4 right-4 p-2.5 rounded-xl text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition"
                 >
                   <X className="w-4 h-4" />
                 </button>

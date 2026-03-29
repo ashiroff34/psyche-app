@@ -242,7 +242,7 @@ export default function TutorialOverlay({ onClose }: { onClose: () => void }) {
             <span className="text-sm font-bold text-slate-800">App Tour</span>
             <span className="text-xs text-slate-400">{idx + 1} / {SLIDES.length}</span>
           </div>
-          <button onClick={onClose} className="p-1.5 rounded-xl text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition-all">
+          <button onClick={onClose} aria-label="Close tour" className="p-2.5 rounded-xl text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition-all">
             <X className="w-4 h-4" />
           </button>
         </div>

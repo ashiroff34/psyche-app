@@ -73,13 +73,6 @@ html.dark .safe-area-bottom {
 }
 
 /* ===== Glass Effects ===== */
-.glass {
-  background: rgba(255, 255, 255, 0.7) !important;
-  backdrop-filter: blur(20px) !important;
-  -webkit-backdrop-filter: blur(20px) !important;
-  border: 1px solid rgba(255, 255, 255, 0.3) !important;
-}
-
 .glass-strong {
   background: rgba(255, 255, 255, 0.9) !important;
   backdrop-filter: blur(30px) !important;
@@ -118,15 +111,6 @@ a[class*="rounded"] {
   transition: transform 0.15s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.15s ease !important;
 }
 
-/* ===== Glass Morphism Cards ===== */
-.glass-card {
-  background: rgba(255, 255, 255, 0.6) !important;
-  backdrop-filter: blur(16px) !important;
-  -webkit-backdrop-filter: blur(16px) !important;
-  border: 1px solid rgba(255, 255, 255, 0.4) !important;
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.02) !important;
-}
-
 /* ===== Smooth Number Count-Up ===== */
 .count-up {
   transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
@@ -134,18 +118,7 @@ a[class*="rounded"] {
 
 /* ===== Smooth Progress Bar Fill ===== */
 [class*="bg-gradient"][class*="rounded-full"] {
-  transition: width 0.7s cubic-bezier(0.4, 0, 0.2, 1) !important;
-}
-
-/* ===== Checkmark Animation ===== */
-@keyframes check-pop {
-  0% { transform: scale(0); opacity: 0; }
-  50% { transform: scale(1.2); }
-  100% { transform: scale(1); opacity: 1; }
-}
-
-.check-animate {
-  animation: check-pop 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  transition: width 0.5s ease-out;
 }
 
 /* ===== Tab Slide Transition ===== */
@@ -173,41 +146,9 @@ a[class*="rounded"] {
   animation-delay: 2s !important;
 }
 
-.typing-dot {
-  animation: typing-bounce 1.4s ease-in-out infinite !important;
-}
-
-.typing-dot:nth-child(2) {
-  animation-delay: 0.2s !important;
-}
-
-.typing-dot:nth-child(3) {
-  animation-delay: 0.4s !important;
-}
-
 @keyframes float {
   0%, 100% { transform: translateY(0px); }
   50% { transform: translateY(-10px); }
-}
-
-@keyframes typing-bounce {
-  0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
-  30% { transform: translateY(-4px); opacity: 1; }
-}
-
-/* ===== Line Clamp ===== */
-.line-clamp-2 {
-  display: -webkit-box !important;
-  -webkit-line-clamp: 2 !important;
-  -webkit-box-orient: vertical !important;
-  overflow: hidden !important;
-}
-
-.line-clamp-3 {
-  display: -webkit-box !important;
-  -webkit-line-clamp: 3 !important;
-  -webkit-box-orient: vertical !important;
-  overflow: hidden !important;
 }
 
 /* ===== Custom Scrollbar ===== */
@@ -229,30 +170,6 @@ a[class*="rounded"] {
 ::selection {
   background: rgba(14, 165, 233, 0.15);
   color: #0369a1;
-}
-
-/* ===== Enhanced Card Shadow ===== */
-.card-shadow {
-  box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 4px 16px rgba(0,0,0,0.06);
-  transition: box-shadow 0.25s ease, transform 0.25s ease;
-}
-.card-shadow:hover {
-  box-shadow: 0 4px 20px rgba(0,0,0,0.08), 0 8px 32px rgba(99,102,241,0.1);
-  transform: translateY(-2px);
-}
-
-/* ===== Gradient Buttons ===== */
-.btn-primary {
-  background: linear-gradient(135deg, #0ea5e9 0%, #6366f1 100%);
-  color: white;
-  font-weight: 600;
-  border: none;
-  box-shadow: 0 4px 14px rgba(14,165,233,0.35);
-  transition: all 0.2s ease;
-}
-.btn-primary:hover {
-  box-shadow: 0 6px 20px rgba(14,165,233,0.45);
-  transform: translateY(-1px);
 }
 
 /* ===== Subtle Texture Background ===== */
@@ -286,14 +203,6 @@ a[class*="rounded"] {
   font-size: 11px;
   font-weight: 600;
   letter-spacing: 0.02em;
-}
-
-/* ===== Glow effects ===== */
-.glow-sky {
-  box-shadow: 0 0 20px rgba(14,165,233,0.25), 0 0 40px rgba(14,165,233,0.1);
-}
-.glow-indigo {
-  box-shadow: 0 0 20px rgba(99,102,241,0.25), 0 0 40px rgba(99,102,241,0.1);
 }
 
 /* ===== Smooth focus rings ===== */

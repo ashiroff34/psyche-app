@@ -12,7 +12,7 @@ export default function OuroborosLogo({ size = 32, className = "" }: { size?: nu
   return (
     <img
       src={assetPath("/ouroboros-icon.png")}
-      alt=""
+      alt="Thyself logo"
       width={size}
       height={size}
       className={`rounded-[22%] ${className}`}
