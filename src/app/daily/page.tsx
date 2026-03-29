@@ -28,6 +28,7 @@ import QuizFullscreen from "@/components/daily/QuizFullscreen";
 import DailyReading from "@/components/daily/DailyReading";
 import { getDailyReading } from "@/data/dailyReadings";
 import { typeQuizQuestions } from "@/data/type-quizzes";
+import { introQuestions } from "@/data/intro-questions";
 
 /* ═══════════════════════════════════════════════════════════════════════════
    UTILITY: Seeded PRNG (deterministic shuffle per day)
@@ -318,17 +319,31 @@ function categoryToTag(cat: string): string {
   return cat.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
 }
 
-const QUESTION_BANK: Question[] = typeQuizQuestions.map((tq) => ({
-  id: `tq_${tq.id}`,
-  q: tq.question,
-  opts: tq.options.map((o) => o.text),
-  ans: LETTER_TO_INDEX[tq.answer] ?? 0,
-  exp: tq.explanation,
-  tier: difficultyToTier(tq.difficulty),
-  module: "type" as const,
-  typeSpecific: tq.type,
-  tags: [categoryToTag(tq.category)],
-}));
+const QUESTION_BANK: Question[] = [
+  // Intro questions (tier 0-1) — teach the frameworks first
+  ...introQuestions.map((iq) => ({
+    id: iq.id,
+    q: iq.q,
+    opts: iq.opts,
+    ans: iq.ans,
+    exp: iq.exp,
+    tier: iq.tier as 0 | 1 | 2 | 3 | 4,
+    module: iq.module,
+    tags: iq.tags,
+  })),
+  // Type-specific questions (tier 2-4)
+  ...typeQuizQuestions.map((tq) => ({
+    id: `tq_${tq.id}`,
+    q: tq.question,
+    opts: tq.options.map((o) => o.text),
+    ans: LETTER_TO_INDEX[tq.answer] ?? 0,
+    exp: tq.explanation,
+    tier: difficultyToTier(tq.difficulty),
+    module: "type" as const,
+    typeSpecific: tq.type,
+    tags: [categoryToTag(tq.category)],
+  })),
+];
 
 
 /* ═══════════════════════════════════════════════════════════════════════════
@@ -844,13 +859,23 @@ export default function DailyPage() {
     return shuffleWithSeed(selected, seed + moduleId.charCodeAt(0)).slice(0, count);
   }, [difficulty.level, seed, profile.enneagramType]);
 
-  // Warmup questions (5 from mixed modules) — always tier 2 (recall) for approachability
+  // Warmup questions — intro foundations for new users, then progressively harder
   const warmupQuestions = useMemo(() => {
-    const warmupMaxTier: 2 | 3 = difficulty.level <= 5 ? 2 : 3;
+    const hasStats = Object.keys(qStats).length > 0;
+    // New users (level 1-2): prioritize tier 0-1 intro questions so they learn the systems
+    if (difficulty.level <= 2) {
+      const introPool = QUESTION_BANK.filter(q => q.tier <= 1);
+      if (introPool.length > 0) {
+        if (hasStats) return srSelectQuestions(introPool, 5, qStats);
+        return shuffleWithSeed(introPool, seed).slice(0, 5);
+      }
+    }
+    // Level 3-5: mix intro + recall (tier 0-2)
+    // Level 6+: recall + application (tier 2-3)
+    const warmupMaxTier: 0 | 1 | 2 | 3 = difficulty.level <= 2 ? 1 : difficulty.level <= 5 ? 2 : 3;
     const pool = QUESTION_BANK.filter(q => q.tier <= warmupMaxTier);
     const source = pool.length > 0 ? pool : QUESTION_BANK;
-    // Use spaced repetition when stats are loaded, otherwise fall back to seeded shuffle
-    if (Object.keys(qStats).length > 0 || source.some(q => qStats[q.id])) {
+    if (hasStats || source.some(q => qStats[q.id])) {
       return srSelectQuestions(source, 5, qStats);
     }
     return shuffleWithSeed(source, seed).slice(0, 5);

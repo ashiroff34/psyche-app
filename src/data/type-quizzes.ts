@@ -8,6 +8,7 @@ import { newQType7 } from "./new-q-type7";
 import { newQType8 } from "./new-q-type8";
 import { newQType9 } from "./new-q-type9";
 import { newQAdvanced } from "./new-q-advanced";
+import { newQAdvanced2 } from "./new-q-advanced2";
 
 export type { TypeQuizQuestion } from "./quiz-types";
 import type { TypeQuizQuestion } from "./quiz-types";
@@ -7677,4 +7678,5 @@ export const typeQuizQuestions: TypeQuizQuestion[] = [
   ...newQType8,
   ...newQType9,
   ...newQAdvanced,
+  ...newQAdvanced2,
 ];
