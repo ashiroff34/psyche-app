@@ -1,17 +1,17 @@
-export interface TypeQuizQuestion {
-  id: number;
-  type: number;
-  difficulty: 1 | 2 | 3 | 4 | 5;
-  track1Day: number;
-  track2Day: number;
-  category: string;
-  question: string;
-  options: { letter: "A" | "B" | "C" | "D"; text: string }[];
-  answer: "A" | "B" | "C" | "D";
-  explanation: string;
-}
+import { newQType1 } from "./new-q-type1";
+import { newQType2 } from "./new-q-type2";
+import { newQType3 } from "./new-q-type3";
+import { newQType4 } from "./new-q-type4";
+import { newQType5 } from "./new-q-type5";
+import { newQType6 } from "./new-q-type6";
+import { newQType7 } from "./new-q-type7";
+import { newQType8 } from "./new-q-type8";
+import { newQType9 } from "./new-q-type9";
 
-export const typeQuizQuestions: TypeQuizQuestion[] = [
+export type { TypeQuizQuestion } from "./quiz-types";
+import type { TypeQuizQuestion } from "./quiz-types";
+
+const originalQuestions: TypeQuizQuestion[] = [
   {
     id: 1,
     type: 1,
@@ -7662,4 +7662,17 @@ export const typeQuizQuestions: TypeQuizQuestion[] = [
     answer: "A",
     explanation: 'Both types face the same fundamental challenge: finding the real self. Nines lose it through merging (I am whoever you need me to be). Threes lose it through performing (I am whatever wins admiration). Both arrive at the same question: who am I when I stop accommodating?',
   },
+];
+
+export const typeQuizQuestions: TypeQuizQuestion[] = [
+  ...originalQuestions,
+  ...newQType1,
+  ...newQType2,
+  ...newQType3,
+  ...newQType4,
+  ...newQType5,
+  ...newQType6,
+  ...newQType7,
+  ...newQType8,
+  ...newQType9,
 ];
