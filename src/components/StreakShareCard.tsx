@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Flame, X, Share2, Copy, Check, Zap, Crown } from "lucide-react";
+import { assetPath } from "@/lib/assetPath";
 
 interface Props {
   streak: number;
@@ -138,7 +139,7 @@ export default function StreakShareCard({
               {/* Brand */}
               <div className="flex items-center gap-2 mb-6">
                 <img
-                  src="/icon-192.png"
+                  src={assetPath("/icon-192.png")}
                   alt="Thyself"
                   className="w-7 h-7 rounded-lg shadow-lg"
                   onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }}

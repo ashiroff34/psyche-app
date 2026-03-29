@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
+import { assetPath } from "@/lib/assetPath";
 
 interface PetCompanionProps {
   type: number;
@@ -30,7 +31,7 @@ export default function PetCompanion({ type, size = 64, state = "idle", classNam
       }
     >
       <Image
-        src={`/pets/pet-${safeType}.png`}
+        src={assetPath(`/pets/pet-${safeType}.png`)}
         alt={`Type ${safeType} pet companion`}
         width={size}
         height={size}

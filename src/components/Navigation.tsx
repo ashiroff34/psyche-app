@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
+import { assetPath } from "@/lib/assetPath";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Brain,
@@ -324,7 +325,7 @@ export default function Navigation() {
                 </button>
               )}
               <Link href="/" className="flex items-center gap-2 group">
-                <img src="/icon-192.png" alt="Thyself" className="w-8 h-8 rounded-xl shadow-lg shadow-sky-200/50" />
+                <img src={assetPath("/icon-192.png")} alt="Thyself" className="w-8 h-8 rounded-xl shadow-lg shadow-sky-200/50" />
                 <span className="text-lg font-serif font-semibold text-slate-800 tracking-tight">
                   Thyself
                 </span>
