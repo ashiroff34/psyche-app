@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, Suspense } from "react";
+import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronDown, ChevronUp, TrendingUp, TrendingDown, Heart, AlertTriangle, Lightbulb, Feather, Flame, Users, Shield, Zap, Layers, Star, Brain, Eye, Swords, Lock, Sparkles, BookOpen, Info } from "lucide-react";
@@ -592,9 +593,9 @@ function LearnContent() {
               <p className="text-slate-500">Explore types, subtypes, instinctual stackings, tritypes, and deep psychology.</p>
             </div>
             {selectedType && (
-              <a href="/daily" className="inline-flex items-center gap-2 px-4 py-2 bg-orange-50 border border-orange-100 text-orange-600 rounded-xl text-xs font-medium hover:bg-orange-100 transition">
+              <Link href="/daily" className="inline-flex items-center gap-2 px-4 py-2 bg-orange-50 border border-orange-100 text-orange-600 rounded-xl text-xs font-medium hover:bg-orange-100 transition">
                 Daily Practice — quiz + insight →
-              </a>
+              </Link>
             )}
           </div>
         </div>
@@ -620,7 +621,7 @@ function LearnContent() {
             <Info className="w-4 h-4 text-sky-500 mt-0.5 flex-shrink-0" />
             <p className="text-sm text-sky-800">
               Not sure where to start? Pick any type that sounds familiar, or{" "}
-              <a href="/enneagram/assess" className="font-semibold underline underline-offset-2">take the assessment</a>{" "}
+              <Link href="/enneagram/assess" className="font-semibold underline underline-offset-2">take the assessment</Link>{" "}
               to discover your type.
             </p>
           </div>
@@ -659,7 +660,7 @@ function LearnContent() {
                     <div>How each type develops and heals</div>
                   </div>
                 </div>
-                <p className="text-xs text-slate-400 mt-4">Pick any type below to start — or take the <a href="/enneagram/assess" className="text-sky-600 font-medium underline underline-offset-2">assessment</a> to find yours.</p>
+                <p className="text-xs text-slate-400 mt-4">Pick any type below to start — or take the <Link href="/enneagram/assess" className="text-sky-600 font-medium underline underline-offset-2">assessment</Link> to find yours.</p>
               </div>
             )}
             <div className="flex flex-wrap gap-3 mb-10 items-end">

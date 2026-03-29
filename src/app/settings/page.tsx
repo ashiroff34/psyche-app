@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   User,
@@ -241,6 +242,7 @@ function Toast({ message, visible }: { message: string; visible: boolean }) {
 // ── Main Settings Page ───────────────────────────────────────────────────────
 
 export default function SettingsPage() {
+  const router = useRouter();
   const { profile, loaded, updateProfile } = useProfile();
 
   // Form state
@@ -399,7 +401,7 @@ export default function SettingsPage() {
           localStorage.removeItem(k);
         } catch {}
       });
-      window.location.href = "/";
+      router.push("/");
     } catch {}
     setShowDeleteDialog(false);
   };
