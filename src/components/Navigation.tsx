@@ -92,7 +92,8 @@ function MoreMenu({ pathname }: { pathname: string }) {
     <div ref={ref} className="relative">
       <button
         onClick={handleOpen}
-        className="relative flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-slate-500 hover:bg-slate-100 text-sm font-medium transition-all"
+        className="relative flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-sm font-medium transition-all"
+        style={{ color: "rgba(255,255,255,0.55)" }}
       >
         <Compass className="w-4 h-4" />
         <span className="hidden sm:inline">Explore</span>
@@ -108,10 +109,11 @@ function MoreMenu({ pathname }: { pathname: string }) {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -8, scale: 0.97 }}
             transition={{ duration: 0.15 }}
-            className="absolute right-0 top-full mt-2 w-64 rounded-2xl bg-white border border-slate-100 shadow-xl shadow-slate-200/50 overflow-hidden z-50"
+            className="absolute right-0 top-full mt-2 w-64 rounded-2xl overflow-hidden z-50"
+            style={{ background: "rgba(22,12,48,0.97)", border: "1px solid rgba(139,92,246,0.18)", boxShadow: "0 16px 48px rgba(0,0,0,0.6), 0 0 0 1px rgba(139,92,246,0.1)", backdropFilter: "blur(24px)" }}
           >
             <div className="p-2 max-h-[60vh] overflow-y-auto">
-              <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider px-3 py-2">All Features</p>
+              <p className="text-[10px] font-bold uppercase tracking-wider px-3 py-2" style={{ color: "rgba(167,139,250,0.6)" }}>All Features</p>
               {moreItems.map((item) => {
                 const isActive = pathname === item.href || (item.href !== "/" && pathname.startsWith(item.href));
                 const Icon = item.icon;
@@ -120,9 +122,11 @@ function MoreMenu({ pathname }: { pathname: string }) {
                     key={item.href}
                     href={item.href}
                     onClick={() => setOpen(false)}
-                    className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm transition-all ${
-                      isActive ? "bg-sky-50 text-sky-700 font-medium" : "text-slate-600 hover:bg-slate-50"
-                    }`}
+                    className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm transition-all"
+                    style={{
+                      background: isActive ? "rgba(139,92,246,0.18)" : "transparent",
+                      color: isActive ? "#c4b5fd" : "rgba(255,255,255,0.7)",
+                    }}
                   >
                     <Icon className="w-4 h-4" />
                     {item.label}
@@ -130,29 +134,32 @@ function MoreMenu({ pathname }: { pathname: string }) {
                 );
               })}
               {/* Settings & utilities */}
-              <div className="border-t border-slate-100 mt-1 pt-1">
+              <div className="mt-1 pt-1" style={{ borderTop: "1px solid rgba(255,255,255,0.08)" }}>
                 <Link
                   href="/settings"
                   onClick={() => setOpen(false)}
-                  className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm transition-all ${
-                    pathname === "/settings" ? "bg-sky-50 text-sky-700 font-medium" : "text-slate-600 hover:bg-slate-50"
-                  }`}
+                  className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm transition-all"
+                  style={{
+                    background: pathname === "/settings" ? "rgba(139,92,246,0.18)" : "transparent",
+                    color: pathname === "/settings" ? "#c4b5fd" : "rgba(255,255,255,0.7)",
+                  }}
                 >
                   <Settings className="w-4 h-4" />
                   Settings
                 </Link>
                 <button
                   onClick={() => {
-                    document.documentElement.classList.toggle("dark");
+                    document.documentElement.classList.toggle("light");
                     try {
-                      const isDark = document.documentElement.classList.contains("dark");
-                      localStorage.setItem("psyche-dark-mode", isDark ? "true" : "false");
+                      const isLight = document.documentElement.classList.contains("light");
+                      localStorage.setItem("psyche-light-mode", isLight ? "true" : "false");
                     } catch {}
                   }}
-                  className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm text-slate-600 hover:bg-slate-50 transition-all"
+                  className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm transition-all"
+                  style={{ color: "rgba(255,255,255,0.55)" }}
                 >
                   <Moon className="w-4 h-4" />
-                  Dark Mode
+                  Light Mode
                 </button>
                 <button
                   onClick={() => {
@@ -171,7 +178,8 @@ function MoreMenu({ pathname }: { pathname: string }) {
                     );
                     window.open(`mailto:${email}?subject=${subject}&body=${body}`, "_self");
                   }}
-                  className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm text-slate-600 hover:bg-slate-50 transition-all"
+                  className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm transition-all"
+                  style={{ color: "rgba(255,255,255,0.55)" }}
                 >
                   <Bug className="w-4 h-4" />
                   Report a Bug
@@ -317,7 +325,8 @@ export default function Navigation() {
               {!hideChrome && hasPrevPage && (
                 <button
                   onClick={goBack}
-                  className="flex items-center gap-1 px-2 py-1.5 -ml-2 rounded-xl text-slate-500 hover:bg-slate-100 hover:text-slate-700 transition-all active:scale-95"
+                  className="flex items-center gap-1 px-2 py-1.5 -ml-2 rounded-xl transition-all active:scale-95"
+                  style={{ color: "rgba(255,255,255,0.5)" }}
                   aria-label="Go back"
                 >
                   <ChevronLeft className="w-5 h-5" />
@@ -326,7 +335,7 @@ export default function Navigation() {
               )}
               <Link href="/" className="flex items-center gap-2 group">
                 <img src={assetPath("/icon-192.png")} alt="Thyself" className="w-8 h-8 rounded-xl shadow-lg shadow-sky-200/50" />
-                <span className="text-lg font-serif font-semibold text-slate-800 tracking-tight">
+                <span className="text-lg font-serif font-semibold tracking-tight" style={{ color: "rgba(255,255,255,0.92)" }}>
                   Thyself
                 </span>
               </Link>
@@ -342,7 +351,7 @@ export default function Navigation() {
 
       {/* ── Bottom Tab Bar (Duolingo-style) ──────────────────────────────── */}
       {!hideChrome && (
-        <div className="fixed bottom-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-xl border-t border-slate-100 safe-area-bottom">
+        <div className="fixed bottom-0 left-0 right-0 z-50 backdrop-blur-xl safe-area-bottom" style={{ background: "rgba(15,10,30,0.96)", borderTop: "1px solid rgba(139,92,246,0.12)" }}>
           <div className="max-w-lg mx-auto flex items-center justify-around px-2 py-1">
             {bottomTabs.map((tab) => {
               const isActive =
@@ -357,17 +366,14 @@ export default function Navigation() {
                   key={tab.href}
                   href={tab.href}
                   onClick={(e) => handleNavClick(e, tab.href)}
-                  className={`relative flex flex-col items-center gap-0.5 px-3 py-2 rounded-xl min-w-[56px] transition-all ${
-                    isActive
-                      ? "text-sky-600"
-                      : "text-slate-400 hover:text-slate-600"
-                  }`}
+                  className="relative flex flex-col items-center gap-0.5 px-3 py-2 rounded-xl min-w-[56px] transition-all"
+                  style={{ color: isActive ? "#a78bfa" : "rgba(255,255,255,0.35)" }}
                 >
                   {/* Highlight dot for active tab */}
                   {isActive && (
                     <motion.div
                       layoutId="bottom-tab-indicator"
-                      className="absolute -top-1 w-5 h-1 rounded-full bg-gradient-to-r from-sky-400 to-indigo-500"
+                      className="absolute -top-1 w-5 h-1 rounded-full bg-gradient-to-r from-violet-400 to-indigo-400"
                       transition={{ type: "spring", stiffness: 400, damping: 30 }}
                     />
                   )}
@@ -378,7 +384,7 @@ export default function Navigation() {
                       <div className="absolute -top-0.5 -right-0.5 w-2 h-2 rounded-full bg-amber-400 animate-pulse" />
                     )}
                   </div>
-                  <span className={`text-[10px] font-medium ${isActive ? "text-sky-600" : ""}`}>
+                  <span className="text-[10px] font-medium">
                     {tab.label}
                   </span>
                 </Link>

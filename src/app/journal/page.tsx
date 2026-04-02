@@ -223,7 +223,7 @@ function TypeGrid({
               className={`relative ${compact ? "px-2 py-1.5" : "px-3 py-2.5"} rounded-xl font-mono text-xs font-semibold transition-all duration-200 ${
                 isSelected
                   ? "text-white shadow-lg shadow-indigo-200/50 ring-2 ring-white/50"
-                  : "bg-white/60 text-slate-600 hover:bg-white/80 border border-white/50"
+                  : "bg-white/5 text-white/60 hover:bg-white/10 border border-white/[0.09]"
               }`}
               style={
                 isSelected
@@ -319,12 +319,13 @@ function ShadowWorkExplorer() {
       <motion.div
         initial={{ opacity: 1, y: 0 }}
         animate={{ opacity: 1, y: 0 }}
-        className="p-6 rounded-3xl bg-white/40 backdrop-blur-xl border border-white/60 shadow-lg shadow-indigo-100/20"
+        className="p-6 rounded-3xl backdrop-blur-xl shadow-lg"
+        style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.09)" }}
       >
-        <h3 className="font-serif font-bold text-lg text-slate-800 mb-1">
+        <h3 className="font-serif font-bold text-lg text-white mb-1">
           Select Your Type
         </h3>
-        <p className="text-sm text-slate-500 mb-4">
+        <p className="text-sm text-white/60 mb-4">
           Choose your cognitive type to explore your 8-function shadow stack
         </p>
         <TypeGrid selected={selectedType} onSelect={setSelectedType} />
@@ -338,12 +339,13 @@ function ShadowWorkExplorer() {
             initial={{ opacity: 1, y: 0 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
-            className="p-6 rounded-3xl bg-white/40 backdrop-blur-xl border border-white/60 shadow-lg shadow-indigo-100/20"
+            className="p-6 rounded-3xl backdrop-blur-xl shadow-lg"
+            style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.09)" }}
           >
-            <h3 className="font-serif font-bold text-lg text-slate-800 mb-1">
+            <h3 className="font-serif font-bold text-lg text-white mb-1">
               {selectedType} Full Cognitive Stack
             </h3>
-            <p className="text-sm text-slate-500 mb-5">
+            <p className="text-sm text-white/60 mb-5">
               Click any shadow function (5-8) to explore it
             </p>
 
@@ -368,11 +370,16 @@ function ShadowWorkExplorer() {
                     }
                     className={`w-full text-left p-4 rounded-2xl transition-all duration-200 border ${
                       isActive
-                        ? "bg-gradient-to-r from-indigo-50 to-purple-50 border-indigo-200 shadow-md"
+                        ? "border-violet-500/30 shadow-md"
                         : isShadow
-                          ? "bg-white/60 border-white/50 hover:bg-white/80 hover:border-indigo-100 cursor-pointer"
-                          : "bg-white/70 border-white/50"
+                          ? "border-white/[0.09] hover:border-violet-500/20 cursor-pointer"
+                          : "border-white/[0.09]"
                     }`}
+                    style={
+                      isActive
+                        ? { background: "rgba(139,92,246,0.15)" }
+                        : { background: "rgba(255,255,255,0.04)" }
+                    }
                   >
                     <div className="flex items-center gap-3">
                       <div
@@ -394,26 +401,26 @@ function ShadowWorkExplorer() {
                           >
                             {fnCode}
                           </span>
-                          <span className="text-xs text-slate-500">
+                          <span className="text-xs text-white/60">
                             {fn?.name}
                           </span>
                           <span
                             className={`ml-auto text-xs px-2 py-0.5 rounded-full ${
                               isShadow
-                                ? "bg-purple-100 text-purple-600"
-                                : "bg-sky-100 text-sky-600"
+                                ? "bg-purple-500/15 text-purple-300"
+                                : "bg-violet-500/15 text-violet-300"
                             }`}
                           >
                             {sp?.archetype}
                           </span>
                         </div>
-                        <p className="text-xs text-slate-400 mt-0.5 truncate">
+                        <p className="text-xs text-white/35 mt-0.5 truncate">
                           {sp?.role}
                         </p>
                       </div>
                       {isShadow && (
                         <ChevronDown
-                          className={`w-4 h-4 text-slate-400 transition-transform ${isActive ? "rotate-180" : ""}`}
+                          className={`w-4 h-4 text-white/35 transition-transform ${isActive ? "rotate-180" : ""}`}
                         />
                       )}
                     </div>
@@ -426,30 +433,30 @@ function ShadowWorkExplorer() {
                           exit={{ opacity: 0, height: 0 }}
                           className="overflow-hidden"
                         >
-                          <div className="mt-4 pt-4 border-t border-indigo-100 space-y-3">
-                            <p className="text-sm text-slate-600 leading-relaxed">
+                          <div className="mt-4 pt-4 border-t border-white/[0.09] space-y-3">
+                            <p className="text-sm text-white/80 leading-relaxed">
                               {sp?.description}
                             </p>
-                            <div className="p-3 rounded-xl bg-white/60 border border-indigo-50">
-                              <p className="text-xs font-medium text-indigo-600 mb-1">
+                            <div className="p-3 rounded-xl bg-indigo-500/10 border border-indigo-500/20">
+                              <p className="text-xs font-medium text-indigo-400 mb-1">
                                 How it feels:
                               </p>
-                              <p className="text-xs text-slate-500 leading-relaxed">
+                              <p className="text-xs text-white/60 leading-relaxed">
                                 {sp?.experienceDescription}
                               </p>
                             </div>
                             {shadowPrompts[pos] && (
                               <div className="space-y-2">
-                                <p className="text-xs font-semibold text-slate-700">
+                                <p className="text-xs font-semibold text-white/80">
                                   Exploration Prompts:
                                 </p>
                                 {shadowPrompts[pos].map((prompt, pi) => (
                                   <div
                                     key={pi}
-                                    className="flex items-start gap-2 p-2 rounded-lg bg-purple-50/50"
+                                    className="flex items-start gap-2 p-2 rounded-lg bg-purple-500/10"
                                   >
                                     <Sparkles className="w-3 h-3 text-purple-400 mt-0.5 shrink-0" />
-                                    <p className="text-xs text-slate-600 italic leading-relaxed">
+                                    <p className="text-xs text-white/60 italic leading-relaxed">
                                       {prompt}
                                     </p>
                                   </div>
@@ -474,22 +481,23 @@ function ShadowWorkExplorer() {
           initial={{ opacity: 1, y: 0 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
-          className="p-6 rounded-3xl bg-white/40 backdrop-blur-xl border border-white/60 shadow-lg shadow-indigo-100/20"
+          className="p-6 rounded-3xl backdrop-blur-xl shadow-lg"
+          style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.09)" }}
         >
           <div className="flex items-center gap-2 mb-1">
-            <MessageSquare className="w-5 h-5 text-indigo-500" />
-            <h3 className="font-serif font-bold text-lg text-slate-800">
+            <MessageSquare className="w-5 h-5 text-indigo-400" />
+            <h3 className="font-serif font-bold text-lg text-white">
               Shadow Dialogue
             </h3>
           </div>
-          <p className="text-sm text-slate-500 mb-5">
+          <p className="text-sm text-white/60 mb-5">
             Active Imagination: Write as your ego on the left, let your shadow
             respond on the right
           </p>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <label className="flex items-center gap-2 text-xs font-semibold text-sky-600 mb-2">
+              <label className="flex items-center gap-2 text-xs font-semibold text-violet-300 mb-2">
                 <Eye className="w-3.5 h-3.5" /> Your Ego (Conscious)
               </label>
               <textarea
@@ -498,11 +506,12 @@ function ShadowWorkExplorer() {
                   setDialogue((d) => ({ ...d, ego: e.target.value }))
                 }
                 placeholder="Speak from your conscious self... What are you struggling with? What do you want?"
-                className="w-full h-48 p-4 rounded-2xl bg-sky-50/50 border border-sky-100 text-sm text-slate-700 leading-relaxed placeholder:text-slate-300 focus:outline-none focus:ring-2 focus:ring-sky-200 resize-none transition"
+                className="w-full h-48 p-4 rounded-2xl text-sm text-white/80 leading-relaxed placeholder:text-white/20 focus:outline-none focus:ring-2 focus:ring-violet-500/50 resize-none transition"
+                style={{ background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.12)" }}
               />
             </div>
             <div>
-              <label className="flex items-center gap-2 text-xs font-semibold text-purple-600 mb-2">
+              <label className="flex items-center gap-2 text-xs font-semibold text-purple-300 mb-2">
                 <Ghost className="w-3.5 h-3.5" /> Your Shadow (Unconscious)
               </label>
               <textarea
@@ -511,7 +520,8 @@ function ShadowWorkExplorer() {
                   setDialogue((d) => ({ ...d, shadow: e.target.value }))
                 }
                 placeholder="Let your shadow speak... What does it want you to see? What have you been avoiding?"
-                className="w-full h-48 p-4 rounded-2xl bg-purple-50/50 border border-purple-100 text-sm text-slate-700 leading-relaxed placeholder:text-slate-300 focus:outline-none focus:ring-2 focus:ring-purple-200 resize-none transition"
+                className="w-full h-48 p-4 rounded-2xl text-sm text-white/80 leading-relaxed placeholder:text-white/20 focus:outline-none focus:ring-2 focus:ring-purple-500/50 resize-none transition"
+                style={{ background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.12)" }}
               />
             </div>
           </div>
@@ -529,30 +539,31 @@ function ShadowWorkExplorer() {
           </div>
 
           {savedDialogues.length > 0 && (
-            <div className="mt-6 pt-6 border-t border-slate-100">
-              <p className="text-xs font-semibold text-slate-500 mb-3">
+            <div className="mt-6 pt-6 border-t border-white/[0.09]">
+              <p className="text-xs font-semibold text-white/60 mb-3">
                 Past Dialogues ({savedDialogues.length})
               </p>
               <div className="space-y-3 max-h-64 overflow-y-auto pr-1">
                 {savedDialogues.slice(0, 5).map((d, i) => (
                   <div
                     key={i}
-                    className="p-3 rounded-xl bg-white/60 border border-slate-100 text-xs"
+                    className="p-3 rounded-xl text-xs"
+                    style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.09)" }}
                   >
                     <div className="flex items-center justify-between mb-2">
-                      <span className="text-slate-400">
+                      <span className="text-white/35">
                         {new Date(d.date).toLocaleDateString()}
                       </span>
-                      <span className="font-mono text-indigo-500">
+                      <span className="font-mono text-indigo-400">
                         {d.type}
                       </span>
                     </div>
                     <div className="grid grid-cols-2 gap-2">
-                      <div className="p-2 rounded-lg bg-sky-50/50">
-                        <p className="text-slate-600 line-clamp-2">{d.ego}</p>
+                      <div className="p-2 rounded-lg bg-violet-500/10">
+                        <p className="text-white/60 line-clamp-2">{d.ego}</p>
                       </div>
-                      <div className="p-2 rounded-lg bg-purple-50/50">
-                        <p className="text-slate-600 line-clamp-2">
+                      <div className="p-2 rounded-lg bg-purple-500/10">
+                        <p className="text-white/60 line-clamp-2">
                           {d.shadow}
                         </p>
                       </div>
@@ -597,12 +608,13 @@ function TypeDynamicsSimulator() {
       <motion.div
         initial={{ opacity: 1, y: 0 }}
         animate={{ opacity: 1, y: 0 }}
-        className="p-6 rounded-3xl bg-white/40 backdrop-blur-xl border border-white/60 shadow-lg shadow-indigo-100/20"
+        className="p-6 rounded-3xl backdrop-blur-xl shadow-lg"
+        style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.09)" }}
       >
-        <h3 className="font-serif font-bold text-lg text-slate-800 mb-1">
+        <h3 className="font-serif font-bold text-lg text-white mb-1">
           Select Your Type
         </h3>
-        <p className="text-sm text-slate-500 mb-4">
+        <p className="text-sm text-white/60 mb-4">
           See how your cognitive functions behave under different conditions
         </p>
         <TypeGrid selected={selectedType} onSelect={(code) => { setSelectedType(code); setMode("normal"); }} />
@@ -647,7 +659,7 @@ function TypeDynamicsSimulator() {
                   className={`flex items-center gap-2 px-5 py-3 rounded-2xl text-sm font-semibold transition-all duration-300 ${
                     mode === m.id
                       ? `bg-gradient-to-r ${m.color} text-white shadow-lg`
-                      : "bg-white/60 text-slate-600 border border-white/50 hover:bg-white/80"
+                      : "bg-white/5 text-white/60 border border-white/[0.09] hover:bg-white/10"
                   }`}
                 >
                   {m.icon}
@@ -659,9 +671,10 @@ function TypeDynamicsSimulator() {
             {/* Function Dashboard */}
             <motion.div
               layout
-              className="p-6 rounded-3xl bg-white/40 backdrop-blur-xl border border-white/60 shadow-lg shadow-indigo-100/20"
+              className="p-6 rounded-3xl backdrop-blur-xl shadow-lg"
+              style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.09)" }}
             >
-              <h3 className="font-serif font-bold text-lg text-slate-800 mb-5">
+              <h3 className="font-serif font-bold text-lg text-white mb-5">
                 Function Energy Dashboard
               </h3>
 
@@ -686,30 +699,30 @@ function TypeDynamicsSimulator() {
                           >
                             {fnCode}
                           </span>
-                          <span className="text-xs text-slate-500">
+                          <span className="text-xs text-white/60">
                             {fn?.name}
                           </span>
-                          <span className="text-xs text-slate-400">
+                          <span className="text-xs text-white/35">
                             ({positionLabels[i]})
                           </span>
                         </div>
                         <div className="flex items-center gap-1.5">
                           {isStressOveractive && (
-                            <span className="text-xs px-2 py-0.5 rounded-full bg-red-100 text-red-600 animate-pulse">
+                            <span className="text-xs px-2 py-0.5 rounded-full bg-red-500/15 text-red-400 animate-pulse">
                               overactive
                             </span>
                           )}
                           {isStressUnderactive && (
-                            <span className="text-xs px-2 py-0.5 rounded-full bg-orange-100 text-orange-600">
+                            <span className="text-xs px-2 py-0.5 rounded-full bg-orange-500/15 text-orange-400">
                               suppressed
                             </span>
                           )}
-                          <span className="text-xs font-mono text-slate-400 w-8 text-right">
+                          <span className="text-xs font-mono text-white/35 w-8 text-right">
                             {energy}%
                           </span>
                         </div>
                       </div>
-                      <div className="h-3 rounded-full bg-slate-100 overflow-hidden">
+                      <div className="h-3 rounded-full bg-white/10 overflow-hidden">
                         <motion.div
                           initial={{ width: 0 }}
                           animate={{ width: `${energy}%` }}
@@ -747,42 +760,42 @@ function TypeDynamicsSimulator() {
                 >
                   {/* Tertiary Loop */}
                   {loopData && (
-                    <div className="p-6 rounded-3xl bg-gradient-to-br from-orange-50/80 to-red-50/80 backdrop-blur-xl border border-orange-200/50 shadow-lg">
+                    <div className="p-6 rounded-3xl backdrop-blur-xl border border-orange-500/30 shadow-lg" style={{ background: "rgba(249,115,22,0.08)" }}>
                       <div className="flex items-center gap-2 mb-3">
-                        <div className="w-8 h-8 rounded-lg bg-orange-100 flex items-center justify-center">
-                          <Flame className="w-4 h-4 text-orange-500" />
+                        <div className="w-8 h-8 rounded-lg bg-orange-500/15 flex items-center justify-center">
+                          <Flame className="w-4 h-4 text-orange-400" />
                         </div>
                         <div>
-                          <h4 className="font-serif font-bold text-slate-800">
+                          <h4 className="font-serif font-bold text-white">
                             Tertiary Loop: {loopData.loop}
                           </h4>
-                          <p className="text-xs text-orange-600">
+                          <p className="text-xs text-orange-400">
                             Bypassing auxiliary function
                           </p>
                         </div>
                       </div>
-                      <p className="text-sm text-slate-600 leading-relaxed mb-4">
+                      <p className="text-sm text-white/80 leading-relaxed mb-4">
                         {loopData.description}
                       </p>
                       <div className="space-y-2 mb-4">
-                        <p className="text-xs font-semibold text-slate-700">
+                        <p className="text-xs font-semibold text-white/80">
                           Warning Signs:
                         </p>
                         {loopData.signs.map((sign, i) => (
                           <div
                             key={i}
-                            className="flex items-start gap-2 text-xs text-slate-600"
+                            className="flex items-start gap-2 text-xs text-white/60"
                           >
                             <AlertTriangle className="w-3 h-3 text-orange-400 mt-0.5 shrink-0" />
                             {sign}
                           </div>
                         ))}
                       </div>
-                      <div className="p-3 rounded-xl bg-white/60 border border-emerald-100">
-                        <p className="text-xs font-semibold text-emerald-600 mb-1">
+                      <div className="p-3 rounded-xl bg-emerald-500/10 border border-emerald-500/20">
+                        <p className="text-xs font-semibold text-emerald-400 mb-1">
                           Resolution Path:
                         </p>
-                        <p className="text-xs text-slate-600 leading-relaxed">
+                        <p className="text-xs text-white/60 leading-relaxed">
                           {loopData.resolution}
                         </p>
                       </div>
@@ -791,32 +804,32 @@ function TypeDynamicsSimulator() {
 
                   {/* Inferior Grip */}
                   {gripData && (
-                    <div className="p-6 rounded-3xl bg-gradient-to-br from-red-50/80 to-rose-50/80 backdrop-blur-xl border border-red-200/50 shadow-lg">
+                    <div className="p-6 rounded-3xl backdrop-blur-xl border border-red-500/30 shadow-lg" style={{ background: "rgba(239,68,68,0.08)" }}>
                       <div className="flex items-center gap-2 mb-3">
-                        <div className="w-8 h-8 rounded-lg bg-red-100 flex items-center justify-center">
-                          <Zap className="w-4 h-4 text-red-500" />
+                        <div className="w-8 h-8 rounded-lg bg-red-500/15 flex items-center justify-center">
+                          <Zap className="w-4 h-4 text-red-400" />
                         </div>
                         <div>
-                          <h4 className="font-serif font-bold text-slate-800">
+                          <h4 className="font-serif font-bold text-white">
                             Inferior Grip: {gripData.inferiorFunction}
                           </h4>
-                          <p className="text-xs text-red-600">
+                          <p className="text-xs text-red-400">
                             When your weakest function takes over
                           </p>
                         </div>
                       </div>
-                      <p className="text-sm text-slate-600 leading-relaxed mb-4">
+                      <p className="text-sm text-white/80 leading-relaxed mb-4">
                         {gripData.description}
                       </p>
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-4">
                         <div>
-                          <p className="text-xs font-semibold text-slate-700 mb-2">
+                          <p className="text-xs font-semibold text-white/80 mb-2">
                             Triggers:
                           </p>
                           {gripData.triggers.map((t, i) => (
                             <div
                               key={i}
-                              className="flex items-start gap-2 text-xs text-slate-600 mb-1"
+                              className="flex items-start gap-2 text-xs text-white/60 mb-1"
                             >
                               <Zap className="w-3 h-3 text-red-400 mt-0.5 shrink-0" />
                               {t}
@@ -824,13 +837,13 @@ function TypeDynamicsSimulator() {
                           ))}
                         </div>
                         <div>
-                          <p className="text-xs font-semibold text-slate-700 mb-2">
+                          <p className="text-xs font-semibold text-white/80 mb-2">
                             Manifestations:
                           </p>
                           {gripData.manifestation.map((m, i) => (
                             <div
                               key={i}
-                              className="flex items-start gap-2 text-xs text-slate-600 mb-1"
+                              className="flex items-start gap-2 text-xs text-white/60 mb-1"
                             >
                               <AlertTriangle className="w-3 h-3 text-orange-400 mt-0.5 shrink-0" />
                               {m}
@@ -838,11 +851,11 @@ function TypeDynamicsSimulator() {
                           ))}
                         </div>
                       </div>
-                      <div className="p-3 rounded-xl bg-white/60 border border-emerald-100">
-                        <p className="text-xs font-semibold text-emerald-600 mb-1">
+                      <div className="p-3 rounded-xl bg-emerald-500/10 border border-emerald-500/20">
+                        <p className="text-xs font-semibold text-emerald-400 mb-1">
                           Recovery:
                         </p>
-                        <p className="text-xs text-slate-600 leading-relaxed">
+                        <p className="text-xs text-white/60 leading-relaxed">
                           {gripData.recovery}
                         </p>
                       </div>
@@ -850,8 +863,8 @@ function TypeDynamicsSimulator() {
                   )}
 
                   {!loopData && !gripData && (
-                    <div className="p-6 rounded-3xl bg-white/40 backdrop-blur-xl border border-white/60 text-center">
-                      <p className="text-sm text-slate-500">
+                    <div className="p-6 rounded-3xl backdrop-blur-xl text-center" style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.09)" }}>
+                      <p className="text-sm text-white/60">
                         Detailed stress data for {selectedType} is coming soon.
                         The general pattern is: your tertiary and inferior
                         functions become overactive while your dominant and
@@ -861,8 +874,8 @@ function TypeDynamicsSimulator() {
                   )}
 
                   {/* Stress Reflection Questions */}
-                  <div className="p-6 rounded-3xl bg-white/40 backdrop-blur-xl border border-white/60 shadow-lg shadow-indigo-100/20">
-                    <h4 className="font-serif font-bold text-slate-800 mb-3">
+                  <div className="p-6 rounded-3xl backdrop-blur-xl shadow-lg" style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.09)" }}>
+                    <h4 className="font-serif font-bold text-white mb-3">
                       Stress Reflection
                     </h4>
                     <div className="space-y-2">
@@ -873,10 +886,10 @@ function TypeDynamicsSimulator() {
                       ].map((q, i) => (
                         <div
                           key={i}
-                          className="flex items-start gap-2 p-3 rounded-xl bg-orange-50/50 border border-orange-100/50"
+                          className="flex items-start gap-2 p-3 rounded-xl bg-orange-500/10 border border-orange-500/20"
                         >
                           <Sparkles className="w-3.5 h-3.5 text-orange-400 mt-0.5 shrink-0" />
-                          <p className="text-xs text-slate-600 italic">{q}</p>
+                          <p className="text-xs text-white/60 italic">{q}</p>
                         </div>
                       ))}
                     </div>
@@ -892,12 +905,12 @@ function TypeDynamicsSimulator() {
                   exit={{ opacity: 0, y: -10 }}
                   className="space-y-4"
                 >
-                  <div className="p-6 rounded-3xl bg-gradient-to-br from-emerald-50/80 to-teal-50/80 backdrop-blur-xl border border-emerald-200/50 shadow-lg">
+                  <div className="p-6 rounded-3xl backdrop-blur-xl border border-emerald-500/30 shadow-lg" style={{ background: "rgba(16,185,129,0.08)" }}>
                     <div className="flex items-center gap-2 mb-3">
-                      <div className="w-8 h-8 rounded-lg bg-emerald-100 flex items-center justify-center">
-                        <TrendingUp className="w-4 h-4 text-emerald-500" />
+                      <div className="w-8 h-8 rounded-lg bg-emerald-500/15 flex items-center justify-center">
+                        <TrendingUp className="w-4 h-4 text-emerald-400" />
                       </div>
-                      <h4 className="font-serif font-bold text-slate-800">
+                      <h4 className="font-serif font-bold text-white">
                         Integration Path for {selectedType}
                       </h4>
                     </div>
@@ -914,7 +927,7 @@ function TypeDynamicsSimulator() {
                         return (
                           <div
                             key={fnCode}
-                            className="p-4 rounded-2xl bg-white/60 border border-emerald-100/50"
+                            className="p-4 rounded-2xl bg-emerald-500/10 border border-emerald-500/20"
                           >
                             <div className="flex items-center gap-2 mb-2">
                               <span
@@ -923,11 +936,11 @@ function TypeDynamicsSimulator() {
                               >
                                 {fnCode}
                               </span>
-                              <span className="text-xs text-slate-500">
+                              <span className="text-xs text-white/60">
                                 {positionLabels[i]}
                               </span>
                             </div>
-                            <p className="text-xs text-slate-600 leading-relaxed">
+                            <p className="text-xs text-white/80 leading-relaxed">
                               {growthTips[i]}
                             </p>
                           </div>
@@ -936,25 +949,25 @@ function TypeDynamicsSimulator() {
                     </div>
                   </div>
 
-                  <div className="p-6 rounded-3xl bg-white/40 backdrop-blur-xl border border-white/60 shadow-lg shadow-indigo-100/20">
-                    <h4 className="font-serif font-bold text-slate-800 mb-3">
+                  <div className="p-6 rounded-3xl backdrop-blur-xl shadow-lg" style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.09)" }}>
+                    <h4 className="font-serif font-bold text-white mb-3">
                       Growth Reflections
                     </h4>
                     <div className="space-y-2">
                       {typeData.growthAreas.map((area, i) => (
                         <div
                           key={i}
-                          className="flex items-start gap-2 p-3 rounded-xl bg-emerald-50/50 border border-emerald-100/50"
+                          className="flex items-start gap-2 p-3 rounded-xl bg-emerald-500/10 border border-emerald-500/20"
                         >
                           <TrendingUp className="w-3.5 h-3.5 text-emerald-400 mt-0.5 shrink-0" />
-                          <p className="text-xs text-slate-600">{area}</p>
+                          <p className="text-xs text-white/80">{area}</p>
                         </div>
                       ))}
                     </div>
                   </div>
 
-                  <div className="p-6 rounded-3xl bg-white/40 backdrop-blur-xl border border-white/60 shadow-lg shadow-indigo-100/20">
-                    <h4 className="font-serif font-bold text-slate-800 mb-3">
+                  <div className="p-6 rounded-3xl backdrop-blur-xl shadow-lg" style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.09)" }}>
+                    <h4 className="font-serif font-bold text-white mb-3">
                       Growth Questions
                     </h4>
                     <div className="space-y-2">
@@ -965,10 +978,10 @@ function TypeDynamicsSimulator() {
                       ].map((q, i) => (
                         <div
                           key={i}
-                          className="flex items-start gap-2 p-3 rounded-xl bg-emerald-50/50 border border-emerald-100/50"
+                          className="flex items-start gap-2 p-3 rounded-xl bg-emerald-500/10 border border-emerald-500/20"
                         >
                           <Sparkles className="w-3.5 h-3.5 text-emerald-400 mt-0.5 shrink-0" />
-                          <p className="text-xs text-slate-600 italic">{q}</p>
+                          <p className="text-xs text-white/60 italic">{q}</p>
                         </div>
                       ))}
                     </div>
@@ -982,35 +995,36 @@ function TypeDynamicsSimulator() {
                   initial={{ opacity: 1, y: 0 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -10 }}
-                  className="p-6 rounded-3xl bg-white/40 backdrop-blur-xl border border-white/60 shadow-lg shadow-indigo-100/20"
+                  className="p-6 rounded-3xl backdrop-blur-xl shadow-lg"
+                  style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.09)" }}
                 >
                   <div className="flex items-center gap-2 mb-3">
-                    <div className="w-8 h-8 rounded-lg bg-sky-100 flex items-center justify-center">
-                      <Compass className="w-4 h-4 text-sky-500" />
+                    <div className="w-8 h-8 rounded-lg bg-indigo-500/15 flex items-center justify-center">
+                      <Compass className="w-4 h-4 text-indigo-400" />
                     </div>
-                    <h4 className="font-serif font-bold text-slate-800">
+                    <h4 className="font-serif font-bold text-white">
                       Balanced State
                     </h4>
                   </div>
-                  <p className="text-sm text-slate-600 leading-relaxed mb-4">
+                  <p className="text-sm text-white/80 leading-relaxed mb-4">
                     {typeData.description}
                   </p>
-                  <div className="p-3 rounded-xl bg-sky-50/50 border border-sky-100/50">
-                    <p className="text-xs font-semibold text-sky-600 mb-2">
+                  <div className="p-3 rounded-xl bg-indigo-500/10 border border-indigo-500/20">
+                    <p className="text-xs font-semibold text-indigo-400 mb-2">
                       Core Strengths:
                     </p>
                     <div className="flex flex-wrap gap-2">
                       {typeData.strengths.map((s, i) => (
                         <span
                           key={i}
-                          className="px-2.5 py-1 rounded-full bg-white/60 text-xs text-slate-600 border border-sky-100"
+                          className="px-2.5 py-1 rounded-full bg-white/5 text-xs text-white/60 border border-indigo-500/20"
                         >
                           {s}
                         </span>
                       ))}
                     </div>
                   </div>
-                  <p className="text-xs text-slate-400 mt-4 italic">
+                  <p className="text-xs text-white/35 mt-4 italic">
                     Try switching to Stress Mode or Growth Mode to see how your
                     functions shift under different conditions.
                   </p>
@@ -1128,18 +1142,19 @@ function CognitiveReframeTool() {
       <motion.div
         initial={{ opacity: 1, y: 0 }}
         animate={{ opacity: 1, y: 0 }}
-        className="p-6 rounded-3xl bg-white/40 backdrop-blur-xl border border-white/60 shadow-lg shadow-indigo-100/20"
+        className="p-6 rounded-3xl backdrop-blur-xl shadow-lg"
+        style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.09)" }}
       >
-        <h3 className="font-serif font-bold text-lg text-slate-800 mb-1">
+        <h3 className="font-serif font-bold text-lg text-white mb-1">
           Cognitive Reframe Tool
         </h3>
-        <p className="text-sm text-slate-500 mb-5">
+        <p className="text-sm text-white/60 mb-5">
           See your situation through each of your four cognitive lenses
         </p>
 
         <div className="space-y-4">
           <div>
-            <label className="text-xs font-semibold text-slate-600 mb-2 block">
+            <label className="text-xs font-semibold text-white/60 mb-2 block">
               Your type:
             </label>
             <TypeGrid
@@ -1153,7 +1168,7 @@ function CognitiveReframeTool() {
           </div>
 
           <div>
-            <label className="text-xs font-semibold text-slate-600 mb-2 block">
+            <label className="text-xs font-semibold text-white/60 mb-2 block">
               Describe a situation or problem you are facing:
             </label>
             <textarea
@@ -1163,7 +1178,8 @@ function CognitiveReframeTool() {
                 setIsExploring(false);
               }}
               placeholder="I'm struggling with a decision about... / I feel stuck because... / I'm dealing with a conflict where..."
-              className="w-full h-32 p-4 rounded-2xl bg-white/60 border border-slate-200/50 text-sm text-slate-700 leading-relaxed placeholder:text-slate-300 focus:outline-none focus:ring-2 focus:ring-indigo-200 resize-none transition"
+              className="w-full h-32 p-4 rounded-2xl text-sm text-white/80 leading-relaxed placeholder:text-white/20 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 resize-none transition"
+              style={{ background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.12)" }}
             />
           </div>
 
@@ -1197,23 +1213,23 @@ function CognitiveReframeTool() {
           <div className="space-y-4">
             {/* AI-powered response (when available) */}
             {(aiResponse || aiLoading) && (
-              <div className="p-6 rounded-3xl bg-gradient-to-br from-indigo-50/80 via-violet-50/60 to-sky-50/80 border border-indigo-200/70">
+              <div className="p-6 rounded-3xl bg-indigo-500/10 border border-indigo-500/20">
                 <div className="flex items-center gap-2 mb-3">
                   <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-indigo-500 to-violet-500 flex items-center justify-center">
                     <Brain className="w-3.5 h-3.5 text-white" />
                   </div>
-                  <span className="text-sm font-semibold text-indigo-700">Reframe</span>
+                  <span className="text-sm font-semibold text-indigo-300">Reframe</span>
                 </div>
                 {aiResponse ? (
-                  <div className="text-sm text-slate-700 leading-relaxed whitespace-pre-wrap font-serif">
+                  <div className="text-sm text-white/80 leading-relaxed whitespace-pre-wrap font-serif">
                     {aiResponse}
-                    {aiLoading && <span className="inline-block w-0.5 h-4 bg-indigo-500 ml-0.5 animate-pulse" />}
+                    {aiLoading && <span className="inline-block w-0.5 h-4 bg-indigo-400 ml-0.5 animate-pulse" />}
                   </div>
                 ) : (
                   <div className="space-y-2 animate-pulse">
-                    <div className="h-3 bg-indigo-100 rounded-full w-full" />
-                    <div className="h-3 bg-indigo-100 rounded-full w-11/12" />
-                    <div className="h-3 bg-indigo-100 rounded-full w-4/5" />
+                    <div className="h-3 bg-indigo-500/20 rounded-full w-full" />
+                    <div className="h-3 bg-indigo-500/20 rounded-full w-11/12" />
+                    <div className="h-3 bg-indigo-500/20 rounded-full w-4/5" />
                   </div>
                 )}
               </div>
@@ -1235,7 +1251,7 @@ function CognitiveReframeTool() {
                     className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-all duration-200 ${
                       activeLens === i
                         ? "text-white shadow-lg"
-                        : "bg-white/60 text-slate-600 border border-white/50 hover:bg-white/80"
+                        : "bg-white/5 text-white/60 border border-white/[0.09] hover:bg-white/10"
                     }`}
                     style={
                       activeLens === i
@@ -1260,7 +1276,8 @@ function CognitiveReframeTool() {
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -20 }}
                 transition={{ duration: 0.2 }}
-                className="p-6 rounded-3xl bg-white/40 backdrop-blur-xl border border-white/60 shadow-lg shadow-indigo-100/20"
+                className="p-6 rounded-3xl backdrop-blur-xl shadow-lg"
+                style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.09)" }}
               >
                 {(() => {
                   const fnCode = typeData.stack[activeLens];
@@ -1303,7 +1320,7 @@ function CognitiveReframeTool() {
                           )}
                         </div>
                         <div>
-                          <h4 className="font-serif font-bold text-slate-800">
+                          <h4 className="font-serif font-bold text-white">
                             {lens.position} Lens:{" "}
                             <span
                               style={{ color: getFunctionColor(fnCode) }}
@@ -1311,20 +1328,20 @@ function CognitiveReframeTool() {
                               {fn.name}
                             </span>
                           </h4>
-                          <p className="text-xs text-slate-500">
+                          <p className="text-xs text-white/60">
                             {lens.label} &mdash; {fn.alias}
                           </p>
                         </div>
                       </div>
 
-                      <div className="p-4 rounded-2xl bg-gradient-to-r from-indigo-50/80 to-sky-50/50 border border-indigo-100/50">
+                      <div className="p-4 rounded-2xl bg-indigo-500/10 border border-indigo-500/20">
                         <div className="flex items-center gap-2 mb-2">
-                          <Sparkles className="w-3.5 h-3.5 text-indigo-500" />
-                          <p className="text-xs font-semibold text-indigo-600">
+                          <Sparkles className="w-3.5 h-3.5 text-indigo-400" />
+                          <p className="text-xs font-semibold text-indigo-300">
                             {fn.name} Perspective
                           </p>
                         </div>
-                        <p className="text-sm text-slate-700 leading-relaxed">
+                        <p className="text-sm text-white/80 leading-relaxed">
                           {generateAIReframe(
                             situation,
                             fnCode,
@@ -1336,25 +1353,25 @@ function CognitiveReframeTool() {
                       </div>
 
                       <div>
-                        <p className="text-xs font-semibold text-slate-700 mb-2">
+                        <p className="text-xs font-semibold text-white/80 mb-2">
                           This lens asks you:
                         </p>
-                        <div className="p-4 rounded-2xl bg-indigo-50/50 border border-indigo-100/50">
-                          <p className="text-sm text-indigo-700 italic leading-relaxed">
+                        <div className="p-4 rounded-2xl bg-indigo-500/10 border border-indigo-500/20">
+                          <p className="text-sm text-indigo-300 italic leading-relaxed">
                             {lens.question(fn.name, fnCode)}
                           </p>
                         </div>
                       </div>
 
                       <div>
-                        <p className="text-xs font-semibold text-slate-700 mb-2">
+                        <p className="text-xs font-semibold text-white/80 mb-2">
                           How {fn.code} approaches problems:
                         </p>
                         <div className="space-y-1.5">
                           {fn.characteristics.map((c, i) => (
                             <div
                               key={i}
-                              className="flex items-start gap-2 text-xs text-slate-600"
+                              className="flex items-start gap-2 text-xs text-white/60"
                             >
                               <div
                                 className="w-1.5 h-1.5 rounded-full mt-1.5 shrink-0"
@@ -1369,27 +1386,27 @@ function CognitiveReframeTool() {
                       </div>
 
                       <div className="grid grid-cols-2 gap-3">
-                        <div className="p-3 rounded-xl bg-emerald-50/50 border border-emerald-100/50">
-                          <p className="text-xs font-semibold text-emerald-600 mb-1.5">
+                        <div className="p-3 rounded-xl bg-emerald-500/10 border border-emerald-500/20">
+                          <p className="text-xs font-semibold text-emerald-400 mb-1.5">
                             Strengths of this lens:
                           </p>
                           {fn.strengths.slice(0, 3).map((s, i) => (
                             <p
                               key={i}
-                              className="text-xs text-slate-600 mb-0.5"
+                              className="text-xs text-white/60 mb-0.5"
                             >
                               {s}
                             </p>
                           ))}
                         </div>
-                        <div className="p-3 rounded-xl bg-amber-50/50 border border-amber-100/50">
-                          <p className="text-xs font-semibold text-amber-600 mb-1.5">
+                        <div className="p-3 rounded-xl bg-amber-500/10 border border-amber-500/20">
+                          <p className="text-xs font-semibold text-amber-400 mb-1.5">
                             Blind spots:
                           </p>
                           {fn.blindSpots.slice(0, 3).map((b, i) => (
                             <p
                               key={i}
-                              className="text-xs text-slate-600 mb-0.5"
+                              className="text-xs text-white/60 mb-0.5"
                             >
                               {b}
                             </p>
@@ -1490,10 +1507,11 @@ function PatternTracker() {
       <motion.div
         initial={{ opacity: 1, y: 0 }}
         animate={{ opacity: 1, y: 0 }}
-        className="p-6 rounded-3xl bg-white/40 backdrop-blur-xl border border-white/60 shadow-lg shadow-indigo-100/20"
+        className="p-6 rounded-3xl backdrop-blur-xl shadow-lg"
+        style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.09)" }}
       >
         <div className="flex items-center justify-between mb-1">
-          <h3 className="font-serif font-bold text-lg text-slate-800">
+          <h3 className="font-serif font-bold text-lg text-white">
             Pattern Tracker
           </h3>
           <motion.button
@@ -1509,7 +1527,7 @@ function PatternTracker() {
             )}
           </motion.button>
         </div>
-        <p className="text-sm text-slate-500 mb-4">
+        <p className="text-sm text-white/60 mb-4">
           Log moments when you notice yourself using specific cognitive functions
         </p>
 
@@ -1521,9 +1539,9 @@ function PatternTracker() {
               exit={{ opacity: 0, height: 0 }}
               className="overflow-hidden"
             >
-              <div className="p-4 rounded-2xl bg-indigo-50/50 border border-indigo-100/50 space-y-3 mb-4">
+              <div className="p-4 rounded-2xl bg-indigo-500/10 border border-indigo-500/20 space-y-3 mb-4">
                 <div>
-                  <label className="text-xs font-semibold text-slate-600 mb-2 block">
+                  <label className="text-xs font-semibold text-white/60 mb-2 block">
                     Which function did you notice?
                   </label>
                   <div className="flex flex-wrap gap-2">
@@ -1536,7 +1554,7 @@ function PatternTracker() {
                         className={`px-3 py-1.5 rounded-lg font-mono text-xs font-semibold transition-all ${
                           selectedFunction === f.code
                             ? "text-white shadow-md"
-                            : "bg-white/80 text-slate-600 border border-white/50"
+                            : "bg-white/5 text-white/60 border border-white/[0.09]"
                         }`}
                         style={
                           selectedFunction === f.code
@@ -1552,7 +1570,7 @@ function PatternTracker() {
                   </div>
                 </div>
                 <div>
-                  <label className="text-xs font-semibold text-slate-600 mb-2 block">
+                  <label className="text-xs font-semibold text-white/60 mb-2 block">
                     What happened? (optional)
                   </label>
                   <input
@@ -1560,7 +1578,8 @@ function PatternTracker() {
                     value={note}
                     onChange={(e) => setNote(e.target.value)}
                     placeholder="e.g. Had a sudden insight about my project direction"
-                    className="w-full px-4 py-2.5 rounded-xl bg-white/60 border border-slate-200/50 text-sm text-slate-700 placeholder:text-slate-300 focus:outline-none focus:ring-2 focus:ring-indigo-200 transition"
+                    className="w-full px-4 py-2.5 rounded-xl text-sm text-white/80 placeholder:text-white/20 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 transition"
+                    style={{ background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.12)" }}
                     onKeyDown={(e) => e.key === "Enter" && addLog()}
                   />
                 </div>
@@ -1580,7 +1599,7 @@ function PatternTracker() {
 
         {/* Function Usage Bars */}
         <div className="space-y-3">
-          <p className="text-xs font-semibold text-slate-500">
+          <p className="text-xs font-semibold text-white/60">
             All-Time Function Usage ({logs.length} observations)
           </p>
           {cognitiveFunctions.map((f) => {
@@ -1596,15 +1615,15 @@ function PatternTracker() {
                     >
                       {f.code}
                     </span>
-                    <span className="text-xs text-slate-400 hidden sm:inline">
+                    <span className="text-xs text-white/35 hidden sm:inline">
                       {f.alias}
                     </span>
                   </div>
-                  <span className="text-xs font-mono text-slate-400">
+                  <span className="text-xs font-mono text-white/35">
                     {count}
                   </span>
                 </div>
-                <div className="h-2 rounded-full bg-slate-100 overflow-hidden">
+                <div className="h-2 rounded-full bg-white/10 overflow-hidden">
                   <motion.div
                     initial={{ width: 0 }}
                     animate={{ width: `${pct}%` }}
@@ -1630,9 +1649,10 @@ function PatternTracker() {
         initial={{ opacity: 1, y: 0 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.1 }}
-        className="p-6 rounded-3xl bg-white/40 backdrop-blur-xl border border-white/60 shadow-lg shadow-indigo-100/20"
+        className="p-6 rounded-3xl backdrop-blur-xl shadow-lg"
+        style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.09)" }}
       >
-        <h3 className="font-serif font-bold text-slate-800 mb-4">
+        <h3 className="font-serif font-bold text-white mb-4">
           Weekly Heatmap
         </h3>
         <div className="overflow-x-auto">
@@ -1643,7 +1663,7 @@ function PatternTracker() {
               {last7Days.map((day) => (
                 <div
                   key={day.date}
-                  className="text-center text-xs text-slate-400"
+                  className="text-center text-xs text-white/35"
                 >
                   {day.label}
                 </div>
@@ -1675,7 +1695,7 @@ function PatternTracker() {
                             ? `${f.color}${Math.round(intensity * 200 + 30)
                                 .toString(16)
                                 .padStart(2, "0")}`
-                            : "rgba(241, 245, 249, 0.5)",
+                            : "rgba(255,255,255,0.05)",
                         color: count > 0 ? "white" : "transparent",
                       }}
                       title={`${f.code}: ${count} on ${day.date}`}
@@ -1696,15 +1716,16 @@ function PatternTracker() {
           initial={{ opacity: 1, y: 0 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
-          className="p-6 rounded-3xl bg-white/40 backdrop-blur-xl border border-white/60 shadow-lg shadow-indigo-100/20"
+          className="p-6 rounded-3xl backdrop-blur-xl shadow-lg"
+          style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.09)" }}
         >
           <div className="flex items-center justify-between mb-4">
-            <h3 className="font-serif font-bold text-slate-800">
+            <h3 className="font-serif font-bold text-white">
               Recent Observations
             </h3>
             <button
               onClick={clearLogs}
-              className="text-xs text-slate-400 hover:text-red-400 transition"
+              className="text-xs text-white/35 hover:text-red-400 transition"
             >
               Clear all
             </button>
@@ -1717,7 +1738,8 @@ function PatternTracker() {
                   key={log.id}
                   initial={{ opacity: 1, x: 0 }}
                   animate={{ opacity: 1, x: 0 }}
-                  className="flex items-center gap-3 p-3 rounded-xl bg-white/60 border border-slate-100/50"
+                  className="flex items-center gap-3 p-3 rounded-xl"
+                  style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.09)" }}
                 >
                   <div
                     className="w-8 h-8 rounded-lg flex items-center justify-center shrink-0 font-mono text-xs font-bold text-white"
@@ -1728,10 +1750,10 @@ function PatternTracker() {
                     {log.functionCode}
                   </div>
                   <div className="flex-1 min-w-0">
-                    <p className="text-xs text-slate-600 truncate">
+                    <p className="text-xs text-white/60 truncate">
                       {log.note || fn?.alias || log.functionCode}
                     </p>
-                    <p className="text-xs text-slate-400">{log.date}</p>
+                    <p className="text-xs text-white/35">{log.date}</p>
                   </div>
                 </motion.div>
               );
@@ -1762,7 +1784,7 @@ export default function InnerWorkLabPage() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-sky-50 via-indigo-50/30 to-purple-50/20 py-12 sm:py-16">
+    <div className="min-h-screen py-12 sm:py-16" style={{ background: "linear-gradient(160deg, #160f38 0%, #0f0a1e 100%)" }}>
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <motion.div
@@ -1774,24 +1796,24 @@ export default function InnerWorkLabPage() {
             initial={{ scale: 0.8 }}
             animate={{ scale: 1 }}
             transition={{ type: "spring", stiffness: 200, damping: 15 }}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/60 backdrop-blur-sm border border-indigo-100/50 text-indigo-600 text-xs font-semibold mb-4 shadow-sm"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-violet-500/15 backdrop-blur-sm border border-violet-500/30 text-violet-300 text-xs font-semibold mb-4 shadow-sm"
           >
             <FlaskConical className="w-3.5 h-3.5" />
             Inner Work Lab
           </motion.div>
-          <h1 className="text-3xl sm:text-4xl font-serif font-bold text-slate-900 mb-3">
+          <h1 className="text-3xl sm:text-4xl font-serif font-bold text-white mb-3">
             Your Inner Work Lab
           </h1>
-          <p className="text-slate-500 max-w-lg mx-auto text-sm leading-relaxed">
+          <p className="text-white/60 max-w-lg mx-auto text-sm leading-relaxed">
             Interactive tools for cognitive self-discovery. Explore your shadow,
             simulate type dynamics, reframe problems, and track patterns.
           </p>
         </motion.div>
 
         {/* Pet Companion */}
-        <div className="flex items-center gap-3 bg-slate-50 border border-slate-100 rounded-2xl px-4 py-2.5 mb-6 mx-auto max-w-lg">
+        <div className="flex items-center gap-3 rounded-2xl px-4 py-2.5 mb-6 mx-auto max-w-lg" style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.09)" }}>
           <PetCompanion type={enneagramType} size={40} />
-          <span className="text-xs text-slate-500 italic">Your companion sits with you in reflection</span>
+          <span className="text-xs text-white/60 italic">Your companion sits with you in reflection</span>
         </div>
 
         {/* Tab Navigation */}
@@ -1799,7 +1821,7 @@ export default function InnerWorkLabPage() {
           initial={{ opacity: 1, y: 0 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1 }}
-          className="flex gap-1 p-1.5 rounded-2xl bg-white/50 backdrop-blur-xl border border-white/60 shadow-sm mb-8 overflow-x-auto"
+          className="flex gap-1 p-1.5 rounded-2xl backdrop-blur-xl shadow-sm mb-8 overflow-x-auto" style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.09)" }}
         >
           {tabs.map((tab) => (
             <button
@@ -1808,7 +1830,7 @@ export default function InnerWorkLabPage() {
               className={`relative flex-1 flex items-center justify-center gap-1.5 px-3 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all duration-200 whitespace-nowrap ${
                 activeTab === tab.id
                   ? "text-white"
-                  : "text-slate-500 hover:text-slate-700 hover:bg-white/30"
+                  : "text-white/60 hover:text-white/80 hover:bg-white/5"
               }`}
             >
               {activeTab === tab.id && (

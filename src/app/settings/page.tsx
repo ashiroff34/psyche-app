@@ -45,21 +45,21 @@ function ExpandableSection({
   const [open, setOpen] = useState(defaultOpen);
 
   return (
-    <div className="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden">
+    <div className="rounded-2xl overflow-hidden" style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.09)" }}>
       <button
         onClick={() => setOpen(!open)}
-        className="w-full flex items-center justify-between px-5 py-4 text-left hover:bg-slate-50/50 transition-colors"
+        className="w-full flex items-center justify-between px-5 py-4 text-left transition-colors hover:bg-white/5"
       >
         <div className="flex items-center gap-3">
-          <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-sky-50 to-indigo-50 flex items-center justify-center">
-            <Icon className="w-4 h-4 text-sky-600" />
+          <div className="w-8 h-8 rounded-xl flex items-center justify-center" style={{ background: "rgba(139,92,246,0.15)" }}>
+            <Icon className="w-4 h-4 text-violet-400" />
           </div>
-          <span className="font-semibold text-slate-800">{title}</span>
+          <span className="font-semibold" style={{ color: "rgba(255,255,255,0.93)" }}>{title}</span>
         </div>
         {open ? (
-          <ChevronUp className="w-4 h-4 text-slate-400" />
+          <ChevronUp className="w-4 h-4" style={{ color: "rgba(255,255,255,0.35)" }} />
         ) : (
-          <ChevronDown className="w-4 h-4 text-slate-400" />
+          <ChevronDown className="w-4 h-4" style={{ color: "rgba(255,255,255,0.35)" }} />
         )}
       </button>
       <AnimatePresence initial={false}>
@@ -94,9 +94,9 @@ function Toggle({
   return (
     <div className="flex items-center justify-between gap-4">
       <div className="flex-1 min-w-0">
-        <p className="text-sm font-medium text-slate-700">{label}</p>
+        <p className="text-sm font-medium" style={{ color: "rgba(255,255,255,0.8)" }}>{label}</p>
         {description && (
-          <p className="text-xs text-slate-400 mt-0.5">{description}</p>
+          <p className="text-xs mt-0.5" style={{ color: "rgba(255,255,255,0.35)" }}>{description}</p>
         )}
       </div>
       <button
@@ -105,7 +105,7 @@ function Toggle({
         aria-label={label}
         onClick={() => onChange(!checked)}
         className={`relative w-11 h-6 rounded-full transition-colors flex-shrink-0 ${
-          checked ? "bg-sky-500" : "bg-slate-200"
+          checked ? "bg-violet-500" : "bg-white/10"
         }`}
       >
         <div
@@ -180,25 +180,27 @@ function ConfirmDialog({
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0.95, opacity: 0 }}
             onClick={(e) => e.stopPropagation()}
-            className="bg-white rounded-2xl shadow-xl max-w-sm w-full p-6 space-y-4"
+            className="rounded-2xl shadow-xl max-w-sm w-full p-6 space-y-4"
+            style={{ background: "#1a1030", border: "1px solid rgba(255,255,255,0.12)" }}
           >
             <div className="flex items-center gap-3">
               <div
                 className={`w-10 h-10 rounded-xl flex items-center justify-center ${
                   danger
-                    ? "bg-red-50 text-red-500"
-                    : "bg-amber-50 text-amber-500"
+                    ? "bg-red-500/10 text-red-400"
+                    : "bg-amber-500/10 text-amber-400"
                 }`}
               >
                 <AlertTriangle className="w-5 h-5" />
               </div>
-              <h3 className="font-semibold text-slate-800">{title}</h3>
+              <h3 className="font-semibold" style={{ color: "rgba(255,255,255,0.93)" }}>{title}</h3>
             </div>
-            <p className="text-sm text-slate-600 leading-relaxed">{message}</p>
+            <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.6)" }}>{message}</p>
             <div className="flex gap-3 pt-2">
               <button
                 onClick={onCancel}
-                className="flex-1 px-4 py-2.5 rounded-xl text-sm font-medium text-slate-600 bg-slate-100 hover:bg-slate-200 transition-colors"
+                className="flex-1 px-4 py-2.5 rounded-xl text-sm font-medium transition-colors"
+                style={{ color: "rgba(255,255,255,0.6)", background: "rgba(255,255,255,0.08)" }}
               >
                 Cancel
               </button>
@@ -230,7 +232,8 @@ function Toast({ message, visible }: { message: string; visible: boolean }) {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: 20 }}
-          className="fixed bottom-24 left-4 right-4 z-[60] flex items-center gap-3 px-5 py-4 bg-slate-900 text-white rounded-2xl shadow-xl"
+          className="fixed bottom-24 left-4 right-4 z-[60] flex items-center gap-3 px-5 py-4 rounded-2xl shadow-xl"
+          style={{ background: "#1a1030", border: "1px solid rgba(255,255,255,0.12)", color: "rgba(255,255,255,0.93)" }}
         >
           <Check className="w-4 h-4 text-emerald-400 flex-shrink-0" />
           <p className="text-sm">{message}</p>
@@ -430,14 +433,14 @@ export default function SettingsPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white pt-20 pb-32 px-4">
+    <div className="min-h-screen pt-20 pb-32 px-4" style={{ background: "#0f0a1e" }}>
       <div className="max-w-lg mx-auto space-y-4">
         {/* Header */}
         <div className="text-center mb-6">
-          <h1 className="text-2xl font-serif font-bold text-slate-800">
+          <h1 className="text-2xl font-serif font-bold" style={{ color: "rgba(255,255,255,0.93)" }}>
             Settings
           </h1>
-          <p className="text-sm text-slate-500 mt-1">
+          <p className="text-sm mt-1" style={{ color: "rgba(255,255,255,0.5)" }}>
             Customize your Thyself experience
           </p>
         </div>
@@ -446,7 +449,7 @@ export default function SettingsPage() {
         <ExpandableSection title="Profile" icon={User} defaultOpen>
           {/* Display Name */}
           <div>
-            <label className="text-xs font-medium text-slate-500 uppercase tracking-wider">
+            <label className="text-xs font-medium uppercase tracking-wider" style={{ color: "rgba(255,255,255,0.35)" }}>
               Display Name
             </label>
             <div className="flex gap-2 mt-1.5">
@@ -458,7 +461,8 @@ export default function SettingsPage() {
                   setNameEdited(true);
                 }}
                 placeholder="Your name"
-                className="flex-1 px-3 py-2 rounded-xl border border-slate-200 text-sm text-slate-800 placeholder:text-slate-300 focus:outline-none focus:ring-2 focus:ring-sky-200 focus:border-sky-400 transition-all"
+                className="flex-1 px-3 py-2 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-violet-500/40 transition-all"
+                style={{ background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.12)", color: "rgba(255,255,255,0.85)" }}
               />
               {nameEdited && (
                 <button
@@ -473,7 +477,7 @@ export default function SettingsPage() {
 
           {/* Email */}
           <div>
-            <label className="text-xs font-medium text-slate-500 uppercase tracking-wider">
+            <label className="text-xs font-medium uppercase tracking-wider" style={{ color: "rgba(255,255,255,0.35)" }}>
               Email
             </label>
             <div className="flex gap-2 mt-1.5">
@@ -486,11 +490,12 @@ export default function SettingsPage() {
                   setEmailError("");
                 }}
                 placeholder="your@email.com"
-                className={`flex-1 px-3 py-2 rounded-xl border text-sm text-slate-800 placeholder:text-slate-300 focus:outline-none focus:ring-2 transition-all ${
+                className={`flex-1 px-3 py-2 rounded-xl text-sm focus:outline-none focus:ring-2 transition-all ${
                   emailError
-                    ? "border-red-300 focus:ring-red-200 focus:border-red-400"
-                    : "border-slate-200 focus:ring-sky-200 focus:border-sky-400"
+                    ? "focus:ring-red-500/40"
+                    : "focus:ring-violet-500/40"
                 }`}
+                style={{ background: "rgba(255,255,255,0.06)", border: emailError ? "1px solid rgba(239,68,68,0.4)" : "1px solid rgba(255,255,255,0.12)", color: "rgba(255,255,255,0.85)" }}
               />
               {emailEdited && (
                 <button
@@ -508,13 +513,13 @@ export default function SettingsPage() {
 
           {/* Current Types (read-only) */}
           <div className="space-y-2 pt-2">
-            <p className="text-xs font-medium text-slate-500 uppercase tracking-wider">
+            <p className="text-xs font-medium uppercase tracking-wider" style={{ color: "rgba(255,255,255,0.35)" }}>
               Your Types
             </p>
-            <div className="flex items-center justify-between py-2 px-3 rounded-xl bg-slate-50">
+            <div className="flex items-center justify-between py-2 px-3 rounded-xl" style={{ background: "rgba(255,255,255,0.06)" }}>
               <div className="flex items-center gap-2">
-                <Compass className="w-4 h-4 text-sky-500" />
-                <span className="text-sm text-slate-700">
+                <Compass className="w-4 h-4 text-violet-400" />
+                <span className="text-sm" style={{ color: "rgba(255,255,255,0.7)" }}>
                   {profile.enneagramType
                     ? `Enneagram Type ${profile.enneagramType}${profile.enneagramWing ? ` (${profile.enneagramWing})` : ""}`
                     : "Not yet determined"}
@@ -522,15 +527,15 @@ export default function SettingsPage() {
               </div>
               <Link
                 href="/enneagram/assess"
-                className="text-xs font-medium text-sky-500 hover:text-sky-600"
+                className="text-xs font-medium text-violet-400 hover:text-violet-300"
               >
                 {profile.enneagramType ? "Change" : "Take Assessment"}
               </Link>
             </div>
-            <div className="flex items-center justify-between py-2 px-3 rounded-xl bg-slate-50">
+            <div className="flex items-center justify-between py-2 px-3 rounded-xl" style={{ background: "rgba(255,255,255,0.06)" }}>
               <div className="flex items-center gap-2">
-                <Brain className="w-4 h-4 text-indigo-500" />
-                <span className="text-sm text-slate-700">
+                <Brain className="w-4 h-4 text-violet-400" />
+                <span className="text-sm" style={{ color: "rgba(255,255,255,0.7)" }}>
                   {profile.cognitiveType
                     ? `Cognitive Type: ${profile.cognitiveType}`
                     : "Not yet determined"}
@@ -538,7 +543,7 @@ export default function SettingsPage() {
               </div>
               <Link
                 href="/cognitive/assess"
-                className="text-xs font-medium text-sky-500 hover:text-sky-600"
+                className="text-xs font-medium text-violet-400 hover:text-violet-300"
               >
                 {profile.cognitiveType ? "Change" : "Take Assessment"}
               </Link>
@@ -573,13 +578,16 @@ export default function SettingsPage() {
                       }
                       className={`flex-1 flex flex-col items-center gap-0.5 px-3 py-2.5 rounded-xl text-sm transition-all ${
                         notifPrefs.reminderTime === opt.value
-                          ? "bg-sky-50 text-sky-700 border border-sky-200 font-medium"
-                          : "bg-slate-50 text-slate-500 border border-transparent hover:bg-slate-100"
+                          ? "font-medium"
+                          : "hover:bg-white/5"
                       }`}
+                      style={notifPrefs.reminderTime === opt.value
+                        ? { background: "rgba(139,92,246,0.2)", border: "1px solid rgba(139,92,246,0.35)", color: "#a78bfa" }
+                        : { background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.09)", color: "rgba(255,255,255,0.5)" }}
                     >
                       <Clock className="w-3.5 h-3.5" />
                       <span className="text-xs font-medium">{opt.label}</span>
-                      <span className="text-[10px] text-slate-400">
+                      <span className="text-[10px]" style={{ color: "rgba(255,255,255,0.35)" }}>
                         {opt.desc}
                       </span>
                     </button>
@@ -602,7 +610,7 @@ export default function SettingsPage() {
             description="Receive a summary of your weekly activity"
           />
 
-          <p className="text-xs text-slate-400 flex items-center gap-1.5 pt-1">
+          <p className="text-xs flex items-center gap-1.5 pt-1" style={{ color: "rgba(255,255,255,0.35)" }}>
             <Info className="w-3 h-3 flex-shrink-0" />
             Push notifications are coming soon. Your preferences are saved and ready.
           </p>
@@ -621,9 +629,10 @@ export default function SettingsPage() {
           {/* Export Data */}
           <button
             onClick={exportData}
-            className="w-full flex items-center gap-3 px-4 py-3 rounded-xl bg-slate-50 hover:bg-slate-100 text-sm text-slate-700 font-medium transition-colors"
+            className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-colors hover:bg-white/10"
+            style={{ background: "rgba(255,255,255,0.06)", color: "rgba(255,255,255,0.7)" }}
           >
-            <Download className="w-4 h-4 text-slate-500" />
+            <Download className="w-4 h-4" style={{ color: "rgba(255,255,255,0.35)" }} />
             Export My Data
           </button>
 
@@ -652,26 +661,28 @@ export default function SettingsPage() {
           <div className="space-y-1 pt-1">
             <Link
               href="/sources"
-              className="flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm text-slate-600 hover:bg-slate-50 transition-colors"
+              className="flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm transition-colors hover:bg-white/5"
+              style={{ color: "rgba(255,255,255,0.6)" }}
             >
-              <FileText className="w-4 h-4 text-slate-400" />
+              <FileText className="w-4 h-4" style={{ color: "rgba(255,255,255,0.35)" }} />
               Sources &amp; References
-              <ExternalLink className="w-3 h-3 text-slate-300 ml-auto" />
+              <ExternalLink className="w-3 h-3 ml-auto" style={{ color: "rgba(255,255,255,0.2)" }} />
             </Link>
           </div>
 
           {/* Bug Report */}
           <button
             onClick={openBugReport}
-            className="w-full flex items-center gap-3 px-4 py-3 rounded-xl bg-slate-50 hover:bg-slate-100 text-sm text-slate-700 font-medium transition-colors"
+            className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-colors hover:bg-white/10"
+            style={{ background: "rgba(255,255,255,0.06)", color: "rgba(255,255,255,0.7)" }}
           >
-            <Bug className="w-4 h-4 text-slate-500" />
+            <Bug className="w-4 h-4" style={{ color: "rgba(255,255,255,0.35)" }} />
             Report a Bug
           </button>
 
           {/* App Version */}
           <div className="text-center pt-2">
-            <p className="text-xs text-slate-400">Thyself v1.0.0</p>
+            <p className="text-xs" style={{ color: "rgba(255,255,255,0.35)" }}>Thyself v1.0.0</p>
           </div>
         </ExpandableSection>
       </div>

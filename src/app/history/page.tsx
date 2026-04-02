@@ -88,15 +88,16 @@ function KnowledgeCheck({ quiz, sectionName }: { quiz: QuizQuestion[]; sectionNa
       <motion.div
         initial={{ opacity: 1, y: 0 }}
         animate={{ opacity: 1, y: 0 }}
-        className="mt-8 p-6 rounded-2xl bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-200/60"
+        className="mt-8 p-6 rounded-2xl"
+        style={{ background: "rgba(245,158,11,0.06)", border: "1px solid rgba(245,158,11,0.15)" }}
       >
         <div className="flex items-center gap-3 mb-3">
-          <div className="w-10 h-10 rounded-xl bg-amber-100 flex items-center justify-center">
-            <Trophy className="w-5 h-5 text-amber-600" />
+          <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: "rgba(245,158,11,0.12)" }}>
+            <Trophy className="w-5 h-5 text-amber-400" />
           </div>
           <div>
-            <h3 className="text-base font-serif font-bold text-slate-800">Knowledge Check</h3>
-            <p className="text-xs text-slate-500">Test what you&apos;ve learned — earn up to {quiz.length * 25} XP!</p>
+            <h3 className="text-base font-serif font-bold" style={{ color: "rgba(255,255,255,0.93)" }}>Knowledge Check</h3>
+            <p className="text-xs" style={{ color: "rgba(255,255,255,0.5)" }}>Test what you&apos;ve learned — earn up to {quiz.length * 25} XP!</p>
           </div>
         </div>
         <motion.button
@@ -117,18 +118,19 @@ function KnowledgeCheck({ quiz, sectionName }: { quiz: QuizQuestion[]; sectionNa
       <motion.div
         initial={{ opacity: 1, scale: 1 }}
         animate={{ opacity: 1, scale: 1 }}
-        className="mt-8 p-6 rounded-2xl bg-gradient-to-r from-emerald-50 to-sky-50 border border-emerald-200/60 text-center"
+        className="mt-8 p-6 rounded-2xl text-center"
+        style={{ background: "rgba(16,185,129,0.06)", border: "1px solid rgba(16,185,129,0.15)" }}
       >
         <div className="w-12 h-12 rounded-2xl flex items-center justify-center mx-auto mb-3" style={{ background: perfect ? "linear-gradient(135deg,#fbbf24,#f59e0b)" : score >= quiz.length / 2 ? "linear-gradient(135deg,#34d399,#10b981)" : "linear-gradient(135deg,#60a5fa,#6366f1)" }}>
           {perfect ? <Trophy className="w-6 h-6 text-white" /> : score >= quiz.length / 2 ? <Star className="w-6 h-6 text-white" /> : <BookOpen className="w-6 h-6 text-white" />}
         </div>
-        <h3 className="text-xl font-serif font-bold text-slate-800 mb-1">
+        <h3 className="text-xl font-serif font-bold mb-1" style={{ color: "rgba(255,255,255,0.93)" }}>
           {perfect ? "Perfect Score!" : score >= quiz.length / 2 ? "Nice work!" : "Keep learning!"}
         </h3>
-        <p className="text-sm text-slate-600 mb-2">{score}/{quiz.length} correct — earned {score * 25} XP</p>
+        <p className="text-sm mb-2" style={{ color: "rgba(255,255,255,0.6)" }}>{score}/{quiz.length} correct — earned {score * 25} XP</p>
         <div className="flex justify-center gap-1.5 mt-3">
           {quiz.map((_, i) => (
-            <div key={i} className={`w-3 h-3 rounded-full ${i < score ? "bg-emerald-400" : "bg-slate-200"}`} />
+            <div key={i} className={`w-3 h-3 rounded-full ${i < score ? "bg-emerald-400" : "bg-white/10"}`} />
           ))}
         </div>
       </motion.div>
@@ -139,13 +141,14 @@ function KnowledgeCheck({ quiz, sectionName }: { quiz: QuizQuestion[]; sectionNa
     <motion.div
       initial={{ opacity: 1, y: 0 }}
       animate={{ opacity: 1, y: 0 }}
-      className="mt-8 p-6 rounded-2xl bg-white border border-slate-200 shadow-sm"
+      className="mt-8 p-6 rounded-2xl shadow-sm"
+      style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.09)" }}
     >
       <div className="flex items-center justify-between mb-4">
-        <span className="text-xs font-mono text-slate-400">{current + 1}/{quiz.length}</span>
-        <span className="text-xs text-amber-600 font-medium">+25 XP each</span>
+        <span className="text-xs font-mono" style={{ color: "rgba(255,255,255,0.35)" }}>{current + 1}/{quiz.length}</span>
+        <span className="text-xs font-medium text-amber-400">+25 XP each</span>
       </div>
-      <h4 className="text-sm sm:text-base font-medium text-slate-800 mb-4">{q.question}</h4>
+      <h4 className="text-sm sm:text-base font-medium mb-4" style={{ color: "rgba(255,255,255,0.93)" }}>{q.question}</h4>
       <div className="space-y-2">
         {q.options.map((opt, idx) => {
           const isCorrect = idx === q.correct;
@@ -155,15 +158,14 @@ function KnowledgeCheck({ quiz, sectionName }: { quiz: QuizQuestion[]; sectionNa
               key={idx}
               onClick={() => handleSelect(idx)}
               disabled={revealed}
-              className={`w-full text-left p-3 rounded-xl text-sm transition-all border-2 ${
-                revealed
-                  ? isCorrect
-                    ? "border-emerald-400 bg-emerald-50 text-emerald-800"
-                    : isSelected
-                    ? "border-red-300 bg-red-50 text-red-700"
-                    : "border-slate-100 text-slate-400"
-                  : "border-slate-100 hover:border-sky-200 hover:bg-sky-50/30 text-slate-700"
-              }`}
+              className={`w-full text-left p-3 rounded-xl text-sm transition-all border-2`}
+              style={revealed
+                ? isCorrect
+                  ? { borderColor: "rgba(16,185,129,0.5)", background: "rgba(16,185,129,0.08)", color: "#6ee7b7" }
+                  : isSelected
+                  ? { borderColor: "rgba(239,68,68,0.4)", background: "rgba(239,68,68,0.06)", color: "#fca5a5" }
+                  : { borderColor: "rgba(255,255,255,0.06)", color: "rgba(255,255,255,0.35)" }
+                : { borderColor: "rgba(255,255,255,0.09)", color: "rgba(255,255,255,0.7)" }}
             >
               <div className="flex items-center gap-2">
                 {revealed && isCorrect && <CheckCircle className="w-4 h-4 text-emerald-500 shrink-0" />}
@@ -176,7 +178,7 @@ function KnowledgeCheck({ quiz, sectionName }: { quiz: QuizQuestion[]; sectionNa
       </div>
       {revealed && (
         <motion.div initial={{ opacity: 1, y: 0 }} animate={{ opacity: 1, y: 0 }} className="mt-3">
-          <p className="text-xs text-slate-500 leading-relaxed p-3 rounded-lg bg-slate-50">{q.explanation}</p>
+          <p className="text-xs leading-relaxed p-3 rounded-lg" style={{ color: "rgba(255,255,255,0.5)", background: "rgba(255,255,255,0.05)" }}>{q.explanation}</p>
           <button
             onClick={handleNext}
             className="mt-3 px-5 py-2 rounded-xl bg-sky-500 text-white text-sm font-medium hover:bg-sky-600 transition"
@@ -600,8 +602,8 @@ function TimelineItem({
 
       {/* Node dot */}
       <motion.div
-        className="absolute left-2 sm:left-3 top-1 w-5 h-5 sm:w-6 sm:h-6 rounded-full border-[3px] border-white shadow-md cursor-pointer z-10"
-        style={{ backgroundColor: node.color }}
+        className="absolute left-2 sm:left-3 top-1 w-5 h-5 sm:w-6 sm:h-6 rounded-full border-[3px] shadow-md cursor-pointer z-10"
+        style={{ borderColor: "rgba(15,10,30,1)", backgroundColor: node.color }}
         whileHover={{ scale: 1.3 }}
         whileTap={{ scale: 0.95 }}
         onClick={onToggle}
@@ -609,11 +611,10 @@ function TimelineItem({
 
       {/* Card */}
       <div
-        className={`group cursor-pointer rounded-2xl sm:rounded-3xl border transition-all duration-300 ${
-          isExpanded
-            ? "bg-white/90 backdrop-blur-xl border-sky-200 shadow-lg shadow-sky-100/50"
-            : "bg-white/60 backdrop-blur-sm border-slate-100 hover:bg-white/80 hover:border-sky-100 hover:shadow-md"
-        }`}
+        className={`group cursor-pointer rounded-2xl sm:rounded-3xl transition-all duration-300`}
+        style={isExpanded
+          ? { background: "rgba(255,255,255,0.08)", border: "1px solid rgba(139,92,246,0.3)" }
+          : { background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.09)" }}
         onClick={onToggle}
       >
         {/* Header — always visible */}
@@ -628,22 +629,23 @@ function TimelineItem({
             </div>
             <div className="flex-1 min-w-0">
               <div className="flex items-center gap-2 flex-wrap">
-                <span className="text-[11px] sm:text-xs font-medium px-2 py-0.5 rounded-full bg-slate-100 text-slate-500">
+                <span className="text-[11px] sm:text-xs font-medium px-2 py-0.5 rounded-full" style={{ background: "rgba(255,255,255,0.08)", color: "rgba(255,255,255,0.5)" }}>
                   {node.year}
                 </span>
-                <span className="text-[11px] sm:text-xs text-slate-400">{node.era}</span>
+                <span className="text-[11px] sm:text-xs" style={{ color: "rgba(255,255,255,0.35)" }}>{node.era}</span>
               </div>
-              <h3 className="text-base sm:text-lg font-serif font-bold text-slate-900 mt-1">
+              <h3 className="text-base sm:text-lg font-serif font-bold mt-1" style={{ color: "rgba(255,255,255,0.93)" }}>
                 {node.title}
               </h3>
-              <p className="text-xs sm:text-sm text-slate-500 mt-1 leading-relaxed">
+              <p className="text-xs sm:text-sm mt-1 leading-relaxed" style={{ color: "rgba(255,255,255,0.5)" }}>
                 {node.summary}
               </p>
             </div>
             <ChevronRight
-              className={`w-4 h-4 sm:w-5 sm:h-5 text-slate-300 shrink-0 transition-transform duration-300 ${
+              className={`w-4 h-4 sm:w-5 sm:h-5 shrink-0 transition-transform duration-300 ${
                 isExpanded ? "rotate-90" : ""
               }`}
+              style={{ color: "rgba(255,255,255,0.2)" }}
             />
           </div>
         </div>
@@ -659,24 +661,24 @@ function TimelineItem({
               className="overflow-hidden"
             >
               <div className="px-4 sm:px-6 pb-5 sm:pb-6 space-y-4">
-                <div className="h-px bg-gradient-to-r from-transparent via-slate-200 to-transparent" />
+                <div className="h-px" style={{ background: "rgba(255,255,255,0.06)" }} />
 
                 {/* Detailed text */}
-                <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                <p className="text-xs sm:text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.6)" }}>
                   {node.details}
                 </p>
 
                 {/* Quote */}
                 {node.quote && (
-                  <div className="p-3 sm:p-4 rounded-xl sm:rounded-2xl bg-sky-50/70 border border-sky-100">
+                  <div className="p-3 sm:p-4 rounded-xl sm:rounded-2xl" style={{ background: "rgba(14,165,233,0.06)", border: "1px solid rgba(14,165,233,0.15)" }}>
                     <div className="flex gap-2 sm:gap-3">
                       <Quote className="w-4 h-4 sm:w-5 sm:h-5 text-sky-400 shrink-0 mt-0.5" />
                       <div>
-                        <p className="text-xs sm:text-sm text-slate-700 italic leading-relaxed">
+                        <p className="text-xs sm:text-sm italic leading-relaxed" style={{ color: "rgba(255,255,255,0.7)" }}>
                           &ldquo;{node.quote}&rdquo;
                         </p>
                         {node.quoteAttribution && (
-                          <p className="text-[11px] sm:text-xs text-slate-400 mt-1">
+                          <p className="text-[11px] sm:text-xs mt-1" style={{ color: "rgba(255,255,255,0.35)" }}>
                             &mdash; {node.quoteAttribution}
                           </p>
                         )}
@@ -687,14 +689,15 @@ function TimelineItem({
 
                 {/* Key contributions */}
                 <div>
-                  <h4 className="text-xs font-semibold text-slate-800 uppercase tracking-wider mb-2">
+                  <h4 className="text-xs font-semibold uppercase tracking-wider mb-2" style={{ color: "rgba(255,255,255,0.93)" }}>
                     Key Contributions
                   </h4>
                   <ul className="space-y-1.5">
                     {node.contributions.map((c, i) => (
                       <li
                         key={i}
-                        className="flex items-start gap-2 text-xs sm:text-sm text-slate-600"
+                        className="flex items-start gap-2 text-xs sm:text-sm"
+                        style={{ color: "rgba(255,255,255,0.6)" }}
                       >
                         <Star className="w-3 h-3 text-amber-400 shrink-0 mt-0.5" />
                         <span>{c}</span>
@@ -706,14 +709,15 @@ function TimelineItem({
                 {/* Books */}
                 {node.books && node.books.length > 0 && (
                   <div>
-                    <h4 className="text-xs font-semibold text-slate-800 uppercase tracking-wider mb-2">
+                    <h4 className="text-xs font-semibold uppercase tracking-wider mb-2" style={{ color: "rgba(255,255,255,0.93)" }}>
                       Key Works
                     </h4>
                     <div className="flex flex-wrap gap-2">
                       {node.books.map((b, i) => (
                         <span
                           key={i}
-                          className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-indigo-50 text-indigo-700 text-[11px] sm:text-xs"
+                          className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-violet-300 text-[11px] sm:text-xs"
+                          style={{ background: "rgba(139,92,246,0.12)", border: "1px solid rgba(139,92,246,0.2)" }}
                         >
                           <BookOpen className="w-3 h-3" />
                           {b}
@@ -740,12 +744,13 @@ function VennDiagram() {
         initial={{ x: 0, opacity: 1 }}
         animate={{ x: 0, opacity: 1 }}
         transition={{ duration: 0.8, ease: "easeOut" }}
-        className="absolute left-2 sm:left-4 top-4 w-48 h-48 sm:w-60 sm:h-60 rounded-full border-2 border-rose-300 bg-rose-50/50 backdrop-blur-sm flex items-center justify-center"
+        className="absolute left-2 sm:left-4 top-4 w-48 h-48 sm:w-60 sm:h-60 rounded-full flex items-center justify-center"
+        style={{ border: "2px solid rgba(251,113,133,0.4)", background: "rgba(244,63,94,0.08)" }}
       >
         <div className="text-center -ml-8 sm:-ml-10">
           <Heart className="w-6 h-6 sm:w-7 sm:h-7 text-rose-400 mx-auto mb-1" />
-          <p className="font-serif font-bold text-rose-700 text-sm sm:text-base">Enneagram</p>
-          <p className="text-[10px] sm:text-xs text-rose-500 mt-1 max-w-[100px] mx-auto">
+          <p className="font-serif font-bold text-rose-300 text-sm sm:text-base">Enneagram</p>
+          <p className="text-[10px] sm:text-xs text-rose-400 mt-1 max-w-[100px] mx-auto">
             WHY you do what you do
           </p>
         </div>
@@ -756,14 +761,15 @@ function VennDiagram() {
         initial={{ x: 0, opacity: 1 }}
         animate={{ x: 0, opacity: 1 }}
         transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
-        className="absolute right-2 sm:right-4 top-4 w-48 h-48 sm:w-60 sm:h-60 rounded-full border-2 border-sky-300 bg-sky-50/50 backdrop-blur-sm flex items-center justify-center"
+        className="absolute right-2 sm:right-4 top-4 w-48 h-48 sm:w-60 sm:h-60 rounded-full flex items-center justify-center"
+        style={{ border: "2px solid rgba(56,189,248,0.4)", background: "rgba(14,165,233,0.08)" }}
       >
         <div className="text-center ml-8 sm:ml-10">
           <Brain className="w-6 h-6 sm:w-7 sm:h-7 text-sky-400 mx-auto mb-1" />
-          <p className="font-serif font-bold text-sky-700 text-sm sm:text-base">
+          <p className="font-serif font-bold text-sky-300 text-sm sm:text-base">
             Cognitive Functions
           </p>
-          <p className="text-[10px] sm:text-xs text-sky-500 mt-1 max-w-[100px] mx-auto">
+          <p className="text-[10px] sm:text-xs text-sky-400 mt-1 max-w-[100px] mx-auto">
             HOW you process information
           </p>
         </div>
@@ -776,8 +782,8 @@ function VennDiagram() {
         transition={{ duration: 0.6, delay: 0.6 }}
         className="absolute left-0 right-0 top-[90px] sm:top-[100px] flex flex-col items-center justify-center text-center z-10"
       >
-        <Sparkles className="w-5 h-5 sm:w-6 sm:h-6 text-indigo-400 mx-auto mb-1" />
-        <p className="font-serif font-bold text-indigo-700 text-xs sm:text-sm">
+        <Sparkles className="w-5 h-5 sm:w-6 sm:h-6 text-violet-400 mx-auto mb-1" />
+        <p className="font-serif font-bold text-violet-300 text-xs sm:text-sm">
           Complete Map
         </p>
       </motion.div>
@@ -789,7 +795,7 @@ function VennDiagram() {
         transition={{ delay: 1 }}
         className="absolute bottom-0 left-0 right-0 text-center"
       >
-        <p className="text-xs sm:text-sm text-slate-400 italic">
+        <p className="text-xs sm:text-sm italic" style={{ color: "rgba(255,255,255,0.35)" }}>
           Together: motivation + cognition = the most complete personality map available
         </p>
       </motion.div>
@@ -807,7 +813,7 @@ export default function HistoryPage() {
   const [expandedJung, setExpandedJung] = useState<string | null>(null);
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-sky-50/60 via-white to-indigo-50/40 py-10 sm:py-16">
+    <div className="min-h-screen py-10 sm:py-16" style={{ background: "#0f0a1e" }}>
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Page Header */}
         <motion.div
@@ -815,13 +821,13 @@ export default function HistoryPage() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
         >
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-sky-50 border border-sky-100 text-sky-600 text-xs font-medium mb-4">
-            <Clock className="w-3 h-3" /> History & Origins
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-sky-300 text-xs font-medium mb-4" style={{ background: "rgba(14,165,233,0.1)", border: "1px solid rgba(14,165,233,0.2)" }}>
+            <Clock className="w-3 h-3" /> History &amp; Origins
           </div>
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-serif font-bold text-slate-900 mb-3">
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-serif font-bold mb-3" style={{ color: "rgba(255,255,255,0.93)" }}>
             The History Behind Thyself
           </h1>
-          <p className="text-slate-500 max-w-2xl text-sm sm:text-base leading-relaxed">
+          <p className="max-w-2xl text-sm sm:text-base leading-relaxed" style={{ color: "rgba(255,255,255,0.5)" }}>
             Two powerful traditions of understanding the human mind — the
             Enneagram and Jungian Cognitive Functions — each with a rich history
             of brilliant thinkers. Explore how they developed, who shaped them,
@@ -843,11 +849,10 @@ export default function HistoryPage() {
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
-                className={`inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-medium transition-all duration-200 ${
-                  isActive
-                    ? "bg-white text-sky-700 shadow-md shadow-sky-100/50 border border-sky-200"
-                    : "bg-white/40 text-slate-500 border border-transparent hover:bg-white/70 hover:text-slate-700"
-                }`}
+                className={`inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-medium transition-all duration-200`}
+                style={isActive
+                  ? { background: "rgba(139,92,246,0.2)", color: "#a78bfa", border: "1px solid rgba(139,92,246,0.35)" }
+                  : { background: "rgba(255,255,255,0.05)", color: "rgba(255,255,255,0.5)", border: "1px solid rgba(255,255,255,0.06)" }}
               >
                 <Icon className="w-4 h-4" />
                 <span className="hidden sm:inline">{tab.label}</span>
@@ -876,10 +881,10 @@ export default function HistoryPage() {
                 transition={{ duration: 0.3 }}
               >
                 <div className="mb-8">
-                  <h2 className="text-xl sm:text-2xl font-serif font-bold text-slate-900 mb-2">
+                  <h2 className="text-xl sm:text-2xl font-serif font-bold mb-2" style={{ color: "rgba(255,255,255,0.93)" }}>
                     The Enneagram Through Time
                   </h2>
-                  <p className="text-xs sm:text-sm text-slate-500 leading-relaxed max-w-2xl">
+                  <p className="text-xs sm:text-sm leading-relaxed max-w-2xl" style={{ color: "rgba(255,255,255,0.5)" }}>
                     From ancient geometric symbols to modern clinical psychology,
                     the Enneagram of personality has been shaped by a lineage of
                     thinkers who each added crucial layers of understanding.
@@ -917,10 +922,10 @@ export default function HistoryPage() {
                 transition={{ duration: 0.3 }}
               >
                 <div className="mb-8">
-                  <h2 className="text-xl sm:text-2xl font-serif font-bold text-slate-900 mb-2">
-                    Carl Jung & Cognitive Functions
+                  <h2 className="text-xl sm:text-2xl font-serif font-bold mb-2" style={{ color: "rgba(255,255,255,0.93)" }}>
+                    Carl Jung &amp; Cognitive Functions
                   </h2>
-                  <p className="text-xs sm:text-sm text-slate-500 leading-relaxed max-w-2xl">
+                  <p className="text-xs sm:text-sm leading-relaxed max-w-2xl" style={{ color: "rgba(255,255,255,0.5)" }}>
                     A visual journey through the development of cognitive function
                     theory — from Jung's foundational work through archetypal
                     models to modern neuroscience.
@@ -932,17 +937,18 @@ export default function HistoryPage() {
                   initial={{ opacity: 1, y: 0 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.1 }}
-                  className="p-4 sm:p-6 rounded-2xl sm:rounded-3xl bg-amber-50/60 border border-amber-200/50 mb-8"
+                  className="p-4 sm:p-6 rounded-2xl sm:rounded-3xl mb-8"
+                  style={{ background: "rgba(245,158,11,0.06)", border: "1px solid rgba(245,158,11,0.15)" }}
                 >
                   <div className="flex items-start gap-3 sm:gap-4">
-                    <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-amber-100 flex items-center justify-center shrink-0">
-                      <AlertTriangle className="w-4 h-4 sm:w-5 sm:h-5 text-amber-600" />
+                    <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl flex items-center justify-center shrink-0" style={{ background: "rgba(245,158,11,0.12)" }}>
+                      <AlertTriangle className="w-4 h-4 sm:w-5 sm:h-5 text-amber-400" />
                     </div>
                     <div>
-                      <h3 className="text-sm font-semibold text-amber-900 mb-1">
+                      <h3 className="text-sm font-semibold text-amber-300 mb-1">
                         Important Distinction
                       </h3>
-                      <p className="text-xs sm:text-sm text-amber-800 leading-relaxed">
+                      <p className="text-xs sm:text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.6)" }}>
                         Thyself uses Jung's original cognitive function theory
                         (1921), <strong>NOT</strong> the simplified MBTI instrument
                         or 16Personalities (which uses Big Five traits, not
@@ -985,10 +991,10 @@ export default function HistoryPage() {
                 transition={{ duration: 0.3 }}
               >
                 <div className="mb-8">
-                  <h2 className="text-xl sm:text-2xl font-serif font-bold text-slate-900 mb-2">
+                  <h2 className="text-xl sm:text-2xl font-serif font-bold mb-2" style={{ color: "rgba(255,255,255,0.93)" }}>
                     Where They Meet
                   </h2>
-                  <p className="text-xs sm:text-sm text-slate-500 leading-relaxed max-w-2xl">
+                  <p className="text-xs sm:text-sm leading-relaxed max-w-2xl" style={{ color: "rgba(255,255,255,0.5)" }}>
                     The Enneagram and Cognitive Functions are not competing
                     systems — they illuminate different dimensions of personality.
                     Together, they offer something neither can alone.
@@ -1000,7 +1006,8 @@ export default function HistoryPage() {
                   initial={{ opacity: 1, scale: 1 }}
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ delay: 0.1, duration: 0.5 }}
-                  className="p-6 sm:p-10 rounded-3xl bg-white/80 backdrop-blur-xl border border-slate-100 shadow-sm mb-8"
+                  className="p-6 sm:p-10 rounded-3xl shadow-sm mb-8"
+                  style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.09)" }}
                 >
                   <VennDiagram />
                 </motion.div>
@@ -1012,16 +1019,17 @@ export default function HistoryPage() {
                     initial={{ opacity: 1, y: 0 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.2 }}
-                    className="p-5 sm:p-6 rounded-2xl sm:rounded-3xl bg-rose-50/60 border border-rose-100"
+                    className="p-5 sm:p-6 rounded-2xl sm:rounded-3xl"
+                    style={{ background: "rgba(239,68,68,0.06)", border: "1px solid rgba(239,68,68,0.15)" }}
                   >
                     <Heart className="w-6 h-6 text-rose-400 mb-3" />
-                    <h3 className="font-serif font-bold text-rose-900 mb-2">
+                    <h3 className="font-serif font-bold text-rose-300 mb-2">
                       Enneagram
                     </h3>
-                    <p className="text-xs sm:text-sm text-rose-800 leading-relaxed mb-3">
+                    <p className="text-xs sm:text-sm text-rose-300 leading-relaxed mb-3">
                       Answers <strong>WHY</strong> you do what you do.
                     </p>
-                    <ul className="space-y-2 text-xs text-rose-700">
+                    <ul className="space-y-2 text-xs text-rose-300/70">
                       <li className="flex items-start gap-2">
                         <span className="w-1 h-1 rounded-full bg-rose-400 mt-1.5 shrink-0" />
                         Core motivation and core fear
@@ -1050,17 +1058,18 @@ export default function HistoryPage() {
                     initial={{ opacity: 1, y: 0 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.3 }}
-                    className="p-5 sm:p-6 rounded-2xl sm:rounded-3xl bg-sky-50/60 border border-sky-100"
+                    className="p-5 sm:p-6 rounded-2xl sm:rounded-3xl"
+                    style={{ background: "rgba(14,165,233,0.06)", border: "1px solid rgba(14,165,233,0.15)" }}
                   >
                     <Brain className="w-6 h-6 text-sky-400 mb-3" />
-                    <h3 className="font-serif font-bold text-sky-900 mb-2">
+                    <h3 className="font-serif font-bold text-sky-300 mb-2">
                       Cognitive Functions
                     </h3>
-                    <p className="text-xs sm:text-sm text-sky-800 leading-relaxed mb-3">
+                    <p className="text-xs sm:text-sm text-sky-300 leading-relaxed mb-3">
                       Answers <strong>HOW</strong> you process information and
                       make decisions.
                     </p>
-                    <ul className="space-y-2 text-xs text-sky-700">
+                    <ul className="space-y-2 text-xs text-sky-300/70">
                       <li className="flex items-start gap-2">
                         <span className="w-1 h-1 rounded-full bg-sky-400 mt-1.5 shrink-0" />
                         Dominant mode of consciousness
@@ -1089,17 +1098,18 @@ export default function HistoryPage() {
                     initial={{ opacity: 1, y: 0 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.4 }}
-                    className="p-5 sm:p-6 rounded-2xl sm:rounded-3xl bg-indigo-50/60 border border-indigo-100"
+                    className="p-5 sm:p-6 rounded-2xl sm:rounded-3xl"
+                    style={{ background: "rgba(139,92,246,0.08)", border: "1px solid rgba(139,92,246,0.2)" }}
                   >
-                    <Sparkles className="w-6 h-6 text-indigo-400 mb-3" />
-                    <h3 className="font-serif font-bold text-indigo-900 mb-2">
+                    <Sparkles className="w-6 h-6 text-violet-400 mb-3" />
+                    <h3 className="font-serif font-bold text-violet-300 mb-2">
                       Together
                     </h3>
-                    <p className="text-xs sm:text-sm text-indigo-800 leading-relaxed mb-3">
+                    <p className="text-xs sm:text-sm text-violet-300 leading-relaxed mb-3">
                       The most <strong>complete personality map</strong>{" "}
                       available.
                     </p>
-                    <ul className="space-y-2 text-xs text-indigo-700">
+                    <ul className="space-y-2 text-xs text-violet-300/70">
                       <li className="flex items-start gap-2">
                         <span className="w-1 h-1 rounded-full bg-indigo-400 mt-1.5 shrink-0" />
                         Motivation (Enneagram) + cognition (Jung) = full picture
@@ -1131,17 +1141,18 @@ export default function HistoryPage() {
                   initial={{ opacity: 1, y: 0 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.5 }}
-                  className="p-5 sm:p-6 rounded-2xl sm:rounded-3xl bg-white/80 backdrop-blur-xl border border-slate-100 shadow-sm"
+                  className="p-5 sm:p-6 rounded-2xl sm:rounded-3xl shadow-sm"
+                  style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.09)" }}
                 >
                   <div className="flex items-start gap-3 sm:gap-4">
-                    <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-indigo-100 flex items-center justify-center shrink-0">
-                      <Lightbulb className="w-4 h-4 sm:w-5 sm:h-5 text-indigo-600" />
+                    <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl flex items-center justify-center shrink-0" style={{ background: "rgba(139,92,246,0.15)" }}>
+                      <Lightbulb className="w-4 h-4 sm:w-5 sm:h-5 text-violet-400" />
                     </div>
                     <div>
-                      <h3 className="text-sm font-semibold text-slate-900 mb-1.5">
+                      <h3 className="text-sm font-semibold mb-1.5" style={{ color: "rgba(255,255,255,0.93)" }}>
                         Practical Example
                       </h3>
-                      <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                      <p className="text-xs sm:text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.6)" }}>
                         Consider two Enneagram Type 5 individuals. Both share the
                         same core motivation (the need to be competent and
                         self-sufficient) and the same passion (avarice — hoarding

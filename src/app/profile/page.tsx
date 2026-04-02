@@ -106,16 +106,16 @@ function TypeDNASection({ profile }: { profile: import("@/hooks/useProfile").Psy
   const bars = buildTypeDNA(profile);
   const hasScores = !!(profile.enneagramScores && profile.enneagramScores.length > 0);
   return (
-    <div className="mt-6 p-6 rounded-2xl bg-white border border-slate-100 shadow-sm">
+    <div className="mt-6 p-6 rounded-2xl shadow-sm" style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.09)" }}>
       <div className="flex items-center justify-between mb-4">
         <div>
-          <h3 className="text-sm font-semibold text-slate-800">Type Resonance Map</h3>
-          <p className="text-xs text-slate-400 mt-0.5">
+          <h3 className="text-sm font-semibold text-white/93">Type Resonance Map</h3>
+          <p className="text-xs text-white/35 mt-0.5">
             {hasScores ? "Based on your assessment results" : "Estimated from your declared type"}
           </p>
         </div>
         {!hasScores && (
-          <span className="text-[10px] text-slate-400 italic bg-slate-50 border border-slate-100 rounded-full px-2 py-0.5">
+          <span className="text-[10px] text-white/35 italic bg-white/5 border border-white/[0.09] rounded-full px-2 py-0.5">
             Take the assessment for real data
           </span>
         )}
@@ -131,12 +131,12 @@ function TypeDNASection({ profile }: { profile: import("@/hooks/useProfile").Psy
             </div>
             <div className="flex-1 min-w-0">
               <div className="flex items-center justify-between mb-1">
-                <span className="text-[11px] font-medium text-slate-600 truncate">{bar.name}</span>
+                <span className="text-[11px] font-medium text-white/60 truncate">{bar.name}</span>
                 {bar.label && (
-                  <span className="text-[10px] text-slate-400 ml-2 shrink-0">{bar.label}</span>
+                  <span className="text-[10px] text-white/35 ml-2 shrink-0">{bar.label}</span>
                 )}
               </div>
-              <div className="h-1.5 rounded-full bg-slate-100 overflow-hidden">
+              <div className="h-1.5 rounded-full bg-white/10 overflow-hidden">
                 <motion.div
                   className="h-full rounded-full"
                   style={{ backgroundColor: bar.color }}
@@ -309,8 +309,8 @@ function getIntegrationTips(enneaType: number, integrationLine: number): string[
 function MBTIPicker({ selected, onSelect }: { selected?: string; onSelect: (v: string) => void }) {
   return (
     <div>
-      <label className="text-sm font-medium text-slate-600 mb-3 flex items-center gap-2">
-        <Brain className="w-4 h-4 text-indigo-500" />
+      <label className="text-sm font-medium text-white/60 mb-3 flex items-center gap-2">
+        <Brain className="w-4 h-4 text-indigo-400" />
         Jungian Type
       </label>
       <div className="grid grid-cols-4 gap-2 mt-2">
@@ -325,8 +325,8 @@ function MBTIPicker({ selected, onSelect }: { selected?: string; onSelect: (v: s
               onClick={() => onSelect(type)}
               className={`relative p-3 rounded-2xl text-sm font-semibold transition-all duration-200 border-2 ${
                 isSelected
-                  ? "border-indigo-400 bg-indigo-50 text-indigo-700 shadow-md shadow-indigo-100"
-                  : "border-slate-100 bg-white text-slate-600 hover:border-slate-200 hover:bg-slate-50"
+                  ? "border-indigo-400 bg-indigo-500/15 text-indigo-300 shadow-md"
+                  : "border-white/[0.09] bg-white/5 text-white/60 hover:border-white/20 hover:bg-white/10"
               }`}
             >
               {type}
@@ -339,7 +339,7 @@ function MBTIPicker({ selected, onSelect }: { selected?: string; onSelect: (v: s
                   <Check className="w-3 h-3 text-white" />
                 </motion.div>
               )}
-              <div className="text-[10px] font-normal text-slate-400 mt-0.5 truncate">
+              <div className="text-[10px] font-normal text-white/35 mt-0.5 truncate">
                 {data?.name?.replace(/^The /, "")}
               </div>
             </motion.button>
@@ -355,8 +355,8 @@ function MBTIPicker({ selected, onSelect }: { selected?: string; onSelect: (v: s
 function EnneagramCorePicker({ selected, onSelect }: { selected?: number; onSelect: (v: number) => void }) {
   return (
     <div>
-      <label className="text-sm font-medium text-slate-600 mb-3 flex items-center gap-2">
-        <Compass className="w-4 h-4 text-sky-500" />
+      <label className="text-sm font-medium text-white/60 mb-3 flex items-center gap-2">
+        <Compass className="w-4 h-4 text-violet-400" />
         Enneagram Core Type
       </label>
       <div className="grid grid-cols-3 gap-2 mt-2">
@@ -371,21 +371,21 @@ function EnneagramCorePicker({ selected, onSelect }: { selected?: number; onSele
               onClick={() => onSelect(num)}
               className={`relative p-3 rounded-2xl text-center transition-all duration-200 border-2 ${
                 isSelected
-                  ? "border-sky-400 bg-sky-50 shadow-md shadow-sky-100"
-                  : "border-slate-100 bg-white hover:border-slate-200 hover:bg-slate-50"
+                  ? "border-violet-400 bg-violet-500/15 shadow-md"
+                  : "border-white/[0.09] bg-white/5 hover:border-white/20 hover:bg-white/10"
               }`}
             >
-              <div className={`text-xl font-serif font-bold ${isSelected ? "text-sky-700" : "text-slate-600"}`}>
+              <div className={`text-xl font-serif font-bold ${isSelected ? "text-violet-300" : "text-white/60"}`}>
                 {num}
               </div>
-              <div className="text-[10px] text-slate-400 mt-0.5 truncate">
+              <div className="text-[10px] text-white/35 mt-0.5 truncate">
                 {data?.name?.replace(/^The /, "")}
               </div>
               {isSelected && (
                 <motion.div
                   initial={{ scale: 0 }}
                   animate={{ scale: 1 }}
-                  className="absolute -top-1.5 -right-1.5 w-5 h-5 rounded-full bg-sky-500 flex items-center justify-center"
+                  className="absolute -top-1.5 -right-1.5 w-5 h-5 rounded-full bg-violet-500 flex items-center justify-center"
                 >
                   <Check className="w-3 h-3 text-white" />
                 </motion.div>
@@ -412,8 +412,8 @@ function WingPicker({ coreType, selected, onSelect }: { coreType: number; select
 
   return (
     <div>
-      <label className="text-sm font-medium text-slate-600 mb-3 flex items-center gap-2">
-        <Star className="w-4 h-4 text-amber-500" />
+      <label className="text-sm font-medium text-white/60 mb-3 flex items-center gap-2">
+        <Star className="w-4 h-4 text-amber-400" />
         Wing
       </label>
       <div className="flex gap-3 mt-2">
@@ -427,8 +427,8 @@ function WingPicker({ coreType, selected, onSelect }: { coreType: number; select
               onClick={() => onSelect(opt.code)}
               className={`relative flex-1 p-4 rounded-2xl text-center font-semibold transition-all duration-200 border-2 ${
                 isSelected
-                  ? "border-amber-400 bg-amber-50 text-amber-700 shadow-md shadow-amber-100"
-                  : "border-slate-100 bg-white text-slate-600 hover:border-slate-200"
+                  ? "border-amber-400 bg-amber-500/15 text-amber-300 shadow-md"
+                  : "border-white/[0.09] bg-white/5 text-white/60 hover:border-white/20"
               }`}
             >
               {opt.label}
@@ -454,8 +454,8 @@ function WingPicker({ coreType, selected, onSelect }: { coreType: number; select
 function InstinctualPicker({ selected, onSelect }: { selected?: string; onSelect: (v: string) => void }) {
   return (
     <div>
-      <label className="text-sm font-medium text-slate-600 mb-3 flex items-center gap-2">
-        <Zap className="w-4 h-4 text-rose-500" />
+      <label className="text-sm font-medium text-white/60 mb-3 flex items-center gap-2">
+        <Zap className="w-4 h-4 text-rose-400" />
         Instinctual Stacking
       </label>
       <div className="grid grid-cols-3 gap-2 mt-2">
@@ -469,8 +469,8 @@ function InstinctualPicker({ selected, onSelect }: { selected?: string; onSelect
               onClick={() => onSelect(opt.code)}
               className={`relative p-3 rounded-2xl text-sm font-semibold text-center transition-all duration-200 border-2 ${
                 isSelected
-                  ? "border-rose-400 bg-rose-50 text-rose-700 shadow-md shadow-rose-100"
-                  : "border-slate-100 bg-white text-slate-600 hover:border-slate-200"
+                  ? "border-rose-400 bg-rose-500/15 text-rose-300 shadow-md"
+                  : "border-white/[0.09] bg-white/5 text-white/60 hover:border-white/20"
               }`}
             >
               {opt.label}
@@ -509,9 +509,9 @@ function getCenterLabel(type: number): string {
 }
 
 function getCenterColor(type: number): { border: string; bg: string; text: string } {
-  if ([8, 9, 1].includes(type)) return { border: "border-emerald-400", bg: "bg-emerald-50", text: "text-emerald-700" };
-  if ([2, 3, 4].includes(type)) return { border: "border-rose-400", bg: "bg-rose-50", text: "text-rose-700" };
-  return { border: "border-indigo-400", bg: "bg-indigo-50", text: "text-indigo-700" };
+  if ([8, 9, 1].includes(type)) return { border: "border-emerald-400", bg: "bg-emerald-500/15", text: "text-emerald-300" };
+  if ([2, 3, 4].includes(type)) return { border: "border-rose-400", bg: "bg-rose-500/15", text: "text-rose-300" };
+  return { border: "border-indigo-400", bg: "bg-indigo-500/15", text: "text-indigo-300" };
 }
 
 function TritypePicker({
@@ -542,23 +542,23 @@ function TritypePicker({
   return (
     <div>
       <div className="flex items-start justify-between mb-1">
-        <label className="text-sm font-medium text-slate-600 flex items-center gap-2">
-          <Target className="w-4 h-4 text-violet-500" />
+        <label className="text-sm font-medium text-white/60 flex items-center gap-2">
+          <Target className="w-4 h-4 text-violet-400" />
           Tritype
         </label>
         {tritypeDisplay && (
           <div className="text-right">
-            <span className="px-3 py-1 rounded-lg bg-violet-50 text-violet-700 text-sm font-bold font-mono border border-violet-100">
+            <span className="px-3 py-1 rounded-lg bg-violet-500/15 text-violet-300 text-sm font-bold font-mono border border-violet-500/30">
               {tritypeDisplay}
             </span>
             {archetype && (
-              <div className="text-[11px] text-violet-600 mt-1 font-medium">{archetype}</div>
+              <div className="text-[11px] text-violet-400 mt-1 font-medium">{archetype}</div>
             )}
           </div>
         )}
       </div>
-      <p className="text-xs text-slate-400 mb-1">
-        <span className="font-semibold text-slate-500">Order matters — drag to reorder.</span> Pick one type from each center (Gut: 8,9,1 · Heart: 2,3,4 · Head: 5,6,7). First is your dominant, last is least used. Tap the arrows to swap positions.
+      <p className="text-xs text-white/35 mb-1">
+        <span className="font-semibold text-white/60">Order matters — drag to reorder.</span> Pick one type from each center (Gut: 8,9,1 · Heart: 2,3,4 · Head: 5,6,7). First is your dominant, last is least used. Tap the arrows to swap positions.
       </p>
 
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-3">
@@ -568,15 +568,15 @@ function TritypePicker({
           const otherCenters = otherSlotValues.map(getCenter);
 
           return (
-            <div key={slot.label} className="rounded-2xl bg-slate-50/50 border border-slate-100 overflow-hidden">
-              <div className={`px-3 py-2 flex items-center justify-between border-b border-slate-100 ${slot.headerBg}`}>
+            <div key={slot.label} className="rounded-2xl bg-white/5 border border-white/[0.09] overflow-hidden">
+              <div className={`px-3 py-2 flex items-center justify-between border-b border-white/[0.09] bg-white/5`}>
                 <div className="flex items-center gap-2">
                   <div className={`w-5 h-5 rounded-full ${slot.dotBg} flex items-center justify-center shrink-0`}>
                     <span className="text-[10px] font-bold text-white">{slotIndex + 1}</span>
                   </div>
                   <div>
-                    <span className={`text-xs font-semibold ${slot.labelText}`}>{slot.label}</span>
-                    <span className="text-[10px] text-slate-400 ml-1.5">{slot.sublabel}</span>
+                    <span className="text-xs font-semibold text-white/93">{slot.label}</span>
+                    <span className="text-[10px] text-white/35 ml-1.5">{slot.sublabel}</span>
                   </div>
                 </div>
                 {/* Swap arrows */}
@@ -592,7 +592,7 @@ function TritypePicker({
                           if (prev !== undefined) [onFirst, onSecond, onThird][slotIndex](prev);
                         }
                       }}
-                      className="w-5 h-5 rounded bg-white/80 border border-slate-200 flex items-center justify-center text-slate-400 hover:text-slate-600 text-[10px]"
+                      className="w-5 h-5 rounded bg-white/10 border border-white/[0.09] flex items-center justify-center text-white/35 hover:text-white/60 text-[10px]"
                       title="Move up"
                     >
                       ↑
@@ -609,7 +609,7 @@ function TritypePicker({
                           if (next !== undefined) [onFirst, onSecond, onThird][slotIndex](next);
                         }
                       }}
-                      className="w-5 h-5 rounded bg-white/80 border border-slate-200 flex items-center justify-center text-slate-400 hover:text-slate-600 text-[10px]"
+                      className="w-5 h-5 rounded bg-white/10 border border-white/[0.09] flex items-center justify-center text-white/35 hover:text-white/60 text-[10px]"
                       title="Move down"
                     >
                       ↓
@@ -639,14 +639,14 @@ function TritypePicker({
                           isSelectedHere
                             ? `${centerColors.border} ${centerColors.bg} shadow-sm`
                             : isDisabled
-                            ? "border-slate-100 bg-slate-50 opacity-30 cursor-not-allowed"
-                            : "border-slate-100 bg-white hover:border-slate-200"
+                            ? "border-white/[0.09] bg-white/5 opacity-30 cursor-not-allowed"
+                            : "border-white/[0.09] bg-white/5 hover:border-white/20"
                         }`}
                       >
-                        <div className={`text-base font-serif font-bold ${isSelectedHere ? centerColors.text : "text-slate-600"}`}>
+                        <div className={`text-base font-serif font-bold ${isSelectedHere ? centerColors.text : "text-white/60"}`}>
                           {num}
                         </div>
-                        <div className={`text-[8px] truncate ${isSelectedHere ? centerColors.text : "text-slate-400"}`}>
+                        <div className={`text-[8px] truncate ${isSelectedHere ? centerColors.text : "text-white/35"}`}>
                           {getCenterLabel(num)}
                         </div>
                         {isSelectedHere && (
@@ -663,8 +663,8 @@ function TritypePicker({
                   })}
                 </div>
                 {slot.value && (
-                  <div className="mt-2 px-2 py-1.5 rounded-xl bg-white border border-slate-100 flex items-center justify-between">
-                    <span className="text-xs font-medium text-slate-700">
+                  <div className="mt-2 px-2 py-1.5 rounded-xl bg-white/5 border border-white/[0.09] flex items-center justify-between">
+                    <span className="text-xs font-medium text-white/93">
                       Type {slot.value} — {enneagramTypes.find(t => t.number === slot.value)?.name}
                     </span>
                     <span className={`text-[10px] font-medium px-1.5 py-0.5 rounded-md ${getCenterColor(slot.value).bg} ${getCenterColor(slot.value).text}`}>
@@ -682,14 +682,14 @@ function TritypePicker({
         <motion.div
           initial={{ opacity: 1, y: 0 }}
           animate={{ opacity: 1, y: 0 }}
-          className="mt-3 p-3 rounded-2xl bg-violet-50 border border-violet-100 flex items-center gap-3"
+          className="mt-3 p-3 rounded-2xl bg-violet-500/10 border border-violet-500/20 flex items-center gap-3"
         >
           <div className="w-7 h-7 rounded-xl bg-violet-500 flex items-center justify-center shrink-0">
             <Target className="w-3.5 h-3.5 text-white" />
           </div>
           <div>
-            <div className="text-xs font-semibold text-violet-700">{selected.join("-")} — {archetype}</div>
-            <div className="text-[10px] text-violet-500 mt-0.5">
+            <div className="text-xs font-semibold text-violet-300">{selected.join("-")} — {archetype}</div>
+            <div className="text-[10px] text-violet-400 mt-0.5">
               Dominant: {selected[0]} ({getCenterLabel(selected[0])} center) · Second: {selected[1]} ({getCenterLabel(selected[1])} center) · Third: {selected[2]} ({getCenterLabel(selected[2])} center)
             </div>
           </div>
@@ -748,7 +748,7 @@ function ProfileCard({ profile }: { profile: PsycheProfile }) {
       initial={{ opacity: 1, y: 0 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
-      className="rounded-3xl bg-gradient-to-br from-white via-sky-50/50 to-indigo-50/50 border border-sky-100 p-6 sm:p-8 shadow-lg shadow-sky-100/30"
+      className="rounded-3xl p-6 sm:p-8 shadow-lg" style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.09)" }}
     >
       <div className="flex items-start justify-between mb-6">
         <div className="flex items-center gap-4">
@@ -757,8 +757,8 @@ function ProfileCard({ profile }: { profile: PsycheProfile }) {
               initial={{ scale: 0, rotate: -10 }}
               animate={{ scale: 1, rotate: 0 }}
               transition={{ type: "spring", bounce: 0.5 }}
-              className="rounded-2xl bg-gradient-to-br from-white to-sky-50 border-2 border-sky-100 shadow-lg shadow-sky-100/30 overflow-visible flex items-center justify-center"
-              style={{ width: 160, height: 160 }}
+              className="rounded-2xl border-2 border-white/[0.09] shadow-lg overflow-visible flex items-center justify-center"
+              style={{ background: "rgba(255,255,255,0.05)", width: 160, height: 160 }}
             >
               <ChibiSprite
                 type={(profile.enneagramType ?? profile.enneagramCore)!}
@@ -773,10 +773,10 @@ function ProfileCard({ profile }: { profile: PsycheProfile }) {
             </div>
           )}
           <div>
-            <h2 className="text-2xl sm:text-3xl font-serif font-bold text-slate-800 tracking-tight">
+            <h2 className="text-2xl sm:text-3xl font-serif font-bold text-white/93 tracking-tight">
               Your Type at a Glance
             </h2>
-            <p className="text-sm text-slate-500 mt-1">Your unique psychological fingerprint</p>
+            <p className="text-sm text-white/60 mt-1">Your unique psychological fingerprint</p>
           </div>
         </div>
       </div>
@@ -785,9 +785,9 @@ function ProfileCard({ profile }: { profile: PsycheProfile }) {
         {/* Jungian Type Section */}
         {mbtiData && (
           <div className="space-y-4">
-            <div className="p-5 rounded-2xl bg-white/80 backdrop-blur border border-indigo-100/50">
+            <div className="p-5 rounded-2xl backdrop-blur border border-white/[0.09]" style={{ background: "rgba(255,255,255,0.05)" }}>
               <div className="flex items-center gap-2 mb-2">
-                <div className="text-xs font-medium text-indigo-500 uppercase tracking-wider">Cognitive Type</div>
+                <div className="text-xs font-medium text-indigo-400 uppercase tracking-wider">Cognitive Type</div>
                 <GlossaryTip term="cognitive functions" />
               </div>
               <BeginnerBanner
@@ -800,14 +800,14 @@ function ProfileCard({ profile }: { profile: PsycheProfile }) {
                 <span className="text-4xl font-serif font-bold" style={{ color: mbtiData.color }}>
                   {mbtiData.code}
                 </span>
-                <span className="text-sm text-slate-500">{mbtiData.name}</span>
+                <span className="text-sm text-white/60">{mbtiData.name}</span>
               </div>
-              <p className="text-xs text-slate-500 mt-2 leading-relaxed">{mbtiData.brief}</p>
+              <p className="text-xs text-white/60 mt-2 leading-relaxed">{mbtiData.brief}</p>
 
               {/* Function Stack Visualization */}
               <div className="mt-4 space-y-2">
                 <div className="flex items-center gap-1.5">
-                  <div className="text-[10px] uppercase tracking-wider text-slate-400 font-medium">Function Stack</div>
+                  <div className="text-[10px] uppercase tracking-wider text-white/35 font-medium">Function Stack</div>
                   <GlossaryTip term="cognitive stack" />
                 </div>
                 <div className="flex gap-1.5">
@@ -826,7 +826,7 @@ function ProfileCard({ profile }: { profile: PsycheProfile }) {
                         <div className="text-[10px] font-mono font-medium text-center" style={{ color: func?.color }}>
                           {fn}
                         </div>
-                        <div className="text-[8px] text-slate-400 text-center">{labels[i]}</div>
+                        <div className="text-[8px] text-white/35 text-center">{labels[i]}</div>
                       </div>
                     );
                   })}
@@ -839,41 +839,41 @@ function ProfileCard({ profile }: { profile: PsycheProfile }) {
         {/* Enneagram Section */}
         {enneaData && (
           <div className="space-y-4">
-            <div className="p-5 rounded-2xl bg-white/80 backdrop-blur border border-sky-100/50">
-              <div className="text-xs font-medium text-sky-500 uppercase tracking-wider mb-2">Enneagram</div>
+            <div className="p-5 rounded-2xl backdrop-blur border border-white/[0.09]" style={{ background: "rgba(255,255,255,0.05)" }}>
+              <div className="text-xs font-medium text-violet-400 uppercase tracking-wider mb-2">Enneagram</div>
               <div className="flex items-baseline gap-3">
                 <span className="text-4xl font-serif font-bold" style={{ color: enneaData.color }}>
                   {enneaData.number}
                 </span>
-                <span className="text-sm text-slate-500">{enneaData.name}</span>
+                <span className="text-sm text-white/60">{enneaData.name}</span>
               </div>
-              <p className="text-xs text-slate-500 mt-2 leading-relaxed">{enneaData.brief}</p>
+              <p className="text-xs text-white/60 mt-2 leading-relaxed">{enneaData.brief}</p>
 
               <div className="mt-4 flex flex-wrap gap-2">
                 {profile.enneagramWing && (
-                  <span className="px-2.5 py-1 rounded-lg bg-amber-50 text-amber-700 text-xs font-medium border border-amber-100">
+                  <span className="px-2.5 py-1 rounded-lg bg-amber-500/15 text-amber-300 text-xs font-medium border border-amber-500/30">
                     {profile.enneagramWing}
                   </span>
                 )}
                 {profile.instinctualStacking && (
-                  <span className="px-2.5 py-1 rounded-lg bg-rose-50 text-rose-700 text-xs font-medium border border-rose-100">
+                  <span className="px-2.5 py-1 rounded-lg bg-rose-500/15 text-rose-300 text-xs font-medium border border-rose-500/30">
                     {profile.instinctualStacking}
                   </span>
                 )}
                 {tritypeOrdered && (
                   <div className="w-full mt-1">
                     <div className="flex items-center gap-2 flex-wrap">
-                      <span className="px-2.5 py-1 rounded-lg bg-violet-50 text-violet-700 text-xs font-medium border border-violet-100 font-mono">
+                      <span className="px-2.5 py-1 rounded-lg bg-violet-500/15 text-violet-300 text-xs font-medium border border-violet-500/30 font-mono">
                         {tritypeOrdered.join("-")}
                         {tritypeThyself ? ` \u2014 ${tritypeThyself}` : ""}
                       </span>
                     </div>
-                    <div className="mt-1.5 flex gap-2 flex-wrap text-[10px] text-slate-400">
-                      <span><span className="font-medium text-slate-500">1st (dominant):</span> Type {tritypeOrdered[0]} · {getCenterLabel(tritypeOrdered[0])} center</span>
-                      <span className="text-slate-200">·</span>
-                      <span><span className="font-medium text-slate-500">2nd:</span> Type {tritypeOrdered[1]} · {getCenterLabel(tritypeOrdered[1])} center</span>
-                      <span className="text-slate-200">·</span>
-                      <span><span className="font-medium text-slate-500">3rd:</span> Type {tritypeOrdered[2]} · {getCenterLabel(tritypeOrdered[2])} center</span>
+                    <div className="mt-1.5 flex gap-2 flex-wrap text-[10px] text-white/35">
+                      <span><span className="font-medium text-white/60">1st (dominant):</span> Type {tritypeOrdered[0]} · {getCenterLabel(tritypeOrdered[0])} center</span>
+                      <span className="text-white/10">·</span>
+                      <span><span className="font-medium text-white/60">2nd:</span> Type {tritypeOrdered[1]} · {getCenterLabel(tritypeOrdered[1])} center</span>
+                      <span className="text-white/10">·</span>
+                      <span><span className="font-medium text-white/60">3rd:</span> Type {tritypeOrdered[2]} · {getCenterLabel(tritypeOrdered[2])} center</span>
                     </div>
                   </div>
                 )}
@@ -889,7 +889,7 @@ function ProfileCard({ profile }: { profile: PsycheProfile }) {
           <>
             <Link
               href={`/cognitive/learn?type=${mbtiData.code}`}
-              className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-indigo-50 text-indigo-700 text-xs font-medium hover:bg-indigo-100 transition border border-indigo-100"
+              className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-indigo-500/15 text-indigo-300 text-xs font-medium hover:bg-indigo-500/25 transition border border-indigo-500/30"
             >
               <Brain className="w-3.5 h-3.5" />
               Learn about your type
@@ -897,7 +897,7 @@ function ProfileCard({ profile }: { profile: PsycheProfile }) {
             </Link>
             <Link
               href={`/cognitive/learn?type=${mbtiData.code}#shadow`}
-              className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-slate-50 text-slate-700 text-xs font-medium hover:bg-slate-100 transition border border-slate-100"
+              className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-white/5 text-white/60 text-xs font-medium hover:bg-white/10 transition border border-white/[0.09]"
             >
               <Eye className="w-3.5 h-3.5" />
               See your shadow stack <GlossaryTip term="shadow" />
@@ -908,7 +908,7 @@ function ProfileCard({ profile }: { profile: PsycheProfile }) {
         {enneaData && profile.instinctualStacking && (
           <Link
             href={`/enneagram/learn?type=${enneaData.number}`}
-            className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-sky-50 text-sky-700 text-xs font-medium hover:bg-sky-100 transition border border-sky-100"
+            className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-violet-500/15 text-violet-300 text-xs font-medium hover:bg-violet-500/25 transition border border-violet-500/30"
           >
             <Compass className="w-3.5 h-3.5" />
             Explore your subtype
@@ -944,34 +944,34 @@ function PersonalizedInsights({ profile }: { profile: PsycheProfile }) {
           <Sparkles className="w-4 h-4 text-white" />
         </div>
         <div>
-          <h3 className="text-xl font-serif font-bold text-slate-800">Personalized Insights</h3>
-          <p className="text-xs text-slate-500">Tailored to your unique type combination</p>
+          <h3 className="text-xl font-serif font-bold text-white/93">Personalized Insights</h3>
+          <p className="text-xs text-white/60">Tailored to your unique type combination</p>
         </div>
       </div>
 
       <div className="grid sm:grid-cols-2 gap-4">
         {/* Dominant Function Daily Reflection */}
         {domFunc && (
-          <div className="p-5 rounded-2xl bg-gradient-to-br from-indigo-50/80 to-violet-50/50 border border-indigo-100/50 backdrop-blur">
+          <div className="p-5 rounded-2xl bg-indigo-500/10 border border-indigo-500/20 backdrop-blur">
             <div className="flex items-center gap-2 mb-3">
               <div className="w-6 h-6 rounded-lg flex items-center justify-center" style={{ backgroundColor: domFunc.color + "20" }}>
                 <Brain className="w-3.5 h-3.5" style={{ color: domFunc.color }} />
               </div>
-              <span className="text-xs font-medium text-slate-500">Your Dominant: {domFunc.name}</span>
+              <span className="text-xs font-medium text-white/60">Your Dominant: {domFunc.name}</span>
             </div>
-            <p className="text-sm text-slate-700 leading-relaxed italic">
+            <p className="text-sm text-white/80 leading-relaxed italic">
               &ldquo;{getDailyPrompt(dominant!)}&rdquo;
             </p>
-            <div className="mt-3 text-[10px] text-slate-400 uppercase tracking-wider">Daily reflection prompt</div>
+            <div className="mt-3 text-[10px] text-white/35 uppercase tracking-wider">Daily reflection prompt</div>
           </div>
         )}
 
         {/* Enneagram Growth & Stress Arrows */}
         {enneaData && (
-          <div className="p-5 rounded-2xl bg-white border border-slate-100">
+          <div className="p-5 rounded-2xl" style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.09)" }}>
             <div className="flex items-center gap-2 mb-3">
-              <TrendingUp className="w-4 h-4 text-emerald-500" />
-              <span className="text-xs font-medium text-slate-500">Growth &amp; Stress Arrows</span>
+              <TrendingUp className="w-4 h-4 text-emerald-400" />
+              <span className="text-xs font-medium text-white/60">Growth &amp; Stress Arrows</span>
             </div>
             <div className="space-y-3">
               <div className="flex items-center gap-3">
@@ -979,11 +979,11 @@ function PersonalizedInsights({ profile }: { profile: PsycheProfile }) {
                   {enneaData.number}
                 </div>
                 <ArrowRight className="w-4 h-4 text-emerald-400" />
-                <div className="w-8 h-8 rounded-xl flex items-center justify-center text-white font-serif font-bold text-sm ring-2 ring-emerald-200" style={{ backgroundColor: enneagramTypes.find(t => t.number === enneaData.integrationLine)?.color }}>
+                <div className="w-8 h-8 rounded-xl flex items-center justify-center text-white font-serif font-bold text-sm ring-2 ring-emerald-500/30" style={{ backgroundColor: enneagramTypes.find(t => t.number === enneaData.integrationLine)?.color }}>
                   {enneaData.integrationLine}
                 </div>
-                <div className="text-xs text-slate-600">
-                  <span className="font-medium text-emerald-600">Growth</span> &mdash; {enneagramTypes.find(t => t.number === enneaData.integrationLine)?.name}
+                <div className="text-xs text-white/60">
+                  <span className="font-medium text-emerald-400">Growth</span> &mdash; {enneagramTypes.find(t => t.number === enneaData.integrationLine)?.name}
                 </div>
               </div>
               <div className="flex items-center gap-3">
@@ -991,11 +991,11 @@ function PersonalizedInsights({ profile }: { profile: PsycheProfile }) {
                   {enneaData.number}
                 </div>
                 <ArrowRight className="w-4 h-4 text-rose-400" />
-                <div className="w-8 h-8 rounded-xl flex items-center justify-center text-white font-serif font-bold text-sm ring-2 ring-rose-200" style={{ backgroundColor: enneagramTypes.find(t => t.number === enneaData.disintegrationLine)?.color }}>
+                <div className="w-8 h-8 rounded-xl flex items-center justify-center text-white font-serif font-bold text-sm ring-2 ring-rose-500/30" style={{ backgroundColor: enneagramTypes.find(t => t.number === enneaData.disintegrationLine)?.color }}>
                   {enneaData.disintegrationLine}
                 </div>
-                <div className="text-xs text-slate-600">
-                  <span className="font-medium text-rose-600">Stress</span> &mdash; {enneagramTypes.find(t => t.number === enneaData.disintegrationLine)?.name}
+                <div className="text-xs text-white/60">
+                  <span className="font-medium text-rose-400">Stress</span> &mdash; {enneagramTypes.find(t => t.number === enneaData.disintegrationLine)?.name}
                 </div>
               </div>
             </div>
@@ -1004,14 +1004,14 @@ function PersonalizedInsights({ profile }: { profile: PsycheProfile }) {
 
         {/* Instinctual Stacking Blind Spot */}
         {stackingData && (
-          <div className="p-5 rounded-2xl bg-gradient-to-br from-rose-50/80 to-amber-50/50 border border-rose-100/50">
+          <div className="p-5 rounded-2xl bg-rose-500/10 border border-rose-500/20">
             <div className="flex items-center gap-2 mb-3">
-              <Eye className="w-4 h-4 text-rose-500" />
-              <span className="text-xs font-medium text-slate-500">Your Blind Spot: {stackingData.blind}</span>
+              <Eye className="w-4 h-4 text-rose-400" />
+              <span className="text-xs font-medium text-white/60">Your Blind Spot: {stackingData.blind}</span>
             </div>
-            <p className="text-sm text-slate-700 leading-relaxed">
+            <p className="text-sm text-white/80 leading-relaxed">
               As a <span className="font-semibold">{profile.instinctualStacking}</span>, your blind spot is{" "}
-              <span className="font-semibold text-rose-600">{stackingData.blind}</span> energy.{" "}
+              <span className="font-semibold text-rose-300">{stackingData.blind}</span> energy.{" "}
               {stackingData.blind === "Social"
                 ? "You may overlook group dynamics, social expectations, and your role within communities."
                 : stackingData.blind === "Sexual"
@@ -1023,12 +1023,12 @@ function PersonalizedInsights({ profile }: { profile: PsycheProfile }) {
 
         {/* Type Combination Insight */}
         {mbtiData && enneaData && (
-          <div className="p-5 rounded-2xl bg-gradient-to-br from-sky-50/80 to-indigo-50/50 border border-sky-100/50">
+          <div className="p-5 rounded-2xl bg-violet-500/10 border border-violet-500/20">
             <div className="flex items-center gap-2 mb-3">
-              <Zap className="w-4 h-4 text-sky-500" />
-              <span className="text-xs font-medium text-slate-500">Type Combination Insight</span>
+              <Zap className="w-4 h-4 text-violet-400" />
+              <span className="text-xs font-medium text-white/60">Type Combination Insight</span>
             </div>
-            <p className="text-sm text-slate-700 leading-relaxed">
+            <p className="text-sm text-white/80 leading-relaxed">
               {getTypeCombinationInsight(
                 profile.mbtiType!,
                 (profile.enneagramType ?? profile.enneagramCore)!,
@@ -1061,15 +1061,15 @@ function GrowthEdge({ profile }: { profile: PsycheProfile }) {
       initial={{ opacity: 1, y: 0 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay: 0.2 }}
-      className="rounded-3xl bg-gradient-to-br from-emerald-50/80 via-white to-sky-50/50 border border-emerald-100/50 p-6 sm:p-8 shadow-lg shadow-emerald-100/20"
+      className="rounded-3xl p-6 sm:p-8 shadow-lg bg-emerald-500/10 border border-emerald-500/20"
     >
       <div className="flex items-center gap-3 mb-6">
         <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-emerald-400 to-teal-500 flex items-center justify-center shadow-lg shadow-emerald-200/50">
           <TrendingUp className="w-4 h-4 text-white" />
         </div>
         <div>
-          <h3 className="text-xl font-serif font-bold text-slate-800">Your Growth Edge</h3>
-          <p className="text-xs text-slate-500">Where your deepest transformation awaits</p>
+          <h3 className="text-xl font-serif font-bold text-white/93">Your Growth Edge</h3>
+          <p className="text-xs text-white/60">Where your deepest transformation awaits</p>
         </div>
       </div>
 
@@ -1082,18 +1082,18 @@ function GrowthEdge({ profile }: { profile: PsycheProfile }) {
                 <Brain className="w-3.5 h-3.5" style={{ color: inferiorFunc.color }} />
               </div>
               <div>
-                <div className="text-sm font-medium text-slate-700">Inferior Function: {inferiorFunc.code}</div>
-                <div className="text-[10px] text-slate-400">{inferiorFunc.name} &mdash; {inferiorFunc.alias}</div>
+                <div className="text-sm font-medium text-white/93">Inferior Function: {inferiorFunc.code}</div>
+                <div className="text-[10px] text-white/35">{inferiorFunc.name} &mdash; {inferiorFunc.alias}</div>
               </div>
             </div>
-            <p className="text-xs text-slate-500 leading-relaxed">
+            <p className="text-xs text-white/60 leading-relaxed">
               {shadowPositions?.[3]?.description?.slice(0, 200) || "Your inferior function is your aspirational edge \u2014 challenging yet deeply rewarding to develop."}
             </p>
             <ul className="space-y-2">
               {inferiorTips.map((tip, i) => (
-                <li key={i} className="flex items-start gap-2 text-xs text-slate-600">
-                  <div className="w-4 h-4 rounded-full bg-emerald-100 flex items-center justify-center flex-shrink-0 mt-0.5">
-                    <span className="text-[8px] font-bold text-emerald-600">{i + 1}</span>
+                <li key={i} className="flex items-start gap-2 text-xs text-white/60">
+                  <div className="w-4 h-4 rounded-full bg-emerald-500/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+                    <span className="text-[8px] font-bold text-emerald-400">{i + 1}</span>
                   </div>
                   {tip}
                 </li>
@@ -1106,34 +1106,34 @@ function GrowthEdge({ profile }: { profile: PsycheProfile }) {
         {enneaData && (
           <div className="space-y-3">
             <div className="flex items-center gap-2">
-              <div className="w-6 h-6 rounded-lg bg-emerald-100 flex items-center justify-center">
-                <Compass className="w-3.5 h-3.5 text-emerald-600" />
+              <div className="w-6 h-6 rounded-lg bg-emerald-500/20 flex items-center justify-center">
+                <Compass className="w-3.5 h-3.5 text-emerald-400" />
               </div>
               <div>
-                <div className="text-sm font-medium text-slate-700">
+                <div className="text-sm font-medium text-white/93">
                   Integration: Type {enneaData.number} &rarr; {enneaData.integrationLine}
                 </div>
-                <div className="text-[10px] text-slate-400">
+                <div className="text-[10px] text-white/35">
                   {enneaData.name} integrates to {enneagramTypes.find(t => t.number === enneaData.integrationLine)?.name}
                 </div>
               </div>
             </div>
-            <p className="text-xs text-slate-500 leading-relaxed">
+            <p className="text-xs text-white/60 leading-relaxed">
               When you're growing, you take on the healthy traits of Type {enneaData.integrationLine}. This is your path toward wholeness.
             </p>
             <ul className="space-y-2">
               {integrationTips.map((tip, i) => (
-                <li key={i} className="flex items-start gap-2 text-xs text-slate-600">
-                  <div className="w-4 h-4 rounded-full bg-emerald-100 flex items-center justify-center flex-shrink-0 mt-0.5">
-                    <span className="text-[8px] font-bold text-emerald-600">{i + 1}</span>
+                <li key={i} className="flex items-start gap-2 text-xs text-white/60">
+                  <div className="w-4 h-4 rounded-full bg-emerald-500/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+                    <span className="text-[8px] font-bold text-emerald-400">{i + 1}</span>
                   </div>
                   {tip}
                 </li>
               ))}
             </ul>
             {enneaData.growthTips[0] && (
-              <div className="mt-2 p-3 rounded-xl bg-emerald-50 border border-emerald-100">
-                <p className="text-xs text-emerald-700 italic">&ldquo;{enneaData.growthTips[0]}&rdquo;</p>
+              <div className="mt-2 p-3 rounded-xl bg-emerald-500/10 border border-emerald-500/20">
+                <p className="text-xs text-emerald-300 italic">&ldquo;{enneaData.growthTips[0]}&rdquo;</p>
               </div>
             )}
           </div>
@@ -1284,7 +1284,7 @@ function TodaysIntentionCard({ profile }: { profile: Pick<PsycheProfile, "enneag
       initial={{ opacity: 1, y: 0 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay: 0.25 }}
-      className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-emerald-50 via-teal-50/60 to-sky-50 border border-emerald-100/70 p-6 sm:p-8 shadow-lg shadow-emerald-100/20"
+      className="relative overflow-hidden rounded-3xl p-6 sm:p-8 shadow-lg bg-emerald-500/10 border border-emerald-500/20"
     >
       <div className="absolute top-0 right-0 w-40 h-40 bg-gradient-to-bl from-emerald-100/30 to-transparent rounded-bl-full pointer-events-none" />
       <div className="relative">
@@ -1294,14 +1294,14 @@ function TodaysIntentionCard({ profile }: { profile: Pick<PsycheProfile, "enneag
               <Wand2 className="w-5 h-5 text-white" />
             </div>
             <div>
-              <h3 className="text-lg font-serif font-bold text-slate-800">Today&apos;s Intention</h3>
-              <p className="text-xs text-slate-500">A practice for your type · resets daily</p>
+              <h3 className="text-lg font-serif font-bold text-white/93">Today&apos;s Intention</h3>
+              <p className="text-xs text-white/60">A practice for your type · resets daily</p>
             </div>
           </div>
           <button
             onClick={() => fetchIntention(true)}
             disabled={loading}
-            className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-emerald-100 hover:bg-emerald-200 text-emerald-700 text-xs font-medium transition-all disabled:opacity-50"
+            className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-300 text-xs font-medium transition-all disabled:opacity-50"
           >
             <RefreshCw className={`w-3 h-3 ${loading ? "animate-spin" : ""}`} />
             Refresh
@@ -1311,9 +1311,9 @@ function TodaysIntentionCard({ profile }: { profile: Pick<PsycheProfile, "enneag
         {/* Loading shimmer skeleton */}
         {loading && !intention && (
           <div className="space-y-2.5">
-            <div className="h-4 bg-emerald-100 rounded-full w-full animate-pulse" />
-            <div className="h-4 bg-emerald-100 rounded-full w-5/6 animate-pulse" style={{ animationDelay: "75ms" }} />
-            <div className="h-4 bg-emerald-100 rounded-full w-3/4 animate-pulse" style={{ animationDelay: "150ms" }} />
+            <div className="h-4 bg-emerald-500/20 rounded-full w-full animate-pulse" />
+            <div className="h-4 bg-emerald-500/20 rounded-full w-5/6 animate-pulse" style={{ animationDelay: "75ms" }} />
+            <div className="h-4 bg-emerald-500/20 rounded-full w-3/4 animate-pulse" style={{ animationDelay: "150ms" }} />
           </div>
         )}
 
@@ -1326,9 +1326,9 @@ function TodaysIntentionCard({ profile }: { profile: Pick<PsycheProfile, "enneag
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -4 }}
               transition={{ duration: 0.35 }}
-              className="p-4 rounded-2xl bg-white/70 border border-emerald-100/60"
+              className="p-4 rounded-2xl bg-white/5 border border-emerald-500/20"
             >
-              <p className="text-slate-700 leading-relaxed font-serif text-[15px]">
+              <p className="text-white/80 leading-relaxed font-serif text-[15px]">
                 {intention}
                 {loading && (
                   <span className="inline-block w-0.5 h-4 bg-emerald-500 ml-0.5 animate-pulse" />
@@ -1407,13 +1407,13 @@ export default function ProfilePage() {
   if (!loaded) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <div className="w-8 h-8 rounded-full border-2 border-sky-400 border-t-transparent animate-spin" />
+        <div className="w-8 h-8 rounded-full border-2 border-violet-400 border-t-transparent animate-spin" />
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-slate-50 via-white to-sky-50/30">
+    <div className="min-h-screen" style={{ background: "linear-gradient(160deg, #160f38 0%, #0f0a1e 100%)" }}>
       <FirstVisitTooltip
         storageKey="psyche-visited-profile"
         message="Set your Enneagram type here — your daily practice and chibi pet unlock once you do!"
@@ -1469,10 +1469,10 @@ export default function ProfilePage() {
               <UserCircle className="w-6 h-6 text-white" />
             </div>
             <div>
-              <h1 className="text-3xl sm:text-4xl font-serif font-bold text-slate-800 tracking-tight">
+              <h1 className="text-3xl sm:text-4xl font-serif font-bold text-white tracking-tight">
                 My Profile
               </h1>
-              <p className="text-sm text-slate-500 mt-0.5">Your personality type dashboard</p>
+              <p className="text-sm text-white/60 mt-0.5">Your personality type dashboard</p>
             </div>
           </div>
           {hasProfile && (
@@ -1482,8 +1482,8 @@ export default function ProfilePage() {
               onClick={() => setIsEditing(!isEditing)}
               className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium transition-all ${
                 isEditing
-                  ? "bg-sky-500 text-white shadow-lg shadow-sky-200/50"
-                  : "bg-white text-slate-600 border border-slate-200 hover:border-sky-200 hover:text-sky-600"
+                  ? "bg-violet-500 text-white shadow-lg shadow-violet-500/30"
+                  : "bg-white/5 text-white/60 border border-white/[0.09] hover:border-violet-500/40 hover:text-violet-300"
               }`}
             >
               {isEditing ? (
@@ -1507,13 +1507,13 @@ export default function ProfilePage() {
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4 }}
-            className="mb-10 rounded-3xl bg-gradient-to-br from-sky-50 via-indigo-50/60 to-violet-50 border border-sky-100 p-8 sm:p-10 text-center shadow-lg shadow-sky-100/30"
+            className="mb-10 rounded-3xl bg-violet-500/10 border border-violet-500/20 p-8 sm:p-10 text-center shadow-lg"
           >
-            <div className="w-20 h-20 mx-auto mb-5 rounded-3xl bg-gradient-to-br from-sky-400 to-indigo-500 flex items-center justify-center shadow-xl shadow-sky-200/50">
+            <div className="w-20 h-20 mx-auto mb-5 rounded-3xl bg-gradient-to-br from-violet-500 to-indigo-500 flex items-center justify-center shadow-xl">
               <Sparkles className="w-10 h-10 text-white" />
             </div>
-            <h2 className="text-2xl font-serif font-bold text-slate-800 mb-2">Your profile is empty</h2>
-            <p className="text-slate-500 text-sm max-w-md mx-auto mb-6 leading-relaxed">
+            <h2 className="text-2xl font-serif font-bold text-white/93 mb-2">Your profile is empty</h2>
+            <p className="text-white/60 text-sm max-w-md mx-auto mb-6 leading-relaxed">
               Tell Thyself your Enneagram type and MBTI — everything personalises once you do.
             </p>
             <div className="flex flex-wrap justify-center gap-3 mb-8">
@@ -1524,7 +1524,7 @@ export default function ProfilePage() {
               ].map((item) => (
                 <span
                   key={item.text}
-                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/80 border border-sky-100 text-xs font-medium text-slate-600 shadow-sm"
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/5 border border-white/[0.09] text-xs font-medium text-white/60 shadow-sm"
                 >
                   <span>{item.icon}</span>
                   {item.text}
@@ -1535,7 +1535,7 @@ export default function ProfilePage() {
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.97 }}
               onClick={() => setIsEditing(true)}
-              className="px-8 py-3 rounded-2xl bg-gradient-to-r from-sky-500 to-indigo-500 text-white font-semibold shadow-lg shadow-sky-200/50 hover:shadow-xl transition-all"
+              className="px-8 py-3 rounded-2xl bg-gradient-to-r from-violet-500 to-indigo-500 text-white font-semibold shadow-lg hover:shadow-xl transition-all"
             >
               Set up my profile →
             </motion.button>
@@ -1553,10 +1553,10 @@ export default function ProfilePage() {
               transition={{ duration: 0.3 }}
               className="overflow-hidden mb-10"
             >
-              <div className="rounded-3xl bg-white border border-slate-200 p-6 sm:p-8 shadow-lg shadow-slate-100/50">
+              <div className="rounded-3xl p-6 sm:p-8 shadow-lg" style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.09)" }}>
                 <div className="flex items-center gap-3 mb-6">
-                  <Settings className="w-5 h-5 text-slate-400" />
-                  <h2 className="text-lg font-serif font-bold text-slate-800">
+                  <Settings className="w-5 h-5 text-white/35" />
+                  <h2 className="text-lg font-serif font-bold text-white/93">
                     {hasProfile ? "Edit Your Type" : "Set Up Your Profile"}
                   </h2>
                 </div>
@@ -1564,7 +1564,7 @@ export default function ProfilePage() {
                 <div className="space-y-8">
                   <MBTIPicker selected={compat.mbtiType} onSelect={(v) => updateField("cognitiveType", v)} />
 
-                  <div className="border-t border-slate-100" />
+                  <div className="border-t border-white/[0.09]" />
 
                   <EnneagramCorePicker selected={compat.enneagramCore} onSelect={(v) => updateField("enneagramType", v)} />
 
@@ -1578,14 +1578,14 @@ export default function ProfilePage() {
                     </motion.div>
                   )}
 
-                  <div className="border-t border-slate-100" />
+                  <div className="border-t border-white/[0.09]" />
 
                   <InstinctualPicker
                     selected={compat.instinctualStacking}
                     onSelect={(v) => updateField("instinctualStacking", v)}
                   />
 
-                  <div className="border-t border-slate-100" />
+                  <div className="border-t border-white/[0.09]" />
 
                   <TritypePicker
                     first={compat.tritypeFirst}
@@ -1604,7 +1604,7 @@ export default function ProfilePage() {
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                     onClick={() => setIsEditing(false)}
-                    className="mt-8 w-full py-3 rounded-2xl bg-gradient-to-r from-sky-500 to-indigo-500 text-white font-medium shadow-lg shadow-sky-200/50 hover:shadow-xl hover:shadow-sky-200/50 transition-all"
+                    className="mt-8 w-full py-3 rounded-2xl bg-gradient-to-r from-violet-500 to-indigo-500 text-white font-medium shadow-lg hover:shadow-xl transition-all"
                   >
                     <span className="flex items-center justify-center gap-2">
                       <Check className="w-4 h-4" />
@@ -1632,15 +1632,15 @@ export default function ProfilePage() {
             initial={{ opacity: 1, y: 0 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3 }}
-            className="p-6 rounded-3xl bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-200/60"
+            className="p-6 rounded-3xl bg-amber-500/10 border border-amber-500/20"
           >
             <div className="flex items-start gap-4">
-              <div className="w-10 h-10 rounded-xl bg-amber-100 flex items-center justify-center shrink-0">
-                <Target className="w-5 h-5 text-amber-600" />
+              <div className="w-10 h-10 rounded-xl bg-amber-500/20 flex items-center justify-center shrink-0">
+                <Target className="w-5 h-5 text-amber-400" />
               </div>
               <div className="flex-1">
-                <h3 className="text-base font-serif font-bold text-slate-800 mb-1">Complete Your Profile</h3>
-                <p className="text-sm text-slate-600 mb-4">
+                <h3 className="text-base font-serif font-bold text-white/93 mb-1">Complete Your Profile</h3>
+                <p className="text-sm text-white/80 mb-4">
                   {!compat.mbtiType && compat.enneagramCore
                     ? "You know your Enneagram type — now discover your cognitive function stack to get the full picture."
                     : !compat.enneagramCore && compat.mbtiType
@@ -1668,7 +1668,7 @@ export default function ProfilePage() {
                   )}
                   <button
                     onClick={() => setIsEditing(true)}
-                    className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white text-slate-600 text-sm font-medium border border-slate-200 hover:border-slate-300 transition"
+                    className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white/5 text-white/60 text-sm font-medium border border-white/[0.09] hover:border-white/20 transition"
                   >
                     <Edit3 className="w-3.5 h-3.5" />
                     I know it — enter manually
@@ -1686,30 +1686,30 @@ export default function ProfilePage() {
             animate={{ opacity: 1, y: 0 }}
             className="text-center py-20"
           >
-            <div className="w-16 h-16 mx-auto rounded-2xl bg-gradient-to-br from-sky-100 to-indigo-100 flex items-center justify-center mb-6">
-              <UserCircle className="w-8 h-8 text-sky-500" />
+            <div className="w-16 h-16 mx-auto rounded-2xl bg-violet-500/15 flex items-center justify-center mb-6">
+              <UserCircle className="w-8 h-8 text-violet-400" />
             </div>
-            <h2 className="text-2xl font-serif font-bold text-slate-800 mb-3">Set Up Your Profile</h2>
-            <p className="text-sm text-slate-500 mb-8 max-w-md mx-auto">
+            <h2 className="text-2xl font-serif font-bold text-white/93 mb-3">Set Up Your Profile</h2>
+            <p className="text-sm text-white/60 mb-8 max-w-md mx-auto">
               Enter your Jungian type, Enneagram, and more to unlock personalized insights, growth tips, and daily reflections.
             </p>
 
             {/* Three paths */}
             <div className="grid sm:grid-cols-3 gap-4 max-w-2xl mx-auto text-left">
-              <Link href="/enneagram/assess" className="group p-5 rounded-2xl bg-white border-2 border-slate-100 hover:border-sky-300 transition-all">
-                <Compass className="w-6 h-6 text-sky-500 mb-3" />
-                <h3 className="text-sm font-semibold text-slate-800 mb-1">I&apos;m New</h3>
-                <p className="text-xs text-slate-500">Take the assessments to discover your type from scratch.</p>
+              <Link href="/enneagram/assess" className="group p-5 rounded-2xl bg-white/5 border-2 border-white/[0.09] hover:border-violet-500/40 transition-all">
+                <Compass className="w-6 h-6 text-violet-400 mb-3" />
+                <h3 className="text-sm font-semibold text-white/93 mb-1">I&apos;m New</h3>
+                <p className="text-xs text-white/60">Take the assessments to discover your type from scratch.</p>
               </Link>
-              <button onClick={() => setIsEditing(true)} className="group p-5 rounded-2xl bg-white border-2 border-slate-100 hover:border-indigo-300 transition-all text-left">
-                <Target className="w-6 h-6 text-indigo-500 mb-3" />
-                <h3 className="text-sm font-semibold text-slate-800 mb-1">I Know Part</h3>
-                <p className="text-xs text-slate-500">Enter what you know and discover the rest.</p>
+              <button onClick={() => setIsEditing(true)} className="group p-5 rounded-2xl bg-white/5 border-2 border-white/[0.09] hover:border-indigo-500/40 transition-all text-left">
+                <Target className="w-6 h-6 text-indigo-400 mb-3" />
+                <h3 className="text-sm font-semibold text-white/93 mb-1">I Know Part</h3>
+                <p className="text-xs text-white/60">Enter what you know and discover the rest.</p>
               </button>
-              <button onClick={() => setIsEditing(true)} className="group p-5 rounded-2xl bg-white border-2 border-slate-100 hover:border-emerald-300 transition-all text-left">
-                <Sparkles className="w-6 h-6 text-emerald-500 mb-3" />
-                <h3 className="text-sm font-semibold text-slate-800 mb-1">I Know My Type</h3>
-                <p className="text-xs text-slate-500">Enter your full type and jump straight into personalized content.</p>
+              <button onClick={() => setIsEditing(true)} className="group p-5 rounded-2xl bg-white/5 border-2 border-white/[0.09] hover:border-emerald-500/40 transition-all text-left">
+                <Sparkles className="w-6 h-6 text-emerald-400 mb-3" />
+                <h3 className="text-sm font-semibold text-white/93 mb-1">I Know My Type</h3>
+                <p className="text-xs text-white/60">Enter your full type and jump straight into personalized content.</p>
               </button>
             </div>
           </motion.div>

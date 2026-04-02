@@ -2,111 +2,130 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ===== CSS Design Tokens ===== */
+:root {
+  --bg:            #0f0a1e;
+  --bg-card:       rgba(255, 255, 255, 0.05);
+  --bg-card-hover: rgba(255, 255, 255, 0.08);
+  --border:        rgba(255, 255, 255, 0.09);
+  --text-primary:  rgba(255, 255, 255, 0.93);
+  --text-secondary:rgba(255, 255, 255, 0.58);
+  --text-muted:    rgba(255, 255, 255, 0.32);
+  --accent:        #8b5cf6;
+  --accent-glow:   rgba(139, 92, 246, 0.35);
+}
+
 /* ===== Base Styles ===== */
 body {
-  background-color: #f8fafc;
-  color: #1e293b;
+  background-color: var(--bg);
+  color: var(--text-primary);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-family: "Inter", ui-sans-serif, system-ui, sans-serif;
-  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 h1, h2, h3, h4 {
   font-family: "Playfair Display", ui-serif, Georgia, serif;
+  color: rgba(255, 255, 255, 0.95);
 }
 
-/* ===== Dark Mode ===== */
-.dark body, html.dark body {
-  background-color: #0f172a !important;
-  color: #e2e8f0 !important;
+/* ===== Light Mode (opt-in via .light class) ===== */
+html.light body {
+  background-color: #f8fafc;
+  color: #1e293b;
+}
+html.light h1, html.light h2, html.light h3, html.light h4 {
+  color: #0f172a;
 }
 
-html.dark .glass-strong {
-  background: rgba(15, 23, 42, 0.9) !important;
-  border-bottom-color: rgba(51, 65, 85, 0.5) !important;
+/* ===== Dark Mode overrides — map Tailwind slate classes to dark-purple palette ===== */
+/* These fire always now (body is dark by default) */
+[class*="bg-white"] {
+  background-color: rgba(255,255,255,0.05) !important;
+}
+[class*="bg-slate-50"],
+[class*="bg-gray-50"] {
+  background-color: rgba(255,255,255,0.04) !important;
+}
+[class*="bg-slate-100"],
+[class*="bg-gray-100"] {
+  background-color: rgba(255,255,255,0.07) !important;
+}
+[class*="bg-slate-200"],
+[class*="bg-gray-200"] {
+  background-color: rgba(255,255,255,0.1) !important;
+}
+[class*="text-slate-900"],
+[class*="text-slate-800"],
+[class*="text-gray-900"],
+[class*="text-gray-800"] {
+  color: rgba(255,255,255,0.93) !important;
+}
+[class*="text-slate-700"],
+[class*="text-gray-700"] {
+  color: rgba(255,255,255,0.75) !important;
+}
+[class*="text-slate-600"],
+[class*="text-slate-500"],
+[class*="text-gray-600"],
+[class*="text-gray-500"] {
+  color: rgba(255,255,255,0.55) !important;
+}
+[class*="text-slate-400"],
+[class*="text-gray-400"] {
+  color: rgba(255,255,255,0.35) !important;
+}
+[class*="border-slate-50"],
+[class*="border-slate-100"],
+[class*="border-slate-200"],
+[class*="border-gray-100"],
+[class*="border-gray-200"] {
+  border-color: rgba(255,255,255,0.09) !important;
+}
+[class*="divide-slate-100"],
+[class*="divide-slate-200"] {
+  border-color: rgba(255,255,255,0.09) !important;
 }
 
-html.dark [class*="bg-white"] {
-  background-color: #1e293b !important;
-}
-
-html.dark [class*="bg-slate-50"] {
-  background-color: #0f172a !important;
-}
-
-html.dark [class*="bg-slate-100"] {
-  background-color: #1e293b !important;
-}
-
-html.dark [class*="text-slate-900"],
-html.dark [class*="text-slate-800"],
-html.dark [class*="text-slate-700"] {
-  color: #e2e8f0 !important;
-}
-
-html.dark [class*="text-slate-600"],
-html.dark [class*="text-slate-500"] {
-  color: #94a3b8 !important;
-}
-
-html.dark [class*="text-slate-400"] {
-  color: #64748b !important;
-}
-
-html.dark [class*="border-slate-100"],
-html.dark [class*="border-slate-200"] {
-  border-color: #334155 !important;
-}
-
-html.dark [class*="bg-gradient-to-b"][class*="from-slate-50"],
-html.dark [class*="bg-gradient-to-b"][class*="from-sky-50"],
-html.dark [class*="bg-gradient-to-br"][class*="from-sky-50"],
-html.dark [class*="bg-gradient-to-br"][class*="from-sky-100"] {
-  background: linear-gradient(to bottom, #0f172a, #1e293b) !important;
-}
-
-/* Dark mode bottom bar */
-html.dark .safe-area-bottom {
-  background: rgba(15, 23, 42, 0.95) !important;
-  border-top-color: #334155 !important;
-}
-
-/* ===== Glass Effects ===== */
+/* ===== Glass Effect (top nav) ===== */
 .glass-strong {
-  background: rgba(255, 255, 255, 0.9) !important;
-  backdrop-filter: blur(30px) !important;
-  -webkit-backdrop-filter: blur(30px) !important;
-  border-bottom: 1px solid rgba(226, 232, 240, 0.5) !important;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04) !important;
+  background: rgba(15, 10, 30, 0.88) !important;
+  backdrop-filter: blur(24px) !important;
+  -webkit-backdrop-filter: blur(24px) !important;
+  border-bottom: 1px solid rgba(139, 92, 246, 0.12) !important;
+  box-shadow: 0 1px 20px rgba(0, 0, 0, 0.3) !important;
+}
+
+/* ===== Dark Card Utility ===== */
+.dark-card {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.09);
+  border-radius: 16px;
 }
 
 /* ===== Text Gradient ===== */
 .text-gradient {
-  background: linear-gradient(135deg, #0ea5e9, #6366f1) !important;
+  background: linear-gradient(135deg, #a78bfa, #818cf8) !important;
   -webkit-background-clip: text !important;
   -webkit-text-fill-color: transparent !important;
   background-clip: text !important;
 }
 
-/* ===== Smooth Button Press (Duolingo-style) ===== */
+/* ===== Smooth Button Press ===== */
 button, [role="button"] {
   transition: transform 0.15s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.15s ease, opacity 0.15s ease !important;
 }
-
 button:active:not(:disabled), [role="button"]:active:not(:disabled) {
   transform: scale(0.97) !important;
 }
-
 button:hover:not(:disabled), [role="button"]:hover:not(:disabled) {
-  filter: brightness(1.02);
+  filter: brightness(1.04);
 }
 
 /* Links that look like buttons */
 a[class*="rounded"]:active {
   transform: scale(0.97) !important;
 }
-
 a[class*="rounded"] {
   transition: transform 0.15s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.15s ease !important;
 }
@@ -130,55 +149,52 @@ a[class*="rounded"] {
 .card-hover {
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
 }
-
 .card-hover:hover {
-  transform: translateY(-4px) !important;
-  box-shadow: 0 20px 40px rgba(14, 165, 233, 0.12) !important;
+  transform: translateY(-3px) !important;
+  box-shadow: 0 16px 40px rgba(139, 92, 246, 0.18) !important;
 }
 
 /* ===== Animations ===== */
 .animate-float {
   animation: float 6s ease-in-out infinite !important;
 }
-
 .animate-float-delayed {
   animation: float 6s ease-in-out infinite !important;
   animation-delay: 2s !important;
 }
-
 @keyframes float {
   0%, 100% { transform: translateY(0px); }
   50% { transform: translateY(-10px); }
 }
 
-/* ===== Custom Scrollbar ===== */
+/* ===== Custom Scrollbar (dark) ===== */
 ::-webkit-scrollbar {
-  width: 6px;
+  width: 5px;
 }
 ::-webkit-scrollbar-track {
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: #cbd5e1;
+  background: rgba(139,92,246,0.3);
   border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #94a3b8;
+  background: rgba(139,92,246,0.5);
 }
 
 /* ===== Selection ===== */
 ::selection {
-  background: rgba(14, 165, 233, 0.15);
-  color: #0369a1;
+  background: rgba(139, 92, 246, 0.3);
+  color: #e9d5ff;
 }
 
-/* ===== Subtle Texture Background ===== */
+/* ===== Subtle Dot Texture (dark) ===== */
 .bg-dots {
-  background-image: radial-gradient(circle, rgba(148,163,184,0.15) 1px, transparent 1px);
-  background-size: 20px 20px;
+  background-image: radial-gradient(circle, rgba(139,92,246,0.12) 1px, transparent 1px);
+  background-size: 22px 22px;
 }
 
-/* ===== Page transitions ===== */
+/* ===== Page Transitions ===== */
 @keyframes page-in {
   from { opacity: 0; transform: translateY(8px); }
   to   { opacity: 1; transform: translateY(0); }
@@ -188,7 +204,6 @@ a[class*="rounded"] {
 }
 
 /* ===== Ensure whileInView elements are never permanently invisible ===== */
-/* This prevents framer-motion elements from being stuck at opacity:0 on page load */
 [data-framer-initial-hidden] {
   opacity: 1 !important;
 }
@@ -205,9 +220,25 @@ a[class*="rounded"] {
   letter-spacing: 0.02em;
 }
 
-/* ===== Smooth focus rings ===== */
+/* ===== Focus Rings (purple) ===== */
 *:focus-visible {
-  outline: 2px solid #6366f1;
+  outline: 2px solid #8b5cf6;
   outline-offset: 2px;
   border-radius: 6px;
+}
+
+/* ===== Bottom safe-area bar (dark) ===== */
+.safe-area-bottom {
+  background: rgba(15, 10, 30, 0.96) !important;
+  border-top-color: rgba(139,92,246,0.12) !important;
+}
+
+/* ===== Input fields — force dark ===== */
+input, textarea, select {
+  background-color: rgba(255,255,255,0.06) !important;
+  color: rgba(255,255,255,0.88) !important;
+  border-color: rgba(255,255,255,0.12) !important;
+}
+input::placeholder, textarea::placeholder {
+  color: rgba(255,255,255,0.3) !important;
 }

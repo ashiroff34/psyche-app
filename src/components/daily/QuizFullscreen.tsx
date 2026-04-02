@@ -260,10 +260,10 @@ export default function QuizFullscreen({
           maxWidth: 640,
           margin: "0 auto",
           background: pct >= 90
-            ? "linear-gradient(180deg, #fffbeb 0%, #ffffff 40%)"
+            ? "linear-gradient(180deg, rgba(251,191,36,0.08) 0%, #0f0a1e 50%)"
             : pct >= 80
-            ? "linear-gradient(180deg, #f5f3ff 0%, #ffffff 40%)"
-            : "white",
+            ? "linear-gradient(180deg, rgba(139,92,246,0.12) 0%, #0f0a1e 50%)"
+            : "#0f0a1e",
         }}
       >
         {/* Sparkle overlay for 60-79% accuracy */}
@@ -388,36 +388,37 @@ export default function QuizFullscreen({
           <motion.h2
             animate={pct >= 80 ? { scale: [1, 1.08, 1] } : {}}
             transition={{ delay: 0.3, duration: 0.5 }}
-            className="text-3xl font-bold text-slate-900 mb-2"
+            className="text-3xl font-bold mb-2"
+            style={{ color: "rgba(255,255,255,0.95)" }}
           >
             {celebrationText ?? "Complete!"}
           </motion.h2>
-          <p className="text-slate-500 text-base mb-6">{moduleName}</p>
+          <p className="text-base mb-6" style={{ color: "rgba(255,255,255,0.5)" }}>{moduleName}</p>
 
           {/* Score row — count-up numbers */}
           <div className="flex items-center gap-6 mb-5">
             <div className="flex flex-col items-center">
-              <span className="text-4xl font-bold text-slate-800">
+              <span className="text-4xl font-bold" style={{ color: "rgba(255,255,255,0.93)" }}>
                 {countActive ? correctCount : countedCorrect}
-                <span className="text-slate-400 text-2xl">/{totalCount}</span>
+                <span className="text-2xl" style={{ color: "rgba(255,255,255,0.35)" }}>/{totalCount}</span>
               </span>
-              <span className="text-xs text-slate-400 mt-1 uppercase tracking-wide">Correct</span>
+              <span className="text-xs mt-1 uppercase tracking-wide" style={{ color: "rgba(255,255,255,0.35)" }}>Correct</span>
             </div>
-            <div className="w-px h-10 bg-slate-200" />
+            <div className="w-px h-10" style={{ background: "rgba(255,255,255,0.1)" }} />
             <div className="flex flex-col items-center">
-              <span className="text-4xl font-bold text-amber-500">
+              <span className="text-4xl font-bold text-amber-400">
                 {countActive ? pct : countedPct}<span className="text-2xl">%</span>
               </span>
-              <span className="text-xs text-slate-400 mt-1 uppercase tracking-wide">Accuracy</span>
+              <span className="text-xs mt-1 uppercase tracking-wide" style={{ color: "rgba(255,255,255,0.35)" }}>Accuracy</span>
             </div>
             {sessionXP > 0 && (
               <>
-                <div className="w-px h-10 bg-slate-200" />
+                <div className="w-px h-10" style={{ background: "rgba(255,255,255,0.1)" }} />
                 <div className="flex flex-col items-center">
-                  <span className="text-4xl font-bold text-violet-600">
+                  <span className="text-4xl font-bold text-violet-400">
                     +{countActive ? sessionXP : countedXP}
                   </span>
-                  <span className="text-xs text-slate-400 mt-1 uppercase tracking-wide flex items-center gap-0.5">
+                  <span className="text-xs mt-1 uppercase tracking-wide flex items-center gap-0.5" style={{ color: "rgba(255,255,255,0.35)" }}>
                     <Zap className="w-3 h-3" />XP
                   </span>
                 </div>
@@ -431,14 +432,11 @@ export default function QuizFullscreen({
               initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.8 }}
-              className={`w-full px-4 py-2.5 rounded-xl mb-5 flex items-center gap-2 ${
-                beatPersonalBest
-                  ? "bg-amber-50 border border-amber-200"
-                  : "bg-slate-50 border border-slate-100"
-              }`}
+              className="w-full px-4 py-2.5 rounded-xl mb-5 flex items-center gap-2"
+              style={beatPersonalBest ? { background: "rgba(245,158,11,0.12)", border: "1px solid rgba(245,158,11,0.25)" } : { background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.08)" }}
             >
-              <Star className={`w-4 h-4 shrink-0 ${beatPersonalBest ? "text-amber-500 fill-amber-500" : "text-slate-300"}`} />
-              <span className={`text-sm font-medium ${beatPersonalBest ? "text-amber-700" : "text-slate-500"}`}>
+              <Star className={`w-4 h-4 shrink-0 ${beatPersonalBest ? "text-amber-400 fill-amber-400" : "text-white/20"}`} />
+              <span className={`text-sm font-medium ${beatPersonalBest ? "text-amber-300" : "text-white/40"}`}>
                 {beatPersonalBest
                   ? `New personal best! ${currentStreak}-day streak 🎉`
                   : `Personal best: ${longestStreak}-day streak. Keep going!`}
@@ -452,7 +450,8 @@ export default function QuizFullscreen({
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.9, duration: 0.4 }}
-              className="w-full mb-5 px-4 py-3.5 rounded-2xl bg-slate-50 border border-slate-100"
+              className="w-full mb-5 px-4 py-3.5 rounded-2xl"
+              style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.08)" }}
             >
               <div className="flex flex-col gap-3">
                 {nearBadges.slice(0, 2).map((badge, i) => {
@@ -461,12 +460,12 @@ export default function QuizFullscreen({
                     <div key={badge.id} className="flex items-start gap-2.5">
                       <span className="text-lg shrink-0 mt-0.5">{badge.icon}</span>
                       <div className="flex-1 min-w-0">
-                        <p className="text-xs text-slate-600 leading-snug mb-1.5">
+                        <p className="text-xs leading-snug mb-1.5" style={{ color: "rgba(255,255,255,0.55)" }}>
                           <span className="font-bold text-slate-700">{remaining}</span>
                           {" "}more {badge.label.includes("day") ? "days" : badge.label.includes("row") ? "in a row" : "correct answers"} for{" "}
-                          <span className="font-bold text-slate-800">&lsquo;{badge.name}&rsquo;</span> badge {badge.icon}
+                          <span className="font-bold" style={{ color: "rgba(255,255,255,0.8)" }}>&lsquo;{badge.name}&rsquo;</span> badge {badge.icon}
                         </p>
-                        <div className="h-1.5 rounded-full bg-slate-200 overflow-hidden">
+                        <div className="h-1.5 rounded-full overflow-hidden" style={{ background: "rgba(255,255,255,0.08)" }}>
                           <motion.div
                             initial={{ width: 0 }}
                             animate={{ width: `${badge.pct}%` }}
@@ -540,7 +539,7 @@ export default function QuizFullscreen({
     };
 
     return (
-      <div className="fixed inset-0 z-50 bg-white flex flex-col items-center justify-center px-6" style={{ maxWidth: 640, margin: "0 auto" }}>
+      <div className="fixed inset-0 z-50 flex flex-col items-center justify-center px-6" style={{ maxWidth: 640, margin: "0 auto", background: "#0f0a1e" }}>
         <motion.div
           initial={{ scale: 0.8, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
@@ -550,27 +549,27 @@ export default function QuizFullscreen({
           {/* Hearts row */}
           <div className="flex gap-1.5 mb-4">
             {Array.from({ length: maxHearts }).map((_, i) => (
-              <Heart key={i} className="w-6 h-6 text-slate-200 fill-slate-100" />
+              <Heart key={i} className="w-6 h-6 text-white/10 fill-white/10" />
             ))}
           </div>
 
-          <div className="w-20 h-20 rounded-full bg-rose-100 flex items-center justify-center mb-5">
+          <div className="w-20 h-20 rounded-full flex items-center justify-center mb-5" style={{ background: "rgba(239,68,68,0.12)" }}>
             <Heart className="w-10 h-10 text-rose-400" />
           </div>
-          <h2 className="text-2xl font-bold text-slate-900 mb-2">Out of Hearts</h2>
+          <h2 className="text-2xl font-bold mb-2" style={{ color: "rgba(255,255,255,0.93)" }}>Out of Hearts</h2>
 
           {/* Countdown timer */}
           {nextHeartSecs !== null && (
-            <div className="flex items-center gap-2 bg-rose-50 border border-rose-100 rounded-2xl px-5 py-3 mb-4">
+            <div className="flex items-center gap-2 rounded-2xl px-5 py-3 mb-4" style={{ background: "rgba(239,68,68,0.1)", border: "1px solid rgba(248,113,113,0.2)" }}>
               <Timer className="w-4 h-4 text-rose-400 shrink-0" />
-              <p className="text-sm font-semibold text-rose-700">
+              <p className="text-sm font-semibold text-rose-300">
                 Next heart in{" "}
-                <span className="font-mono text-rose-600">{fmtCountdown(nextHeartSecs)}</span>
+                <span className="font-mono text-rose-200">{fmtCountdown(nextHeartSecs)}</span>
               </p>
             </div>
           )}
 
-          <p className="text-slate-500 text-sm mb-6 max-w-xs leading-relaxed">
+          <p className="text-sm mb-6 max-w-xs leading-relaxed" style={{ color: "rgba(255,255,255,0.5)" }}>
             Hearts refill 1 every 10 minutes. Or pass the time exploring the reading library — your hearts keep refilling while you read!
           </p>
 
@@ -591,9 +590,10 @@ export default function QuizFullscreen({
               <motion.button
                 whileTap={{ scale: 0.97 }}
                 onClick={onBuyHearts}
-                className="w-full py-3.5 rounded-2xl font-semibold text-amber-700 text-base bg-amber-50 hover:bg-amber-100 border border-amber-200 flex items-center justify-center gap-2 transition"
+                className="w-full py-3.5 rounded-2xl font-semibold text-base flex items-center justify-center gap-2 transition"
+                style={{ background: "rgba(245,158,11,0.15)", border: "1px solid rgba(245,158,11,0.3)", color: "#fcd34d" }}
               >
-                <Zap className="w-4 h-4 text-amber-500" />
+                <Zap className="w-4 h-4 text-amber-400" />
                 Refill with 20 tokens
               </motion.button>
             )}
@@ -601,7 +601,8 @@ export default function QuizFullscreen({
             <motion.button
               whileTap={{ scale: 0.97 }}
               onClick={onQuit}
-              className="w-full py-3 rounded-2xl font-medium text-slate-500 text-sm bg-slate-50 hover:bg-slate-100 transition"
+              className="w-full py-3 rounded-2xl font-medium text-sm transition"
+              style={{ background: "rgba(255,255,255,0.06)", color: "rgba(255,255,255,0.45)" }}
             >
               Come back later
             </motion.button>
@@ -613,7 +614,10 @@ export default function QuizFullscreen({
 
   // ── Main quiz screen ───────────────────────────────────────────────────────
   return (
-    <div className="fixed inset-0 z-50 bg-white flex flex-col" style={{ maxWidth: 640, margin: "0 auto" }}>
+    <div className="fixed inset-0 z-50 flex flex-col overflow-hidden" style={{ maxWidth: 640, margin: "0 auto", background: "#0f0a1e" }}>
+      {/* ── Aurora glow orbs ── */}
+      <motion.div className="absolute top-[-80px] left-[-60px] w-72 h-72 rounded-full pointer-events-none" style={{ background: "radial-gradient(circle, rgba(139,92,246,0.18) 0%, transparent 70%)" }} animate={{ scale: [1, 1.15, 1], opacity: [0.12, 0.06, 0.12] }} transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }} />
+      <motion.div className="absolute bottom-[-60px] right-[-40px] w-64 h-64 rounded-full pointer-events-none" style={{ background: "radial-gradient(circle, rgba(99,102,241,0.15) 0%, transparent 70%)" }} animate={{ scale: [1, 1.2, 1], opacity: [0.08, 0.16, 0.08] }} transition={{ duration: 9, repeat: Infinity, ease: "easeInOut", delay: 3 }} />
 
       {/* ── XP Bonus flash ── */}
       <AnimatePresence>
@@ -636,20 +640,29 @@ export default function QuizFullscreen({
       <div className="flex items-center gap-3 px-4 pt-safe pt-4 pb-3">
         <button
           onClick={onQuit}
-          className="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center hover:bg-slate-200 transition shrink-0"
+          className="w-8 h-8 rounded-full flex items-center justify-center transition shrink-0"
+          style={{ background: "rgba(255,255,255,0.08)" }}
         >
-          <X className="w-4 h-4 text-slate-500" />
+          <X className="w-4 h-4" style={{ color: "rgba(255,255,255,0.5)" }} />
         </button>
 
         {/* Progress bar */}
-        <div className="flex-1 h-3 bg-slate-100 rounded-full overflow-hidden">
+        <div className="flex-1 h-3 rounded-full overflow-hidden relative" style={{ background: "rgba(255,255,255,0.08)" }}>
           <motion.div
-            className="h-full rounded-full"
+            className="h-full rounded-full relative overflow-hidden"
             style={{ background: "linear-gradient(90deg, #8b5cf6, #d946ef)" }}
             initial={{ width: 0 }}
             animate={{ width: `${progress}%` }}
             transition={{ duration: 0.4, ease: "easeOut" }}
-          />
+          >
+            {/* Shimmer sweep */}
+            <motion.div
+              className="absolute inset-y-0 w-1/3"
+              style={{ background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent)" }}
+              animate={{ x: ["-100%", "300%"] }}
+              transition={{ duration: 1.2, repeat: Infinity, ease: "linear", repeatDelay: 1 }}
+            />
+          </motion.div>
         </div>
 
         {/* Hearts */}
@@ -661,7 +674,7 @@ export default function QuizFullscreen({
               transition={{ duration: 0.3 }}
             >
               <Heart
-                className={`w-5 h-5 transition-colors ${i < displayHearts ? "text-rose-500 fill-rose-500" : "text-slate-200 fill-slate-200"}`}
+                className={`w-5 h-5 transition-colors ${i < displayHearts ? "text-rose-400 fill-rose-400" : "text-white/15 fill-white/10"}`}
               />
             </motion.div>
           ))}
@@ -670,8 +683,8 @@ export default function QuizFullscreen({
 
       {/* ── Running score counter ── */}
       <div className="flex items-center justify-center gap-2 pb-1">
-        <span className="text-xs font-semibold text-slate-400">
-          <span className="text-slate-700">{answers.filter(Boolean).length}</span>
+        <span className="text-xs font-semibold" style={{ color: "rgba(255,255,255,0.4)" }}>
+          <span style={{ color: "rgba(255,255,255,0.8)" }}>{answers.filter(Boolean).length}</span>
           /{answers.length} correct
         </span>
         <AnimatePresence>
@@ -695,7 +708,7 @@ export default function QuizFullscreen({
 
         {/* Module + difficulty + XP */}
         <div className="flex items-center gap-2 mb-4">
-          <span className="text-xs font-semibold text-slate-400 uppercase tracking-wider">{moduleName}</span>
+          <span className="text-xs font-semibold uppercase tracking-wider" style={{ color: "rgba(255,255,255,0.35)" }}>{moduleName}</span>
           <span className="w-1 h-1 rounded-full bg-slate-300" />
           <span className={`text-xs font-medium ${
             q.tier <= 2 ? "text-emerald-500" : q.tier === 3 ? "text-amber-500" : "text-rose-500"
@@ -730,9 +743,10 @@ export default function QuizFullscreen({
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: -8 }}
               transition={{ duration: 0.2 }}
-              className="flex-1 bg-slate-50 rounded-2xl rounded-tl-sm px-4 py-3"
+              className="flex-1 rounded-2xl rounded-tl-sm px-4 py-3"
+              style={{ background: "rgba(255,255,255,0.07)", border: "1px solid rgba(255,255,255,0.08)" }}
             >
-              <p className="text-base font-bold text-slate-900 leading-snug">
+              <p className="text-base font-bold leading-snug" style={{ color: "rgba(255,255,255,0.93)" }}>
                 {q.q}
               </p>
             </motion.div>
@@ -746,28 +760,20 @@ export default function QuizFullscreen({
             const isThisCorrect = i === q.ans;
             const revealed = selected !== null;
 
-            let borderColor = "border-slate-200";
-            let bgColor = "bg-white";
-            let textColor = "text-slate-800";
-            let letterBg = "bg-slate-100 text-slate-500";
+            let optStyle: React.CSSProperties = { background: "rgba(255,255,255,0.05)", borderColor: "rgba(255,255,255,0.1)", color: "rgba(255,255,255,0.82)" };
+            let letterStyle: React.CSSProperties = { background: "rgba(255,255,255,0.08)", color: "rgba(255,255,255,0.55)" };
 
             if (revealed) {
               if (isThisCorrect) {
-                borderColor = "border-emerald-400";
-                bgColor = "bg-emerald-50";
-                textColor = "text-emerald-800";
-                letterBg = "bg-emerald-400 text-white";
+                optStyle = { background: "rgba(16,185,129,0.12)", borderColor: "rgba(52,211,153,0.5)", color: "rgba(167,243,208,0.95)" };
+                letterStyle = { background: "rgba(16,185,129,0.8)", color: "#fff" };
               } else if (isThisSelected && !isThisCorrect) {
-                borderColor = "border-rose-400";
-                bgColor = "bg-rose-50";
-                textColor = "text-rose-800";
-                letterBg = "bg-rose-400 text-white";
+                optStyle = { background: "rgba(239,68,68,0.1)", borderColor: "rgba(248,113,113,0.5)", color: "rgba(252,165,165,0.95)" };
+                letterStyle = { background: "rgba(239,68,68,0.8)", color: "#fff" };
               }
             } else if (isThisSelected) {
-              borderColor = "border-violet-400";
-              bgColor = "bg-violet-50";
-              textColor = "text-violet-800";
-              letterBg = "bg-violet-400 text-white";
+              optStyle = { background: "rgba(139,92,246,0.15)", borderColor: "rgba(167,139,250,0.6)", color: "rgba(216,180,254,0.95)" };
+              letterStyle = { background: "rgba(139,92,246,0.8)", color: "#fff" };
             }
 
             return (
@@ -776,12 +782,13 @@ export default function QuizFullscreen({
                 whileTap={!revealed ? { scale: 0.98 } : {}}
                 onClick={() => !revealed && onAnswer(i)}
                 disabled={revealed}
-                className={`w-full flex items-center gap-4 p-4 rounded-2xl border-2 text-left transition-all ${borderColor} ${bgColor}`}
+                className="w-full flex items-center gap-4 p-4 rounded-2xl border-2 text-left transition-all"
+                style={optStyle}
               >
-                <span className={`w-8 h-8 rounded-xl flex items-center justify-center text-sm font-bold shrink-0 transition-all ${letterBg}`}>
+                <span className="w-8 h-8 rounded-xl flex items-center justify-center text-sm font-bold shrink-0 transition-all" style={letterStyle}>
                   {optionLetters[i]}
                 </span>
-                <span className={`text-sm font-medium leading-snug ${textColor}`}>{opt}</span>
+                <span className="text-sm font-medium leading-snug">{opt}</span>
                 {revealed && isThisCorrect && (
                   <CheckCircle className="w-5 h-5 text-emerald-500 ml-auto shrink-0" />
                 )}
@@ -820,15 +827,14 @@ export default function QuizFullscreen({
             animate={{ y: 0 }}
             exit={{ y: "100%" }}
             transition={{ type: "spring", damping: 30, stiffness: 350 }}
-            className={`px-5 pt-5 pb-safe pb-8 border-t-2 ${
-              isCorrect ? "bg-emerald-50 border-emerald-200" : "bg-rose-50 border-rose-200"
-            }`}
+            className="px-5 pt-5 pb-safe pb-8 border-t-2"
+            style={isCorrect ? { background: "rgba(16,185,129,0.1)", borderColor: "rgba(52,211,153,0.3)" } : { background: "rgba(239,68,68,0.08)", borderColor: "rgba(248,113,113,0.3)" }}
           >
             <div className="flex items-center gap-2 mb-2">
               {isCorrect
                 ? <CheckCircle className="w-5 h-5 text-emerald-600 shrink-0" />
                 : <XCircle className="w-5 h-5 text-rose-500 shrink-0" />}
-              <span className={`font-bold text-base ${isCorrect ? "text-emerald-700" : "text-rose-700"}`}>
+              <span className={`font-bold text-base ${isCorrect ? "text-emerald-300" : "text-rose-300"}`}>
                 {isCorrect ? "Correct!" : "Not quite."}
               </span>
               {!isCorrect && displayHearts > 0 && (
@@ -837,7 +843,7 @@ export default function QuizFullscreen({
                 </span>
               )}
             </div>
-            <p className="text-sm text-slate-700 leading-relaxed mb-4">{q.exp}</p>
+            <p className="text-sm leading-relaxed mb-4" style={{ color: "rgba(255,255,255,0.7)" }}>{q.exp}</p>
             <motion.button
               whileTap={{ scale: 0.97 }}
               onClick={onNext}

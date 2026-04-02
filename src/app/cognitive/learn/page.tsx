@@ -336,17 +336,17 @@ function ExpandableSection({
 }) {
   const [open, setOpen] = useState(defaultOpen);
   return (
-    <div className="rounded-2xl bg-white border border-slate-100 overflow-hidden">
+    <div className="rounded-2xl overflow-hidden" style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.09)" }}>
       <button
         onClick={() => setOpen(!open)}
-        className="w-full p-5 flex items-center justify-between hover:bg-slate-50/50 transition-colors"
+        className="w-full p-5 flex items-center justify-between transition-colors"
       >
-        <span className="font-medium text-slate-800 flex items-center gap-2.5 text-sm">
+        <span className="flex items-center gap-2.5 text-sm font-medium" style={{ color: "rgba(255,255,255,0.8)" }}>
           <span style={{ color: accentColor }}>{icon}</span>
           {title}
         </span>
         <motion.div animate={{ rotate: open ? 90 : 0 }} transition={{ duration: 0.2 }}>
-          <ChevronRight className="w-4 h-4 text-slate-400" />
+          <ChevronRight className="w-4 h-4" style={{ color: "rgba(255,255,255,0.35)" }} />
         </motion.div>
       </button>
       <AnimatePresence>
@@ -358,7 +358,7 @@ function ExpandableSection({
             transition={{ duration: 0.3, ease: "easeInOut" }}
             className="overflow-hidden"
           >
-            <div className="px-5 pb-5 border-t border-slate-50">{children}</div>
+            <div className="px-5 pb-5 border-t" style={{ borderColor: "rgba(255,255,255,0.06)" }}>{children}</div>
           </motion.div>
         )}
       </AnimatePresence>
@@ -378,7 +378,7 @@ function Pill({ children, color = "#6366f1" }: { children: React.ReactNode; colo
 }
 
 function SectionHeading({ children }: { children: React.ReactNode }) {
-  return <h3 className="text-lg font-serif font-bold text-slate-900 mb-4">{children}</h3>;
+  return <h3 className="text-lg font-serif font-bold mb-4" style={{ color: "rgba(255,255,255,0.93)" }}>{children}</h3>;
 }
 
 // ============================================================
@@ -402,12 +402,12 @@ function Tab8Functions() {
     <div>
       {/* Your stack callout */}
       {myStack.length > 0 && (
-        <div className="flex items-center gap-3 mb-4 p-3 rounded-xl bg-indigo-50/60 border border-indigo-100">
-          <span className="text-xs text-indigo-600 font-medium">Your stack:</span>
+        <div className="flex items-center gap-3 mb-4 p-3 rounded-xl" style={{ background: "rgba(139,92,246,0.1)", border: "1px solid rgba(139,92,246,0.2)" }}>
+          <span className="text-xs font-medium text-violet-400">Your stack:</span>
           <div className="flex gap-2">
             {myStack.map((f, i) => (
-              <span key={f} className="text-xs font-mono font-bold text-indigo-700">
-                {f} <span className="text-indigo-400 font-normal">({stackLabels[i]})</span>
+              <span key={f} className="text-xs font-mono font-bold text-violet-300">
+                {f} <span className="font-normal" style={{ color: "rgba(139,92,246,0.7)" }}>({stackLabels[i]})</span>
               </span>
             ))}
           </div>
@@ -423,40 +423,37 @@ function Tab8Functions() {
             <button
               key={f.code}
               onClick={() => setSelectedFunc(isSelected ? null : f.code)}
-              className={`relative p-4 rounded-2xl text-left transition-all border ${
-                isSelected
-                  ? "text-white shadow-lg border-transparent"
-                  : isInStack
-                  ? "bg-white text-slate-700 border-indigo-300 shadow-md shadow-indigo-100/50 ring-1 ring-indigo-200"
-                  : "bg-white text-slate-700 border-slate-100 hover:border-slate-200 hover:shadow-sm"
-              }`}
-              style={isSelected ? { backgroundColor: f.color } : undefined}
+              className={`relative p-4 rounded-2xl text-left transition-all ${isSelected ? "text-white shadow-lg" : ""}`}
+              style={isSelected
+                ? { backgroundColor: f.color, border: "1px solid transparent" }
+                : isInStack
+                ? { background: "rgba(255,255,255,0.08)", border: "1px solid rgba(139,92,246,0.4)" }
+                : { background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.09)" }
+              }
             >
               {/* Stack position badge */}
               {isInStack && !isSelected && (
-                <div className="absolute -top-2 -right-2 px-1.5 py-0.5 text-[9px] font-bold rounded-lg bg-indigo-500 text-white shadow-sm">
+                <div className="absolute -top-2 -right-2 px-1.5 py-0.5 text-[9px] font-bold rounded-lg text-white shadow-sm" style={{ background: "#8b5cf6" }}>
                   {isInStack}
                 </div>
               )}
               <div className="font-mono font-bold text-lg">{f.code}</div>
-              <div className={`text-xs mt-0.5 ${isSelected ? "text-white/80" : "text-slate-400"}`}>
+              <div className="text-xs mt-0.5" style={{ color: isSelected ? "rgba(255,255,255,0.8)" : "rgba(255,255,255,0.5)" }}>
                 {f.name}
               </div>
-              <div className={`text-[10px] mt-1 ${isSelected ? "text-white/60" : "text-slate-300"}`}>
+              <div className="text-[10px] mt-1" style={{ color: isSelected ? "rgba(255,255,255,0.6)" : "rgba(255,255,255,0.3)" }}>
                 {f.alias}
               </div>
               <div className="flex gap-1 mt-2">
                 <span
-                  className={`px-1.5 py-0.5 text-[9px] rounded ${
-                    isSelected ? "bg-white/20 text-white/90" : "bg-slate-50 text-slate-400"
-                  }`}
+                  className="px-1.5 py-0.5 text-[9px] rounded"
+                  style={isSelected ? { background: "rgba(255,255,255,0.2)", color: "rgba(255,255,255,0.9)" } : { background: "rgba(255,255,255,0.07)", color: "rgba(255,255,255,0.4)" }}
                 >
                   {f.attitude}
                 </span>
                 <span
-                  className={`px-1.5 py-0.5 text-[9px] rounded ${
-                    isSelected ? "bg-white/20 text-white/90" : "bg-slate-50 text-slate-400"
-                  }`}
+                  className="px-1.5 py-0.5 text-[9px] rounded"
+                  style={isSelected ? { background: "rgba(255,255,255,0.2)", color: "rgba(255,255,255,0.9)" } : { background: "rgba(255,255,255,0.07)", color: "rgba(255,255,255,0.4)" }}
                 >
                   {f.category}
                 </span>
@@ -471,7 +468,7 @@ function Tab8Functions() {
         {currentFunc ? (
           <motion.div key={currentFunc.code} {...fadeIn} className="space-y-4">
             {/* Layer 1: Overview */}
-            <div className="p-8 rounded-3xl bg-white border border-slate-100 shadow-sm">
+            <div className="p-8 rounded-3xl shadow-sm" style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.09)" }}>
               <div className="flex items-start gap-5">
                 <div
                   className="w-16 h-16 rounded-2xl flex items-center justify-center text-white font-mono font-bold text-xl shrink-0"
@@ -480,26 +477,26 @@ function Tab8Functions() {
                   {currentFunc.code}
                 </div>
                 <div className="flex-1">
-                  <h2 className="text-2xl font-serif font-bold text-slate-900">
+                  <h2 className="text-2xl font-serif font-bold" style={{ color: "rgba(255,255,255,0.93)" }}>
                     {currentFunc.name}
                   </h2>
-                  <p className="text-sm text-slate-400 mb-1">{currentFunc.alias}</p>
+                  <p className="text-sm mb-1" style={{ color: "rgba(255,255,255,0.35)" }}>{currentFunc.alias}</p>
                   <div className="flex gap-2 mt-2 mb-4">
                     <Pill color={currentFunc.color}>{currentFunc.attitude}</Pill>
                     <Pill color={currentFunc.color}>{currentFunc.category}</Pill>
                   </div>
-                  <p className="text-sm text-slate-600 leading-relaxed">{currentFunc.brief}</p>
-                  <p className="text-sm text-slate-500 leading-relaxed mt-3">{currentFunc.description}</p>
+                  <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.7)" }}>{currentFunc.brief}</p>
+                  <p className="text-sm leading-relaxed mt-3" style={{ color: "rgba(255,255,255,0.6)" }}>{currentFunc.description}</p>
                 </div>
               </div>
               {/* Characteristics */}
               <div className="mt-6">
-                <h4 className="text-xs font-medium text-slate-400 uppercase tracking-wider mb-3">
+                <h4 className="text-xs font-medium uppercase tracking-wider mb-3" style={{ color: "rgba(255,255,255,0.35)" }}>
                   Key Characteristics
                 </h4>
                 <div className="space-y-2">
                   {currentFunc.characteristics.map((c, i) => (
-                    <div key={i} className="flex gap-3 p-3 rounded-xl bg-slate-50 text-sm text-slate-600">
+                    <div key={i} className="flex gap-3 p-3 rounded-xl text-sm" style={{ background: "rgba(255,255,255,0.06)", color: "rgba(255,255,255,0.7)" }}>
                       <div
                         className="w-5 h-5 rounded-full flex items-center justify-center text-xs font-medium shrink-0 mt-0.5"
                         style={{ backgroundColor: `${currentFunc.color}20`, color: currentFunc.color }}
@@ -513,25 +510,25 @@ function Tab8Functions() {
               </div>
               {/* Strengths & Blind Spots */}
               <div className="grid sm:grid-cols-2 gap-4 mt-6">
-                <div className="p-4 rounded-xl bg-emerald-50/50 border border-emerald-100/50">
-                  <h4 className="text-sm font-medium text-emerald-600 mb-3 flex items-center gap-1.5">
+                <div className="p-4 rounded-xl" style={{ background: "rgba(16,185,129,0.08)", border: "1px solid rgba(16,185,129,0.15)" }}>
+                  <h4 className="text-sm font-medium text-emerald-400 mb-3 flex items-center gap-1.5">
                     <Zap className="w-3.5 h-3.5" /> Strengths
                   </h4>
                   <div className="flex flex-wrap gap-2">
                     {currentFunc.strengths.map((s) => (
-                      <span key={s} className="px-3 py-1 text-xs rounded-lg bg-emerald-100/50 text-emerald-700">
+                      <span key={s} className="px-3 py-1 text-xs rounded-lg text-emerald-300" style={{ background: "rgba(16,185,129,0.12)" }}>
                         {s}
                       </span>
                     ))}
                   </div>
                 </div>
-                <div className="p-4 rounded-xl bg-amber-50/50 border border-amber-100/50">
-                  <h4 className="text-sm font-medium text-amber-600 mb-3 flex items-center gap-1.5">
+                <div className="p-4 rounded-xl" style={{ background: "rgba(245,158,11,0.08)", border: "1px solid rgba(245,158,11,0.15)" }}>
+                  <h4 className="text-sm font-medium text-amber-400 mb-3 flex items-center gap-1.5">
                     <AlertTriangle className="w-3.5 h-3.5" /> Blind Spots
                   </h4>
                   <div className="flex flex-wrap gap-2">
                     {currentFunc.blindSpots.map((b) => (
-                      <span key={b} className="px-3 py-1 text-xs rounded-lg bg-amber-100/50 text-amber-700">
+                      <span key={b} className="px-3 py-1 text-xs rounded-lg text-amber-300" style={{ background: "rgba(245,158,11,0.12)" }}>
                         {b}
                       </span>
                     ))}
@@ -539,9 +536,9 @@ function Tab8Functions() {
                 </div>
               </div>
               {/* In Daily Life */}
-              <div className="p-4 rounded-xl bg-sky-50/50 border border-sky-100/50 mt-4">
-                <h4 className="text-xs font-medium text-sky-600 mb-2">In Daily Life</h4>
-                <p className="text-sm text-slate-600 leading-relaxed">{currentFunc.inDaily}</p>
+              <div className="p-4 rounded-xl mt-4" style={{ background: "rgba(14,165,233,0.08)", border: "1px solid rgba(14,165,233,0.15)" }}>
+                <h4 className="text-xs font-medium text-sky-400 mb-2">In Daily Life</h4>
+                <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.6)" }}>{currentFunc.inDaily}</p>
               </div>
             </div>
 
@@ -551,7 +548,7 @@ function Tab8Functions() {
               title="Jung's Description"
               accentColor={currentFunc.color}
             >
-              <p className="text-sm text-slate-600 leading-relaxed pt-3">
+              <p className="text-sm leading-relaxed pt-3" style={{ color: "rgba(255,255,255,0.6)" }}>
                 {jungianDescriptions[currentFunc.code] || currentFunc.description}
               </p>
             </ExpandableSection>
@@ -568,12 +565,12 @@ function Tab8Functions() {
                   { label: "Adolescence", icon: <GraduationCap className="w-4 h-4" />, key: "adolescence" as const, color: "#6366f1" },
                   { label: "Adulthood", icon: <User className="w-4 h-4" />, key: "adulthood" as const, color: "#10b981" },
                 ].map((stage) => (
-                  <div key={stage.key} className="p-4 rounded-xl border border-slate-100">
+                  <div key={stage.key} className="p-4 rounded-xl" style={{ border: "1px solid rgba(255,255,255,0.09)", background: "rgba(255,255,255,0.04)" }}>
                     <div className="flex items-center gap-2 mb-2">
                       <span style={{ color: stage.color }}>{stage.icon}</span>
-                      <h5 className="text-sm font-medium text-slate-800">{stage.label}</h5>
+                      <h5 className="text-sm font-medium" style={{ color: "rgba(255,255,255,0.8)" }}>{stage.label}</h5>
                     </div>
-                    <p className="text-sm text-slate-600 leading-relaxed">
+                    <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.6)" }}>
                       {developmentStages[currentFunc.code]?.[stage.key] || "Development data not yet available."}
                     </p>
                   </div>
@@ -589,24 +586,24 @@ function Tab8Functions() {
             >
               <div className="grid sm:grid-cols-2 gap-4 pt-3">
                 <div>
-                  <h5 className="text-sm font-medium text-emerald-600 mb-3 flex items-center gap-1.5">
+                  <h5 className="text-sm font-medium text-emerald-400 mb-3 flex items-center gap-1.5">
                     <CheckCircle2 className="w-4 h-4" /> Healthy
                   </h5>
                   <div className="space-y-2">
                     {(healthyUnhealthy[currentFunc.code]?.healthy || []).map((h, i) => (
-                      <div key={i} className="p-3 rounded-xl bg-emerald-50/50 text-sm text-slate-600 border border-emerald-100/30">
+                      <div key={i} className="p-3 rounded-xl text-sm" style={{ background: "rgba(16,185,129,0.08)", border: "1px solid rgba(16,185,129,0.12)", color: "rgba(255,255,255,0.7)" }}>
                         {h}
                       </div>
                     ))}
                   </div>
                 </div>
                 <div>
-                  <h5 className="text-sm font-medium text-red-500 mb-3 flex items-center gap-1.5">
+                  <h5 className="text-sm font-medium text-red-400 mb-3 flex items-center gap-1.5">
                     <XCircle className="w-4 h-4" /> Unhealthy
                   </h5>
                   <div className="space-y-2">
                     {(healthyUnhealthy[currentFunc.code]?.unhealthy || []).map((u, i) => (
-                      <div key={i} className="p-3 rounded-xl bg-red-50/50 text-sm text-slate-600 border border-red-100/30">
+                      <div key={i} className="p-3 rounded-xl text-sm" style={{ background: "rgba(239,68,68,0.08)", border: "1px solid rgba(239,68,68,0.12)", color: "rgba(255,255,255,0.7)" }}>
                         {u}
                       </div>
                     ))}
@@ -621,7 +618,7 @@ function Tab8Functions() {
               title="In the Shadow"
               accentColor={currentFunc.color}
             >
-              <p className="text-sm text-slate-600 leading-relaxed pt-3">
+              <p className="text-sm leading-relaxed pt-3" style={{ color: "rgba(255,255,255,0.6)" }}>
                 {shadowManifestations[currentFunc.code] || "Shadow data not yet available."}
               </p>
             </ExpandableSection>
@@ -632,16 +629,16 @@ function Tab8Functions() {
               title="Body Connection (Somatic Experience)"
               accentColor={currentFunc.color}
             >
-              <p className="text-sm text-slate-600 leading-relaxed pt-3">
+              <p className="text-sm leading-relaxed pt-3" style={{ color: "rgba(255,255,255,0.6)" }}>
                 {bodyConnections[currentFunc.code] || "Body connection data not yet available."}
               </p>
             </ExpandableSection>
           </motion.div>
         ) : (
           <motion.div key="empty" {...fadeIn} className="text-center py-20">
-            <Brain className="w-10 h-10 text-slate-200 mx-auto mb-4" />
-            <p className="text-slate-400 text-lg font-serif">Select a function above to explore</p>
-            <p className="text-slate-300 text-sm mt-2">Each function unfolds into six layers of understanding</p>
+            <Brain className="w-10 h-10 mx-auto mb-4" style={{ color: "rgba(255,255,255,0.15)" }} />
+            <p className="text-lg font-serif" style={{ color: "rgba(255,255,255,0.4)" }}>Select a function above to explore</p>
+            <p className="text-sm mt-2" style={{ color: "rgba(255,255,255,0.25)" }}>Each function unfolds into six layers of understanding</p>
           </motion.div>
         )}
       </AnimatePresence>
@@ -666,7 +663,7 @@ function TabFunctionAxes() {
 
   return (
     <div>
-      <p className="text-sm text-slate-500 mb-6">
+      <p className="text-sm mb-6" style={{ color: "rgba(255,255,255,0.5)" }}>
         Every cognitive function exists on an axis with its opposite. These axes form the fundamental tensions within the psyche. Click an axis to explore.
       </p>
 
@@ -681,11 +678,11 @@ function TabFunctionAxes() {
               onClick={() => setSelectedAxis(isSelected ? null : i)}
               whileHover={{ scale: 1.01 }}
               whileTap={{ scale: 0.99 }}
-              className={`relative p-5 rounded-2xl text-left transition-all border overflow-hidden ${
-                isSelected
-                  ? "border-indigo-200 shadow-lg bg-white"
-                  : "border-slate-100 bg-white hover:border-slate-200 hover:shadow-sm"
-              }`}
+              className="relative p-5 rounded-2xl text-left transition-all overflow-hidden"
+              style={isSelected
+                ? { background: "rgba(255,255,255,0.08)", border: "1px solid rgba(139,92,246,0.3)", boxShadow: "0 4px 20px rgba(139,92,246,0.1)" }
+                : { background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.09)" }
+              }
             >
               {/* Gradient bar */}
               <div className={`h-1.5 rounded-full bg-gradient-to-r ${vis.gradient} mb-4`} />
@@ -694,16 +691,17 @@ function TabFunctionAxes() {
                   <span className="font-mono font-bold text-sm" style={{ color: vis.leftColor }}>
                     {a.functions[0]}
                   </span>
-                  <ArrowLeftRight className="w-4 h-4 text-slate-300" />
+                  <ArrowLeftRight className="w-4 h-4" style={{ color: "rgba(255,255,255,0.2)" }} />
                   <span className="font-mono font-bold text-sm" style={{ color: vis.rightColor }}>
                     {a.functions[1]}
                   </span>
                 </div>
                 <ChevronRight
-                  className={`w-4 h-4 text-slate-300 transition-transform ${isSelected ? "rotate-90" : ""}`}
+                  className={`w-4 h-4 transition-transform ${isSelected ? "rotate-90" : ""}`}
+                  style={{ color: "rgba(255,255,255,0.25)" }}
                 />
               </div>
-              <p className="text-xs text-slate-400 mt-2 line-clamp-2">
+              <p className="text-xs mt-2 line-clamp-2" style={{ color: "rgba(255,255,255,0.4)" }}>
                 {funcMap[a.functions[0]]?.name} vs. {funcMap[a.functions[1]]?.name}
               </p>
             </motion.button>
@@ -715,7 +713,7 @@ function TabFunctionAxes() {
       <AnimatePresence mode="wait">
         {axis && selectedAxis !== null && (
           <motion.div key={axis.axis} {...fadeIn} className="space-y-4">
-            <div className="p-8 rounded-3xl bg-white border border-slate-100 shadow-sm">
+            <div className="p-8 rounded-3xl shadow-sm" style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.09)" }}>
               <div className="flex items-center gap-4 mb-6">
                 <div className="flex items-center gap-3">
                   <div
@@ -725,8 +723,8 @@ function TabFunctionAxes() {
                     {axis.functions[0]}
                   </div>
                   <div className="flex flex-col items-center">
-                    <ArrowLeftRight className="w-5 h-5 text-slate-300" />
-                    <span className="text-[10px] text-slate-300 mt-0.5">axis</span>
+                    <ArrowLeftRight className="w-5 h-5" style={{ color: "rgba(255,255,255,0.2)" }} />
+                    <span className="text-[10px] mt-0.5" style={{ color: "rgba(255,255,255,0.2)" }}>axis</span>
                   </div>
                   <div
                     className="w-12 h-12 rounded-xl flex items-center justify-center text-white font-mono font-bold"
@@ -736,41 +734,41 @@ function TabFunctionAxes() {
                   </div>
                 </div>
                 <div>
-                  <h2 className="text-xl font-serif font-bold text-slate-900">{axis.axis}</h2>
-                  <p className="text-xs text-slate-400">
+                  <h2 className="text-xl font-serif font-bold" style={{ color: "rgba(255,255,255,0.93)" }}>{axis.axis}</h2>
+                  <p className="text-xs" style={{ color: "rgba(255,255,255,0.35)" }}>
                     {funcMap[axis.functions[0]]?.name} &mdash; {funcMap[axis.functions[1]]?.name}
                   </p>
                 </div>
               </div>
 
-              <p className="text-sm text-slate-600 leading-relaxed mb-6">{axis.description}</p>
+              <p className="text-sm leading-relaxed mb-6" style={{ color: "rgba(255,255,255,0.6)" }}>{axis.description}</p>
 
               {/* Tension */}
-              <div className="p-4 rounded-xl bg-amber-50/50 border border-amber-100/50 mb-4">
-                <h4 className="text-xs font-medium text-amber-700 uppercase tracking-wider mb-2 flex items-center gap-1.5">
+              <div className="p-4 rounded-xl mb-4" style={{ background: "rgba(245,158,11,0.08)", border: "1px solid rgba(245,158,11,0.15)" }}>
+                <h4 className="text-xs font-medium text-amber-400 uppercase tracking-wider mb-2 flex items-center gap-1.5">
                   <Swords className="w-3.5 h-3.5" /> The Tension
                 </h4>
-                <p className="text-sm text-slate-600 leading-relaxed">{axis.tension}</p>
+                <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.6)" }}>{axis.tension}</p>
               </div>
 
               {/* Healthy Integration */}
-              <div className="p-4 rounded-xl bg-emerald-50/50 border border-emerald-100/50 mb-6">
-                <h4 className="text-xs font-medium text-emerald-700 uppercase tracking-wider mb-2 flex items-center gap-1.5">
+              <div className="p-4 rounded-xl mb-6" style={{ background: "rgba(16,185,129,0.08)", border: "1px solid rgba(16,185,129,0.15)" }}>
+                <h4 className="text-xs font-medium text-emerald-400 uppercase tracking-wider mb-2 flex items-center gap-1.5">
                   <Sparkles className="w-3.5 h-3.5" /> Healthy Integration
                 </h4>
-                <p className="text-sm text-slate-600 leading-relaxed">{axis.healthyIntegration}</p>
+                <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.6)" }}>{axis.healthyIntegration}</p>
               </div>
 
               {/* Spectrum visual */}
               <div className="mb-6">
-                <h4 className="text-xs font-medium text-slate-400 uppercase tracking-wider mb-4">
+                <h4 className="text-xs font-medium uppercase tracking-wider mb-4" style={{ color: "rgba(255,255,255,0.35)" }}>
                   Spectrum: Which Types Use This Axis
                 </h4>
                 <div className="relative">
                   <div
                     className={`h-2 rounded-full bg-gradient-to-r ${axisVisuals[selectedAxis].gradient} mb-6`}
                   />
-                  <div className="flex justify-between text-[10px] text-slate-400 -mt-4 mb-4">
+                  <div className="flex justify-between text-[10px] -mt-4 mb-4" style={{ color: "rgba(255,255,255,0.35)" }}>
                     <span className="font-mono" style={{ color: axisVisuals[selectedAxis].leftColor }}>
                       {axis.functions[0]}-dominant
                     </span>
@@ -785,14 +783,15 @@ function TabFunctionAxes() {
               {axisTypes[axis.axis] && (
                 <div className="grid sm:grid-cols-2 gap-4">
                   <div>
-                    <h5 className="text-xs font-medium text-slate-400 uppercase tracking-wider mb-2">
+                    <h5 className="text-xs font-medium uppercase tracking-wider mb-2" style={{ color: "rgba(255,255,255,0.35)" }}>
                       Dominant Axis Users
                     </h5>
                     <div className="flex flex-wrap gap-2">
                       {axisTypes[axis.axis].dominant.map((t) => (
                         <span
                           key={t}
-                          className="px-3 py-1.5 text-xs rounded-lg font-mono font-medium bg-indigo-50 text-indigo-700 border border-indigo-100"
+                          className="px-3 py-1.5 text-xs rounded-lg font-mono font-medium"
+                          style={{ background: "rgba(139,92,246,0.15)", color: "#a78bfa", border: "1px solid rgba(139,92,246,0.25)" }}
                         >
                           {t}
                         </span>
@@ -800,14 +799,15 @@ function TabFunctionAxes() {
                     </div>
                   </div>
                   <div>
-                    <h5 className="text-xs font-medium text-slate-400 uppercase tracking-wider mb-2">
+                    <h5 className="text-xs font-medium uppercase tracking-wider mb-2" style={{ color: "rgba(255,255,255,0.35)" }}>
                       Auxiliary Axis Users
                     </h5>
                     <div className="flex flex-wrap gap-2">
                       {axisTypes[axis.axis].auxiliary.map((t) => (
                         <span
                           key={t}
-                          className="px-3 py-1.5 text-xs rounded-lg font-mono font-medium bg-slate-50 text-slate-600 border border-slate-100"
+                          className="px-3 py-1.5 text-xs rounded-lg font-mono font-medium"
+                          style={{ background: "rgba(255,255,255,0.06)", color: "rgba(255,255,255,0.6)", border: "1px solid rgba(255,255,255,0.09)" }}
                         >
                           {t}
                         </span>
@@ -823,9 +823,9 @@ function TabFunctionAxes() {
 
       {selectedAxis === null && (
         <motion.div {...fadeIn} className="text-center py-16">
-          <ArrowLeftRight className="w-10 h-10 text-slate-200 mx-auto mb-4" />
-          <p className="text-slate-400 text-lg font-serif">Select an axis above to explore</p>
-          <p className="text-slate-300 text-sm mt-2">Discover the fundamental tensions that shape cognition</p>
+          <ArrowLeftRight className="w-10 h-10 mx-auto mb-4" style={{ color: "rgba(255,255,255,0.15)" }} />
+          <p className="text-lg font-serif" style={{ color: "rgba(255,255,255,0.4)" }}>Select an axis above to explore</p>
+          <p className="text-sm mt-2" style={{ color: "rgba(255,255,255,0.25)" }}>Discover the fundamental tensions that shape cognition</p>
         </motion.div>
       )}
     </div>
@@ -856,7 +856,7 @@ function TabShadow() {
 
   return (
     <div>
-      <p className="text-sm text-slate-500 mb-6">
+      <p className="text-sm mb-6" style={{ color: "rgba(255,255,255,0.5)" }}>
         John Beebe extended Jung&apos;s model to show that every person uses all 8 cognitive functions. The first four form the conscious &ldquo;ego&rdquo; stack; the second four form the unconscious &ldquo;shadow.&rdquo; Each position carries an archetypal energy.
       </p>
 
@@ -866,12 +866,11 @@ function TabShadow() {
           <button
             key={t.code}
             onClick={() => { setSelectedType(t.code === selectedType ? null : t.code); setSelectedPosition(null); }}
-            className={`px-3 py-1.5 rounded-xl text-xs font-mono font-medium transition-all border ${
-              selectedType === t.code
-                ? "text-white shadow-md border-transparent"
-                : "bg-white text-slate-600 border-slate-200 hover:border-indigo-200"
-            }`}
-            style={selectedType === t.code ? { backgroundColor: t.color } : undefined}
+            className="px-3 py-1.5 rounded-xl text-xs font-mono font-medium transition-all"
+            style={selectedType === t.code
+              ? { backgroundColor: t.color, color: "white", boxShadow: "0 4px 12px rgba(0,0,0,0.3)", border: "1px solid transparent" }
+              : { background: "rgba(255,255,255,0.05)", color: "rgba(255,255,255,0.6)", border: "1px solid rgba(255,255,255,0.09)" }
+            }
           >
             {t.code}
           </button>
@@ -882,11 +881,11 @@ function TabShadow() {
         {type && fullStack.length === 8 ? (
           <motion.div key={type.code} {...fadeIn} className="space-y-4">
             {/* 8-position stack */}
-            <div className="p-6 rounded-3xl bg-white border border-slate-100 shadow-sm">
-              <h3 className="text-lg font-serif font-bold text-slate-900 mb-1">
+            <div className="p-6 rounded-3xl shadow-sm" style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.09)" }}>
+              <h3 className="text-lg font-serif font-bold mb-1" style={{ color: "rgba(255,255,255,0.93)" }}>
                 {type.code} &mdash; Full 8-Function Stack
               </h3>
-              <p className="text-xs text-slate-400 mb-6">Click any position to learn more</p>
+              <p className="text-xs mb-6" style={{ color: "rgba(255,255,255,0.35)" }}>Click any position to learn more</p>
 
               <div className="space-y-2">
                 {fullStack.map((funcCode, i) => {
@@ -900,13 +899,13 @@ function TabShadow() {
                       key={i}
                       onClick={() => setSelectedPosition(isSelected ? null : i)}
                       whileHover={{ x: 4 }}
-                      className={`w-full flex items-center gap-4 p-4 rounded-xl text-left transition-all border ${
-                        isSelected
-                          ? "border-indigo-200 bg-indigo-50/50 shadow-sm"
-                          : isShadow
-                          ? "border-slate-100 bg-slate-50/50 hover:bg-slate-50"
-                          : "border-slate-100 bg-white hover:bg-slate-50/50"
-                      }`}
+                      className="w-full flex items-center gap-4 p-4 rounded-xl text-left transition-all"
+                      style={isSelected
+                        ? { background: "rgba(139,92,246,0.12)", border: "1px solid rgba(139,92,246,0.3)" }
+                        : isShadow
+                        ? { background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.06)" }
+                        : { background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.09)" }
+                      }
                     >
                       {/* Position number */}
                       <div
@@ -933,22 +932,22 @@ function TabShadow() {
                       {/* Info */}
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center gap-2">
-                          <span className="text-sm font-medium text-slate-800">
+                          <span className="text-sm font-medium" style={{ color: "rgba(255,255,255,0.8)" }}>
                             {func?.name || funcCode}
                           </span>
                           {isShadow && (
-                            <span className="px-1.5 py-0.5 text-[9px] rounded bg-slate-200/50 text-slate-500">
+                            <span className="px-1.5 py-0.5 text-[9px] rounded" style={{ background: "rgba(255,255,255,0.1)", color: "rgba(255,255,255,0.4)" }}>
                               SHADOW
                             </span>
                           )}
                         </div>
-                        <div className="text-xs text-slate-400">
+                        <div className="text-xs" style={{ color: "rgba(255,255,255,0.4)" }}>
                           {shadow?.role || positionLabels[i]}
                         </div>
                       </div>
 
                       {/* Thyself icon */}
-                      <span className={`${isSelected ? "text-indigo-400" : "text-slate-300"}`}>
+                      <span style={{ color: isSelected ? "#a78bfa" : "rgba(255,255,255,0.2)" }}>
                         {positionIcons[i]}
                       </span>
                     </motion.button>
@@ -961,32 +960,32 @@ function TabShadow() {
             <AnimatePresence mode="wait">
               {selectedPosition !== null && (
                 <motion.div key={selectedPosition} {...fadeIn}>
-                  <div className="p-6 rounded-2xl bg-white border border-slate-100">
+                  <div className="p-6 rounded-2xl" style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.09)" }}>
                     <div className="flex items-center gap-3 mb-4">
                       <span style={{ color: positionColors[selectedPosition] }}>
                         {positionIcons[selectedPosition]}
                       </span>
                       <div>
-                        <h4 className="text-sm font-medium text-slate-800">
+                        <h4 className="text-sm font-medium" style={{ color: "rgba(255,255,255,0.8)" }}>
                           Position {selectedPosition + 1}: {shadowPositions[selectedPosition]?.archetype}
                         </h4>
-                        <p className="text-xs text-slate-400">
+                        <p className="text-xs" style={{ color: "rgba(255,255,255,0.35)" }}>
                           {fullStack[selectedPosition]} &mdash; {funcMap[fullStack[selectedPosition]]?.name || fullStack[selectedPosition]}
                         </p>
                       </div>
                     </div>
-                    <p className="text-sm text-slate-600 leading-relaxed mb-4">
+                    <p className="text-sm leading-relaxed mb-4" style={{ color: "rgba(255,255,255,0.6)" }}>
                       {shadowPositions[selectedPosition]?.description}
                     </p>
-                    <div className="p-3 rounded-xl bg-indigo-50/50 border border-indigo-100/30">
-                      <h5 className="text-xs font-medium text-indigo-600 mb-1">How It Feels</h5>
-                      <p className="text-sm text-slate-600 leading-relaxed">
+                    <div className="p-3 rounded-xl" style={{ background: "rgba(99,102,241,0.1)", border: "1px solid rgba(99,102,241,0.2)" }}>
+                      <h5 className="text-xs font-medium text-violet-400 mb-1">How It Feels</h5>
+                      <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.6)" }}>
                         {shadowPositions[selectedPosition]?.experienceDescription}
                       </p>
                     </div>
-                    <div className="p-3 rounded-xl bg-sky-50/50 border border-sky-100/30 mt-3">
-                      <h5 className="text-xs font-medium text-sky-600 mb-1">For {type.code}</h5>
-                      <p className="text-sm text-slate-600 leading-relaxed">
+                    <div className="p-3 rounded-xl mt-3" style={{ background: "rgba(14,165,233,0.08)", border: "1px solid rgba(14,165,233,0.15)" }}>
+                      <h5 className="text-xs font-medium text-sky-400 mb-1">For {type.code}</h5>
+                      <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.6)" }}>
                         As an {type.code}, your {positionLabels[selectedPosition]} function is{" "}
                         <strong className="font-mono" style={{ color: funcMap[fullStack[selectedPosition]]?.color }}>
                           {fullStack[selectedPosition]}
@@ -1004,9 +1003,9 @@ function TabShadow() {
           </motion.div>
         ) : (
           <motion.div key="empty" {...fadeIn} className="text-center py-16">
-            <Ghost className="w-10 h-10 text-slate-200 mx-auto mb-4" />
-            <p className="text-slate-400 text-lg font-serif">Select a type to see its full 8-function stack</p>
-            <p className="text-slate-300 text-sm mt-2">Explore the ego and shadow positions with Beebe&apos;s archetypes</p>
+            <Ghost className="w-10 h-10 mx-auto mb-4" style={{ color: "rgba(255,255,255,0.15)" }} />
+            <p className="text-lg font-serif" style={{ color: "rgba(255,255,255,0.4)" }}>Select a type to see its full 8-function stack</p>
+            <p className="text-sm mt-2" style={{ color: "rgba(255,255,255,0.25)" }}>Explore the ego and shadow positions with Beebe&apos;s archetypes</p>
           </motion.div>
         )}
       </AnimatePresence>
@@ -1031,7 +1030,7 @@ function TabLoopsGrips() {
 
   return (
     <div>
-      <p className="text-sm text-slate-500 mb-6">
+      <p className="text-sm mb-6" style={{ color: "rgba(255,255,255,0.5)" }}>
         Under stress, we can fall into <strong>loops</strong> (bypassing the auxiliary function) or{" "}
         <strong>grips</strong> (our inferior function erupting). Both are signals that the psyche needs rebalancing.
       </p>
@@ -1042,12 +1041,11 @@ function TabLoopsGrips() {
           <button
             key={t.code}
             onClick={() => { setSelectedType(t.code === selectedType ? null : t.code); setSelfCheckAnswers({}); setShowSelfCheck(false); }}
-            className={`px-3 py-1.5 rounded-xl text-xs font-mono font-medium transition-all border ${
-              selectedType === t.code
-                ? "text-white shadow-md border-transparent"
-                : "bg-white text-slate-600 border-slate-200 hover:border-indigo-200"
-            }`}
-            style={selectedType === t.code ? { backgroundColor: t.color } : undefined}
+            className="px-3 py-1.5 rounded-xl text-xs font-mono font-medium transition-all"
+            style={selectedType === t.code
+              ? { backgroundColor: t.color, color: "white", boxShadow: "0 4px 12px rgba(0,0,0,0.3)", border: "1px solid transparent" }
+              : { background: "rgba(255,255,255,0.05)", color: "rgba(255,255,255,0.6)", border: "1px solid rgba(255,255,255,0.09)" }
+            }
           >
             {t.code}
           </button>
@@ -1059,16 +1057,16 @@ function TabLoopsGrips() {
           <motion.div key={type.code} {...fadeIn} className="space-y-4">
             {/* Loop */}
             {loop && (
-              <div className="p-6 rounded-3xl bg-white border border-slate-100 shadow-sm">
+              <div className="p-6 rounded-3xl shadow-sm" style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.09)" }}>
                 <div className="flex items-center gap-3 mb-4">
-                  <div className="w-10 h-10 rounded-xl bg-amber-50 flex items-center justify-center">
-                    <RefreshCw className="w-5 h-5 text-amber-500" />
+                  <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: "rgba(245,158,11,0.12)" }}>
+                    <RefreshCw className="w-5 h-5 text-amber-400" />
                   </div>
                   <div>
-                    <h3 className="text-lg font-serif font-bold text-slate-900">
+                    <h3 className="text-lg font-serif font-bold" style={{ color: "rgba(255,255,255,0.93)" }}>
                       {type.code} Loop: {loop.loop}
                     </h3>
-                    <p className="text-xs text-slate-400">
+                    <p className="text-xs" style={{ color: "rgba(255,255,255,0.35)" }}>
                       When {funcMap[type.stack[1]]?.name || type.stack[1]} (auxiliary) is bypassed
                     </p>
                   </div>
@@ -1109,16 +1107,16 @@ function TabLoopsGrips() {
                   </div>
                 </div>
 
-                <p className="text-sm text-slate-600 leading-relaxed mb-4">{loop.description}</p>
+                <p className="text-sm leading-relaxed mb-4" style={{ color: "rgba(255,255,255,0.6)" }}>{loop.description}</p>
 
                 {/* Signs */}
                 <div className="mb-4">
-                  <h4 className="text-xs font-medium text-amber-600 uppercase tracking-wider mb-2">
+                  <h4 className="text-xs font-medium text-amber-400 uppercase tracking-wider mb-2">
                     Warning Signs
                   </h4>
                   <div className="space-y-2">
                     {loop.signs.map((s, i) => (
-                      <div key={i} className="flex items-start gap-2 text-sm text-slate-600">
+                      <div key={i} className="flex items-start gap-2 text-sm" style={{ color: "rgba(255,255,255,0.6)" }}>
                         <AlertTriangle className="w-3.5 h-3.5 text-amber-400 mt-0.5 shrink-0" />
                         {s}
                       </div>
@@ -1127,40 +1125,40 @@ function TabLoopsGrips() {
                 </div>
 
                 {/* Resolution */}
-                <div className="p-4 rounded-xl bg-emerald-50/50 border border-emerald-100/50">
-                  <h4 className="text-xs font-medium text-emerald-600 uppercase tracking-wider mb-2">
+                <div className="p-4 rounded-xl" style={{ background: "rgba(16,185,129,0.08)", border: "1px solid rgba(16,185,129,0.15)" }}>
+                  <h4 className="text-xs font-medium text-emerald-400 uppercase tracking-wider mb-2">
                     Recovery Strategy
                   </h4>
-                  <p className="text-sm text-slate-600 leading-relaxed">{loop.resolution}</p>
+                  <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.6)" }}>{loop.resolution}</p>
                 </div>
               </div>
             )}
 
             {/* Grip */}
             {grip && (
-              <div className="p-6 rounded-3xl bg-white border border-slate-100 shadow-sm">
+              <div className="p-6 rounded-3xl shadow-sm" style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.09)" }}>
                 <div className="flex items-center gap-3 mb-4">
-                  <div className="w-10 h-10 rounded-xl bg-red-50 flex items-center justify-center">
-                    <Flame className="w-5 h-5 text-red-500" />
+                  <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: "rgba(239,68,68,0.12)" }}>
+                    <Flame className="w-5 h-5 text-red-400" />
                   </div>
                   <div>
-                    <h3 className="text-lg font-serif font-bold text-slate-900">
+                    <h3 className="text-lg font-serif font-bold" style={{ color: "rgba(255,255,255,0.93)" }}>
                       {type.code} Grip: Inferior {grip.inferiorFunction} Eruption
                     </h3>
-                    <p className="text-xs text-slate-400">
+                    <p className="text-xs" style={{ color: "rgba(255,255,255,0.35)" }}>
                       When {funcMap[grip.inferiorFunction]?.name || grip.inferiorFunction} takes over
                     </p>
                   </div>
                 </div>
 
-                <p className="text-sm text-slate-600 leading-relaxed mb-4">{grip.description}</p>
+                <p className="text-sm leading-relaxed mb-4" style={{ color: "rgba(255,255,255,0.6)" }}>{grip.description}</p>
 
                 {/* Triggers */}
                 <div className="mb-4">
-                  <h4 className="text-xs font-medium text-red-500 uppercase tracking-wider mb-2">Triggers</h4>
+                  <h4 className="text-xs font-medium text-red-400 uppercase tracking-wider mb-2">Triggers</h4>
                   <div className="space-y-2">
                     {grip.triggers.map((t, i) => (
-                      <div key={i} className="flex items-start gap-2 text-sm text-slate-600">
+                      <div key={i} className="flex items-start gap-2 text-sm" style={{ color: "rgba(255,255,255,0.6)" }}>
                         <Zap className="w-3.5 h-3.5 text-red-400 mt-0.5 shrink-0" />
                         {t}
                       </div>
@@ -1170,12 +1168,12 @@ function TabLoopsGrips() {
 
                 {/* Manifestation */}
                 <div className="mb-4">
-                  <h4 className="text-xs font-medium text-slate-500 uppercase tracking-wider mb-2">
+                  <h4 className="text-xs font-medium uppercase tracking-wider mb-2" style={{ color: "rgba(255,255,255,0.35)" }}>
                     How It Manifests
                   </h4>
                   <div className="space-y-2">
                     {grip.manifestation.map((m, i) => (
-                      <div key={i} className="p-3 rounded-xl bg-red-50/30 border border-red-100/30 text-sm text-slate-600">
+                      <div key={i} className="p-3 rounded-xl text-sm" style={{ background: "rgba(239,68,68,0.07)", border: "1px solid rgba(239,68,68,0.12)", color: "rgba(255,255,255,0.6)" }}>
                         {m}
                       </div>
                     ))}
@@ -1183,30 +1181,30 @@ function TabLoopsGrips() {
                 </div>
 
                 {/* Recovery */}
-                <div className="p-4 rounded-xl bg-emerald-50/50 border border-emerald-100/50">
-                  <h4 className="text-xs font-medium text-emerald-600 uppercase tracking-wider mb-2">Recovery</h4>
-                  <p className="text-sm text-slate-600 leading-relaxed">{grip.recovery}</p>
+                <div className="p-4 rounded-xl" style={{ background: "rgba(16,185,129,0.08)", border: "1px solid rgba(16,185,129,0.15)" }}>
+                  <h4 className="text-xs font-medium text-emerald-400 uppercase tracking-wider mb-2">Recovery</h4>
+                  <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.6)" }}>{grip.recovery}</p>
                 </div>
               </div>
             )}
 
             {/* Self-Check */}
-            <div className="p-6 rounded-3xl bg-white border border-slate-100 shadow-sm">
+            <div className="p-6 rounded-3xl shadow-sm" style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.09)" }}>
               <button
                 onClick={() => setShowSelfCheck(!showSelfCheck)}
                 className="w-full flex items-center justify-between"
               >
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-xl bg-indigo-50 flex items-center justify-center">
-                    <HelpCircle className="w-5 h-5 text-indigo-500" />
+                  <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: "rgba(139,92,246,0.12)" }}>
+                    <HelpCircle className="w-5 h-5 text-violet-400" />
                   </div>
                   <div className="text-left">
-                    <h3 className="text-lg font-serif font-bold text-slate-900">Am I in a Loop?</h3>
-                    <p className="text-xs text-slate-400">Quick self-check assessment</p>
+                    <h3 className="text-lg font-serif font-bold" style={{ color: "rgba(255,255,255,0.93)" }}>Am I in a Loop?</h3>
+                    <p className="text-xs" style={{ color: "rgba(255,255,255,0.35)" }}>Quick self-check assessment</p>
                   </div>
                 </div>
                 <motion.div animate={{ rotate: showSelfCheck ? 90 : 0 }}>
-                  <ChevronRight className="w-5 h-5 text-slate-300" />
+                  <ChevronRight className="w-5 h-5" style={{ color: "rgba(255,255,255,0.25)" }} />
                 </motion.div>
               </button>
 
@@ -1220,35 +1218,36 @@ function TabLoopsGrips() {
                   >
                     <div className="mt-6 space-y-3">
                       {loopSelfCheck.map((q, i) => (
-                        <div key={i} className="p-4 rounded-xl border border-slate-100">
-                          <p className="text-sm text-slate-700 mb-3">{q.question}</p>
+                        <div key={i} className="p-4 rounded-xl" style={{ border: "1px solid rgba(255,255,255,0.09)", background: "rgba(255,255,255,0.03)" }}>
+                          <p className="text-sm mb-3" style={{ color: "rgba(255,255,255,0.7)" }}>{q.question}</p>
                           <div className="flex gap-2">
                             <button
                               onClick={() => setSelfCheckAnswers((prev) => ({ ...prev, [i]: true }))}
-                              className={`px-4 py-1.5 rounded-lg text-xs font-medium transition ${
-                                selfCheckAnswers[i] === true
-                                  ? "bg-amber-100 text-amber-700 border border-amber-200"
-                                  : "bg-slate-50 text-slate-500 border border-slate-100 hover:bg-slate-100"
-                              }`}
+                              className="px-4 py-1.5 rounded-lg text-xs font-medium transition"
+                              style={selfCheckAnswers[i] === true
+                                ? { background: "rgba(245,158,11,0.2)", color: "#fbbf24", border: "1px solid rgba(245,158,11,0.3)" }
+                                : { background: "rgba(255,255,255,0.06)", color: "rgba(255,255,255,0.5)", border: "1px solid rgba(255,255,255,0.09)" }
+                              }
                             >
                               Yes
                             </button>
                             <button
                               onClick={() => setSelfCheckAnswers((prev) => ({ ...prev, [i]: false }))}
-                              className={`px-4 py-1.5 rounded-lg text-xs font-medium transition ${
-                                selfCheckAnswers[i] === false
-                                  ? "bg-emerald-100 text-emerald-700 border border-emerald-200"
-                                  : "bg-slate-50 text-slate-500 border border-slate-100 hover:bg-slate-100"
-                              }`}
+                              className="px-4 py-1.5 rounded-lg text-xs font-medium transition"
+                              style={selfCheckAnswers[i] === false
+                                ? { background: "rgba(16,185,129,0.2)", color: "#34d399", border: "1px solid rgba(16,185,129,0.3)" }
+                                : { background: "rgba(255,255,255,0.06)", color: "rgba(255,255,255,0.5)", border: "1px solid rgba(255,255,255,0.09)" }
+                              }
                             >
                               No
                             </button>
                           </div>
                           {selfCheckAnswers[i] === true && (
                             <motion.p
-                              initial={{ opacity: 1 }}
+                              initial={{ opacity: 0 }}
                               animate={{ opacity: 1 }}
-                              className="text-xs text-amber-600 mt-2 p-2 rounded-lg bg-amber-50"
+                              className="text-xs mt-2 p-2 rounded-lg"
+                              style={{ color: "#fbbf24", background: "rgba(245,158,11,0.1)" }}
                             >
                               {q.ifYes}
                             </motion.p>
@@ -1258,9 +1257,9 @@ function TabLoopsGrips() {
 
                       {/* Summary */}
                       {Object.keys(selfCheckAnswers).length === loopSelfCheck.length && (
-                        <motion.div {...fadeIn} className="p-4 rounded-xl border-2 border-indigo-100 bg-indigo-50/30">
-                          <h5 className="text-sm font-medium text-indigo-700 mb-2">Assessment</h5>
-                          <p className="text-sm text-slate-600">
+                        <motion.div {...fadeIn} className="p-4 rounded-xl" style={{ border: "1px solid rgba(139,92,246,0.3)", background: "rgba(139,92,246,0.08)" }}>
+                          <h5 className="text-sm font-medium text-violet-400 mb-2">Assessment</h5>
+                          <p className="text-sm" style={{ color: "rgba(255,255,255,0.7)" }}>
                             {yesCount === 0 && "You appear to be in a balanced cognitive state. Your auxiliary function seems to be operating healthily."}
                             {yesCount === 1 && "Mild imbalance detected. Worth paying attention to, but likely manageable with awareness."}
                             {yesCount === 2 && "Moderate imbalance. You may be entering a loop. Consider actively engaging your auxiliary function."}
@@ -1277,13 +1276,13 @@ function TabLoopsGrips() {
           </motion.div>
         ) : selectedType && !loop && !grip ? (
           <motion.div key="no-data" {...fadeIn} className="text-center py-16">
-            <p className="text-slate-400 text-sm">Loop and grip data for {selectedType} is not yet in the database.</p>
+            <p className="text-sm" style={{ color: "rgba(255,255,255,0.35)" }}>Loop and grip data for {selectedType} is not yet in the database.</p>
           </motion.div>
         ) : (
           <motion.div key="empty" {...fadeIn} className="text-center py-16">
-            <RefreshCw className="w-10 h-10 text-slate-200 mx-auto mb-4" />
-            <p className="text-slate-400 text-lg font-serif">Select a type to explore loops and grips</p>
-            <p className="text-slate-300 text-sm mt-2">Understand what happens when cognitive balance breaks down</p>
+            <RefreshCw className="w-10 h-10 mx-auto mb-4" style={{ color: "rgba(255,255,255,0.15)" }} />
+            <p className="text-lg font-serif" style={{ color: "rgba(255,255,255,0.4)" }}>Select a type to explore loops and grips</p>
+            <p className="text-sm mt-2" style={{ color: "rgba(255,255,255,0.25)" }}>Understand what happens when cognitive balance breaks down</p>
           </motion.div>
         )}
       </AnimatePresence>
@@ -1330,7 +1329,7 @@ function Tab16Types() {
       <div className="space-y-4 mb-8">
         {temperamentGroups.map((group) => (
           <div key={group.label}>
-            <h4 className="text-xs font-medium text-slate-400 uppercase tracking-wider mb-2 pl-1">
+            <h4 className="text-xs font-medium uppercase tracking-wider mb-2 pl-1" style={{ color: "rgba(255,255,255,0.35)" }}>
               {group.label}
             </h4>
             <div className="grid grid-cols-4 gap-2">
@@ -1343,23 +1342,17 @@ function Tab16Types() {
                   <div key={code} className="flex flex-col items-center gap-1">
                     <button
                       onClick={() => setSelectedType(isSelected ? null : code)}
-                      className={`w-full p-3 rounded-xl text-center transition-all border ${
-                        isSelected
-                          ? "text-white shadow-lg border-transparent"
-                          : isMyType
-                          ? "bg-white text-slate-700 border-2 shadow-sm"
-                          : "bg-white text-slate-700 border-slate-100 hover:border-slate-200 hover:shadow-sm"
-                      }`}
+                      className="w-full p-3 rounded-xl text-center transition-all"
                       style={
                         isSelected
-                          ? { backgroundColor: t.color }
+                          ? { backgroundColor: t.color, color: "white", boxShadow: "0 4px 12px rgba(0,0,0,0.3)", border: "1px solid transparent" }
                           : isMyType
-                          ? { borderColor: t.color, boxShadow: `0 0 0 1px ${t.color}22` }
-                          : undefined
+                          ? { background: "rgba(255,255,255,0.08)", border: `2px solid ${t.color}`, boxShadow: `0 0 0 1px ${t.color}22` }
+                          : { background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.09)" }
                       }
                     >
                       <div className="font-mono font-bold text-sm">{code}</div>
-                      <div className={`text-[10px] mt-0.5 ${isSelected ? "text-white/70" : "text-slate-400"}`}>
+                      <div className="text-[10px] mt-0.5" style={{ color: isSelected ? "rgba(255,255,255,0.7)" : "rgba(255,255,255,0.4)" }}>
                         {t.name}
                       </div>
                     </button>
@@ -1381,7 +1374,7 @@ function Tab16Types() {
         {type ? (
           <motion.div key={type.code} {...fadeIn} className="space-y-4">
             {/* Header */}
-            <div className="p-8 rounded-3xl bg-white border border-slate-100 shadow-sm">
+            <div className="p-8 rounded-3xl shadow-sm" style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.09)" }}>
               <div className="flex items-start gap-5 mb-6">
                 <div
                   className="w-16 h-16 rounded-2xl flex items-center justify-center text-white font-mono font-bold text-xl shrink-0"
@@ -1390,8 +1383,8 @@ function Tab16Types() {
                   {type.code}
                 </div>
                 <div className="flex-1">
-                  <h2 className="text-2xl font-serif font-bold text-slate-900">{type.name}</h2>
-                  <p className="text-sm text-slate-400 mb-3">{type.brief}</p>
+                  <h2 className="text-2xl font-serif font-bold" style={{ color: "rgba(255,255,255,0.93)" }}>{type.name}</h2>
+                  <p className="text-sm mb-3" style={{ color: "rgba(255,255,255,0.35)" }}>{type.brief}</p>
                   <div className="flex flex-wrap gap-2">
                     <Pill color={type.color}>
                       {interactionStyles[type.code]?.temperament || "Unknown"}
@@ -1404,7 +1397,7 @@ function Tab16Types() {
               </div>
 
               {/* 8-function stack visualization */}
-              <h4 className="text-xs font-medium text-slate-400 uppercase tracking-wider mb-3">
+              <h4 className="text-xs font-medium uppercase tracking-wider mb-3" style={{ color: "rgba(255,255,255,0.35)" }}>
                 Complete 8-Function Stack
               </h4>
               <div className="grid grid-cols-4 sm:grid-cols-8 gap-2 mb-6">
@@ -1417,11 +1410,11 @@ function Tab16Types() {
                       className={`p-2 rounded-xl text-center ${isShadow ? "opacity-60" : ""}`}
                       style={{ backgroundColor: `${func?.color || "#94a3b8"}10` }}
                     >
-                      <div className="text-[9px] text-slate-400 mb-0.5">{positionLabels[i]}</div>
+                      <div className="text-[9px] mb-0.5" style={{ color: "rgba(255,255,255,0.35)" }}>{positionLabels[i]}</div>
                       <div className="font-mono font-bold text-sm" style={{ color: func?.color }}>
                         {funcCode}
                       </div>
-                      <div className="text-[9px] text-slate-400 mt-0.5">
+                      <div className="text-[9px] mt-0.5" style={{ color: "rgba(255,255,255,0.35)" }}>
                         {func?.name?.split(" ")[1] || ""}
                       </div>
                     </div>
@@ -1437,33 +1430,33 @@ function Tab16Types() {
               accentColor={type.color}
               defaultOpen
             >
-              <p className="text-sm text-slate-600 leading-relaxed pt-3">
+              <p className="text-sm leading-relaxed pt-3" style={{ color: "rgba(255,255,255,0.6)" }}>
                 {cognitiveWiring[type.code] || type.description}
               </p>
             </ExpandableSection>
 
             {/* Strengths & Growth */}
             <div className="grid sm:grid-cols-2 gap-4">
-              <div className="p-5 rounded-2xl bg-white border border-slate-100">
-                <h4 className="text-sm font-medium text-emerald-600 mb-3 flex items-center gap-1.5">
+              <div className="p-5 rounded-2xl" style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.09)" }}>
+                <h4 className="text-sm font-medium text-emerald-400 mb-3 flex items-center gap-1.5">
                   <Zap className="w-3.5 h-3.5" /> Strengths
                 </h4>
                 <div className="space-y-1.5">
                   {type.strengths.map((s) => (
-                    <div key={s} className="text-sm text-slate-600 flex items-center gap-2">
+                    <div key={s} className="text-sm flex items-center gap-2" style={{ color: "rgba(255,255,255,0.6)" }}>
                       <div className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
                       {s}
                     </div>
                   ))}
                 </div>
               </div>
-              <div className="p-5 rounded-2xl bg-white border border-slate-100">
-                <h4 className="text-sm font-medium text-amber-600 mb-3 flex items-center gap-1.5">
+              <div className="p-5 rounded-2xl" style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.09)" }}>
+                <h4 className="text-sm font-medium text-amber-400 mb-3 flex items-center gap-1.5">
                   <AlertTriangle className="w-3.5 h-3.5" /> Growth Areas
                 </h4>
                 <div className="space-y-1.5">
                   {type.growthAreas.map((g) => (
-                    <div key={g} className="text-sm text-slate-600 flex items-center gap-2">
+                    <div key={g} className="text-sm flex items-center gap-2" style={{ color: "rgba(255,255,255,0.6)" }}>
                       <div className="w-1.5 h-1.5 rounded-full bg-amber-400" />
                       {g}
                     </div>
@@ -1484,28 +1477,28 @@ function Tab16Types() {
                   {functionLoops
                     .filter((l) => l.type === type.code)
                     .map((loop) => (
-                      <div key={loop.loop} className="p-4 rounded-xl bg-amber-50/50 border border-amber-100/30">
-                        <h5 className="text-sm font-medium text-amber-700 mb-2">
+                      <div key={loop.loop} className="p-4 rounded-xl" style={{ background: "rgba(245,158,11,0.08)", border: "1px solid rgba(245,158,11,0.15)" }}>
+                        <h5 className="text-sm font-medium text-amber-400 mb-2">
                           Loop: {loop.loop}
                         </h5>
-                        <p className="text-sm text-slate-600 leading-relaxed">{loop.description}</p>
-                        <div className="mt-3 p-3 rounded-lg bg-white/60">
-                          <p className="text-xs text-emerald-600 font-medium mb-1">Resolution:</p>
-                          <p className="text-sm text-slate-600">{loop.resolution}</p>
+                        <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.6)" }}>{loop.description}</p>
+                        <div className="mt-3 p-3 rounded-lg" style={{ background: "rgba(255,255,255,0.06)" }}>
+                          <p className="text-xs text-emerald-400 font-medium mb-1">Resolution:</p>
+                          <p className="text-sm" style={{ color: "rgba(255,255,255,0.6)" }}>{loop.resolution}</p>
                         </div>
                       </div>
                     ))}
                   {gripExperiences
                     .filter((g) => g.type === type.code)
                     .map((grip) => (
-                      <div key={grip.inferiorFunction} className="p-4 rounded-xl bg-red-50/30 border border-red-100/30">
-                        <h5 className="text-sm font-medium text-red-600 mb-2">
+                      <div key={grip.inferiorFunction} className="p-4 rounded-xl" style={{ background: "rgba(239,68,68,0.07)", border: "1px solid rgba(239,68,68,0.12)" }}>
+                        <h5 className="text-sm font-medium text-red-400 mb-2">
                           Grip: Inferior {grip.inferiorFunction}
                         </h5>
-                        <p className="text-sm text-slate-600 leading-relaxed">{grip.description}</p>
-                        <div className="mt-3 p-3 rounded-lg bg-white/60">
-                          <p className="text-xs text-emerald-600 font-medium mb-1">Recovery:</p>
-                          <p className="text-sm text-slate-600">{grip.recovery}</p>
+                        <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.6)" }}>{grip.description}</p>
+                        <div className="mt-3 p-3 rounded-lg" style={{ background: "rgba(255,255,255,0.06)" }}>
+                          <p className="text-xs text-emerald-400 font-medium mb-1">Recovery:</p>
+                          <p className="text-sm" style={{ color: "rgba(255,255,255,0.6)" }}>{grip.recovery}</p>
                         </div>
                       </div>
                     ))}
@@ -1520,7 +1513,7 @@ function Tab16Types() {
               accentColor={type.color}
             >
               <div className="pt-3">
-                <p className="text-sm text-slate-500 mb-3">
+                <p className="text-sm mb-3" style={{ color: "rgba(255,255,255,0.5)" }}>
                   {type.code}s are most commonly mistyped as:
                 </p>
                 <div className="flex flex-wrap gap-2">
@@ -1530,12 +1523,13 @@ function Tab16Types() {
                       <button
                         key={mt}
                         onClick={() => setSelectedType(mt)}
-                        className="px-4 py-2 rounded-xl bg-slate-50 border border-slate-100 hover:border-indigo-200 transition text-left"
+                        className="px-4 py-2 rounded-xl transition text-left"
+                        style={{ background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.09)" }}
                       >
                         <span className="font-mono font-bold text-sm" style={{ color: mistype?.color }}>
                           {mt}
                         </span>
-                        <span className="text-xs text-slate-400 ml-2">{mistype?.name}</span>
+                        <span className="text-xs ml-2" style={{ color: "rgba(255,255,255,0.4)" }}>{mistype?.name}</span>
                       </button>
                     );
                   })}
@@ -1550,14 +1544,14 @@ function Tab16Types() {
               accentColor={type.color}
             >
               <div className="grid sm:grid-cols-2 gap-4 pt-3">
-                <div className="p-4 rounded-xl bg-indigo-50/50 border border-indigo-100/30">
-                  <h5 className="text-xs font-medium text-indigo-600 uppercase tracking-wider mb-2">
+                <div className="p-4 rounded-xl" style={{ background: "rgba(99,102,241,0.08)", border: "1px solid rgba(99,102,241,0.15)" }}>
+                  <h5 className="text-xs font-medium text-violet-400 uppercase tracking-wider mb-2">
                     Interaction Style
                   </h5>
-                  <p className="text-sm font-medium text-slate-800 mb-1">
+                  <p className="text-sm font-medium mb-1" style={{ color: "rgba(255,255,255,0.8)" }}>
                     {interactionStyles[type.code]?.style || "Unknown"}
                   </p>
-                  <p className="text-xs text-slate-500">
+                  <p className="text-xs" style={{ color: "rgba(255,255,255,0.5)" }}>
                     {interactionStyles[type.code]?.style === "Chart-the-Course" &&
                       "Focused, deliberate, patient. Works toward a defined outcome with a planned approach."}
                     {interactionStyles[type.code]?.style === "Behind-the-Scenes" &&
@@ -1568,14 +1562,14 @@ function Tab16Types() {
                       "Engaging, expressive, persuasive. Energizes and motivates others into action."}
                   </p>
                 </div>
-                <div className="p-4 rounded-xl bg-sky-50/50 border border-sky-100/30">
-                  <h5 className="text-xs font-medium text-sky-600 uppercase tracking-wider mb-2">
+                <div className="p-4 rounded-xl" style={{ background: "rgba(14,165,233,0.08)", border: "1px solid rgba(14,165,233,0.15)" }}>
+                  <h5 className="text-xs font-medium text-sky-400 uppercase tracking-wider mb-2">
                     Temperament
                   </h5>
-                  <p className="text-sm font-medium text-slate-800 mb-1">
+                  <p className="text-sm font-medium mb-1" style={{ color: "rgba(255,255,255,0.8)" }}>
                     {interactionStyles[type.code]?.temperament || "Unknown"}
                   </p>
-                  <p className="text-xs text-slate-500">
+                  <p className="text-xs" style={{ color: "rgba(255,255,255,0.5)" }}>
                     {interactionStyles[type.code]?.temperament === "NT Rational" &&
                       "Driven by competence, knowledge, and strategic thinking. Values logic and mastery."}
                     {interactionStyles[type.code]?.temperament === "NF Idealist" &&
@@ -1604,28 +1598,29 @@ function Tab16Types() {
                     {type.stack[3]}
                   </div>
                   <div>
-                    <p className="text-sm font-medium text-slate-800">
+                    <p className="text-sm font-medium" style={{ color: "rgba(255,255,255,0.8)" }}>
                       Inferior: {funcMap[type.stack[3]]?.name || type.stack[3]}
                     </p>
-                    <p className="text-xs text-slate-400">Your greatest vulnerability and growth edge</p>
+                    <p className="text-xs" style={{ color: "rgba(255,255,255,0.35)" }}>Your greatest vulnerability and growth edge</p>
                   </div>
                 </div>
-                <p className="text-sm text-slate-600 leading-relaxed">
+                <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.6)" }}>
                   {inferiorGrowth[type.code] || "Growth path data not yet available."}
                 </p>
               </div>
             </ExpandableSection>
 
             {/* Journal Prompts */}
-            <div className="p-5 rounded-2xl bg-white border border-slate-100">
-              <h4 className="text-sm font-medium text-sky-600 mb-3 flex items-center gap-1.5">
+            <div className="p-5 rounded-2xl" style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.09)" }}>
+              <h4 className="text-sm font-medium text-sky-400 mb-3 flex items-center gap-1.5">
                 <Sparkles className="w-3.5 h-3.5" /> Journal Prompts
               </h4>
               <div className="space-y-2">
                 {type.journalPrompts.map((p, i) => (
                   <div
                     key={i}
-                    className="p-3 rounded-xl bg-sky-50/50 border border-sky-100/50 text-sm text-slate-600 italic"
+                    className="p-3 rounded-xl text-sm italic"
+                    style={{ background: "rgba(14,165,233,0.06)", border: "1px solid rgba(14,165,233,0.12)", color: "rgba(255,255,255,0.6)" }}
                   >
                     &ldquo;{p}&rdquo;
                   </div>
@@ -1635,9 +1630,9 @@ function Tab16Types() {
           </motion.div>
         ) : (
           <motion.div key="empty" {...fadeIn} className="text-center py-16">
-            <Users className="w-10 h-10 text-slate-200 mx-auto mb-4" />
-            <p className="text-slate-400 text-lg font-serif">Select a type to explore</p>
-            <p className="text-slate-300 text-sm mt-2">Deep profiles with full cognitive stacks, loops, grips, and growth paths</p>
+            <Users className="w-10 h-10 mx-auto mb-4" style={{ color: "rgba(255,255,255,0.15)" }} />
+            <p className="text-lg font-serif" style={{ color: "rgba(255,255,255,0.4)" }}>Select a type to explore</p>
+            <p className="text-sm mt-2" style={{ color: "rgba(255,255,255,0.25)" }}>Deep profiles with full cognitive stacks, loops, grips, and growth paths</p>
           </motion.div>
         )}
       </AnimatePresence>
@@ -1677,40 +1672,40 @@ function CognitiveLearnContent() {
   const visibleTabs = tabs;
 
   return (
-    <div className="min-h-screen py-12">
+    <div className="min-h-screen py-12" style={{ background: "#0f0a1e" }}>
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="mb-8">
-          <h1 className="text-3xl sm:text-4xl font-serif font-bold text-slate-900 mb-2">
+          <h1 className="text-3xl sm:text-4xl font-serif font-bold mb-2" style={{ color: "rgba(255,255,255,0.93)" }}>
             Learn Cognitive Functions
           </h1>
-          <p className="text-slate-500 max-w-2xl">
+          <p className="max-w-2xl" style={{ color: "rgba(255,255,255,0.5)" }}>
             Discover the 8 mental tools we all use to think and make decisions — and which ones come most naturally to you.
           </p>
 
           {/* Intro card */}
-          <div className="mt-4 p-5 rounded-2xl bg-gradient-to-br from-indigo-50 to-sky-50 border border-indigo-100">
-            <h3 className="font-semibold text-slate-800 mb-2">What are cognitive functions?</h3>
-            <p className="text-sm text-slate-600 leading-relaxed mb-3">
+          <div className="mt-4 p-5 rounded-2xl" style={{ background: "linear-gradient(135deg, rgba(139,92,246,0.12), rgba(14,165,233,0.08))", border: "1px solid rgba(139,92,246,0.2)" }}>
+            <h3 className="font-semibold mb-2" style={{ color: "rgba(255,255,255,0.93)" }}>What are cognitive functions?</h3>
+            <p className="text-sm leading-relaxed mb-3" style={{ color: "rgba(255,255,255,0.6)" }}>
               Carl Jung identified 8 mental processes — ways the mind perceives information and makes decisions. Everyone uses all 8, but in a specific order. Your top 4 are your &ldquo;ego stack&rdquo; and shape how you naturally think, communicate, and process the world.
             </p>
             <div className="grid grid-cols-2 gap-2 text-xs">
-              <div className="p-2 bg-white/70 rounded-lg">
-                <span className="font-medium text-indigo-600">Perceiving (P):</span>
-                <span className="text-slate-600"> How you take in info</span>
-                <div className="mt-1 text-slate-500">Ni · Ne · Si · Se</div>
+              <div className="p-2 rounded-lg" style={{ background: "rgba(255,255,255,0.06)" }}>
+                <span className="font-medium text-violet-400">Perceiving (P):</span>
+                <span style={{ color: "rgba(255,255,255,0.6)" }}> How you take in info</span>
+                <div className="mt-1" style={{ color: "rgba(255,255,255,0.4)" }}>Ni · Ne · Si · Se</div>
               </div>
-              <div className="p-2 bg-white/70 rounded-lg">
-                <span className="font-medium text-sky-600">Judging (J):</span>
-                <span className="text-slate-600"> How you make decisions</span>
-                <div className="mt-1 text-slate-500">Ti · Te · Fi · Fe</div>
+              <div className="p-2 rounded-lg" style={{ background: "rgba(255,255,255,0.06)" }}>
+                <span className="font-medium text-sky-400">Judging (J):</span>
+                <span style={{ color: "rgba(255,255,255,0.6)" }}> How you make decisions</span>
+                <div className="mt-1" style={{ color: "rgba(255,255,255,0.4)" }}>Ti · Te · Fi · Fe</div>
               </div>
             </div>
           </div>
 
           {/* Jungian Typology Disclaimer */}
-          <div className="mt-4 p-4 rounded-xl bg-indigo-50/60 border border-indigo-100">
-            <p className="text-xs text-indigo-700 leading-relaxed">
+          <div className="mt-4 p-4 rounded-xl" style={{ background: "rgba(99,102,241,0.08)", border: "1px solid rgba(99,102,241,0.2)" }}>
+            <p className="text-xs leading-relaxed" style={{ color: "rgba(255,255,255,0.6)" }}>
               <strong>A note on typology:</strong> This system is based on Carl Jung&apos;s original <em>Psychological Types</em> (1921), not the commercial MBTI&reg; instrument.
               The 16 type codes (INTJ, ENFP, etc.) are used as convenient shorthand for cognitive function stacks &mdash; what matters is the functions themselves.
               16Personalities is <em>not</em> the same as Jungian typology.
@@ -1720,18 +1715,18 @@ function CognitiveLearnContent() {
 
         {/* Tab Navigation */}
         <div className="mb-8 -mx-4 px-4 overflow-x-auto">
-          <div className="flex gap-1 p-1 bg-slate-100/80 rounded-xl w-fit min-w-fit">
+          <div className="flex gap-1 p-1 rounded-xl w-fit min-w-fit" style={{ background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.09)" }}>
             {visibleTabs.map((tab) => (
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
-                className={`flex items-center gap-2 px-4 py-2.5 rounded-lg text-sm font-medium transition whitespace-nowrap ${
-                  activeTab === tab.id
-                    ? "bg-white text-slate-800 shadow-sm"
-                    : "text-slate-500 hover:text-slate-700"
-                }`}
+                className="flex items-center gap-2 px-4 py-2.5 rounded-lg text-sm font-medium transition whitespace-nowrap"
+                style={activeTab === tab.id
+                  ? { background: "rgba(139,92,246,0.25)", color: "rgba(255,255,255,0.93)" }
+                  : { color: "rgba(255,255,255,0.5)" }
+                }
               >
-                <span className={activeTab === tab.id ? "text-indigo-500" : "text-slate-400"}>
+                <span style={{ color: activeTab === tab.id ? "#a78bfa" : "rgba(255,255,255,0.35)" }}>
                   {tab.icon}
                 </span>
                 <span className="hidden sm:inline">{tab.label}</span>
@@ -1768,8 +1763,8 @@ export default function CognitiveLearnPage() {
   return (
     <Suspense
       fallback={
-        <div className="min-h-screen flex items-center justify-center">
-          <div className="text-slate-400">Loading...</div>
+        <div className="min-h-screen flex items-center justify-center" style={{ background: "#0f0a1e" }}>
+          <div style={{ color: "rgba(255,255,255,0.35)" }}>Loading...</div>
         </div>
       }
     >

@@ -681,8 +681,8 @@ function TypeGrid({
   label: string;
 }) {
   return (
-    <div className="flex-1 bg-white/80 backdrop-blur-md rounded-3xl border border-indigo-100/80 shadow-sm p-5">
-      <div className="text-xs font-semibold text-indigo-400 uppercase tracking-wider mb-4">{label}</div>
+    <div className="flex-1 rounded-3xl p-5" style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.09)" }}>
+      <div className="text-xs font-semibold text-violet-400 uppercase tracking-wider mb-4">{label}</div>
       <div className="grid grid-cols-3 gap-2.5">
         {enneagramTypes.map((t) => {
           const isSelected = selected === t.number;
@@ -690,14 +690,13 @@ function TypeGrid({
             <button
               key={t.number}
               onClick={() => onSelect(t.number)}
-              className={`relative flex flex-col items-center justify-center gap-1 rounded-2xl p-3 transition-all duration-200 border text-center
-                ${isSelected
-                  ? "bg-indigo-600 border-indigo-600 text-white shadow-md shadow-indigo-200"
-                  : "bg-white border-slate-100 text-slate-700 hover:border-indigo-200 hover:bg-indigo-50"
-                }`}
+              className={`relative flex flex-col items-center justify-center gap-1 rounded-2xl p-3 transition-all duration-200 border text-center`}
+              style={isSelected
+                ? { background: "rgba(139,92,246,0.25)", borderColor: "rgba(139,92,246,0.5)" }
+                : { background: "rgba(255,255,255,0.05)", borderColor: "rgba(255,255,255,0.09)" }}
             >
-              <span className={`text-xl font-bold ${isSelected ? "text-white" : "text-slate-800"}`}>{t.number}</span>
-              <span className={`text-[10px] font-medium leading-tight ${isSelected ? "text-indigo-100" : "text-slate-400"}`}>
+              <span className="text-xl font-bold" style={{ color: isSelected ? "#fff" : "rgba(255,255,255,0.8)" }}>{t.number}</span>
+              <span className="text-[10px] font-medium leading-tight" style={{ color: isSelected ? "rgba(196,181,253,1)" : "rgba(255,255,255,0.35)" }}>
                 {t.name.replace("The ", "")}
               </span>
             </button>
@@ -708,7 +707,8 @@ function TypeGrid({
         <motion.div
           initial={{ opacity: 1, y: 0 }}
           animate={{ opacity: 1, y: 0 }}
-          className="mt-4 flex items-center gap-2 px-3 py-2 rounded-xl bg-indigo-50 border border-indigo-100"
+          className="mt-4 flex items-center gap-2 px-3 py-2 rounded-xl"
+          style={{ background: "rgba(139,92,246,0.1)", border: "1px solid rgba(139,92,246,0.2)" }}
         >
           <div
             className="w-7 h-7 rounded-lg flex items-center justify-center text-white text-xs font-bold shrink-0"
@@ -717,10 +717,10 @@ function TypeGrid({
             {selected}
           </div>
           <div>
-            <div className="text-xs font-semibold text-slate-800">
+            <div className="text-xs font-semibold" style={{ color: "rgba(255,255,255,0.93)" }}>
               {enneagramTypes.find((t) => t.number === selected)?.name}
             </div>
-            <div className="text-[10px] text-slate-400">
+            <div className="text-[10px]" style={{ color: "rgba(255,255,255,0.35)" }}>
               {enneagramTypes.find((t) => t.number === selected)?.alias}
             </div>
           </div>
@@ -734,7 +734,7 @@ function TypeGrid({
 function QuickFacts({ typeA, typeB }: { typeA: number; typeB: number }) {
   const a = enneagramTypes.find((t) => t.number === typeA);
   const b = enneagramTypes.find((t) => t.number === typeB);
-  if (!a || !b) return <p className="text-sm text-slate-400">Type data not found.</p>;
+  if (!a || !b) return <p className="text-sm" style={{ color: "rgba(255,255,255,0.35)" }}>Type data not found.</p>;
   return (
     <div className="grid grid-cols-2 gap-3">
       {[a, b].map((t, i) => (
@@ -743,7 +743,8 @@ function QuickFacts({ typeA, typeB }: { typeA: number; typeB: number }) {
           initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: i * 0.1 }}
-          className="bg-white/80 backdrop-blur-md rounded-2xl border border-slate-100 p-4 space-y-3"
+          className="rounded-2xl p-4 space-y-3"
+          style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.09)" }}
         >
           <div className="flex items-center gap-2">
             <div
@@ -752,20 +753,20 @@ function QuickFacts({ typeA, typeB }: { typeA: number; typeB: number }) {
             >
               {t.number}
             </div>
-            <span className="text-sm font-semibold text-slate-800">{t.name}</span>
+            <span className="text-sm font-semibold" style={{ color: "rgba(255,255,255,0.93)" }}>{t.name}</span>
           </div>
           <div className="space-y-1.5 text-xs">
             <div className="flex gap-2">
-              <span className="text-slate-400 w-14 shrink-0">Fear</span>
-              <span className="text-slate-700 leading-snug">{t.coreFear}</span>
+              <span className="w-14 shrink-0" style={{ color: "rgba(255,255,255,0.35)" }}>Fear</span>
+              <span className="leading-snug" style={{ color: "rgba(255,255,255,0.7)" }}>{t.coreFear}</span>
             </div>
             <div className="flex gap-2">
-              <span className="text-slate-400 w-14 shrink-0">Desire</span>
-              <span className="text-slate-700 leading-snug">{t.coreDesire}</span>
+              <span className="w-14 shrink-0" style={{ color: "rgba(255,255,255,0.35)" }}>Desire</span>
+              <span className="leading-snug" style={{ color: "rgba(255,255,255,0.7)" }}>{t.coreDesire}</span>
             </div>
             <div className="flex gap-2">
-              <span className="text-slate-400 w-14 shrink-0">Essence</span>
-              <span className="font-semibold text-indigo-600">{t.keyTraits[0]}</span>
+              <span className="w-14 shrink-0" style={{ color: "rgba(255,255,255,0.35)" }}>Essence</span>
+              <span className="font-semibold text-violet-400">{t.keyTraits[0]}</span>
             </div>
           </div>
         </motion.div>
@@ -793,12 +794,12 @@ function TabPanel({ typeA, typeB, content }: { typeA: number; typeB: number; con
   const a = enneagramTypes.find((t) => t.number === typeA);
   const b = enneagramTypes.find((t) => t.number === typeB);
 
-  if (!a || !b) return <p className="text-sm text-slate-400">Type data not found.</p>;
+  if (!a || !b) return <p className="text-sm" style={{ color: "rgba(255,255,255,0.35)" }}>Type data not found.</p>;
 
   return (
-    <div className="bg-white/80 backdrop-blur-md rounded-3xl border border-indigo-100/80 shadow-sm overflow-hidden">
+    <div className="rounded-3xl overflow-hidden" style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.09)" }}>
       {/* Tab Bar */}
-      <div className="flex border-b border-slate-100 relative">
+      <div className="flex relative" style={{ borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
         {TABS.map((tab) => {
           const Icon = tab.icon;
           const isActive = activeTab === tab.id;
@@ -807,16 +808,15 @@ function TabPanel({ typeA, typeB, content }: { typeA: number; typeB: number; con
               key={tab.id}
               ref={(el) => { tabRefs.current[tab.id] = el; }}
               onClick={() => setActiveTab(tab.id)}
-              className={`relative flex items-center gap-1.5 px-4 py-3.5 text-sm font-medium flex-1 justify-center transition-colors duration-150 ${
-                isActive ? "text-indigo-600" : "text-slate-400 hover:text-slate-600"
-              }`}
+              className={`relative flex items-center gap-1.5 px-4 py-3.5 text-sm font-medium flex-1 justify-center transition-colors duration-150`}
+              style={{ color: isActive ? "#a78bfa" : "rgba(255,255,255,0.35)" }}
             >
               <Icon className="w-3.5 h-3.5" />
               <span className="hidden sm:inline">{tab.label}</span>
               {isActive && (
                 <motion.div
                   layoutId="tab-underline"
-                  className="absolute bottom-0 left-0 right-0 h-0.5 bg-indigo-600 rounded-full"
+                  className="absolute bottom-0 left-0 right-0 h-0.5 bg-violet-500 rounded-full"
                   transition={{ type: "spring", stiffness: 500, damping: 30 }}
                 />
               )}
@@ -838,7 +838,7 @@ function TabPanel({ typeA, typeB, content }: { typeA: number; typeB: number; con
               className="space-y-5"
             >
               <div>
-                <div className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-3">Shared Strengths</div>
+                <div className="text-xs font-semibold uppercase tracking-wider mb-3" style={{ color: "rgba(255,255,255,0.35)" }}>Shared Strengths</div>
                 <div className="space-y-2">
                   {content.together.strengths.map((s, i) => (
                     <motion.div
@@ -846,27 +846,28 @@ function TabPanel({ typeA, typeB, content }: { typeA: number; typeB: number; con
                       initial={{ opacity: 1, x: 0 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: i * 0.08 }}
-                      className="flex items-start gap-2.5 text-sm text-slate-700"
+                      className="flex items-start gap-2.5 text-sm"
+                      style={{ color: "rgba(255,255,255,0.7)" }}
                     >
-                      <div className="w-1.5 h-1.5 rounded-full bg-indigo-400 mt-1.5 shrink-0" />
+                      <div className="w-1.5 h-1.5 rounded-full bg-violet-400 mt-1.5 shrink-0" />
                       {s}
                     </motion.div>
                   ))}
                 </div>
               </div>
               <div>
-                <div className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-3">Shared Values</div>
+                <div className="text-xs font-semibold uppercase tracking-wider mb-3" style={{ color: "rgba(255,255,255,0.35)" }}>Shared Values</div>
                 <div className="flex flex-wrap gap-2">
                   {content.together.sharedValues.map((v, i) => (
-                    <span key={i} className="px-3 py-1 text-xs font-medium rounded-full bg-indigo-50 text-indigo-700 border border-indigo-100">
+                    <span key={i} className="px-3 py-1 text-xs font-medium rounded-full text-violet-300" style={{ background: "rgba(139,92,246,0.12)", border: "1px solid rgba(139,92,246,0.25)" }}>
                       {v}
                     </span>
                   ))}
                 </div>
               </div>
-              <div className="p-4 rounded-2xl bg-gradient-to-br from-indigo-50 to-sky-50 border border-indigo-100">
-                <div className="text-xs font-semibold text-indigo-500 uppercase tracking-wider mb-2">Their Superpower</div>
-                <p className="text-sm text-slate-700 leading-relaxed">{content.together.superpower}</p>
+              <div className="p-4 rounded-2xl" style={{ background: "rgba(139,92,246,0.08)", border: "1px solid rgba(139,92,246,0.2)" }}>
+                <div className="text-xs font-semibold text-violet-400 uppercase tracking-wider mb-2">Their Superpower</div>
+                <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.7)" }}>{content.together.superpower}</p>
               </div>
             </motion.div>
           )}
@@ -880,20 +881,20 @@ function TabPanel({ typeA, typeB, content }: { typeA: number; typeB: number; con
               transition={{ duration: 0.2 }}
               className="space-y-5"
             >
-              <div className="p-4 rounded-2xl bg-gradient-to-br from-rose-50 to-orange-50 border border-rose-100">
-                <div className="text-xs font-semibold text-rose-500 uppercase tracking-wider mb-2">Core Tension</div>
-                <p className="text-sm text-slate-700 leading-relaxed">{content.friction.coreTension}</p>
+              <div className="p-4 rounded-2xl" style={{ background: "rgba(239,68,68,0.06)", border: "1px solid rgba(239,68,68,0.15)" }}>
+                <div className="text-xs font-semibold text-rose-400 uppercase tracking-wider mb-2">Core Tension</div>
+                <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.7)" }}>{content.friction.coreTension}</p>
               </div>
               <div className="grid sm:grid-cols-2 gap-4">
                 <div>
                   <div className="flex items-center gap-2 mb-2">
                     <div className="w-5 h-5 rounded-md flex items-center justify-center text-white text-[10px] font-bold" style={{ backgroundColor: a.color }}>{a.number}</div>
-                    <div className="text-xs font-semibold text-slate-500">What triggers {a.name.replace("The ", "")}</div>
+                    <div className="text-xs font-semibold" style={{ color: "rgba(255,255,255,0.5)" }}>What triggers {a.name.replace("The ", "")}</div>
                   </div>
                   <div className="space-y-1.5">
                     {content.friction.typeATriggers.map((t, i) => (
-                      <div key={i} className="text-xs text-slate-600 flex items-start gap-1.5">
-                        <span className="text-rose-300 mt-0.5">▸</span>{t}
+                      <div key={i} className="text-xs flex items-start gap-1.5" style={{ color: "rgba(255,255,255,0.6)" }}>
+                        <span className="text-rose-400 mt-0.5">▸</span>{t}
                       </div>
                     ))}
                   </div>
@@ -901,20 +902,20 @@ function TabPanel({ typeA, typeB, content }: { typeA: number; typeB: number; con
                 <div>
                   <div className="flex items-center gap-2 mb-2">
                     <div className="w-5 h-5 rounded-md flex items-center justify-center text-white text-[10px] font-bold" style={{ backgroundColor: b.color }}>{b.number}</div>
-                    <div className="text-xs font-semibold text-slate-500">What triggers {b.name.replace("The ", "")}</div>
+                    <div className="text-xs font-semibold" style={{ color: "rgba(255,255,255,0.5)" }}>What triggers {b.name.replace("The ", "")}</div>
                   </div>
                   <div className="space-y-1.5">
                     {content.friction.typeBTriggers.map((t, i) => (
-                      <div key={i} className="text-xs text-slate-600 flex items-start gap-1.5">
-                        <span className="text-rose-300 mt-0.5">▸</span>{t}
+                      <div key={i} className="text-xs flex items-start gap-1.5" style={{ color: "rgba(255,255,255,0.6)" }}>
+                        <span className="text-rose-400 mt-0.5">▸</span>{t}
                       </div>
                     ))}
                   </div>
                 </div>
               </div>
               <div>
-                <div className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">The Recurring Misunderstanding</div>
-                <p className="text-sm text-slate-600 leading-relaxed italic">&ldquo;{content.friction.recurringMisunderstanding}&rdquo;</p>
+                <div className="text-xs font-semibold uppercase tracking-wider mb-2" style={{ color: "rgba(255,255,255,0.35)" }}>The Recurring Misunderstanding</div>
+                <p className="text-sm leading-relaxed italic" style={{ color: "rgba(255,255,255,0.6)" }}>&ldquo;{content.friction.recurringMisunderstanding}&rdquo;</p>
               </div>
             </motion.div>
           )}
@@ -937,18 +938,19 @@ function TabPanel({ typeA, typeB, content }: { typeA: number; typeB: number; con
                   initial={{ opacity: 1, x: 0 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: i * 0.1 }}
-                  className="p-4 rounded-2xl border border-emerald-100 bg-gradient-to-br from-emerald-50/60 to-white"
+                  className="p-4 rounded-2xl"
+                  style={{ background: "rgba(16,185,129,0.06)", border: "1px solid rgba(16,185,129,0.15)" }}
                 >
                   <div className="flex items-center gap-2 mb-2">
                     <div className="w-5 h-5 rounded-md flex items-center justify-center text-white text-[10px] font-bold" style={{ backgroundColor: type.color }}>{type.number}</div>
-                    <div className="text-xs font-semibold text-emerald-600">{type.name} learns&hellip;</div>
+                    <div className="text-xs font-semibold text-emerald-400">{type.name} learns&hellip;</div>
                   </div>
-                  <p className="text-sm text-slate-700 leading-relaxed">{learns}</p>
+                  <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.7)" }}>{learns}</p>
                 </motion.div>
               ))}
-              <div className="p-4 rounded-2xl bg-gradient-to-br from-sky-50 to-indigo-50 border border-sky-100">
-                <div className="text-xs font-semibold text-sky-500 uppercase tracking-wider mb-2">When Both Are Healthy</div>
-                <p className="text-sm text-slate-700 leading-relaxed">{content.growth.healthyVision}</p>
+              <div className="p-4 rounded-2xl" style={{ background: "rgba(14,165,233,0.06)", border: "1px solid rgba(14,165,233,0.15)" }}>
+                <div className="text-xs font-semibold text-sky-400 uppercase tracking-wider mb-2">When Both Are Healthy</div>
+                <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.7)" }}>{content.growth.healthyVision}</p>
               </div>
             </motion.div>
           )}
@@ -972,18 +974,19 @@ function TabPanel({ typeA, typeB, content }: { typeA: number; typeB: number; con
                   initial={{ opacity: 1, y: 0 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: i * 0.09 }}
-                  className="p-4 rounded-2xl bg-white border border-slate-100"
+                  className="p-4 rounded-2xl"
+                  style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.09)" }}
                 >
-                  <div className="text-xs font-semibold text-slate-500 mb-1.5">{section.label}</div>
-                  <p className="text-sm text-slate-700 leading-relaxed">{section.content}</p>
+                  <div className="text-xs font-semibold mb-1.5" style={{ color: "rgba(255,255,255,0.35)" }}>{section.label}</div>
+                  <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.7)" }}>{section.content}</p>
                 </motion.div>
               ))}
               {content.realLife.famousPairs.length > 0 && (
                 <div>
-                  <div className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">Famous & Fictional Pairs</div>
+                  <div className="text-xs font-semibold uppercase tracking-wider mb-2" style={{ color: "rgba(255,255,255,0.35)" }}>Famous &amp; Fictional Pairs</div>
                   <div className="flex flex-wrap gap-2">
                     {content.realLife.famousPairs.map((p, i) => (
-                      <span key={i} className="px-3 py-1.5 text-xs rounded-xl bg-indigo-50 text-indigo-700 border border-indigo-100 font-medium">
+                      <span key={i} className="px-3 py-1.5 text-xs rounded-xl font-medium text-violet-300" style={{ background: "rgba(139,92,246,0.12)", border: "1px solid rgba(139,92,246,0.25)" }}>
                         {p}
                       </span>
                     ))}
@@ -1019,19 +1022,19 @@ function CompatibilityMeter({ typeA, typeB }: { typeA: number; typeB: number }) 
     score >= 35 ? "from-amber-400 to-orange-400" :
     "from-rose-400 to-red-500";
   const textColor =
-    score >= 80 ? "text-emerald-600" :
-    score >= 65 ? "text-sky-600" :
-    score >= 50 ? "text-violet-600" :
-    score >= 35 ? "text-amber-600" :
-    "text-rose-600";
+    score >= 80 ? "text-emerald-400" :
+    score >= 65 ? "text-sky-400" :
+    score >= 50 ? "text-violet-400" :
+    score >= 35 ? "text-amber-400" :
+    "text-rose-400";
 
   return (
-    <div className="p-5 rounded-2xl bg-slate-50 border border-slate-100">
+    <div className="p-5 rounded-2xl" style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.09)" }}>
       <div className="flex items-center justify-between mb-3">
-        <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider">Dynamic</span>
+        <span className="text-xs font-semibold uppercase tracking-wider" style={{ color: "rgba(255,255,255,0.35)" }}>Dynamic</span>
         <span className={`text-xs font-bold ${textColor}`}>{label}</span>
       </div>
-      <div className="h-2 bg-slate-200 rounded-full overflow-hidden mb-3">
+      <div className="h-2 rounded-full overflow-hidden mb-3" style={{ background: "rgba(255,255,255,0.1)" }}>
         <motion.div
           initial={{ width: 0 }}
           animate={{ width: `${score}%` }}
@@ -1040,13 +1043,13 @@ function CompatibilityMeter({ typeA, typeB }: { typeA: number; typeB: number }) 
         />
       </div>
       <div className="flex items-center justify-between mb-2">
-        <span className="text-[10px] text-slate-400">More friction</span>
-        <span className="text-[10px] text-slate-400">More natural</span>
+        <span className="text-[10px]" style={{ color: "rgba(255,255,255,0.35)" }}>More friction</span>
+        <span className="text-[10px]" style={{ color: "rgba(255,255,255,0.35)" }}>More natural</span>
       </div>
-      <p className="text-xs text-slate-500 leading-relaxed">{desc}</p>
+      <p className="text-xs leading-relaxed" style={{ color: "rgba(255,255,255,0.5)" }}>{desc}</p>
       <div className="flex items-start gap-1.5 mt-2">
-        <Info className="w-3 h-3 text-slate-300 mt-0.5 shrink-0" />
-        <p className="text-[10px] text-slate-400 italic leading-relaxed">
+        <Info className="w-3 h-3 mt-0.5 shrink-0" style={{ color: "rgba(255,255,255,0.2)" }} />
+        <p className="text-[10px] italic leading-relaxed" style={{ color: "rgba(255,255,255,0.35)" }}>
           Based on Enneagram structural patterns — not a prediction of relationship success. Individual health, growth, and context matter far more than type.
         </p>
       </div>
@@ -1084,15 +1087,15 @@ export default function ComparePage() {
   };
 
   return (
-    <div className="min-h-screen py-12 px-4">
+    <div className="min-h-screen py-12 px-4" style={{ background: "#0f0a1e" }}>
       <div className="max-w-5xl mx-auto">
         {/* Header */}
         <motion.div initial={{ opacity: 1, y: 0 }} animate={{ opacity: 1, y: 0 }} className="text-center mb-10">
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-indigo-50 border border-indigo-100 text-indigo-600 text-xs font-medium mb-4">
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-violet-400 text-xs font-medium mb-4" style={{ background: "rgba(139,92,246,0.12)", border: "1px solid rgba(139,92,246,0.25)" }}>
             <Users className="w-3 h-3" /> Compatibility Explorer
           </div>
-          <h1 className="text-3xl sm:text-4xl font-serif font-bold text-slate-900 mb-3">Type Compatibility</h1>
-          <p className="text-slate-500 max-w-md mx-auto text-sm leading-relaxed">
+          <h1 className="text-3xl sm:text-4xl font-serif font-bold mb-3" style={{ color: "rgba(255,255,255,0.93)" }}>Type Compatibility</h1>
+          <p className="max-w-md mx-auto text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.5)" }}>
             Select two Enneagram types to explore how they relate — in love, friendship, and work.
           </p>
         </motion.div>
@@ -1106,7 +1109,8 @@ export default function ComparePage() {
             <button
               onClick={handleSwap}
               disabled={!typeA && !typeB}
-              className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-white border border-slate-200 text-slate-500 text-xs font-medium hover:border-indigo-200 hover:text-indigo-600 transition-all disabled:opacity-40"
+              className="flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-medium transition-all disabled:opacity-40 hover:text-violet-400"
+              style={{ background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.09)", color: "rgba(255,255,255,0.5)" }}
             >
               <ArrowLeftRight className="w-3.5 h-3.5" />
               <span>Swap</span>
@@ -1128,10 +1132,10 @@ export default function ComparePage() {
               className="space-y-5"
             >
               {/* Compatibility Overview */}
-              <div className="bg-white/80 backdrop-blur-md rounded-3xl border border-indigo-100/80 shadow-sm p-6 sm:p-8">
+              <div className="rounded-3xl p-6 sm:p-8" style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.09)" }}>
                 <div className="flex flex-col gap-4">
                   {typeA === typeB && (
-                    <p className="text-xs font-medium text-indigo-500 bg-indigo-50 border border-indigo-100 rounded-full px-3 py-1 w-fit">
+                    <p className="text-xs font-medium text-violet-400 rounded-full px-3 py-1 w-fit" style={{ background: "rgba(139,92,246,0.12)", border: "1px solid rgba(139,92,246,0.25)" }}>
                       Same-type pairing — see how two {enneagramTypes.find(t => t.number === typeA)?.name}s relate
                     </p>
                   )}
@@ -1141,27 +1145,28 @@ export default function ComparePage() {
                         <div className="w-8 h-8 rounded-xl flex items-center justify-center text-white text-sm font-bold" style={{ backgroundColor: enneagramTypes.find(t => t.number === typeA)?.color }}>
                           {typeA}
                         </div>
-                        <span className="text-sm font-medium text-slate-700">{enneagramTypes.find(t => t.number === typeA)?.name}</span>
+                        <span className="text-sm font-medium" style={{ color: "rgba(255,255,255,0.7)" }}>{enneagramTypes.find(t => t.number === typeA)?.name}</span>
                       </div>
-                      <span className="text-slate-300 text-lg">+</span>
+                      <span className="text-lg" style={{ color: "rgba(255,255,255,0.2)" }}>+</span>
                       <div className="flex items-center gap-1.5">
                         <div className="w-8 h-8 rounded-xl flex items-center justify-center text-white text-sm font-bold" style={{ backgroundColor: enneagramTypes.find(t => t.number === typeB)?.color }}>
                           {typeB}
                         </div>
-                        <span className="text-sm font-medium text-slate-700">{enneagramTypes.find(t => t.number === typeB)?.name}</span>
+                        <span className="text-sm font-medium" style={{ color: "rgba(255,255,255,0.7)" }}>{enneagramTypes.find(t => t.number === typeB)?.name}</span>
                       </div>
                     </div>
                     {/* Share button */}
                     <motion.button
                       whileTap={{ scale: 0.93 }}
                       onClick={handleShare}
-                      className="shrink-0 flex items-center gap-1.5 px-3 py-2 rounded-xl bg-indigo-50 border border-indigo-100 text-indigo-600 text-xs font-medium hover:bg-indigo-100 transition-colors"
+                      className="shrink-0 flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-medium transition-colors hover:bg-violet-500/20"
+                      style={{ background: "rgba(139,92,246,0.12)", border: "1px solid rgba(139,92,246,0.25)", color: "#a78bfa" }}
                     >
                       {copied ? <><Check className="w-3.5 h-3.5" />Copied!</> : <><Share2 className="w-3.5 h-3.5" />Share</>}
                     </motion.button>
                   </div>
 
-                  <p className="text-slate-600 text-sm leading-relaxed">{pairContent.summary}</p>
+                  <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.6)" }}>{pairContent.summary}</p>
 
                   {/* Vibe meter */}
                   <CompatibilityMeter typeA={typeA!} typeB={typeB!} />
@@ -1173,7 +1178,7 @@ export default function ComparePage() {
                       areWingNeighbors(typeA!, typeB!) && "Wing Neighbors",
                       (enneagramTypes.find(t => t.number === typeA)?.integrationLine === typeB || enneagramTypes.find(t => t.number === typeB)?.integrationLine === typeA) && "Integration Connection",
                     ].filter(Boolean).map((tag, i) => (
-                      <span key={i} className="px-2.5 py-1 text-[11px] font-medium rounded-full bg-sky-50 text-sky-600 border border-sky-100">
+                      <span key={i} className="px-2.5 py-1 text-[11px] font-medium rounded-full text-sky-300" style={{ background: "rgba(14,165,233,0.1)", border: "1px solid rgba(14,165,233,0.2)" }}>
                         {tag as string}
                       </span>
                     ))}
@@ -1197,15 +1202,15 @@ export default function ComparePage() {
             animate={{ opacity: 1 }}
             className="text-center py-16"
           >
-            <div className="w-16 h-16 mx-auto mb-4 rounded-2xl bg-indigo-50 flex items-center justify-center">
-              <Users className="w-7 h-7 text-indigo-300" />
+            <div className="w-16 h-16 mx-auto mb-4 rounded-2xl flex items-center justify-center" style={{ background: "rgba(139,92,246,0.12)" }}>
+              <Users className="w-7 h-7 text-violet-400" />
             </div>
-            <p className="text-slate-400 font-serif text-lg mb-1">
+            <p className="font-serif text-lg mb-1" style={{ color: "rgba(255,255,255,0.35)" }}>
               {typeA === null && typeB === null
                 ? "Select two types to begin"
                 : "Select a second type to compare"}
             </p>
-            <p className="text-slate-300 text-sm">Explore compatibility across all 9 types</p>
+            <p className="text-sm" style={{ color: "rgba(255,255,255,0.2)" }}>Explore compatibility across all 9 types</p>
           </motion.div>
         )}
 

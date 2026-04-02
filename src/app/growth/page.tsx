@@ -37,15 +37,15 @@ const TYPE_GRADIENT: Record<number, string> = {
 };
 
 const TYPE_BG: Record<number, string> = {
-  1: "bg-rose-50 border-rose-100",
-  2: "bg-pink-50 border-pink-100",
-  3: "bg-amber-50 border-amber-100",
-  4: "bg-purple-50 border-purple-100",
-  5: "bg-blue-50 border-blue-100",
-  6: "bg-emerald-50 border-emerald-100",
-  7: "bg-teal-50 border-teal-100",
-  8: "bg-orange-50 border-orange-100",
-  9: "bg-slate-50 border-slate-100",
+  1: "bg-rose-500/10 border-rose-500/20",
+  2: "bg-pink-500/10 border-pink-500/20",
+  3: "bg-amber-500/10 border-amber-500/20",
+  4: "bg-purple-500/10 border-purple-500/20",
+  5: "bg-blue-500/10 border-blue-500/20",
+  6: "bg-emerald-500/10 border-emerald-500/20",
+  7: "bg-teal-500/10 border-teal-500/20",
+  8: "bg-orange-500/10 border-orange-500/20",
+  9: "bg-white/5 border-white/10",
 };
 
 // ─── Growth Tips per type ─────────────────────────────────────────────────────
@@ -113,21 +113,21 @@ export default function GrowthPage() {
   const bgClass = activeType ? TYPE_BG[activeType] : "bg-violet-50 border-violet-100";
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-slate-50 via-white to-indigo-50/30 px-4 py-10">
+    <div className="min-h-screen px-4 py-10" style={{ background: "#0f0a1e" }}>
       <div className="max-w-2xl mx-auto">
         {/* Header */}
         <div className="text-center mb-8">
           <div className={`inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-gradient-to-br ${gradient} shadow-lg mb-4`}>
             <Leaf className="w-7 h-7 text-white" />
           </div>
-          <h1 className="text-2xl font-serif font-bold text-slate-900 mb-1">Growth Prompts</h1>
-          <p className="text-slate-500 text-sm">Type-specific questions for genuine self-reflection</p>
+          <h1 className="text-2xl font-serif font-bold mb-1" style={{ color: "rgba(255,255,255,0.93)" }}>Growth Prompts</h1>
+          <p className="text-sm" style={{ color: "rgba(255,255,255,0.5)" }}>Type-specific questions for genuine self-reflection</p>
         </div>
 
         {/* Type Selector */}
         <div className="mb-6">
           <div className="flex items-center justify-between mb-3">
-            <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider">Viewing prompts for</span>
+            <span className="text-xs font-semibold uppercase tracking-wider" style={{ color: "rgba(255,255,255,0.35)" }}>Viewing prompts for</span>
             <button
               onClick={() => setShowAll(!showAll)}
               className="text-xs text-indigo-500 font-medium hover:text-indigo-700 transition-colors"
@@ -149,7 +149,8 @@ export default function GrowthPage() {
                     <button
                       key={t.number}
                       onClick={() => { setSelectedType(t.number); setPromptIdx(0); setReflectionText(""); setSaved(false); setShowAll(false); }}
-                      className={`flex flex-col items-center p-3 rounded-2xl border-2 transition-all ${selectedType === t.number ? "border-indigo-400 bg-indigo-50" : "border-slate-100 bg-white hover:border-slate-200"}`}
+                      className={`flex flex-col items-center p-3 rounded-2xl border-2 transition-all ${selectedType === t.number ? "border-violet-400" : "border-white/10 hover:border-white/20"}`}
+                      style={selectedType === t.number ? { background: "rgba(139,92,246,0.15)" } : { background: "rgba(255,255,255,0.05)" }}
                     >
                       <div
                         className="w-8 h-8 rounded-xl flex items-center justify-center text-white font-bold text-sm mb-1"
@@ -157,7 +158,7 @@ export default function GrowthPage() {
                       >
                         {t.number}
                       </div>
-                      <span className="text-[9px] font-medium text-slate-500 text-center leading-tight">{t.name.replace("The ", "")}</span>
+                      <span className="text-[9px] font-medium text-center leading-tight" style={{ color: "rgba(255,255,255,0.5)" }}>{t.name.replace("The ", "")}</span>
                     </button>
                   ))}
                 </div>
@@ -174,8 +175,8 @@ export default function GrowthPage() {
                 {type.number}
               </div>
               <div>
-                <p className="text-sm font-semibold text-slate-800">Type {type.number} · {type.name}</p>
-                <p className="text-xs text-slate-500">{growthInfo?.shortDesc}</p>
+                <p className="text-sm font-semibold" style={{ color: "rgba(255,255,255,0.93)" }}>Type {type.number} · {type.name}</p>
+                <p className="text-xs" style={{ color: "rgba(255,255,255,0.5)" }}>{growthInfo?.shortDesc}</p>
               </div>
             </div>
           )}
@@ -191,21 +192,22 @@ export default function GrowthPage() {
             </div>
 
             {/* Daily Prompt */}
-            <div className="bg-white border border-slate-100 shadow-md rounded-3xl p-6 mb-4">
+            <div className="shadow-md rounded-3xl p-6 mb-4" style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.09)" }}>
               <div className="flex items-center justify-between mb-4">
                 <div className="flex items-center gap-2">
-                  <Sparkles className="w-4 h-4 text-violet-500" />
-                  <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider">Today's Prompt</span>
+                  <Sparkles className="w-4 h-4 text-violet-400" />
+                  <span className="text-xs font-semibold uppercase tracking-wider" style={{ color: "rgba(255,255,255,0.35)" }}>Today's Prompt</span>
                 </div>
                 <button
                   onClick={cyclePrompt}
-                  className="flex items-center gap-1.5 text-xs text-slate-400 hover:text-slate-600 transition-colors"
+                  className="flex items-center gap-1.5 text-xs transition-colors hover:text-violet-400"
+                  style={{ color: "rgba(255,255,255,0.35)" }}
                 >
                   <RefreshCw className="w-3.5 h-3.5" /> Next prompt
                 </button>
               </div>
 
-              <p className="text-base font-medium text-slate-800 leading-relaxed mb-6">
+              <p className="text-base font-medium leading-relaxed mb-6" style={{ color: "rgba(255,255,255,0.93)" }}>
                 {currentPrompt}
               </p>
 
@@ -216,7 +218,8 @@ export default function GrowthPage() {
                   placeholder="Write your reflection here... (optional — saved privately)"
                   value={reflectionText}
                   onChange={(e) => { setReflectionText(e.target.value); setSaved(false); }}
-                  className="w-full resize-none rounded-2xl border border-slate-200 bg-slate-50 p-4 text-sm text-slate-700 placeholder:text-slate-300 focus:outline-none focus:border-violet-300 focus:bg-white transition-colors"
+                  className="w-full resize-none rounded-2xl p-4 text-sm focus:outline-none focus:ring-2 focus:ring-violet-500/30 transition-colors"
+                  style={{ background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.12)", color: "rgba(255,255,255,0.85)" }}
                 />
                 <AnimatePresence>
                   {saved && (
@@ -244,9 +247,9 @@ export default function GrowthPage() {
               )}
 
               {/* Pet companion */}
-              <div className="mt-4 bg-violet-50/50 border border-violet-100/50 rounded-2xl p-3 flex items-center gap-3">
+              <div className="mt-4 rounded-2xl p-3 flex items-center gap-3" style={{ background: "rgba(139,92,246,0.1)", border: "1px solid rgba(139,92,246,0.2)" }}>
                 <PetCompanion type={activeType ?? 4} size={48} />
-                <p className="text-sm text-violet-600/80 leading-snug">
+                <p className="text-sm text-violet-300 leading-snug">
                   {saved
                     ? "Your companion feels your growth!"
                     : reflectionText.trim()
@@ -257,16 +260,19 @@ export default function GrowthPage() {
             </div>
 
             {/* All prompts for this type */}
-            <div className="bg-white border border-slate-100 rounded-3xl p-5 mb-6">
-              <h3 className="text-sm font-semibold text-slate-700 mb-4">All prompts for Type {activeType}</h3>
+            <div className="rounded-3xl p-5 mb-6" style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.09)" }}>
+              <h3 className="text-sm font-semibold mb-4" style={{ color: "rgba(255,255,255,0.7)" }}>All prompts for Type {activeType}</h3>
               <div className="space-y-2">
                 {prompts.map((p, i) => (
                   <button
                     key={i}
                     onClick={() => { setPromptIdx(i); setReflectionText(""); setSaved(false); }}
-                    className={`w-full text-left flex items-start gap-3 p-3.5 rounded-2xl transition-all text-sm ${i === promptIdx ? "bg-indigo-50 border border-indigo-100 text-indigo-800 font-medium" : "hover:bg-slate-50 text-slate-600"}`}
+                    className={`w-full text-left flex items-start gap-3 p-3.5 rounded-2xl transition-all text-sm ${i === promptIdx ? "font-medium" : "hover:bg-white/5"}`}
+                    style={i === promptIdx
+                      ? { background: "rgba(139,92,246,0.15)", border: "1px solid rgba(139,92,246,0.25)", color: "#c4b5fd" }
+                      : { color: "rgba(255,255,255,0.6)" }}
                   >
-                    <span className="w-5 h-5 rounded-full bg-slate-100 flex items-center justify-center text-[10px] font-bold text-slate-400 shrink-0 mt-0.5">
+                    <span className="w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-bold shrink-0 mt-0.5" style={{ background: "rgba(255,255,255,0.08)", color: "rgba(255,255,255,0.35)" }}>
                       {i + 1}
                     </span>
                     <span className="leading-snug">{p}</span>
@@ -277,11 +283,11 @@ export default function GrowthPage() {
             </div>
 
             {/* Growth tips */}
-            <div className="bg-white border border-slate-100 rounded-3xl p-5 mb-8">
-              <h3 className="text-sm font-semibold text-slate-700 mb-3">Growth tips for Type {activeType}</h3>
+            <div className="rounded-3xl p-5 mb-8" style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.09)" }}>
+              <h3 className="text-sm font-semibold mb-3" style={{ color: "rgba(255,255,255,0.7)" }}>Growth tips for Type {activeType}</h3>
               <div className="space-y-2">
                 {type.growthTips.map((tip, i) => (
-                  <div key={i} className="flex items-start gap-2.5 text-sm text-slate-600">
+                  <div key={i} className="flex items-start gap-2.5 text-sm" style={{ color: "rgba(255,255,255,0.6)" }}>
                     <div className="w-1.5 h-1.5 rounded-full mt-2 shrink-0" style={{ backgroundColor: type.color }} />
                     <span className="leading-relaxed">{tip}</span>
                   </div>
@@ -291,14 +297,14 @@ export default function GrowthPage() {
           </>
         ) : (
           <div className="text-center py-12">
-            <p className="text-slate-400 text-sm mb-4">Select a type above to see growth prompts.</p>
-            <Link href="/enneagram/assess" className="inline-flex items-center gap-2 text-sm text-indigo-500 font-medium hover:text-indigo-700">
+            <p className="text-sm mb-4" style={{ color: "rgba(255,255,255,0.35)" }}>Select a type above to see growth prompts.</p>
+            <Link href="/enneagram/assess" className="inline-flex items-center gap-2 text-sm font-medium text-violet-400 hover:text-violet-300">
               Take assessment to find your type <ArrowRight className="w-4 h-4" />
             </Link>
           </div>
         )}
 
-        <Link href="/daily" className="block text-center text-xs text-slate-400 hover:text-slate-600 transition-colors pb-8">
+        <Link href="/daily" className="block text-center text-xs transition-colors pb-8 hover:text-violet-400" style={{ color: "rgba(255,255,255,0.35)" }}>
           ← Back to Daily Practice
         </Link>
       </div>

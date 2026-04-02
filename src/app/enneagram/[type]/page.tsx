@@ -727,9 +727,9 @@ function TabButton({
     <button
       onClick={onClick}
       className={`px-4 py-2 rounded-lg text-sm font-medium transition-all whitespace-nowrap ${
-        active ? "text-white shadow-md" : "text-slate-500 hover:text-slate-700"
+        active ? "text-white shadow-md" : "hover:text-violet-400"
       }`}
-      style={active ? { backgroundColor: accentColor } : {}}
+      style={active ? { backgroundColor: accentColor } : { color: "rgba(255,255,255,0.5)" }}
     >
       {children}
     </button>
@@ -749,17 +749,17 @@ function DnaCard({
   accent: string;
 }) {
   return (
-    <div className="p-5 rounded-2xl bg-white border border-slate-100 shadow-sm">
+    <div className="p-5 rounded-2xl shadow-sm" style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.09)" }}>
       <div
         className="w-9 h-9 rounded-xl flex items-center justify-center mb-3"
         style={{ backgroundColor: `${accent}18` }}
       >
         <span style={{ color: accent }}>{icon}</span>
       </div>
-      <p className="text-xs font-semibold uppercase tracking-wide text-slate-400 mb-1">
+      <p className="text-xs font-semibold uppercase tracking-wide mb-1" style={{ color: "rgba(255,255,255,0.35)" }}>
         {label}
       </p>
-      <p className="text-sm text-slate-700 leading-relaxed">{value}</p>
+      <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.7)" }}>{value}</p>
     </div>
   );
 }
@@ -788,8 +788,8 @@ function LevelRow({
         style={{ backgroundColor: color }}
       />
       <div>
-        <p className="text-sm font-semibold text-slate-700">{title}</p>
-        <p className="text-sm text-slate-500 mt-0.5">{desc}</p>
+        <p className="text-sm font-semibold" style={{ color: "rgba(255,255,255,0.8)" }}>{title}</p>
+        <p className="text-sm mt-0.5" style={{ color: "rgba(255,255,255,0.5)" }}>{desc}</p>
       </div>
     </motion.div>
   );
@@ -810,7 +810,7 @@ function SubtypeCard({
   };
   const instinctLabels = { sp: "Self-Pres", sx: "Sexual", so: "Social" };
   return (
-    <div className="p-6 rounded-2xl bg-white border border-slate-100 shadow-sm">
+    <div className="p-6 rounded-2xl shadow-sm" style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.09)" }}>
       <div className="flex items-start justify-between mb-4">
         <div>
           <div className="flex items-center gap-2 mb-1">
@@ -825,26 +825,26 @@ function SubtypeCard({
               {instinctLabels[subtype.instinct]}
             </span>
             {subtype.isCountertype && (
-              <span className="px-2 py-0.5 rounded-full text-xs font-medium bg-amber-50 text-amber-600 border border-amber-100">
+              <span className="px-2 py-0.5 rounded-full text-xs font-medium text-amber-400" style={{ background: "rgba(245,158,11,0.12)", border: "1px solid rgba(245,158,11,0.2)" }}>
                 Countertype
               </span>
             )}
           </div>
-          <h3 className="text-lg font-serif font-semibold text-slate-800">
+          <h3 className="text-lg font-serif font-semibold" style={{ color: "rgba(255,255,255,0.93)" }}>
             {subtype.chestnutName}
           </h3>
         </div>
       </div>
-      <p className="text-sm text-slate-600 leading-relaxed mb-4">
+      <p className="text-sm leading-relaxed mb-4" style={{ color: "rgba(255,255,255,0.6)" }}>
         {subtype.description}
       </p>
       <div className="mb-4">
-        <p className="text-xs font-semibold uppercase tracking-wide text-slate-400 mb-2">
+        <p className="text-xs font-semibold uppercase tracking-wide mb-2" style={{ color: "rgba(255,255,255,0.35)" }}>
           Key Patterns
         </p>
         <ul className="space-y-1">
           {subtype.keyPatterns.map((p) => (
-            <li key={p} className="flex items-start gap-2 text-sm text-slate-600">
+            <li key={p} className="flex items-start gap-2 text-sm" style={{ color: "rgba(255,255,255,0.6)" }}>
               <span
                 className="w-1.5 h-1.5 rounded-full mt-2 shrink-0"
                 style={{ backgroundColor: accent }}
@@ -854,17 +854,17 @@ function SubtypeCard({
           ))}
         </ul>
       </div>
-      <div className="p-3 rounded-xl bg-slate-50 border border-slate-100">
-        <p className="text-xs font-semibold uppercase tracking-wide text-slate-400 mb-1">
+      <div className="p-3 rounded-xl" style={{ background: "rgba(255,255,255,0.06)" }}>
+        <p className="text-xs font-semibold uppercase tracking-wide mb-1" style={{ color: "rgba(255,255,255,0.35)" }}>
           How They Differ
         </p>
-        <p className="text-sm text-slate-600">{subtype.howTheyDiffer}</p>
+        <p className="text-sm" style={{ color: "rgba(255,255,255,0.6)" }}>{subtype.howTheyDiffer}</p>
       </div>
       <div className="mt-3 p-3 rounded-xl border" style={{ borderColor: `${accent}30`, backgroundColor: `${accent}06` }}>
         <p className="text-xs font-semibold uppercase tracking-wide mb-1" style={{ color: accent }}>
           Growth Path
         </p>
-        <p className="text-sm text-slate-600">{subtype.growthPath}</p>
+        <p className="text-sm" style={{ color: "rgba(255,255,255,0.6)" }}>{subtype.growthPath}</p>
       </div>
     </div>
   );
@@ -885,8 +885,8 @@ export default function TypeDeepDivePage() {
 
   if (!typeData) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <p className="text-slate-500">Type not found.</p>
+      <div className="min-h-screen flex items-center justify-center" style={{ background: "#0f0a1e" }}>
+        <p style={{ color: "rgba(255,255,255,0.35)" }}>Type not found.</p>
       </div>
     );
   }
@@ -920,15 +920,15 @@ export default function TypeDeepDivePage() {
   ];
 
   return (
-    <div className="min-h-screen bg-slate-50/50">
+    <div className="min-h-screen" style={{ background: "#0f0a1e" }}>
       {/* ── Breadcrumb ── */}
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 pb-2">
-        <div className="flex items-center gap-2 text-sm text-slate-400">
-          <Link href="/enneagram" className="hover:text-slate-700 transition-colors">
+        <div className="flex items-center gap-2 text-sm" style={{ color: "rgba(255,255,255,0.35)" }}>
+          <Link href="/enneagram" className="hover:text-violet-400 transition-colors" style={{ color: "rgba(255,255,255,0.35)" }}>
             Enneagram
           </Link>
           <ChevronRight className="w-3 h-3" />
-          <span className="text-slate-600 font-medium">
+          <span className="font-medium" style={{ color: "rgba(255,255,255,0.6)" }}>
             Type {typeData.number}
           </span>
         </div>
@@ -960,7 +960,7 @@ export default function TypeDeepDivePage() {
               </div>
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-3 flex-wrap mb-1">
-                  <h1 className="text-4xl sm:text-5xl font-serif font-bold text-slate-900">
+                  <h1 className="text-4xl sm:text-5xl font-serif font-bold" style={{ color: "rgba(255,255,255,0.93)" }}>
                     {typeData.name}
                   </h1>
                   {isUsersType && (
@@ -977,7 +977,7 @@ export default function TypeDeepDivePage() {
                     </span>
                   )}
                 </div>
-                <p className="text-lg text-slate-500 mb-3">{typeData.alias}</p>
+                <p className="text-lg mb-3" style={{ color: "rgba(255,255,255,0.5)" }}>{typeData.alias}</p>
                 <p
                   className="text-base font-medium"
                   style={{ color: accent }}
@@ -995,20 +995,23 @@ export default function TypeDeepDivePage() {
         <div className="flex items-center justify-between">
           <Link
             href={`/enneagram/${prevType}`}
-            className="flex items-center gap-2 text-sm text-slate-500 hover:text-slate-800 transition-colors"
+            className="flex items-center gap-2 text-sm transition-colors hover:text-violet-400"
+            style={{ color: "rgba(255,255,255,0.5)" }}
           >
             <ArrowLeft className="w-4 h-4" />
             Type {prevType}
           </Link>
           <Link
             href="/compare"
-            className="text-xs text-slate-400 hover:text-slate-600 transition-colors underline underline-offset-2"
+            className="text-xs transition-colors underline underline-offset-2 hover:text-violet-400"
+            style={{ color: "rgba(255,255,255,0.35)" }}
           >
             Compare with another type
           </Link>
           <Link
             href={`/enneagram/${nextType}`}
-            className="flex items-center gap-2 text-sm text-slate-500 hover:text-slate-800 transition-colors"
+            className="flex items-center gap-2 text-sm transition-colors hover:text-violet-400"
+            style={{ color: "rgba(255,255,255,0.5)" }}
           >
             Type {nextType}
             <ArrowRight className="w-4 h-4" />
@@ -1018,7 +1021,7 @@ export default function TypeDeepDivePage() {
 
       {/* ── Tabs ── */}
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex gap-1 p-1 bg-white rounded-xl border border-slate-100 shadow-sm overflow-x-auto mb-8 scrollbar-none">
+        <div className="flex gap-1 p-1 rounded-xl overflow-x-auto mb-8 scrollbar-none" style={{ background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.09)" }}>
           {tabs.map((tab, i) => (
             <TabButton
               key={tab}
@@ -1044,11 +1047,11 @@ export default function TypeDeepDivePage() {
               transition={{ duration: 0.25 }}
             >
               {/* In a nutshell */}
-              <div className="p-6 rounded-2xl bg-white border border-slate-100 shadow-sm mb-6">
-                <p className="text-xs font-semibold uppercase tracking-wide text-slate-400 mb-3">
+              <div className="p-6 rounded-2xl shadow-sm mb-6" style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.09)" }}>
+                <p className="text-xs font-semibold uppercase tracking-wide mb-3" style={{ color: "rgba(255,255,255,0.35)" }}>
                   In a Nutshell
                 </p>
-                <p className="text-base text-slate-700 leading-relaxed">
+                <p className="text-base leading-relaxed" style={{ color: "rgba(255,255,255,0.7)" }}>
                   {typeData.description}
                 </p>
               </div>
@@ -1095,15 +1098,15 @@ export default function TypeDeepDivePage() {
 
               {/* Levels of Development */}
               <div className="mb-8">
-                <h2 className="text-xl font-serif font-bold text-slate-800 mb-4">
+                <h2 className="text-xl font-serif font-bold mb-4" style={{ color: "rgba(255,255,255,0.93)" }}>
                   Levels of Development
                 </h2>
                 <div className="grid md:grid-cols-3 gap-4">
                   {/* Healthy */}
-                  <div className="p-5 rounded-2xl bg-white border border-emerald-100 shadow-sm">
+                  <div className="p-5 rounded-2xl shadow-sm" style={{ background: "rgba(16,185,129,0.06)", border: "1px solid rgba(16,185,129,0.15)" }}>
                     <div className="flex items-center gap-2 mb-4">
                       <div className="w-3 h-3 rounded-full bg-emerald-500" />
-                      <p className="text-sm font-semibold text-emerald-700">
+                      <p className="text-sm font-semibold text-emerald-400">
                         Healthy (Levels 1–3)
                       </p>
                     </div>
@@ -1114,10 +1117,10 @@ export default function TypeDeepDivePage() {
                     </div>
                   </div>
                   {/* Average */}
-                  <div className="p-5 rounded-2xl bg-white border border-amber-100 shadow-sm">
+                  <div className="p-5 rounded-2xl shadow-sm" style={{ background: "rgba(245,158,11,0.06)", border: "1px solid rgba(245,158,11,0.15)" }}>
                     <div className="flex items-center gap-2 mb-4">
                       <div className="w-3 h-3 rounded-full bg-amber-500" />
-                      <p className="text-sm font-semibold text-amber-700">
+                      <p className="text-sm font-semibold text-amber-400">
                         Average (Levels 4–6)
                       </p>
                     </div>
@@ -1128,10 +1131,10 @@ export default function TypeDeepDivePage() {
                     </div>
                   </div>
                   {/* Unhealthy */}
-                  <div className="p-5 rounded-2xl bg-white border border-red-100 shadow-sm">
+                  <div className="p-5 rounded-2xl shadow-sm" style={{ background: "rgba(239,68,68,0.06)", border: "1px solid rgba(239,68,68,0.15)" }}>
                     <div className="flex items-center gap-2 mb-4">
                       <div className="w-3 h-3 rounded-full bg-red-500" />
-                      <p className="text-sm font-semibold text-red-700">
+                      <p className="text-sm font-semibold text-red-400">
                         Unhealthy (Levels 7–9)
                       </p>
                     </div>
@@ -1145,8 +1148,8 @@ export default function TypeDeepDivePage() {
               </div>
 
               {/* Key Traits Cloud */}
-              <div className="p-6 rounded-2xl bg-white border border-slate-100 shadow-sm">
-                <h2 className="text-xl font-serif font-bold text-slate-800 mb-4">
+              <div className="p-6 rounded-2xl shadow-sm" style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.09)" }}>
+                <h2 className="text-xl font-serif font-bold mb-4" style={{ color: "rgba(255,255,255,0.93)" }}>
                   Trait Signature
                 </h2>
                 <div className="flex flex-wrap gap-2">
@@ -1174,7 +1177,7 @@ export default function TypeDeepDivePage() {
                     );
                   })}
                 </div>
-                <p className="text-xs text-slate-400 mt-3">
+                <p className="text-xs mt-3" style={{ color: "rgba(255,255,255,0.35)" }}>
                   Green = healthy · Type accent = average · Red = unhealthy
                 </p>
               </div>
@@ -1190,10 +1193,10 @@ export default function TypeDeepDivePage() {
               transition={{ duration: 0.25 }}
             >
               <div className="mb-6">
-                <h2 className="text-2xl font-serif font-bold text-slate-800 mb-2">
+                <h2 className="text-2xl font-serif font-bold mb-2" style={{ color: "rgba(255,255,255,0.93)" }}>
                   The 3 Subtypes of Type {typeData.number}
                 </h2>
-                <p className="text-slate-500 text-sm">
+                <p className="text-sm" style={{ color: "rgba(255,255,255,0.5)" }}>
                   Each type expresses differently based on which of the three
                   instincts — Self-Preservation, Sexual, or Social — is
                   dominant. One subtype is typically a "countertype" that can
@@ -1238,7 +1241,8 @@ export default function TypeDeepDivePage() {
                   ].map((item) => (
                     <div
                       key={item.label}
-                      className="p-5 rounded-2xl bg-white border border-slate-100 shadow-sm"
+                      className="p-5 rounded-2xl shadow-sm"
+                      style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.09)" }}
                     >
                       <div
                         className="w-9 h-9 rounded-xl flex items-center justify-center mb-3"
@@ -1246,10 +1250,10 @@ export default function TypeDeepDivePage() {
                       >
                         <span style={{ color: accent }}>{item.icon}</span>
                       </div>
-                      <h3 className="font-serif font-semibold text-slate-800 mb-2">
+                      <h3 className="font-serif font-semibold mb-2" style={{ color: "rgba(255,255,255,0.93)" }}>
                         {item.label}
                       </h3>
-                      <p className="text-sm text-slate-600 leading-relaxed">
+                      <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.6)" }}>
                         {item.text}
                       </p>
                     </div>
@@ -1257,29 +1261,30 @@ export default function TypeDeepDivePage() {
                 </div>
 
                 {/* Communication style */}
-                <div className="p-6 rounded-2xl bg-white border border-slate-100 shadow-sm">
+                <div className="p-6 rounded-2xl shadow-sm" style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.09)" }}>
                   <div className="flex items-center gap-3 mb-3">
                     <MessageSquare className="w-5 h-5" style={{ color: accent }} />
-                    <h3 className="font-serif font-semibold text-slate-800">
+                    <h3 className="font-serif font-semibold" style={{ color: "rgba(255,255,255,0.93)" }}>
                       Communication Style
                     </h3>
                   </div>
-                  <p className="text-sm text-slate-600 leading-relaxed">
+                  <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.6)" }}>
                     {relData.communicationStyle}
                   </p>
                 </div>
 
                 {/* Needs & Offers */}
                 <div className="grid md:grid-cols-2 gap-4">
-                  <div className="p-6 rounded-2xl bg-white border border-slate-100 shadow-sm">
-                    <h3 className="font-serif font-semibold text-slate-800 mb-3">
+                  <div className="p-6 rounded-2xl shadow-sm" style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.09)" }}>
+                    <h3 className="font-serif font-semibold mb-3" style={{ color: "rgba(255,255,255,0.93)" }}>
                       What They Need from Others
                     </h3>
                     <ul className="space-y-2">
                       {relData.needsFromOthers.map((need) => (
                         <li
                           key={need}
-                          className="flex items-start gap-2 text-sm text-slate-600"
+                          className="flex items-start gap-2 text-sm"
+                          style={{ color: "rgba(255,255,255,0.6)" }}
                         >
                           <span
                             className="w-1.5 h-1.5 rounded-full mt-2 shrink-0"
@@ -1290,15 +1295,16 @@ export default function TypeDeepDivePage() {
                       ))}
                     </ul>
                   </div>
-                  <div className="p-6 rounded-2xl bg-white border border-slate-100 shadow-sm">
-                    <h3 className="font-serif font-semibold text-slate-800 mb-3">
+                  <div className="p-6 rounded-2xl shadow-sm" style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.09)" }}>
+                    <h3 className="font-serif font-semibold mb-3" style={{ color: "rgba(255,255,255,0.93)" }}>
                       What They Offer
                     </h3>
                     <ul className="space-y-2">
                       {relData.whatTheyOffer.map((offer) => (
                         <li
                           key={offer}
-                          className="flex items-start gap-2 text-sm text-slate-600"
+                          className="flex items-start gap-2 text-sm"
+                          style={{ color: "rgba(255,255,255,0.6)" }}
                         >
                           <span
                             className="w-1.5 h-1.5 rounded-full mt-2 shrink-0"
@@ -1324,7 +1330,7 @@ export default function TypeDeepDivePage() {
                       className="w-5 h-5"
                       style={{ color: accent }}
                     />
-                    <h3 className="font-serif font-semibold text-slate-800">
+                    <h3 className="font-serif font-semibold" style={{ color: "rgba(255,255,255,0.93)" }}>
                       Watch Out For
                     </h3>
                   </div>
@@ -1332,7 +1338,8 @@ export default function TypeDeepDivePage() {
                     {relData.watchOutFor.map((item) => (
                       <li
                         key={item}
-                        className="flex items-start gap-2 text-sm text-slate-600"
+                        className="flex items-start gap-2 text-sm"
+                        style={{ color: "rgba(255,255,255,0.6)" }}
                       >
                         <span
                           className="w-1.5 h-1.5 rounded-full mt-2 shrink-0"
@@ -1358,7 +1365,8 @@ export default function TypeDeepDivePage() {
                   ].map((wing) => (
                     <div
                       key={wing.label}
-                      className="p-5 rounded-2xl bg-white border border-slate-100 shadow-sm"
+                      className="p-5 rounded-2xl shadow-sm"
+                      style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.09)" }}
                     >
                       <p
                         className="text-xs font-semibold uppercase tracking-wide mb-2"
@@ -1366,7 +1374,7 @@ export default function TypeDeepDivePage() {
                       >
                         {wing.label}
                       </p>
-                      <p className="text-sm text-slate-600 leading-relaxed">
+                      <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.6)" }}>
                         {wing.text}
                       </p>
                     </div>
@@ -1387,42 +1395,42 @@ export default function TypeDeepDivePage() {
               <div className="space-y-6">
                 {/* Integration / Disintegration */}
                 <div className="grid md:grid-cols-2 gap-4">
-                  <div className="p-6 rounded-2xl bg-white border border-emerald-100 shadow-sm">
+                  <div className="p-6 rounded-2xl shadow-sm" style={{ background: "rgba(16,185,129,0.06)", border: "1px solid rgba(16,185,129,0.15)" }}>
                     <div className="flex items-center gap-3 mb-3">
-                      <div className="p-2 rounded-xl bg-emerald-50">
-                        <TrendingUp className="w-5 h-5 text-emerald-600" />
+                      <div className="p-2 rounded-xl" style={{ background: "rgba(16,185,129,0.12)" }}>
+                        <TrendingUp className="w-5 h-5 text-emerald-400" />
                       </div>
                       <div>
-                        <p className="text-xs font-semibold uppercase tracking-wide text-emerald-600">
+                        <p className="text-xs font-semibold uppercase tracking-wide text-emerald-400">
                           Growth / Integration
                         </p>
-                        <p className="font-serif font-semibold text-slate-800">
+                        <p className="font-serif font-semibold" style={{ color: "rgba(255,255,255,0.93)" }}>
                           Moving toward Type {integrationType?.number}{" "}
                           {integrationType && `— ${integrationType.name}`}
                         </p>
                       </div>
                     </div>
-                    <p className="text-sm text-slate-600 leading-relaxed">
+                    <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.6)" }}>
                       {growthInfo.integrationDescription}
                     </p>
                   </div>
-                  <div className="p-6 rounded-2xl bg-white border border-red-100 shadow-sm">
+                  <div className="p-6 rounded-2xl shadow-sm" style={{ background: "rgba(239,68,68,0.06)", border: "1px solid rgba(239,68,68,0.15)" }}>
                     <div className="flex items-center gap-3 mb-3">
-                      <div className="p-2 rounded-xl bg-red-50">
-                        <TrendingDown className="w-5 h-5 text-red-600" />
+                      <div className="p-2 rounded-xl" style={{ background: "rgba(239,68,68,0.12)" }}>
+                        <TrendingDown className="w-5 h-5 text-red-400" />
                       </div>
                       <div>
-                        <p className="text-xs font-semibold uppercase tracking-wide text-red-600">
+                        <p className="text-xs font-semibold uppercase tracking-wide text-red-400">
                           Stress / Disintegration
                         </p>
-                        <p className="font-serif font-semibold text-slate-800">
+                        <p className="font-serif font-semibold" style={{ color: "rgba(255,255,255,0.93)" }}>
                           Moving toward Type {disintegrationType?.number}{" "}
                           {disintegrationType &&
                             `— ${disintegrationType.name}`}
                         </p>
                       </div>
                     </div>
-                    <p className="text-sm text-slate-600 leading-relaxed">
+                    <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.6)" }}>
                       {growthInfo.disintegrationDescription}
                     </p>
                   </div>
@@ -1430,35 +1438,35 @@ export default function TypeDeepDivePage() {
 
                 {/* Thriving vs Struggling */}
                 <div className="grid md:grid-cols-2 gap-4">
-                  <div className="p-6 rounded-2xl bg-white border border-slate-100 shadow-sm">
+                  <div className="p-6 rounded-2xl shadow-sm" style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.09)" }}>
                     <div className="flex items-center gap-2 mb-3">
-                      <Star className="w-5 h-5 text-emerald-500" />
-                      <h3 className="font-serif font-semibold text-slate-800">
+                      <Star className="w-5 h-5 text-emerald-400" />
+                      <h3 className="font-serif font-semibold" style={{ color: "rgba(255,255,255,0.93)" }}>
                         When You're Thriving
                       </h3>
                     </div>
-                    <p className="text-sm text-slate-600 leading-relaxed">
+                    <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.6)" }}>
                       {growthInfo.thrivingDescription}
                     </p>
                   </div>
-                  <div className="p-6 rounded-2xl bg-white border border-slate-100 shadow-sm">
+                  <div className="p-6 rounded-2xl shadow-sm" style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.09)" }}>
                     <div className="flex items-center gap-2 mb-3">
-                      <AlertTriangle className="w-5 h-5 text-amber-500" />
-                      <h3 className="font-serif font-semibold text-slate-800">
+                      <AlertTriangle className="w-5 h-5 text-amber-400" />
+                      <h3 className="font-serif font-semibold" style={{ color: "rgba(255,255,255,0.93)" }}>
                         When You're Struggling
                       </h3>
                     </div>
-                    <p className="text-sm text-slate-600 leading-relaxed">
+                    <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.6)" }}>
                       {growthInfo.strugglingDescription}
                     </p>
                   </div>
                 </div>
 
                 {/* Daily Practices */}
-                <div className="p-6 rounded-2xl bg-white border border-slate-100 shadow-sm">
+                <div className="p-6 rounded-2xl shadow-sm" style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.09)" }}>
                   <div className="flex items-center gap-3 mb-4">
                     <Lightbulb className="w-5 h-5" style={{ color: accent }} />
-                    <h3 className="font-serif font-semibold text-slate-800">
+                    <h3 className="font-serif font-semibold" style={{ color: "rgba(255,255,255,0.93)" }}>
                       5 Daily Practices for Type {typeData.number}
                     </h3>
                   </div>
@@ -1477,7 +1485,7 @@ export default function TypeDeepDivePage() {
                         >
                           {i + 1}
                         </div>
-                        <p className="text-sm text-slate-700 leading-relaxed pt-1">
+                        <p className="text-sm leading-relaxed pt-1" style={{ color: "rgba(255,255,255,0.7)" }}>
                           {tip}
                         </p>
                       </motion.div>
@@ -1495,7 +1503,7 @@ export default function TypeDeepDivePage() {
                 >
                   <div className="flex items-center gap-3 mb-4">
                     <BookOpen className="w-5 h-5" style={{ color: accent }} />
-                    <h3 className="font-serif font-semibold text-slate-800">
+                    <h3 className="font-serif font-semibold" style={{ color: "rgba(255,255,255,0.93)" }}>
                       Journal Prompts
                     </h3>
                   </div>
@@ -1508,7 +1516,7 @@ export default function TypeDeepDivePage() {
                         >
                           "
                         </span>
-                        <p className="text-sm text-slate-700 italic leading-relaxed">
+                        <p className="text-sm italic leading-relaxed" style={{ color: "rgba(255,255,255,0.7)" }}>
                           {prompt}
                         </p>
                       </div>
@@ -1517,8 +1525,8 @@ export default function TypeDeepDivePage() {
                 </div>
 
                 {/* Myths */}
-                <div className="p-6 rounded-2xl bg-white border border-slate-100 shadow-sm">
-                  <h3 className="font-serif font-semibold text-slate-800 mb-4">
+                <div className="p-6 rounded-2xl shadow-sm" style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.09)" }}>
+                  <h3 className="font-serif font-semibold mb-4" style={{ color: "rgba(255,255,255,0.93)" }}>
                     3 Myths About Type {typeData.number}
                   </h3>
                   <div className="space-y-4">
@@ -1536,10 +1544,10 @@ export default function TypeDeepDivePage() {
                             {i + 1}
                           </div>
                           <div>
-                            <p className="text-sm font-semibold text-slate-700 line-through">
+                            <p className="text-sm font-semibold line-through" style={{ color: "rgba(255,255,255,0.5)" }}>
                               Myth: {claim}
                             </p>
-                            <p className="text-sm text-slate-600 mt-1">
+                            <p className="text-sm mt-1" style={{ color: "rgba(255,255,255,0.6)" }}>
                               Reality: {explanation.join(" — ")}
                             </p>
                           </div>
@@ -1563,7 +1571,7 @@ export default function TypeDeepDivePage() {
               <div className="space-y-8">
                 {/* Real People */}
                 <div>
-                  <h2 className="text-2xl font-serif font-bold text-slate-800 mb-4">
+                  <h2 className="text-2xl font-serif font-bold mb-4" style={{ color: "rgba(255,255,255,0.93)" }}>
                     Real People
                   </h2>
                   <div className="grid sm:grid-cols-2 gap-4">
@@ -1573,7 +1581,8 @@ export default function TypeDeepDivePage() {
                         initial={{ opacity: 1, y: 0 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: i * 0.07 }}
-                        className="p-5 rounded-2xl bg-white border border-slate-100 shadow-sm"
+                        className="p-5 rounded-2xl shadow-sm"
+                        style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.09)" }}
                       >
                         <div className="flex items-start gap-3 mb-2">
                           <div
@@ -1583,13 +1592,13 @@ export default function TypeDeepDivePage() {
                             {person.name[0]}
                           </div>
                           <div>
-                            <p className="font-serif font-semibold text-slate-800">
+                            <p className="font-serif font-semibold" style={{ color: "rgba(255,255,255,0.93)" }}>
                               {person.name}
                             </p>
-                            <p className="text-xs text-slate-400">{person.field}</p>
+                            <p className="text-xs" style={{ color: "rgba(255,255,255,0.35)" }}>{person.field}</p>
                           </div>
                         </div>
-                        <p className="text-sm text-slate-600 leading-relaxed">
+                        <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.6)" }}>
                           {person.reason}
                         </p>
                       </motion.div>
@@ -1599,7 +1608,7 @@ export default function TypeDeepDivePage() {
 
                 {/* Fictional Characters */}
                 <div>
-                  <h2 className="text-2xl font-serif font-bold text-slate-800 mb-4">
+                  <h2 className="text-2xl font-serif font-bold mb-4" style={{ color: "rgba(255,255,255,0.93)" }}>
                     Fictional Characters
                   </h2>
                   <div className="grid sm:grid-cols-2 gap-4">
@@ -1609,7 +1618,8 @@ export default function TypeDeepDivePage() {
                         initial={{ opacity: 1, y: 0 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: i * 0.07 }}
-                        className="p-5 rounded-2xl bg-white border border-slate-100 shadow-sm"
+                        className="p-5 rounded-2xl shadow-sm"
+                        style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.09)" }}
                       >
                         <div className="flex items-start gap-3 mb-2">
                           <div
@@ -1623,13 +1633,13 @@ export default function TypeDeepDivePage() {
                             {char.name[0]}
                           </div>
                           <div>
-                            <p className="font-serif font-semibold text-slate-800">
+                            <p className="font-serif font-semibold" style={{ color: "rgba(255,255,255,0.93)" }}>
                               {char.name}
                             </p>
-                            <p className="text-xs text-slate-400">{char.source}</p>
+                            <p className="text-xs" style={{ color: "rgba(255,255,255,0.35)" }}>{char.source}</p>
                           </div>
                         </div>
-                        <p className="text-sm text-slate-600 leading-relaxed">
+                        <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.6)" }}>
                           {char.reason}
                         </p>
                       </motion.div>
@@ -1637,7 +1647,7 @@ export default function TypeDeepDivePage() {
                   </div>
                 </div>
 
-                <p className="text-xs text-slate-400 text-center">
+                <p className="text-xs text-center" style={{ color: "rgba(255,255,255,0.35)" }}>
                   Note: Enneagram typings of public figures are interpretive and based on widely documented analyses. No typing is definitive without first-person confirmation.
                 </p>
               </div>
