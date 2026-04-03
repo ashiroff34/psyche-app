@@ -11,7 +11,7 @@ const slides = [
     icon: <Zap className="w-8 h-8 text-white" />,
     iconBg: "from-indigo-500 to-violet-500",
     title: "XP & Levels",
-    body: "You earn XP (experience points) by answering questions, completing readings, and finishing daily practice. As your XP grows, your level increases. Sometimes you'll get a 2× or 3× XP bonus — completely random, just like life.",
+    body: "You earn XP (experience points) by answering questions, completing readings, and finishing daily practice. As your XP grows, your level increases. Sometimes you'll get a 2× or 3× XP bonus, completely random, just like life.",
   },
   {
     icon: <Coins className="w-8 h-8 text-white" />,
@@ -23,13 +23,13 @@ const slides = [
     icon: <Flame className="w-8 h-8 text-white" />,
     iconBg: "from-orange-400 to-rose-500",
     title: "Streaks",
-    body: "Your streak counts how many days in a row you've done at least one activity. Miss a day and it resets — unless you use a Streak Freeze. Streaks unlock badges and show your consistency over time. Even one question a day counts.",
+    body: "Your streak counts how many days in a row you've done at least one activity. Miss a day and it resets, unless you use a Streak Freeze. Streaks unlock badges and show your consistency over time. Even one question a day counts.",
   },
   {
     icon: <Heart className="w-8 h-8 text-white" />,
     iconBg: "from-rose-400 to-pink-500",
     title: "Hearts & Your Pet",
-    body: "You have 5 hearts — lose one for each wrong quiz answer. Hearts refill on their own (1 every 30 min), or you can buy more with tokens. Your pet companion needs to be fed too — visit the Pet tab to keep them healthy and happy.",
+    body: "You have 5 hearts, lose one for each wrong quiz answer. Hearts refill on their own (1 every 30 min), or you can buy more with tokens. Your pet companion needs to be fed too, visit the Pet tab to keep them healthy and happy.",
   },
 ];
 
@@ -118,7 +118,7 @@ export default function GameIntro() {
                 {step < slides.length - 1 ? (
                   <>Next <ChevronRight className="w-4 h-4" /></>
                 ) : (
-                  "Got it — let's go!"
+                  "Got it, let's go!"
                 )}
               </button>
             </div>

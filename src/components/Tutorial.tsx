@@ -12,7 +12,7 @@ const CB = assetPath("/sprites/chibi");
 const SS = assetPath("/tutorial");
 
 /* ═══════════════════════════════════════════════════════════════════════════
-   SLIDE DATA — each slide matches its screenshot exactly
+   SLIDE DATA, each slide matches its screenshot exactly
    ═══════════════════════════════════════════════════════════════════════════ */
 
 interface Slide {
@@ -35,21 +35,21 @@ const SLIDES: Slide[] = [
   },
   {
     title: "Ready to know yourself?",
-    what: "Thyself combines the Enneagram and Jungian Cognitive Functions into one app — with quizzes, a virtual pet, and daily growth challenges. Think Duolingo, but for personality.",
-    howToGet: "This is the welcome screen — the first thing new users see. Tap 'I'm new here' to start your journey!",
+    what: "Thyself combines the Enneagram and Jungian Cognitive Functions into one app, with quizzes, a virtual pet, and daily growth challenges. Think Duolingo, but for personality.",
+    howToGet: "This is the welcome screen, the first thing new users see. Tap 'I'm new here' to start your journey!",
     screenshot: `${SS}/welcome.jpg`,
     chibi: `${CB}/5-so5.png`,
   },
   {
     title: "This is your HQ",
-    what: "Once you've set up, this becomes your home. Type badges, streak, tokens, XP, learning path, and daily practice — all in one glance.",
+    what: "Once you've set up, this becomes your home. Type badges, streak, tokens, XP, learning path, and daily practice, all in one glance.",
     howToGet: "Bottom bar → first icon on the left (house). You'll land here every time you open the app.",
     screenshot: `${SS}/home.jpg`,
     chibi: `${CB}/5-so5.png`,
     highlightTab: 0,
   },
   {
-    title: "Your daily workout — for your mind",
+    title: "Your daily workout, for your mind",
     what: "Fresh quiz questions every day, matched to your level. Get them right? They get harder. Build a streak and watch your XP climb. Can you hit 7 days?",
     howToGet: "Bottom bar → second icon (flame). Or tap the purple 'Start Practice' card on your home screen.",
     screenshot: `${SS}/daily.jpg`,
@@ -58,7 +58,7 @@ const SLIDES: Slide[] = [
   },
   {
     title: "Say hi to your pet!",
-    what: "Health, hunger, happiness — three bars to manage. Neglect it and it faints! Feed (10 tokens), play (5), or medicine (25). What will you name yours?",
+    what: "Health, hunger, happiness, three bars to manage. Neglect it and it faints! Feed (10 tokens), play (5), or medicine (25). What will you name yours?",
     howToGet: "Bottom bar → middle icon (cat face). Your pet also peeks out on the Daily page.",
     screenshot: `${SS}/pet.jpg`,
     chibi: `${CB}/2-sp2.png`,
@@ -66,7 +66,7 @@ const SLIDES: Slide[] = [
   },
   {
     title: "Treat yourself (and your pet)",
-    what: "Outfits, streak freezes, and cosmetics. You start with 50 free tokens — what will you buy first?",
+    what: "Outfits, streak freezes, and cosmetics. You start with 50 free tokens, what will you buy first?",
     howToGet: "Bottom bar → fourth icon (coin with orange glow). Tokens come from quizzes, leveling up, and milestones.",
     screenshot: `${SS}/store.jpg`,
     chibi: `${CB}/3-sx3.png`,
@@ -75,7 +75,7 @@ const SLIDES: Slide[] = [
   {
     title: "Your personality fingerprint",
     what: "Enneagram + cognitive stack + instinctual stacking = a combination unique to you. This page shows it all with personalized insights and links to go deeper.",
-    howToGet: "Tap the Profile icon (person) — last icon on the right in the bottom bar. Auto-updates when you complete assessments.",
+    howToGet: "Tap the Profile icon (person), last icon on the right in the bottom bar. Auto-updates when you complete assessments.",
     screenshot: `${SS}/profile.jpg`,
     chibi: `${CB}/8-so8.png`,
     highlightTab: 4,
@@ -90,7 +90,7 @@ const SLIDES: Slide[] = [
   },
   {
     title: "What's your Enneagram type?",
-    what: "There are 9 types — each driven by a different core fear and desire. Don't know yours yet? Pick a format and find out! The deep analysis is the most accurate.",
+    what: "There are 9 types, each driven by a different core fear and desire. Don't know yours yet? Pick a format and find out! The deep analysis is the most accurate.",
     howToGet: "Tap ··· Explore (top-right corner of any page) → tap 'Enneagram' → tap 'Take Assessment'. The home screen 'Your Path' also links here.",
     screenshot: `${SS}/assess-enneagram.jpg`,
     chibi: `${CB}/1-sp1.png`,
@@ -98,7 +98,7 @@ const SLIDES: Slide[] = [
   },
   {
     title: "How does your mind actually work?",
-    what: "Jung identified 8 cognitive functions — mental tools we all use in a specific order. This assessment finds YOUR order. Are you an Ni-dom? Ti-dom? Let's find out.",
+    what: "Jung identified 8 cognitive functions, mental tools we all use in a specific order. This assessment finds YOUR order. Are you an Ni-dom? Ti-dom? Let's find out.",
     howToGet: "Tap ··· Explore → 'Cognitive Functions' → 'Take Assessment'. Best done after you know your Enneagram type.",
     screenshot: `${SS}/assess-cognitive.jpg`,
     chibi: `${CB}/6-so6.png`,
@@ -106,7 +106,7 @@ const SLIDES: Slide[] = [
   },
   {
     title: "Go as deep as you want",
-    what: "Every type has expandable sections — tap to reveal core fears, subtypes, growth paths, myth vs reality, and clinical frameworks. The more you explore, the more XP you earn.",
+    what: "Every type has expandable sections, tap to reveal core fears, subtypes, growth paths, myth vs reality, and clinical frameworks. The more you explore, the more XP you earn.",
     howToGet: "Tap ··· Explore → 'Learn Enneagram' or 'Learn Cognitive'. Home screen cards like 'Explore your type in depth' also link here.",
     screenshot: `${SS}/learn.jpg`,
     chibi: `${CB}/6-so6.png`,
@@ -122,7 +122,7 @@ const SLIDES: Slide[] = [
   },
   {
     title: "Understand any relationship",
-    what: "Pick your type and someone else's — see communication patterns, friction points, and growth tips. This is for self-understanding only — it doesn't determine what you should or shouldn't do in relationships.",
+    what: "Pick your type and someone else's, see communication patterns, friction points, and growth tips. This is for self-understanding only, it doesn't determine what you should or shouldn't do in relationships.",
     howToGet: "Tap ··· Explore → 'Compare Types'. Great for partners, friends, coworkers, or family.",
     screenshot: `${SS}/compare.jpg`,
     chibi: `${CB}/9-sp9.png`,

@@ -11,7 +11,7 @@ export const insights1: DailyInsight[] = [
     id: 1,
     quote: "Until you make the unconscious conscious, it will direct your life and you will call it fate.",
     author: "Carl Jung",
-    reflection: "The patterns you can't see are the ones running the show. Self-awareness isn't optional — it's the foundation of free will.",
+    reflection: "The patterns you can't see are the ones running the show. Self-awareness isn't optional, it's the foundation of free will.",
     category: "jung"
   },
   {
@@ -23,7 +23,7 @@ export const insights1: DailyInsight[] = [
   },
   {
     id: 3,
-    quote: "You have power over your mind — not outside events. Realize this, and you will find strength.",
+    quote: "You have power over your mind, not outside events. Realize this, and you will find strength.",
     author: "Marcus Aurelius",
     reflection: "Freedom doesn't come from controlling circumstances. It comes from mastering your response to them.",
     category: "stoicism"
@@ -32,7 +32,7 @@ export const insights1: DailyInsight[] = [
     id: 4,
     quote: "Between stimulus and response there is a space. In that space is our freedom and power to choose our response.",
     author: "Viktor Frankl",
-    reflection: "That tiny gap between what happens to you and what you do next — that's where your entire life is shaped. Learn to widen it.",
+    reflection: "That tiny gap between what happens to you and what you do next, that's where your entire life is shaped. Learn to widen it.",
     category: "psychology"
   },
   {
@@ -60,14 +60,14 @@ export const insights1: DailyInsight[] = [
     id: 8,
     quote: "The privilege of a lifetime is to become who you truly are.",
     author: "Carl Jung",
-    reflection: "Becoming yourself isn't a luxury — it's the work you were born to do. Everything else is just rehearsal.",
+    reflection: "Becoming yourself isn't a luxury, it's the work you were born to do. Everything else is just rehearsal.",
     category: "jung"
   },
   {
     id: 9,
     quote: "No man is free who is not master of himself.",
     author: "Epictetus",
-    reflection: "True freedom isn't about external circumstances — it's about the inner discipline to choose wisely, even when impulse screams otherwise.",
+    reflection: "True freedom isn't about external circumstances, it's about the inner discipline to choose wisely, even when impulse screams otherwise.",
     category: "stoicism"
   },
   {
@@ -95,7 +95,7 @@ export const insights1: DailyInsight[] = [
     id: 13,
     quote: "The mind is everything. What you think you become.",
     author: "Buddha",
-    reflection: "Your thoughts are not just passing events — they are blueprints. The stories you repeat internally become the life you build externally.",
+    reflection: "Your thoughts are not just passing events, they are blueprints. The stories you repeat internally become the life you build externally.",
     category: "mindfulness"
   },
   {
@@ -109,12 +109,12 @@ export const insights1: DailyInsight[] = [
     id: 15,
     quote: "Where there is no struggle, there is no strength.",
     author: "Oprah Winfrey",
-    reflection: "The resistance you face isn't blocking your growth — it IS your growth. Muscles only develop under tension.",
+    reflection: "The resistance you face isn't blocking your growth, it IS your growth. Muscles only develop under tension.",
     category: "growth"
   },
   {
     id: 16,
-    quote: "The Enneagram doesn't put you in a box. It shows you the box you're already in — and the way out.",
+    quote: "The Enneagram doesn't put you in a box. It shows you the box you're already in, and the way out.",
     author: "Don Riso",
     reflection: "Personality typing isn't about limitation. It's about illuminating the unconscious patterns that keep you stuck so you can finally move beyond them.",
     category: "enneagram"
@@ -123,14 +123,14 @@ export const insights1: DailyInsight[] = [
     id: 17,
     quote: "Vulnerability is not winning or losing; it's having the courage to show up and be seen when we have no control over the outcome.",
     author: "Brene Brown",
-    reflection: "Real strength isn't armor — it's the willingness to be fully present even when you can't guarantee safety. That takes more guts than any defense.",
+    reflection: "Real strength isn't armor, it's the willingness to be fully present even when you can't guarantee safety. That takes more guts than any defense.",
     category: "relationships"
   },
   {
     id: 18,
     quote: "The only person you are destined to become is the person you decide to be.",
     author: "Ralph Waldo Emerson",
-    reflection: "Destiny isn't written in the stars — it's written in your daily decisions. Who you become is a choice you make over and over again.",
+    reflection: "Destiny isn't written in the stars, it's written in your daily decisions. Who you become is a choice you make over and over again.",
     category: "philosophy"
   },
   {
@@ -165,7 +165,7 @@ export const insights1: DailyInsight[] = [
     id: 23,
     quote: "The meeting of two personalities is like the contact of two chemical substances: if there is any reaction, both are transformed.",
     author: "Carl Jung",
-    reflection: "Every meaningful relationship changes you. The question isn't whether others will affect you — it's whether you're conscious enough to grow from it.",
+    reflection: "Every meaningful relationship changes you. The question isn't whether others will affect you, it's whether you're conscious enough to grow from it.",
     category: "jung"
   },
   {
@@ -179,14 +179,14 @@ export const insights1: DailyInsight[] = [
     id: 25,
     quote: "The unexamined life is not worth living.",
     author: "Socrates",
-    reflection: "Self-reflection isn't navel-gazing — it's the essential human act. Without it, you're just running on autopilot through the most important journey you'll ever take.",
+    reflection: "Self-reflection isn't navel-gazing, it's the essential human act. Without it, you're just running on autopilot through the most important journey you'll ever take.",
     category: "philosophy"
   },
   {
     id: 26,
     quote: "People will do anything, no matter how absurd, to avoid facing their own souls.",
     author: "Carl Jung",
-    reflection: "Busyness, addiction, constant distraction — these are often just strategies to avoid the inner work. The soul doesn't stop calling just because you stop listening.",
+    reflection: "Busyness, addiction, constant distraction, these are often just strategies to avoid the inner work. The soul doesn't stop calling just because you stop listening.",
     category: "jung"
   },
   {
@@ -207,14 +207,14 @@ export const insights1: DailyInsight[] = [
     id: 29,
     quote: "What a man can be, he must be. This need we call self-actualization.",
     author: "Abraham Maslow",
-    reflection: "There's a pull inside you toward your fullest expression. Ignoring it doesn't make it disappear — it just creates a quiet ache that follows you everywhere.",
+    reflection: "There's a pull inside you toward your fullest expression. Ignoring it doesn't make it disappear, it just creates a quiet ache that follows you everywhere.",
     category: "psychology"
   },
   {
     id: 30,
     quote: "We are what we repeatedly do. Excellence, then, is not an act, but a habit.",
     author: "Will Durant",
-    reflection: "Your identity isn't formed in dramatic moments — it's built in the mundane repetitions of daily life. Choose your habits as carefully as you'd choose your destiny.",
+    reflection: "Your identity isn't formed in dramatic moments, it's built in the mundane repetitions of daily life. Choose your habits as carefully as you'd choose your destiny.",
     category: "growth"
   },
   {
@@ -235,7 +235,7 @@ export const insights1: DailyInsight[] = [
     id: 33,
     quote: "One does not become enlightened by imagining figures of light, but by making the darkness conscious.",
     author: "Carl Jung",
-    reflection: "Spiritual bypassing — pretending everything is love and light — isn't growth. Real transformation requires befriending the parts of yourself you'd rather not see.",
+    reflection: "Spiritual bypassing, pretending everything is love and light, isn't growth. Real transformation requires befriending the parts of yourself you'd rather not see.",
     category: "jung"
   },
   {
@@ -249,14 +249,14 @@ export const insights1: DailyInsight[] = [
     id: 35,
     quote: "The greatest glory in living lies not in never falling, but in rising every time we fall.",
     author: "Nelson Mandela",
-    reflection: "Resilience isn't about avoiding failure — it's about your relationship with it. Every comeback begins with a refusal to stay down.",
+    reflection: "Resilience isn't about avoiding failure, it's about your relationship with it. Every comeback begins with a refusal to stay down.",
     category: "growth"
   },
   {
     id: 36,
     quote: "Neurons that fire together wire together.",
     author: "Donald Hebb",
-    reflection: "Your brain literally reshapes itself based on what you practice. Every thought pattern you repeat becomes a neural highway — choose your routes wisely.",
+    reflection: "Your brain literally reshapes itself based on what you practice. Every thought pattern you repeat becomes a neural highway, choose your routes wisely.",
     category: "neuroscience"
   },
   {
@@ -277,7 +277,7 @@ export const insights1: DailyInsight[] = [
     id: 39,
     quote: "Nothing ever goes away until it has taught us what we need to know.",
     author: "Pema Chodron",
-    reflection: "That recurring pattern in your life? It's not bad luck — it's a curriculum. The lesson keeps showing up because you haven't fully learned it yet.",
+    reflection: "That recurring pattern in your life? It's not bad luck, it's a curriculum. The lesson keeps showing up because you haven't fully learned it yet.",
     category: "mindfulness"
   },
   {
@@ -305,7 +305,7 @@ export const insights1: DailyInsight[] = [
     id: 43,
     quote: "The way out is through.",
     author: "Robert Frost",
-    reflection: "There are no shortcuts around difficult emotions. The only way to move beyond pain is to move through it — fully, honestly, and with compassion for yourself.",
+    reflection: "There are no shortcuts around difficult emotions. The only way to move beyond pain is to move through it, fully, honestly, and with compassion for yourself.",
     category: "psychology"
   },
   {
@@ -326,7 +326,7 @@ export const insights1: DailyInsight[] = [
     id: 46,
     quote: "If you want to go quickly, go alone. If you want to go far, go together.",
     author: "African Proverb",
-    reflection: "Rugged individualism has its limits. The deepest transformations happen in relationship — when we allow others to witness our becoming.",
+    reflection: "Rugged individualism has its limits. The deepest transformations happen in relationship, when we allow others to witness our becoming.",
     category: "relationships"
   },
   {
@@ -361,7 +361,7 @@ export const insights1: DailyInsight[] = [
     id: 51,
     quote: "We don't see things as they are, we see them as we are.",
     author: "Anais Nin",
-    reflection: "Your perception is never neutral — it's always filtered through your history, your wounds, and your hopes. Knowing this is the first step toward clearer seeing.",
+    reflection: "Your perception is never neutral, it's always filtered through your history, your wounds, and your hopes. Knowing this is the first step toward clearer seeing.",
     category: "psychology"
   },
   {
@@ -389,28 +389,28 @@ export const insights1: DailyInsight[] = [
     id: 55,
     quote: "To love oneself is the beginning of a lifelong romance.",
     author: "Oscar Wilde",
-    reflection: "Self-love isn't narcissism — it's the foundation upon which every healthy relationship is built. You can't pour from an empty cup.",
+    reflection: "Self-love isn't narcissism, it's the foundation upon which every healthy relationship is built. You can't pour from an empty cup.",
     category: "relationships"
   },
   {
     id: 56,
     quote: "What lies behind us and what lies before us are tiny matters compared to what lies within us.",
     author: "Ralph Waldo Emerson",
-    reflection: "Your inner resources — courage, resilience, creativity — dwarf any external circumstance. The treasure has always been inside.",
+    reflection: "Your inner resources, courage, resilience, creativity, dwarf any external circumstance. The treasure has always been inside.",
     category: "philosophy"
   },
   {
     id: 57,
     quote: "Each Enneagram type has a particular way of keeping itself asleep.",
     author: "Beatrice Chestnut",
-    reflection: "Your personality type doesn't just describe your gifts — it reveals your blind spots. Growth means waking up to the specific ways you keep yourself unconscious.",
+    reflection: "Your personality type doesn't just describe your gifts, it reveals your blind spots. Growth means waking up to the specific ways you keep yourself unconscious.",
     category: "enneagram"
   },
   {
     id: 58,
     quote: "The impediment to action advances action. What stands in the way becomes the way.",
     author: "Marcus Aurelius",
-    reflection: "Obstacles aren't detours — they're the path itself. Every challenge you face is an invitation to develop a strength you didn't know you needed.",
+    reflection: "Obstacles aren't detours, they're the path itself. Every challenge you face is an invitation to develop a strength you didn't know you needed.",
     category: "stoicism"
   },
   {
@@ -424,35 +424,35 @@ export const insights1: DailyInsight[] = [
     id: 60,
     quote: "The human brain has 100 billion neurons, each neuron connected to 10,000 other neurons. Sitting on your shoulders is the most complicated object in the known universe.",
     author: "Michio Kaku",
-    reflection: "You are carrying an unimaginably complex organ of consciousness. Treat it with the awe and care it deserves — it's writing your entire story.",
+    reflection: "You are carrying an unimaginably complex organ of consciousness. Treat it with the awe and care it deserves, it's writing your entire story.",
     category: "neuroscience"
   },
   {
     id: 61,
     quote: "Man's main task in life is to give birth to himself, to become what he potentially is.",
     author: "Erich Fromm",
-    reflection: "You arrived as potential, and the work of your life is to actualize it. No one else can do this for you — it's the most personal project you'll ever undertake.",
+    reflection: "You arrived as potential, and the work of your life is to actualize it. No one else can do this for you, it's the most personal project you'll ever undertake.",
     category: "psychology"
   },
   {
     id: 62,
     quote: "The privilege of a lifetime is being who you are.",
     author: "Joseph Campbell",
-    reflection: "In a world that constantly asks you to perform, simply being yourself is a radical act. Authenticity isn't something you achieve — it's something you allow.",
+    reflection: "In a world that constantly asks you to perform, simply being yourself is a radical act. Authenticity isn't something you achieve, it's something you allow.",
     category: "philosophy"
   },
   {
     id: 63,
     quote: "Muddy water is best cleared by leaving it alone.",
     author: "Alan Watts",
-    reflection: "Not every problem needs active solving. Sometimes the wisest action is non-action — letting the turbulence settle so clarity can emerge on its own.",
+    reflection: "Not every problem needs active solving. Sometimes the wisest action is non-action, letting the turbulence settle so clarity can emerge on its own.",
     category: "mindfulness"
   },
   {
     id: 64,
     quote: "He who fears he shall suffer, already suffers what he fears.",
     author: "Michel de Montaigne",
-    reflection: "Anticipatory anxiety is suffering twice. The mind's ability to pre-live pain is impressive but unhelpful — most of what you dread never materializes.",
+    reflection: "Anticipatory anxiety is suffering twice. The mind's ability to pre-live pain is impressive but unhelpful, most of what you dread never materializes.",
     category: "philosophy"
   },
   {
@@ -473,7 +473,7 @@ export const insights1: DailyInsight[] = [
     id: 67,
     quote: "I have been a seeker and I still am, but I stopped asking the books and the stars. I started listening to the teaching of my Soul.",
     author: "Rumi",
-    reflection: "External wisdom has its place, but ultimately, you are your own best teacher. The answers you seek are already whispering within — you just need to get quiet enough to hear them.",
+    reflection: "External wisdom has its place, but ultimately, you are your own best teacher. The answers you seek are already whispering within, you just need to get quiet enough to hear them.",
     category: "philosophy"
   },
   {
@@ -501,7 +501,7 @@ export const insights1: DailyInsight[] = [
     id: 71,
     quote: "Owning our story and loving ourselves through that process is the bravest thing that we will ever do.",
     author: "Brene Brown",
-    reflection: "Your story includes chapters you'd rather skip. Courage isn't about having a perfect narrative — it's about embracing the whole messy, beautiful truth of who you are.",
+    reflection: "Your story includes chapters you'd rather skip. Courage isn't about having a perfect narrative, it's about embracing the whole messy, beautiful truth of who you are.",
     category: "psychology"
   },
   {
@@ -515,28 +515,28 @@ export const insights1: DailyInsight[] = [
     id: 73,
     quote: "We are disturbed not by things, but by the views which we take of them.",
     author: "Epictetus",
-    reflection: "Between you and every problem sits a belief. Change the belief, and the problem often transforms — or disappears entirely.",
+    reflection: "Between you and every problem sits a belief. Change the belief, and the problem often transforms, or disappears entirely.",
     category: "stoicism"
   },
   {
     id: 74,
     quote: "The art of being wise is the art of knowing what to overlook.",
     author: "William James",
-    reflection: "Wisdom isn't just about what you pay attention to — it's equally about what you choose to let go. Selective attention is a form of emotional intelligence.",
+    reflection: "Wisdom isn't just about what you pay attention to, it's equally about what you choose to let go. Selective attention is a form of emotional intelligence.",
     category: "psychology"
   },
   {
     id: 75,
     quote: "Be yourself; everyone else is already taken.",
     author: "Oscar Wilde",
-    reflection: "Comparison is a thief, and imitation is a trap. The world doesn't need another copy — it needs the original that only you can be.",
+    reflection: "Comparison is a thief, and imitation is a trap. The world doesn't need another copy, it needs the original that only you can be.",
     category: "growth"
   },
   {
     id: 76,
     quote: "The soul becomes dyed with the color of its thoughts.",
     author: "Marcus Aurelius",
-    reflection: "Your habitual thoughts don't just influence your mood — they shape your character. Guard your inner dialogue as carefully as you'd guard your most precious possession.",
+    reflection: "Your habitual thoughts don't just influence your mood, they shape your character. Guard your inner dialogue as carefully as you'd guard your most precious possession.",
     category: "stoicism"
   },
   {
@@ -557,7 +557,7 @@ export const insights1: DailyInsight[] = [
     id: 79,
     quote: "Compassion is not a relationship between the healer and the wounded. It's a relationship between equals.",
     author: "Pema Chodron",
-    reflection: "True compassion doesn't look down — it looks across. When you recognize your shared humanity with someone who's suffering, that's when real healing begins.",
+    reflection: "True compassion doesn't look down, it looks across. When you recognize your shared humanity with someone who's suffering, that's when real healing begins.",
     category: "mindfulness"
   },
   {
@@ -585,14 +585,14 @@ export const insights1: DailyInsight[] = [
     id: 83,
     quote: "Anxiety is the dizziness of freedom.",
     author: "Soren Kierkegaard",
-    reflection: "That anxious feeling often means you're standing at the edge of genuine possibility. It's not a sign to retreat — it's a sign that something real is at stake.",
+    reflection: "That anxious feeling often means you're standing at the edge of genuine possibility. It's not a sign to retreat, it's a sign that something real is at stake.",
     category: "philosophy"
   },
   {
     id: 84,
     quote: "The body keeps the score.",
     author: "Bessel van der Kolk",
-    reflection: "Your body remembers what your mind tries to forget. Healing isn't just a cognitive exercise — it requires listening to the wisdom stored in your muscles, your breath, your nervous system.",
+    reflection: "Your body remembers what your mind tries to forget. Healing isn't just a cognitive exercise, it requires listening to the wisdom stored in your muscles, your breath, your nervous system.",
     category: "neuroscience"
   },
   {
@@ -606,7 +606,7 @@ export const insights1: DailyInsight[] = [
     id: 86,
     quote: "Love is the whole thing. We are only pieces.",
     author: "Rumi",
-    reflection: "In our separateness, we forget that connection is our natural state. Love isn't something you do — it's something you are when you stop fragmenting yourself.",
+    reflection: "In our separateness, we forget that connection is our natural state. Love isn't something you do, it's something you are when you stop fragmenting yourself.",
     category: "relationships"
   },
   {
@@ -632,7 +632,7 @@ export const insights1: DailyInsight[] = [
   },
   {
     id: 90,
-    quote: "If the doors of perception were cleansed, everything would appear to man as it is — infinite.",
+    quote: "If the doors of perception were cleansed, everything would appear to man as it is, infinite.",
     author: "William Blake",
     reflection: "Your ordinary perception filters out the extraordinary. Moments of awe happen not when reality changes, but when your filters temporarily lift.",
     category: "philosophy"
@@ -648,7 +648,7 @@ export const insights1: DailyInsight[] = [
     id: 92,
     quote: "Daring to set boundaries is about having the courage to love ourselves, even when we risk disappointing others.",
     author: "Brene Brown",
-    reflection: "Boundaries aren't walls — they're bridges built with integrity. They teach others how to love you by showing you how to love yourself first.",
+    reflection: "Boundaries aren't walls, they're bridges built with integrity. They teach others how to love you by showing you how to love yourself first.",
     category: "relationships"
   },
   {
@@ -662,14 +662,14 @@ export const insights1: DailyInsight[] = [
     id: 94,
     quote: "The first half of life is devoted to forming a healthy ego, the second half is going inward and letting go of it.",
     author: "Carl Jung",
-    reflection: "Building a strong sense of self is essential work. But eventually, the deeper invitation is to transcend that self — to discover what exists beyond the story of 'me.'",
+    reflection: "Building a strong sense of self is essential work. But eventually, the deeper invitation is to transcend that self, to discover what exists beyond the story of 'me.'",
     category: "jung"
   },
   {
     id: 95,
     quote: "There is nothing either good or bad, but thinking makes it so.",
     author: "William Shakespeare",
-    reflection: "Events are neutral until you assign meaning to them. This isn't toxic positivity — it's a recognition that you have more interpretive power than you realize.",
+    reflection: "Events are neutral until you assign meaning to them. This isn't toxic positivity, it's a recognition that you have more interpretive power than you realize.",
     category: "philosophy"
   },
   {
@@ -725,7 +725,7 @@ export const insights1: DailyInsight[] = [
     id: 103,
     quote: "We are each gifted in a unique and important way. It is our privilege and our adventure to discover our own special light.",
     author: "Mary Dunbar",
-    reflection: "Your gifts aren't accidental — they're the contribution only you can make. Discovering them isn't vanity; it's responsibility.",
+    reflection: "Your gifts aren't accidental, they're the contribution only you can make. Discovering them isn't vanity; it's responsibility.",
     category: "growth"
   },
   {
@@ -753,7 +753,7 @@ export const insights1: DailyInsight[] = [
     id: 107,
     quote: "The most beautiful people we have known are those who have known defeat, known suffering, known struggle, known loss, and have found their way out of the depths.",
     author: "Elisabeth Kubler-Ross",
-    reflection: "Depth of character is forged in difficulty. The people who move you most aren't the ones who've had it easy — they're the ones who've been through the fire and emerged with their hearts intact.",
+    reflection: "Depth of character is forged in difficulty. The people who move you most aren't the ones who've had it easy, they're the ones who've been through the fire and emerged with their hearts intact.",
     category: "psychology"
   },
   {
@@ -779,7 +779,7 @@ export const insights1: DailyInsight[] = [
   },
   {
     id: 111,
-    quote: "Everything can be taken from a man but one thing: the last of the human freedoms — to choose one's attitude in any given set of circumstances.",
+    quote: "Everything can be taken from a man but one thing: the last of the human freedoms, to choose one's attitude in any given set of circumstances.",
     author: "Viktor Frankl",
     reflection: "This is the freedom that survives even the most extreme conditions. Your power to choose your response is the one thing no external force can steal.",
     category: "psychology"
@@ -795,21 +795,21 @@ export const insights1: DailyInsight[] = [
     id: 113,
     quote: "The curious mind embraces science; the gifted and sensitive, the arts; the practical, business; the leftover becomes an economist.",
     author: "Nassim Nicholas Taleb",
-    reflection: "Knowing your natural inclinations saves years of wandering. Pay attention to what energizes you — that's your psyche pointing you toward your path.",
+    reflection: "Knowing your natural inclinations saves years of wandering. Pay attention to what energizes you, that's your psyche pointing you toward your path.",
     category: "psychology"
   },
   {
     id: 114,
     quote: "You must have chaos within you to give birth to a dancing star.",
     author: "Friedrich Nietzsche",
-    reflection: "Don't fear your inner turbulence — it's the raw material of creativity and transformation. Order alone creates nothing new.",
+    reflection: "Don't fear your inner turbulence, it's the raw material of creativity and transformation. Order alone creates nothing new.",
     category: "philosophy"
   },
   {
     id: 115,
     quote: "The most fundamental aggression to ourselves, the most fundamental harm we can do to ourselves, is to remain ignorant by not having the courage and the respect to look at ourselves honestly and gently.",
     author: "Pema Chodron",
-    reflection: "Avoiding self-reflection isn't self-care — it's self-harm in disguise. Honest, gentle self-examination is one of the kindest things you can do for yourself.",
+    reflection: "Avoiding self-reflection isn't self-care, it's self-harm in disguise. Honest, gentle self-examination is one of the kindest things you can do for yourself.",
     category: "mindfulness"
   },
   {
@@ -823,7 +823,7 @@ export const insights1: DailyInsight[] = [
     id: 117,
     quote: "The present moment is filled with joy and happiness. If you are attentive, you will see it.",
     author: "Thich Nhat Hanh",
-    reflection: "Joy isn't hiding — you're just not looking closely enough. The practice of mindfulness is essentially the practice of noticing what's already beautiful right here.",
+    reflection: "Joy isn't hiding, you're just not looking closely enough. The practice of mindfulness is essentially the practice of noticing what's already beautiful right here.",
     category: "mindfulness"
   },
   {
@@ -837,7 +837,7 @@ export const insights1: DailyInsight[] = [
     id: 119,
     quote: "It is during our darkest moments that we must focus to see the light.",
     author: "Aristotle",
-    reflection: "Darkness doesn't destroy the light — it merely makes it harder to see. Your job in difficult times is to look more carefully, not to give up looking.",
+    reflection: "Darkness doesn't destroy the light, it merely makes it harder to see. Your job in difficult times is to look more carefully, not to give up looking.",
     category: "philosophy"
   },
   {
@@ -851,7 +851,7 @@ export const insights1: DailyInsight[] = [
     id: 121,
     quote: "The only way to deal with an unfree world is to become so absolutely free that your very existence is an act of rebellion.",
     author: "Albert Camus",
-    reflection: "In a world of conformity, authentic living is inherently radical. Your freedom isn't something you request — it's something you claim through how you live.",
+    reflection: "In a world of conformity, authentic living is inherently radical. Your freedom isn't something you request, it's something you claim through how you live.",
     category: "philosophy"
   },
   {
@@ -865,12 +865,12 @@ export const insights1: DailyInsight[] = [
     id: 123,
     quote: "A person hears only what they understand.",
     author: "Johann Wolfgang von Goethe",
-    reflection: "Listening is limited by understanding. Every conversation is filtered through your existing mental models — which is why expanding your perspective literally expands what you can hear.",
+    reflection: "Listening is limited by understanding. Every conversation is filtered through your existing mental models, which is why expanding your perspective literally expands what you can hear.",
     category: "philosophy"
   },
   {
     id: 124,
-    quote: "The default mode network — the brain's resting state — is actually where much of our self-referential processing occurs.",
+    quote: "The default mode network, the brain's resting state, is actually where much of our self-referential processing occurs.",
     author: "Marcus Raichle",
     reflection: "Even when you think you're not thinking, your brain is busy constructing your sense of self. Understanding this network helps explain why meditation can be so transformative.",
     category: "neuroscience"
@@ -900,7 +900,7 @@ export const insights1: DailyInsight[] = [
     id: 128,
     quote: "The only person who is educated is the one who has learned how to learn and change.",
     author: "Carl Rogers",
-    reflection: "In a rapidly changing world, static knowledge becomes obsolete. The real skill is learning itself — the ability to unlearn, relearn, and stay adaptable.",
+    reflection: "In a rapidly changing world, static knowledge becomes obsolete. The real skill is learning itself, the ability to unlearn, relearn, and stay adaptable.",
     category: "psychology"
   },
   {
@@ -914,21 +914,21 @@ export const insights1: DailyInsight[] = [
     id: 130,
     quote: "There is no greater agony than bearing an untold story inside you.",
     author: "Maya Angelou",
-    reflection: "Expression is a human need, not a luxury. The stories you hold inside create pressure — releasing them through sharing, writing, or creating is essential to your well-being.",
+    reflection: "Expression is a human need, not a luxury. The stories you hold inside create pressure, releasing them through sharing, writing, or creating is essential to your well-being.",
     category: "psychology"
   },
   {
     id: 131,
     quote: "The Enneagram reveals nine different maps of reality, nine ways of getting lost, and nine paths home.",
     author: "Russ Hudson",
-    reflection: "Each type perceives a fundamentally different world. Understanding this dissolves judgment — others aren't being difficult, they're navigating from a different map entirely.",
+    reflection: "Each type perceives a fundamentally different world. Understanding this dissolves judgment, others aren't being difficult, they're navigating from a different map entirely.",
     category: "enneagram"
   },
   {
     id: 132,
     quote: "If your compassion does not include yourself, it is incomplete.",
     author: "Jack Kornfield",
-    reflection: "You can't sustainably pour love outward while running on self-criticism inward. Self-compassion isn't indulgence — it's the renewable energy source for all your other compassion.",
+    reflection: "You can't sustainably pour love outward while running on self-criticism inward. Self-compassion isn't indulgence, it's the renewable energy source for all your other compassion.",
     category: "mindfulness"
   },
   {
@@ -942,7 +942,7 @@ export const insights1: DailyInsight[] = [
     id: 134,
     quote: "The neuroplasticity of the brain means that the brain you have today is not the brain you were born with.",
     author: "Norman Doidge",
-    reflection: "Your brain is not fixed — it's a living sculpture that reshapes itself in response to your experiences, thoughts, and choices. You are literally rewiring yourself every day.",
+    reflection: "Your brain is not fixed, it's a living sculpture that reshapes itself in response to your experiences, thoughts, and choices. You are literally rewiring yourself every day.",
     category: "neuroscience"
   },
   {
@@ -963,14 +963,14 @@ export const insights1: DailyInsight[] = [
     id: 137,
     quote: "The ability to observe without evaluating is the highest form of intelligence.",
     author: "Jiddu Krishnamurti",
-    reflection: "Pure observation — seeing without immediately labeling, judging, or categorizing — is extraordinarily rare and extraordinarily powerful. It's the foundation of true understanding.",
+    reflection: "Pure observation, seeing without immediately labeling, judging, or categorizing, is extraordinarily rare and extraordinarily powerful. It's the foundation of true understanding.",
     category: "mindfulness"
   },
   {
     id: 138,
-    quote: "Courage is resistance to fear, mastery of fear — not absence of fear.",
+    quote: "Courage is resistance to fear, mastery of fear, not absence of fear.",
     author: "Mark Twain",
-    reflection: "Brave people aren't fearless — they've just learned to act alongside their fear. Courage and fear aren't opposites; they're companions on every meaningful journey.",
+    reflection: "Brave people aren't fearless, they've just learned to act alongside their fear. Courage and fear aren't opposites; they're companions on every meaningful journey.",
     category: "growth"
   },
   {
@@ -984,7 +984,7 @@ export const insights1: DailyInsight[] = [
     id: 140,
     quote: "The shadow is a moral problem that challenges the whole ego-personality.",
     author: "Carl Jung",
-    reflection: "Your shadow isn't just your dark side — it's everything you've disowned. Integrating it doesn't mean acting on every impulse; it means acknowledging the full spectrum of who you are.",
+    reflection: "Your shadow isn't just your dark side, it's everything you've disowned. Integrating it doesn't mean acting on every impulse; it means acknowledging the full spectrum of who you are.",
     category: "jung"
   },
   {
@@ -1005,7 +1005,7 @@ export const insights1: DailyInsight[] = [
     id: 143,
     quote: "Begin at once to live, and count each separate day as a separate life.",
     author: "Seneca",
-    reflection: "You don't need to wait for some future milestone to start truly living. Each day is a complete life in miniature — treat it with that level of attention and care.",
+    reflection: "You don't need to wait for some future milestone to start truly living. Each day is a complete life in miniature, treat it with that level of attention and care.",
     category: "stoicism"
   },
   {
@@ -1026,7 +1026,7 @@ export const insights1: DailyInsight[] = [
     id: 146,
     quote: "The curious paradox is that when I accept myself just as I am, then I can change.",
     author: "Carl Rogers",
-    reflection: "Acceptance and change aren't opposites — they're partners. The soil of self-acceptance is where the seeds of transformation take root most deeply.",
+    reflection: "Acceptance and change aren't opposites, they're partners. The soil of self-acceptance is where the seeds of transformation take root most deeply.",
     category: "psychology"
   },
   {
@@ -1047,7 +1047,7 @@ export const insights1: DailyInsight[] = [
     id: 149,
     quote: "Man's Search for Meaning is the primary motivation in his life.",
     author: "Viktor Frankl",
-    reflection: "Above pleasure, above power, above comfort — humans crave meaning. When you find purpose in your suffering, it transforms from pain into pilgrimage.",
+    reflection: "Above pleasure, above power, above comfort, humans crave meaning. When you find purpose in your suffering, it transforms from pain into pilgrimage.",
     category: "psychology"
   },
   {
@@ -1061,19 +1061,19 @@ export const insights1: DailyInsight[] = [
     id: 151,
     quote: "The world breaks everyone, and afterward, many are strong at the broken places.",
     author: "Ernest Hemingway",
-    reflection: "Brokenness isn't the end of the story — it's often the beginning of a deeper kind of strength. The places where you've been mended can become your most resilient spots.",
+    reflection: "Brokenness isn't the end of the story, it's often the beginning of a deeper kind of strength. The places where you've been mended can become your most resilient spots.",
     category: "growth"
   },
   {
     id: 152,
     quote: "There is a crack in everything, that's how the light gets in.",
     author: "Leonard Cohen",
-    reflection: "Perfection is a closed system — nothing gets in or out. Your imperfections are the openings through which grace, connection, and new understanding flow.",
+    reflection: "Perfection is a closed system, nothing gets in or out. Your imperfections are the openings through which grace, connection, and new understanding flow.",
     category: "philosophy"
   },
   {
     id: 153,
-    quote: "The Enneagram at its best is a tool for developing compassion — for yourself and for others.",
+    quote: "The Enneagram at its best is a tool for developing compassion, for yourself and for others.",
     author: "Richard Rohr",
     reflection: "When you understand the core fear driving each type's behavior, judgment dissolves. We're all just trying to feel safe, loved, and worthy in our own particular way.",
     category: "enneagram"
@@ -1082,14 +1082,14 @@ export const insights1: DailyInsight[] = [
     id: 154,
     quote: "Every man must decide whether he will walk in the light of creative altruism or in the darkness of destructive selfishness.",
     author: "Martin Luther King Jr.",
-    reflection: "This choice presents itself in small ways every single day. Character isn't built in grand moments — it's forged in the tiny, daily decisions about how to treat others.",
+    reflection: "This choice presents itself in small ways every single day. Character isn't built in grand moments, it's forged in the tiny, daily decisions about how to treat others.",
     category: "philosophy"
   },
   {
     id: 155,
     quote: "The greatest discovery of my generation is that a human being can alter his life by altering his attitudes.",
     author: "William James",
-    reflection: "This insight, over a century old, keeps being confirmed by modern psychology. Your mindset isn't just a lens — it's a creative force that shapes the reality you inhabit.",
+    reflection: "This insight, over a century old, keeps being confirmed by modern psychology. Your mindset isn't just a lens, it's a creative force that shapes the reality you inhabit.",
     category: "psychology"
   },
   {
@@ -1108,7 +1108,7 @@ export const insights1: DailyInsight[] = [
   },
   {
     id: 158,
-    quote: "People are not lazy. They simply have impotent goals — that is, goals that do not inspire them.",
+    quote: "People are not lazy. They simply have impotent goals, that is, goals that do not inspire them.",
     author: "Anthony Robbins",
     reflection: "What looks like laziness is often a motivation mismatch. When you connect with goals that genuinely excite your soul, energy appears from nowhere.",
     category: "growth"
@@ -1117,7 +1117,7 @@ export const insights1: DailyInsight[] = [
     id: 159,
     quote: "The prefrontal cortex is the last brain region to mature, not fully developing until age 25.",
     author: "Jay Giedd",
-    reflection: "The part of your brain responsible for judgment, planning, and impulse control is a late bloomer. Be patient with young adults — and with your own younger self.",
+    reflection: "The part of your brain responsible for judgment, planning, and impulse control is a late bloomer. Be patient with young adults, and with your own younger self.",
     category: "neuroscience"
   },
   {
@@ -1194,7 +1194,7 @@ export const insights1: DailyInsight[] = [
     id: 170,
     quote: "One must still have chaos in oneself to be able to give birth to a dancing star.",
     author: "Friedrich Nietzsche",
-    reflection: "Your messiness, confusion, and inner contradictions aren't defects — they're the fertile soil from which your most creative expressions grow.",
+    reflection: "Your messiness, confusion, and inner contradictions aren't defects, they're the fertile soil from which your most creative expressions grow.",
     category: "philosophy"
   },
   {
@@ -1215,21 +1215,21 @@ export const insights1: DailyInsight[] = [
     id: 173,
     quote: "The mass of men lead lives of quiet desperation.",
     author: "Henry David Thoreau",
-    reflection: "This observation, centuries old, still resonates. The antidote to quiet desperation is loud authenticity — having the courage to live the life that's truly yours.",
+    reflection: "This observation, centuries old, still resonates. The antidote to quiet desperation is loud authenticity, having the courage to live the life that's truly yours.",
     category: "philosophy"
   },
   {
     id: 174,
     quote: "Childhood experiences literally shape the architecture of the developing brain.",
     author: "Jack Shonkoff",
-    reflection: "Your early years didn't just influence your personality — they built the neural circuits you think with today. Understanding this adds compassion to your self-reflection.",
+    reflection: "Your early years didn't just influence your personality, they built the neural circuits you think with today. Understanding this adds compassion to your self-reflection.",
     category: "neuroscience"
   },
   {
     id: 175,
     quote: "Each of the nine types has a particular pattern of thinking, feeling, and behaving that arises from a deeper inner motivation or worldview.",
     author: "Beatrice Chestnut",
-    reflection: "Behavior is just the tip of the iceberg. The Enneagram's real power lies in revealing the underwater motivations that drive everything you do — often without your knowledge.",
+    reflection: "Behavior is just the tip of the iceberg. The Enneagram's real power lies in revealing the underwater motivations that drive everything you do, often without your knowledge.",
     category: "enneagram"
   },
   {
@@ -1243,7 +1243,7 @@ export const insights1: DailyInsight[] = [
     id: 177,
     quote: "Man is nothing else but what he makes of himself.",
     author: "Jean-Paul Sartre",
-    reflection: "Existential freedom is both exhilarating and terrifying. There's no script, no predetermined essence — just the raw material of your choices and their consequences.",
+    reflection: "Existential freedom is both exhilarating and terrifying. There's no script, no predetermined essence, just the raw material of your choices and their consequences.",
     category: "philosophy"
   },
   {
@@ -1257,7 +1257,7 @@ export const insights1: DailyInsight[] = [
     id: 179,
     quote: "The more one judges, the less one loves.",
     author: "Honore de Balzac",
-    reflection: "Judgment and love occupy the same seat — when one is present, the other steps out. Noticing your judgmental mind is the first step toward returning to connection.",
+    reflection: "Judgment and love occupy the same seat, when one is present, the other steps out. Noticing your judgmental mind is the first step toward returning to connection.",
     category: "relationships"
   },
   {
@@ -1271,7 +1271,7 @@ export const insights1: DailyInsight[] = [
     id: 181,
     quote: "What we achieve inwardly will change outer reality.",
     author: "Plutarch",
-    reflection: "Inner transformation isn't separate from worldly impact — it's the foundation of it. Change yourself, and you inevitably change everything you touch.",
+    reflection: "Inner transformation isn't separate from worldly impact, it's the foundation of it. Change yourself, and you inevitably change everything you touch.",
     category: "philosophy"
   },
   {
@@ -1285,14 +1285,14 @@ export const insights1: DailyInsight[] = [
     id: 183,
     quote: "Suffering ceases to be suffering at the moment it finds a meaning.",
     author: "Viktor Frankl",
-    reflection: "Meaningless suffering is pure torture. But suffering with a purpose — sacrifice for love, struggle toward growth — becomes something almost sacred.",
+    reflection: "Meaningless suffering is pure torture. But suffering with a purpose, sacrifice for love, struggle toward growth, becomes something almost sacred.",
     category: "psychology"
   },
   {
     id: 184,
     quote: "Real generosity toward the future lies in giving all to the present.",
     author: "Albert Camus",
-    reflection: "The best investment in tomorrow isn't anxious planning — it's wholehearted engagement with today. When you pour yourself into now, the future takes care of itself.",
+    reflection: "The best investment in tomorrow isn't anxious planning, it's wholehearted engagement with today. When you pour yourself into now, the future takes care of itself.",
     category: "philosophy"
   },
   {
@@ -1306,7 +1306,7 @@ export const insights1: DailyInsight[] = [
     id: 186,
     quote: "When the student is ready, the teacher appears.",
     author: "Buddhist Proverb",
-    reflection: "Teachers are everywhere — in books, strangers, failures, and especially in the challenges you didn't choose. Readiness isn't about knowledge; it's about openness.",
+    reflection: "Teachers are everywhere, in books, strangers, failures, and especially in the challenges you didn't choose. Readiness isn't about knowledge; it's about openness.",
     category: "mindfulness"
   },
   {
@@ -1320,7 +1320,7 @@ export const insights1: DailyInsight[] = [
     id: 188,
     quote: "Chronic stress literally shrinks the prefrontal cortex and enlarges the amygdala.",
     author: "Amy Arnsten",
-    reflection: "Stress doesn't just feel bad — it physically remodels your brain in ways that make you more reactive and less thoughtful. Stress management is brain care.",
+    reflection: "Stress doesn't just feel bad, it physically remodels your brain in ways that make you more reactive and less thoughtful. Stress management is brain care.",
     category: "neuroscience"
   },
   {
@@ -1334,7 +1334,7 @@ export const insights1: DailyInsight[] = [
     id: 190,
     quote: "The aim of art is to represent not the outward appearance of things, but their inward significance.",
     author: "Aristotle",
-    reflection: "Like great art, great self-knowledge goes beneath the surface. Don't settle for knowing what you do — discover why you do it.",
+    reflection: "Like great art, great self-knowledge goes beneath the surface. Don't settle for knowing what you do, discover why you do it.",
     category: "philosophy"
   },
   {
@@ -1348,7 +1348,7 @@ export const insights1: DailyInsight[] = [
     id: 192,
     quote: "True belonging doesn't require you to change who you are; it requires you to be who you are.",
     author: "Brene Brown",
-    reflection: "The belonging that costs you your authenticity isn't belonging at all — it's fitting in. Real belonging happens when you're accepted as your whole, unedited self.",
+    reflection: "The belonging that costs you your authenticity isn't belonging at all, it's fitting in. Real belonging happens when you're accepted as your whole, unedited self.",
     category: "relationships"
   },
   {
@@ -1362,14 +1362,14 @@ export const insights1: DailyInsight[] = [
     id: 194,
     quote: "The wise man does at once what the fool does finally.",
     author: "Niccolo Machiavelli",
-    reflection: "Procrastination doesn't eliminate tasks — it just adds anxiety to them. The wise know that prompt action, even imperfect, beats endless deliberation.",
+    reflection: "Procrastination doesn't eliminate tasks, it just adds anxiety to them. The wise know that prompt action, even imperfect, beats endless deliberation.",
     category: "stoicism"
   },
   {
     id: 195,
     quote: "The struggle itself towards the heights is enough to fill a man's heart. One must imagine Sisyphus happy.",
     author: "Albert Camus",
-    reflection: "Meaning doesn't require a destination. The act of striving, the daily push uphill, can itself become a source of fulfillment — if you choose to see it that way.",
+    reflection: "Meaning doesn't require a destination. The act of striving, the daily push uphill, can itself become a source of fulfillment, if you choose to see it that way.",
     category: "philosophy"
   },
   {
@@ -1395,7 +1395,7 @@ export const insights1: DailyInsight[] = [
   },
   {
     id: 199,
-    quote: "The instinct subtypes of the Enneagram reveal the blindest blind spot of each type — the area where the personality is most on autopilot.",
+    quote: "The instinct subtypes of the Enneagram reveal the blindest blind spot of each type, the area where the personality is most on autopilot.",
     author: "Beatrice Chestnut",
     reflection: "Your instinctual drives operate largely below awareness, silently shaping your priorities and relationships. Bringing them into consciousness is some of the deepest Enneagram work you can do.",
     category: "enneagram"
@@ -1404,14 +1404,14 @@ export const insights1: DailyInsight[] = [
     id: 200,
     quote: "Be not afraid of growing slowly, be afraid only of standing still.",
     author: "Chinese Proverb",
-    reflection: "Progress is progress, regardless of speed. The tortoise didn't just win the race — it enjoyed the journey. Consistent, small steps outpace sporadic leaps every time.",
+    reflection: "Progress is progress, regardless of speed. The tortoise didn't just win the race, it enjoyed the journey. Consistent, small steps outpace sporadic leaps every time.",
     category: "growth"
   },
   {
     id: 201,
     quote: "The most painful thing is losing yourself in the process of loving someone too much, and forgetting that you are special too.",
     author: "Ernest Hemingway",
-    reflection: "Love that requires self-erasure isn't love — it's codependency. Healthy relationships need two whole people, not one person disappearing into another.",
+    reflection: "Love that requires self-erasure isn't love, it's codependency. Healthy relationships need two whole people, not one person disappearing into another.",
     category: "relationships"
   },
   {
@@ -1425,7 +1425,7 @@ export const insights1: DailyInsight[] = [
     id: 203,
     quote: "The obstacle is the path.",
     author: "Zen Proverb",
-    reflection: "Stop looking for a way around your difficulty — it IS the way. The obstacle you're trying to avoid is precisely the teacher you need right now.",
+    reflection: "Stop looking for a way around your difficulty, it IS the way. The obstacle you're trying to avoid is precisely the teacher you need right now.",
     category: "mindfulness"
   },
   {
@@ -1453,21 +1453,21 @@ export const insights1: DailyInsight[] = [
     id: 207,
     quote: "The privilege of a lifetime is being who you are.",
     author: "Joseph Campbell",
-    reflection: "Authenticity is not a destination you arrive at — it's a daily practice of choosing truth over comfort, expression over impression, soul over role.",
+    reflection: "Authenticity is not a destination you arrive at, it's a daily practice of choosing truth over comfort, expression over impression, soul over role.",
     category: "philosophy"
   },
   {
     id: 208,
     quote: "A man is but the product of his thoughts. What he thinks, he becomes.",
     author: "Mahatma Gandhi",
-    reflection: "Your internal monologue is not just chatter — it's a creative force. The thoughts you rehearse most frequently are literally sculpting who you're becoming.",
+    reflection: "Your internal monologue is not just chatter, it's a creative force. The thoughts you rehearse most frequently are literally sculpting who you're becoming.",
     category: "psychology"
   },
   {
     id: 209,
-    quote: "The mirror neurons in our brains mean we literally feel what others feel — empathy is neurologically wired.",
+    quote: "The mirror neurons in our brains mean we literally feel what others feel, empathy is neurologically wired.",
     author: "Giacomo Rizzolatti",
-    reflection: "Empathy isn't just a nice concept — it's hardwired into your biology. Your brain literally simulates others' experiences. You are built for connection at the neural level.",
+    reflection: "Empathy isn't just a nice concept, it's hardwired into your biology. Your brain literally simulates others' experiences. You are built for connection at the neural level.",
     category: "neuroscience"
   },
   {
@@ -1488,14 +1488,14 @@ export const insights1: DailyInsight[] = [
     id: 212,
     quote: "If you are irritated by every rub, how will you be polished?",
     author: "Rumi",
-    reflection: "Friction creates smoothness — in gems, in character, in life. The very experiences that irritate you are often the ones refining you into something luminous.",
+    reflection: "Friction creates smoothness, in gems, in character, in life. The very experiences that irritate you are often the ones refining you into something luminous.",
     category: "philosophy"
   },
   {
     id: 213,
     quote: "The boundary to what we can accept is the boundary to our freedom.",
     author: "Tara Brach",
-    reflection: "Every experience you refuse to accept becomes a wall in your inner world. Expanding your acceptance doesn't mean approving of everything — it means freeing yourself from resistance.",
+    reflection: "Every experience you refuse to accept becomes a wall in your inner world. Expanding your acceptance doesn't mean approving of everything, it means freeing yourself from resistance.",
     category: "mindfulness"
   },
   {
@@ -1544,19 +1544,19 @@ export const insights1: DailyInsight[] = [
     id: 220,
     quote: "The whole problem with the world is that fools and fanatics are always so certain of themselves, and wiser people so full of doubts.",
     author: "Bertrand Russell",
-    reflection: "Doubt isn't weakness — it's the hallmark of nuanced thinking. If you're full of uncertainty, you might be closer to wisdom than you realize.",
+    reflection: "Doubt isn't weakness, it's the hallmark of nuanced thinking. If you're full of uncertainty, you might be closer to wisdom than you realize.",
     category: "philosophy"
   },
   {
     id: 221,
     quote: "I have learned silence from the talkative, toleration from the intolerant, and kindness from the unkind.",
     author: "Khalil Gibran",
-    reflection: "Your best teachers aren't always the ones who model what to do. Sometimes the people who show you what NOT to be are just as valuable — perhaps more so.",
+    reflection: "Your best teachers aren't always the ones who model what to do. Sometimes the people who show you what NOT to be are just as valuable, perhaps more so.",
     category: "philosophy"
   },
   {
     id: 222,
-    quote: "The hippocampus can generate new neurons throughout adult life — a process called neurogenesis.",
+    quote: "The hippocampus can generate new neurons throughout adult life, a process called neurogenesis.",
     author: "Fred Gage",
     reflection: "Your brain is never too old to grow new cells. Exercise, learning, and novelty all stimulate this process. Biological renewal is available to you at any age.",
     category: "neuroscience"
@@ -1614,14 +1614,14 @@ export const insights1: DailyInsight[] = [
     id: 230,
     quote: "There is no sun without shadow, and it is essential to know the night.",
     author: "Albert Camus",
-    reflection: "Wholeness requires both light and dark. Trying to live in perpetual sunshine isn't enlightenment — it's denial. Embrace the full spectrum of your human experience.",
+    reflection: "Wholeness requires both light and dark. Trying to live in perpetual sunshine isn't enlightenment, it's denial. Embrace the full spectrum of your human experience.",
     category: "philosophy"
   },
   {
     id: 231,
     quote: "If your only tool is a hammer, every problem looks like a nail.",
     author: "Abraham Maslow",
-    reflection: "Mental rigidity limits your effectiveness. The more psychological tools you develop — empathy, logic, creativity, patience — the more skillfully you can respond to life's varied challenges.",
+    reflection: "Mental rigidity limits your effectiveness. The more psychological tools you develop, empathy, logic, creativity, patience, the more skillfully you can respond to life's varied challenges.",
     category: "psychology"
   },
   {
@@ -1649,7 +1649,7 @@ export const insights1: DailyInsight[] = [
     id: 235,
     quote: "The wound that is not transformed is transmitted.",
     author: "Richard Rohr",
-    reflection: "Unhealed pain doesn't just stay with you — it passes to everyone around you, especially those you love most. Doing your inner work is an act of service to your entire community.",
+    reflection: "Unhealed pain doesn't just stay with you, it passes to everyone around you, especially those you love most. Doing your inner work is an act of service to your entire community.",
     category: "psychology"
   },
   {
@@ -1670,28 +1670,28 @@ export const insights1: DailyInsight[] = [
     id: 238,
     quote: "What is necessary to change a person is to change his awareness of himself.",
     author: "Abraham Maslow",
-    reflection: "You don't change by adding new behaviors on top of old self-concepts. Real change starts when you see yourself differently — everything else follows naturally from that shift.",
+    reflection: "You don't change by adding new behaviors on top of old self-concepts. Real change starts when you see yourself differently, everything else follows naturally from that shift.",
     category: "psychology"
   },
   {
     id: 239,
     quote: "The greatest act of courage is to be and to own all of who you are.",
     author: "Brene Brown",
-    reflection: "Owning your whole story — including the chapters marked by failure, shame, and vulnerability — is the bravest thing you'll ever do. Partial self-ownership is partial living.",
+    reflection: "Owning your whole story, including the chapters marked by failure, shame, and vulnerability, is the bravest thing you'll ever do. Partial self-ownership is partial living.",
     category: "psychology"
   },
   {
     id: 240,
     quote: "Regular meditation practice increases cortical thickness in areas associated with attention and emotional integration.",
     author: "Sara Lazar",
-    reflection: "Meditation isn't just a feel-good practice — it physically thickens the parts of your brain responsible for focus and emotional regulation. Your mind literally builds itself through stillness.",
+    reflection: "Meditation isn't just a feel-good practice, it physically thickens the parts of your brain responsible for focus and emotional regulation. Your mind literally builds itself through stillness.",
     category: "neuroscience"
   },
   {
     id: 241,
     quote: "He is a wise man who does not grieve for the things which he has not, but rejoices for those which he has.",
     author: "Epictetus",
-    reflection: "Gratitude is a radical act of attention. When you redirect focus from lack to abundance, you don't just feel better — you see more clearly what was always there.",
+    reflection: "Gratitude is a radical act of attention. When you redirect focus from lack to abundance, you don't just feel better, you see more clearly what was always there.",
     category: "stoicism"
   },
   {
@@ -1705,7 +1705,7 @@ export const insights1: DailyInsight[] = [
     id: 243,
     quote: "We can easily forgive a child who is afraid of the dark; the real tragedy of life is when men are afraid of the light.",
     author: "Plato",
-    reflection: "Fear of truth is more crippling than fear of darkness. When you avoid seeing clearly — about yourself, your relationships, your situation — you trade real pain for fake safety.",
+    reflection: "Fear of truth is more crippling than fear of darkness. When you avoid seeing clearly, about yourself, your relationships, your situation, you trade real pain for fake safety.",
     category: "philosophy"
   },
   {
@@ -1726,14 +1726,14 @@ export const insights1: DailyInsight[] = [
     id: 246,
     quote: "I am the wisest man alive, for I know one thing, and that is that I know nothing.",
     author: "Socrates",
-    reflection: "The paradox of wisdom: the more you know, the more you realize the vastness of your ignorance. This isn't discouraging — it's the beginning of genuine wisdom.",
+    reflection: "The paradox of wisdom: the more you know, the more you realize the vastness of your ignorance. This isn't discouraging, it's the beginning of genuine wisdom.",
     category: "philosophy"
   },
   {
     id: 247,
     quote: "The purpose of psychology is to give us a completely different idea of the things we know best.",
     author: "Paul Valery",
-    reflection: "Psychology's gift isn't revealing hidden mysteries — it's helping you see the familiar with fresh eyes. Sometimes the most transformative insight is a new perspective on something ordinary.",
+    reflection: "Psychology's gift isn't revealing hidden mysteries, it's helping you see the familiar with fresh eyes. Sometimes the most transformative insight is a new perspective on something ordinary.",
     category: "psychology"
   },
   {
@@ -1747,14 +1747,14 @@ export const insights1: DailyInsight[] = [
     id: 249,
     quote: "I do not believe in a fate that falls on men however they act; but I do believe in a fate that falls on them unless they act.",
     author: "Buddha",
-    reflection: "Inaction has consequences just as surely as action does. The life you don't choose is still a choice — and often the most consequential one you'll make.",
+    reflection: "Inaction has consequences just as surely as action does. The life you don't choose is still a choice, and often the most consequential one you'll make.",
     category: "mindfulness"
   },
   {
     id: 250,
     quote: "The pendulum of the mind alternates between sense and nonsense, not between right and wrong.",
     author: "Carl Jung",
-    reflection: "Your mind isn't a truth machine — it oscillates between clarity and confusion. Accepting this frees you from the exhausting expectation that you should always know the right answer.",
+    reflection: "Your mind isn't a truth machine, it oscillates between clarity and confusion. Accepting this frees you from the exhausting expectation that you should always know the right answer.",
     category: "jung"
   }
 ];

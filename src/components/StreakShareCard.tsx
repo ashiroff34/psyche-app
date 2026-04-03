@@ -60,7 +60,7 @@ export default function StreakShareCard({
   const shareText = [
     `🔥 ${streak}-day streak on Thyself!`,
     cognitiveType && enneagramType
-      ? `I'm a ${cognitiveType} · Type ${enneagramType} — Level ${level} ${leagueLabel} league`
+      ? `I'm a ${cognitiveType} · Type ${enneagramType}, Level ${level} ${leagueLabel} league`
       : `Level ${level} in the ${leagueLabel} league`,
     `${totalXP.toLocaleString()} XP earned`,
     "",
@@ -77,7 +77,7 @@ export default function StreakShareCard({
         setShared(true);
         setTimeout(() => setShared(false), 2000);
       } catch {
-        // user cancelled — do nothing
+        // user cancelled, do nothing
       }
     } else {
       handleCopy();
@@ -139,7 +139,7 @@ export default function StreakShareCard({
               {/* Brand */}
               <div className="flex items-center gap-2 mb-6">
                 <img
-                  src={assetPath("/icon-192.png")}
+                  src={assetPath("/thyself-logo.svg")}
                   alt="Thyself"
                   className="w-7 h-7 rounded-lg shadow-lg"
                   onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }}

@@ -21,7 +21,7 @@ const lesson1: Lesson = {
       content: {
         type: "concept-intro",
         title: "Meet the Helper",
-        body: "Type 2s are driven by a deep need to be loved and needed. They orient their entire lives around relationships, often sensing what others need before being asked — and stepping in to provide it.",
+        body: "Type 2s are driven by a deep need to be loved and needed. They orient their entire lives around relationships, often sensing what others need before being asked, and stepping in to provide it.",
         highlight: "loved and needed",
       },
     },
@@ -49,7 +49,7 @@ const lesson1: Lesson = {
         ],
         correctIndex: 1,
         explanation:
-          "Twos carry a deep, often unconscious belief that they are not inherently lovable — that they must earn love through giving, helping, and being indispensable.",
+          "Twos carry a deep, often unconscious belief that they are not inherently lovable, that they must earn love through giving, helping, and being indispensable.",
       },
     },
     {
@@ -66,7 +66,7 @@ const lesson1: Lesson = {
         ],
         correctIndex: 2,
         explanation:
-          "Twos long for love that doesn't come with conditions — love they don't have to earn. The paradox is that their helping strategy is itself a condition they impose on relationships.",
+          "Twos long for love that doesn't come with conditions, love they don't have to earn. The paradox is that their helping strategy is itself a condition they impose on relationships.",
       },
     },
     {
@@ -84,7 +84,7 @@ const lesson1: Lesson = {
         ],
         correctIndex: 1,
         explanation:
-          "Two's helping isn't fake — the care is genuine. But underneath it often runs an unconscious bargain: 'I give to you, so you'll love and need me.' Twos are frequently unaware of this dynamic.",
+          "Two's helping isn't fake, the care is genuine. But underneath it often runs an unconscious bargain: 'I give to you, so you'll love and need me.' Twos are frequently unaware of this dynamic.",
       },
     },
     {
@@ -111,7 +111,7 @@ const lesson1: Lesson = {
         options: ["anger", "fear", "shame", "envy"],
         correctIndex: 2,
         explanation:
-          "Types 2, 3, and 4 form the Heart triad. Their core issue is shame — a feeling of not being enough as they are. Twos cope with shame by becoming indispensable to others.",
+          "Types 2, 3, and 4 form the Heart triad. Their core issue is shame, a feeling of not being enough as they are. Twos cope with shame by becoming indispensable to others.",
       },
     },
     {
@@ -124,7 +124,7 @@ const lesson1: Lesson = {
         options: ["talents", "needs", "anger", "intelligence"],
         correctIndex: 1,
         explanation:
-          "Twos are remarkably attuned to everyone else's needs — but can be almost completely blind to their own. Ask a Two what they need and you might get a blank stare.",
+          "Twos are remarkably attuned to everyone else's needs, but can be almost completely blind to their own. Ask a Two what they need and you might get a blank stare.",
       },
     },
     {
@@ -133,7 +133,7 @@ const lesson1: Lesson = {
       content: {
         type: "scenario",
         scenario:
-          "Jamie always remembers everyone's birthdays, brings soup when someone is sick, and stays late to help coworkers finish projects. But when Jamie got sick, nobody checked in — and Jamie was devastated, thinking, 'After everything I do for everyone, nobody cares about me.'",
+          "Jamie always remembers everyone's birthdays, brings soup when someone is sick, and stays late to help coworkers finish projects. But when Jamie got sick, nobody checked in, and Jamie was devastated, thinking, 'After everything I do for everyone, nobody cares about me.'",
         question: "What Type 2 dynamic is playing out here?",
         options: [
           "Jamie is simply a generous person having a bad day",
@@ -143,7 +143,7 @@ const lesson1: Lesson = {
         ],
         correctIndex: 1,
         explanation:
-          "This is the Two's painful trap. The giving is real, but so is the unspoken expectation. When the love doesn't flow back equally, the Two feels betrayed — revealing the hidden contract they didn't know they'd written.",
+          "This is the Two's painful trap. The giving is real, but so is the unspoken expectation. When the love doesn't flow back equally, the Two feels betrayed, revealing the hidden contract they didn't know they'd written.",
       },
     },
     {
@@ -152,7 +152,7 @@ const lesson1: Lesson = {
       content: {
         type: "scenario",
         scenario:
-          "Riley is at a party and notices someone standing alone looking uncomfortable. Without thinking, Riley walks over, introduces themselves, gets the person a drink, and spends the next hour making them feel included — completely forgetting they came to the party to relax and have fun.",
+          "Riley is at a party and notices someone standing alone looking uncomfortable. Without thinking, Riley walks over, introduces themselves, gets the person a drink, and spends the next hour making them feel included, completely forgetting they came to the party to relax and have fun.",
         question: "What core Two pattern does this illustrate?",
         options: [
           "Social anxiety masked as helpfulness",
@@ -162,7 +162,7 @@ const lesson1: Lesson = {
         ],
         correctIndex: 1,
         explanation:
-          "Twos have an almost radar-like ability to sense who needs help. It's genuinely caring — but notice how Riley's own needs (relaxation, fun) vanished the moment someone else had a need. That's the pattern.",
+          "Twos have an almost radar-like ability to sense who needs help. It's genuinely caring, but notice how Riley's own needs (relaxation, fun) vanished the moment someone else had a need. That's the pattern.",
       },
     },
     {
@@ -194,11 +194,11 @@ const lesson1: Lesson = {
           "Body/Gut Center (instinct)",
           "Head Center (thinking)",
           "Heart/Feeling Center (image/shame)",
-          "None — they use all equally",
+          "None, they use all equally",
         ],
         correctIndex: 2,
         explanation:
-          "Type 2 is in the Heart triad (2, 3, 4), where the core issue is identity and shame. Twos build their identity around being the loving, giving person — the one everyone needs.",
+          "Type 2 is in the Heart triad (2, 3, 4), where the core issue is identity and shame. Twos build their identity around being the loving, giving person, the one everyone needs.",
       },
     },
   ],
@@ -220,7 +220,7 @@ const lesson2: Lesson = {
       content: {
         type: "concept-intro",
         title: "The Passion: Pride",
-        body: "In Naranjo's framework, the Two's passion is Pride — not arrogance, but an inflated sense of being needed and a denial of their own needs. It's the belief 'I don't have needs — I'm the one who meets needs.'",
+        body: "In Naranjo's framework, the Two's passion is Pride, not arrogance, but an inflated sense of being needed and a denial of their own needs. It's the belief 'I don't have needs, I'm the one who meets needs.'",
         highlight: "Pride",
       },
     },
@@ -230,7 +230,7 @@ const lesson2: Lesson = {
       content: {
         type: "concept-intro",
         title: "The Virtue: Humility",
-        body: "The antidote to Pride is Humility — honestly acknowledging both your own needs and the limits of your helping. Healthy Twos can say 'I need help too' without it feeling like a failure.",
+        body: "The antidote to Pride is Humility, honestly acknowledging both your own needs and the limits of your helping. Healthy Twos can say 'I need help too' without it feeling like a failure.",
         highlight: "Humility",
       },
     },
@@ -243,7 +243,7 @@ const lesson2: Lesson = {
         options: ["Anger", "Pride", "Vanity", "Envy"],
         correctIndex: 1,
         explanation:
-          "Pride in this context means an inflated self-image as the helper/giver, combined with a denial that you yourself have needs. It's not bragging — it's a blind spot about your own neediness.",
+          "Pride in this context means an inflated self-image as the helper/giver, combined with a denial that you yourself have needs. It's not bragging, it's a blind spot about your own neediness.",
       },
     },
     {
@@ -255,7 +255,7 @@ const lesson2: Lesson = {
         options: ["Serenity", "Non-Attachment", "Humility", "Truthfulness"],
         correctIndex: 2,
         explanation:
-          "Humility allows Twos to honestly see themselves — including their own needs, limitations, and the hidden strings attached to their giving.",
+          "Humility allows Twos to honestly see themselves, including their own needs, limitations, and the hidden strings attached to their giving.",
       },
     },
     {
@@ -273,7 +273,7 @@ const lesson2: Lesson = {
         ],
         correctIndex: 1,
         explanation:
-          "Naranjo's Pride isn't vanity — it's the belief that you're the one everyone depends on and that you don't have needs of your own. It's a self-deception about the giving dynamic.",
+          "Naranjo's Pride isn't vanity, it's the belief that you're the one everyone depends on and that you don't have needs of your own. It's a self-deception about the giving dynamic.",
       },
     },
     {
@@ -304,7 +304,7 @@ const lesson2: Lesson = {
         options: ["admired", "feared", "needed", "understood"],
         correctIndex: 2,
         explanation:
-          "The Two's Pride centers on being needed — 'What would they do without me?' This inflation of their role as helper is the core distortion that keeps them stuck.",
+          "The Two's Pride centers on being needed, 'What would they do without me?' This inflation of their role as helper is the core distortion that keeps them stuck.",
       },
     },
     {
@@ -350,7 +350,7 @@ const lesson2: Lesson = {
         ],
         correctIndex: 1,
         explanation:
-          "The Two's Pride isn't fake caring — it's real caring with an unconscious attachment to being recognized as the caring one. Avery genuinely wants to help AND wants to be seen as the helper. The blind spot is not seeing the second part.",
+          "The Two's Pride isn't fake caring, it's real caring with an unconscious attachment to being recognized as the caring one. Avery genuinely wants to help AND wants to be seen as the helper. The blind spot is not seeing the second part.",
       },
     },
     {
@@ -359,17 +359,17 @@ const lesson2: Lesson = {
       content: {
         type: "scenario",
         scenario:
-          "Pat has been in therapy and recently told a friend: 'I realized I've been exhausting myself taking care of everyone because I was terrified that if I stopped, no one would love me. I'm learning to ask for help and set boundaries — and it's the scariest thing I've ever done.'",
+          "Pat has been in therapy and recently told a friend: 'I realized I've been exhausting myself taking care of everyone because I was terrified that if I stopped, no one would love me. I'm learning to ask for help and set boundaries, and it's the scariest thing I've ever done.'",
         question: "Where is Pat on the Type 2 health spectrum?",
         options: [
-          "Unhealthy — Pat is being selfish by setting boundaries",
-          "Average — Pat is just complaining",
-          "Moving toward health — accessing Humility and acknowledging their own needs",
+          "Unhealthy, Pat is being selfish by setting boundaries",
+          "Average, Pat is just complaining",
+          "Moving toward health, accessing Humility and acknowledging their own needs",
           "Pat is no longer a Type 2",
         ],
         correctIndex: 2,
         explanation:
-          "This is beautiful Two growth. Pat is accessing the virtue of Humility — seeing the Pride pattern, acknowledging their own needs, and taking the terrifying step of not earning love through giving.",
+          "This is beautiful Two growth. Pat is accessing the virtue of Humility, seeing the Pride pattern, acknowledging their own needs, and taking the terrifying step of not earning love through giving.",
       },
     },
     {
@@ -381,9 +381,9 @@ const lesson2: Lesson = {
           "Dana's adult child wants to make their own decisions about career and relationships. Dana responds by saying 'After everything I've sacrificed for you, this is how you repay me?' and uses guilt to maintain control, insisting they know what's best.",
         question: "What health level is Dana operating from?",
         options: [
-          "Healthy — Dana is just being a caring parent",
-          "Average — Dana is being a bit overbearing",
-          "Unhealthy — using guilt, manipulation, and entitlement",
+          "Healthy, Dana is just being a caring parent",
+          "Average, Dana is being a bit overbearing",
+          "Unhealthy, using guilt, manipulation, and entitlement",
           "This is a Type 8 pattern, not Type 2",
         ],
         correctIndex: 2,
@@ -401,7 +401,7 @@ const lesson2: Lesson = {
         options: ["Courage", "Humility", "Serenity", "Truthfulness"],
         correctIndex: 1,
         explanation:
-          "Humility is the virtue that frees the Two. It means honestly seeing yourself — including your needs, your motivations for helping, and the fact that you deserve love without earning it.",
+          "Humility is the virtue that frees the Two. It means honestly seeing yourself, including your needs, your motivations for helping, and the fact that you deserve love without earning it.",
       },
     },
   ],
@@ -423,7 +423,7 @@ const lesson3: Lesson = {
       content: {
         type: "concept-intro",
         title: "The Two Wings of Type 2",
-        body: "A 2w1 (The Servant) combines helping with principled standards — they're more critical, duty-bound, and quietly service-oriented. A 2w3 (The Host/Hostess) combines helping with charm — they're more outgoing, image-conscious, and socially polished.",
+        body: "A 2w1 (The Servant) combines helping with principled standards, they're more critical, duty-bound, and quietly service-oriented. A 2w3 (The Host/Hostess) combines helping with charm, they're more outgoing, image-conscious, and socially polished.",
         highlight: "2w1 vs 2w3",
       },
     },
@@ -433,7 +433,7 @@ const lesson3: Lesson = {
       content: {
         type: "concept-intro",
         title: "Stress & Growth Lines",
-        body: "Under stress, Twos move to Type 8 — becoming aggressive, domineering, and demanding that their sacrifices be acknowledged. In growth, Twos move to Type 4 — getting in touch with their authentic emotions and learning to express their own inner world.",
+        body: "Under stress, Twos move to Type 8, becoming aggressive, domineering, and demanding that their sacrifices be acknowledged. In growth, Twos move to Type 4, getting in touch with their authentic emotions and learning to express their own inner world.",
         highlight: "Stress → 8, Growth → 4",
       },
     },
@@ -463,7 +463,7 @@ const lesson3: Lesson = {
         options: ["Type 4", "Type 6", "Type 8", "Type 9"],
         correctIndex: 2,
         explanation:
-          "When stressed, the usually soft and giving Two suddenly becomes aggressive and confrontational like an unhealthy Eight — demanding recognition and blowing up at perceived ingratitude.",
+          "When stressed, the usually soft and giving Two suddenly becomes aggressive and confrontational like an unhealthy Eight, demanding recognition and blowing up at perceived ingratitude.",
       },
     },
     {
@@ -475,7 +475,7 @@ const lesson3: Lesson = {
         options: ["Type 1", "Type 4", "Type 7", "Type 8"],
         correctIndex: 1,
         explanation:
-          "Growing Twos access healthy Four energy — they turn inward, get honest about their feelings, and develop authentic self-expression rather than defining themselves through others.",
+          "Growing Twos access healthy Four energy, they turn inward, get honest about their feelings, and develop authentic self-expression rather than defining themselves through others.",
       },
     },
     {
@@ -515,7 +515,7 @@ const lesson3: Lesson = {
         options: ["withdrawn", "anxious", "aggressive", "scattered"],
         correctIndex: 2,
         explanation:
-          "The sweet, accommodating Two under enough stress can become shockingly forceful — 'After everything I've done for you!' The suppressed anger finally erupts with Eight-like intensity.",
+          "The sweet, accommodating Two under enough stress can become shockingly forceful, 'After everything I've done for you!' The suppressed anger finally erupts with Eight-like intensity.",
       },
     },
     {
@@ -524,7 +524,7 @@ const lesson3: Lesson = {
       content: {
         type: "scenario",
         scenario:
-          "Casey has been the 'office mom' for years — bringing treats, covering shifts, remembering birthdays. After being passed over for a promotion, Casey storms into the manager's office and says 'I do more for this team than anyone, and this is the thanks I get? You'd all fall apart without me!'",
+          "Casey has been the 'office mom' for years, bringing treats, covering shifts, remembering birthdays. After being passed over for a promotion, Casey storms into the manager's office and says 'I do more for this team than anyone, and this is the thanks I get? You'd all fall apart without me!'",
         question: "What Enneagram dynamic explains Casey's outburst?",
         options: [
           "Casey is actually a Type 8",
@@ -543,17 +543,17 @@ const lesson3: Lesson = {
       content: {
         type: "scenario",
         scenario:
-          "Morgan used to define themselves entirely through their relationships. Recently, they've started journaling, taking art classes alone, and exploring what they actually feel — not what others need them to feel. They told a friend: 'I'm finally getting to know who I am when I'm not taking care of someone.'",
+          "Morgan used to define themselves entirely through their relationships. Recently, they've started journaling, taking art classes alone, and exploring what they actually feel, not what others need them to feel. They told a friend: 'I'm finally getting to know who I am when I'm not taking care of someone.'",
         question: "What's happening in Morgan's growth?",
         options: [
           "Morgan is becoming self-absorbed and selfish",
-          "Morgan is accessing their growth line (Type 4) — developing authentic self-awareness",
+          "Morgan is accessing their growth line (Type 4), developing authentic self-awareness",
           "Morgan is moving to their stress point",
           "Morgan is losing their Type 2 identity",
         ],
         correctIndex: 1,
         explanation:
-          "This is healthy Two growth into Four territory. Morgan is developing their own inner world, authentic feelings, and identity separate from being the helper. This isn't selfish — it's essential.",
+          "This is healthy Two growth into Four territory. Morgan is developing their own inner world, authentic feelings, and identity separate from being the helper. This isn't selfish, it's essential.",
       },
     },
     {
@@ -565,14 +565,14 @@ const lesson3: Lesson = {
           "Two friends are both Type 2. One organizes charity events with military precision, keeps detailed volunteer schedules, and gets frustrated when people don't follow through on commitments. The other hosts lavish dinner parties, remembers everyone's favorite wine, and charms donors into writing bigger checks.",
         question: "How do their wings differ?",
         options: [
-          "First is 2w1 (Servant — principled and organized), second is 2w3 (Host — charming and socially skilled)",
+          "First is 2w1 (Servant, principled and organized), second is 2w3 (Host, charming and socially skilled)",
           "First is 2w3, second is 2w1",
           "Both are 2w1",
           "Wings don't create these differences",
         ],
         correctIndex: 0,
         explanation:
-          "The 2w1 brings the One's organization and moral seriousness to their helping. The 2w3 brings the Three's social charm and image-awareness. Same core desire to be loved — very different styles.",
+          "The 2w1 brings the One's organization and moral seriousness to their helping. The 2w3 brings the Three's social charm and image-awareness. Same core desire to be loved, very different styles.",
       },
     },
     {
@@ -590,7 +590,7 @@ const lesson3: Lesson = {
         ],
         correctIndex: 1,
         explanation:
-          "It can be shocking to see a usually sweet, accommodating Two suddenly become forceful and confrontational. That's the Eight energy — and it usually means the Two has been overgiving for way too long.",
+          "It can be shocking to see a usually sweet, accommodating Two suddenly become forceful and confrontational. That's the Eight energy, and it usually means the Two has been overgiving for way too long.",
       },
     },
   ],
@@ -640,7 +640,7 @@ const lesson4: Lesson = {
         ],
         correctIndex: 1,
         explanation:
-          "Twos have an almost supernatural ability to remember that your dog's name is Biscuit, your mom had surgery last week, and you like your coffee with oat milk. It's genuine caring — and it's how they stay connected.",
+          "Twos have an almost supernatural ability to remember that your dog's name is Biscuit, your mom had surgery last week, and you like your coffee with oat milk. It's genuine caring, and it's how they stay connected.",
       },
     },
     {
@@ -666,7 +666,7 @@ const lesson4: Lesson = {
           "Twos are loyal, Sixes are not",
           "Twos give to be loved; Sixes commit for security and belonging",
           "Sixes are more emotional than Twos",
-          "There's no difference — they're the same pattern",
+          "There's no difference, they're the same pattern",
         ],
         correctIndex: 1,
         explanation:
@@ -746,13 +746,13 @@ const lesson4: Lesson = {
       content: {
         type: "scenario",
         scenario:
-          "Two people are both supportive friends. Person A actively organizes care — meal trains, hospital visits, emotional check-ins. When the crisis passes, Person A feels hurt if you don't explicitly thank them. Person B quietly goes along with whatever the group decides, smooths over disagreements, and doesn't seem to have strong preferences.",
+          "Two people are both supportive friends. Person A actively organizes care, meal trains, hospital visits, emotional check-ins. When the crisis passes, Person A feels hurt if you don't explicitly thank them. Person B quietly goes along with whatever the group decides, smooths over disagreements, and doesn't seem to have strong preferences.",
         question: "Which is more likely a Two, and which a Nine?",
         options: [
           "A is Type 2 (active helping + need for recognition), B is Type 9 (passive merging)",
           "A is Type 9, B is Type 2",
-          "Both are Type 2 — same pattern, different intensity",
-          "Both are Type 9 — same pattern, different expression",
+          "Both are Type 2, same pattern, different intensity",
+          "Both are Type 9, same pattern, different expression",
         ],
         correctIndex: 0,
         explanation:
@@ -776,7 +776,7 @@ const lesson4: Lesson = {
         ],
         correctIndex: 1,
         explanation:
-          "The core motivation separates them. A Two helps to feel loved and needed — it's personal and relational. A Six helps to maintain group cohesion and security — it's about loyalty and not letting the team down.",
+          "The core motivation separates them. A Two helps to feel loved and needed, it's personal and relational. A Six helps to maintain group cohesion and security, it's about loyalty and not letting the team down.",
       },
     },
     {
@@ -785,12 +785,12 @@ const lesson4: Lesson = {
       content: {
         type: "scenario",
         scenario:
-          "At a fundraiser, someone effusively thanks every donor, makes personal connections, and seems to glow with warmth. Your friend says 'That's such a Two.' But you're not sure — the person also seems very polished, tracks how much each person gave, and is visibly excited when the total surpasses their personal goal.",
+          "At a fundraiser, someone effusively thanks every donor, makes personal connections, and seems to glow with warmth. Your friend says 'That's such a Two.' But you're not sure, the person also seems very polished, tracks how much each person gave, and is visibly excited when the total surpasses their personal goal.",
         question: "Could this person be a type other than 2?",
         options: [
-          "No — this is clearly a Type 2",
-          "Yes — the goal-tracking and polish suggest a Type 3 who's learned to be charming",
-          "Yes — this could be a 2w3 or a 3w2, which look very similar from the outside",
+          "No, this is clearly a Type 2",
+          "Yes, the goal-tracking and polish suggest a Type 3 who's learned to be charming",
+          "Yes, this could be a 2w3 or a 3w2, which look very similar from the outside",
           "This is obviously a Type 7 seeking stimulation",
         ],
         correctIndex: 2,
@@ -813,7 +813,7 @@ const lesson4: Lesson = {
         ],
         correctIndex: 1,
         explanation:
-          "This is true for the whole Enneagram, but especially for Type 2. Many types can be warm and helpful — what matters is WHY. Twos help to be loved. That's the signature.",
+          "This is true for the whole Enneagram, but especially for Type 2. Many types can be warm and helpful, what matters is WHY. Twos help to be loved. That's the signature.",
       },
     },
   ],

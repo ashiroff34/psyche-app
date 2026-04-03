@@ -13,6 +13,7 @@
 
 import { useState, useEffect, useCallback, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { acquireNotificationLock, releaseNotificationLock } from "@/lib/notificationLock";
 import Link from "next/link";
 import { X, Flame, Heart, Zap, ArrowRight, Star } from "lucide-react";
 
@@ -65,18 +66,18 @@ function buildNudges(
     });
   }
 
-  // Streak about to break — only if they haven't done their practice today yet
+  // Streak about to break, only if they haven't done their practice today yet
   if (streakCount > 0 && !doneStreakToday) {
     const streakUrgencyMap: Record<number, string> = {
-      1: `Your ${streakCount}-day streak isn't perfect yet — keep going.`,
+      1: `Your ${streakCount}-day streak isn't perfect yet, keep going.`,
       2: `Your ${streakCount}-day streak shows your dedication. Don't let it slip.`,
       3: `Don't let that ${streakCount}-day streak fall off your stats.`,
-      4: `${streakCount} days of meaningful practice — too beautiful to break.`,
+      4: `${streakCount} days of meaningful practice, too beautiful to break.`,
       5: `${streakCount} consecutive days of learning is worth protecting.`,
       6: `You've stayed consistent for ${streakCount} days. One more keeps the pattern.`,
-      7: `Your ${streakCount}-day streak is on the line — keep the adventure going!`,
+      7: `Your ${streakCount}-day streak is on the line, keep the adventure going!`,
       8: `You've built ${streakCount} days straight. Don't let anything stop you now.`,
-      9: `${streakCount} days of peaceful consistency — keep the harmony alive.`,
+      9: `${streakCount} days of peaceful consistency, keep the harmony alive.`,
     };
     const streakMsg = (profile.enneagramType && streakUrgencyMap[profile.enneagramType as number])
       ? streakUrgencyMap[profile.enneagramType as number]
@@ -131,15 +132,15 @@ function buildNudges(
     });
   }
 
-  // Idle fallback — personalized by type when available
+  // Idle fallback, personalized by type when available
   const typeNudgeMap: Record<number, { title: string; body: string }> = {
     1: { title: "Your standards are slipping", body: "Don't let your streak fall short of perfect. Daily practice awaits." },
     2: { title: "Someone needs your insight", body: "Your reflection today could help you show up better for the people you care about." },
-    3: { title: "Your progress is stalling", body: "Keep your stats climbing — today's practice resets at midnight." },
+    3: { title: "Your progress is stalling", body: "Keep your stats climbing, today's practice resets at midnight." },
     4: { title: "Something meaningful awaits", body: "Today's insight was written with your type in mind. Don't miss it." },
     5: { title: "New knowledge is waiting", body: "Your daily deep-dive resets at midnight. Feed your curiosity." },
     6: { title: "Stay consistent", body: "Consistency builds security. Your daily practice is ready." },
-    7: { title: "New adventure inside", body: "Today's lesson has something fresh — don't let it expire." },
+    7: { title: "New adventure inside", body: "Today's lesson has something fresh, don't let it expire." },
     8: { title: "Take charge of your growth", body: "Your daily challenge resets at midnight. Stay in control." },
     9: { title: "Keep the momentum going", body: "A little practice today keeps your streak alive. Don't let it fade." },
   };
@@ -171,6 +172,8 @@ export default function EngagementNudge() {
         (n) => !dismissedRef.current.has(n.id) && !shown.has(n.id)
       );
       if (!candidate) return;
+      // Don't show if another notification is already visible
+      if (!acquireNotificationLock("engagement-nudge")) return;
       setShown((prev) => new Set([...prev, candidate.id]));
       setNudge(candidate);
     },
@@ -178,7 +181,10 @@ export default function EngagementNudge() {
   );
 
   const dismiss = useCallback(() => {
-    if (nudge) dismissedRef.current.add(nudge.id);
+    if (nudge) {
+      dismissedRef.current.add(nudge.id);
+      releaseNotificationLock("engagement-nudge");
+    }
     setNudge(null);
   }, [nudge]);
 
@@ -186,7 +192,7 @@ export default function EngagementNudge() {
     // Only run client-side
     try {
       const profileRaw = localStorage.getItem("psyche-profile");
-      if (!profileRaw) return; // new user — no nudges
+      if (!profileRaw) return; // new user, no nudges
 
       // Don't show until onboarding/tutorial is complete
       if (localStorage.getItem("psyche-tutorial-complete") !== "true") return;
@@ -236,7 +242,7 @@ export default function EngagementNudge() {
     } catch {}
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-  // Idle detection — reset on any user activity
+  // Idle detection, reset on any user activity
   useEffect(() => {
     const IDLE_MS = IDLE_MINUTES * 60 * 1000;
 
@@ -287,7 +293,8 @@ export default function EngagementNudge() {
           animate={{ opacity: 1, x: 0, scale: 1 }}
           exit={{ opacity: 0, x: 120, scale: 0.95 }}
           transition={{ type: "spring", stiffness: 320, damping: 28 }}
-          className="fixed bottom-6 right-5 z-[60] w-80 bg-white rounded-3xl shadow-2xl shadow-slate-200/60 border border-slate-100 overflow-hidden"
+          className="fixed bottom-6 right-5 z-[60] w-80 rounded-3xl overflow-hidden"
+          style={{ background: "rgba(20,14,40,0.97)", border: "1px solid rgba(139,92,246,0.2)", boxShadow: "0 8px 32px rgba(0,0,0,0.5)" }}
         >
           {/* Colored top accent bar */}
           <div className={`h-1 w-full bg-gradient-to-r ${nudge.accentClass}`} />
@@ -301,14 +308,15 @@ export default function EngagementNudge() {
 
               {/* Text */}
               <div className="flex-1 min-w-0">
-                <p className="text-sm font-semibold text-slate-800 leading-snug">{nudge.title}</p>
-                <p className="text-xs text-slate-500 mt-0.5 leading-snug">{nudge.body}</p>
+                <p className="text-sm font-semibold leading-snug" style={{ color: "rgba(255,255,255,0.92)" }}>{nudge.title}</p>
+                <p className="text-xs mt-0.5 leading-snug" style={{ color: "rgba(255,255,255,0.5)" }}>{nudge.body}</p>
               </div>
 
               {/* Dismiss */}
               <button
                 onClick={dismiss}
-                className="text-slate-300 hover:text-slate-500 transition-colors flex-shrink-0 -mt-0.5"
+                className="transition-opacity flex-shrink-0 -mt-0.5 hover:opacity-100"
+                style={{ color: "rgba(255,255,255,0.3)" }}
                 aria-label="Dismiss"
               >
                 <X className="w-4 h-4" />
@@ -319,10 +327,11 @@ export default function EngagementNudge() {
             <Link
               href={nudge.href}
               onClick={dismiss}
-              className="mt-3 flex items-center justify-center gap-2 w-full py-2.5 rounded-2xl bg-slate-50 hover:bg-slate-100 text-slate-700 text-sm font-medium transition-all group"
+              className="mt-3 flex items-center justify-center gap-2 w-full py-2.5 rounded-2xl text-sm font-medium transition-all group text-white"
+              style={{ background: "rgba(255,255,255,0.08)", border: "1px solid rgba(255,255,255,0.1)" }}
             >
               {nudge.cta}
-              <ArrowRight className="w-3.5 h-3.5 text-slate-400 group-hover:translate-x-0.5 transition-transform" />
+              <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" style={{ color: "rgba(167,139,250,0.8)" }} />
             </Link>
           </div>
         </motion.div>

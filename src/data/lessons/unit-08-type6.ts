@@ -1,5 +1,5 @@
 // ─────────────────────────────────────────────────────────────────────────────
-// Unit 8 — Type 6: The Loyalist
+// Unit 8, Type 6: The Loyalist
 // 4 lessons × 12 exercises each
 // ─────────────────────────────────────────────────────────────────────────────
 
@@ -21,7 +21,7 @@ const lesson1: Lesson = {
       content: {
         type: "concept-intro",
         title: "Meet the Loyalist",
-        body: "Type 6 is driven by a deep need for security, certainty, and support. They are the most loyal and committed of all types, but their inner world is shaped by vigilance — constantly scanning for what could go wrong.",
+        body: "Type 6 is driven by a deep need for security, certainty, and support. They are the most loyal and committed of all types, but their inner world is shaped by vigilance, constantly scanning for what could go wrong.",
         highlight: "security",
       },
     },
@@ -31,7 +31,7 @@ const lesson1: Lesson = {
       content: {
         type: "concept-intro",
         title: "The Core Fear",
-        body: "Sixes fear being without support or guidance — being unable to survive on their own. This isn't about physical survival; it's a deep anxiety about navigating an unpredictable world without a reliable safety net.",
+        body: "Sixes fear being without support or guidance, being unable to survive on their own. This isn't about physical survival; it's a deep anxiety about navigating an unpredictable world without a reliable safety net.",
         highlight: "without support",
       },
     },
@@ -157,10 +157,10 @@ const lesson1: Lesson = {
           "At work, Sam notices their manager seems distant this week. Sam immediately wonders: Did I do something wrong? Are they unhappy with my work? Is there a reorganization happening that I don't know about?",
         question: "What Six mechanism is at play here?",
         options: [
-          "Image management — worrying about how others perceive them",
-          "Projection — attributing their own anxiety to external sources",
-          "Repression — pushing their needs out of awareness",
-          "Rationalization — reframing negatives as positives",
+          "Image management, worrying about how others perceive them",
+          "Projection, attributing their own anxiety to external sources",
+          "Repression, pushing their needs out of awareness",
+          "Rationalization, reframing negatives as positives",
         ],
         correctIndex: 1,
         explanation:
@@ -183,7 +183,7 @@ const lesson1: Lesson = {
         ],
         correctIndex: 1,
         explanation:
-          "Maya's loyalty to her company reflects the Six's core pattern: once they find a reliable support system, they commit deeply. This isn't laziness — it's the security drive in action.",
+          "Maya's loyalty to her company reflects the Six's core pattern: once they find a reliable support system, they commit deeply. This isn't laziness, it's the security drive in action.",
       },
     },
     {
@@ -194,14 +194,14 @@ const lesson1: Lesson = {
         question:
           "True or false: Type 6 is sometimes called 'The Skeptic' because they question and test before trusting.",
         options: [
-          "True — questioning is how Sixes build trust",
-          "False — Sixes trust easily",
-          "False — only unhealthy Sixes question things",
-          "True — but only toward authority figures",
+          "True, questioning is how Sixes build trust",
+          "False, Sixes trust easily",
+          "False, only unhealthy Sixes question things",
+          "True, but only toward authority figures",
         ],
         correctIndex: 0,
         explanation:
-          "The alias 'Skeptic' captures how Sixes naturally question and test people and situations. This isn't cynicism — it's their way of determining what's genuinely trustworthy.",
+          "The alias 'Skeptic' captures how Sixes naturally question and test people and situations. This isn't cynicism, it's their way of determining what's genuinely trustworthy.",
       },
     },
   ],
@@ -223,7 +223,7 @@ const lesson2: Lesson = {
       content: {
         type: "concept-intro",
         title: "The Passion: Fear",
-        body: "In Naranjo's system, Six's emotional passion is Fear — not just occasional worry but a chronic scanning for danger. This anxious vigilance shapes how Sixes perceive the world: as fundamentally unreliable and requiring constant threat-assessment.",
+        body: "In Naranjo's system, Six's emotional passion is Fear, not just occasional worry but a chronic scanning for danger. This anxious vigilance shapes how Sixes perceive the world: as fundamentally unreliable and requiring constant threat-assessment.",
         highlight: "Fear",
       },
     },
@@ -233,7 +233,7 @@ const lesson2: Lesson = {
       content: {
         type: "concept-intro",
         title: "The Virtue: Courage",
-        body: "The antidote to chronic fear is Courage — not the absence of fear, but the willingness to act despite it. Healthy Sixes learn to trust themselves and move forward without needing absolute certainty first.",
+        body: "The antidote to chronic fear is Courage, not the absence of fear, but the willingness to act despite it. Healthy Sixes learn to trust themselves and move forward without needing absolute certainty first.",
         highlight: "Courage",
       },
     },
@@ -246,7 +246,7 @@ const lesson2: Lesson = {
         options: ["Anger", "Fear", "Sloth", "Envy"],
         correctIndex: 1,
         explanation:
-          "Fear is the Six's passion — a persistent, underlying anxiety that goes beyond normal worry. It's the emotional engine driving their vigilance and need for certainty.",
+          "Fear is the Six's passion, a persistent, underlying anxiety that goes beyond normal worry. It's the emotional engine driving their vigilance and need for certainty.",
       },
     },
     {
@@ -277,7 +277,7 @@ const lesson2: Lesson = {
         ],
         correctIndex: 1,
         explanation:
-          "The passion of Fear isn't situational anxiety — it's a persistent undercurrent that shapes how Sixes interpret relationships, decisions, and the future.",
+          "The passion of Fear isn't situational anxiety, it's a persistent undercurrent that shapes how Sixes interpret relationships, decisions, and the future.",
       },
     },
     {
@@ -318,7 +318,7 @@ const lesson2: Lesson = {
       content: {
         type: "fill-in-blank",
         sentence:
-          "For a Six, courage doesn't mean having no fear — it means being willing to ___ without needing absolute certainty.",
+          "For a Six, courage doesn't mean having no fear, it means being willing to ___ without needing absolute certainty.",
         options: ["retreat", "analyze more", "act", "seek permission"],
         correctIndex: 2,
         explanation:
@@ -334,10 +334,10 @@ const lesson2: Lesson = {
           "Priya is considering speaking up about a problem at work. She has all the evidence she needs, but she keeps finding reasons to wait: maybe she should gather more data, talk to more people, wait for a better time. Weeks pass.",
         question: "Which Six dynamic is keeping Priya stuck?",
         options: [
-          "Her passion of Fear — needing certainty before she can act",
-          "Her desire for power — waiting for the right moment to dominate",
-          "Her need for attention — wanting a bigger audience",
-          "Her perfectionism — the presentation isn't polished enough",
+          "Her passion of Fear, needing certainty before she can act",
+          "Her desire for power, waiting for the right moment to dominate",
+          "Her need for attention, wanting a bigger audience",
+          "Her perfectionism, the presentation isn't polished enough",
         ],
         correctIndex: 0,
         explanation:
@@ -353,10 +353,10 @@ const lesson2: Lesson = {
           "After years of anxiety-driven decision-making, Carlos starts a mindfulness practice. He notices his fearful thoughts but stops treating every worry as a real threat. He begins making choices based on what he values rather than what he fears.",
         question: "What is Carlos moving toward?",
         options: [
-          "The passion of Fear — becoming more vigilant",
-          "The virtue of Courage — trusting himself to navigate uncertainty",
-          "Disintegration — losing his natural caution",
-          "Withdrawal — disconnecting from the world",
+          "The passion of Fear, becoming more vigilant",
+          "The virtue of Courage, trusting himself to navigate uncertainty",
+          "Disintegration, losing his natural caution",
+          "Withdrawal, disconnecting from the world",
         ],
         correctIndex: 1,
         explanation:
@@ -373,7 +373,7 @@ const lesson2: Lesson = {
         question: "What Riso-Hudson health shift has Kim undergone?",
         options: [
           "She moved from average to healthy by becoming more cautious",
-          "She moved from healthy to unhealthy — her vigilance has become paranoia",
+          "She moved from healthy to unhealthy, her vigilance has become paranoia",
           "She moved from unhealthy to average by protecting herself",
           "She stayed at the same level but changed her strategy",
         ],
@@ -397,7 +397,7 @@ const lesson2: Lesson = {
         ],
         correctIndex: 1,
         explanation:
-          "Healthy Sixes don't eliminate fear — they develop self-reliance and courage. They become stable, trusting, and capable of decisive action.",
+          "Healthy Sixes don't eliminate fear, they develop self-reliance and courage. They become stable, trusting, and capable of decisive action.",
       },
     },
   ],
@@ -419,7 +419,7 @@ const lesson3: Lesson = {
       content: {
         type: "concept-intro",
         title: "Two Faces of Six: Phobic vs Counterphobic",
-        body: "Type 6 has a unique split. Phobic Sixes respond to fear by seeking safety, being compliant, and avoiding conflict. Counterphobic Sixes confront their fear head-on — they charge toward what scares them, looking bold and aggressive (often mistaken for Type 8).",
+        body: "Type 6 has a unique split. Phobic Sixes respond to fear by seeking safety, being compliant, and avoiding conflict. Counterphobic Sixes confront their fear head-on, they charge toward what scares them, looking bold and aggressive (often mistaken for Type 8).",
         highlight: "Counterphobic",
       },
     },
@@ -429,7 +429,7 @@ const lesson3: Lesson = {
       content: {
         type: "concept-intro",
         title: "Wings: 6w5 and 6w7",
-        body: "6w5 (The Defender) is more withdrawn, serious, and intellectual — they research threats carefully. 6w7 (The Buddy) is more outgoing, playful, and sociable — they manage anxiety through connection and humor.",
+        body: "6w5 (The Defender) is more withdrawn, serious, and intellectual, they research threats carefully. 6w7 (The Buddy) is more outgoing, playful, and sociable, they manage anxiety through connection and humor.",
         highlight: "6w5 vs 6w7",
       },
     },
@@ -483,8 +483,8 @@ const lesson3: Lesson = {
         pairs: [
           { left: "Phobic Six", right: "Seeks safety, avoids conflict, compliant" },
           { left: "Counterphobic Six", right: "Charges toward fear, looks aggressive" },
-          { left: "6w5 — The Defender", right: "Withdrawn, intellectual, researches threats" },
-          { left: "6w7 — The Buddy", right: "Outgoing, playful, manages anxiety socially" },
+          { left: "6w5, The Defender", right: "Withdrawn, intellectual, researches threats" },
+          { left: "6w7, The Buddy", right: "Outgoing, playful, manages anxiety socially" },
         ],
       },
     },
@@ -520,17 +520,17 @@ const lesson3: Lesson = {
       content: {
         type: "scenario",
         scenario:
-          "When Alex feels scared of public speaking, they immediately sign up for an open-mic night. Their friends are surprised — they seem so brave! But internally, Alex is terrified. They just can't stand sitting with the fear.",
+          "When Alex feels scared of public speaking, they immediately sign up for an open-mic night. Their friends are surprised, they seem so brave! But internally, Alex is terrified. They just can't stand sitting with the fear.",
         question: "What Six pattern is Alex demonstrating?",
         options: [
-          "Phobic Six — running from the threat",
-          "Counterphobic Six — confronting fear by running toward it",
-          "Growth to 9 — becoming relaxed about challenges",
-          "Stress to 3 — performing for an audience",
+          "Phobic Six, running from the threat",
+          "Counterphobic Six, confronting fear by running toward it",
+          "Growth to 9, becoming relaxed about challenges",
+          "Stress to 3, performing for an audience",
         ],
         correctIndex: 1,
         explanation:
-          "Alex is a classic counterphobic Six. They aren't fearless — they're driven to confront the very thing that terrifies them. The fear is the same; only the response differs.",
+          "Alex is a classic counterphobic Six. They aren't fearless, they're driven to confront the very thing that terrifies them. The fear is the same; only the response differs.",
       },
     },
     {
@@ -539,17 +539,17 @@ const lesson3: Lesson = {
       content: {
         type: "scenario",
         scenario:
-          "During a stressful quarter at work, Jamie — usually a thoughtful, cautious team member — starts obsessing over their LinkedIn profile, buying new professional clothes, and name-dropping their accomplishments in meetings.",
+          "During a stressful quarter at work, Jamie, usually a thoughtful, cautious team member, starts obsessing over their LinkedIn profile, buying new professional clothes, and name-dropping their accomplishments in meetings.",
         question: "What Six dynamic explains this shift?",
         options: [
-          "Growth to 9 — finding new inner peace",
-          "Stress to 3 — compensating for anxiety with image and achievement",
-          "Wing influence of 7 — seeking excitement",
-          "Natural Six loyalty — trying to impress their team",
+          "Growth to 9, finding new inner peace",
+          "Stress to 3, compensating for anxiety with image and achievement",
+          "Wing influence of 7, seeking excitement",
+          "Natural Six loyalty, trying to impress their team",
         ],
         correctIndex: 1,
         explanation:
-          "Jamie is moving to their stress point at 3. When Six anxiety peaks, they may try to manage it by projecting success and competence — the 3 strategy for feeling secure.",
+          "Jamie is moving to their stress point at 3. When Six anxiety peaks, they may try to manage it by projecting success and competence, the 3 strategy for feeling secure.",
       },
     },
     {
@@ -559,7 +559,7 @@ const lesson3: Lesson = {
         type: "sorting",
         instruction:
           "Sort these behaviors by whether they belong to a 6w5 or 6w7.",
-        categories: ["6w5 — The Defender", "6w7 — The Buddy"],
+        categories: ["6w5, The Defender", "6w7, The Buddy"],
         items: [
           { text: "Researches exhaustively before deciding", categoryIndex: 0 },
           { text: "Manages anxiety through humor and socializing", categoryIndex: 1 },
@@ -580,7 +580,7 @@ const lesson3: Lesson = {
         options: ["Type 2", "Type 4", "Type 8", "Type 9"],
         correctIndex: 2,
         explanation:
-          "Counterphobic Sixes charge toward danger and can appear bold and confrontational — traits associated with Type 8. The key difference: 8s are naturally dominant, while counterphobic 6s are fighting their fear.",
+          "Counterphobic Sixes charge toward danger and can appear bold and confrontational, traits associated with Type 8. The key difference: 8s are naturally dominant, while counterphobic 6s are fighting their fear.",
       },
     },
   ],
@@ -631,7 +631,7 @@ const lesson4: Lesson = {
         ],
         correctIndex: 1,
         explanation:
-          "Sixes are the natural devil's advocates. Their vigilance compels them to spot potential problems and question assumptions — it's how they build a sense of security.",
+          "Sixes are the natural devil's advocates. Their vigilance compels them to spot potential problems and question assumptions, it's how they build a sense of security.",
       },
     },
     {
@@ -676,7 +676,7 @@ const lesson4: Lesson = {
       content: {
         type: "matching-pairs",
         instruction:
-          "Match the behavior to the correct type — Six or its common mistype.",
+          "Match the behavior to the correct type, Six or its common mistype.",
         pairs: [
           { left: "Confronts fear by charging at it", right: "Counterphobic 6" },
           { left: "Naturally dominant, doesn't think about fear", right: "Type 8" },
@@ -695,7 +695,7 @@ const lesson4: Lesson = {
         options: ["avoiding", "unaware of", "fighting against", "indifferent to"],
         correctIndex: 2,
         explanation:
-          "The critical distinction: counterphobic Sixes are highly aware of their fear and fight against it. Eights genuinely don't experience the same kind of inner fear — they feel naturally powerful.",
+          "The critical distinction: counterphobic Sixes are highly aware of their fear and fight against it. Eights genuinely don't experience the same kind of inner fear, they feel naturally powerful.",
       },
     },
     {
@@ -717,17 +717,17 @@ const lesson4: Lesson = {
       content: {
         type: "scenario",
         scenario:
-          "Two coworkers both push back on a risky new project. One says, 'This violates our quality standards — we shouldn't cut corners.' The other says, 'What happens if this fails? Have we thought about the fallout? Who's going to be responsible?'",
+          "Two coworkers both push back on a risky new project. One says, 'This violates our quality standards, we shouldn't cut corners.' The other says, 'What happens if this fails? Have we thought about the fallout? Who's going to be responsible?'",
         question: "Which coworker is more likely a Six?",
         options: [
-          "The first — they have clear standards",
-          "The second — they're focused on risk, consequences, and accountability",
+          "The first, they have clear standards",
+          "The second, they're focused on risk, consequences, and accountability",
           "Both are equally likely to be Sixes",
-          "Neither is a Six — Sixes wouldn't speak up",
+          "Neither is a Six, Sixes wouldn't speak up",
         ],
         correctIndex: 1,
         explanation:
-          "The first coworker sounds like a Type 1 (internal standards, quality). The second is more Six: focused on what could go wrong, consequences, and who's responsible — all threat-assessment.",
+          "The first coworker sounds like a Type 1 (internal standards, quality). The second is more Six: focused on what could go wrong, consequences, and who's responsible, all threat-assessment.",
       },
     },
     {
@@ -739,10 +739,10 @@ const lesson4: Lesson = {
           "Nadia and Diego are both assertive leaders. Nadia charges into conflicts because she can't stand feeling afraid and wants to prove she's tough. Diego charges into conflicts because he genuinely believes he's the strongest person in the room and someone needs to take charge.",
         question: "Who is the counterphobic Six?",
         options: [
-          "Nadia — she's fighting her fear by confronting it",
-          "Diego — his confidence is a mask for anxiety",
+          "Nadia, she's fighting her fear by confronting it",
+          "Diego, his confidence is a mask for anxiety",
           "Both are Sixes with different wings",
-          "Neither — both are Type 8",
+          "Neither, both are Type 8",
         ],
         correctIndex: 0,
         explanation:
@@ -755,7 +755,7 @@ const lesson4: Lesson = {
       content: {
         type: "scenario",
         scenario:
-          "Your friend group is planning a trip. One friend researches every detail — insurance policies, reviews of the rental, weather forecasts, emergency contacts. They create a shared doc with backup plans for backup plans. Everyone groans, but when the rental falls through, that friend already has a Plan B ready.",
+          "Your friend group is planning a trip. One friend researches every detail, insurance policies, reviews of the rental, weather forecasts, emergency contacts. They create a shared doc with backup plans for backup plans. Everyone groans, but when the rental falls through, that friend already has a Plan B ready.",
         question: "What makes this classic Six behavior?",
         options: [
           "The need for control and dominance (Type 8)",
@@ -765,7 +765,7 @@ const lesson4: Lesson = {
         ],
         correctIndex: 2,
         explanation:
-          "This is quintessential Six: the exhaustive contingency planning isn't about perfection or control — it's about managing anxiety by preparing for every possible threat.",
+          "This is quintessential Six: the exhaustive contingency planning isn't about perfection or control, it's about managing anxiety by preparing for every possible threat.",
       },
     },
     {
@@ -783,7 +783,7 @@ const lesson4: Lesson = {
         ],
         correctIndex: 1,
         explanation:
-          "The most reliable Six signal is habitual worst-case thinking. Before any commitment, a Six mentally rehearses what could go wrong — and prepares accordingly.",
+          "The most reliable Six signal is habitual worst-case thinking. Before any commitment, a Six mentally rehearses what could go wrong, and prepares accordingly.",
       },
     },
   ],

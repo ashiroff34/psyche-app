@@ -317,7 +317,7 @@ export default function SettingsPage() {
     setNotifPrefs(updated);
     saveNotificationPrefs(updated);
 
-    // Preferences saved locally — push notifications handled natively by Capacitor
+    // Preferences saved locally, push notifications handled natively by Capacitor
     if ("dailyReminders" in updates) {
       showToast(updates.dailyReminders ? "Reminders enabled ✓" : "Reminders turned off");
     }

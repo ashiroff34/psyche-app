@@ -1,5 +1,5 @@
 // ─────────────────────────────────────────────────────────────────────────────
-// Unit 19 — Extraverted Intuition (Ne)
+// Unit 19, Extraverted Intuition (Ne)
 // Possibility generator, connections everywhere, brainstorming engine
 // ─────────────────────────────────────────────────────────────────────────────
 
@@ -23,7 +23,7 @@ const lesson1: Lesson = {
       content: {
         type: "concept-intro",
         title: "What Is Extraverted Intuition?",
-        body: "Ne is a possibility generator that looks at any single thing and immediately sees what ELSE it could be, what it connects to, and where it could go. It asks: 'What COULD this be? What else connects to this?' Ne is the '47 open browser tabs' function — every idea spawns five more.",
+        body: "Ne is a possibility generator that looks at any single thing and immediately sees what ELSE it could be, what it connects to, and where it could go. It asks: 'What COULD this be? What else connects to this?' Ne is the '47 open browser tabs' function, every idea spawns five more.",
         highlight: "possibility generator",
       },
     },
@@ -33,7 +33,7 @@ const lesson1: Lesson = {
       content: {
         type: "concept-intro",
         title: "Ne from the Inside",
-        body: "People with strong Ne describe a mind that never stops making connections. A conversation about breakfast leads to a thought about nutrition, which leads to an idea about farming, which leads to a business concept. It's exhilarating — and exhausting. 'Oh, that reminds me—' is Ne's catchphrase.",
+        body: "People with strong Ne describe a mind that never stops making connections. A conversation about breakfast leads to a thought about nutrition, which leads to an idea about farming, which leads to a business concept. It's exhilarating, and exhausting. 'Oh, that reminds me...' is Ne's catchphrase.",
         highlight: "never stops making connections",
       },
     },
@@ -50,7 +50,7 @@ const lesson1: Lesson = {
           "What happened last time we tried this?",
         ],
         correctIndex: 1,
-        explanation: "Ne is always looking outward at possibilities. It doesn't want the one answer — it wants the entire landscape of 'what ifs' and hidden connections between seemingly unrelated things.",
+        explanation: "Ne is always looking outward at possibilities. It doesn't want the one answer, it wants the entire landscape of 'what ifs' and hidden connections between seemingly unrelated things.",
       },
     },
     {
@@ -82,7 +82,7 @@ const lesson1: Lesson = {
           "Ne processes emotions internally",
         ],
         correctIndex: 1,
-        explanation: "Ne diverges — one idea becomes many. Ni converges — many ideas become one. This is THE critical distinction between the two intuitive functions.",
+        explanation: "Ne diverges, one idea becomes many. Ni converges, many ideas become one. This is THE critical distinction between the two intuitive functions.",
       },
     },
     {
@@ -93,7 +93,7 @@ const lesson1: Lesson = {
         instruction: "Match each Ne characteristic to its description.",
         pairs: [
           { left: "Divergent thinking", right: "One idea spawns many possibilities" },
-          { left: "Tangential leaps", right: "'Oh, that reminds me of—'" },
+          { left: "Tangential leaps", right: "'Oh, that reminds me of...'" },
           { left: "Pattern connections", right: "Sees links between unrelated things" },
           { left: "Novelty seeking", right: "Drawn to new ideas over routine" },
           { left: "Brainstorming", right: "Energized by generating options" },
@@ -108,7 +108,7 @@ const lesson1: Lesson = {
         sentence: "Ne takes one input and ___ it into many possibilities, connections, and 'what ifs.'",
         options: ["diverges", "converges", "memorizes", "suppresses"],
         correctIndex: 0,
-        explanation: "Divergence is Ne's signature move. While Ni converges many inputs into one insight, Ne does the opposite — exploding a single idea outward into a web of related possibilities.",
+        explanation: "Divergence is Ne's signature move. While Ni converges many inputs into one insight, Ne does the opposite, exploding a single idea outward into a web of related possibilities.",
       },
     },
     {
@@ -127,13 +127,13 @@ const lesson1: Lesson = {
       difficulty: 3,
       content: {
         type: "scenario",
-        scenario: "At a team meeting about improving customer service, Sam suddenly says, 'What if we gamified the whole experience? Actually, wait — what if customers could rate us in real-time like Uber? Oh, and that makes me think — what if we built a community forum where customers help each other? That could also work for—' The team leader cuts Sam off: 'Can we just pick ONE idea?'",
+        scenario: "At a team meeting about improving customer service, Sam suddenly says, 'What if we gamified the whole experience? Actually, wait, what if customers could rate us in real-time like Uber? Oh, and that makes me think, what if we built a community forum where customers help each other? That could also work for...' The team leader cuts Sam off: 'Can we just pick ONE idea?'",
         question: "What cognitive function is Sam demonstrating?",
         options: [
-          "Te — organizing systems efficiently",
-          "Ni — converging on a single strategic vision",
-          "Ne — generating a rapid-fire web of divergent possibilities from one starting point",
-          "Se — responding to the immediate physical environment",
+          "Te, organizing systems efficiently",
+          "Ni, converging on a single strategic vision",
+          "Ne, generating a rapid-fire web of divergent possibilities from one starting point",
+          "Se, responding to the immediate physical environment",
         ],
         correctIndex: 2,
         explanation: "This is textbook Ne: one prompt (customer service) triggers an expanding web of possibilities, each one spawning the next. Ne users often get told to 'pick one' because their idea generation outpaces everyone else's ability to process.",
@@ -144,16 +144,16 @@ const lesson1: Lesson = {
       difficulty: 3,
       content: {
         type: "scenario",
-        scenario: "During a road trip, Alex sees a billboard for a zoo. Within sixty seconds, Alex has said: 'Zoos are interesting — did you know some zoos are doing virtual reality experiences now? VR is going to change education completely. Imagine VR history classes where you WALK through ancient Rome. Actually, that's a startup idea. We should write that down. Also, ancient Rome reminds me — have you watched that new documentary?'",
+        scenario: "During a road trip, Alex sees a billboard for a zoo. Within sixty seconds, Alex has said: 'Zoos are interesting, did you know some zoos are doing virtual reality experiences now? VR is going to change education completely. Imagine VR history classes where you WALK through ancient Rome. Actually, that's a startup idea. We should write that down. Also, ancient Rome reminds me, have you watched that new documentary?'",
         question: "What is happening in Alex's mind?",
         options: [
           "Alex has ADHD and can't focus",
-          "Alex's Ne is making rapid associative leaps — each idea triggers connections to the next in an expanding web",
+          "Alex's Ne is making rapid associative leaps, each idea triggers connections to the next in an expanding web",
           "Alex is using Si to recall past memories",
           "Alex is nervous and filling silence",
         ],
         correctIndex: 1,
-        explanation: "This rapid chain of associations — zoo to VR to education to Rome to documentary — is classic Ne. Each idea triggers unexpected connections to the next. It looks scattered from the outside, but there IS a thread connecting each leap.",
+        explanation: "This rapid chain of associations, zoo to VR to education to Rome to documentary, is classic Ne. Each idea triggers unexpected connections to the next. It looks scattered from the outside, but there IS a thread connecting each leap.",
       },
     },
     {
@@ -208,7 +208,7 @@ const lesson2: Lesson = {
       content: {
         type: "concept-intro",
         title: "Stack Position Changes Everything",
-        body: "Ne as a dominant function (ENTP, ENFP) creates people who live in a constant stream of possibilities and connections. Ne as an inferior function (ISTJ, ISFJ) manifests as catastrophic 'what if' spirals — paranoid worst-case scenarios that feel paralyzing and inescapable.",
+        body: "Ne as a dominant function (ENTP, ENFP) creates people who live in a constant stream of possibilities and connections. Ne as an inferior function (ISTJ, ISFJ) manifests as catastrophic 'what if' spirals, paranoid worst-case scenarios that feel paralyzing and inescapable.",
         highlight: "Stack position changes everything",
       },
     },
@@ -218,7 +218,7 @@ const lesson2: Lesson = {
       content: {
         type: "concept-intro",
         title: "The Beebe Model & Ne",
-        body: "In Beebe's archetypal model, dominant Ne is the Hero — the trusted possibility-spotter that sees potential everywhere. Inferior Ne is the Anima/Animus — producing terrifying 'what if' catastrophes instead of exciting possibilities when it erupts under stress.",
+        body: "In Beebe's archetypal model, dominant Ne is the Hero, the trusted possibility-spotter that sees potential everywhere. Inferior Ne is the Anima/Animus, producing terrifying 'what if' catastrophes instead of exciting possibilities when it erupts under stress.",
         highlight: "Hero vs. Anima/Animus",
       },
     },
@@ -289,7 +289,7 @@ const lesson2: Lesson = {
       difficulty: 2,
       content: {
         type: "fill-in-blank",
-        sentence: "An ISTJ under extreme stress may experience their inferior Ne as paralyzing 'what if' ___ — imagining every possible thing that could go wrong.",
+        sentence: "An ISTJ under extreme stress may experience their inferior Ne as paralyzing 'what if' ___, imagining every possible thing that could go wrong.",
         options: ["spirals", "celebrations", "routines", "frameworks"],
         correctIndex: 0,
         explanation: "When inferior Ne erupts in Si-dominant types, possibilities become THREATS instead of opportunities. The normally grounded, practical person becomes overwhelmed by an avalanche of worst-case scenarios.",
@@ -315,12 +315,12 @@ const lesson2: Lesson = {
         question: "What is happening psychologically?",
         options: [
           "She's using her dominant Si to remember past dangers",
-          "Her inferior Ne has her in its grip — possibilities have become threats",
+          "Her inferior Ne has her in its grip, possibilities have become threats",
           "She's using Fe to worry about group harmony",
           "She's developing healthy Ne by exploring possibilities",
         ],
         correctIndex: 1,
-        explanation: "This is a classic inferior Ne grip. The Si-dominant person, normally grounded in concrete reality, gets hijacked by Ne — but instead of exciting possibilities, it generates an endless cascade of terrifying 'what ifs' that feel completely real.",
+        explanation: "This is a classic inferior Ne grip. The Si-dominant person, normally grounded in concrete reality, gets hijacked by Ne, but instead of exciting possibilities, it generates an endless cascade of terrifying 'what ifs' that feel completely real.",
       },
     },
     {
@@ -337,7 +337,7 @@ const lesson2: Lesson = {
           "Person B is more realistic than Person A",
         ],
         correctIndex: 1,
-        explanation: "Same trigger, opposite Ne experiences. Dominant Ne sees open-ended change as thrilling — full of potential and opportunity. Inferior Ne sees open-ended change as terrifying — full of unpredictable threats.",
+        explanation: "Same trigger, opposite Ne experiences. Dominant Ne sees open-ended change as thrilling, full of potential and opportunity. Inferior Ne sees open-ended change as terrifying, full of unpredictable threats.",
       },
     },
     {
@@ -364,10 +364,10 @@ const lesson2: Lesson = {
         type: "multiple-choice",
         question: "True or false: Ne works the same way regardless of its position in someone's cognitive stack.",
         options: [
-          "True — Ne is Ne",
-          "False — stack position dramatically changes how Ne manifests",
-          "True — but only for extroverts",
-          "False — but only because of intelligence differences",
+          "True, Ne is Ne",
+          "False, stack position dramatically changes how Ne manifests",
+          "True, but only for extroverts",
+          "False, but only because of intelligence differences",
         ],
         correctIndex: 1,
         explanation: "Stack position is crucial. Dominant Ne is exciting possibility generation. Inferior Ne is catastrophic worst-case spiraling. Same function, completely different experience.",
@@ -402,7 +402,7 @@ const lesson3: Lesson = {
       content: {
         type: "concept-intro",
         title: "Ne Under Stress",
-        body: "When stressed, dominant Ne users can fall into a 'grip' of their inferior function Si. For ENTPs and ENFPs, this means obsessive focus on past mistakes, physical symptoms, and a suffocating feeling that nothing will ever change — the exact opposite of their normal expansive optimism.",
+        body: "When stressed, dominant Ne users can fall into a 'grip' of their inferior function Si. For ENTPs and ENFPs, this means obsessive focus on past mistakes, physical symptoms, and a suffocating feeling that nothing will ever change, the exact opposite of their normal expansive optimism.",
         highlight: "Si grip",
       },
     },
@@ -419,7 +419,7 @@ const lesson3: Lesson = {
           "Managing everyone's emotions and maintaining group harmony",
         ],
         correctIndex: 1,
-        explanation: "Ne excels at innovation, brainstorming, and cross-pollination of ideas. Ne users are the ones who say 'what if we combined THIS department's approach with THAT one's problem?' — seeing connections across silos.",
+        explanation: "Ne excels at innovation, brainstorming, and cross-pollination of ideas. Ne users are the ones who say 'what if we combined THIS department's approach with THAT one's problem?', seeing connections across silos.",
       },
     },
     {
@@ -435,7 +435,7 @@ const lesson3: Lesson = {
           "They start making dark predictions about the future",
         ],
         correctIndex: 1,
-        explanation: "The ENFP's inferior function is Si. In a grip, ENFPs flip from expansive optimism to a dark fixation on the past — ruminating over mistakes, noticing every bodily ache, and feeling like nothing will ever be new or exciting again.",
+        explanation: "The ENFP's inferior function is Si. In a grip, ENFPs flip from expansive optimism to a dark fixation on the past, ruminating over mistakes, noticing every bodily ache, and feeling like nothing will ever be new or exciting again.",
       },
     },
     {
@@ -474,10 +474,10 @@ const lesson3: Lesson = {
       difficulty: 2,
       content: {
         type: "fill-in-blank",
-        sentence: "Ne-driven creativity tends to be about unexpected ___ — combining ideas from different domains in ways nobody expected.",
+        sentence: "Ne-driven creativity tends to be about unexpected ___, combining ideas from different domains in ways nobody expected.",
         options: ["combinations", "memories", "hierarchies", "schedules"],
         correctIndex: 0,
-        explanation: "Ne creativity is combinatorial. It mashes together ideas from different worlds — a cooking show meets a detective story, jazz meets electronic music, psychology meets game design. The magic is in the unexpected connections.",
+        explanation: "Ne creativity is combinatorial. It mashes together ideas from different worlds, a cooking show meets a detective story, jazz meets electronic music, psychology meets game design. The magic is in the unexpected connections.",
       },
     },
     {
@@ -500,12 +500,12 @@ const lesson3: Lesson = {
         question: "What is happening with Raj's Ne?",
         options: [
           "He's being irresponsible and needs more discipline",
-          "His dominant Ne is working as designed — constantly generating more exciting possibilities — but without a developed auxiliary (Ti), he lacks the filter to commit",
+          "His dominant Ne is working as designed, constantly generating more exciting possibilities, but without a developed auxiliary (Ti), he lacks the filter to commit",
           "He's in an Ni grip",
           "He's using Se to chase sensory thrills",
         ],
         correctIndex: 1,
-        explanation: "This is Ne's classic blessing and curse. The function WORKS — it genuinely does find exciting new possibilities. The problem isn't the idea generation; it's the lack of a developed judging function to evaluate which ideas deserve commitment.",
+        explanation: "This is Ne's classic blessing and curse. The function WORKS, it genuinely does find exciting new possibilities. The problem isn't the idea generation; it's the lack of a developed judging function to evaluate which ideas deserve commitment.",
       },
     },
     {
@@ -513,16 +513,16 @@ const lesson3: Lesson = {
       difficulty: 3,
       content: {
         type: "scenario",
-        scenario: "Kim, an ENFP, has been in the same job for five years. Lately she describes feeling 'dead inside' — the role is stable and pays well, but every day feels identical. She's started getting headaches, obsessing over a mistake she made three years ago, and telling friends, 'I feel like I'm suffocating.'",
+        scenario: "Kim, an ENFP, has been in the same job for five years. Lately she describes feeling 'dead inside', the role is stable and pays well, but every day feels identical. She's started getting headaches, obsessing over a mistake she made three years ago, and telling friends, 'I feel like I'm suffocating.'",
         question: "What is most likely causing Kim's distress?",
         options: [
           "She needs a vacation",
-          "Her Ne is starving from lack of novelty, and she's falling into an Si grip — fixating on the past and physical symptoms",
+          "Her Ne is starving from lack of novelty, and she's falling into an Si grip, fixating on the past and physical symptoms",
           "She needs to work harder at her current job",
           "She's developing healthy Si by appreciating stability",
         ],
         correctIndex: 1,
-        explanation: "When Ne-dominant types are trapped in unstimulating routine, their Ne starves. The inferior Si starts taking over — manifesting as obsessive rumination about past mistakes, hypochondriac symptoms, and a crushing sense that nothing will ever change.",
+        explanation: "When Ne-dominant types are trapped in unstimulating routine, their Ne starves. The inferior Si starts taking over, manifesting as obsessive rumination about past mistakes, hypochondriac symptoms, and a crushing sense that nothing will ever change.",
       },
     },
     {
@@ -555,7 +555,7 @@ const lesson3: Lesson = {
           "Focusing deeply on one thing for hours without distraction",
         ],
         correctIndex: 1,
-        explanation: "Ne's superpower is seeing what COULD be — potential, connections, and possibilities that are invisible to other functions. This makes Ne users natural innovators, entrepreneurs, and creative problem-solvers.",
+        explanation: "Ne's superpower is seeing what COULD be, potential, connections, and possibilities that are invisible to other functions. This makes Ne users natural innovators, entrepreneurs, and creative problem-solvers.",
       },
     },
   ],
@@ -577,7 +577,7 @@ const lesson4: Lesson = {
       content: {
         type: "concept-intro",
         title: "The Critical Distinction: Ne vs. Se",
-        body: "Ne and Se are BOTH extraverted perceiving functions, but they perceive completely different things. Ne perceives abstract possibilities — what COULD be. Se perceives concrete reality — what IS. Ne sees the potential in a run-down building; Se sees the crumbling walls.",
+        body: "Ne and Se are BOTH extraverted perceiving functions, but they perceive completely different things. Ne perceives abstract possibilities, what COULD be. Se perceives concrete reality, what IS. Ne sees the potential in a run-down building; Se sees the crumbling walls.",
         highlight: "possibilities vs. reality",
       },
     },
@@ -614,10 +614,10 @@ const lesson4: Lesson = {
         type: "multiple-choice",
         question: "Someone walks into an abandoned warehouse and says: 'This could be a co-working space! Or a climbing gym! Or an art gallery! Or all three!' Which function is this?",
         options: [
-          "Se — they're taking in the physical environment",
-          "Ne — they're generating possibilities from a single stimulus",
-          "Ni — they're having a convergent insight",
-          "Si — they're recalling past warehouse experiences",
+          "Se, they're taking in the physical environment",
+          "Ne, they're generating possibilities from a single stimulus",
+          "Ni, they're having a convergent insight",
+          "Si, they're recalling past warehouse experiences",
         ],
         correctIndex: 1,
         explanation: "Taking one input (abandoned warehouse) and immediately generating multiple possibilities for what it COULD become is pure Ne. An Se user would notice the exposed brick, the echo, the temperature. An Ni user would sense what the space 'wants to be.'",
@@ -636,7 +636,7 @@ const lesson4: Lesson = {
           "Because ADHD is actually just Ne",
         ],
         correctIndex: 1,
-        explanation: "Ne's rapid associative thinking — jumping from idea to idea, struggling with routine tasks, getting bored easily — can mimic ADHD symptoms. However, Ne is a cognitive PREFERENCE, not a disorder. Some people have both, but they're not the same thing.",
+        explanation: "Ne's rapid associative thinking, jumping from idea to idea, struggling with routine tasks, getting bored easily, can mimic ADHD symptoms. However, Ne is a cognitive PREFERENCE, not a disorder. Some people have both, but they're not the same thing.",
       },
     },
     {
@@ -646,8 +646,8 @@ const lesson4: Lesson = {
         type: "matching-pairs",
         instruction: "Match each response to the correct cognitive function.",
         pairs: [
-          { left: "Ne", right: "'What if we tried it this way? Or this way? Or—'" },
-          { left: "Se", right: "'Look at that sunset — the colors are incredible right now'" },
+          { left: "Ne", right: "'What if we tried it this way? Or this way? Or...'" },
+          { left: "Se", right: "'Look at that sunset, the colors are incredible right now'" },
           { left: "Ni", right: "'I see where all of this is heading'" },
           { left: "Ne", right: "'That's like when you combine X with Y and get Z!'" },
         ],
@@ -686,7 +686,7 @@ const lesson4: Lesson = {
       difficulty: 3,
       content: {
         type: "scenario",
-        scenario: "Two friends visit a farmers' market. Friend A says: 'These heirloom tomatoes are gorgeous — feel how heavy this one is! And smell that basil!' Friend B says: 'Ooh, heirloom tomatoes! You know what would be amazing? A subscription box for heritage vegetables. Or a cooking show where every episode uses ONE ingredient 10 different ways. Actually, that reminds me of a podcast I heard about—'",
+        scenario: "Two friends visit a farmers' market. Friend A says: 'These heirloom tomatoes are gorgeous, feel how heavy this one is! And smell that basil!' Friend B says: 'Ooh, heirloom tomatoes! You know what would be amazing? A subscription box for heritage vegetables. Or a cooking show where every episode uses ONE ingredient 10 different ways. Actually, that reminds me of a podcast I heard about...'",
         question: "Which friend is using Ne and which is using Se?",
         options: [
           "Friend A = Ne, Friend B = Se",
@@ -695,7 +695,7 @@ const lesson4: Lesson = {
           "Both are using Se",
         ],
         correctIndex: 1,
-        explanation: "Friend A is fully present in the sensory experience — touch, sight, smell (Se). Friend B immediately launches from the physical tomatoes into abstract possibilities and connections (Ne). Same market, completely different experiences.",
+        explanation: "Friend A is fully present in the sensory experience, touch, sight, smell (Se). Friend B immediately launches from the physical tomatoes into abstract possibilities and connections (Ne). Same market, completely different experiences.",
       },
     },
     {
@@ -703,7 +703,7 @@ const lesson4: Lesson = {
       difficulty: 3,
       content: {
         type: "scenario",
-        scenario: "During a strategy meeting, two people respond to a new competitor entering the market. Person A says: 'We need to differentiate — what if we pivoted to a premium model? Or partnered with Company X? Or targeted a totally different demographic? Let me brainstorm ten options.' Person B says: 'I've been sensing this was coming for months. The whole market is converging toward one model, and we need to be the first to get there.'",
+        scenario: "During a strategy meeting, two people respond to a new competitor entering the market. Person A says: 'We need to differentiate, what if we pivoted to a premium model? Or partnered with Company X? Or targeted a totally different demographic? Let me brainstorm ten options.' Person B says: 'I've been sensing this was coming for months. The whole market is converging toward one model, and we need to be the first to get there.'",
         question: "Which person is using Ne and which is using Ni?",
         options: [
           "Person A = Ni, Person B = Ne",
@@ -712,7 +712,7 @@ const lesson4: Lesson = {
           "Both are using Ni",
         ],
         correctIndex: 1,
-        explanation: "Person A generates multiple divergent possibilities from one stimulus (Ne). Person B has a convergent insight about where the entire market is heading — one unified vision (Ni). Divergence vs. convergence in action.",
+        explanation: "Person A generates multiple divergent possibilities from one stimulus (Ne). Person B has a convergent insight about where the entire market is heading, one unified vision (Ni). Divergence vs. convergence in action.",
       },
     },
     {
@@ -723,13 +723,13 @@ const lesson4: Lesson = {
         scenario: "You're trying to determine if someone uses Ne or is just 'creative.' They constantly have new ideas and get excited about them, but they also frequently abandon projects mid-way.",
         question: "What is the best way to tell if this is Ne specifically?",
         options: [
-          "Ask if their ideas emerge from connecting seemingly UNRELATED things — Ne makes associative leaps across domains, while general creativity can be methodical",
-          "There is no difference — creativity IS Ne",
-          "Check if they're an extrovert — only extroverts have Ne",
+          "Ask if their ideas emerge from connecting seemingly UNRELATED things, Ne makes associative leaps across domains, while general creativity can be methodical",
+          "There is no difference, creativity IS Ne",
+          "Check if they're an extrovert, only extroverts have Ne",
           "Ne users never finish anything; creative people always do",
         ],
         correctIndex: 0,
-        explanation: "The hallmark of Ne is ASSOCIATIVE leaping — connecting ideas across domains that don't obviously belong together. General creativity can be systematic and focused. Ne creativity is specifically about unexpected cross-domain connections and divergent possibility generation.",
+        explanation: "The hallmark of Ne is ASSOCIATIVE leaping, connecting ideas across domains that don't obviously belong together. General creativity can be systematic and focused. Ne creativity is specifically about unexpected cross-domain connections and divergent possibility generation.",
       },
     },
     {
@@ -745,7 +745,7 @@ const lesson4: Lesson = {
           "An internal compass that evaluates against personal values",
         ],
         correctIndex: 1,
-        explanation: "Ne is the divergent possibility engine. It takes any single input and explodes it outward into a web of 'what ifs,' connections, and potential — seeing what COULD be rather than what is.",
+        explanation: "Ne is the divergent possibility engine. It takes any single input and explodes it outward into a web of 'what ifs,' connections, and potential, seeing what COULD be rather than what is.",
       },
     },
   ],

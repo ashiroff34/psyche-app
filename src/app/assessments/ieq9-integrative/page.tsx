@@ -42,7 +42,7 @@ export default function IEQ9IntegrativePage() {
           <ArrowLeft className="w-4 h-4" /> Back
         </button>
         <h1 className="text-2xl font-serif font-bold text-slate-900 mb-1">Integrative Assessment</h1>
-        <p className="text-sm text-slate-400 mb-2">iEQ9-inspired — {allItems.length} items across core type, wing, instinct, and stress/growth.</p>
+        <p className="text-sm text-slate-400 mb-2">iEQ9-inspired, {allItems.length} items across core type, wing, instinct, and stress/growth.</p>
       </div>
       <LikertAssessment
         title="Integrative Assessment"

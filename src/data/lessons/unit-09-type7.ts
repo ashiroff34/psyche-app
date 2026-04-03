@@ -1,5 +1,5 @@
 // ─────────────────────────────────────────────────────────────────────────────
-// Unit 9 — Type 7: The Enthusiast
+// Unit 9, Type 7: The Enthusiast
 // 4 lessons × 12 exercises each
 // ─────────────────────────────────────────────────────────────────────────────
 
@@ -21,7 +21,7 @@ const lesson1: Lesson = {
       content: {
         type: "concept-intro",
         title: "Meet the Enthusiast",
-        body: "Type 7 is driven by a need for freedom, stimulation, and happiness. They are the most future-oriented type — always planning the next adventure, brainstorming possibilities, and keeping their options open. Beneath their optimism lies a deep need to avoid pain.",
+        body: "Type 7 is driven by a need for freedom, stimulation, and happiness. They are the most future-oriented type, always planning the next adventure, brainstorming possibilities, and keeping their options open. Beneath their optimism lies a deep need to avoid pain.",
         highlight: "freedom",
       },
     },
@@ -31,7 +31,7 @@ const lesson1: Lesson = {
       content: {
         type: "concept-intro",
         title: "The Core Fear",
-        body: "Sevens fear being trapped in pain, deprivation, or boredom. This isn't just disliking discomfort — it's a deep dread that if they stop moving and face their inner experience, they'll be overwhelmed by unbearable suffering.",
+        body: "Sevens fear being trapped in pain, deprivation, or boredom. This isn't just disliking discomfort, it's a deep dread that if they stop moving and face their inner experience, they'll be overwhelmed by unbearable suffering.",
         highlight: "trapped in pain",
       },
     },
@@ -138,7 +138,7 @@ const lesson1: Lesson = {
         question: "Which Seven pattern is Mia demonstrating?",
         options: [
           "Procrastination from laziness",
-          "The scatter pattern — pursuing many options to avoid the pain of limitation",
+          "The scatter pattern, pursuing many options to avoid the pain of limitation",
           "Strategic planning for future success",
           "Healthy curiosity and breadth of interest",
         ],
@@ -153,17 +153,17 @@ const lesson1: Lesson = {
       content: {
         type: "scenario",
         scenario:
-          "After a painful breakup, Tyler immediately books a solo trip, signs up for three social events, and tells friends he's 'actually relieved — this is the best thing that could have happened.' Two months later, the grief hits him all at once.",
+          "After a painful breakup, Tyler immediately books a solo trip, signs up for three social events, and tells friends he's 'actually relieved, this is the best thing that could have happened.' Two months later, the grief hits him all at once.",
         question: "What Seven defense is Tyler using?",
         options: [
-          "Rationalization — reframing pain as a positive to avoid processing it",
-          "Projection — blaming the partner for everything",
-          "Isolation — cutting off from all emotions",
-          "Sublimation — channeling pain into creative work",
+          "Rationalization, reframing pain as a positive to avoid processing it",
+          "Projection, blaming the partner for everything",
+          "Isolation, cutting off from all emotions",
+          "Sublimation, channeling pain into creative work",
         ],
         correctIndex: 0,
         explanation:
-          "Tyler is using the Seven's core defense: rationalization through reframing. By turning the breakup into a 'positive,' he avoids the grief — but it doesn't disappear; it just gets delayed.",
+          "Tyler is using the Seven's core defense: rationalization through reframing. By turning the breakup into a 'positive,' he avoids the grief, but it doesn't disappear; it just gets delayed.",
       },
     },
     {
@@ -176,7 +176,7 @@ const lesson1: Lesson = {
         question: "What core Seven fear is driving Jordan's indecision?",
         options: [
           "Fear of failure at the chosen job",
-          "Fear of missing out — closing doors means losing potential happiness",
+          "Fear of missing out, closing doors means losing potential happiness",
           "Fear of what others will think of their choice",
           "Fear of being controlled by an employer",
         ],
@@ -200,7 +200,7 @@ const lesson1: Lesson = {
         ],
         correctIndex: 1,
         explanation:
-          "The alias 'Epicure' captures the Seven's appetite for the full buffet of life — experiences, ideas, plans, and possibilities. It's an insatiable hunger for MORE, not just food.",
+          "The alias 'Epicure' captures the Seven's appetite for the full buffet of life, experiences, ideas, plans, and possibilities. It's an insatiable hunger for MORE, not just food.",
       },
     },
   ],
@@ -222,7 +222,7 @@ const lesson2: Lesson = {
       content: {
         type: "concept-intro",
         title: "The Passion: Gluttony",
-        body: "In Naranjo's system, Seven's emotional passion is Gluttony — but not just for food. It's a gluttony for experiences, plans, ideas, and options. Sevens consume life in excess, always wanting more, never feeling quite satisfied with what they have.",
+        body: "In Naranjo's system, Seven's emotional passion is Gluttony, but not just for food. It's a gluttony for experiences, plans, ideas, and options. Sevens consume life in excess, always wanting more, never feeling quite satisfied with what they have.",
         highlight: "Gluttony",
       },
     },
@@ -232,7 +232,7 @@ const lesson2: Lesson = {
       content: {
         type: "concept-intro",
         title: "The Virtue: Sobriety",
-        body: "The antidote to Gluttony is Sobriety — being fully present with what IS rather than always reaching for what's next. Sobriety for a Seven means finding genuine satisfaction in the current moment instead of needing more.",
+        body: "The antidote to Gluttony is Sobriety, being fully present with what IS rather than always reaching for what's next. Sobriety for a Seven means finding genuine satisfaction in the current moment instead of needing more.",
         highlight: "Sobriety",
       },
     },
@@ -245,7 +245,7 @@ const lesson2: Lesson = {
         options: ["Lust", "Vanity", "Gluttony", "Fear"],
         correctIndex: 2,
         explanation:
-          "Gluttony is the Seven's passion. It's the compulsive overconsumption of experiences, stimulation, and possibilities — an inability to be satisfied with enough.",
+          "Gluttony is the Seven's passion. It's the compulsive overconsumption of experiences, stimulation, and possibilities, an inability to be satisfied with enough.",
       },
     },
     {
@@ -262,7 +262,7 @@ const lesson2: Lesson = {
         ],
         correctIndex: 2,
         explanation:
-          "Sobriety doesn't mean giving up joy — it means finding deep satisfaction in the present moment instead of compulsively reaching for the next experience.",
+          "Sobriety doesn't mean giving up joy, it means finding deep satisfaction in the present moment instead of compulsively reaching for the next experience.",
       },
     },
     {
@@ -280,7 +280,7 @@ const lesson2: Lesson = {
         ],
         correctIndex: 1,
         explanation:
-          "Naranjo's 'Gluttony' expands beyond food: it's the compulsive consumption of ideas, plans, stimulation, and novelty — the Seven's way of staying ahead of pain.",
+          "Naranjo's 'Gluttony' expands beyond food: it's the compulsive consumption of ideas, plans, stimulation, and novelty, the Seven's way of staying ahead of pain.",
       },
     },
     {
@@ -325,7 +325,7 @@ const lesson2: Lesson = {
         options: ["excitement", "satisfaction", "control", "analysis"],
         correctIndex: 1,
         explanation:
-          "Sobriety is about genuine satisfaction — discovering that this moment, this experience, this relationship is enough. It's the opposite of the gluttony that says 'more, more, more.'",
+          "Sobriety is about genuine satisfaction, discovering that this moment, this experience, this relationship is enough. It's the opposite of the gluttony that says 'more, more, more.'",
       },
     },
     {
@@ -334,13 +334,13 @@ const lesson2: Lesson = {
       content: {
         type: "scenario",
         scenario:
-          "Ava planned an amazing vacation — five cities in ten days. By day seven, she's exhausted but can't slow down. Skipping a planned activity feels like wasting the trip. She takes hundreds of photos but barely remembers actually being there.",
+          "Ava planned an amazing vacation, five cities in ten days. By day seven, she's exhausted but can't slow down. Skipping a planned activity feels like wasting the trip. She takes hundreds of photos but barely remembers actually being there.",
         question: "What Seven passion is Ava caught in?",
         options: [
-          "Fear — she's anxious about safety",
-          "Gluttony — she's consuming experiences without being present for any of them",
-          "Vanity — she wants great photos for social media",
-          "Lust — she's driven by intensity",
+          "Fear, she's anxious about safety",
+          "Gluttony, she's consuming experiences without being present for any of them",
+          "Vanity, she wants great photos for social media",
+          "Lust, she's driven by intensity",
         ],
         correctIndex: 1,
         explanation:
@@ -353,17 +353,17 @@ const lesson2: Lesson = {
       content: {
         type: "scenario",
         scenario:
-          "After years of constantly chasing the next thrill, Kai takes a meditation retreat. It's excruciating at first — the silence feels like suffocation. But gradually, they start noticing beauty in small things: sunlight on a wall, the taste of plain rice. They feel more alive sitting still than they did traveling the world.",
+          "After years of constantly chasing the next thrill, Kai takes a meditation retreat. It's excruciating at first, the silence feels like suffocation. But gradually, they start noticing beauty in small things: sunlight on a wall, the taste of plain rice. They feel more alive sitting still than they did traveling the world.",
         question: "What shift is Kai experiencing?",
         options: [
           "Moving from Sobriety to Gluttony",
-          "Moving from Gluttony toward Sobriety — finding presence",
+          "Moving from Gluttony toward Sobriety, finding presence",
           "Becoming unhealthy by withdrawing from life",
           "Losing their natural Seven enthusiasm",
         ],
         correctIndex: 1,
         explanation:
-          "Kai is discovering Sobriety: the richness available in simply being present. This doesn't kill Seven's joy — it deepens it by replacing compulsive consuming with genuine savoring.",
+          "Kai is discovering Sobriety: the richness available in simply being present. This doesn't kill Seven's joy, it deepens it by replacing compulsive consuming with genuine savoring.",
       },
     },
     {
@@ -375,10 +375,10 @@ const lesson2: Lesson = {
           "Riley has been cycling through increasingly intense experiences: extreme sports, substance use, constant travel, risky financial decisions. Each thrill fades faster, and they need something bigger next time. Friends are worried but Riley says, 'I'm just living life to the fullest.'",
         question: "Where is Riley on the health spectrum?",
         options: [
-          "Healthy — they're embracing life",
-          "Average — scattered but functional",
-          "Unhealthy — the Gluttony has become addictive and escalating",
-          "Growing — they're developing Sobriety",
+          "Healthy, they're embracing life",
+          "Average, scattered but functional",
+          "Unhealthy, the Gluttony has become addictive and escalating",
+          "Growing, they're developing Sobriety",
         ],
         correctIndex: 2,
         explanation:
@@ -393,14 +393,14 @@ const lesson2: Lesson = {
         question:
           "Does practicing Sobriety mean a Seven must give up joy and fun?",
         options: [
-          "Yes — Sobriety requires seriousness",
-          "No — Sobriety means finding deeper joy through presence, not eliminating fun",
-          "Yes — they need to become more like a Type 5",
-          "No — Sobriety only applies to substance use",
+          "Yes, Sobriety requires seriousness",
+          "No, Sobriety means finding deeper joy through presence, not eliminating fun",
+          "Yes, they need to become more like a Type 5",
+          "No, Sobriety only applies to substance use",
         ],
         correctIndex: 1,
         explanation:
-          "Sobriety doesn't kill joy — it transforms it. Instead of the frantic chase for more, Sevens discover that real happiness comes from being fully present with what's here now.",
+          "Sobriety doesn't kill joy, it transforms it. Instead of the frantic chase for more, Sevens discover that real happiness comes from being fully present with what's here now.",
       },
     },
   ],
@@ -422,7 +422,7 @@ const lesson3: Lesson = {
       content: {
         type: "concept-intro",
         title: "Wings: 7w6 and 7w8",
-        body: "7w6 (The Entertainer) blends Seven's enthusiasm with Six's loyalty and anxiety — they're funnier, more connected to groups, but also more nervous. 7w8 (The Realist) blends Seven's appetite with Eight's assertiveness — they're bolder, more materialistic, and go after what they want with force.",
+        body: "7w6 (The Entertainer) blends Seven's enthusiasm with Six's loyalty and anxiety, they're funnier, more connected to groups, but also more nervous. 7w8 (The Realist) blends Seven's appetite with Eight's assertiveness, they're bolder, more materialistic, and go after what they want with force.",
         highlight: "7w6 vs 7w8",
       },
     },
@@ -445,7 +445,7 @@ const lesson3: Lesson = {
         options: ["To 5", "To 3", "To 1", "To 9"],
         correctIndex: 2,
         explanation:
-          "Under stress, Sevens take on unhealthy One traits: they become rigid, critical, judgmental, and perfectionistic — the opposite of their usual easygoing nature.",
+          "Under stress, Sevens take on unhealthy One traits: they become rigid, critical, judgmental, and perfectionistic, the opposite of their usual easygoing nature.",
       },
     },
     {
@@ -484,8 +484,8 @@ const lesson3: Lesson = {
         type: "matching-pairs",
         instruction: "Match each wing or line to its description.",
         pairs: [
-          { left: "7w6 — The Entertainer", right: "Funnier, more loyal, slightly anxious" },
-          { left: "7w8 — The Realist", right: "Bolder, more assertive, materialistic" },
+          { left: "7w6, The Entertainer", right: "Funnier, more loyal, slightly anxious" },
+          { left: "7w8, The Realist", right: "Bolder, more assertive, materialistic" },
           { left: "Stress to 1", right: "Becomes critical, rigid, perfectionistic" },
           { left: "Growth to 5", right: "Becomes focused, deep, content with less" },
         ],
@@ -527,7 +527,7 @@ const lesson3: Lesson = {
         question: "What is happening to Pat?",
         options: [
           "They are growing into a healthier version of themselves",
-          "They are moving to their stress point at Type 1 — becoming critical and rigid",
+          "They are moving to their stress point at Type 1, becoming critical and rigid",
           "They are expressing their 7w6 wing more strongly",
           "They have always been a Type 1, not a Type 7",
         ],
@@ -545,10 +545,10 @@ const lesson3: Lesson = {
           "After years of bouncing between hobbies, Morgan commits to learning guitar seriously. They practice daily, read music theory, and resist the urge to also start drums and piano. Six months in, they feel a satisfaction deeper than any of their previous short-lived enthusiasms.",
         question: "What growth line is Morgan accessing?",
         options: [
-          "Stress to 1 — becoming disciplined out of anxiety",
-          "Growth to 5 — developing focus, depth, and contentment with fewer things",
-          "Wing shift to 7w8 — pursuing goals assertively",
-          "Disintegration — losing their natural Seven traits",
+          "Stress to 1, becoming disciplined out of anxiety",
+          "Growth to 5, developing focus, depth, and contentment with fewer things",
+          "Wing shift to 7w8, pursuing goals assertively",
+          "Disintegration, losing their natural Seven traits",
         ],
         correctIndex: 1,
         explanation:
@@ -561,7 +561,7 @@ const lesson3: Lesson = {
       content: {
         type: "sorting",
         instruction: "Sort these behaviors by whether they belong to 7w6 or 7w8.",
-        categories: ["7w6 — The Entertainer", "7w8 — The Realist"],
+        categories: ["7w6, The Entertainer", "7w8, The Realist"],
         items: [
           { text: "Uses humor to bond with groups", categoryIndex: 0 },
           { text: "Goes after what they want with force", categoryIndex: 1 },
@@ -582,8 +582,8 @@ const lesson3: Lesson = {
         options: [
           "Healthy growth",
           "Natural Seven behavior",
-          "Stress — moving to the unhealthy side of Type 1",
-          "A mistype — they're actually a Type 1",
+          "Stress, moving to the unhealthy side of Type 1",
+          "A mistype, they're actually a Type 1",
         ],
         correctIndex: 2,
         explanation:
@@ -619,7 +619,7 @@ const lesson4: Lesson = {
       content: {
         type: "concept-intro",
         title: "Common Mistypes",
-        body: "Sevens are most confused with Type 3 (both energetic and upbeat — but 3s chase goals while 7s chase experiences) and Type 2 (both gregarious — but 2s give to be needed, while 7s connect for stimulation and fun).",
+        body: "Sevens are most confused with Type 3 (both energetic and upbeat, but 3s chase goals while 7s chase experiences) and Type 2 (both gregarious, but 2s give to be needed, while 7s connect for stimulation and fun).",
         highlight: "Type 3 and Type 2",
       },
     },
@@ -638,7 +638,7 @@ const lesson4: Lesson = {
         ],
         correctIndex: 1,
         explanation:
-          "Sevens generate ideas rapidly and get excited about each one. The challenge is follow-through — the next idea always seems more exciting than the current one.",
+          "Sevens generate ideas rapidly and get excited about each one. The challenge is follow-through, the next idea always seems more exciting than the current one.",
       },
     },
     {
@@ -683,7 +683,7 @@ const lesson4: Lesson = {
       content: {
         type: "matching-pairs",
         instruction:
-          "Match the behavior to the correct type — Seven or its common mistype.",
+          "Match the behavior to the correct type, Seven or its common mistype.",
         pairs: [
           { left: "Energized by possibilities and experiences", right: "Type 7" },
           { left: "Energized by goals and achievements", right: "Type 3" },
@@ -727,10 +727,10 @@ const lesson4: Lesson = {
           "Two friends both seem to live exciting lives on Instagram. One posts about promotions, awards, and networking events with captions about hustle and success. The other posts about spontaneous road trips, quirky restaurants, and five different hobby attempts this month.",
         question: "Which friend is more likely the Seven?",
         options: [
-          "The first — they seem more excited about life",
-          "The second — they're chasing varied experiences, not achievements",
+          "The first, they seem more excited about life",
+          "The second, they're chasing varied experiences, not achievements",
           "Both are Sevens with different wings",
-          "Neither — Sevens don't use social media",
+          "Neither, Sevens don't use social media",
         ],
         correctIndex: 1,
         explanation:
@@ -743,11 +743,11 @@ const lesson4: Lesson = {
       content: {
         type: "scenario",
         scenario:
-          "At a dinner party, one guest dominates conversation by jumping from a travel story to a business idea to a joke to a podcast recommendation — all in five minutes. Another guest is equally talkative but keeps steering conversation toward themselves: their latest achievement, their connections, their plans for success.",
+          "At a dinner party, one guest dominates conversation by jumping from a travel story to a business idea to a joke to a podcast recommendation, all in five minutes. Another guest is equally talkative but keeps steering conversation toward themselves: their latest achievement, their connections, their plans for success.",
         question: "Which guest is the Seven?",
         options: [
-          "The first — their associative, enthusiasm-driven conversation is classic Seven",
-          "The second — their energy matches Seven's",
+          "The first, their associative, enthusiasm-driven conversation is classic Seven",
+          "The second, their energy matches Seven's",
           "Both are Sevens",
           "Neither is a Seven",
         ],
@@ -762,13 +762,13 @@ const lesson4: Lesson = {
       content: {
         type: "scenario",
         scenario:
-          "Sam and Alex both throw great parties. Sam makes sure every guest feels welcomed and personally attended to, checking in on everyone and anticipating needs. Alex fills the party with games, music, unexpected surprises, and keeps the energy high — but might not notice a wallflower in the corner.",
+          "Sam and Alex both throw great parties. Sam makes sure every guest feels welcomed and personally attended to, checking in on everyone and anticipating needs. Alex fills the party with games, music, unexpected surprises, and keeps the energy high, but might not notice a wallflower in the corner.",
         question: "Who is the Seven?",
         options: [
-          "Sam — their people skills indicate Seven",
-          "Alex — they're focused on stimulation and fun, not individual emotional needs",
-          "Both — they're just different Seven wings",
-          "Neither — Sevens prefer small gatherings",
+          "Sam, their people skills indicate Seven",
+          "Alex, they're focused on stimulation and fun, not individual emotional needs",
+          "Both, they're just different Seven wings",
+          "Neither, Sevens prefer small gatherings",
         ],
         correctIndex: 1,
         explanation:
@@ -790,7 +790,7 @@ const lesson4: Lesson = {
         ],
         correctIndex: 1,
         explanation:
-          "The most reliable Seven signal is the reframe reflex: when something painful happens, they immediately find the silver lining. This keeps them moving forward — and away from pain.",
+          "The most reliable Seven signal is the reframe reflex: when something painful happens, they immediately find the silver lining. This keeps them moving forward, and away from pain.",
       },
     },
   ],

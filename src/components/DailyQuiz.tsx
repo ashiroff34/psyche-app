@@ -62,7 +62,7 @@ export default function DailyQuiz({ questions, trackName, onComplete }: DailyQui
       setSelected(null);
       setRevealed(false);
     } else {
-      // Quiz complete — calculate final score including current question
+      // Quiz complete, calculate final score including current question
       const finalAnswers = answers;
       const finalScore = finalAnswers.filter((a) => a.correct).length;
       const baseTokens = finalScore * REWARDS.CORRECT_ANSWER;

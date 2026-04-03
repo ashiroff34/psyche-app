@@ -103,9 +103,9 @@ export default function DailyReading({ reading, onComplete, onBack, alreadyCompl
           {!unlocked && (
             <p className="text-[10px] text-slate-400 mt-1">
               {scrollPct < SCROLL_THRESHOLD
-                ? "Keep reading — scroll to the bottom"
+                ? "Keep reading, scroll to the bottom"
                 : secondsOnPage < MIN_READ_SECONDS
-                ? `Take your time — ${MIN_READ_SECONDS - secondsOnPage}s remaining`
+                ? `Take your time, ${MIN_READ_SECONDS - secondsOnPage}s remaining`
                 : "Almost there!"}
             </p>
           )}

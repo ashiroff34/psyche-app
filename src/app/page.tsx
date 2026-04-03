@@ -71,7 +71,7 @@ function useHomeState() {
       if (hasEnneagram || hasCognitive) {
         setState("dashboard");
       } else if (onboardingDone === "true") {
-        // Onboarding complete but no type set yet — prompt them to take assessment
+        // Onboarding complete but no type set yet, prompt them to take assessment
         setState("assess_prompt");
       } else {
         // In-progress onboarding
@@ -99,49 +99,51 @@ const fadeUp = {
 function HeroScreen() {
 
   return (
-    <div className="min-h-screen flex flex-col relative">
+    <div className="min-h-screen flex flex-col relative" style={{ background: "#0f0a1e" }}>
+      {/* Aurora orbs */}
+      <div className="absolute top-20 left-10 w-80 h-80 rounded-full blur-3xl pointer-events-none" style={{ background: "radial-gradient(circle, rgba(139,92,246,0.15) 0%, transparent 70%)" }} />
+      <div className="absolute top-40 right-20 w-96 h-96 rounded-full blur-3xl pointer-events-none" style={{ background: "radial-gradient(circle, rgba(79,70,229,0.12) 0%, transparent 70%)" }} />
+      <div className="absolute bottom-20 left-1/3 w-64 h-64 rounded-full blur-3xl pointer-events-none" style={{ background: "radial-gradient(circle, rgba(124,58,237,0.1) 0%, transparent 70%)" }} />
+
       {/* Hero */}
       <section className="relative overflow-hidden flex-1 flex items-center">
-        <div className="absolute inset-0 -z-10 bg-gradient-to-br from-sky-50 via-white to-indigo-50" />
-        <div className="absolute top-20 left-10 w-80 h-80 bg-sky-200/30 rounded-full blur-3xl pointer-events-none" />
-        <div className="absolute top-40 right-20 w-96 h-96 bg-indigo-200/20 rounded-full blur-3xl pointer-events-none" />
-        <div className="absolute bottom-20 left-1/3 w-64 h-64 bg-violet-200/20 rounded-full blur-3xl pointer-events-none" />
-
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-24 text-center w-full">
           <motion.div
             initial={{ opacity: 1, y: 0 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7 }}
           >
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/80 border border-sky-100 text-sky-700 text-sm font-medium mb-8 shadow-sm">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium mb-8" style={{ background: "rgba(139,92,246,0.12)", border: "1px solid rgba(139,92,246,0.25)", color: "#a78bfa" }}>
               <Sparkles className="w-4 h-4" />
               Research-based personality science
             </div>
 
-            <h1 className="text-5xl sm:text-6xl lg:text-7xl font-serif font-bold text-slate-900 leading-tight tracking-tight mb-6">
+            <h1 className="text-5xl sm:text-6xl lg:text-7xl font-serif font-bold leading-tight tracking-tight mb-6" style={{ color: "rgba(255,255,255,0.95)" }}>
               Know yourself{" "}
-              <span className="bg-gradient-to-r from-sky-500 to-indigo-500 bg-clip-text text-transparent">
+              <span style={{ background: "linear-gradient(135deg, #a78bfa, #818cf8)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>
                 completely.
               </span>
             </h1>
 
-            <p className="text-lg sm:text-xl text-slate-500 leading-relaxed mb-12 max-w-2xl mx-auto">
+            <p className="text-lg sm:text-xl leading-relaxed mb-12 max-w-2xl mx-auto" style={{ color: "rgba(255,255,255,0.55)" }}>
               The only app that maps both your Enneagram type and cognitive function
-              stack — then helps you grow.
+              stack, then helps you grow.
             </p>
 
             <div className="flex flex-col items-center justify-center gap-3 mb-6 w-full max-w-md mx-auto">
               <Link
                 href="/onboarding"
-                className="group flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-sky-500 to-indigo-500 text-white rounded-2xl font-semibold shadow-lg shadow-sky-200/60 hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300 w-full justify-center"
+                className="group flex items-center gap-2 px-8 py-4 rounded-2xl font-semibold transition-all duration-300 w-full justify-center hover:-translate-y-0.5"
+                style={{ background: "linear-gradient(135deg, #7c3aed, #4f46e5)", color: "white", boxShadow: "0 8px 32px rgba(124,58,237,0.5)" }}
               >
                 <Sparkles className="w-5 h-5" />
-                I&apos;m new here — Start for free
+                I&apos;m new here, Start for free
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </Link>
               <Link
                 href="/onboarding"
-                className="flex items-center gap-2 px-8 py-4 bg-white text-indigo-600 rounded-2xl font-semibold border-2 border-indigo-200 hover:border-indigo-400 hover:bg-indigo-50 transition-all duration-300 w-full justify-center"
+                className="flex items-center gap-2 px-8 py-4 rounded-2xl font-semibold transition-all duration-300 w-full justify-center hover:-translate-y-0.5"
+                style={{ background: "rgba(255,255,255,0.06)", color: "rgba(255,255,255,0.8)", border: "1px solid rgba(255,255,255,0.12)" }}
               >
                 <BookOpen className="w-5 h-5" />
                 Start the Tutorial
@@ -157,17 +159,18 @@ function HeroScreen() {
             className="grid grid-cols-3 gap-4 max-w-xl mx-auto mt-4"
           >
             {[
-              { label: "27 subtypes", icon: Compass, color: "text-sky-600" },
-              { label: "8 cognitive functions", icon: Brain, color: "text-indigo-600" },
-              { label: "Daily growth practice", icon: Flame, color: "text-orange-500" },
+              { label: "27 subtypes", icon: Compass, color: "#a78bfa" },
+              { label: "8 cognitive functions", icon: Brain, color: "#818cf8" },
+              { label: "Daily growth practice", icon: Flame, color: "#fb923c" },
             ].map((item) => (
               <motion.div
                 key={item.label}
                 variants={fadeUp}
-                className="flex flex-col items-center gap-2 p-4 rounded-2xl bg-white/70 backdrop-blur-sm border border-white/80 shadow-sm"
+                className="flex flex-col items-center gap-2 p-4 rounded-2xl"
+                style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.09)" }}
               >
-                <item.icon className={`w-5 h-5 ${item.color}`} />
-                <span className="text-xs font-medium text-slate-600 text-center leading-tight">{item.label}</span>
+                <item.icon className="w-5 h-5" style={{ color: item.color }} />
+                <span className="text-xs font-medium text-center leading-tight" style={{ color: "rgba(255,255,255,0.6)" }}>{item.label}</span>
               </motion.div>
             ))}
           </motion.div>
@@ -177,7 +180,8 @@ function HeroScreen() {
             initial={{ opacity: 1 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 1.2 }}
-            className="mt-16 flex flex-col items-center gap-2 text-slate-400 text-sm"
+            className="mt-16 flex flex-col items-center gap-2 text-sm"
+            style={{ color: "rgba(255,255,255,0.3)" }}
           >
             <span>See how it works</span>
             <ChevronDown className="w-4 h-4 animate-bounce" />
@@ -186,13 +190,13 @@ function HeroScreen() {
       </section>
 
       {/* Below the fold: feature previews */}
-      <section className="py-20 bg-white">
+      <section className="py-20" style={{ background: "rgba(255,255,255,0.02)", borderTop: "1px solid rgba(255,255,255,0.06)" }}>
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-2xl sm:text-3xl font-serif font-bold text-slate-900 mb-3">
+            <h2 className="text-2xl sm:text-3xl font-serif font-bold mb-3" style={{ color: "rgba(255,255,255,0.93)" }}>
               Everything in one place
             </h2>
-            <p className="text-slate-500">Start free. Go as deep as you want.</p>
+            <p style={{ color: "rgba(255,255,255,0.5)" }}>Start free. Go as deep as you want.</p>
           </div>
 
           <motion.div
@@ -203,77 +207,30 @@ function HeroScreen() {
             className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4"
           >
             {[
-              {
-                icon: Compass,
-                title: "Enneagram",
-                desc: "9 types, 27 subtypes, tritypes, and clinical frameworks.",
-                href: "/onboarding",
-                color: "bg-sky-50",
-                iconColor: "text-sky-600",
-                badge: "Free",
-              },
-              {
-                icon: Brain,
-                title: "Cognitive Functions",
-                desc: "Jung's 8 functions, Beebe's shadow model, your full stack.",
-                href: "/onboarding",
-                color: "bg-indigo-50",
-                iconColor: "text-indigo-600",
-                badge: "Free",
-              },
-              {
-                icon: Flame,
-                title: "Daily Practice",
-                desc: "Personalized quizzes, insights, and streak tracking.",
-                href: "/onboarding",
-                color: "bg-orange-50",
-                iconColor: "text-orange-500",
-                badge: "Free",
-              },
-              {
-                icon: Gamepad2,
-                title: "Game",
-                desc: "XP, levels, and challenges based on your type.",
-                href: "/onboarding",
-                color: "bg-emerald-50",
-                iconColor: "text-emerald-600",
-                badge: "Free",
-              },
-              {
-                icon: Cat,
-                title: "Avatar & Pet",
-                desc: "A companion that grows alongside you.",
-                href: "/onboarding",
-                color: "bg-violet-50",
-                iconColor: "text-violet-600",
-                badge: "Free",
-              },
-              {
-                icon: Beaker,
-                title: "Inner Work",
-                desc: "Shadow dialogue, reframing, and pattern tracking.",
-                href: "/onboarding",
-                color: "bg-rose-50",
-                iconColor: "text-rose-600",
-                badge: "Free",
-              },
+              { icon: Compass, title: "Enneagram", desc: "9 types, 27 subtypes, tritypes, and clinical frameworks.", iconColor: "#a78bfa", badge: "Free" },
+              { icon: Brain, title: "Cognitive Functions", desc: "Jung's 8 functions, Beebe's shadow model, your full stack.", iconColor: "#818cf8", badge: "Free" },
+              { icon: Flame, title: "Daily Practice", desc: "Personalized quizzes, insights, and streak tracking.", iconColor: "#fb923c", badge: "Free" },
+              { icon: Gamepad2, title: "Game", desc: "XP, levels, and challenges based on your type.", iconColor: "#34d399", badge: "Free" },
+              { icon: Cat, title: "Avatar & Pet", desc: "A companion that grows alongside you.", iconColor: "#c084fc", badge: "Free" },
+              { icon: Beaker, title: "Inner Work", desc: "Shadow dialogue, reframing, and pattern tracking.", iconColor: "#f87171", badge: "Free" },
             ].map((item) => (
               <motion.div key={item.title} variants={fadeUp}>
                 <Link
                   href="/onboarding"
-                  className="group block p-6 rounded-2xl bg-white border border-slate-100 hover:border-slate-200 hover:shadow-md transition-all"
+                  className="group block p-6 rounded-2xl transition-all hover:-translate-y-0.5"
+                  style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)" }}
                 >
-                  <div className={`w-10 h-10 rounded-xl ${item.color} flex items-center justify-center mb-4`}>
-                    <item.icon className={`w-5 h-5 ${item.iconColor}`} />
+                  <div className="w-10 h-10 rounded-xl flex items-center justify-center mb-4" style={{ background: "rgba(255,255,255,0.06)" }}>
+                    <item.icon className="w-5 h-5" style={{ color: item.iconColor }} />
                   </div>
                   <div className="flex items-start justify-between mb-2">
-                    <h3 className="font-serif font-semibold text-slate-800">{item.title}</h3>
-                    <span className="text-[10px] font-medium px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-600 border border-emerald-100">
+                    <h3 className="font-serif font-semibold" style={{ color: "rgba(255,255,255,0.88)" }}>{item.title}</h3>
+                    <span className="text-[10px] font-medium px-2 py-0.5 rounded-full" style={{ background: "rgba(52,211,153,0.12)", color: "#34d399", border: "1px solid rgba(52,211,153,0.2)" }}>
                       {item.badge}
                     </span>
                   </div>
-                  <p className="text-sm text-slate-500 leading-relaxed">{item.desc}</p>
-                  <div className="flex items-center gap-1 text-xs font-medium text-sky-500 mt-4 group-hover:gap-2 transition-all">
+                  <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.5)" }}>{item.desc}</p>
+                  <div className="flex items-center gap-1 text-xs font-medium mt-4 group-hover:gap-2 transition-all" style={{ color: "#a78bfa" }}>
                     Explore <ArrowRight className="w-3 h-3" />
                   </div>
                 </Link>
@@ -284,46 +241,28 @@ function HeroScreen() {
       </section>
 
       {/* How It Works */}
-      <section className="py-20 bg-gradient-to-br from-slate-50 to-white">
+      <section className="py-20" style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}>
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-2xl sm:text-3xl font-serif font-bold text-slate-900 mb-3">
+            <h2 className="text-2xl sm:text-3xl font-serif font-bold mb-3" style={{ color: "rgba(255,255,255,0.93)" }}>
               How it works
             </h2>
-            <p className="text-slate-500 text-sm max-w-sm mx-auto">Three steps to genuine self-knowledge.</p>
+            <p className="text-sm max-w-sm mx-auto" style={{ color: "rgba(255,255,255,0.5)" }}>Three steps to genuine self-knowledge.</p>
           </div>
           <div className="grid sm:grid-cols-3 gap-6">
             {[
-              {
-                step: "01",
-                title: "Discover your type",
-                desc: "Take our Enneagram and cognitive function assessments — both grounded in clinical frameworks, not surface behaviors.",
-                color: "from-sky-400 to-sky-500",
-                href: "/onboarding",
-              },
-              {
-                step: "02",
-                title: "Go deeper",
-                desc: "Explore your subtypes, shadow functions, tritypes, and what they mean for your actual life — work, love, stress, growth.",
-                color: "from-indigo-400 to-violet-500",
-                href: "/onboarding",
-              },
-              {
-                step: "03",
-                title: "Practice daily",
-                desc: "Type-personalized quizzes, growth challenges, and a living profile that reflects where you actually are.",
-                color: "from-violet-400 to-purple-500",
-                href: "/onboarding",
-              },
-            ].map((item, i) => (
+              { step: "01", title: "Discover your type", desc: "Take our Enneagram and cognitive function assessments, both grounded in clinical frameworks, not surface behaviors.", color: "from-violet-500 to-indigo-600" },
+              { step: "02", title: "Go deeper", desc: "Explore your subtypes, shadow functions, tritypes, and what they mean for your actual life, work, love, stress, growth.", color: "from-indigo-500 to-violet-600" },
+              { step: "03", title: "Practice daily", desc: "Type-personalized quizzes, growth challenges, and a living profile that reflects where you actually are.", color: "from-violet-600 to-purple-700" },
+            ].map((item) => (
               <div key={item.step}>
-                <Link href="/onboarding" className="group block p-6 rounded-2xl bg-white border border-slate-100 hover:border-sky-200 hover:shadow-lg transition-all h-full">
+                <Link href="/onboarding" className="group block p-6 rounded-2xl transition-all hover:-translate-y-0.5 h-full" style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)" }}>
                   <div className={`w-10 h-10 rounded-xl bg-gradient-to-br ${item.color} flex items-center justify-center mb-4 shadow-sm`}>
                     <span className="text-white font-mono font-bold text-sm">{item.step}</span>
                   </div>
-                  <h3 className="font-serif font-semibold text-slate-800 mb-2">{item.title}</h3>
-                  <p className="text-sm text-slate-500 leading-relaxed">{item.desc}</p>
-                  <div className="flex items-center gap-1 text-xs font-medium text-sky-500 mt-4 group-hover:gap-2 transition-all">
+                  <h3 className="font-serif font-semibold mb-2" style={{ color: "rgba(255,255,255,0.88)" }}>{item.title}</h3>
+                  <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.5)" }}>{item.desc}</p>
+                  <div className="flex items-center gap-1 text-xs font-medium mt-4 group-hover:gap-2 transition-all" style={{ color: "#a78bfa" }}>
                     Get started <ArrowRight className="w-3 h-3" />
                   </div>
                 </Link>
@@ -334,15 +273,15 @@ function HeroScreen() {
       </section>
 
       {/* Footer */}
-      <footer className="py-10 border-t border-slate-100">
+      <footer className="py-10" style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}>
         <div className="max-w-4xl mx-auto px-4 text-center">
           <div className="flex items-center justify-center gap-2 mb-3">
-            <div className="w-6 h-6 rounded-lg bg-gradient-to-br from-sky-400 to-indigo-500 flex items-center justify-center">
+            <div className="w-6 h-6 rounded-lg bg-gradient-to-br from-violet-500 to-indigo-600 flex items-center justify-center">
               <OuroborosLogo size={14} />
             </div>
-            <span className="font-serif font-semibold text-slate-700">Thyself</span>
+            <span className="font-serif font-semibold" style={{ color: "rgba(255,255,255,0.7)" }}>Thyself</span>
           </div>
-          <p className="text-xs text-slate-400">
+          <p className="text-xs" style={{ color: "rgba(255,255,255,0.3)" }}>
             Built on Carl Jung&apos;s Psychological Types, Naranjo&apos;s clinical Enneagram, Beatrice Chestnut&apos;s subtypes, and Beebe&apos;s archetypal model.
           </p>
         </div>
@@ -356,22 +295,23 @@ function HeroScreen() {
 function AssessPromptScreen({ profile }: { profile: Record<string, any> }) {
   const name = profile.displayName;
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-sky-50 via-white to-indigo-50 px-4">
+    <div className="min-h-screen flex items-center justify-center px-4" style={{ background: "#0f0a1e" }}>
       <div className="w-full max-w-md">
-        <div className="bg-white/90 backdrop-blur-sm rounded-3xl border border-slate-100 shadow-xl p-8 text-center">
-          <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-sky-400 to-indigo-500 flex items-center justify-center mx-auto mb-6 shadow-lg shadow-sky-200/50">
+        <div className="rounded-3xl p-8 text-center" style={{ background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.09)" }}>
+          <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-violet-500 to-indigo-600 flex items-center justify-center mx-auto mb-6 shadow-lg" style={{ boxShadow: "0 8px 32px rgba(139,92,246,0.35)" }}>
             <OuroborosLogo size={32} />
           </div>
-          <h2 className="text-2xl font-serif font-bold text-slate-900 mb-2">
+          <h2 className="text-2xl font-serif font-bold mb-2" style={{ color: "rgba(255,255,255,0.93)" }}>
             Ready to discover your type{name ? `, ${name}` : ""}?
           </h2>
-          <p className="text-slate-500 text-sm mb-8">
+          <p className="text-sm mb-8" style={{ color: "rgba(255,255,255,0.55)" }}>
             You&apos;ve completed the intro. Now take the assessment to map your Enneagram type and cognitive function stack.
           </p>
           <div className="flex flex-col gap-3">
             <Link
               href="/enneagram/assess"
-              className="flex items-center justify-center gap-2 w-full px-6 py-4 bg-gradient-to-r from-sky-500 to-indigo-500 text-white rounded-2xl font-semibold shadow-lg shadow-sky-200/40 hover:shadow-xl hover:-translate-y-0.5 transition-all"
+              className="flex items-center justify-center gap-2 w-full px-6 py-4 rounded-2xl font-semibold transition-all hover:-translate-y-0.5"
+              style={{ background: "linear-gradient(135deg, #7c3aed, #4f46e5)", color: "white", boxShadow: "0 8px 24px rgba(124,58,237,0.4)" }}
             >
               <Compass className="w-5 h-5" />
               Enneagram Assessment
@@ -379,7 +319,8 @@ function AssessPromptScreen({ profile }: { profile: Record<string, any> }) {
             </Link>
             <Link
               href="/cognitive/assess"
-              className="flex items-center justify-center gap-2 w-full px-6 py-4 bg-white border-2 border-slate-100 text-indigo-700 rounded-2xl font-semibold hover:border-indigo-200 hover:bg-indigo-50 transition-all"
+              className="flex items-center justify-center gap-2 w-full px-6 py-4 rounded-2xl font-semibold transition-all hover:-translate-y-0.5"
+              style={{ background: "rgba(255,255,255,0.07)", color: "rgba(255,255,255,0.8)", border: "1px solid rgba(255,255,255,0.12)" }}
             >
               <Brain className="w-5 h-5" />
               Cognitive Assessment
@@ -400,55 +341,58 @@ function OnboardingResumeScreen({ profile }: { profile: Record<string, any> }) {
   const step = Math.min(rawStep, totalSteps);
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-sky-50 via-white to-indigo-50 px-4">
+    <div className="min-h-screen flex items-center justify-center px-4" style={{ background: "#0f0a1e" }}>
       <div className="w-full max-w-md">
-        <div className="bg-white/90 backdrop-blur-sm rounded-3xl border border-slate-100 shadow-xl p-8 text-center">
-          <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-sky-400 to-indigo-500 flex items-center justify-center mx-auto mb-6 shadow-lg shadow-sky-200/50">
+        <div className="rounded-3xl p-8 text-center" style={{ background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.09)" }}>
+          <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-violet-500 to-indigo-600 flex items-center justify-center mx-auto mb-6 shadow-lg" style={{ boxShadow: "0 8px 32px rgba(139,92,246,0.35)" }}>
             <OuroborosLogo size={32} />
           </div>
 
-          <h2 className="text-2xl font-serif font-bold text-slate-900 mb-2">
+          <h2 className="text-2xl font-serif font-bold mb-2" style={{ color: "rgba(255,255,255,0.93)" }}>
             Welcome back{name ? `, ${name}` : ""}!
           </h2>
-          <p className="text-slate-500 text-sm mb-6">
+          <p className="text-sm mb-6" style={{ color: "rgba(255,255,255,0.55)" }}>
             Ready to discover your type? You&apos;re almost there.
           </p>
 
           {/* Progress bar */}
           <div className="mb-6">
-            <div className="flex items-center justify-between text-xs text-slate-400 mb-2">
+            <div className="flex items-center justify-between text-xs mb-2" style={{ color: "rgba(255,255,255,0.4)" }}>
               <span>Step {step} of {totalSteps}</span>
               <span>{Math.round((step / totalSteps) * 100)}% complete</span>
             </div>
-            <div className="h-2 bg-slate-100 rounded-full overflow-hidden">
+            <div className="h-2 rounded-full overflow-hidden" style={{ background: "rgba(255,255,255,0.08)" }}>
               <div
-                style={{ width: `${(step / totalSteps) * 100}%` }}
-                className="h-full bg-gradient-to-r from-sky-400 to-indigo-500 rounded-full transition-all duration-700"
+                style={{ width: `${(step / totalSteps) * 100}%`, background: "linear-gradient(90deg, #7c3aed, #4f46e5)" }}
+                className="h-full rounded-full transition-all duration-700"
               />
             </div>
           </div>
 
           <Link
             href="/onboarding"
-            className="flex items-center justify-center gap-2 w-full px-6 py-4 bg-gradient-to-r from-sky-500 to-indigo-500 text-white rounded-2xl font-semibold shadow-lg shadow-sky-200/40 hover:shadow-xl hover:-translate-y-0.5 transition-all mb-6"
+            className="flex items-center justify-center gap-2 w-full px-6 py-4 rounded-2xl font-semibold transition-all hover:-translate-y-0.5 mb-6"
+            style={{ background: "linear-gradient(135deg, #7c3aed, #4f46e5)", color: "white", boxShadow: "0 8px 24px rgba(124,58,237,0.4)" }}
           >
             Continue
             <ArrowRight className="w-4 h-4" />
           </Link>
 
-          <div className="border-t border-slate-100 pt-5">
-            <p className="text-xs text-slate-400 mb-3">Or jump straight to:</p>
+          <div className="pt-5" style={{ borderTop: "1px solid rgba(255,255,255,0.09)" }}>
+            <p className="text-xs mb-3" style={{ color: "rgba(255,255,255,0.4)" }}>Or jump straight to:</p>
             <div className="flex gap-3 justify-center">
               <Link
                 href="/enneagram/assess"
-                className="flex items-center gap-2 px-4 py-2.5 bg-sky-50 text-sky-700 rounded-xl text-sm font-medium hover:bg-sky-100 transition-all"
+                className="flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium transition-all hover:-translate-y-0.5"
+                style={{ background: "rgba(124,58,237,0.15)", color: "#a78bfa", border: "1px solid rgba(124,58,237,0.25)" }}
               >
                 <Compass className="w-4 h-4" />
                 Enneagram Assessment
               </Link>
               <Link
                 href="/cognitive/assess"
-                className="flex items-center gap-2 px-4 py-2.5 bg-indigo-50 text-indigo-700 rounded-xl text-sm font-medium hover:bg-indigo-100 transition-all"
+                className="flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium transition-all hover:-translate-y-0.5"
+                style={{ background: "rgba(79,70,229,0.15)", color: "#818cf8", border: "1px solid rgba(79,70,229,0.25)" }}
               >
                 <Brain className="w-4 h-4" />
                 Cognitive Assessment
@@ -630,7 +574,7 @@ function DashboardScreen({
               &ldquo;{insight.quote}&rdquo;
             </blockquote>
             <p className="text-xs font-medium text-slate-500 mb-3">
-              — {insight.author}
+             , {insight.author}
             </p>
             <p className="text-sm text-slate-500 leading-relaxed">
               {insight.reflection}
@@ -746,7 +690,7 @@ export default function HomePage() {
   const { state, profile, gameState, dailyProgress } = useHomeState();
   const router = useRouter();
 
-  // No auto-redirect — Home tab shows its own dashboard with chibi greeting.
+  // No auto-redirect, Home tab shows its own dashboard with chibi greeting.
 
   const touchStartX = useRef(0);
   const touchStartY = useRef(0);
@@ -760,7 +704,7 @@ export default function HomePage() {
     const deltaY = e.changedTouches[0].clientY - touchStartY.current;
     if (Math.abs(deltaX) < 80 || Math.abs(deltaX) < Math.abs(deltaY)) return;
     if (deltaX < 0) router.push("/daily");
-    // swipe right on home — no previous tab
+    // swipe right on home, no previous tab
   };
 
   if (state === "loading") {
@@ -777,7 +721,7 @@ export default function HomePage() {
     );
   }
 
-  if (state === "new") return <div onTouchStart={onTouchStart} onTouchEnd={onTouchEnd} className="fixed inset-0 z-[100] overflow-y-auto bg-white"><HeroScreen /></div>;
+  if (state === "new") return <div onTouchStart={onTouchStart} onTouchEnd={onTouchEnd} className="fixed inset-0 z-[100] overflow-y-auto" style={{ background: "#0f0a1e" }}><HeroScreen /></div>;
   if (state === "onboarding") return <div onTouchStart={onTouchStart} onTouchEnd={onTouchEnd}><OnboardingResumeScreen profile={profile} /></div>;
   if (state === "assess_prompt") return <div onTouchStart={onTouchStart} onTouchEnd={onTouchEnd}><AssessPromptScreen profile={profile} /></div>;
   return <div onTouchStart={onTouchStart} onTouchEnd={onTouchEnd}><DashboardScreen profile={profile} gameState={gameState} dailyProgress={dailyProgress} /></div>;

@@ -33,7 +33,7 @@ export default function PersonalityPathPage() {
           <ArrowLeft className="w-4 h-4" /> Back
         </button>
         <h1 className="text-2xl font-serif font-bold text-slate-900 mb-1">Adaptive Narrowing</h1>
-        <p className="text-sm text-slate-400 mb-2">Progressive questions that narrow down your type — starts broad, gets specific.</p>
+        <p className="text-sm text-slate-400 mb-2">Progressive questions that narrow down your type, starts broad, gets specific.</p>
       </div>
       <AdaptiveAssessment
         rounds={adaptiveRounds}

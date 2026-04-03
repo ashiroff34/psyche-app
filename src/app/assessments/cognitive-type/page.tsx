@@ -60,7 +60,7 @@ export default function CognitiveTypePage() {
           <ArrowLeft className="w-4 h-4" /> Back
         </button>
         <h1 className="text-2xl font-serif font-bold text-slate-900 mb-1">Cognitive Functions Assessment</h1>
-        <p className="text-sm text-slate-400 mb-2">Advanced cognitive analysis — {items.length} items assessing all 8 cognitive functions individually.</p>
+        <p className="text-sm text-slate-400 mb-2">Advanced cognitive analysis, {items.length} items assessing all 8 cognitive functions individually.</p>
       </div>
       <LikertAssessment
         title="Cognitive Functions"

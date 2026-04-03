@@ -6,7 +6,7 @@ import { ArrowRight, ChevronLeft, Layers, Compass, Zap, Brain, Map } from "lucid
 import Image from "next/image";
 
 // ─────────────────────────────────────────────────────────────────────────────
-// OnboardingOverlay — shown exactly once on first visit.
+// OnboardingOverlay, shown exactly once on first visit.
 // No emojis. Clean icons + chibi mascot. Dark gradient theme.
 // ─────────────────────────────────────────────────────────────────────────────
 
@@ -47,14 +47,14 @@ const SLIDES: Slide[] = [
   {
     tag: "Welcome",
     title: "This isn't a vibe quiz",
-    body: "Thyself is built on the two deepest personality frameworks ever developed — the Enneagram and Jungian cognitive functions. Real science. Real self-knowledge.",
+    body: "Thyself is built on the two deepest personality frameworks ever developed, the Enneagram and Jungian cognitive functions. Real science. Real self-knowledge.",
     highlight: "deepest personality frameworks",
     visual: "none",
   },
   {
     tag: "The Enneagram",
     title: "Nine core motivations",
-    body: "9 types. Each driven by a different core fear and desire that shapes everything you do. The Enneagram asks WHY you do things — not just what.",
+    body: "9 types. Each driven by a different core fear and desire that shapes everything you do. The Enneagram asks WHY you do things, not just what.",
     highlight: "core fear and desire",
     visual: "centers",
   },
@@ -68,7 +68,7 @@ const SLIDES: Slide[] = [
   {
     tag: "Cognitive Functions",
     title: "How your mind processes",
-    body: "Carl Jung described 8 mental processes we all use — but in different orders. Your dominant function feels effortless. Your inferior is your blind spot.",
+    body: "Carl Jung described 8 mental processes we all use, but in different orders. Your dominant function feels effortless. Your inferior is your blind spot.",
     highlight: "dominant and inferior",
     visual: "functions",
   },

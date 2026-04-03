@@ -28,7 +28,7 @@ import { useProfile } from "@/hooks/useProfile";
 import NextStepBanner from "@/components/NextStepBanner";
 
 /* ───────────────────────────────────────────
-   Knowledge Check Quizzes — earn XP for learning!
+   Knowledge Check Quizzes, earn XP for learning!
    ─────────────────────────────────────────── */
 
 interface QuizQuestion {
@@ -41,14 +41,14 @@ interface QuizQuestion {
 const enneagramHistoryQuiz: QuizQuestion[] = [
   { question: "Who brought the Enneagram to mainstream psychology in the 1970s?", options: ["Oscar Ichazo", "Claudio Naranjo", "Helen Palmer", "George Gurdjieff"], correct: 1, explanation: "Claudio Naranjo brought the Enneagram from Ichazo's Arica School to Esalen Institute in California, connecting it to clinical psychology." },
   { question: "What are the 9 Levels of Development?", options: ["Oscar Ichazo's framework", "Riso and Hudson's framework", "Naranjo's passions system", "Chestnut's subtype model"], correct: 1, explanation: "Don Riso and Russ Hudson developed the 9 Levels of Development, describing a spectrum from healthy to unhealthy for each type." },
-  { question: "How many subtypes did Beatrice Chestnut describe in detail?", options: ["9", "18", "27", "36"], correct: 2, explanation: "Chestnut described 27 subtypes — 3 instinctual variants (sp, sx, so) for each of the 9 types." },
+  { question: "How many subtypes did Beatrice Chestnut describe in detail?", options: ["9", "18", "27", "36"], correct: 2, explanation: "Chestnut described 27 subtypes, 3 instinctual variants (sp, sx, so) for each of the 9 types." },
   { question: "What did Oscar Ichazo contribute to the Enneagram?", options: ["The geometric symbol", "Holy Ideas, fixations, and virtues", "The Levels of Development", "The 27 subtypes"], correct: 1, explanation: "Ichazo developed the Holy Ideas, fixations, virtues, and the mapping of passions to the nine points at his Arica School." },
 ];
 
 const jungHistoryQuiz: QuizQuestion[] = [
   { question: "When did Jung publish Psychological Types?", options: ["1905", "1913", "1921", "1943"], correct: 2, explanation: "Carl Jung published Psychological Types in 1921, introducing the 8 cognitive functions that form the basis of the type system." },
   { question: "Who developed the 8-function shadow model with archetypal positions?", options: ["Carl Jung", "Isabel Myers", "John Beebe", "Dario Nardi"], correct: 2, explanation: "John Beebe extended Jung's model by assigning archetypal roles (Hero, Parent, Child, Anima, Nemesis, Critical Parent, Trickster, Demon) to all 8 functions." },
-  { question: "What does 16Personalities actually measure?", options: ["Jung's cognitive functions", "Big Five personality traits", "Enneagram types", "Beebe archetypes"], correct: 1, explanation: "Despite using MBTI-like labels, 16Personalities actually measures Big Five personality traits (OCEAN) — it does not assess cognitive functions." },
+  { question: "What does 16Personalities actually measure?", options: ["Jung's cognitive functions", "Big Five personality traits", "Enneagram types", "Beebe archetypes"], correct: 1, explanation: "Despite using MBTI-like labels, 16Personalities actually measures Big Five personality traits (OCEAN), it does not assess cognitive functions." },
   { question: "What did Dario Nardi contribute to the field?", options: ["The MBTI instrument", "EEG brain pattern research on cognitive functions", "The 8-function model", "The inferior function concept"], correct: 1, explanation: "Dario Nardi used EEG technology to study how different cognitive function preferences correlate with distinct brain activation patterns." },
 ];
 
@@ -97,7 +97,7 @@ function KnowledgeCheck({ quiz, sectionName }: { quiz: QuizQuestion[]; sectionNa
           </div>
           <div>
             <h3 className="text-base font-serif font-bold" style={{ color: "rgba(255,255,255,0.93)" }}>Knowledge Check</h3>
-            <p className="text-xs" style={{ color: "rgba(255,255,255,0.5)" }}>Test what you&apos;ve learned — earn up to {quiz.length * 25} XP!</p>
+            <p className="text-xs" style={{ color: "rgba(255,255,255,0.5)" }}>Test what you&apos;ve learned, earn up to {quiz.length * 25} XP!</p>
           </div>
         </div>
         <motion.button
@@ -127,7 +127,7 @@ function KnowledgeCheck({ quiz, sectionName }: { quiz: QuizQuestion[]; sectionNa
         <h3 className="text-xl font-serif font-bold mb-1" style={{ color: "rgba(255,255,255,0.93)" }}>
           {perfect ? "Perfect Score!" : score >= quiz.length / 2 ? "Nice work!" : "Keep learning!"}
         </h3>
-        <p className="text-sm mb-2" style={{ color: "rgba(255,255,255,0.6)" }}>{score}/{quiz.length} correct — earned {score * 25} XP</p>
+        <p className="text-sm mb-2" style={{ color: "rgba(255,255,255,0.6)" }}>{score}/{quiz.length} correct, earned {score * 25} XP</p>
         <div className="flex justify-center gap-1.5 mt-3">
           {quiz.map((_, i) => (
             <div key={i} className={`w-3 h-3 rounded-full ${i < score ? "bg-emerald-400" : "bg-white/10"}`} />
@@ -192,7 +192,7 @@ function KnowledgeCheck({ quiz, sectionName }: { quiz: QuizQuestion[]; sectionNa
 }
 
 /* ───────────────────────────────────────────
-   DATA — Enneagram Timeline
+   DATA, Enneagram Timeline
    ─────────────────────────────────────────── */
 
 interface TimelineNode {
@@ -214,7 +214,7 @@ const enneagramTimeline: TimelineNode[] = [
   {
     id: "ancient",
     era: "Ancient Roots",
-    year: "c. 300 BCE — 900 CE",
+    year: "c. 300 BCE, 900 CE",
     title: "Geometric & Mystical Origins",
     initials: "SR",
     color: "#8B6914",
@@ -232,7 +232,7 @@ const enneagramTimeline: TimelineNode[] = [
   {
     id: "gurdjieff",
     era: "Early Modern",
-    year: "1910s — 1940s",
+    year: "1910s, 1940s",
     title: "G.I. Gurdjieff",
     initials: "GG",
     color: "#6B4C9A",
@@ -244,7 +244,7 @@ const enneagramTimeline: TimelineNode[] = [
     quoteAttribution: "G.I. Gurdjieff",
     books: [
       "Beelzebub's Tales to His Grandson (1950)",
-      "P.D. Ouspensky — In Search of the Miraculous (1949)",
+      "P.D. Ouspensky, In Search of the Miraculous (1949)",
     ],
     contributions: [
       "Introduced the Enneagram symbol to the Western world",
@@ -256,7 +256,7 @@ const enneagramTimeline: TimelineNode[] = [
   {
     id: "ichazo",
     era: "Modern Foundation",
-    year: "1950s — 1970s",
+    year: "1950s, 1970s",
     title: "Oscar Ichazo",
     initials: "OI",
     color: "#2563EB",
@@ -272,7 +272,7 @@ const enneagramTimeline: TimelineNode[] = [
       "Between Metaphysics and Protoanalysis (1982)",
     ],
     contributions: [
-      "Created the Enneagram of Personality — mapped ego types to the nine-pointed symbol",
+      "Created the Enneagram of Personality, mapped ego types to the nine-pointed symbol",
       "Defined the nine Holy Ideas (higher cognitive states)",
       "Defined the nine Passions (emotional fixations) and nine Fixations (cognitive distortions)",
       "Established the nine Virtues as paths of liberation from ego",
@@ -282,7 +282,7 @@ const enneagramTimeline: TimelineNode[] = [
   {
     id: "naranjo",
     era: "Clinical Integration",
-    year: "1970s — 2000s",
+    year: "1970s, 2000s",
     title: "Claudio Naranjo",
     initials: "CN",
     color: "#059669",
@@ -309,7 +309,7 @@ const enneagramTimeline: TimelineNode[] = [
   {
     id: "palmer",
     era: "Mainstream Emergence",
-    year: "1980s — 1990s",
+    year: "1980s, 1990s",
     title: "Helen Palmer",
     initials: "HP",
     color: "#7C3AED",
@@ -325,7 +325,7 @@ const enneagramTimeline: TimelineNode[] = [
       "The Enneagram in Love and Work (1995)",
     ],
     contributions: [
-      "Created the Narrative Tradition — learning types through first-person panel interviews",
+      "Created the Narrative Tradition, learning types through first-person panel interviews",
       "Brought the Enneagram to mainstream audiences and bestseller lists",
       "Co-founded the Enneagram Professional Training Program with David Daniels",
       "Taught at Stanford University, validating the system in academic settings",
@@ -334,14 +334,14 @@ const enneagramTimeline: TimelineNode[] = [
   {
     id: "riso-hudson",
     era: "Systematic Framework",
-    year: "1990s — 2010s",
+    year: "1990s, 2010s",
     title: "Don Riso & Russ Hudson",
     initials: "RH",
     color: "#DC2626",
     summary:
-      "Created the Levels of Development — nine levels of health per type — and built the most systematic modern Enneagram framework.",
+      "Created the Levels of Development, nine levels of health per type, and built the most systematic modern Enneagram framework.",
     details:
-      "Don Richard Riso (1946-2012) and Russ Hudson (born 1960) together created the most comprehensive and systematic modern Enneagram framework. Their signature contribution is the Levels of Development: nine distinct levels of psychological health for each type, ranging from Level 1 (healthiest, most liberated) to Level 9 (most destructive, most fixated). This framework solved a major problem in Enneagram theory — the fact that two people of the same type can look radically different depending on their level of health. Riso and Hudson also developed the Riso-Hudson Enneagram Type Indicator (RHETI), one of the most validated Enneagram assessment instruments, and co-founded The Enneagram Institute. Their detailed type descriptions remain the standard reference for many practitioners.",
+      "Don Richard Riso (1946-2012) and Russ Hudson (born 1960) together created the most comprehensive and systematic modern Enneagram framework. Their signature contribution is the Levels of Development: nine distinct levels of psychological health for each type, ranging from Level 1 (healthiest, most liberated) to Level 9 (most destructive, most fixated). This framework solved a major problem in Enneagram theory, the fact that two people of the same type can look radically different depending on their level of health. Riso and Hudson also developed the Riso-Hudson Enneagram Type Indicator (RHETI), one of the most validated Enneagram assessment instruments, and co-founded The Enneagram Institute. Their detailed type descriptions remain the standard reference for many practitioners.",
     quote:
       "Personality is not a fixed entity but a dynamic process that shifts along a continuum of health.",
     quoteAttribution: "Don Riso & Russ Hudson",
@@ -352,7 +352,7 @@ const enneagramTimeline: TimelineNode[] = [
     ],
     contributions: [
       "Created the 9 Levels of Development for each type (healthy, average, unhealthy)",
-      "Developed the RHETI — Riso-Hudson Enneagram Type Indicator",
+      "Developed the RHETI, Riso-Hudson Enneagram Type Indicator",
       "Co-founded The Enneagram Institute",
       "Wrote the most detailed and systematic type descriptions available",
       "Integrated growth/stress lines (integration/disintegration arrows) with Levels",
@@ -361,7 +361,7 @@ const enneagramTimeline: TimelineNode[] = [
   {
     id: "chestnut",
     era: "Subtypes & Clinical Depth",
-    year: "2000s — Present",
+    year: "2000s, Present",
     title: "Beatrice Chestnut",
     initials: "BC",
     color: "#EA580C",
@@ -378,7 +378,7 @@ const enneagramTimeline: TimelineNode[] = [
     ],
     contributions: [
       "Definitive descriptions of all 27 subtypes (9 types x 3 instincts)",
-      "Clarified counter-types — the subtype that looks least like the core type",
+      "Clarified counter-types, the subtype that looks least like the core type",
       "Clinical applications of Enneagram subtypes in psychotherapy",
       "Studied directly with Naranjo, preserving the clinical tradition",
       "Made instinctual variant theory accessible and practically useful",
@@ -387,7 +387,7 @@ const enneagramTimeline: TimelineNode[] = [
 ];
 
 /* ───────────────────────────────────────────
-   DATA — Jung & Cognitive Functions Timeline
+   DATA, Jung & Cognitive Functions Timeline
    ─────────────────────────────────────────── */
 
 interface JungNode {
@@ -409,14 +409,14 @@ const jungTimeline: JungNode[] = [
   {
     id: "jung-early",
     era: "The Beginning",
-    year: "1875 — 1912",
+    year: "1875, 1912",
     title: "Carl Jung: Early Life & Freud",
     initials: "CJ",
     color: "#1E3A5F",
     summary:
-      "From Swiss psychiatrist to Freud's heir apparent — and the rupture that changed psychology.",
+      "From Swiss psychiatrist to Freud's heir apparent, and the rupture that changed psychology.",
     details:
-      "Carl Gustav Jung (1875-1961) was born in Kesswil, Switzerland to a pastor father and a mother with mediumistic experiences. He studied medicine at the University of Basel and became a psychiatrist at the Burgholzli clinic in Zurich under Eugen Bleuler. In 1906 he began a correspondence with Sigmund Freud, and for several years was seen as Freud's chosen successor — even serving as the first president of the International Psychoanalytic Association. However, fundamental theoretical disagreements emerged. Jung rejected Freud's insistence that all neurosis stemmed from repressed sexuality, arguing instead for a broader conception of psychic energy (libido) and the role of spiritual and archetypal dimensions of the psyche. Their painful break in 1912-1913 precipitated Jung's period of intense introspection documented in The Red Book, and ultimately led to his development of analytical psychology as a distinct school.",
+      "Carl Gustav Jung (1875-1961) was born in Kesswil, Switzerland to a pastor father and a mother with mediumistic experiences. He studied medicine at the University of Basel and became a psychiatrist at the Burgholzli clinic in Zurich under Eugen Bleuler. In 1906 he began a correspondence with Sigmund Freud, and for several years was seen as Freud's chosen successor, even serving as the first president of the International Psychoanalytic Association. However, fundamental theoretical disagreements emerged. Jung rejected Freud's insistence that all neurosis stemmed from repressed sexuality, arguing instead for a broader conception of psychic energy (libido) and the role of spiritual and archetypal dimensions of the psyche. Their painful break in 1912-1913 precipitated Jung's period of intense introspection documented in The Red Book, and ultimately led to his development of analytical psychology as a distinct school.",
     quote:
       "The meeting of two personalities is like the contact of two chemical substances: if there is any reaction, both are transformed.",
     quoteAttribution: "Carl Jung",
@@ -441,12 +441,12 @@ const jungTimeline: JungNode[] = [
     summary:
       "Jung's masterwork defining the 8 cognitive functions: the theoretical foundation for everything that follows.",
     details:
-      "Psychological Types (Psychologische Typen) published in 1921 is Jung's foundational theoretical work and the origin of the cognitive function framework. In it, Jung proposed that people differ fundamentally in how they orient their consciousness along two axes. First, the attitude axis: Extraversion (energy oriented toward the external world of objects and people) vs. Introversion (energy oriented toward the inner world of subjective experience). Second, the function axis: four basic psychological functions — Thinking (logical analysis), Feeling (value-based evaluation), Sensation (concrete sensory experience), and Intuition (perception of patterns and possibilities). Each function can be used in either an extraverted or introverted attitude, yielding eight distinct cognitive functions: Te, Ti, Fe, Fi, Se, Si, Ne, Ni. Jung theorized that each person has a dominant function that characterizes their primary mode of consciousness, with auxiliary, tertiary, and inferior functions playing supporting roles.",
+      "Psychological Types (Psychologische Typen) published in 1921 is Jung's foundational theoretical work and the origin of the cognitive function framework. In it, Jung proposed that people differ fundamentally in how they orient their consciousness along two axes. First, the attitude axis: Extraversion (energy oriented toward the external world of objects and people) vs. Introversion (energy oriented toward the inner world of subjective experience). Second, the function axis: four basic psychological functions, Thinking (logical analysis), Feeling (value-based evaluation), Sensation (concrete sensory experience), and Intuition (perception of patterns and possibilities). Each function can be used in either an extraverted or introverted attitude, yielding eight distinct cognitive functions: Te, Ti, Fe, Fi, Se, Si, Ne, Ni. Jung theorized that each person has a dominant function that characterizes their primary mode of consciousness, with auxiliary, tertiary, and inferior functions playing supporting roles.",
     quote:
       "Every individual is an exception to the rule.",
     quoteAttribution: "Carl Jung, Psychological Types",
     books: [
-      "Psychological Types (1921) — Collected Works, Volume 6",
+      "Psychological Types (1921), Collected Works, Volume 6",
     ],
     contributions: [
       "Defined Extraversion and Introversion as fundamental attitudes of consciousness",
@@ -459,14 +459,14 @@ const jungTimeline: JungNode[] = [
   {
     id: "jung-later",
     era: "Depth Psychology",
-    year: "1930s — 1961",
+    year: "1930s, 1961",
     title: "Thyselfs & the Collective Unconscious",
     initials: "CJ",
     color: "#6B4C9A",
     summary:
       "Jung's broader contributions: the collective unconscious, archetypes, individuation, and shadow work.",
     details:
-      "Beyond typology, Jung developed a rich body of theory about the deep structure of the psyche. He proposed the collective unconscious — a layer of the unconscious shared by all humans, containing universal patterns or archetypes (the Self, the Shadow, the Anima/Animus, the Persona, the Hero, the Wise Old Man, the Great Mother, the Trickster, and many others). These archetypes manifest in myths, dreams, religions, and individual psychology across all cultures. The process of individuation — becoming a more complete, integrated Self by confronting and integrating unconscious contents, especially the Shadow (repressed qualities) and the Anima/Animus (contrasexual inner figure) — became the central goal of Jungian analysis. These broader concepts would later be integrated with type theory by John Beebe.",
+      "Beyond typology, Jung developed a rich body of theory about the deep structure of the psyche. He proposed the collective unconscious, a layer of the unconscious shared by all humans, containing universal patterns or archetypes (the Self, the Shadow, the Anima/Animus, the Persona, the Hero, the Wise Old Man, the Great Mother, the Trickster, and many others). These archetypes manifest in myths, dreams, religions, and individual psychology across all cultures. The process of individuation, becoming a more complete, integrated Self by confronting and integrating unconscious contents, especially the Shadow (repressed qualities) and the Anima/Animus (contrasexual inner figure), became the central goal of Jungian analysis. These broader concepts would later be integrated with type theory by John Beebe.",
     quote:
       "One does not become enlightened by imagining figures of light, but by making the darkness conscious.",
     quoteAttribution: "Carl Jung",
@@ -476,7 +476,7 @@ const jungTimeline: JungNode[] = [
       "Memories, Dreams, Reflections (autobiography, 1961)",
     ],
     contributions: [
-      "Theorized the collective unconscious — shared psychic heritage of humanity",
+      "Theorized the collective unconscious, shared psychic heritage of humanity",
       "Identified universal archetypes: Shadow, Anima/Animus, Self, Persona, and more",
       "Defined individuation as the central goal of psychological development",
       "Shadow work: integrating rejected aspects of the personality",
@@ -486,20 +486,20 @@ const jungTimeline: JungNode[] = [
   {
     id: "myers-briggs",
     era: "Operationalization",
-    year: "1940s — 1960s",
+    year: "1940s, 1960s",
     title: "Isabel Myers & Katharine Briggs",
     initials: "MB",
     color: "#059669",
     summary:
       "Mother and daughter who created a practical assessment instrument to operationalize Jung's theory.",
     details:
-      "Katharine Cook Briggs (1875-1968) had been studying personality differences independently before encountering Jung's Psychological Types, which provided a theoretical framework for her observations. Her daughter, Isabel Briggs Myers (1897-1980), was motivated by World War II — she wanted to help people find work suited to their natural psychological preferences. Together, they developed the Myers-Briggs Type Indicator, a forced-choice self-report questionnaire designed to sort people into Jung's type categories. They added a fourth dichotomy (Judging/Perceiving) not present in Jung's original theory. It is essential to understand that the theory of cognitive functions is Jung's work (1921); what Myers and Briggs created was an instrument — a practical tool to measure those preferences. They were not theorists but instrumentalists. The indicator became the most widely administered personality assessment in the world, though it has been criticized by academic psychologists for issues with test-retest reliability and the forced dichotomy model.",
+      "Katharine Cook Briggs (1875-1968) had been studying personality differences independently before encountering Jung's Psychological Types, which provided a theoretical framework for her observations. Her daughter, Isabel Briggs Myers (1897-1980), was motivated by World War II, she wanted to help people find work suited to their natural psychological preferences. Together, they developed the Myers-Briggs Type Indicator, a forced-choice self-report questionnaire designed to sort people into Jung's type categories. They added a fourth dichotomy (Judging/Perceiving) not present in Jung's original theory. It is essential to understand that the theory of cognitive functions is Jung's work (1921); what Myers and Briggs created was an instrument, a practical tool to measure those preferences. They were not theorists but instrumentalists. The indicator became the most widely administered personality assessment in the world, though it has been criticized by academic psychologists for issues with test-retest reliability and the forced dichotomy model.",
     quote:
       "Whatever the circumstances of your life, whatever your personal ties, work, and responsibilities, the understanding of type can make your perceptions clearer.",
     quoteAttribution: "Isabel Briggs Myers",
     books: [
-      "Isabel Briggs Myers — Gifts Differing (1980)",
-      "Katharine D. Myers & Isabel Myers — Type Indicator Manual (1962)",
+      "Isabel Briggs Myers, Gifts Differing (1980)",
+      "Katharine D. Myers & Isabel Myers, Type Indicator Manual (1962)",
     ],
     contributions: [
       "Created a practical assessment instrument to measure Jung's type preferences",
@@ -511,14 +511,14 @@ const jungTimeline: JungNode[] = [
   {
     id: "beebe",
     era: "Archetypal Model",
-    year: "1980s — Present",
+    year: "1980s, Present",
     title: "John Beebe",
     initials: "JB",
     color: "#DC2626",
     summary:
       "Mapped all 8 cognitive functions to Jungian archetypes, creating the shadow function model.",
     details:
-      "John Beebe, MD (born 1939) is a Jungian analyst in San Francisco who made a groundbreaking contribution by integrating Jung's type theory with Jung's archetype theory. Beebe proposed that each person uses all eight cognitive functions, not just the four in the classical model, and that each function occupies a specific archetypal position in the psyche. The first four functions (the ego-syntonic stack) are associated with the Hero/Heroine (dominant), the Good Parent (auxiliary), the Eternal Child (tertiary), and the Anima/Animus (inferior). The last four functions (the shadow stack) mirror the first four and are associated with the Opposing Personality (5th), the Critical/Senex Parent (6th), the Trickster (7th), and the Demon/Daimon (8th). This eight-function model explains why certain cognitive functions feel threatening or destabilizing — they are associated with shadow archetypes. Beebe's model is the primary framework used in depth typology today.",
+      "John Beebe, MD (born 1939) is a Jungian analyst in San Francisco who made a groundbreaking contribution by integrating Jung's type theory with Jung's archetype theory. Beebe proposed that each person uses all eight cognitive functions, not just the four in the classical model, and that each function occupies a specific archetypal position in the psyche. The first four functions (the ego-syntonic stack) are associated with the Hero/Heroine (dominant), the Good Parent (auxiliary), the Eternal Child (tertiary), and the Anima/Animus (inferior). The last four functions (the shadow stack) mirror the first four and are associated with the Opposing Personality (5th), the Critical/Senex Parent (6th), the Trickster (7th), and the Demon/Daimon (8th). This eight-function model explains why certain cognitive functions feel threatening or destabilizing, they are associated with shadow archetypes. Beebe's model is the primary framework used in depth typology today.",
     quote:
       "Type is not just about preference. It's about which archetypes carry which functions in your psyche.",
     quoteAttribution: "John Beebe",
@@ -528,7 +528,7 @@ const jungTimeline: JungNode[] = [
     ],
     contributions: [
       "Created the 8-function archetypal model (Hero, Parent, Child, Anima + 4 shadow positions)",
-      "Integrated type theory with archetype theory — a major synthesis",
+      "Integrated type theory with archetype theory, a major synthesis",
       "Explained why shadow functions feel threatening: they carry shadow archetypes",
       "Named the shadow positions: Opposing Personality, Critical Parent, Trickster, Demon/Daimon",
       "Provided the standard model used in modern depth typology",
@@ -537,7 +537,7 @@ const jungTimeline: JungNode[] = [
   {
     id: "nardi",
     era: "Neuroscience",
-    year: "2010s — Present",
+    year: "2010s, Present",
     title: "Dario Nardi",
     initials: "DN",
     color: "#EA580C",
@@ -679,7 +679,7 @@ function TimelineItem({
                         </p>
                         {node.quoteAttribution && (
                           <p className="text-[11px] sm:text-xs mt-1" style={{ color: "rgba(255,255,255,0.35)" }}>
-                            &mdash; {node.quoteAttribution}
+                            {node.quoteAttribution}
                           </p>
                         )}
                       </div>
@@ -828,8 +828,8 @@ export default function HistoryPage() {
             The History Behind Thyself
           </h1>
           <p className="max-w-2xl text-sm sm:text-base leading-relaxed" style={{ color: "rgba(255,255,255,0.5)" }}>
-            Two powerful traditions of understanding the human mind — the
-            Enneagram and Jungian Cognitive Functions — each with a rich history
+            Two powerful traditions of understanding the human mind, the
+            Enneagram and Jungian Cognitive Functions, each with a rich history
             of brilliant thinkers. Explore how they developed, who shaped them,
             and why they complement each other.
           </p>
@@ -927,7 +927,7 @@ export default function HistoryPage() {
                   </h2>
                   <p className="text-xs sm:text-sm leading-relaxed max-w-2xl" style={{ color: "rgba(255,255,255,0.5)" }}>
                     A visual journey through the development of cognitive function
-                    theory — from Jung's foundational work through archetypal
+                    theory, from Jung's foundational work through archetypal
                     models to modern neuroscience.
                   </p>
                 </div>
@@ -953,7 +953,7 @@ export default function HistoryPage() {
                         (1921), <strong>NOT</strong> the simplified MBTI instrument
                         or 16Personalities (which uses Big Five traits, not
                         cognitive functions). The cognitive function framework
-                        describes eight distinct modes of consciousness — a far
+                        describes eight distinct modes of consciousness, a far
                         richer model than four-letter codes or dichotomy-based
                         sorting.
                       </p>
@@ -996,7 +996,7 @@ export default function HistoryPage() {
                   </h2>
                   <p className="text-xs sm:text-sm leading-relaxed max-w-2xl" style={{ color: "rgba(255,255,255,0.5)" }}>
                     The Enneagram and Cognitive Functions are not competing
-                    systems — they illuminate different dimensions of personality.
+                    systems, they illuminate different dimensions of personality.
                     Together, they offer something neither can alone.
                   </p>
                 </div>
@@ -1121,7 +1121,7 @@ export default function HistoryPage() {
                       <li className="flex items-start gap-2">
                         <span className="w-1 h-1 rounded-full bg-indigo-400 mt-1.5 shrink-0" />
                         Two people of the same Enneagram type can have very
-                        different cognitive stacks — and vice versa
+                        different cognitive stacks, and vice versa
                       </li>
                       <li className="flex items-start gap-2">
                         <span className="w-1 h-1 rounded-full bg-indigo-400 mt-1.5 shrink-0" />
@@ -1155,11 +1155,11 @@ export default function HistoryPage() {
                       <p className="text-xs sm:text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.6)" }}>
                         Consider two Enneagram Type 5 individuals. Both share the
                         same core motivation (the need to be competent and
-                        self-sufficient) and the same passion (avarice — hoarding
+                        self-sufficient) and the same passion (avarice, hoarding
                         energy and knowledge). But one might lead with
-                        Introverted Thinking (Ti) — building elaborate internal
-                        logical models — while the other leads with Introverted
-                        Intuition (Ni) — synthesizing patterns into singular
+                        Introverted Thinking (Ti), building elaborate internal
+                        logical models, while the other leads with Introverted
+                        Intuition (Ni), synthesizing patterns into singular
                         visions. Same motivation, radically different cognitive
                         processing. Understanding both dimensions gives you a
                         far more precise and useful self-map.

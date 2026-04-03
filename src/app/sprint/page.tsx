@@ -101,7 +101,7 @@ export default function SprintPage() {
   const finishGame = useCallback(() => {
     setPhase("finished");
     const elapsed = Math.floor((Date.now() - startTimeRef.current) / 1000);
-    // Speed demon badge — finished a quiz under 60s (used all time perfectly or got through questions fast)
+    // Speed demon badge, finished a quiz under 60s (used all time perfectly or got through questions fast)
     if (elapsed < 60 && correct >= 5) {
       unlockBadge("speed-demon");
     }
@@ -187,7 +187,7 @@ export default function SprintPage() {
           </div>
           <p className="text-slate-500 text-sm mb-8 leading-relaxed">
             Answer as many questions as you can in <strong>60 seconds</strong>.<br/>
-            Build streaks for bonus XP. No hearts lost — just go fast.
+            Build streaks for bonus XP. No hearts lost, just go fast.
           </p>
 
           <div className="grid grid-cols-3 gap-3 mb-8">

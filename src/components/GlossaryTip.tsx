@@ -9,11 +9,11 @@ import { X, HelpCircle } from "lucide-react";
 const glossary: Record<string, { title: string; body: string; learnMore?: string }> = {
   wing: {
     title: "Wing",
-    body: "Your wing is the type adjacent to yours on the Enneagram circle that most influences your personality. Every type has two possible wings — for example, a Type 4 can be a 4w3 (influenced by Type 3) or a 4w5 (influenced by Type 5). Most people lean toward one wing.",
+    body: "Your wing is the type adjacent to yours on the Enneagram circle that most influences your personality. Every type has two possible wings, for example, a Type 4 can be a 4w3 (influenced by Type 3) or a 4w5 (influenced by Type 5). Most people lean toward one wing.",
   },
   instinct: {
     title: "Instinct Variant",
-    body: "The three instincts (Self-Preservation, Social, and Sexual/One-to-One) are biological drives that shape HOW your Enneagram type expresses itself. Your dominant instinct is the one you focus on most — often to the point of obsession. The same Enneagram type looks quite different across the three instincts.",
+    body: "The three instincts (Self-Preservation, Social, and Sexual/One-to-One) are biological drives that shape HOW your Enneagram type expresses itself. Your dominant instinct is the one you focus on most, often to the point of obsession. The same Enneagram type looks quite different across the three instincts.",
   },
   subtype: {
     title: "Subtype",
@@ -25,11 +25,11 @@ const glossary: Record<string, { title: string; body: string; learnMore?: string
   },
   "cognitive functions": {
     title: "Cognitive Functions",
-    body: "Cognitive functions are 8 mental processes (like Introverted Intuition, Extroverted Feeling, etc.) that describe HOW you think and perceive the world — not just what you prefer. They go deeper than MBTI letters by describing the actual patterns in your mind.",
+    body: "Cognitive functions are 8 mental processes (like Introverted Intuition, Extroverted Feeling, etc.) that describe HOW you think and perceive the world, not just what you prefer. They go deeper than MBTI letters by describing the actual patterns in your mind.",
   },
   "cognitive stack": {
     title: "Cognitive Stack",
-    body: "Your cognitive stack is the order in which your 8 cognitive functions operate. Your top 2 are your strongest — you use them naturally. Functions 3–4 are supportive. Functions 5–8 are your 'shadow' — less conscious and harder to access.",
+    body: "Your cognitive stack is the order in which your 8 cognitive functions operate. Your top 2 are your strongest, you use them naturally. Functions 3–4 are supportive. Functions 5–8 are your 'shadow', less conscious and harder to access.",
   },
   shadow: {
     title: "Shadow Functions",
@@ -45,7 +45,7 @@ const glossary: Record<string, { title: string; body: string; learnMore?: string
   },
   streak: {
     title: "Streak",
-    body: "Your streak counts consecutive days of completing at least one activity. Missing a day resets it to zero — unless you use a Streak Freeze. Streaks unlock special badges and show your consistency over time.",
+    body: "Your streak counts consecutive days of completing at least one activity. Missing a day resets it to zero, unless you use a Streak Freeze. Streaks unlock special badges and show your consistency over time.",
   },
   hearts: {
     title: "Hearts (Lives)",
@@ -53,15 +53,15 @@ const glossary: Record<string, { title: string; body: string; learnMore?: string
   },
   league: {
     title: "Leagues",
-    body: "Leagues track your overall progress level: Bronze → Silver → Gold → Platinum → Diamond. You advance by earning XP over time. Leagues are just milestones — there's no competition with other users.",
+    body: "Leagues track your overall progress level: Bronze → Silver → Gold → Platinum → Diamond. You advance by earning XP over time. Leagues are just milestones, there's no competition with other users.",
   },
   "integration line": {
     title: "Integration / Growth Line",
-    body: "Your integration (growth) line points to the type you take on positive qualities from when you're healthy and growing. For example, Type 4 integrates toward Type 1 — becoming more disciplined and grounded.",
+    body: "Your integration (growth) line points to the type you take on positive qualities from when you're healthy and growing. For example, Type 4 integrates toward Type 1, becoming more disciplined and grounded.",
   },
   "disintegration line": {
     title: "Disintegration / Stress Line",
-    body: "Your disintegration (stress) line points to the type you take on negative qualities from when under stress. For example, Type 4 disintegrates toward Type 2 — becoming clingy and needy. Recognizing this pattern is a key tool for self-awareness.",
+    body: "Your disintegration (stress) line points to the type you take on negative qualities from when under stress. For example, Type 4 disintegrates toward Type 2, becoming clingy and needy. Recognizing this pattern is a key tool for self-awareness.",
   },
   ieq9: {
     title: "iEQ9",

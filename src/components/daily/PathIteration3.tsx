@@ -5,7 +5,7 @@
  *
  * Closest to actual Duolingo but with personality psychology theming:
  * - Bright white background with colorful section bands
- * - BIG nodes (76px) — truly chunky, satisfying to tap
+ * - BIG nodes (76px), truly chunky, satisfying to tap
  * - 3D "button" effect: darker bottom border makes them look pressable
  * - Completed = bright green with golden star inside
  * - Current = glowing violet-blue with animated sparkle + bouncy START below
@@ -13,7 +13,7 @@
  * - Thick dashed connector lines between nodes (playful, like Duolingo)
  * - Chibi character on a little "speech bubble" platform next to current node
  * - Section labels are fun/themed ("🔥 Type Deep Dive", "🧠 Mind & Functions")
- * - No unit boxes/cards — just colored background bands that flow
+ * - No unit boxes/cards, just colored background bands that flow
  * - Streak flame counter floating in top-right
  */
 

@@ -39,7 +39,7 @@ const lesson1: Lesson = {
       content: {
         type: "concept-intro",
         title: "Your Fear and Desire",
-        body: "Your core fear is: {{coreFear}}. Your core desire is: {{coreDesire}}. These two forces pull you in opposite directions — your personality is the strategy you developed to move toward your desire and away from your fear.",
+        body: "Your core fear is: {{coreFear}}. Your core desire is: {{coreDesire}}. These two forces pull you in opposite directions, your personality is the strategy you developed to move toward your desire and away from your fear.",
         highlight: "fear and desire",
       },
     },
@@ -57,7 +57,7 @@ const lesson1: Lesson = {
         ],
         correctIndex: 0,
         explanation:
-          "Your core fear — {{coreFear}} — is the deep dread that unconsciously drives many of your automatic patterns. Recognizing it is the first step toward freedom from it.",
+          "Your core fear, {{coreFear}}, is the deep dread that unconsciously drives many of your automatic patterns. Recognizing it is the first step toward freedom from it.",
       },
     },
     {
@@ -74,7 +74,7 @@ const lesson1: Lesson = {
         ],
         correctIndex: 1,
         explanation:
-          "Your core desire — {{coreDesire}} — is the deep longing that drives your most positive qualities. When you pursue this desire in healthy ways, you're at your best.",
+          "Your core desire, {{coreDesire}}, is the deep longing that drives your most positive qualities. When you pursue this desire in healthy ways, you're at your best.",
       },
     },
     {
@@ -92,7 +92,7 @@ const lesson1: Lesson = {
         ],
         correctIndex: 0,
         explanation:
-          "This motivation runs like an operating system in the background. Most of the time you don't consciously choose it — it just happens. Self-awareness starts with noticing it in action.",
+          "This motivation runs like an operating system in the background. Most of the time you don't consciously choose it, it just happens. Self-awareness starts with noticing it in action.",
       },
     },
     {
@@ -124,7 +124,7 @@ const lesson1: Lesson = {
         ],
         correctIndex: 0,
         explanation:
-          "Your core desire — {{coreDesire}} — is the positive longing that your personality structure is built around. When pursued with self-awareness, it leads to genuine fulfillment.",
+          "Your core desire, {{coreDesire}}, is the positive longing that your personality structure is built around. When pursued with self-awareness, it leads to genuine fulfillment.",
       },
     },
     {
@@ -137,7 +137,7 @@ const lesson1: Lesson = {
         options: ["strategy", "punishment", "gift", "accident"],
         correctIndex: 0,
         explanation:
-          "Your personality is not random — it's a strategy you developed early in life to get what you most need ({{coreDesire}}) and avoid what you most dread ({{coreFear}}). Understanding this gives you freedom to choose consciously.",
+          "Your personality is not random, it's a strategy you developed early in life to get what you most need ({{coreDesire}}) and avoid what you most dread ({{coreFear}}). Understanding this gives you freedom to choose consciously.",
       },
     },
     {
@@ -146,18 +146,18 @@ const lesson1: Lesson = {
       content: {
         type: "scenario",
         scenario:
-          "You're in a meeting and a colleague presents an idea that conflicts with something important to you. You notice a strong emotional reaction rising — something beyond simple disagreement. It feels personal, almost threatening.",
+          "You're in a meeting and a colleague presents an idea that conflicts with something important to you. You notice a strong emotional reaction rising, something beyond simple disagreement. It feels personal, almost threatening.",
         question:
           "As {{typeName}}, this reaction is likely connected to which part of your personality structure?",
         options: [
-          "Your core fear being triggered — {{coreFear}}",
+          "Your core fear being triggered, {{coreFear}}",
           "Your preference for a certain meeting room",
           "Your opinion about the colleague's outfit",
           "A random mood swing unrelated to your type",
         ],
         correctIndex: 0,
         explanation:
-          "When a reaction feels disproportionately strong, it's often your core fear being triggered. For {{typeName}}, that fear — {{coreFear}} — can get activated in situations that seem to threaten what matters most to you.",
+          "When a reaction feels disproportionately strong, it's often your core fear being triggered. For {{typeName}}, that fear, {{coreFear}}, can get activated in situations that seem to threaten what matters most to you.",
       },
     },
     {
@@ -176,7 +176,7 @@ const lesson1: Lesson = {
         ],
         correctIndex: 0,
         explanation:
-          "When you look honestly at the pattern behind your choices, you'll often find your core desire — {{coreDesire}} — at the center. This isn't a limitation; it's a compass for understanding yourself.",
+          "When you look honestly at the pattern behind your choices, you'll often find your core desire, {{coreDesire}}, at the center. This isn't a limitation; it's a compass for understanding yourself.",
       },
     },
     {
@@ -194,7 +194,7 @@ const lesson1: Lesson = {
         ],
         correctIndex: 1,
         explanation:
-          "Self-awareness is the gift of the Enneagram. When you can notice 'Oh, my fear of {{coreFear}} is driving me right now,' you create a pause — and in that pause, you can choose a healthier response.",
+          "Self-awareness is the gift of the Enneagram. When you can notice 'Oh, my fear of {{coreFear}} is driving me right now,' you create a pause, and in that pause, you can choose a healthier response.",
       },
     },
     {
@@ -212,7 +212,7 @@ const lesson1: Lesson = {
         ],
         correctIndex: 0,
         explanation:
-          "Your core fear ({{coreFear}}), core desire ({{coreDesire}}), and core motivation form the foundation of your personality structure. Now you know the engine — next you'll learn how it runs day to day.",
+          "Your core fear ({{coreFear}}), core desire ({{coreDesire}}), and core motivation form the foundation of your personality structure. Now you know the engine, next you'll learn how it runs day to day.",
       },
     },
   ],
@@ -236,7 +236,7 @@ const lesson2: Lesson = {
       content: {
         type: "concept-intro",
         title: "What Is a Passion?",
-        body: "In the Enneagram tradition (from Claudio Naranjo), each type has a 'passion' — an emotional habit or reactive pattern that keeps you stuck. It's not something you choose; it's an automatic emotional response that distorts your experience.",
+        body: "In the Enneagram tradition (from Claudio Naranjo), each type has a 'passion', an emotional habit or reactive pattern that keeps you stuck. It's not something you choose; it's an automatic emotional response that distorts your experience.",
         highlight: "passion",
       },
     },
@@ -246,7 +246,7 @@ const lesson2: Lesson = {
       content: {
         type: "concept-intro",
         title: "What Is a Virtue?",
-        body: "The virtue is the healthy opposite of your passion. It's not something you force — it naturally emerges when you become aware of your passion and stop fueling it. Think of it as what you become when you get out of your own way.",
+        body: "The virtue is the healthy opposite of your passion. It's not something you force, it naturally emerges when you become aware of your passion and stop fueling it. Think of it as what you become when you get out of your own way.",
         highlight: "virtue",
       },
     },
@@ -264,7 +264,7 @@ const lesson2: Lesson = {
         ],
         correctIndex: 1,
         explanation:
-          "Naranjo used the word 'passion' in the classical sense — like the 'passions' of medieval theology. It's an emotional vice or habit that runs on autopilot and keeps you trapped in your type's unhealthy patterns.",
+          "Naranjo used the word 'passion' in the classical sense, like the 'passions' of medieval theology. It's an emotional vice or habit that runs on autopilot and keeps you trapped in your type's unhealthy patterns.",
       },
     },
     {
@@ -281,7 +281,7 @@ const lesson2: Lesson = {
         ],
         correctIndex: 0,
         explanation:
-          "The virtue isn't effort — it's what flows naturally when you stop being run by your passion. For example, when Type 1 lets go of their passion of anger/resentment, serenity naturally arises.",
+          "The virtue isn't effort, it's what flows naturally when you stop being run by your passion. For example, when Type 1 lets go of their passion of anger/resentment, serenity naturally arises.",
       },
     },
     {
@@ -299,7 +299,7 @@ const lesson2: Lesson = {
         ],
         correctIndex: 1,
         explanation:
-          "The goal isn't to destroy your passion — it's to become aware of it. When you notice it in real time, you create space to respond differently. That's where the virtue lives.",
+          "The goal isn't to destroy your passion, it's to become aware of it. When you notice it in real time, you create space to respond differently. That's where the virtue lives.",
       },
     },
     {
@@ -309,11 +309,11 @@ const lesson2: Lesson = {
         type: "matching-pairs",
         instruction: "Match each Enneagram type to its passion (emotional habit).",
         pairs: [
-          { left: "Type 1 — The Reformer", right: "Anger (resentment)" },
-          { left: "Type 2 — The Helper", right: "Pride (flattery)" },
-          { left: "Type 3 — The Achiever", right: "Deceit (vanity)" },
-          { left: "Type 4 — The Individualist", right: "Envy" },
-          { left: "Type 7 — The Enthusiast", right: "Gluttony" },
+          { left: "Type 1, The Reformer", right: "Anger (resentment)" },
+          { left: "Type 2, The Helper", right: "Pride (flattery)" },
+          { left: "Type 3, The Achiever", right: "Deceit (vanity)" },
+          { left: "Type 4, The Individualist", right: "Envy" },
+          { left: "Type 7, The Enthusiast", right: "Gluttony" },
         ],
       },
     },
@@ -324,11 +324,11 @@ const lesson2: Lesson = {
         type: "matching-pairs",
         instruction: "Match each Enneagram type to its virtue (healthy quality).",
         pairs: [
-          { left: "Type 1 — The Reformer", right: "Serenity" },
-          { left: "Type 2 — The Helper", right: "Humility" },
-          { left: "Type 4 — The Individualist", right: "Equanimity" },
-          { left: "Type 8 — The Challenger", right: "Innocence" },
-          { left: "Type 9 — The Peacemaker", right: "Action" },
+          { left: "Type 1, The Reformer", right: "Serenity" },
+          { left: "Type 2, The Helper", right: "Humility" },
+          { left: "Type 4, The Individualist", right: "Equanimity" },
+          { left: "Type 8, The Challenger", right: "Innocence" },
+          { left: "Type 9, The Peacemaker", right: "Action" },
         ],
       },
     },
@@ -338,7 +338,7 @@ const lesson2: Lesson = {
       content: {
         type: "fill-in-blank",
         sentence:
-          "The virtue is not forced — it naturally ___ when you become aware of your passion and stop fueling it.",
+          "The virtue is not forced, it naturally ___ when you become aware of your passion and stop fueling it.",
         options: ["emerges", "disappears", "intensifies", "breaks"],
         correctIndex: 0,
         explanation:
@@ -351,18 +351,18 @@ const lesson2: Lesson = {
       content: {
         type: "scenario",
         scenario:
-          "You notice that in conversations, you keep mentally comparing yourself to others — their success, their relationships, their confidence. It's not a conscious choice; it just happens automatically, and it leaves you feeling inadequate.",
+          "You notice that in conversations, you keep mentally comparing yourself to others, their success, their relationships, their confidence. It's not a conscious choice; it just happens automatically, and it leaves you feeling inadequate.",
         question:
           "This automatic comparison pattern is an example of which Enneagram concept?",
         options: [
           "A core desire",
-          "A passion — an automatic emotional habit",
+          "A passion, an automatic emotional habit",
           "A wing influence",
           "A growth line",
         ],
         correctIndex: 1,
         explanation:
-          "This kind of automatic, involuntary emotional pattern is exactly what the Enneagram means by 'passion.' The comparison and feeling of inadequacy is particularly associated with Type 4's passion of envy — but every type has its own version of this autopilot pattern.",
+          "This kind of automatic, involuntary emotional pattern is exactly what the Enneagram means by 'passion.' The comparison and feeling of inadequacy is particularly associated with Type 4's passion of envy, but every type has its own version of this autopilot pattern.",
       },
     },
     {
@@ -371,7 +371,7 @@ const lesson2: Lesson = {
       content: {
         type: "scenario",
         scenario:
-          "After months of self-reflection, you start noticing when your automatic emotional pattern kicks in. Instead of being swept away by it, you can pause and say, 'Oh, there's that pattern again.' Something shifts — you feel calmer, more grounded, more free.",
+          "After months of self-reflection, you start noticing when your automatic emotional pattern kicks in. Instead of being swept away by it, you can pause and say, 'Oh, there's that pattern again.' Something shifts, you feel calmer, more grounded, more free.",
         question: "What is happening in this moment?",
         options: [
           "You're suppressing your emotions",
@@ -381,7 +381,7 @@ const lesson2: Lesson = {
         ],
         correctIndex: 1,
         explanation:
-          "This is the Enneagram's promise: when you bring awareness to your passion without judgment, the virtue emerges naturally. You don't force it — it's who you are when the autopilot switches off.",
+          "This is the Enneagram's promise: when you bring awareness to your passion without judgment, the virtue emerges naturally. You don't force it, it's who you are when the autopilot switches off.",
       },
     },
     {
@@ -399,7 +399,7 @@ const lesson2: Lesson = {
         ],
         correctIndex: 2,
         explanation:
-          "The passion doesn't disappear forever — it's part of your type's structure. Growth means you catch it faster, get hooked less often, and recover more quickly. The virtue becomes your more frequent home base, but the passion will still visit.",
+          "The passion doesn't disappear forever, it's part of your type's structure. Growth means you catch it faster, get hooked less often, and recover more quickly. The virtue becomes your more frequent home base, but the passion will still visit.",
       },
     },
     {
@@ -441,7 +441,7 @@ const lesson3: Lesson = {
       content: {
         type: "concept-intro",
         title: "Wings: Your Personality's Seasoning",
-        body: "As Type {{typeNumber}}, your wings are the types on either side of you on the Enneagram circle. One or both of these neighbors add unique qualities to your core type — like seasoning that gives the same dish different flavors.",
+        body: "As Type {{typeNumber}}, your wings are the types on either side of you on the Enneagram circle. One or both of these neighbors add unique qualities to your core type, like seasoning that gives the same dish different flavors.",
         highlight: "wings",
       },
     },
@@ -451,7 +451,7 @@ const lesson3: Lesson = {
       content: {
         type: "concept-intro",
         title: "How Wings Work",
-        body: "Most people lean more toward one wing than the other, though both can be active at different times. Your wing doesn't change your core type — it adds texture. A Type 4 with a 3-wing looks noticeably different from a Type 4 with a 5-wing.",
+        body: "Most people lean more toward one wing than the other, though both can be active at different times. Your wing doesn't change your core type, it adds texture. A Type 4 with a 3-wing looks noticeably different from a Type 4 with a 5-wing.",
         highlight: "lean toward one wing",
       },
     },
@@ -486,7 +486,7 @@ const lesson3: Lesson = {
         ],
         correctIndex: 1,
         explanation:
-          "Your core type stays the same — your fundamental motivation doesn't change. Wings add texture and complexity, like different spices on the same base dish. Your core fear and desire remain those of Type {{typeNumber}}.",
+          "Your core type stays the same, your fundamental motivation doesn't change. Wings add texture and complexity, like different spices on the same base dish. Your core fear and desire remain those of Type {{typeNumber}}.",
       },
     },
     {
@@ -498,7 +498,7 @@ const lesson3: Lesson = {
         options: ["One", "Two", "Three", "Nine"],
         correctIndex: 1,
         explanation:
-          "Every type has exactly two possible wings — the types immediately on either side. Most people have a dominant wing, but both can influence you at different times in life.",
+          "Every type has exactly two possible wings, the types immediately on either side. Most people have a dominant wing, but both can influence you at different times in life.",
       },
     },
     {
@@ -661,11 +661,11 @@ const lesson4: Lesson = {
           "You become a completely different Enneagram type",
           "You take on some unhealthy patterns of a specific other type",
           "You lose your personality entirely",
-          "Nothing — your type never changes",
+          "Nothing, your type never changes",
         ],
         correctIndex: 1,
         explanation:
-          "Under stress, you don't become the other type entirely — you borrow some of its less healthy patterns. It's like your personality reaches for new (but unhelpful) coping strategies when your usual ones aren't working.",
+          "Under stress, you don't become the other type entirely, you borrow some of its less healthy patterns. It's like your personality reaches for new (but unhelpful) coping strategies when your usual ones aren't working.",
       },
     },
     {
@@ -683,7 +683,7 @@ const lesson4: Lesson = {
         ],
         correctIndex: 1,
         explanation:
-          "Integration means you're accessing the best qualities of another type while staying rooted in your own. It's a sign of health and growth — you're expanding your range as a person.",
+          "Integration means you're accessing the best qualities of another type while staying rooted in your own. It's a sign of health and growth, you're expanding your range as a person.",
       },
     },
     {
@@ -700,7 +700,7 @@ const lesson4: Lesson = {
         ],
         correctIndex: 1,
         explanation:
-          "The arrows map the specific movement patterns for each type. Every type has one stress direction and one growth direction — these lines are fundamental to understanding Enneagram dynamics.",
+          "The arrows map the specific movement patterns for each type. Every type has one stress direction and one growth direction, these lines are fundamental to understanding Enneagram dynamics.",
       },
     },
     {
@@ -750,7 +750,7 @@ const lesson4: Lesson = {
       content: {
         type: "scenario",
         scenario:
-          "A Type 1 (The Reformer) who is usually principled and controlled has been under enormous work pressure for months. Lately, they've become unusually moody, withdrawn, and fixated on what's missing in their life — almost envious of others who seem to have it easier.",
+          "A Type 1 (The Reformer) who is usually principled and controlled has been under enormous work pressure for months. Lately, they've become unusually moody, withdrawn, and fixated on what's missing in their life, almost envious of others who seem to have it easier.",
         question: "What's happening to this Type 1?",
         options: [
           "They've permanently changed types",
@@ -760,7 +760,7 @@ const lesson4: Lesson = {
         ],
         correctIndex: 1,
         explanation:
-          "Type 1 disintegrates toward Type 4 under stress, taking on moodiness, envy, and a sense of deprivation. This is a signal to address the stress — not evidence that they're the wrong type.",
+          "Type 1 disintegrates toward Type 4 under stress, taking on moodiness, envy, and a sense of deprivation. This is a signal to address the stress, not evidence that they're the wrong type.",
       },
     },
     {
@@ -779,7 +779,7 @@ const lesson4: Lesson = {
         ],
         correctIndex: 1,
         explanation:
-          "Type 5 integrates toward Type 8 in health, accessing decisiveness, confidence, and the ability to act on their knowledge. They're still a Type 5 at core — they've just expanded their range through growth.",
+          "Type 5 integrates toward Type 8 in health, accessing decisiveness, confidence, and the ability to act on their knowledge. They're still a Type 5 at core, they've just expanded their range through growth.",
       },
     },
     {
@@ -797,7 +797,7 @@ const lesson4: Lesson = {
         ],
         correctIndex: 1,
         explanation:
-          "Your stress line patterns are like an early warning system. When you notice yourself acting like your stress type, it's a signal that you're overwhelmed and need to address what's draining you — not a judgment on your character.",
+          "Your stress line patterns are like an early warning system. When you notice yourself acting like your stress type, it's a signal that you're overwhelmed and need to address what's draining you, not a judgment on your character.",
       },
     },
     {
@@ -839,7 +839,7 @@ const lesson5: Lesson = {
       content: {
         type: "concept-intro",
         title: "Levels of Development",
-        body: "Riso and Hudson discovered that each Enneagram type has levels of development — from healthy to average to unhealthy. Your type doesn't change, but HOW you express it varies enormously depending on your psychological health.",
+        body: "Riso and Hudson discovered that each Enneagram type has levels of development, from healthy to average to unhealthy. Your type doesn't change, but HOW you express it varies enormously depending on your psychological health.",
         highlight: "levels of development",
       },
     },
@@ -849,7 +849,7 @@ const lesson5: Lesson = {
       content: {
         type: "concept-intro",
         title: "Same Type, Very Different Person",
-        body: "A healthy {{typeName}} and an unhealthy {{typeName}} can seem like completely different people. The core motivation ({{coreMotivation}}) stays the same — but healthy versions pursue it with wisdom, while unhealthy versions pursue it with desperation.",
+        body: "A healthy {{typeName}} and an unhealthy {{typeName}} can seem like completely different people. The core motivation ({{coreMotivation}}) stays the same, but healthy versions pursue it with wisdom, while unhealthy versions pursue it with desperation.",
         highlight: "same motivation, different expression",
       },
     },
@@ -867,7 +867,7 @@ const lesson5: Lesson = {
         ],
         correctIndex: 1,
         explanation:
-          "Your core motivation — {{coreMotivation}} — is the constant thread. At healthy levels, you pursue it with self-awareness and balance. At unhealthy levels, the same motivation becomes compulsive and distorted.",
+          "Your core motivation, {{coreMotivation}}, is the constant thread. At healthy levels, you pursue it with self-awareness and balance. At unhealthy levels, the same motivation becomes compulsive and distorted.",
       },
     },
     {
@@ -880,7 +880,7 @@ const lesson5: Lesson = {
           "Two: good and bad",
           "Three: healthy, average, and unhealthy",
           "Nine: one for each type",
-          "None — health isn't part of the Enneagram",
+          "None, health isn't part of the Enneagram",
         ],
         correctIndex: 1,
         explanation:
@@ -936,7 +936,7 @@ const lesson5: Lesson = {
         ],
         correctIndex: 0,
         explanation:
-          "This is the crucial distinction. The desire itself ({{coreDesire}}) is not the problem — it's how you pursue it. Wisdom versus compulsion is the difference between healthy and unhealthy levels.",
+          "This is the crucial distinction. The desire itself ({{coreDesire}}) is not the problem, it's how you pursue it. Wisdom versus compulsion is the difference between healthy and unhealthy levels.",
       },
     },
     {
@@ -962,7 +962,7 @@ const lesson5: Lesson = {
       content: {
         type: "scenario",
         scenario:
-          "A Type 3 (The Achiever) has been promoted three times in two years. At first they were genuinely inspiring — lifting others up and being authentically confident. Lately, they've become increasingly focused on image, taking credit for team work, and measuring every interaction by 'What does this do for my brand?'",
+          "A Type 3 (The Achiever) has been promoted three times in two years. At first they were genuinely inspiring, lifting others up and being authentically confident. Lately, they've become increasingly focused on image, taking credit for team work, and measuring every interaction by 'What does this do for my brand?'",
         question:
           "What's happening with this Type 3's level of health?",
         options: [
@@ -973,7 +973,7 @@ const lesson5: Lesson = {
         ],
         correctIndex: 1,
         explanation:
-          "This Type 3 has shifted from healthy (genuine, inspiring, self-accepting) to average (image-focused, competitive, self-promoting). The core motivation to feel valuable is the same — but the expression has become less healthy.",
+          "This Type 3 has shifted from healthy (genuine, inspiring, self-accepting) to average (image-focused, competitive, self-promoting). The core motivation to feel valuable is the same, but the expression has become less healthy.",
       },
     },
     {
@@ -992,7 +992,7 @@ const lesson5: Lesson = {
         ],
         correctIndex: 0,
         explanation:
-          "This Type 9 is moving up the health levels. Their core desire for peace hasn't changed — but now they pursue it through genuine engagement rather than passive avoidance. A healthy Type 9 is dynamic, present, and connected.",
+          "This Type 9 is moving up the health levels. Their core desire for peace hasn't changed, but now they pursue it through genuine engagement rather than passive avoidance. A healthy Type 9 is dynamic, present, and connected.",
       },
     },
     {
@@ -1010,7 +1010,7 @@ const lesson5: Lesson = {
         ],
         correctIndex: 1,
         explanation:
-          "The levels are a compass, not a report card. When you notice yourself at average or unhealthy levels, it's useful information — a signal to slow down, reflect, and practice self-care. No one is at their healthiest all the time.",
+          "The levels are a compass, not a report card. When you notice yourself at average or unhealthy levels, it's useful information, a signal to slow down, reflect, and practice self-care. No one is at their healthiest all the time.",
       },
     },
     {
@@ -1028,7 +1028,7 @@ const lesson5: Lesson = {
         ],
         correctIndex: 0,
         explanation:
-          "Same motivation, different expression — that's the key insight of levels of health. Your core motivation ({{coreMotivation}}) doesn't change, but your health level determines whether it drives wisdom or compulsion.",
+          "Same motivation, different expression, that's the key insight of levels of health. Your core motivation ({{coreMotivation}}) doesn't change, but your health level determines whether it drives wisdom or compulsion.",
       },
     },
   ],

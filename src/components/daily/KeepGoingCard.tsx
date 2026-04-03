@@ -64,8 +64,8 @@ export default function KeepGoingCard({
         </motion.span>
         <span className="text-xs font-bold text-orange-500 uppercase tracking-widest">
           {isPerfect
-            ? "Perfect score — keep the momentum!"
-            : `That took ${elapsedLabel} — don't stop now!`}
+            ? "Perfect score, keep the momentum!"
+            : `That took ${elapsedLabel}, don't stop now!`}
         </span>
       </div>
 

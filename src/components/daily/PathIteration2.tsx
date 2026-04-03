@@ -7,7 +7,7 @@
  * - Completed: emerald with a golden crown badge floating above
  * - Current: vibrant violet with animated concentric pulse rings + large START pill below
  * - Locked: frosted glass / blurred with lock
- * - THICK curved SVG path connector (not straight lines — actual bezier curves)
+ * - THICK curved SVG path connector (not straight lines, actual bezier curves)
  * - Dark mode vibe: deep purple/navy background with glowing nodes
  * - Chibi sits ON TOP of current node (not beside it)
  * - Section dividers are subtle horizontal gradient lines with section name

@@ -1,5 +1,5 @@
 // ─────────────────────────────────────────────────────────────────────────────
-// Unit 11 — Type 9: The Peacemaker
+// Unit 11, Type 9: The Peacemaker
 // 4 lessons × 12 exercises each
 // ─────────────────────────────────────────────────────────────────────────────
 
@@ -31,7 +31,7 @@ const lesson1: Lesson = {
       content: {
         type: "concept-intro",
         title: "The Core Fear",
-        body: "Nines fear loss, separation, conflict, and fragmentation. At the deepest level, they fear that asserting themselves will cause disconnection from people they love — so they erase their own needs to stay connected.",
+        body: "Nines fear loss, separation, conflict, and fragmentation. At the deepest level, they fear that asserting themselves will cause disconnection from people they love, so they erase their own needs to stay connected.",
         highlight: "loss and separation",
       },
     },
@@ -49,7 +49,7 @@ const lesson1: Lesson = {
         ],
         correctIndex: 2,
         explanation:
-          "Nines desire inner stability and peace of mind above all. Their entire strategy — merging, accommodating, avoiding conflict — is built to preserve this sense of inner calm.",
+          "Nines desire inner stability and peace of mind above all. Their entire strategy, merging, accommodating, avoiding conflict, is built to preserve this sense of inner calm.",
       },
     },
     {
@@ -112,7 +112,7 @@ const lesson1: Lesson = {
         options: ["admiration", "separation", "excitement", "growth"],
         correctIndex: 1,
         explanation:
-          "The Nine's conflict avoidance isn't cowardice — it's driven by a deep fear that standing up for themselves will push people away and break the bonds they depend on for wholeness.",
+          "The Nine's conflict avoidance isn't cowardice, it's driven by a deep fear that standing up for themselves will push people away and break the bonds they depend on for wholeness.",
       },
     },
     {
@@ -134,17 +134,17 @@ const lesson1: Lesson = {
       content: {
         type: "scenario",
         scenario:
-          "Lee's partner asks where they want to eat. Lee says, 'I'm fine with whatever you want.' The partner pushes: 'But what do YOU want?' Lee pauses and genuinely cannot come up with an answer. They're not being polite — they actually don't know.",
+          "Lee's partner asks where they want to eat. Lee says, 'I'm fine with whatever you want.' The partner pushes: 'But what do YOU want?' Lee pauses and genuinely cannot come up with an answer. They're not being polite, they actually don't know.",
         question: "Which Nine pattern is Lee demonstrating?",
         options: [
           "Deliberate people-pleasing to gain approval",
-          "Self-forgetting — they've merged so deeply with others that they've lost access to their own preferences",
+          "Self-forgetting, they've merged so deeply with others that they've lost access to their own preferences",
           "Strategic ambiguity to avoid commitment",
           "Intellectual detachment from bodily needs",
         ],
         correctIndex: 1,
         explanation:
-          "Lee isn't being polite or strategic — they genuinely don't know what they want. This is Nine's self-forgetting: years of merging have made their own desires invisible to them.",
+          "Lee isn't being polite or strategic, they genuinely don't know what they want. This is Nine's self-forgetting: years of merging have made their own desires invisible to them.",
       },
     },
     {
@@ -157,7 +157,7 @@ const lesson1: Lesson = {
         question: "What Nine dynamic is at play?",
         options: [
           "Healthy conflict resolution",
-          "Conflict avoidance driven by fear of separation — suppressing their own needs to maintain peace",
+          "Conflict avoidance driven by fear of separation, suppressing their own needs to maintain peace",
           "Genuine indifference to the dishes",
           "Strategic manipulation to control the living situation",
         ],
@@ -175,9 +175,9 @@ const lesson1: Lesson = {
           "At work, Jamie's manager asks who wants to lead the new project. Jamie has a great idea and the skills to lead, but stays silent. A less qualified colleague volunteers and gets the role. Jamie feels a dull ache but tells themselves, 'It doesn't matter. I'm happy to support.'",
         question: "What core Nine pattern explains Jamie's behavior?",
         options: [
-          "Strategic patience — waiting for a better opportunity",
-          "Narcissism — they secretly want to be asked",
-          "Self-erasure — suppressing their own ambitions to avoid the discomfort of standing out",
+          "Strategic patience, waiting for a better opportunity",
+          "Narcissism, they secretly want to be asked",
+          "Self-erasure, suppressing their own ambitions to avoid the discomfort of standing out",
           "Genuine lack of interest in leading",
         ],
         correctIndex: 2,
@@ -200,7 +200,7 @@ const lesson1: Lesson = {
         ],
         correctIndex: 1,
         explanation:
-          "Nines can genuinely see every perspective in a conflict. This makes them natural mediators — but it also makes it hard for them to hold their OWN position.",
+          "Nines can genuinely see every perspective in a conflict. This makes them natural mediators, but it also makes it hard for them to hold their OWN position.",
       },
     },
   ],
@@ -222,7 +222,7 @@ const lesson2: Lesson = {
       content: {
         type: "concept-intro",
         title: "The Passion: Sloth",
-        body: "In Naranjo's system, Nine's emotional passion is Sloth — but NOT laziness. Nines can be incredibly hardworking. Sloth here means 'falling asleep' to their own priorities, desires, and anger. It's a self-forgetting: going on autopilot regarding what THEY actually want and need.",
+        body: "In Naranjo's system, Nine's emotional passion is Sloth, but NOT laziness. Nines can be incredibly hardworking. Sloth here means 'falling asleep' to their own priorities, desires, and anger. It's a self-forgetting: going on autopilot regarding what THEY actually want and need.",
         highlight: "Sloth",
       },
     },
@@ -232,7 +232,7 @@ const lesson2: Lesson = {
       content: {
         type: "concept-intro",
         title: "The Virtue: Right Action",
-        body: "The antidote to Sloth is Right Action — engaging with life purposefully, knowing what you want, and pursuing it. For a Nine, this means waking up to their own desires and taking decisive action toward their own goals, not just supporting everyone else's.",
+        body: "The antidote to Sloth is Right Action, engaging with life purposefully, knowing what you want, and pursuing it. For a Nine, this means waking up to their own desires and taking decisive action toward their own goals, not just supporting everyone else's.",
         highlight: "Right Action",
       },
     },
@@ -243,14 +243,14 @@ const lesson2: Lesson = {
         type: "multiple-choice",
         question: "What does 'Sloth' mean as the Nine's passion in Naranjo's system?",
         options: [
-          "Physical laziness — not wanting to work",
-          "Falling asleep to their own desires, anger, and priorities — a self-forgetting",
+          "Physical laziness, not wanting to work",
+          "Falling asleep to their own desires, anger, and priorities, a self-forgetting",
           "Being unintelligent or slow",
           "Deliberately refusing to participate in life",
         ],
         correctIndex: 1,
         explanation:
-          "Naranjo's Sloth is NOT about laziness. Many Nines are extremely hardworking — but they're often working on OTHER people's agendas. The Sloth is about forgetting their own inner life.",
+          "Naranjo's Sloth is NOT about laziness. Many Nines are extremely hardworking, but they're often working on OTHER people's agendas. The Sloth is about forgetting their own inner life.",
       },
     },
     {
@@ -267,7 +267,7 @@ const lesson2: Lesson = {
         ],
         correctIndex: 1,
         explanation:
-          "Right Action for a Nine means waking up from autopilot, knowing what they want, and pursuing it with energy and purpose — not just drifting along supporting others.",
+          "Right Action for a Nine means waking up from autopilot, knowing what they want, and pursuing it with energy and purpose, not just drifting along supporting others.",
       },
     },
     {
@@ -279,13 +279,13 @@ const lesson2: Lesson = {
           "Why is 'Sloth' counterintuitive for Type 9?",
         options: [
           "Because Nines are always the hardest workers",
-          "Because people expect Sloth to mean laziness, but Nines can be very busy — they're just asleep to their OWN priorities",
+          "Because people expect Sloth to mean laziness, but Nines can be very busy, they're just asleep to their OWN priorities",
           "Because Sloth usually describes Type 7",
           "Because Nines never rest",
         ],
         correctIndex: 1,
         explanation:
-          "A Nine can work 60-hour weeks and still be in Sloth — if that work is all for other people's goals. The Sloth is about neglecting their own inner life, not about lacking energy.",
+          "A Nine can work 60-hour weeks and still be in Sloth, if that work is all for other people's goals. The Sloth is about neglecting their own inner life, not about lacking energy.",
       },
     },
     {
@@ -330,7 +330,7 @@ const lesson2: Lesson = {
         options: ["suppress", "acknowledge", "forget", "rationalize"],
         correctIndex: 1,
         explanation:
-          "Right Action starts with simply noticing 'I want something.' For Nines, this acknowledgment is the revolutionary first step — followed by the even harder step of pursuing it.",
+          "Right Action starts with simply noticing 'I want something.' For Nines, this acknowledgment is the revolutionary first step, followed by the even harder step of pursuing it.",
       },
     },
     {
@@ -342,14 +342,14 @@ const lesson2: Lesson = {
           "Dana works tirelessly at their job, always helping coworkers with their projects, staying late to support the team. But when asked about their own career goals, they go blank. They haven't updated their resume in years. They realize they've been so focused on supporting everyone else that they have no idea what THEY want to do with their career.",
         question: "What Nine passion is Dana caught in?",
         options: [
-          "Fear — they're anxious about career change",
-          "Sloth — they've fallen asleep to their own professional desires while being busy for others",
-          "Vanity — they want to be seen as a team player",
-          "Gluttony — they're overcommitting to too many things",
+          "Fear, they're anxious about career change",
+          "Sloth, they've fallen asleep to their own professional desires while being busy for others",
+          "Vanity, they want to be seen as a team player",
+          "Gluttony, they're overcommitting to too many things",
         ],
         correctIndex: 1,
         explanation:
-          "Dana embodies Naranjo's Sloth perfectly: they're NOT lazy — they work extremely hard. But all their energy goes toward others' agendas while their own dreams remain unexamined.",
+          "Dana embodies Naranjo's Sloth perfectly: they're NOT lazy, they work extremely hard. But all their energy goes toward others' agendas while their own dreams remain unexamined.",
       },
     },
     {
@@ -362,9 +362,9 @@ const lesson2: Lesson = {
         question: "What shift is Pat experiencing?",
         options: [
           "Moving from Right Action to Sloth",
-          "Moving from Sloth toward Right Action — waking up to their own desires",
+          "Moving from Sloth toward Right Action, waking up to their own desires",
           "Becoming selfish and losing their Nine gifts",
-          "Stress — becoming anxious about making decisions",
+          "Stress, becoming anxious about making decisions",
         ],
         correctIndex: 1,
         explanation:
@@ -380,14 +380,14 @@ const lesson2: Lesson = {
           "Taylor used to be a warm, supportive presence who held their friend group together. Over time, they became increasingly checked out: binge-watching TV for hours, ignoring texts, letting bills pile up, and forgetting appointments. When a friend asks if they're okay, Taylor says, 'I'm fine. Everything's fine,' while clearly it isn't.",
         question: "Where is Taylor on the health spectrum?",
         options: [
-          "Healthy — they're prioritizing self-care",
-          "Average — they're complacent but functional",
-          "Unhealthy — the Sloth has deepened into dissociation and neglect",
-          "Growing — they're developing independence",
+          "Healthy, they're prioritizing self-care",
+          "Average, they're complacent but functional",
+          "Unhealthy, the Sloth has deepened into dissociation and neglect",
+          "Growing, they're developing independence",
         ],
         correctIndex: 2,
         explanation:
-          "Taylor has moved into unhealthy Nine territory: the Sloth has become full dissociation. They're not just forgetting their desires — they're checking out of life entirely.",
+          "Taylor has moved into unhealthy Nine territory: the Sloth has become full dissociation. They're not just forgetting their desires, they're checking out of life entirely.",
       },
     },
     {
@@ -398,10 +398,10 @@ const lesson2: Lesson = {
         question:
           "Can a Nine be a hard worker and still be in the passion of Sloth?",
         options: [
-          "No — Sloth means laziness, so hard workers can't be in Sloth",
-          "Yes — they can work very hard on others' agendas while neglecting their own desires and priorities",
-          "No — working hard automatically means they've overcome Sloth",
-          "Yes — but only if they work in the wrong career",
+          "No, Sloth means laziness, so hard workers can't be in Sloth",
+          "Yes, they can work very hard on others' agendas while neglecting their own desires and priorities",
+          "No, working hard automatically means they've overcome Sloth",
+          "Yes, but only if they work in the wrong career",
         ],
         correctIndex: 1,
         explanation:
@@ -427,7 +427,7 @@ const lesson3: Lesson = {
       content: {
         type: "concept-intro",
         title: "Wings: 9w8 and 9w1",
-        body: "9w8 (The Referee) has more gut energy — they're more assertive, earthy, and willing to push back when necessary. 9w1 (The Dreamer) has more idealism — they're more orderly, principled, and drawn to imagining a better world, though they may struggle to act on that vision.",
+        body: "9w8 (The Referee) has more gut energy, they're more assertive, earthy, and willing to push back when necessary. 9w1 (The Dreamer) has more idealism, they're more orderly, principled, and drawn to imagining a better world, though they may struggle to act on that vision.",
         highlight: "9w8 vs 9w1",
       },
     },
@@ -450,7 +450,7 @@ const lesson3: Lesson = {
         options: ["To 3", "To 6", "To 1", "To 5"],
         correctIndex: 1,
         explanation:
-          "Under stress, Nines take on unhealthy Six qualities: anxiety, reactivity, worst-case thinking, and suspicious vigilance — a shocking contrast to their usual calm.",
+          "Under stress, Nines take on unhealthy Six qualities: anxiety, reactivity, worst-case thinking, and suspicious vigilance, a shocking contrast to their usual calm.",
       },
     },
     {
@@ -489,8 +489,8 @@ const lesson3: Lesson = {
         type: "matching-pairs",
         instruction: "Match each wing or line to its description.",
         pairs: [
-          { left: "9w8 — The Referee", right: "More assertive, earthy, willing to push back" },
-          { left: "9w1 — The Dreamer", right: "More idealistic, orderly, principled" },
+          { left: "9w8, The Referee", right: "More assertive, earthy, willing to push back" },
+          { left: "9w1, The Dreamer", right: "More idealistic, orderly, principled" },
           { left: "Stress to 6", right: "Becomes anxious, reactive, worst-case thinking" },
           { left: "Growth to 3", right: "Becomes energized, goal-oriented, self-developing" },
         ],
@@ -532,13 +532,13 @@ const lesson3: Lesson = {
         question: "What is happening to Alex?",
         options: [
           "Alex is growing into a healthier version of themselves",
-          "Alex is moving to their stress point at Type 6 — becoming anxious and suspicious",
+          "Alex is moving to their stress point at Type 6, becoming anxious and suspicious",
           "Alex has always been a Six, not a Nine",
           "Alex is expressing their 9w1 wing more strongly",
         ],
         correctIndex: 1,
         explanation:
-          "Alex is in their stress line to Type 6. Under prolonged pressure, Nines can suddenly become anxious, vigilant, and suspicious — the opposite of their usual trusting calm.",
+          "Alex is in their stress line to Type 6. Under prolonged pressure, Nines can suddenly become anxious, vigilant, and suspicious, the opposite of their usual trusting calm.",
       },
     },
     {
@@ -547,13 +547,13 @@ const lesson3: Lesson = {
       content: {
         type: "scenario",
         scenario:
-          "After years of going with the flow, Morgan signs up for a marathon, creates a training schedule, and sticks to it. They start saying 'no' to social obligations that conflict with training. Friends are surprised — Morgan has never been this focused on a personal goal before.",
+          "After years of going with the flow, Morgan signs up for a marathon, creates a training schedule, and sticks to it. They start saying 'no' to social obligations that conflict with training. Friends are surprised, Morgan has never been this focused on a personal goal before.",
         question: "What growth line is Morgan accessing?",
         options: [
-          "Stress to 6 — becoming anxious about fitness",
-          "Growth to 3 — becoming goal-oriented, energized, and self-developing",
-          "Wing shift to 9w8 — becoming more assertive",
-          "Losing their Nine nature — becoming too competitive",
+          "Stress to 6, becoming anxious about fitness",
+          "Growth to 3, becoming goal-oriented, energized, and self-developing",
+          "Wing shift to 9w8, becoming more assertive",
+          "Losing their Nine nature, becoming too competitive",
         ],
         correctIndex: 1,
         explanation:
@@ -566,7 +566,7 @@ const lesson3: Lesson = {
       content: {
         type: "sorting",
         instruction: "Sort these behaviors by whether they belong to 9w8 or 9w1.",
-        categories: ["9w8 — The Referee", "9w1 — The Dreamer"],
+        categories: ["9w8, The Referee", "9w1, The Dreamer"],
         items: [
           { text: "Can be surprisingly assertive when pushed", categoryIndex: 0 },
           { text: "Drawn to idealistic visions of how things should be", categoryIndex: 1 },
@@ -587,8 +587,8 @@ const lesson3: Lesson = {
         options: [
           "Healthy growth",
           "Natural Nine behavior",
-          "Stress — moving to the anxious side of Type 6",
-          "A mistype — they're actually a Type 6",
+          "Stress, moving to the anxious side of Type 6",
+          "A mistype, they're actually a Type 6",
         ],
         correctIndex: 2,
         explanation:
@@ -614,7 +614,7 @@ const lesson4: Lesson = {
       content: {
         type: "concept-intro",
         title: "Spotting a Nine",
-        body: "Nines are often the calmest person in the room. They deflect questions about their own preferences, agree easily, and have a soothing presence. Watch for the person who says 'I'm fine with whatever' most often — and seems to genuinely mean it.",
+        body: "Nines are often the calmest person in the room. They deflect questions about their own preferences, agree easily, and have a soothing presence. Watch for the person who says 'I'm fine with whatever' most often, and seems to genuinely mean it.",
         highlight: "I'm fine with whatever",
       },
     },
@@ -624,7 +624,7 @@ const lesson4: Lesson = {
       content: {
         type: "concept-intro",
         title: "Common Mistypes",
-        body: "Nines are most confused with Type 5 (both withdrawn — but 5s are actively thinking and analyzing, while 9s are numbing out) and Type 2 (both accommodating — but 2s give to feel needed, while 9s merge passively to avoid conflict).",
+        body: "Nines are most confused with Type 5 (both withdrawn, but 5s are actively thinking and analyzing, while 9s are numbing out) and Type 2 (both accommodating, but 2s give to feel needed, while 9s merge passively to avoid conflict).",
         highlight: "Type 5 and Type 2",
       },
     },
@@ -643,7 +643,7 @@ const lesson4: Lesson = {
         ],
         correctIndex: 1,
         explanation:
-          "Nines naturally defer. They're the last to state a preference and the first to say 'I don't mind' — not because they're weak, but because maintaining harmony feels more important than personal preferences.",
+          "Nines naturally defer. They're the last to state a preference and the first to say 'I don't mind', not because they're weak, but because maintaining harmony feels more important than personal preferences.",
       },
     },
     {
@@ -661,7 +661,7 @@ const lesson4: Lesson = {
         ],
         correctIndex: 1,
         explanation:
-          "Both types can look withdrawn, but for completely different reasons. A Five's mind is racing with analysis; a Nine's mind is going quiet — tuning out rather than tuning in.",
+          "Both types can look withdrawn, but for completely different reasons. A Five's mind is racing with analysis; a Nine's mind is going quiet, tuning out rather than tuning in.",
       },
     },
     {
@@ -688,7 +688,7 @@ const lesson4: Lesson = {
       content: {
         type: "matching-pairs",
         instruction:
-          "Match the behavior to the correct type — Nine or its common mistype.",
+          "Match the behavior to the correct type, Nine or its common mistype.",
         pairs: [
           { left: "Withdraws to numb out and avoid discomfort", right: "Type 9" },
           { left: "Withdraws to analyze and think deeply", right: "Type 5" },
@@ -732,8 +732,8 @@ const lesson4: Lesson = {
           "Two coworkers both seem quiet and reserved. One spends their lunch break reading dense research papers, takes meticulous notes in meetings, and asks probing analytical questions. The other spends lunch scrolling their phone, agrees with whatever is discussed in meetings, and when asked for their opinion says, 'Yeah, I think everyone's made good points.'",
         question: "Which coworker is more likely a Nine?",
         options: [
-          "The first — their quietness signals Nine energy",
-          "The second — they're checked out, merging with the group, and avoiding having a position",
+          "The first, their quietness signals Nine energy",
+          "The second, they're checked out, merging with the group, and avoiding having a position",
           "Both are Nines with different wings",
           "Neither is a Nine",
         ],
@@ -751,8 +751,8 @@ const lesson4: Lesson = {
           "At a party, one guest quietly makes sure everyone's glass is full, asks people how they're feeling, and checks in on the shy person in the corner. Another guest sits comfortably on the couch, laughs at everyone's jokes, and seems perfectly content without initiating any conversation or activity.",
         question: "Who is the Nine?",
         options: [
-          "The first guest — their quiet care signals Nine",
-          "The second guest — they're passively comfortable without needing to DO anything or be needed",
+          "The first guest, their quiet care signals Nine",
+          "The second guest, they're passively comfortable without needing to DO anything or be needed",
           "Both are Nines",
           "Neither is a Nine",
         ],
@@ -772,12 +772,12 @@ const lesson4: Lesson = {
         options: [
           "Sam is being strategically diplomatic (Type 3)",
           "Sam is gathering information before deciding (Type 5)",
-          "Sam is genuinely unable to prioritize their own desire over group harmony — self-forgetting in action (Type 9)",
+          "Sam is genuinely unable to prioritize their own desire over group harmony, self-forgetting in action (Type 9)",
           "Sam doesn't actually care about the vacation (disinterest)",
         ],
         correctIndex: 2,
         explanation:
-          "Sam DID have a preference — the beach. But Nine's self-forgetting is so automatic that they couldn't advocate for it. The desire registered ('their face lit up') but was immediately suppressed.",
+          "Sam DID have a preference, the beach. But Nine's self-forgetting is so automatic that they couldn't advocate for it. The desire registered ('their face lit up') but was immediately suppressed.",
       },
     },
     {
@@ -795,7 +795,7 @@ const lesson4: Lesson = {
         ],
         correctIndex: 1,
         explanation:
-          "The most reliable Nine signal is the consistent inability (or unwillingness) to state their own preference. 'I'm fine with whatever you want' is the Nine's catchphrase — and they usually believe it themselves.",
+          "The most reliable Nine signal is the consistent inability (or unwillingness) to state their own preference. 'I'm fine with whatever you want' is the Nine's catchphrase, and they usually believe it themselves.",
       },
     },
   ],

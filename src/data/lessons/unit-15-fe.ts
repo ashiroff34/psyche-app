@@ -1,5 +1,5 @@
 // ─────────────────────────────────────────────────────────────────────────────
-// Unit 15 — Extraverted Feeling (Fe)
+// Unit 15, Extraverted Feeling (Fe)
 // Social thermostat, group emotional dynamics, interpersonal harmony
 // ─────────────────────────────────────────────────────────────────────────────
 
@@ -33,7 +33,7 @@ const lesson1: Lesson = {
       content: {
         type: "concept-intro",
         title: "Fe Is NOT Just 'Being Nice'",
-        body: "A huge misconception: Fe is not about being pleasant or people-pleasing. It's about social-emotional AWARENESS. An Fe user can be blunt, confrontational, or demanding — what makes it Fe is that they're reading and managing the group's emotional field to achieve a social goal.",
+        body: "A huge misconception: Fe is not about being pleasant or people-pleasing. It's about social-emotional AWARENESS. An Fe user can be blunt, confrontational, or demanding, what makes it Fe is that they're reading and managing the group's emotional field to achieve a social goal.",
         highlight: "awareness, not niceness",
       },
     },
@@ -50,7 +50,7 @@ const lesson1: Lesson = {
           "What patterns do I see emerging?",
         ],
         correctIndex: 1,
-        explanation: "Fe is oriented outward toward the group. It constantly monitors social-emotional dynamics and asks what the collective needs — comfort, direction, honesty, celebration, or intervention.",
+        explanation: "Fe is oriented outward toward the group. It constantly monitors social-emotional dynamics and asks what the collective needs, comfort, direction, honesty, celebration, or intervention.",
       },
     },
     {
@@ -66,7 +66,7 @@ const lesson1: Lesson = {
           "Because only Fi users can be nice",
         ],
         correctIndex: 1,
-        explanation: "Fe reads what the social situation requires. Sometimes that means soothing. Sometimes it means saying the hard truth that everyone is avoiding. The tool is social awareness — niceness is just one possible output.",
+        explanation: "Fe reads what the social situation requires. Sometimes that means soothing. Sometimes it means saying the hard truth that everyone is avoiding. The tool is social awareness, niceness is just one possible output.",
       },
     },
     {
@@ -119,7 +119,7 @@ const lesson1: Lesson = {
         sentence: "Fe makes decisions based on ___ values and social dynamics, while Fi makes decisions based on ___ values.",
         options: ["shared / personal", "personal / shared", "logical / emotional", "external / no"],
         correctIndex: 0,
-        explanation: "The key distinction: Fe orients toward shared, communal values — what the group considers good. Fi orients toward personal, individual values — what the self considers authentic.",
+        explanation: "The key distinction: Fe orients toward shared, communal values, what the group considers good. Fi orients toward personal, individual values, what the self considers authentic.",
       },
     },
     {
@@ -127,7 +127,7 @@ const lesson1: Lesson = {
       difficulty: 3,
       content: {
         type: "scenario",
-        scenario: "During a team meeting, Maya notices that the new intern hasn't spoken once and looks increasingly uncomfortable. Without drawing attention to the intern's silence, Maya naturally redirects the conversation: 'Actually, I'd love to hear different perspectives — Jamie, what's your take on this?'",
+        scenario: "During a team meeting, Maya notices that the new intern hasn't spoken once and looks increasingly uncomfortable. Without drawing attention to the intern's silence, Maya naturally redirects the conversation: 'Actually, I'd love to hear different perspectives, Jamie, what's your take on this?'",
         question: "What Fe skill is Maya demonstrating?",
         options: [
           "Logical analysis of meeting efficiency",
@@ -136,7 +136,7 @@ const lesson1: Lesson = {
           "Pattern recognition about meeting dynamics",
         ],
         correctIndex: 1,
-        explanation: "Maya read the emotional state of a group member (awareness), then subtly intervened to include them without causing embarrassment (facilitation). This is Fe at its finest — managing group dynamics with social intelligence.",
+        explanation: "Maya read the emotional state of a group member (awareness), then subtly intervened to include them without causing embarrassment (facilitation). This is Fe at its finest, managing group dynamics with social intelligence.",
       },
     },
     {
@@ -147,13 +147,13 @@ const lesson1: Lesson = {
         scenario: "An ENFJ teacher notices one student bullying another. Instead of being 'nice' about it, she firmly says in front of the class: 'That behavior is not acceptable in this room. We treat each other with respect here.' Her voice is warm but uncompromising.",
         question: "Is this Fe even though she's being confrontational?",
         options: [
-          "No — Fe would try to smooth things over gently",
-          "Yes — Fe is managing the group's emotional safety, which sometimes requires firmness",
-          "No — this is Te enforcing rules",
-          "No — this is Fi asserting personal values",
+          "No, Fe would try to smooth things over gently",
+          "Yes, Fe is managing the group's emotional safety, which sometimes requires firmness",
+          "No, this is Te enforcing rules",
+          "No, this is Fi asserting personal values",
         ],
         correctIndex: 1,
-        explanation: "Absolutely Fe. She's establishing and enforcing social-emotional norms for the GROUP ('we treat each other with respect HERE'). Fe can be warm and firm simultaneously — it's not about being passive.",
+        explanation: "Absolutely Fe. She's establishing and enforcing social-emotional norms for the GROUP ('we treat each other with respect HERE'). Fe can be warm and firm simultaneously, it's not about being passive.",
       },
     },
     {
@@ -235,7 +235,7 @@ const lesson2: Lesson = {
           "As anxiety about social situations",
         ],
         correctIndex: 1,
-        explanation: "Dominant Fe is always 'on' — it's the primary lens through which ENFJs and ESFJs experience the world. They are constantly, automatically reading social-emotional dynamics.",
+        explanation: "Dominant Fe is always 'on', it's the primary lens through which ENFJs and ESFJs experience the world. They are constantly, automatically reading social-emotional dynamics.",
       },
     },
     {
@@ -292,7 +292,7 @@ const lesson2: Lesson = {
         sentence: "An INTP under stress may experience inferior Fe as sudden ___ about whether people like them, despite normally seeming indifferent to social approval.",
         options: ["intense anxiety", "logical analysis", "creative inspiration", "physical restlessness"],
         correctIndex: 0,
-        explanation: "When inferior Fe erupts in Ti-dominant types, it often manifests as overwhelming social anxiety — 'Does everyone hate me? Did I say something wrong?' — which feels completely alien to their usual logical composure.",
+        explanation: "When inferior Fe erupts in Ti-dominant types, it often manifests as overwhelming social anxiety, 'Does everyone hate me? Did I say something wrong?', which feels completely alien to their usual logical composure.",
       },
     },
     {
@@ -300,7 +300,7 @@ const lesson2: Lesson = {
       difficulty: 2,
       content: {
         type: "fill-in-blank",
-        sentence: "Tertiary Fe (in ENTPs and ESTPs) often shows up as developing ___ — a growing ability to charm and connect, though less naturally than in Fe-dominant types.",
+        sentence: "Tertiary Fe (in ENTPs and ESTPs) often shows up as developing ___, a growing ability to charm and connect, though less naturally than in Fe-dominant types.",
         options: ["social savvy", "logical precision", "value clarity", "sensory awareness"],
         correctIndex: 0,
         explanation: "Tertiary Fe develops through life experience. ENTPs and ESTPs often become surprisingly charming and socially skilled as they mature, though it remains a supporting function rather than their primary mode.",
@@ -331,7 +331,7 @@ const lesson2: Lesson = {
         scenario: "Compare two hosts at separate dinner parties. Host A (ESFJ) seamlessly manages the conversation, ensures no one is left out, and reads the room to know when to shift topics. Host B (INTP) prepared an elaborate meal but keeps retreating to the kitchen, and when asked 'Are you okay?' says, 'I'm fine, I just... groups are a lot.'",
         question: "How does stack position explain their different hosting experiences?",
         options: [
-          "Host A is just more social by nature — nothing to do with functions",
+          "Host A is just more social by nature, nothing to do with functions",
           "Host A's dominant Fe makes group facilitation effortless; Host B's inferior Fe makes it draining and anxiety-producing",
           "Host B is using more Fe by cooking for everyone",
           "Host A is using Te to organize, not Fe",
@@ -364,13 +364,13 @@ const lesson2: Lesson = {
         type: "multiple-choice",
         question: "True or false: Inferior Fe means the person doesn't care about social connection.",
         options: [
-          "True — they genuinely don't care about people",
-          "False — they often deeply desire connection but struggle with the social-emotional skills to achieve it",
-          "True — thinking types are anti-social",
-          "False — but only because society forces them to care",
+          "True, they genuinely don't care about people",
+          "False, they often deeply desire connection but struggle with the social-emotional skills to achieve it",
+          "True, thinking types are anti-social",
+          "False, but only because society forces them to care",
         ],
         correctIndex: 1,
-        explanation: "Inferior Fe doesn't mean absence of social desire — it means the SKILL of navigating social-emotional dynamics is underdeveloped. INTPs and ISTPs often crave meaningful connection but feel clumsy in achieving it.",
+        explanation: "Inferior Fe doesn't mean absence of social desire, it means the SKILL of navigating social-emotional dynamics is underdeveloped. INTPs and ISTPs often crave meaningful connection but feel clumsy in achieving it.",
       },
     },
   ],
@@ -402,7 +402,7 @@ const lesson3: Lesson = {
       content: {
         type: "concept-intro",
         title: "Fe Under Stress & the Ti Grip",
-        body: "Under stress, Fe users may become emotionally manipulative or martyr-like ('After everything I've done for you...'). In extreme stress, Fe-dominant types can flip to their inferior Ti — becoming coldly logical, hyper-critical, and cutting in ways that shock everyone.",
+        body: "Under stress, Fe users may become emotionally manipulative or martyr-like ('After everything I've done for you...'). In extreme stress, Fe-dominant types can flip to their inferior Ti, becoming coldly logical, hyper-critical, and cutting in ways that shock everyone.",
         highlight: "Ti grip",
       },
     },
@@ -419,7 +419,7 @@ const lesson3: Lesson = {
           "By giving the other person complete independence and space",
         ],
         correctIndex: 1,
-        explanation: "Fe love is environmental and communal. Fe users create warmth around them — holiday traditions, group dinners, remembering how you take your coffee, making sure your birthday is celebrated.",
+        explanation: "Fe love is environmental and communal. Fe users create warmth around them, holiday traditions, group dinners, remembering how you take your coffee, making sure your birthday is celebrated.",
       },
     },
     {
@@ -505,7 +505,7 @@ const lesson3: Lesson = {
           "Normal extrovert behavior",
         ],
         correctIndex: 1,
-        explanation: "Robin has lost herself in Fe's outward orientation. When Fe is unhealthy, the person's entire identity becomes 'the one who takes care of everyone.' The partner's question — 'Who are you outside of this?' — points to the missing Fi integration.",
+        explanation: "Robin has lost herself in Fe's outward orientation. When Fe is unhealthy, the person's entire identity becomes 'the one who takes care of everyone.' The partner's question, 'Who are you outside of this?', points to the missing Fi integration.",
       },
     },
     {
@@ -516,13 +516,13 @@ const lesson3: Lesson = {
         scenario: "On social media, you notice someone who always adjusts their posts to match what will get the best response from their audience. They share uplifting quotes for some followers, edgy humor for others, and political content only when it aligns with their followers' views. A friend calls this 'fake.'",
         question: "Is this person being fake, or is this Fe in action?",
         options: [
-          "Definitely fake — authentic people are the same everywhere",
-          "This is Fe social calibration — adjusting presentation for the audience. Whether it's healthy depends on whether a core self exists underneath",
+          "Definitely fake, authentic people are the same everywhere",
+          "This is Fe social calibration, adjusting presentation for the audience. Whether it's healthy depends on whether a core self exists underneath",
           "This is Te organizing their social media strategy",
           "This is Ni predicting what content will perform best",
         ],
         correctIndex: 1,
-        explanation: "Fe naturally calibrates social presentation. This isn't inherently fake — everyone code-switches. The question is whether there's a stable identity underneath the social adaptation (healthy) or whether the person has lost themselves in the performance (unhealthy).",
+        explanation: "Fe naturally calibrates social presentation. This isn't inherently fake, everyone code-switches. The question is whether there's a stable identity underneath the social adaptation (healthy) or whether the person has lost themselves in the performance (unhealthy).",
       },
     },
     {
@@ -555,7 +555,7 @@ const lesson3: Lesson = {
           "Suppressing all emotional awareness",
         ],
         correctIndex: 1,
-        explanation: "Healthy Fe integrates some Fi — the ability to ask 'What do I need?' alongside 'What does the group need?' Without this balance, Fe users burn out or become resentful.",
+        explanation: "Healthy Fe integrates some Fi, the ability to ask 'What do I need?' alongside 'What does the group need?' Without this balance, Fe users burn out or become resentful.",
       },
     },
   ],
@@ -577,7 +577,7 @@ const lesson4: Lesson = {
       content: {
         type: "concept-intro",
         title: "Fe vs. Fi: The Mirror vs. The Compass",
-        body: "Fe mirrors the group — it adapts its expression to serve social harmony. Fi is a compass — it stays true to internal values regardless of social context. Fe asks 'What do WE feel?' Fi asks 'What do I feel?' Both are valid; neither is superior.",
+        body: "Fe mirrors the group, it adapts its expression to serve social harmony. Fi is a compass, it stays true to internal values regardless of social context. Fe asks 'What do WE feel?' Fi asks 'What do I feel?' Both are valid; neither is superior.",
         highlight: "mirror vs. compass",
       },
     },
@@ -587,7 +587,7 @@ const lesson4: Lesson = {
       content: {
         type: "concept-intro",
         title: "Fe vs. Social Anxiety",
-        body: "Fe is often confused with social anxiety, but they're very different. Fe users are socially SKILLED — they read rooms effortlessly. People with social anxiety may be hyperaware of social dynamics but lack confidence. You can have Fe without anxiety and anxiety without Fe.",
+        body: "Fe is often confused with social anxiety, but they're very different. Fe users are socially SKILLED, they read rooms effortlessly. People with social anxiety may be hyperaware of social dynamics but lack confidence. You can have Fe without anxiety and anxiety without Fe.",
         highlight: "skilled, not anxious",
       },
     },
@@ -598,13 +598,13 @@ const lesson4: Lesson = {
         type: "multiple-choice",
         question: "Person A changes their behavior based on who they're with. Person B stays exactly the same in every social context. Which is using Fe?",
         options: [
-          "Person B — consistency shows social awareness",
-          "Person A — Fe naturally calibrates to the social context",
-          "Neither — this has nothing to do with functions",
-          "Both — everyone uses Fe sometimes",
+          "Person B, consistency shows social awareness",
+          "Person A, Fe naturally calibrates to the social context",
+          "Neither, this has nothing to do with functions",
+          "Both, everyone uses Fe sometimes",
         ],
         correctIndex: 1,
-        explanation: "Fe users naturally adjust their communication style, energy level, and topics based on who they're with. This isn't being fake — it's social intelligence. Fi users are more likely to stay consistent regardless of context.",
+        explanation: "Fe users naturally adjust their communication style, energy level, and topics based on who they're with. This isn't being fake, it's social intelligence. Fi users are more likely to stay consistent regardless of context.",
       },
     },
     {
@@ -615,7 +615,7 @@ const lesson4: Lesson = {
         question: "Which statement is an Fe perspective on group conflict?",
         options: [
           "'Everyone needs to figure out their own feelings about this'",
-          "'We need to clear the air — this tension is affecting the whole team'",
+          "'We need to clear the air, this tension is affecting the whole team'",
           "'Let me analyze the logical roots of this disagreement'",
           "'I need to sit with this privately before I can respond'",
         ],
@@ -636,7 +636,7 @@ const lesson4: Lesson = {
           "There's no difference in how they help",
         ],
         correctIndex: 0,
-        explanation: "Fe helps by managing the emotional environment — organizing support, rallying friends, creating comfort. Fi helps by deeply understanding the individual — sitting with them, validating their unique experience, honoring their feelings.",
+        explanation: "Fe helps by managing the emotional environment, organizing support, rallying friends, creating comfort. Fi helps by deeply understanding the individual, sitting with them, validating their unique experience, honoring their feelings.",
       },
     },
     {
@@ -664,7 +664,7 @@ const lesson4: Lesson = {
         sentence: "Fe can be confused with social anxiety, but the key difference is that Fe is social ___ while anxiety is social ___.",
         options: ["skill / fear", "fear / skill", "avoidance / engagement", "thinking / feeling"],
         correctIndex: 0,
-        explanation: "Fe users are socially capable — they read rooms, manage dynamics, and facilitate groups effectively. Social anxiety involves fear and avoidance of social situations regardless of actual social skill.",
+        explanation: "Fe users are socially capable, they read rooms, manage dynamics, and facilitate groups effectively. Social anxiety involves fear and avoidance of social situations regardless of actual social skill.",
       },
     },
     {
@@ -695,7 +695,7 @@ const lesson4: Lesson = {
           "Te shows genuine concern; Fe is just performing",
         ],
         correctIndex: 1,
-        explanation: "Both managers are addressing the problem effectively through their dominant function. Fe frames it as a relational, emotional issue. Te frames it as a measurable performance issue. Neither is inherently better — they work for different situations and people.",
+        explanation: "Both managers are addressing the problem effectively through their dominant function. Fe frames it as a relational, emotional issue. Te frames it as a measurable performance issue. Neither is inherently better, they work for different situations and people.",
       },
     },
     {
@@ -712,7 +712,7 @@ const lesson4: Lesson = {
           "'Do you care about other people?'",
         ],
         correctIndex: 1,
-        explanation: "The key distinguisher is DIRECTION. Fe feels compelled to manage the GROUP dynamic. Fi feels the impact on SELF and others as individuals. Both can be equally warm, caring, and empathetic — the orientation is what differs.",
+        explanation: "The key distinguisher is DIRECTION. Fe feels compelled to manage the GROUP dynamic. Fi feels the impact on SELF and others as individuals. Both can be equally warm, caring, and empathetic, the orientation is what differs.",
       },
     },
     {
@@ -729,7 +729,7 @@ const lesson4: Lesson = {
           "Both are using Fi",
         ],
         correctIndex: 1,
-        explanation: "Person A frames the issue in terms of impact on the GROUP (community, marginalized people) — Fe orientation. Person B frames it as a PERSONAL moral stand (what I know to be right) — Fi orientation. Same topic, different feeling orientations.",
+        explanation: "Person A frames the issue in terms of impact on the GROUP (community, marginalized people), Fe orientation. Person B frames it as a PERSONAL moral stand (what I know to be right), Fi orientation. Same topic, different feeling orientations.",
       },
     },
     {

@@ -101,7 +101,7 @@ export default function WeeklyChallengeCard({ challenge, onClaim }: Props) {
 
           {/* Description */}
           <p className={`text-xs mb-3 leading-relaxed ${rewardClaimed ? "text-emerald-600" : completed ? "text-amber-800" : "text-slate-500"}`}>
-            {rewardClaimed ? "Challenge complete — great work this week! 🎉" : description}
+            {rewardClaimed ? "Challenge complete, great work this week! 🎉" : description}
           </p>
 
           {/* Progress */}
@@ -140,7 +140,7 @@ export default function WeeklyChallengeCard({ challenge, onClaim }: Props) {
                 style={{ background: "linear-gradient(135deg, #f59e0b, #fbbf24)", boxShadow: "0 4px 16px rgba(245,158,11,0.4)" }}
               >
                 <Trophy className="w-4 h-4" />
-                Claim Reward — +{xpReward} XP &amp; +{tokenReward} tokens!
+                Claim Reward, +{xpReward} XP &amp; +{tokenReward} tokens!
               </motion.button>
             )}
           </AnimatePresence>

@@ -1,5 +1,5 @@
 // ─────────────────────────────────────────────────────────────────────────────
-// Unit 20 — Introverted Sensing (Si)
+// Unit 20, Introverted Sensing (Si)
 // Living archive, detailed sensory memory, past-to-present comparison
 // ─────────────────────────────────────────────────────────────────────────────
 
@@ -23,7 +23,7 @@ const lesson1: Lesson = {
       content: {
         type: "concept-intro",
         title: "What Is Introverted Sensing?",
-        body: "Si is a rich internal archive of past sensory experience. It asks: 'How does this compare to what I've experienced before?' Every new moment is automatically cross-referenced with stored impressions — not just facts, but how things FELT, tasted, sounded, and smelled.",
+        body: "Si is a rich internal archive of past sensory experience. It asks: 'How does this compare to what I've experienced before?' Every new moment is automatically cross-referenced with stored impressions, not just facts, but how things FELT, tasted, sounded, and smelled.",
         highlight: "internal archive",
       },
     },
@@ -33,7 +33,7 @@ const lesson1: Lesson = {
       content: {
         type: "concept-intro",
         title: "Si from the Inside",
-        body: "People with strong Si describe vivid re-experiencing of past moments — the exact warmth of a childhood kitchen, the texture of a favorite blanket, the way rain sounded on a particular afternoon. It's not dry recall; it's reliving with full emotional and sensory texture.",
+        body: "People with strong Si describe vivid re-experiencing of past moments, the exact warmth of a childhood kitchen, the texture of a favorite blanket, the way rain sounded on a particular afternoon. It's not dry recall; it's reliving with full emotional and sensory texture.",
         highlight: "vivid re-experiencing",
       },
     },
@@ -61,12 +61,12 @@ const lesson1: Lesson = {
         question: "How does Si store memories differently from a simple factual record?",
         options: [
           "It only stores visual images like photographs",
-          "It stores the full sensory and emotional texture of experiences — how things FELT, not just what happened",
+          "It stores the full sensory and emotional texture of experiences, how things FELT, not just what happened",
           "It stores memories in strict chronological order like a timeline",
           "It only stores negative experiences as warnings",
         ],
         correctIndex: 1,
-        explanation: "Si memories are rich, multi-sensory impressions. A Si user doesn't just remember a holiday dinner — they remember the exact taste of the stuffing, the warmth of the room, and the feeling of contentment in their chest.",
+        explanation: "Si memories are rich, multi-sensory impressions. A Si user doesn't just remember a holiday dinner, they remember the exact taste of the stuffing, the warmth of the room, and the feeling of contentment in their chest.",
       },
     },
     {
@@ -105,10 +105,10 @@ const lesson1: Lesson = {
       difficulty: 2,
       content: {
         type: "fill-in-blank",
-        sentence: "Si stores experiences as rich ___ — not just what happened, but the full sensory and emotional quality of the moment.",
+        sentence: "Si stores experiences as rich ___, not just what happened, but the full sensory and emotional quality of the moment.",
         options: ["impressions", "photographs", "theories", "predictions"],
         correctIndex: 0,
-        explanation: "Jung used the term 'impressions' to describe how Si stores experience. These are holistic recordings that include sensory data, emotional tone, and bodily sensations — far more than simple factual memory.",
+        explanation: "Jung used the term 'impressions' to describe how Si stores experience. These are holistic recordings that include sensory data, emotional tone, and bodily sensations, far more than simple factual memory.",
       },
     },
     {
@@ -127,13 +127,13 @@ const lesson1: Lesson = {
       difficulty: 3,
       content: {
         type: "scenario",
-        scenario: "Maya visits a coffee shop she hasn't been to in five years. The moment she walks in, she notices the espresso machine has been replaced, the chairs are different, and the barista is using a new milk steaming technique. She thinks, 'This isn't the same — something about the atmosphere has shifted.'",
+        scenario: "Maya visits a coffee shop she hasn't been to in five years. The moment she walks in, she notices the espresso machine has been replaced, the chairs are different, and the barista is using a new milk steaming technique. She thinks, 'This isn't the same, something about the atmosphere has shifted.'",
         question: "What cognitive function is Maya primarily using?",
         options: [
-          "Se — she's immersed in the present-moment sensory experience",
-          "Si — she's automatically comparing the current experience to her stored impression of the original",
-          "Ni — she's predicting how the coffee shop will change in the future",
-          "Ne — she's brainstorming possibilities for why the shop changed",
+          "Se, she's immersed in the present-moment sensory experience",
+          "Si, she's automatically comparing the current experience to her stored impression of the original",
+          "Ni, she's predicting how the coffee shop will change in the future",
+          "Ne, she's brainstorming possibilities for why the shop changed",
         ],
         correctIndex: 1,
         explanation: "Maya is doing classic Si work: she has a detailed stored impression of how the coffee shop was, and she's automatically comparing the present reality to that internal archive. She notices discrepancies because her Si holds a vivid record.",
@@ -144,16 +144,16 @@ const lesson1: Lesson = {
       difficulty: 3,
       content: {
         type: "scenario",
-        scenario: "Two friends are cooking together. Friend A tastes the soup and says, 'This needs more salt — last time we made this, we used about a teaspoon more and it was perfect.' Friend B tastes it and says, 'Interesting flavor — what if we tried adding something totally unexpected, like miso paste?'",
+        scenario: "Two friends are cooking together. Friend A tastes the soup and says, 'This needs more salt, last time we made this, we used about a teaspoon more and it was perfect.' Friend B tastes it and says, 'Interesting flavor, what if we tried adding something totally unexpected, like miso paste?'",
         question: "Which friend is demonstrating Si?",
         options: [
-          "Friend B — they're being creative with flavors",
-          "Friend A — they're referencing a specific past experience to guide the present",
+          "Friend B, they're being creative with flavors",
+          "Friend A, they're referencing a specific past experience to guide the present",
           "Both are using Si equally",
-          "Neither is using Si — this is just cooking",
+          "Neither is using Si, this is just cooking",
         ],
         correctIndex: 1,
-        explanation: "Friend A demonstrates Si by referencing a specific past experience ('last time we made this') and using that stored impression to guide current action. Friend B is more likely using Ne — exploring novel possibilities.",
+        explanation: "Friend A demonstrates Si by referencing a specific past experience ('last time we made this') and using that stored impression to guide current action. Friend B is more likely using Ne, exploring novel possibilities.",
       },
     },
     {
@@ -218,7 +218,7 @@ const lesson2: Lesson = {
       content: {
         type: "concept-intro",
         title: "The Beebe Model & Si",
-        body: "In Beebe's archetypal model, dominant Si is the Hero — trusted and well-developed. Inferior Si is the Anima/Animus — the least conscious function. For Ne-dominant types (ENTP, ENFP), inferior Si emerges as their greatest vulnerability: an anxious fixation on physical sensations and past failures.",
+        body: "In Beebe's archetypal model, dominant Si is the Hero, trusted and well-developed. Inferior Si is the Anima/Animus, the least conscious function. For Ne-dominant types (ENTP, ENFP), inferior Si emerges as their greatest vulnerability: an anxious fixation on physical sensations and past failures.",
         highlight: "Hero vs. Anima/Animus",
       },
     },
@@ -251,7 +251,7 @@ const lesson2: Lesson = {
           "As something they actively resist and avoid",
         ],
         correctIndex: 1,
-        explanation: "Auxiliary Si provides ESTJs and ESFJs with a rich experiential database that supports their leading Te or Fe. It's their internal reference library — 'Here's what worked before' — feeding reliable data to their decision-making.",
+        explanation: "Auxiliary Si provides ESTJs and ESFJs with a rich experiential database that supports their leading Te or Fe. It's their internal reference library, 'Here's what worked before', feeding reliable data to their decision-making.",
       },
     },
     {
@@ -289,7 +289,7 @@ const lesson2: Lesson = {
       difficulty: 2,
       content: {
         type: "fill-in-blank",
-        sentence: "An ENFP under extreme stress may experience their inferior Si as obsessive ___ — Googling symptoms, convinced something is physically wrong.",
+        sentence: "An ENFP under extreme stress may experience their inferior Si as obsessive ___, Googling symptoms, convinced something is physically wrong.",
         options: ["health anxiety", "brainstorming", "social performance", "logical analysis"],
         correctIndex: 0,
         explanation: "When inferior Si grips Ne-dominant types, it often manifests as hypochondria or health anxiety. The normally future-focused, possibility-loving ENFP becomes fixated on bodily sensations and worst-case physical scenarios.",
@@ -303,7 +303,7 @@ const lesson2: Lesson = {
         sentence: "ENTPs and ENFPs with inferior Si often struggle with maintaining consistent ___, even when they know these habits are good for them.",
         options: ["routines", "friendships", "theories", "creativity"],
         correctIndex: 0,
-        explanation: "Inferior Si makes consistent routines feel stifling and boring to Ne-dominant types. They know they should eat regularly, exercise consistently, and keep a schedule — but their Ne constantly pulls them toward novelty instead.",
+        explanation: "Inferior Si makes consistent routines feel stifling and boring to Ne-dominant types. They know they should eat regularly, exercise consistently, and keep a schedule, but their Ne constantly pulls them toward novelty instead.",
       },
     },
     {
@@ -311,11 +311,11 @@ const lesson2: Lesson = {
       difficulty: 3,
       content: {
         type: "scenario",
-        scenario: "Dani, an ENTP inventor, has been working on a new project for weeks with barely any sleep. Suddenly, they spiral into panic: 'What's this pain in my chest? I think I'm having a heart attack. Actually, three years ago I had a similar feeling — what if it's been something serious this whole time?' They spend the next four hours on WebMD.",
+        scenario: "Dani, an ENTP inventor, has been working on a new project for weeks with barely any sleep. Suddenly, they spiral into panic: 'What's this pain in my chest? I think I'm having a heart attack. Actually, three years ago I had a similar feeling, what if it's been something serious this whole time?' They spend the next four hours on WebMD.",
         question: "What is happening psychologically?",
         options: [
           "They are developing their dominant Ne further",
-          "Their inferior Si is erupting — fixating on bodily sensations and past physical experiences with anxiety",
+          "Their inferior Si is erupting, fixating on bodily sensations and past physical experiences with anxiety",
           "They are using healthy Ti to logically analyze their health",
           "Their Fe is making them worry about others",
         ],
@@ -328,16 +328,16 @@ const lesson2: Lesson = {
       difficulty: 3,
       content: {
         type: "scenario",
-        scenario: "Two people both value family traditions. Person A (ISFJ) says: 'We've always done Christmas Eve dinner with grandma's exact recipe. I remember exactly how the kitchen smelled when she made it — I want to recreate that feeling.' Person B (ENFP) says: 'I love Christmas traditions! Well, usually. Sometimes I change them up. But when I'm really stressed, I desperately want everything to be EXACTLY like it was when I was little.'",
+        scenario: "Two people both value family traditions. Person A (ISFJ) says: 'We've always done Christmas Eve dinner with grandma's exact recipe. I remember exactly how the kitchen smelled when she made it, I want to recreate that feeling.' Person B (ENFP) says: 'I love Christmas traditions! Well, usually. Sometimes I change them up. But when I'm really stressed, I desperately want everything to be EXACTLY like it was when I was little.'",
         question: "What explains the difference in their relationship to tradition?",
         options: [
           "Person A doesn't really care about tradition",
           "Person A has dominant Si and naturally treasures stored impressions; Person B has inferior Si and tradition emerges mainly under stress as a comfort-seeking grip",
           "Person B is more mature about tradition",
-          "There is no real difference — both are just sentimental",
+          "There is no real difference, both are just sentimental",
         ],
         correctIndex: 1,
-        explanation: "Dominant Si naturally and comfortably weaves past impressions into daily life. Inferior Si has an unstable relationship with the past — sometimes dismissing tradition, sometimes desperately clinging to it when stressed.",
+        explanation: "Dominant Si naturally and comfortably weaves past impressions into daily life. Inferior Si has an unstable relationship with the past, sometimes dismissing tradition, sometimes desperately clinging to it when stressed.",
       },
     },
     {
@@ -364,10 +364,10 @@ const lesson2: Lesson = {
         type: "multiple-choice",
         question: "True or false: Si works the same way regardless of its position in someone's cognitive stack.",
         options: [
-          "True — Si is Si",
-          "False — stack position dramatically changes how Si manifests",
-          "True — but only for sensing types",
-          "False — but only because of age differences",
+          "True, Si is Si",
+          "False, stack position dramatically changes how Si manifests",
+          "True, but only for sensing types",
+          "False, but only because of age differences",
         ],
         correctIndex: 1,
         explanation: "Stack position is crucial. Dominant Si is a trusted, detailed archive. Inferior Si is an anxiety-prone blind spot that can erupt as hypochondria or desperate nostalgia. Same function, completely different experience.",
@@ -402,7 +402,7 @@ const lesson3: Lesson = {
       content: {
         type: "concept-intro",
         title: "Si Under Stress",
-        body: "When stressed, Si users may become rigid — clinging to 'how things have always been done' and resisting any change. In extreme stress (the 'grip'), ISFJs flip to inferior Ne, catastrophizing about all the terrible things that COULD go wrong. ISTJs may spiral into worst-case-scenario thinking.",
+        body: "When stressed, Si users may become rigid, clinging to 'how things have always been done' and resisting any change. In extreme stress (the 'grip'), ISFJs flip to inferior Ne, catastrophizing about all the terrible things that COULD go wrong. ISTJs may spiral into worst-case-scenario thinking.",
         highlight: "grip",
       },
     },
@@ -414,12 +414,12 @@ const lesson3: Lesson = {
         question: "How does Si typically show love in close relationships?",
         options: [
           "Grand spontaneous gestures and surprises",
-          "Remembering specific details about you — your preferences, your stories, your history together",
+          "Remembering specific details about you, your preferences, your stories, your history together",
           "Debating ideas passionately into the night",
           "Pushing you to try exciting new experiences",
         ],
         correctIndex: 1,
-        explanation: "Si shows love through detailed memory and consistency. Remembering your exact coffee order, the anniversary of your first date, or a story you told once — this is Si saying 'You matter enough for me to store every detail.'",
+        explanation: "Si shows love through detailed memory and consistency. Remembering your exact coffee order, the anniversary of your first date, or a story you told once, this is Si saying 'You matter enough for me to store every detail.'",
       },
     },
     {
@@ -430,12 +430,12 @@ const lesson3: Lesson = {
         question: "What happens to an ISFJ in an 'Ne grip' (extreme stress)?",
         options: [
           "They become intensely focused on physical sensations",
-          "They catastrophize about all the terrible things that could go wrong — seeing doom in every possibility",
+          "They catastrophize about all the terrible things that could go wrong, seeing doom in every possibility",
           "They become loud, aggressive, and confrontational",
           "They withdraw into abstract philosophical thinking",
         ],
         correctIndex: 1,
-        explanation: "The ISFJ's inferior function is Ne. In a grip, ISFJs flip from their grounded, past-based reliability to anxious future-thinking — imagining worst-case scenarios for every situation.",
+        explanation: "The ISFJ's inferior function is Ne. In a grip, ISFJs flip from their grounded, past-based reliability to anxious future-thinking, imagining worst-case scenarios for every situation.",
       },
     },
     {
@@ -485,7 +485,7 @@ const lesson3: Lesson = {
       difficulty: 2,
       content: {
         type: "fill-in-blank",
-        sentence: "Si-driven creativity tends to involve ___ existing forms and traditions rather than inventing entirely new ones — think of a baker perfecting a recipe over decades.",
+        sentence: "Si-driven creativity tends to involve ___ existing forms and traditions rather than inventing entirely new ones, think of a baker perfecting a recipe over decades.",
         options: ["refining", "abandoning", "ignoring", "theorizing about"],
         correctIndex: 0,
         explanation: "Si creativity is iterative and detail-oriented. Rather than throwing everything out and starting fresh, Si users make things better through countless small refinements informed by past experience.",
@@ -496,7 +496,7 @@ const lesson3: Lesson = {
       difficulty: 3,
       content: {
         type: "scenario",
-        scenario: "Kenji has been making his family's miso soup recipe for 30 years. Each time, he notices subtle differences — 'The dashi is slightly stronger today, the tofu is a different texture than last month's brand.' He's made hundreds of tiny adjustments over the decades, and everyone says his version is now better than the original.",
+        scenario: "Kenji has been making his family's miso soup recipe for 30 years. Each time, he notices subtle differences, 'The dashi is slightly stronger today, the tofu is a different texture than last month's brand.' He's made hundreds of tiny adjustments over the decades, and everyone says his version is now better than the original.",
         question: "What Si process is Kenji demonstrating?",
         options: [
           "Mindless repetition of tradition",
@@ -505,7 +505,7 @@ const lesson3: Lesson = {
           "Ne exploration of new cooking possibilities",
         ],
         correctIndex: 1,
-        explanation: "Kenji's process is pure Si mastery: each batch is compared to hundreds of stored impressions, and tiny differences are noticed and adjusted. This isn't mindless repetition — it's deeply attentive refinement powered by an extraordinary sensory archive.",
+        explanation: "Kenji's process is pure Si mastery: each batch is compared to hundreds of stored impressions, and tiny differences are noticed and adjusted. This isn't mindless repetition, it's deeply attentive refinement powered by an extraordinary sensory archive.",
       },
     },
     {
@@ -536,7 +536,7 @@ const lesson3: Lesson = {
           { text: "Clear procedures that have been refined over time", categoryIndex: 0 },
           { text: "Constant restructuring with no respect for what worked before", categoryIndex: 1 },
           { text: "Your experience and institutional knowledge are valued", categoryIndex: 0 },
-          { text: "'Forget everything you know — we're starting from scratch'", categoryIndex: 1 },
+          { text: "'Forget everything you know, we're starting from scratch'", categoryIndex: 1 },
           { text: "Detailed documentation and standard operating procedures", categoryIndex: 0 },
           { text: "Chaos, no records, and a new system every month", categoryIndex: 1 },
         ],
@@ -555,7 +555,7 @@ const lesson3: Lesson = {
           "Reading the emotional atmosphere of a room instantly",
         ],
         correctIndex: 1,
-        explanation: "Si's greatest everyday strength is its comparison engine. Because Si users carry such detailed internal records, they notice when something is even slightly off — a skill invaluable in quality control, healthcare, cooking, and relationships.",
+        explanation: "Si's greatest everyday strength is its comparison engine. Because Si users carry such detailed internal records, they notice when something is even slightly off, a skill invaluable in quality control, healthcare, cooking, and relationships.",
       },
     },
   ],
@@ -577,7 +577,7 @@ const lesson4: Lesson = {
       content: {
         type: "concept-intro",
         title: "The Critical Distinction: Si vs. Se",
-        body: "Si and Se are BOTH sensing functions, but they face opposite directions. Si asks 'How does this compare to before?' — it's a past-oriented comparison. Se asks 'What's happening right NOW?' — it's present-moment immersion. Si savors the memory of a sunset; Se is fully absorbed in watching it.",
+        body: "Si and Se are BOTH sensing functions, but they face opposite directions. Si asks 'How does this compare to before?', it's a past-oriented comparison. Se asks 'What's happening right NOW?', it's present-moment immersion. Si savors the memory of a sunset; Se is fully absorbed in watching it.",
         highlight: "opposite directions",
       },
     },
@@ -587,7 +587,7 @@ const lesson4: Lesson = {
       content: {
         type: "concept-intro",
         title: "Other Common Confusions",
-        body: "Si is often confused with Ni because both are introverted perceiving functions — quiet internal processing. But Si stores concrete, detailed impressions ('I remember exactly how it felt'), while Ni synthesizes abstract patterns ('I sense where this is heading'). Si is also NOT the same as having a good memory — it's specifically sensory-experiential recall.",
+        body: "Si is often confused with Ni because both are introverted perceiving functions, quiet internal processing. But Si stores concrete, detailed impressions ('I remember exactly how it felt'), while Ni synthesizes abstract patterns ('I sense where this is heading'). Si is also NOT the same as having a good memory, it's specifically sensory-experiential recall.",
         highlight: "impressions vs. patterns",
       },
     },
@@ -604,7 +604,7 @@ const lesson4: Lesson = {
           "Si is about thinking, Se is about feeling",
         ],
         correctIndex: 1,
-        explanation: "The i/e distinction is about TIME ORIENTATION. Si is past-referencing — it compares now to then. Se is present-immersing — it fully engages with what's happening right now. Both can be equally rich and detailed.",
+        explanation: "The i/e distinction is about TIME ORIENTATION. Si is past-referencing, it compares now to then. Se is present-immersing, it fully engages with what's happening right now. Both can be equally rich and detailed.",
       },
     },
     {
@@ -612,15 +612,15 @@ const lesson4: Lesson = {
       difficulty: 1,
       content: {
         type: "multiple-choice",
-        question: "Someone says: 'I just had a feeling that something about this situation was off — and then I realized it's heading toward disaster.' Which function is this?",
+        question: "Someone says: 'I just had a feeling that something about this situation was off, and then I realized it's heading toward disaster.' Which function is this?",
         options: [
-          "Si — they're comparing to the past",
-          "Se — they're reading the present environment",
-          "Ni — they're synthesizing patterns into a future prediction",
-          "Ne — they're brainstorming possibilities",
+          "Si, they're comparing to the past",
+          "Se, they're reading the present environment",
+          "Ni, they're synthesizing patterns into a future prediction",
+          "Ne, they're brainstorming possibilities",
         ],
         correctIndex: 2,
-        explanation: "Sensing 'where this is heading' from unconscious pattern synthesis is Ni. Si would say 'This reminds me of last time, when things went badly' — the reference is to a specific stored past experience, not an abstract convergent insight.",
+        explanation: "Sensing 'where this is heading' from unconscious pattern synthesis is Ni. Si would say 'This reminds me of last time, when things went badly', the reference is to a specific stored past experience, not an abstract convergent insight.",
       },
     },
     {
@@ -636,7 +636,7 @@ const lesson4: Lesson = {
           "Because Si is objectively the least interesting function",
         ],
         correctIndex: 1,
-        explanation: "Si's value for experience, tradition, and refinement can look like rigidity from the outside — especially to Ne or Se users who crave novelty. In reality, Si offers extraordinary depth, rich inner experience, and masterful attention to detail.",
+        explanation: "Si's value for experience, tradition, and refinement can look like rigidity from the outside, especially to Ne or Se users who crave novelty. In reality, Si offers extraordinary depth, rich inner experience, and masterful attention to detail.",
       },
     },
     {
@@ -649,7 +649,7 @@ const lesson4: Lesson = {
           { left: "Si", right: "'This reminds me exactly of what happened in 2019'" },
           { left: "Ni", right: "'I can just sense where this trend is heading'" },
           { left: "Si", right: "'The texture of this bread is different from last batch'" },
-          { left: "Ni", right: "'Something is converging — I can't explain it yet'" },
+          { left: "Ni", right: "'Something is converging, I can't explain it yet'" },
         ],
       },
     },
@@ -686,7 +686,7 @@ const lesson4: Lesson = {
       difficulty: 3,
       content: {
         type: "scenario",
-        scenario: "At a wine tasting, Person A takes a sip and says, 'This reminds me of a Barolo I had in Piedmont eight years ago — same earthy undertone, but this one has less tannin.' Person B takes a sip and says, 'Wow — taste that acidity! Feel how it dries out the sides of your tongue right now. This is incredible.'",
+        scenario: "At a wine tasting, Person A takes a sip and says, 'This reminds me of a Barolo I had in Piedmont eight years ago, same earthy undertone, but this one has less tannin.' Person B takes a sip and says, 'Wow, taste that acidity! Feel how it dries out the sides of your tongue right now. This is incredible.'",
         question: "Which person is demonstrating Si and which Se?",
         options: [
           "Person A = Se, Person B = Si",
@@ -703,7 +703,7 @@ const lesson4: Lesson = {
       difficulty: 3,
       content: {
         type: "scenario",
-        scenario: "Two managers are dealing with a new business challenge. Manager A says: 'We faced something similar in 2018 — here's exactly what we did and how it turned out. Let's use that as our starting point.' Manager B says: 'I have a strong sense that the market is shifting in a new direction. I can't point to specifics, but I know we need to pivot.'",
+        scenario: "Two managers are dealing with a new business challenge. Manager A says: 'We faced something similar in 2018, here's exactly what we did and how it turned out. Let's use that as our starting point.' Manager B says: 'I have a strong sense that the market is shifting in a new direction. I can't point to specifics, but I know we need to pivot.'",
         question: "Which manager is using Si and which is using Ni?",
         options: [
           "Manager A = Ni, Manager B = Si",
@@ -712,7 +712,7 @@ const lesson4: Lesson = {
           "Both are using Ni",
         ],
         correctIndex: 1,
-        explanation: "Manager A references a specific past experience with concrete details — textbook Si. Manager B describes a convergent feeling about the future that they can't fully articulate — textbook Ni. Both are valid approaches, but they draw from different sources.",
+        explanation: "Manager A references a specific past experience with concrete details, textbook Si. Manager B describes a convergent feeling about the future that they can't fully articulate, textbook Ni. Both are valid approaches, but they draw from different sources.",
       },
     },
     {
@@ -720,16 +720,16 @@ const lesson4: Lesson = {
       difficulty: 3,
       content: {
         type: "scenario",
-        scenario: "You're trying to decide if someone uses Si or just has a naturally good memory. They can recall incredibly specific details about past events — colors, textures, smells, exactly how things felt.",
+        scenario: "You're trying to decide if someone uses Si or just has a naturally good memory. They can recall incredibly specific details about past events, colors, textures, smells, exactly how things felt.",
         question: "What's the best way to distinguish genuine Si from just having a good memory?",
         options: [
-          "Si users actively USE their stored impressions to navigate the present — comparing, evaluating, and guiding decisions based on past experience",
-          "There is no difference — good memory IS Si",
+          "Si users actively USE their stored impressions to navigate the present, comparing, evaluating, and guiding decisions based on past experience",
+          "There is no difference, good memory IS Si",
           "Si users only remember negative experiences",
           "Si users have photographic memory, which is totally different from regular memory",
         ],
         correctIndex: 0,
-        explanation: "The key differentiator is FUNCTIONAL USE. Si isn't just storage — it's an active perceiving process that continuously compares present experience to the past and uses those comparisons to guide behavior. Everyone has memory; Si is a way of perceiving through memory.",
+        explanation: "The key differentiator is FUNCTIONAL USE. Si isn't just storage, it's an active perceiving process that continuously compares present experience to the past and uses those comparisons to guide behavior. Everyone has memory; Si is a way of perceiving through memory.",
       },
     },
     {

@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { acquireNotificationLock, releaseNotificationLock } from "@/lib/notificationLock";
 import Link from "next/link";
 import {
   AlertTriangle,
@@ -73,19 +74,7 @@ export default function RetentionBanner() {
   const [dismissed, setDismissed] = useState(false);
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  useEffect(() => {
-    // Check if already dismissed this session
-    if (sessionStorage.getItem("retention-banner-dismissed") === "true") {
-      setDismissed(true);
-      return;
-    }
-
-    // Only show to returning users (psyche-profile must exist)
-    const hasProfile = !!localStorage.getItem("psyche-profile");
-    if (!hasProfile) return;
-
-    // Don't show until onboarding/tutorial is complete
-    if (localStorage.getItem("psyche-tutorial-complete") !== "true") return;
+  function showBanner() {
 
     const today = getDateKey();
 
@@ -204,7 +193,7 @@ export default function RetentionBanner() {
         if (!claimed) {
           data = {
             variant: "comeback",
-            message: `Welcome back! You've been gone ${daysSince} day${daysSince !== 1 ? "s" : ""} — claim your comeback bonus (+50 XP).`,
+            message: `Welcome back! You've been gone ${daysSince} day${daysSince !== 1 ? "s" : ""}, claim your comeback bonus (+50 XP).`,
             href: "/daily",
             actionLabel: "Claim Bonus",
             icon: <Trophy className="w-4 h-4" />,
@@ -223,7 +212,7 @@ export default function RetentionBanner() {
       if (!quizDoneToday) {
         data = {
           variant: "daily-not-done",
-          message: "Your daily practice is waiting — just a few minutes to earn your streak bonus.",
+          message: "Your daily practice is waiting, just a few minutes to earn your streak bonus.",
           href: "/daily",
           actionLabel: "Start Practice",
           icon: <BookOpen className="w-4 h-4" />,
@@ -248,7 +237,30 @@ export default function RetentionBanner() {
       };
     }
 
+    if (!data) return;
+    // Acquire the global notification lock — bail if something else is already showing
+    if (!acquireNotificationLock("retention-banner")) return;
     setBanner(data);
+  }
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(() => {
+    // Check if already dismissed this session
+    if (sessionStorage.getItem("retention-banner-dismissed") === "true") {
+      setDismissed(true);
+      return;
+    }
+
+    // Only show to returning users (psyche-profile must exist)
+    const hasProfile = !!localStorage.getItem("psyche-profile");
+    if (!hasProfile) return;
+
+    // Don't show until onboarding/tutorial is complete
+    if (localStorage.getItem("psyche-tutorial-complete") !== "true") return;
+
+    // Delay slightly so higher-priority notifications (ComebackModal) get first pick
+    const delay = setTimeout(() => { showBanner(); }, 300);
+    return () => clearTimeout(delay);
   }, []);
 
   // Auto-dismiss after AUTO_DISMISS_MS
@@ -264,6 +276,7 @@ export default function RetentionBanner() {
   }, [banner, dismissed]);
 
   const handleDismiss = () => {
+    releaseNotificationLock("retention-banner");
     sessionStorage.setItem("retention-banner-dismissed", "true");
     setDismissed(true);
     if (timerRef.current) clearTimeout(timerRef.current);
@@ -278,19 +291,20 @@ export default function RetentionBanner() {
           animate={{ opacity: 1, x: 0 }}
           exit={{ opacity: 0, x: 400 }}
           transition={{ duration: 0.35, ease: "easeOut" }}
-          className={`fixed bottom-6 right-6 z-50 max-w-sm w-full rounded-2xl bg-white border border-slate-200 shadow-xl shadow-slate-200/60 overflow-hidden`}
+          className="fixed bottom-6 right-6 z-50 max-w-sm w-full rounded-2xl overflow-hidden"
+          style={{ background: "rgba(20,14,40,0.97)", border: "1px solid rgba(139,92,246,0.2)", boxShadow: "0 8px 32px rgba(0,0,0,0.5)" }}
         >
           {/* Gradient accent strip */}
-          <div className={`absolute inset-0 bg-gradient-to-br ${banner.gradient} pointer-events-none rounded-2xl`} />
+          <div className={`absolute inset-0 bg-gradient-to-br ${banner.gradient} pointer-events-none rounded-2xl opacity-60`} />
 
           <div className="relative p-4 flex items-start gap-3">
             {/* Icon */}
-            <div className={`shrink-0 mt-0.5 ${banner.textColor}`}>
+            <div className="shrink-0 mt-0.5" style={{ color: "rgba(167,139,250,0.9)" }}>
               {banner.icon}
             </div>
 
             {/* Message */}
-            <p className={`flex-1 text-sm font-medium ${banner.textColor} leading-snug`}>
+            <p className="flex-1 text-sm font-medium leading-snug" style={{ color: "rgba(255,255,255,0.85)" }}>
               {banner.message}
             </p>
 
@@ -298,7 +312,8 @@ export default function RetentionBanner() {
             <button
               onClick={handleDismiss}
               aria-label="Dismiss"
-              className={`shrink-0 p-1 rounded-md ${banner.textColor} opacity-50 hover:opacity-100 transition-opacity`}
+              className="shrink-0 p-1 rounded-md transition-opacity hover:opacity-100"
+              style={{ color: "rgba(255,255,255,0.4)" }}
             >
               <X className="w-3.5 h-3.5" />
             </button>
@@ -309,7 +324,8 @@ export default function RetentionBanner() {
             <Link
               href={banner.href}
               onClick={handleDismiss}
-              className={`inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-semibold transition-colors ${banner.buttonClass}`}
+              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-semibold text-white transition-all"
+              style={{ background: "linear-gradient(135deg, #7c3aed, #4f46e5)", boxShadow: "0 4px 12px rgba(124,58,237,0.4)" }}
             >
               {banner.actionLabel}
               <ArrowRight className="w-3 h-3" />

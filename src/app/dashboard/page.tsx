@@ -73,7 +73,7 @@ function StressGrowthToggle({ type }: { type: number }) {
 }
 
 export default function DashboardPage() {
-  const { profile, loaded, clearProfile } = useProfile(); // reactive — updates when type changes anywhere
+  const { profile, loaded, clearProfile } = useProfile(); // reactive, updates when type changes anywhere
 
   const enneagramType = profile.enneagramType ? enneagramTypes.find((t) => t.number === profile.enneagramType) : null;
   const mbtiType = profile.cognitiveType ? mbtiTypes.find((t) => t.code === profile.cognitiveType) : null;

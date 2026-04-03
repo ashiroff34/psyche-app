@@ -25,7 +25,7 @@ const lesson1: Lesson = {
       content: {
         type: "concept-intro",
         title: "Welcome to the Enneagram",
-        body: "The Enneagram is a personality system that describes nine distinct ways people see the world. Each type has a different core motivation — a deep, often unconscious drive that shapes how you think, feel, and act.",
+        body: "The Enneagram is a personality system that describes nine distinct ways people see the world. Each type has a different core motivation, a deep, often unconscious drive that shapes how you think, feel, and act.",
         highlight: "core motivation",
       },
     },
@@ -68,7 +68,7 @@ const lesson1: Lesson = {
         ],
         correctIndex: 1,
         explanation:
-          "The Enneagram is all about motivation — the deep inner 'why' behind your patterns. It's not about surface behaviors or preferences.",
+          "The Enneagram is all about motivation, the deep inner 'why' behind your patterns. It's not about surface behaviors or preferences.",
       },
     },
     // ── E5: multiple-choice (difficulty 1) ──
@@ -87,7 +87,7 @@ const lesson1: Lesson = {
         ],
         correctIndex: 1,
         explanation:
-          "A core motivation is the deep inner drive behind your personality patterns. It's often so automatic you don't even notice it — like an invisible engine running in the background.",
+          "A core motivation is the deep inner drive behind your personality patterns. It's often so automatic you don't even notice it, like an invisible engine running in the background.",
       },
     },
     // ── E6: matching-pairs (difficulty 2) ──
@@ -99,10 +99,10 @@ const lesson1: Lesson = {
         instruction:
           "Match each Enneagram type to the one-word drive that best captures it.",
         pairs: [
-          { left: "Type 1 — The Reformer", right: "Integrity" },
-          { left: "Type 2 — The Helper", right: "Love" },
-          { left: "Type 7 — The Enthusiast", right: "Freedom" },
-          { left: "Type 8 — The Challenger", right: "Strength" },
+          { left: "Type 1, The Reformer", right: "Integrity" },
+          { left: "Type 2, The Helper", right: "Love" },
+          { left: "Type 7, The Enthusiast", right: "Freedom" },
+          { left: "Type 8, The Challenger", right: "Strength" },
         ],
       },
     },
@@ -129,10 +129,10 @@ const lesson1: Lesson = {
         instruction:
           "Match each Enneagram type to the one-word drive that best captures it.",
         pairs: [
-          { left: "Type 3 — The Achiever", right: "Worth" },
-          { left: "Type 4 — The Individualist", right: "Identity" },
-          { left: "Type 5 — The Investigator", right: "Knowledge" },
-          { left: "Type 6 — The Loyalist", right: "Security" },
+          { left: "Type 3, The Achiever", right: "Worth" },
+          { left: "Type 4, The Individualist", right: "Identity" },
+          { left: "Type 5, The Investigator", right: "Knowledge" },
+          { left: "Type 6, The Loyalist", right: "Security" },
         ],
       },
     },
@@ -154,7 +154,7 @@ const lesson1: Lesson = {
         ],
         correctIndex: 1,
         explanation:
-          "This is exactly why the Enneagram looks at motivation, not behavior. Alex might be driven by a need for worth (Type 3), while Jordan might be driven by security (Type 6) — same action, different engines.",
+          "This is exactly why the Enneagram looks at motivation, not behavior. Alex might be driven by a need for worth (Type 3), while Jordan might be driven by security (Type 6), same action, different engines.",
       },
     },
     // ── E10: scenario (difficulty 3) ──
@@ -175,7 +175,7 @@ const lesson1: Lesson = {
         ],
         correctIndex: 1,
         explanation:
-          "Sam's drive to keep things ordered isn't just about tidiness — it comes from a deep desire to be good and do things the right way, a hallmark of Type 1's core motivation.",
+          "Sam's drive to keep things ordered isn't just about tidiness, it comes from a deep desire to be good and do things the right way, a hallmark of Type 1's core motivation.",
       },
     },
     // ── E11: multiple-choice (difficulty 3) ──
@@ -219,7 +219,7 @@ const lesson1: Lesson = {
   ],
 };
 
-// ── Lesson 2: Three Brains — Head, Heart, Gut ─────────────────────────────
+// ── Lesson 2: Three Brains, Head, Heart, Gut ─────────────────────────────
 
 const lesson2: Lesson = {
   id: "three-brains",
@@ -235,7 +235,7 @@ const lesson2: Lesson = {
       content: {
         type: "concept-intro",
         title: "Three Centers of Intelligence",
-        body: "The nine Enneagram types are organized into three groups called Centers — or Triads. Each center processes life through a different kind of intelligence: instinct, emotion, or analysis.",
+        body: "The nine Enneagram types are organized into three groups called Centers, or Triads. Each center processes life through a different kind of intelligence: instinct, emotion, or analysis.",
         highlight: "Centers",
       },
     },
@@ -287,7 +287,7 @@ const lesson2: Lesson = {
         ],
         correctIndex: 2,
         explanation:
-          "The Gut (Body) Center — Types 8, 9, and 1 — processes through instinct. Their core emotional challenge is anger, though each type expresses or suppresses it differently.",
+          "The Gut (Body) Center, Types 8, 9, and 1, processes through instinct. Their core emotional challenge is anger, though each type expresses or suppresses it differently.",
       },
     },
     {
@@ -298,12 +298,12 @@ const lesson2: Lesson = {
         instruction: "Sort each type into its correct Center.",
         categories: ["Gut Center", "Heart Center", "Head Center"],
         items: [
-          { text: "Type 8 — The Challenger", categoryIndex: 0 },
-          { text: "Type 2 — The Helper", categoryIndex: 1 },
-          { text: "Type 5 — The Investigator", categoryIndex: 2 },
-          { text: "Type 1 — The Reformer", categoryIndex: 0 },
-          { text: "Type 4 — The Individualist", categoryIndex: 1 },
-          { text: "Type 7 — The Enthusiast", categoryIndex: 2 },
+          { text: "Type 8, The Challenger", categoryIndex: 0 },
+          { text: "Type 2, The Helper", categoryIndex: 1 },
+          { text: "Type 5, The Investigator", categoryIndex: 2 },
+          { text: "Type 1, The Reformer", categoryIndex: 0 },
+          { text: "Type 4, The Individualist", categoryIndex: 1 },
+          { text: "Type 7, The Enthusiast", categoryIndex: 2 },
         ],
       },
     },
@@ -339,13 +339,13 @@ const lesson2: Lesson = {
       content: {
         type: "scenario",
         scenario:
-          "When Riley's friend cancels plans, Riley's first reaction is a gut feeling of irritation — almost like a physical tension in their body. They don't analyze it or get sad. They just feel an instinctive 'that's not okay.'",
+          "When Riley's friend cancels plans, Riley's first reaction is a gut feeling of irritation, almost like a physical tension in their body. They don't analyze it or get sad. They just feel an instinctive 'that's not okay.'",
         question: "Based on this reaction, which Center does Riley most likely operate from?",
         options: [
-          "Head Center — they're analyzing the situation",
-          "Heart Center — they're feeling hurt about their image",
-          "Gut Center — they're responding with instinctive anger",
-          "None — everyone reacts this way",
+          "Head Center, they're analyzing the situation",
+          "Heart Center, they're feeling hurt about their image",
+          "Gut Center, they're responding with instinctive anger",
+          "None, everyone reacts this way",
         ],
         correctIndex: 2,
         explanation:
@@ -361,9 +361,9 @@ const lesson2: Lesson = {
           "When faced with a big decision, Morgan's first instinct is to research everything. They make pros-and-cons lists, read reviews, and think through every possible outcome before committing.",
         question: "Which Center does Morgan most likely lead with?",
         options: [
-          "Gut Center — they trust their instincts",
-          "Heart Center — they care about how it looks",
-          "Head Center — they analyze before acting",
+          "Gut Center, they trust their instincts",
+          "Heart Center, they care about how it looks",
+          "Head Center, they analyze before acting",
           "All Centers equally",
         ],
         correctIndex: 2,
@@ -386,7 +386,7 @@ const lesson2: Lesson = {
         ],
         correctIndex: 1,
         explanation:
-          "Great catch! Each type in a Center has a different relationship to its core emotion. Type 8 externalizes anger, Type 1 internalizes it as resentment, and Type 9 'falls asleep' to their anger — suppressing it to avoid conflict.",
+          "Great catch! Each type in a Center has a different relationship to its core emotion. Type 8 externalizes anger, Type 1 internalizes it as resentment, and Type 9 'falls asleep' to their anger, suppressing it to avoid conflict.",
       },
     },
     {
@@ -453,7 +453,7 @@ const lesson3: Lesson = {
         ],
         correctIndex: 1,
         explanation:
-          "A core fear isn't about spiders or heights — it's a deep psychological dread. For example, Type 3's core fear is being worthless apart from their achievements. It operates in the background, shaping decisions you don't even realize you're making.",
+          "A core fear isn't about spiders or heights, it's a deep psychological dread. For example, Type 3's core fear is being worthless apart from their achievements. It operates in the background, shaping decisions you don't even realize you're making.",
       },
     },
     {
@@ -464,7 +464,7 @@ const lesson3: Lesson = {
         question: "What is the relationship between core fear and core desire?",
         options: [
           "They are the same thing",
-          "They are opposites — the desire is what you long for, the fear is what you avoid",
+          "They are opposites, the desire is what you long for, the fear is what you avoid",
           "Core fear is stronger than core desire",
           "They are unrelated",
         ],
@@ -487,7 +487,7 @@ const lesson3: Lesson = {
         ],
         correctIndex: 2,
         explanation:
-          "Type 1's core desire is to be good, to have integrity, and to be balanced. This is the flip side of their fear of being corrupt or defective — they strive for moral excellence.",
+          "Type 1's core desire is to be good, to have integrity, and to be balanced. This is the flip side of their fear of being corrupt or defective, they strive for moral excellence.",
       },
     },
     {
@@ -497,10 +497,10 @@ const lesson3: Lesson = {
         type: "matching-pairs",
         instruction: "Match each type to its core fear.",
         pairs: [
-          { left: "Type 1 — The Reformer", right: "Being corrupt or defective" },
-          { left: "Type 4 — The Individualist", right: "Having no identity or significance" },
-          { left: "Type 7 — The Enthusiast", right: "Being trapped in pain" },
-          { left: "Type 8 — The Challenger", right: "Being controlled by others" },
+          { left: "Type 1, The Reformer", right: "Being corrupt or defective" },
+          { left: "Type 4, The Individualist", right: "Having no identity or significance" },
+          { left: "Type 7, The Enthusiast", right: "Being trapped in pain" },
+          { left: "Type 8, The Challenger", right: "Being controlled by others" },
         ],
       },
     },
@@ -514,7 +514,7 @@ const lesson3: Lesson = {
         options: ["powerful", "perfect", "satisfied", "unique"],
         correctIndex: 2,
         explanation:
-          "Type 7 longs to feel satisfied and fulfilled. This desire drives their pursuit of exciting experiences — they're trying to stay ahead of the fear that they'll be stuck in pain or boredom.",
+          "Type 7 longs to feel satisfied and fulfilled. This desire drives their pursuit of exciting experiences, they're trying to stay ahead of the fear that they'll be stuck in pain or boredom.",
       },
     },
     {
@@ -524,10 +524,10 @@ const lesson3: Lesson = {
         type: "matching-pairs",
         instruction: "Match each type to its core desire.",
         pairs: [
-          { left: "Type 2 — The Helper", right: "To feel loved and wanted" },
-          { left: "Type 3 — The Achiever", right: "To feel valuable and worthwhile" },
-          { left: "Type 5 — The Investigator", right: "To be capable and competent" },
-          { left: "Type 6 — The Loyalist", right: "To have security and support" },
+          { left: "Type 2, The Helper", right: "To feel loved and wanted" },
+          { left: "Type 3, The Achiever", right: "To feel valuable and worthwhile" },
+          { left: "Type 5, The Investigator", right: "To be capable and competent" },
+          { left: "Type 6, The Loyalist", right: "To have security and support" },
         ],
       },
     },
@@ -547,7 +547,7 @@ const lesson3: Lesson = {
         ],
         correctIndex: 1,
         explanation:
-          "Taylor's statement — 'If I'm not achieving, what am I even worth?' — is the hallmark of Type 3's core fear: that without accomplishments, they have no inherent value as a person.",
+          "Taylor's statement, 'If I'm not achieving, what am I even worth?', is the hallmark of Type 3's core fear: that without accomplishments, they have no inherent value as a person.",
       },
     },
     {
@@ -584,7 +584,7 @@ const lesson3: Lesson = {
         ],
         correctIndex: 1,
         explanation:
-          "Type 9's core fear is loss, separation, and fragmentation. Their deep desire for inner peace and harmony drives them to avoid conflict — not because they don't care, but because conflict threatens their sense of wholeness.",
+          "Type 9's core fear is loss, separation, and fragmentation. Their deep desire for inner peace and harmony drives them to avoid conflict, not because they don't care, but because conflict threatens their sense of wholeness.",
       },
     },
     {
@@ -597,7 +597,7 @@ const lesson3: Lesson = {
         options: ["hobby", "motivation", "color", "planet"],
         correctIndex: 1,
         explanation:
-          "Fear, desire, and motivation — these are the three pillars of every Enneagram type. The motivation is the strategy you unconsciously use to get your desire and avoid your fear.",
+          "Fear, desire, and motivation, these are the three pillars of every Enneagram type. The motivation is the strategy you unconsciously use to get your desire and avoid your fear.",
       },
     },
   ],
@@ -682,7 +682,7 @@ const lesson4: Lesson = {
         ],
         correctIndex: 2,
         explanation:
-          "Riso and Hudson identified levels of development within each type. A healthy Type 8 looks very different from an unhealthy Type 8 — same core motivation, very different expression.",
+          "Riso and Hudson identified levels of development within each type. A healthy Type 8 looks very different from an unhealthy Type 8, same core motivation, very different expression.",
       },
     },
     {
@@ -751,17 +751,17 @@ const lesson4: Lesson = {
       content: {
         type: "scenario",
         scenario:
-          "You read about Type 1 (The Reformer) and think, 'That doesn't sound like me at all — I'm not critical or rigid!' But when you read about a healthy Type 1, you see: 'Wise, tolerant, accepting, discerning.' That feels much closer.",
+          "You read about Type 1 (The Reformer) and think, 'That doesn't sound like me at all, I'm not critical or rigid!' But when you read about a healthy Type 1, you see: 'Wise, tolerant, accepting, discerning.' That feels much closer.",
         question: "What concept explains this?",
         options: [
           "You're probably not a Type 1",
-          "Levels of health — a healthy Type 1 looks different from an average or unhealthy one",
+          "Levels of health, a healthy Type 1 looks different from an average or unhealthy one",
           "Wings change your type completely",
           "The Enneagram doesn't really work",
         ],
         correctIndex: 1,
         explanation:
-          "Levels of health are crucial! Most type descriptions lean toward average levels. A healthy Type 1 is wise, accepting, and serene — quite different from the rigid perfectionist you might picture. Always consider health levels when typing.",
+          "Levels of health are crucial! Most type descriptions lean toward average levels. A healthy Type 1 is wise, accepting, and serene, quite different from the rigid perfectionist you might picture. Always consider health levels when typing.",
       },
     },
     {
@@ -773,13 +773,13 @@ const lesson4: Lesson = {
           "Why is it harmful to use the Enneagram as a rigid label?",
         options: [
           "Because it makes you feel special",
-          "Because it ignores the dynamic aspects — wings, lines, levels — that make every person unique",
+          "Because it ignores the dynamic aspects, wings, lines, levels, that make every person unique",
           "Because labels are always negative",
           "Because no personality system is accurate",
         ],
         correctIndex: 1,
         explanation:
-          "Reducing someone to 'just a Type 3' ignores the rich complexity of wings, integration/disintegration lines, and health levels. The Enneagram is a living, dynamic map — not a static label.",
+          "Reducing someone to 'just a Type 3' ignores the rich complexity of wings, integration/disintegration lines, and health levels. The Enneagram is a living, dynamic map, not a static label.",
       },
     },
     {
@@ -793,11 +793,11 @@ const lesson4: Lesson = {
           "Different wings, health levels, and stress/growth lines",
           "Different zodiac signs",
           "Different favorite colors",
-          "Nothing — same type always means same personality",
+          "Nothing, same type always means same personality",
         ],
         correctIndex: 0,
         explanation:
-          "Wings, health levels, and stress/growth lines create enormous variety within each type. The Enneagram is a nuanced, dynamic system — not a one-size-fits-all box.",
+          "Wings, health levels, and stress/growth lines create enormous variety within each type. The Enneagram is a nuanced, dynamic system, not a one-size-fits-all box.",
       },
     },
   ],
@@ -829,7 +829,7 @@ const lesson5: Lesson = {
       content: {
         type: "concept-intro",
         title: "Look at Motivation, Not Behavior",
-        body: "When exploring your type, don't ask 'What do I do?' Ask 'Why do I do it?' You might be organized (like Type 1) but for a totally different reason — maybe for efficiency (Type 3) or to ease anxiety (Type 6).",
+        body: "When exploring your type, don't ask 'What do I do?' Ask 'Why do I do it?' You might be organized (like Type 1) but for a totally different reason, maybe for efficiency (Type 3) or to ease anxiety (Type 6).",
         highlight: "Why do I do it?",
       },
     },
@@ -848,7 +848,7 @@ const lesson5: Lesson = {
         ],
         correctIndex: 2,
         explanation:
-          "Riso-Hudson and David Daniels both emphasize that self-identification — honestly reading about each type's inner world — is the gold standard. Tests help narrow it down, but only you truly know your inner motivations.",
+          "Riso-Hudson and David Daniels both emphasize that self-identification, honestly reading about each type's inner world, is the gold standard. Tests help narrow it down, but only you truly know your inner motivations.",
       },
     },
     {
@@ -866,7 +866,7 @@ const lesson5: Lesson = {
         ],
         correctIndex: 1,
         explanation:
-          "Behavior is the surface. Motivation is the depth. The same behavior (e.g., helping others) can come from very different motivations — so always look deeper.",
+          "Behavior is the surface. Motivation is the depth. The same behavior (e.g., helping others) can come from very different motivations, so always look deeper.",
       },
     },
     {
@@ -884,7 +884,7 @@ const lesson5: Lesson = {
         ],
         correctIndex: 0,
         explanation:
-          "A big mistake is picking the type you WANT to be rather than the one that describes your deepest patterns. Your type isn't a compliment or an insult — it's a mirror for self-understanding.",
+          "A big mistake is picking the type you WANT to be rather than the one that describes your deepest patterns. Your type isn't a compliment or an insult, it's a mirror for self-understanding.",
       },
     },
     {
@@ -921,7 +921,7 @@ const lesson5: Lesson = {
       content: {
         type: "fill-in-blank",
         sentence:
-          "You don't ___ your Enneagram type — you discover it.",
+          "You don't ___ your Enneagram type, you discover it.",
         options: ["choose", "create", "earn", "lose"],
         correctIndex: 0,
         explanation:
@@ -934,7 +934,7 @@ const lesson5: Lesson = {
       content: {
         type: "scenario",
         scenario:
-          "Avery takes an online Enneagram test and gets Type 7. They're excited — 'I love the sound of being the Enthusiast!' But when they read the deeper description, including the fear of pain and tendency to avoid difficult emotions, Avery thinks, 'That doesn't really resonate. I actually spend a lot of time analyzing problems — maybe I should look at Type 5 or 6.'",
+          "Avery takes an online Enneagram test and gets Type 7. They're excited, 'I love the sound of being the Enthusiast!' But when they read the deeper description, including the fear of pain and tendency to avoid difficult emotions, Avery thinks, 'That doesn't really resonate. I actually spend a lot of time analyzing problems, maybe I should look at Type 5 or 6.'",
         question: "What is Avery doing right?",
         options: [
           "Ignoring the test entirely",
@@ -975,7 +975,7 @@ const lesson5: Lesson = {
           "Why is honest self-reflection more important than test results when typing?",
         options: [
           "Because tests are always wrong",
-          "Because only you have access to your true inner motivations — tests can only measure what you report",
+          "Because only you have access to your true inner motivations, tests can only measure what you report",
           "Because self-reflection is faster",
           "Because experts don't believe in tests",
         ],
@@ -999,7 +999,7 @@ const lesson5: Lesson = {
         ],
         correctIndex: 1,
         explanation:
-          "Honest curiosity is the perfect starting point. The Enneagram rewards self-honesty — it's not about finding a flattering label, it's about understanding yourself more deeply so you can grow.",
+          "Honest curiosity is the perfect starting point. The Enneagram rewards self-honesty, it's not about finding a flattering label, it's about understanding yourself more deeply so you can grow.",
       },
     },
   ],

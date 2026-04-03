@@ -8,28 +8,28 @@ const guideSteps = [
   {
     icon: Brain,
     title: "Answer as your past self, not your ideal self",
-    content: "The RHETI (the most validated Enneagram test) specifically instructs: answer based on how you HAVE BEEN throughout your life, not how you'd like to be. If you've recently started working on yourself, answer as the person you were before that growth — that's your core pattern.",
+    content: "The RHETI (the most validated Enneagram test) specifically instructs: answer based on how you HAVE BEEN throughout your life, not how you'd like to be. If you've recently started working on yourself, answer as the person you were before that growth, that's your core pattern.",
     tip: "Ask yourself: \"What would I have done at age 20?\" or \"What do I do when I'm tired and not trying to be my best?\"",
     color: "bg-indigo-100 text-indigo-600",
   },
   {
     icon: Heart,
     title: "Think motivation, not behavior",
-    content: "Most personality tests measure what you DO. The Enneagram measures WHY you do it. Two people can both be high achievers — one driven by fear of worthlessness (Type 3) and another by fear of being bad (Type 1). Same behavior, completely different inner engine.",
+    content: "Most personality tests measure what you DO. The Enneagram measures WHY you do it. Two people can both be high achievers, one driven by fear of worthlessness (Type 3) and another by fear of being bad (Type 1). Same behavior, completely different inner engine.",
     tip: "For each question, ask: \"What would drive me to feel this way?\" rather than \"Do I do this?\"",
     color: "bg-rose-100 text-rose-600",
   },
   {
     icon: AlertTriangle,
-    title: "Watch for blind spots — you can't see what you can't see",
-    content: "Enneagram expert Beatrice Chestnut warns that your type specifically targets what you're blind to about yourself — and you're blind to the fact that you're blind to it. Research shows self-reports only correlate ~0.27 with actual observed behavior. The questions that make you uncomfortable might be the most important ones.",
-    tip: "If a question makes you defensive or you think \"that's definitely not me\" — pause. That reaction itself may be revealing.",
+    title: "Watch for blind spots, you can't see what you can't see",
+    content: "Enneagram expert Beatrice Chestnut warns that your type specifically targets what you're blind to about yourself, and you're blind to the fact that you're blind to it. Research shows self-reports only correlate ~0.27 with actual observed behavior. The questions that make you uncomfortable might be the most important ones.",
+    tip: "If a question makes you defensive or you think \"that's definitely not me\", pause. That reaction itself may be revealing.",
     color: "bg-amber-100 text-amber-600",
   },
   {
     icon: Shield,
     title: "Go with your gut, not your analysis",
-    content: "Research on response bias shows that overthinking leads to social desirability bias — you unconsciously choose answers that make you look good. The RHETI recommends going with your first instinct. Your initial, uncensored reaction is usually more accurate than a carefully considered one.",
+    content: "Research on response bias shows that overthinking leads to social desirability bias, you unconsciously choose answers that make you look good. The RHETI recommends going with your first instinct. Your initial, uncensored reaction is usually more accurate than a carefully considered one.",
     tip: "Spend no more than 10-15 seconds per question. Your first reaction is usually your truest one.",
     color: "bg-emerald-100 text-emerald-600",
   },
@@ -43,7 +43,7 @@ const guideSteps = [
   {
     icon: BookOpen,
     title: "Think about stress, not your best days",
-    content: "Your personality type shows up most clearly when you're under pressure, exhausted, or caught off-guard — when your automatic patterns take over. Russ Hudson emphasizes that your type is your default operating system, not who you are on your best day.",
+    content: "Your personality type shows up most clearly when you're under pressure, exhausted, or caught off-guard, when your automatic patterns take over. Russ Hudson emphasizes that your type is your default operating system, not who you are on your best day.",
     tip: "When answering, think: \"What do I do when I'm stressed and not monitoring myself?\" That's your type talking.",
     color: "bg-sky-100 text-sky-600",
   },
@@ -74,7 +74,7 @@ export default function AssessmentGuide({
           Before You Begin
         </h2>
         <p className="text-sm text-slate-500 mb-3">
-          {assessmentName} — {guideSteps.length} tips for the most accurate results
+          {assessmentName}, {guideSteps.length} tips for the most accurate results
         </p>
         {timeEstimate && (
           <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-sky-50 border border-sky-100 text-sky-700 text-xs font-semibold">

@@ -33,7 +33,7 @@ export default function MichaelCalozPage() {
           <ArrowLeft className="w-4 h-4" /> Back
         </button>
         <h1 className="text-2xl font-serif font-bold text-slate-900 mb-1">Structured Type Assessment</h1>
-        <p className="text-sm text-slate-400 mb-2">Rate statements organized by theme — motivation, fear, self-image, relationships, and more.</p>
+        <p className="text-sm text-slate-400 mb-2">Rate statements organized by theme, motivation, fear, self-image, relationships, and more.</p>
       </div>
       <StructuredAssessment
         sections={calozSections}

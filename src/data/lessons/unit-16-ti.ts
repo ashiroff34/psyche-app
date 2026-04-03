@@ -1,5 +1,5 @@
 // ─────────────────────────────────────────────────────────────────────────────
-// Unit 16 — Introverted Thinking (Ti)
+// Unit 16, Introverted Thinking (Ti)
 // Internal logic engine, first-principles reasoning, framework building
 // ─────────────────────────────────────────────────────────────────────────────
 
@@ -23,7 +23,7 @@ const lesson1: Lesson = {
       content: {
         type: "concept-intro",
         title: "What Is Introverted Thinking?",
-        body: "Ti is an internal logic engine that builds and refines personal frameworks for understanding. It asks: 'Is this logically consistent within MY model of how things work?' Ti doesn't care about external credentials or popular opinion — only internal coherence.",
+        body: "Ti is an internal logic engine that builds and refines personal frameworks for understanding. It asks: 'Is this logically consistent within MY model of how things work?' Ti doesn't care about external credentials or popular opinion, only internal coherence.",
         highlight: "internal logic engine",
       },
     },
@@ -33,7 +33,7 @@ const lesson1: Lesson = {
       content: {
         type: "concept-intro",
         title: "Ti from the Inside",
-        body: "Ti users describe a constant internal process of categorizing, defining, and refining ideas. They need to fully UNDERSTAND something before they can use it. They'll spend hours building a mental model that 'clicks' — and once it does, they own that knowledge deeply.",
+        body: "Ti users describe a constant internal process of categorizing, defining, and refining ideas. They need to fully UNDERSTAND something before they can use it. They'll spend hours building a mental model that 'clicks', and once it does, they own that knowledge deeply.",
         highlight: "fully understand",
       },
     },
@@ -60,10 +60,10 @@ const lesson1: Lesson = {
         type: "multiple-choice",
         question: "How does Ti differ from simply 'being smart'?",
         options: [
-          "It doesn't — Ti is intelligence",
+          "It doesn't, Ti is intelligence",
           "Ti is a specific STYLE of thinking: building internal logical frameworks from first principles, regardless of intelligence level",
           "Ti is only for scientists and engineers",
-          "Ti is the opposite of intelligence — it overcomplicates things",
+          "Ti is the opposite of intelligence, it overcomplicates things",
         ],
         correctIndex: 1,
         explanation: "Ti is not intelligence itself but a cognitive STYLE. A Ti user builds understanding from the ground up using internal logic. You can be brilliant without Ti, and you can have Ti without being a genius.",
@@ -108,7 +108,7 @@ const lesson1: Lesson = {
         sentence: "Ti users need to fully ___ something from the ground up before they feel comfortable using or teaching it.",
         options: ["understand", "monetize", "socialize", "experience"],
         correctIndex: 0,
-        explanation: "Ti demands deep understanding. A Ti user won't just memorize a formula — they need to know WHY it works. They build knowledge from first principles, which takes longer but creates robust understanding.",
+        explanation: "Ti demands deep understanding. A Ti user won't just memorize a formula, they need to know WHY it works. They build knowledge from first principles, which takes longer but creates robust understanding.",
       },
     },
     {
@@ -116,7 +116,7 @@ const lesson1: Lesson = {
       difficulty: 2,
       content: {
         type: "fill-in-blank",
-        sentence: "Ti is a ___ function — it evaluates and decides based on internal logical criteria.",
+        sentence: "Ti is a ___ function, it evaluates and decides based on internal logical criteria.",
         options: ["judging", "perceiving", "extraverted", "unconscious"],
         correctIndex: 0,
         explanation: "Ti is a Judging function with an Introverted attitude. It makes evaluations and decisions, but its criteria are internal (personal logical frameworks) rather than external (measurable results).",
@@ -147,10 +147,10 @@ const lesson1: Lesson = {
         scenario: "Two programmers approach debugging differently. Programmer A reads the error message and tries fixes until something works. Programmer B stops, traces the logic flow from the beginning, builds a mental model of what SHOULD happen, and identifies where the model breaks.",
         question: "Which programmer is demonstrating Ti?",
         options: [
-          "Programmer A — trial and error is logical",
-          "Programmer B — building an internal model and tracing logic is classic Ti",
+          "Programmer A, trial and error is logical",
+          "Programmer B, building an internal model and tracing logic is classic Ti",
           "Both equally",
-          "Neither — this is just programming, not cognitive functions",
+          "Neither, this is just programming, not cognitive functions",
         ],
         correctIndex: 1,
         explanation: "Programmer B's approach is quintessential Ti: build an internal model of how the system works, trace the logic step by step, find where the model breaks. Programmer A's trial-and-error approach is more Te-like (just find what works).",
@@ -218,7 +218,7 @@ const lesson2: Lesson = {
       content: {
         type: "concept-intro",
         title: "Inferior Ti: The Logic Trap",
-        body: "Ti-inferior types (ENFJ, ESFJ) can fall into 'bad logic loops' under stress — obsessively trying to analyze situations with flawed reasoning, becoming paralyzed by pseudo-logical arguments, or making cutting criticisms they later regret.",
+        body: "Ti-inferior types (ENFJ, ESFJ) can fall into 'bad logic loops' under stress, obsessively trying to analyze situations with flawed reasoning, becoming paralyzed by pseudo-logical arguments, or making cutting criticisms they later regret.",
         highlight: "bad logic loops",
       },
     },
@@ -311,7 +311,7 @@ const lesson2: Lesson = {
       difficulty: 3,
       content: {
         type: "scenario",
-        scenario: "Lena, an ENFJ therapist, gets into a heated argument with her partner. Instead of using her usual empathetic approach, she suddenly becomes cold and says: 'If we analyze this logically, your position makes no sense because of X, Y, and Z.' Her partner is shocked. Later Lena says, 'I don't know what came over me — I was trying to be logical but I think I was just being cruel.'",
+        scenario: "Lena, an ENFJ therapist, gets into a heated argument with her partner. Instead of using her usual empathetic approach, she suddenly becomes cold and says: 'If we analyze this logically, your position makes no sense because of X, Y, and Z.' Her partner is shocked. Later Lena says, 'I don't know what came over me, I was trying to be logical but I think I was just being cruel.'",
         question: "What happened?",
         options: [
           "Lena discovered her true Te nature",
@@ -320,7 +320,7 @@ const lesson2: Lesson = {
           "Her Fe was functioning normally",
         ],
         correctIndex: 1,
-        explanation: "Classic inferior Ti eruption. Under stress, Fe-dominant types can flip to cold, cutting 'logic' that feels alien to their usual warm approach. The logic is often flawed — it's emotion wearing a logic mask.",
+        explanation: "Classic inferior Ti eruption. Under stress, Fe-dominant types can flip to cold, cutting 'logic' that feels alien to their usual warm approach. The logic is often flawed, it's emotion wearing a logic mask.",
       },
     },
     {
@@ -331,13 +331,13 @@ const lesson2: Lesson = {
         scenario: "Two people both take apart a broken appliance. Person A (ISTP) methodically tests each component, builds a mental model of the circuit, and identifies the exact failure point. Person B (INTP) looks at the appliance, starts thinking about the underlying engineering principles, and gets sidetracked into a 2-hour rabbit hole about electromagnetic theory.",
         question: "How does their auxiliary function change how they use Ti?",
         options: [
-          "It doesn't — Ti works identically in both",
+          "It doesn't, Ti works identically in both",
           "ISTP's Se keeps Ti grounded in concrete physical reality; INTP's Ne pulls Ti into abstract theoretical exploration",
           "Person B isn't using Ti at all",
           "Person A is using Te, not Ti",
         ],
         correctIndex: 1,
-        explanation: "The auxiliary function shapes what Ti has to work with. ISTP's Se feeds Ti concrete sensory data (this wire, this component). INTP's Ne feeds Ti abstract possibilities (how does electromagnetism really work?). Both are Ti — differently fed.",
+        explanation: "The auxiliary function shapes what Ti has to work with. ISTP's Se feeds Ti concrete sensory data (this wire, this component). INTP's Ne feeds Ti abstract possibilities (how does electromagnetism really work?). Both are Ti, differently fed.",
       },
     },
     {
@@ -370,7 +370,7 @@ const lesson2: Lesson = {
           "There is no meaningful difference",
         ],
         correctIndex: 1,
-        explanation: "Dominant Ti is well-calibrated — its logical models are tested and refined. Inferior Ti is unreliable — it produces arguments that FEEL logical but often contain serious flaws the person can't see.",
+        explanation: "Dominant Ti is well-calibrated, its logical models are tested and refined. Inferior Ti is unreliable, it produces arguments that FEEL logical but often contain serious flaws the person can't see.",
       },
     },
   ],
@@ -392,7 +392,7 @@ const lesson3: Lesson = {
       content: {
         type: "concept-intro",
         title: "Ti in Relationships",
-        body: "Ti users show love by understanding you deeply — analyzing what makes you tick, remembering your reasoning, and offering precise insights. They struggle with 'just listening' when they see logical solutions. Their love language is often solving your problems.",
+        body: "Ti users show love by understanding you deeply, analyzing what makes you tick, remembering your reasoning, and offering precise insights. They struggle with 'just listening' when they see logical solutions. Their love language is often solving your problems.",
         highlight: "understanding you deeply",
       },
     },
@@ -402,7 +402,7 @@ const lesson3: Lesson = {
       content: {
         type: "concept-intro",
         title: "Ti at Work",
-        body: "Ti users thrive in roles requiring deep analysis, troubleshooting, and systems understanding. They struggle in roles requiring social performance, arbitrary rules they can't question, or work that prioritizes speed over accuracy. They are the 'why' people — always asking why.",
+        body: "Ti users thrive in roles requiring deep analysis, troubleshooting, and systems understanding. They struggle in roles requiring social performance, arbitrary rules they can't question, or work that prioritizes speed over accuracy. They are the 'why' people, always asking why.",
         highlight: "the 'why' people",
       },
     },
@@ -485,10 +485,10 @@ const lesson3: Lesson = {
       difficulty: 2,
       content: {
         type: "fill-in-blank",
-        sentence: "Under chronic stress, Ti can become ___ — endlessly refining mental models without ever producing external results.",
+        sentence: "Under chronic stress, Ti can become ___, endlessly refining mental models without ever producing external results.",
         options: ["paralyzed by analysis", "socially aggressive", "impulsive", "emotionally expressive"],
         correctIndex: 0,
-        explanation: "Analysis paralysis is Ti's shadow. The drive for perfect logical coherence can prevent action — if the model isn't perfect yet, how can you act on it? This trap keeps Ti users stuck in their heads.",
+        explanation: "Analysis paralysis is Ti's shadow. The drive for perfect logical coherence can prevent action, if the model isn't perfect yet, how can you act on it? This trap keeps Ti users stuck in their heads.",
       },
     },
     {
@@ -522,7 +522,7 @@ const lesson3: Lesson = {
           "This is Te behavior, not Ti",
         ],
         correctIndex: 1,
-        explanation: "Ti prizes precision. Simplifying feels like leaving out crucial information — like lying by omission. Ti users often struggle to 'dumb things down' because their internal model includes all the nuance, and removing it feels wrong.",
+        explanation: "Ti prizes precision. Simplifying feels like leaving out crucial information, like lying by omission. Ti users often struggle to 'dumb things down' because their internal model includes all the nuance, and removing it feels wrong.",
       },
     },
     {
@@ -555,7 +555,7 @@ const lesson3: Lesson = {
           "Generating new creative possibilities",
         ],
         correctIndex: 1,
-        explanation: "Ti's superpower is seeing through bad logic. While others accept things at face value, Ti users detect hidden contradictions, flawed assumptions, and logical gaps — building reliable understanding in their place.",
+        explanation: "Ti's superpower is seeing through bad logic. While others accept things at face value, Ti users detect hidden contradictions, flawed assumptions, and logical gaps, building reliable understanding in their place.",
       },
     },
   ],
@@ -577,7 +577,7 @@ const lesson4: Lesson = {
       content: {
         type: "concept-intro",
         title: "The Critical Distinction: Ti vs. Te",
-        body: "Ti and Te are BOTH thinking functions, but they face opposite directions. Ti asks 'Is this internally consistent?' — it builds personal frameworks. Te asks 'Does this work in the real world?' — it measures external results. Ti values understanding; Te values effectiveness.",
+        body: "Ti and Te are BOTH thinking functions, but they face opposite directions. Ti asks 'Is this internally consistent?', it builds personal frameworks. Te asks 'Does this work in the real world?', it measures external results. Ti values understanding; Te values effectiveness.",
         highlight: "understanding vs. effectiveness",
       },
     },
@@ -587,7 +587,7 @@ const lesson4: Lesson = {
       content: {
         type: "concept-intro",
         title: "Ti vs. Fi: Thinking vs. Feeling Introversion",
-        body: "Ti and Fi can look similar — both are introverted judging functions that produce strong internal convictions. The difference: Ti's convictions are LOGICAL ('This is true because it's logically consistent'). Fi's convictions are VALUES-based ('This is right because it aligns with who I am').",
+        body: "Ti and Fi can look similar, both are introverted judging functions that produce strong internal convictions. The difference: Ti's convictions are LOGICAL ('This is true because it's logically consistent'). Fi's convictions are VALUES-based ('This is right because it aligns with who I am').",
         highlight: "logical vs. values-based",
       },
     },
@@ -612,15 +612,15 @@ const lesson4: Lesson = {
       difficulty: 1,
       content: {
         type: "multiple-choice",
-        question: "Someone says: 'I don't care about the theory — show me the results. If it works, it works.' Which function?",
+        question: "Someone says: 'I don't care about the theory, show me the results. If it works, it works.' Which function?",
         options: [
-          "Ti — they're being logical",
-          "Te — they're prioritizing external results over internal understanding",
-          "Se — they're being present-focused",
-          "Fi — they're being authentic",
+          "Ti, they're being logical",
+          "Te, they're prioritizing external results over internal understanding",
+          "Se, they're being present-focused",
+          "Fi, they're being authentic",
         ],
         correctIndex: 1,
-        explanation: "Pure Te. 'Show me the results' is the Te mantra. Ti would say the opposite: 'I don't care if it works — I need to understand WHY it works.'",
+        explanation: "Pure Te. 'Show me the results' is the Te mantra. Ti would say the opposite: 'I don't care if it works, I need to understand WHY it works.'",
       },
     },
     {
@@ -630,9 +630,9 @@ const lesson4: Lesson = {
         type: "multiple-choice",
         question: "How can you tell if someone's strong conviction comes from Ti or Fi?",
         options: [
-          "Ask them to explain their reasoning — Ti will give logical steps, Fi will reference personal values and identity",
+          "Ask them to explain their reasoning, Ti will give logical steps, Fi will reference personal values and identity",
           "Ti convictions are always right, Fi convictions are always wrong",
-          "You can't tell — they're the same thing",
+          "You can't tell, they're the same thing",
           "Ti users never have convictions, only Fi users do",
         ],
         correctIndex: 0,
@@ -648,9 +648,9 @@ const lesson4: Lesson = {
         categories: ["Ti", "Te"],
         items: [
           { text: "Why does this work? I need to understand the mechanism", categoryIndex: 0 },
-          { text: "It works — ship it and move to the next thing", categoryIndex: 1 },
+          { text: "It works, ship it and move to the next thing", categoryIndex: 1 },
           { text: "Your argument has a logical contradiction in step 3", categoryIndex: 0 },
-          { text: "The data shows a 40% improvement — that's all I need", categoryIndex: 1 },
+          { text: "The data shows a 40% improvement, that's all I need", categoryIndex: 1 },
           { text: "Let me build a model that explains ALL the edge cases", categoryIndex: 0 },
           { text: "What's the most efficient process to achieve this outcome?", categoryIndex: 1 },
         ],
@@ -695,7 +695,7 @@ const lesson4: Lesson = {
           "Both are using Ti",
         ],
         correctIndex: 1,
-        explanation: "Manager A focuses on measurable outcomes (revenue targets, milestones) — Te. Manager B focuses on the accuracy of the underlying model (assumptions about user behavior) — Ti. Same problem, completely different analytical orientations.",
+        explanation: "Manager A focuses on measurable outcomes (revenue targets, milestones), Te. Manager B focuses on the accuracy of the underlying model (assumptions about user behavior), Ti. Same problem, completely different analytical orientations.",
       },
     },
     {
@@ -703,7 +703,7 @@ const lesson4: Lesson = {
       difficulty: 3,
       content: {
         type: "scenario",
-        scenario: "In an online debate, someone makes a popular but logically flawed argument. Three people respond. Person A: 'That argument makes people feel good but it contains a false equivalence in paragraph 2.' Person B: 'That opinion hurts people and goes against what we should stand for as a society.' Person C: 'That strategy won't work — the data clearly shows otherwise.'",
+        scenario: "In an online debate, someone makes a popular but logically flawed argument. Three people respond. Person A: 'That argument makes people feel good but it contains a false equivalence in paragraph 2.' Person B: 'That opinion hurts people and goes against what we should stand for as a society.' Person C: 'That strategy won't work, the data clearly shows otherwise.'",
         question: "Which response is Ti, which is Fi, and which is Te?",
         options: [
           "A = Fi, B = Ti, C = Te",
@@ -712,7 +712,7 @@ const lesson4: Lesson = {
           "A = Ti, B = Fe, C = Te",
         ],
         correctIndex: 2,
-        explanation: "Person A identifies a LOGICAL FLAW (Ti). Person B references what WE SHOULD STAND FOR — personal values about what's right (Fi). Person C points to DATA AND RESULTS (Te). Three different thinking/judging functions, three different critiques.",
+        explanation: "Person A identifies a LOGICAL FLAW (Ti). Person B references what WE SHOULD STAND FOR, personal values about what's right (Fi). Person C points to DATA AND RESULTS (Te). Three different thinking/judging functions, three different critiques.",
       },
     },
     {
@@ -729,7 +729,7 @@ const lesson4: Lesson = {
           "'Are you good at your job?'",
         ],
         correctIndex: 1,
-        explanation: "The Ti user will choose understanding — they need the model to be coherent. The Te user will choose results — they need the outcome to be achieved. This forced choice reveals which form of logic they truly prioritize.",
+        explanation: "The Ti user will choose understanding, they need the model to be coherent. The Te user will choose results, they need the outcome to be achieved. This forced choice reveals which form of logic they truly prioritize.",
       },
     },
     {

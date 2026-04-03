@@ -114,7 +114,7 @@ const originalQuestions: TypeQuizQuestion[] = [
       { letter: "D", text: 'A desire to connect deeply with every person they meet' },
     ],
     answer: "B",
-    explanation: 'Ones live with a relentless inner critic that judges their thoughts, actions, and surroundings. This voice is not optional — it runs continuously in the background.',
+    explanation: 'Ones live with a relentless inner critic that judges their thoughts, actions, and surroundings. This voice is not optional, it runs continuously in the background.',
   },
   {
     id: 7,
@@ -174,7 +174,7 @@ const originalQuestions: TypeQuizQuestion[] = [
     track1Day: 9,
     track2Day: 1,
     category: 'Type Identification',
-    question: 'Someone says: "I can\'t relax until everything is done the right way. It\'s not that I want to be critical — I just can\'t help noticing when things are off." Which type is most likely speaking?',
+    question: 'Someone says: "I can\'t relax until everything is done the right way. It\'s not that I want to be critical, I just can\'t help noticing when things are off." Which type is most likely speaking?',
     options: [
       { letter: "A", text: 'Type 5' },
       { letter: "B", text: 'Type 1' },
@@ -182,7 +182,7 @@ const originalQuestions: TypeQuizQuestion[] = [
       { letter: "D", text: 'Type 6' },
     ],
     answer: "B",
-    explanation: 'This captures the involuntary nature of the One\'s inner critic. They do not choose to be critical — the evaluation happens automatically and feels impossible to shut off.',
+    explanation: 'This captures the involuntary nature of the One\'s inner critic. They do not choose to be critical, the evaluation happens automatically and feels impossible to shut off.',
   },
   {
     id: 11,
@@ -213,7 +213,7 @@ const originalQuestions: TypeQuizQuestion[] = [
       { letter: "A", text: '1w9' },
       { letter: "B", text: '1w2' },
       { letter: "C", text: 'Both equally' },
-      { letter: "D", text: 'Neither — Ones avoid advocacy' },
+      { letter: "D", text: 'Neither, Ones avoid advocacy' },
     ],
     answer: "B",
     explanation: 'The 1w2, sometimes called "The Advocate," combines the One\'s reforming drive with the Two\'s interpersonal energy, creating someone who actively campaigns for change in a personal, passionate way.',
@@ -298,7 +298,7 @@ const originalQuestions: TypeQuizQuestion[] = [
       { letter: "A", text: 'Heart Center' },
       { letter: "B", text: 'Head Center' },
       { letter: "C", text: 'Gut Center' },
-      { letter: "D", text: 'None — Type 1 is balanced across all three' },
+      { letter: "D", text: 'None, Type 1 is balanced across all three' },
     ],
     answer: "C",
     explanation: 'Type 1 is in the Gut (Body/Instinctive) Center along with Types 8 and 9. Their core emotion is anger, though they relate to it differently than 8s and 9s.',
@@ -315,7 +315,7 @@ const originalQuestions: TypeQuizQuestion[] = [
       { letter: "A", text: 'Type 1 expresses anger freely like Type 8' },
       { letter: "B", text: 'Type 1 suppresses and internalizes anger, unlike Type 8 who externalizes it' },
       { letter: "C", text: 'Type 1 is unaware of anger like Type 9' },
-      { letter: "D", text: 'Type 1 feels no anger — only Types 8 and 9 do' },
+      { letter: "D", text: 'Type 1 feels no anger, only Types 8 and 9 do' },
     ],
     answer: "B",
     explanation: 'In the Gut Center, Type 8 over-expresses anger, Type 9 under-expresses it (falls asleep to it), and Type 1 internalizes it, turning it into resentment and self-criticism.',
@@ -335,7 +335,7 @@ const originalQuestions: TypeQuizQuestion[] = [
       { letter: "D", text: 'Toward Type 2' },
     ],
     answer: "B",
-    explanation: 'Under stress, Ones move to the unhealthy side of Type 4, becoming moody, irrational, emotionally volatile, and self-pitying — the opposite of their usual controlled demeanor.',
+    explanation: 'Under stress, Ones move to the unhealthy side of Type 4, becoming moody, irrational, emotionally volatile, and self-pitying, the opposite of their usual controlled demeanor.',
   },
   {
     id: 20,
@@ -437,7 +437,7 @@ const originalQuestions: TypeQuizQuestion[] = [
       { letter: "D", text: 'Aggressively confronting a coworker' },
     ],
     answer: "B",
-    explanation: 'The move toward Seven manifests as an ability to be spontaneous and fun-loving — qualities that feel foreign to the One but emerge naturally when they relax their rigid self-control.',
+    explanation: 'The move toward Seven manifests as an ability to be spontaneous and fun-loving, qualities that feel foreign to the One but emerge naturally when they relax their rigid self-control.',
   },
   {
     id: 26,
@@ -454,7 +454,7 @@ const originalQuestions: TypeQuizQuestion[] = [
       { letter: "D", text: 'They begin to set even higher standards' },
     ],
     answer: "B",
-    explanation: 'The Seven line teaches Ones that perfection is not only about correction — true wholeness includes delight, spontaneity, and the recognition that this moment is already sufficient.',
+    explanation: 'The Seven line teaches Ones that perfection is not only about correction, true wholeness includes delight, spontaneity, and the recognition that this moment is already sufficient.',
   },
   {
     id: 27,
@@ -465,10 +465,10 @@ const originalQuestions: TypeQuizQuestion[] = [
     category: 'Hornevian Group',
     question: 'Type 1 belongs to which Hornevian group, and what does this mean?',
     options: [
-      { letter: "A", text: 'Assertive — they move against others to get needs met' },
-      { letter: "B", text: 'Compliant — they move toward others to earn approval and meet expectations' },
-      { letter: "C", text: 'Withdrawn — they move away from others to process internally' },
-      { letter: "D", text: 'Assertive — they dominate conversations and social settings' },
+      { letter: "A", text: 'Assertive, they move against others to get needs met' },
+      { letter: "B", text: 'Compliant, they move toward others to earn approval and meet expectations' },
+      { letter: "C", text: 'Withdrawn, they move away from others to process internally' },
+      { letter: "D", text: 'Assertive, they dominate conversations and social settings' },
     ],
     answer: "B",
     explanation: 'Ones are in the Compliant group (with 2s and 6s). They "move toward" by trying to earn the right to have needs met through being good, responsible, and meeting expectations.',
@@ -539,7 +539,7 @@ const originalQuestions: TypeQuizQuestion[] = [
       { letter: "D", text: 'They become primarily concerned with their social status' },
     ],
     answer: "B",
-    explanation: 'SP Ones direct their reforming energy toward their personal environment and material security. They worry about doing self-care "correctly" — the right diet, the right routine, the right household order.',
+    explanation: 'SP Ones direct their reforming energy toward their personal environment and material security. They worry about doing self-care "correctly", the right diet, the right routine, the right household order.',
   },
   {
     id: 32,
@@ -638,10 +638,10 @@ const originalQuestions: TypeQuizQuestion[] = [
       { letter: "A", text: 'Attachment' },
       { letter: "B", text: 'Rejection' },
       { letter: "C", text: 'Frustration' },
-      { letter: "D", text: 'None — Object Relations does not apply to Type 1' },
+      { letter: "D", text: 'None, Object Relations does not apply to Type 1' },
     ],
     answer: "C",
-    explanation: 'Type 1 is in the Frustration group (with 4 and 7). They perpetually feel that reality is not quite right — something is always slightly off, creating a chronic sense of frustration.',
+    explanation: 'Type 1 is in the Frustration group (with 4 and 7). They perpetually feel that reality is not quite right, something is always slightly off, creating a chronic sense of frustration.',
   },
   {
     id: 38,
@@ -704,7 +704,7 @@ const originalQuestions: TypeQuizQuestion[] = [
     question: 'At healthy Levels of Development (Levels 1-3), how does a Type 1 manifest?',
     options: [
       { letter: "A", text: 'They become rigidly moralistic and condemning of all imperfection' },
-      { letter: "B", text: 'They become wise, discerning, accepting, and inspiring — a model of principled action without rigidity' },
+      { letter: "B", text: 'They become wise, discerning, accepting, and inspiring, a model of principled action without rigidity' },
       { letter: "C", text: 'They become detached and emotionally unavailable' },
       { letter: "D", text: 'They become focused exclusively on personal pleasure' },
     ],
@@ -788,7 +788,7 @@ const originalQuestions: TypeQuizQuestion[] = [
     category: 'Misidentification',
     question: 'How can you distinguish a Type 1 from a Type 3 when both appear driven and disciplined?',
     options: [
-      { letter: "A", text: 'You cannot — they are essentially the same type' },
+      { letter: "A", text: 'You cannot, they are essentially the same type' },
       { letter: "B", text: 'Type 1 is driven by an internal standard of correctness; Type 3 is driven by external validation and the desire to be seen as successful' },
       { letter: "C", text: 'Type 3 is more disciplined than Type 1' },
       { letter: "D", text: 'Type 1 cares about success; Type 3 cares about morality' },
@@ -811,7 +811,7 @@ const originalQuestions: TypeQuizQuestion[] = [
       { letter: "D", text: 'They stop having opinions about right and wrong' },
     ],
     answer: "B",
-    explanation: 'Full integration means the One accesses Seven\'s joy and spontaneity, Four\'s emotional range, the Nine wing\'s acceptance, and the Two wing\'s warmth — all while maintaining their principled core.',
+    explanation: 'Full integration means the One accesses Seven\'s joy and spontaneity, Four\'s emotional range, the Nine wing\'s acceptance, and the Two wing\'s warmth, all while maintaining their principled core.',
   },
   {
     id: 48,
@@ -823,12 +823,12 @@ const originalQuestions: TypeQuizQuestion[] = [
     question: 'What is the relationship between the One\'s passion (Anger) and their virtue (Serenity)?',
     options: [
       { letter: "A", text: 'Serenity means the One no longer feels any anger' },
-      { letter: "B", text: 'Serenity is the transformation of anger into accepting presence — not the absence of anger but the release of the compulsion to act on it' },
+      { letter: "B", text: 'Serenity is the transformation of anger into accepting presence, not the absence of anger but the release of the compulsion to act on it' },
       { letter: "C", text: 'Anger and Serenity are unrelated concepts' },
       { letter: "D", text: 'Serenity means the One directs anger outward instead of inward' },
     ],
     answer: "B",
-    explanation: 'The virtue does not eliminate the passion but transforms the energy behind it. Serenity allows the One to notice imperfection without being compelled to correct it — a profound shift from reactivity to acceptance.',
+    explanation: 'The virtue does not eliminate the passion but transforms the energy behind it. Serenity allows the One to notice imperfection without being compelled to correct it, a profound shift from reactivity to acceptance.',
   },
   {
     id: 49,
@@ -856,7 +856,7 @@ const originalQuestions: TypeQuizQuestion[] = [
     category: 'Cross-Type Comparison',
     question: 'Type 1 and Type 6 are both in the Compliant (Hornevian) group. How does their "compliance" serve different underlying needs?',
     options: [
-      { letter: "A", text: 'Both comply for the same reason — to feel safe' },
+      { letter: "A", text: 'Both comply for the same reason, to feel safe' },
       { letter: "B", text: 'Type 1 complies with an internal moral code to maintain integrity; Type 6 complies with external authority or group norms to maintain security' },
       { letter: "C", text: 'Type 6 is compliant but Type 1 is not' },
       { letter: "D", text: 'Neither type is truly compliant' },
@@ -896,7 +896,7 @@ const originalQuestions: TypeQuizQuestion[] = [
       { letter: "D", text: 'To be unique and authentic' },
     ],
     answer: "C",
-    explanation: 'Twos desire above all to be loved. Their entire relational strategy — giving, helping, anticipating needs — is designed to secure the love they fear they cannot receive just by being themselves.',
+    explanation: 'Twos desire above all to be loved. Their entire relational strategy, giving, helping, anticipating needs, is designed to secure the love they fear they cannot receive just by being themselves.',
   },
   {
     id: 53,
@@ -913,7 +913,7 @@ const originalQuestions: TypeQuizQuestion[] = [
       { letter: "D", text: 'The impulse to maintain inner peace and avoid conflict' },
     ],
     answer: "B",
-    explanation: 'Twos are motivated by the deep need to be needed. If they are indispensable to someone, they believe they cannot be abandoned — helpfulness becomes their strategy for securing attachment.',
+    explanation: 'Twos are motivated by the deep need to be needed. If they are indispensable to someone, they believe they cannot be abandoned, helpfulness becomes their strategy for securing attachment.',
   },
   {
     id: 54,
@@ -930,7 +930,7 @@ const originalQuestions: TypeQuizQuestion[] = [
       { letter: "D", text: 'Focusing intensely on personal goals and image management' },
     ],
     answer: "B",
-    explanation: 'Twos have a remarkable emotional radar that detects what others need. They move toward people, offering help, warmth, and support — often before the other person has even articulated the need.',
+    explanation: 'Twos have a remarkable emotional radar that detects what others need. They move toward people, offering help, warmth, and support, often before the other person has even articulated the need.',
   },
   {
     id: 55,
@@ -941,9 +941,9 @@ const originalQuestions: TypeQuizQuestion[] = [
     category: 'Basic Description',
     question: 'How does a Type 2 typically feel when someone refuses their help?',
     options: [
-      { letter: "A", text: 'Relieved — less work for them' },
-      { letter: "B", text: 'Indifferent — they easily move on' },
-      { letter: "C", text: 'Hurt and rejected — as if their very self has been refused' },
+      { letter: "A", text: 'Relieved, less work for them' },
+      { letter: "B", text: 'Indifferent, they easily move on' },
+      { letter: "C", text: 'Hurt and rejected, as if their very self has been refused' },
       { letter: "D", text: 'Angry and vindictive' },
     ],
     answer: "C",
@@ -981,7 +981,7 @@ const originalQuestions: TypeQuizQuestion[] = [
       { letter: "D", text: 'Deceit' },
     ],
     answer: "C",
-    explanation: 'The passion of the Two is Pride — not arrogance, but a subtle inflation of self-importance through believing they are the ones who know what others need and the ones uniquely capable of providing it.',
+    explanation: 'The passion of the Two is Pride, not arrogance, but a subtle inflation of self-importance through believing they are the ones who know what others need and the ones uniquely capable of providing it.',
   },
   {
     id: 58,
@@ -1024,7 +1024,7 @@ const originalQuestions: TypeQuizQuestion[] = [
     track1Day: 9,
     track2Day: 2,
     category: 'Type Identification',
-    question: 'Someone says: "I don\'t mind giving — I love it. What I can\'t stand is when people don\'t appreciate it. It\'s like they don\'t see me at all." Which type is speaking?',
+    question: 'Someone says: "I don\'t mind giving, I love it. What I can\'t stand is when people don\'t appreciate it. It\'s like they don\'t see me at all." Which type is speaking?',
     options: [
       { letter: "A", text: 'Type 3' },
       { letter: "B", text: 'Type 1' },
@@ -1062,7 +1062,7 @@ const originalQuestions: TypeQuizQuestion[] = [
     options: [
       { letter: "A", text: '2w3' },
       { letter: "B", text: '2w1' },
-      { letter: "C", text: 'Neither — "Servant" is a Type 9 name' },
+      { letter: "C", text: 'Neither, "Servant" is a Type 9 name' },
       { letter: "D", text: 'Both equally' },
     ],
     answer: "B",
@@ -1117,7 +1117,7 @@ const originalQuestions: TypeQuizQuestion[] = [
       { letter: "D", text: 'Melancholy' },
     ],
     answer: "B",
-    explanation: 'Flattery is the Two\'s mental fixation — the cognitive habit of emphasizing the positive in others (and themselves as helpers) to create emotional bonds and maintain their self-image as loving and needed.',
+    explanation: 'Flattery is the Two\'s mental fixation, the cognitive habit of emphasizing the positive in others (and themselves as helpers) to create emotional bonds and maintain their self-image as loving and needed.',
   },
   {
     id: 66,
@@ -1185,7 +1185,7 @@ const originalQuestions: TypeQuizQuestion[] = [
       { letter: "D", text: 'Toward Type 1' },
     ],
     answer: "B",
-    explanation: 'Under stress, Twos move toward the unhealthy side of Type 8, becoming aggressive, domineering, and demanding — the opposite of their usual sweet, accommodating persona.',
+    explanation: 'Under stress, Twos move toward the unhealthy side of Type 8, becoming aggressive, domineering, and demanding, the opposite of their usual sweet, accommodating persona.',
   },
   {
     id: 70,
@@ -1372,7 +1372,7 @@ const originalQuestions: TypeQuizQuestion[] = [
       { letter: "D", text: 'Only Type 7 uses a positive outlook' },
     ],
     answer: "A",
-    explanation: 'Twos stay positive by deflecting attention onto others\' needs ("I\'m fine — how are YOU?"), Sevens by reframing into exciting possibilities, and Nines by minimizing problems and going along.',
+    explanation: 'Twos stay positive by deflecting attention onto others\' needs ("I\'m fine, how are YOU?"), Sevens by reframing into exciting possibilities, and Nines by minimizing problems and going along.',
   },
   {
     id: 81,
@@ -1383,7 +1383,7 @@ const originalQuestions: TypeQuizQuestion[] = [
     category: 'Instinctual Variants',
     question: 'How does the Self-Preservation (SP) instinct manifest in a Type 2?',
     options: [
-      { letter: "A", text: 'They help others with food, shelter, and practical material support — a more quiet, nurturing style' },
+      { letter: "A", text: 'They help others with food, shelter, and practical material support, a more quiet, nurturing style' },
       { letter: "B", text: 'They become theatrical and attention-seeking' },
       { letter: "C", text: 'They focus on reforming social institutions' },
       { letter: "D", text: 'They withdraw from relationships entirely' },
@@ -1440,7 +1440,7 @@ const originalQuestions: TypeQuizQuestion[] = [
       { letter: "D", text: 'Type 2 has no countertype' },
     ],
     answer: "C",
-    explanation: 'The SP Two is the countertype. Unlike typical Twos who give to others, SP Twos are more childlike, appealing, and ambivalent about giving — they attract love through being endearing rather than through service.',
+    explanation: 'The SP Two is the countertype. Unlike typical Twos who give to others, SP Twos are more childlike, appealing, and ambivalent about giving, they attract love through being endearing rather than through service.',
   },
   {
     id: 85,
@@ -1457,7 +1457,7 @@ const originalQuestions: TypeQuizQuestion[] = [
       { letter: "D", text: 'Because they are indistinguishable from Type 9' },
     ],
     answer: "B",
-    explanation: 'Most Twos give in order to receive love. The SP Two inverts this — they attract care by being endearing, childlike, or lovable, securing their self-preservation needs through charm rather than service.',
+    explanation: 'Most Twos give in order to receive love. The SP Two inverts this, they attract care by being endearing, childlike, or lovable, securing their self-preservation needs through charm rather than service.',
   },
   {
     id: 86,
@@ -1522,7 +1522,7 @@ const originalQuestions: TypeQuizQuestion[] = [
       { letter: "A", text: 'SP Two' },
       { letter: "B", text: 'SX Two' },
       { letter: "C", text: 'SO Two' },
-      { letter: "D", text: 'None — Twos never look like Eights' },
+      { letter: "D", text: 'None, Twos never look like Eights' },
     ],
     answer: "C",
     explanation: 'SO Twos who accumulate power and influence within groups can look remarkably Eight-like. Their desire to be the indispensable power player can manifest as a controlling, dominant presence.',
@@ -1571,7 +1571,7 @@ const originalQuestions: TypeQuizQuestion[] = [
     question: 'At unhealthy Levels of Development, how might a Type 2 manifest?',
     options: [
       { letter: "A", text: 'They become withdrawn and uncommunicative' },
-      { letter: "B", text: 'They become manipulative, coercive, and entitled — using guilt, martyrdom, and emotional manipulation to control others' },
+      { letter: "B", text: 'They become manipulative, coercive, and entitled, using guilt, martyrdom, and emotional manipulation to control others' },
       { letter: "C", text: 'They become rigidly rule-following' },
       { letter: "D", text: 'They become apathetic and lazy' },
     ],
@@ -1593,7 +1593,7 @@ const originalQuestions: TypeQuizQuestion[] = [
       { letter: "D", text: 'The three types create a driven perfectionist' },
     ],
     answer: "A",
-    explanation: 'This tritype combines all Positive Outlook types, creating someone exceptionally warm, upbeat, and generous — but potentially unable to sit with pain, conflict, or their own darker emotions.',
+    explanation: 'This tritype combines all Positive Outlook types, creating someone exceptionally warm, upbeat, and generous, but potentially unable to sit with pain, conflict, or their own darker emotions.',
   },
   {
     id: 94,
@@ -1638,7 +1638,7 @@ const originalQuestions: TypeQuizQuestion[] = [
     category: 'Misidentification',
     question: 'How can you distinguish a Type 2 from a Type 6 when both appear loyal and supportive?',
     options: [
-      { letter: "A", text: 'You cannot — they are the same' },
+      { letter: "A", text: 'You cannot, they are the same' },
       { letter: "B", text: 'Type 2 gives support to create emotional bonds and be needed; Type 6 gives support to build alliances and ensure mutual security' },
       { letter: "C", text: 'Type 6 is more caring than Type 2' },
       { letter: "D", text: 'Type 2 is more anxious than Type 6' },
@@ -1661,7 +1661,7 @@ const originalQuestions: TypeQuizQuestion[] = [
       { letter: "D", text: 'They become purely self-interested' },
     ],
     answer: "B",
-    explanation: 'Fully integrated Twos are powerful in their love: deeply self-aware (4 growth), strong and boundaried (8 access), principled (1 wing), and socially warm (3 wing) — all while genuinely caring.',
+    explanation: 'Fully integrated Twos are powerful in their love: deeply self-aware (4 growth), strong and boundaried (8 access), principled (1 wing), and socially warm (3 wing), all while genuinely caring.',
   },
   {
     id: 98,
@@ -1678,7 +1678,7 @@ const originalQuestions: TypeQuizQuestion[] = [
       { letter: "D", text: 'Humility means the Two stops helping others' },
     ],
     answer: "B",
-    explanation: 'Humility does not mean self-abasement. For the Two, it means the profound recognition that they are human — with needs, limits, and a right to receive — not a superhuman caretaker.',
+    explanation: 'Humility does not mean self-abasement. For the Two, it means the profound recognition that they are human, with needs, limits, and a right to receive, not a superhuman caretaker.',
   },
   {
     id: 99,
@@ -1695,7 +1695,7 @@ const originalQuestions: TypeQuizQuestion[] = [
       { letter: "D", text: 'Twos are not actually positive' },
     ],
     answer: "A",
-    explanation: 'Twos deflect from their own pain by attending to others ("I\'m fine — you need me!"). Nines deflect by going along and minimizing ("it\'s not a big deal, everything\'s fine"). Both avoid their own emotional truth.',
+    explanation: 'Twos deflect from their own pain by attending to others ("I\'m fine, you need me!"). Nines deflect by going along and minimizing ("it\'s not a big deal, everything\'s fine"). Both avoid their own emotional truth.',
   },
   {
     id: 100,
@@ -1707,7 +1707,7 @@ const originalQuestions: TypeQuizQuestion[] = [
     question: 'Type 2 and Type 8 are both in the Rejection Object Relations group. How does their relationship to vulnerability differ?',
     options: [
       { letter: "A", text: 'Both types embrace vulnerability' },
-      { letter: "B", text: 'Type 2 hides vulnerability behind giving and caretaking; Type 8 hides it behind strength and control — both fear that showing weakness will result in being hurt' },
+      { letter: "B", text: 'Type 2 hides vulnerability behind giving and caretaking; Type 8 hides it behind strength and control, both fear that showing weakness will result in being hurt' },
       { letter: "C", text: 'Only Type 8 rejects vulnerability' },
       { letter: "D", text: 'They relate to vulnerability identically' },
     ],
@@ -1831,7 +1831,7 @@ const originalQuestions: TypeQuizQuestion[] = [
       { letter: "D", text: 'Envy' },
     ],
     answer: "B",
-    explanation: 'The passion of the Three is Deceit — not lying to others per se, but the deep self-deception of believing they ARE their image. They lose touch with their authentic self beneath the performing persona.',
+    explanation: 'The passion of the Three is Deceit, not lying to others per se, but the deep self-deception of believing they ARE their image. They lose touch with their authentic self beneath the performing persona.',
   },
   {
     id: 108,
@@ -1865,7 +1865,7 @@ const originalQuestions: TypeQuizQuestion[] = [
       { letter: "D", text: 'Type 1' },
     ],
     answer: "C",
-    explanation: 'This describes the Three\'s core pattern: achievement drive, efficiency, image consciousness, vulnerability avoidance, and social adaptability — all in service of being perceived as successful.',
+    explanation: 'This describes the Three\'s core pattern: achievement drive, efficiency, image consciousness, vulnerability avoidance, and social adaptability, all in service of being perceived as successful.',
   },
   {
     id: 110,
@@ -1882,7 +1882,7 @@ const originalQuestions: TypeQuizQuestion[] = [
       { letter: "D", text: 'Type 1' },
     ],
     answer: "B",
-    explanation: 'This captures the Three\'s disconnection from feelings. Emotions are treated as obstacles to productivity, so Threes learn to bypass them — leading to a genuine inability to access their emotional life.',
+    explanation: 'This captures the Three\'s disconnection from feelings. Emotions are treated as obstacles to productivity, so Threes learn to bypass them, leading to a genuine inability to access their emotional life.',
   },
   {
     id: 111,
@@ -1967,7 +1967,7 @@ const originalQuestions: TypeQuizQuestion[] = [
       { letter: "D", text: 'Planning' },
     ],
     answer: "A",
-    explanation: 'Vanity is the Three\'s mental fixation — the cognitive preoccupation with image, presentation, and how they are perceived. It is not just about appearance but about constructing a "successful" identity.',
+    explanation: 'Vanity is the Three\'s mental fixation, the cognitive preoccupation with image, presentation, and how they are perceived. It is not just about appearance but about constructing a "successful" identity.',
   },
   {
     id: 116,
@@ -2013,7 +2013,7 @@ const originalQuestions: TypeQuizQuestion[] = [
     question: 'Why is it ironic that Type 3 is in the Heart Center?',
     options: [
       { letter: "A", text: 'Because Threes have the strongest emotions of any type' },
-      { letter: "B", text: 'Because Threes are the most disconnected from their authentic feelings, despite being in the feeling center — they bypass emotions in favor of efficiency' },
+      { letter: "B", text: 'Because Threes are the most disconnected from their authentic feelings, despite being in the feeling center, they bypass emotions in favor of efficiency' },
       { letter: "C", text: 'Because Threes belong in the Head Center' },
       { letter: "D", text: 'It is not ironic at all' },
     ],
@@ -2069,7 +2069,7 @@ const originalQuestions: TypeQuizQuestion[] = [
       { letter: "D", text: 'They become overly emotional and dramatic' },
     ],
     answer: "B",
-    explanation: 'The Three\'s stress move to Nine is a dramatic shift from their usual driven persona. They lose motivation, become couch-locked, and numb out — essentially giving up the performance entirely.',
+    explanation: 'The Three\'s stress move to Nine is a dramatic shift from their usual driven persona. They lose motivation, become couch-locked, and numb out, essentially giving up the performance entirely.',
   },
   {
     id: 122,
@@ -2086,7 +2086,7 @@ const originalQuestions: TypeQuizQuestion[] = [
       { letter: "D", text: 'They are taking a healthy break' },
     ],
     answer: "B",
-    explanation: 'This Nine-like collapse happens when the Three\'s achieving machinery burns out. Unable to perform, they fall into Nine\'s numbing patterns — a kind of psychological shutdown.',
+    explanation: 'This Nine-like collapse happens when the Three\'s achieving machinery burns out. Unable to perform, they fall into Nine\'s numbing patterns, a kind of psychological shutdown.',
   },
   {
     id: 123,
@@ -2115,7 +2115,7 @@ const originalQuestions: TypeQuizQuestion[] = [
     question: 'When a Type 3 moves toward Type 6 in growth, what positive changes emerge?',
     options: [
       { letter: "A", text: 'They become more focused on personal achievement' },
-      { letter: "B", text: 'They become more loyal, collaborative, and willing to be vulnerable — valuing relationships for their own sake rather than as networking tools' },
+      { letter: "B", text: 'They become more loyal, collaborative, and willing to be vulnerable, valuing relationships for their own sake rather than as networking tools' },
       { letter: "C", text: 'They become more competitive' },
       { letter: "D", text: 'They become more image-conscious' },
     ],
@@ -2137,7 +2137,7 @@ const originalQuestions: TypeQuizQuestion[] = [
       { letter: "D", text: 'Wing movement to Type 4' },
     ],
     answer: "B",
-    explanation: 'The Six growth line allows Threes to embrace cooperation, vulnerability, and shared success — behaviors that feel counterintuitive to their usual lone-achiever mentality.',
+    explanation: 'The Six growth line allows Threes to embrace cooperation, vulnerability, and shared success, behaviors that feel counterintuitive to their usual lone-achiever mentality.',
   },
   {
     id: 126,
@@ -2149,7 +2149,7 @@ const originalQuestions: TypeQuizQuestion[] = [
     question: 'What is the key internal shift for a Type 3 accessing their Type 6 growth line?',
     options: [
       { letter: "A", text: 'They realize they can achieve even more through manipulation' },
-      { letter: "B", text: 'They discover that being loyal, vulnerable, and part of a team does not diminish their value — it deepens it' },
+      { letter: "B", text: 'They discover that being loyal, vulnerable, and part of a team does not diminish their value, it deepens it' },
       { letter: "C", text: 'They learn to hide their ambitions better' },
       { letter: "D", text: 'They stop caring about all relationships' },
     ],
@@ -2234,7 +2234,7 @@ const originalQuestions: TypeQuizQuestion[] = [
     question: 'How does the Self-Preservation (SP) instinct manifest in a Type 3?',
     options: [
       { letter: "A", text: 'They focus on being the most attractive person in the room' },
-      { letter: "B", text: 'They channel their achievement drive into material security — working hard to have the best home, finances, and tangible markers of success' },
+      { letter: "B", text: 'They channel their achievement drive into material security, working hard to have the best home, finances, and tangible markers of success' },
       { letter: "C", text: 'They focus on social reform' },
       { letter: "D", text: 'They become withdrawn and disinterested in achievement' },
     ],
@@ -2290,7 +2290,7 @@ const originalQuestions: TypeQuizQuestion[] = [
       { letter: "D", text: 'Type 3 has no countertype' },
     ],
     answer: "C",
-    explanation: 'The SP Three is the countertype. Unlike typical Threes who seek external recognition, SP Threes are more modest and work hard without needing to be seen as successful — they want security, not applause.',
+    explanation: 'The SP Three is the countertype. Unlike typical Threes who seek external recognition, SP Threes are more modest and work hard without needing to be seen as successful, they want security, not applause.',
   },
   {
     id: 135,
@@ -2302,12 +2302,12 @@ const originalQuestions: TypeQuizQuestion[] = [
     question: 'Why is the Self-Preservation Three considered the countertype?',
     options: [
       { letter: "A", text: 'Because they are the most image-conscious Three' },
-      { letter: "B", text: 'Because they strive for efficiency and material security without the typical Three need for public admiration — their vanity is hidden behind a facade of modesty' },
+      { letter: "B", text: 'Because they strive for efficiency and material security without the typical Three need for public admiration, their vanity is hidden behind a facade of modesty' },
       { letter: "C", text: 'Because they have no ambition' },
       { letter: "D", text: 'Because they are identical to Type 6' },
     ],
     answer: "B",
-    explanation: 'SP Threes can appear quite modest and hardworking. Their vanity is present but concealed — they work to be "good" rather than "impressive," making them harder to identify as Threes.',
+    explanation: 'SP Threes can appear quite modest and hardworking. Their vanity is present but concealed, they work to be "good" rather than "impressive," making them harder to identify as Threes.',
   },
   {
     id: 136,
@@ -2404,12 +2404,12 @@ const originalQuestions: TypeQuizQuestion[] = [
     question: 'At healthy Levels of Development, how does a Type 3 manifest?',
     options: [
       { letter: "A", text: 'They become even more image-obsessed' },
-      { letter: "B", text: 'They become authentic, inspiring, and genuinely excellent — using their gifts to uplift others rather than to inflate their ego' },
+      { letter: "B", text: 'They become authentic, inspiring, and genuinely excellent, using their gifts to uplift others rather than to inflate their ego' },
       { letter: "C", text: 'They become passive and directionless' },
       { letter: "D", text: 'They become controlling and manipulative' },
     ],
     answer: "B",
-    explanation: 'Healthy Threes are genuinely inspiring. They channel their drive into meaningful work, model authentic excellence, and use their influence to elevate others — becoming true role models.',
+    explanation: 'Healthy Threes are genuinely inspiring. They channel their drive into meaningful work, model authentic excellence, and use their influence to elevate others, becoming true role models.',
   },
   {
     id: 142,
@@ -2426,7 +2426,7 @@ const originalQuestions: TypeQuizQuestion[] = [
       { letter: "D", text: 'They become rigidly principled' },
     ],
     answer: "B",
-    explanation: 'Unhealthy Threes may fabricate credentials, take credit for others\' work, sabotage competitors, and construct elaborate false personas — all to maintain an image of success that has no substance.',
+    explanation: 'Unhealthy Threes may fabricate credentials, take credit for others\' work, sabotage competitors, and construct elaborate false personas, all to maintain an image of success that has no substance.',
   },
   {
     id: 143,
@@ -2460,7 +2460,7 @@ const originalQuestions: TypeQuizQuestion[] = [
       { letter: "D", text: 'The 3-7-8 is more cautious' },
     ],
     answer: "B",
-    explanation: 'The 3-7-8 creates a powerhouse personality — dynamic, bold, and forceful. The 3-1-5 creates a more controlled, analytical achiever who succeeds through expertise and precision.',
+    explanation: 'The 3-7-8 creates a powerhouse personality, dynamic, bold, and forceful. The 3-1-5 creates a more controlled, analytical achiever who succeeds through expertise and precision.',
   },
   {
     id: 145,
@@ -2488,7 +2488,7 @@ const originalQuestions: TypeQuizQuestion[] = [
     category: 'Misidentification',
     question: 'How can you distinguish a Type 3 from a Type 7 when both appear energetic and positive?',
     options: [
-      { letter: "A", text: 'You cannot — they are the same' },
+      { letter: "A", text: 'You cannot, they are the same' },
       { letter: "B", text: 'Type 3\'s energy is directed toward achieving specific goals; Type 7\'s energy is directed toward experiencing new possibilities and avoiding limitation' },
       { letter: "C", text: 'Type 7 is more successful than Type 3' },
       { letter: "D", text: 'Type 3 is more fun than Type 7' },
@@ -2523,12 +2523,12 @@ const originalQuestions: TypeQuizQuestion[] = [
     question: 'What is the relationship between the Three\'s passion (Deceit) and their virtue (Truthfulness)?',
     options: [
       { letter: "A", text: 'Truthfulness means the Three confesses all their lies' },
-      { letter: "B", text: 'Truthfulness is the courage to present themselves as they genuinely are, even when it risks losing admiration — dropping the mask' },
+      { letter: "B", text: 'Truthfulness is the courage to present themselves as they genuinely are, even when it risks losing admiration, dropping the mask' },
       { letter: "C", text: 'Deceit and Truthfulness are unrelated' },
       { letter: "D", text: 'Truthfulness means the Three becomes brutally honest with others' },
     ],
     answer: "B",
-    explanation: 'Truthfulness for the Three means the radical act of being real. It is choosing authenticity over applause, vulnerability over performance — and discovering that they are valuable without the mask.',
+    explanation: 'Truthfulness for the Three means the radical act of being real. It is choosing authenticity over applause, vulnerability over performance, and discovering that they are valuable without the mask.',
   },
   {
     id: 149,
@@ -2557,7 +2557,7 @@ const originalQuestions: TypeQuizQuestion[] = [
     question: 'Type 3 and Type 1 are both in the Competency Harmonic group. How do they approach a project differently?',
     options: [
       { letter: "A", text: 'They approach projects identically' },
-      { letter: "B", text: 'Type 1 asks "Is this being done correctly?" while Type 3 asks "Is this producing results efficiently?" — correctness versus effectiveness' },
+      { letter: "B", text: 'Type 1 asks "Is this being done correctly?" while Type 3 asks "Is this producing results efficiently?", correctness versus effectiveness' },
       { letter: "C", text: 'Type 1 cares about results more than Type 3' },
       { letter: "D", text: 'Neither type approaches projects competently' },
     ],
@@ -2664,7 +2664,7 @@ const originalQuestions: TypeQuizQuestion[] = [
       { letter: "D", text: 'A focus on what needs to be fixed and corrected' },
     ],
     answer: "B",
-    explanation: 'Fours live in a world of intense emotional texture. Their inner life is vivid, dramatic, and often painful — dominated by a sense of longing for something they cannot quite name.',
+    explanation: 'Fours live in a world of intense emotional texture. Their inner life is vivid, dramatic, and often painful, dominated by a sense of longing for something they cannot quite name.',
   },
   {
     id: 157,
@@ -2681,7 +2681,7 @@ const originalQuestions: TypeQuizQuestion[] = [
       { letter: "D", text: 'Gluttony' },
     ],
     answer: "C",
-    explanation: 'The passion of the Four is Envy — a chronic sense that others have something they lack. It is not mere jealousy but a deep existential conviction that others are more complete, whole, or at ease.',
+    explanation: 'The passion of the Four is Envy, a chronic sense that others have something they lack. It is not mere jealousy but a deep existential conviction that others are more complete, whole, or at ease.',
   },
   {
     id: 158,
@@ -2724,7 +2724,7 @@ const originalQuestions: TypeQuizQuestion[] = [
     track1Day: 9,
     track2Day: 4,
     category: 'Type Identification',
-    question: 'Someone says: "I know I should be grateful for what I have, but I keep feeling like everyone else has something I don\'t — not things, but some kind of inner peace or belonging." Which type is speaking?',
+    question: 'Someone says: "I know I should be grateful for what I have, but I keep feeling like everyone else has something I don\'t, not things, but some kind of inner peace or belonging." Which type is speaking?',
     options: [
       { letter: "A", text: 'Type 3' },
       { letter: "B", text: 'Type 7' },
@@ -2732,7 +2732,7 @@ const originalQuestions: TypeQuizQuestion[] = [
       { letter: "D", text: 'Type 4' },
     ],
     answer: "D",
-    explanation: 'This articulates the Four\'s core experience of envy: not wanting material goods but aching for an existential quality — belonging, ease, wholeness — that they perceive others as having.',
+    explanation: 'This articulates the Four\'s core experience of envy: not wanting material goods but aching for an existential quality, belonging, ease, wholeness, that they perceive others as having.',
   },
   {
     id: 161,
@@ -2800,7 +2800,7 @@ const originalQuestions: TypeQuizQuestion[] = [
       { letter: "D", text: 'Sobriety' },
     ],
     answer: "B",
-    explanation: 'Equanimity is the virtue of the Four. It is emotional balance — the ability to experience feelings without being overwhelmed by them or using them to construct a dramatic identity.',
+    explanation: 'Equanimity is the virtue of the Four. It is emotional balance, the ability to experience feelings without being overwhelmed by them or using them to construct a dramatic identity.',
   },
   {
     id: 165,
@@ -2817,7 +2817,7 @@ const originalQuestions: TypeQuizQuestion[] = [
       { letter: "D", text: 'Resentment' },
     ],
     answer: "C",
-    explanation: 'Melancholy is the Four\'s mental fixation — the cognitive pattern of dwelling on what is missing, romanticizing loss, and maintaining a bittersweet relationship with suffering as a source of identity.',
+    explanation: 'Melancholy is the Four\'s mental fixation, the cognitive pattern of dwelling on what is missing, romanticizing loss, and maintaining a bittersweet relationship with suffering as a source of identity.',
   },
   {
     id: 166,
@@ -2834,7 +2834,7 @@ const originalQuestions: TypeQuizQuestion[] = [
       { letter: "D", text: 'Holy Wisdom' },
     ],
     answer: "B",
-    explanation: 'Holy Origin is the realization that the Four is already connected to the source of being. They are not missing anything essential — the perceived deficiency is an illusion created by the ego.',
+    explanation: 'Holy Origin is the realization that the Four is already connected to the source of being. They are not missing anything essential, the perceived deficiency is an illusion created by the ego.',
   },
   {
     id: 167,
@@ -2885,7 +2885,7 @@ const originalQuestions: TypeQuizQuestion[] = [
       { letter: "D", text: 'Toward Type 5' },
     ],
     answer: "B",
-    explanation: 'Under stress, Fours move toward the unhealthy side of Type 2, becoming clingy, people-pleasing, and over-involved with others — abandoning their prized independence to desperately seek connection.',
+    explanation: 'Under stress, Fours move toward the unhealthy side of Type 2, becoming clingy, people-pleasing, and over-involved with others, abandoning their prized independence to desperately seek connection.',
   },
   {
     id: 170,
@@ -2914,7 +2914,7 @@ const originalQuestions: TypeQuizQuestion[] = [
     question: 'When a Type 4 moves to Type 2 under stress, what behavior emerges?',
     options: [
       { letter: "A", text: 'They become highly productive and organized' },
-      { letter: "B", text: 'They become clingy, needy, and overly involved with others — abandoning their cherished independence to desperately seek love and reassurance' },
+      { letter: "B", text: 'They become clingy, needy, and overly involved with others, abandoning their cherished independence to desperately seek love and reassurance' },
       { letter: "C", text: 'They become aggressive and confrontational' },
       { letter: "D", text: 'They withdraw completely from all contact' },
     ],
@@ -2999,7 +2999,7 @@ const originalQuestions: TypeQuizQuestion[] = [
     question: 'What is the key internal shift for a Type 4 accessing their Type 1 growth line?',
     options: [
       { letter: "A", text: 'They learn to suppress all feelings' },
-      { letter: "B", text: 'They discover that discipline and structure do not kill authenticity — they give it a container in which to thrive' },
+      { letter: "B", text: 'They discover that discipline and structure do not kill authenticity, they give it a container in which to thrive' },
       { letter: "C", text: 'They become rigidly moralistic' },
       { letter: "D", text: 'They abandon creativity for productivity' },
     ],
@@ -3084,7 +3084,7 @@ const originalQuestions: TypeQuizQuestion[] = [
     question: 'How does the Self-Preservation (SP) instinct manifest in a Type 4?',
     options: [
       { letter: "A", text: 'They become dramatic and expressive in public' },
-      { letter: "B", text: 'They internalize suffering, endure pain stoically, and may use deprivation as a way of feeling special — the "long-suffering" archetype' },
+      { letter: "B", text: 'They internalize suffering, endure pain stoically, and may use deprivation as a way of feeling special, the "long-suffering" archetype' },
       { letter: "C", text: 'They focus on social status and popularity' },
       { letter: "D", text: 'They become carefree and materialistic' },
     ],
@@ -3101,7 +3101,7 @@ const originalQuestions: TypeQuizQuestion[] = [
     question: 'How does the Sexual (SX) instinct manifest in a Type 4?',
     options: [
       { letter: "A", text: 'They become withdrawn and unexpressive' },
-      { letter: "B", text: 'They become intensely competitive, demanding, and express their envy more vocally — they externalize rather than internalize their pain' },
+      { letter: "B", text: 'They become intensely competitive, demanding, and express their envy more vocally, they externalize rather than internalize their pain' },
       { letter: "C", text: 'They become easygoing and adaptable' },
       { letter: "D", text: 'They focus on career advancement' },
     ],
@@ -3117,7 +3117,7 @@ const originalQuestions: TypeQuizQuestion[] = [
     category: 'Instinctual Variants',
     question: 'How does the Social (SO) instinct manifest in a Type 4?',
     options: [
-      { letter: "A", text: 'They compare themselves to social groups and feel their suffering should be recognized — they may identify with collective pain or marginalized identities' },
+      { letter: "A", text: 'They compare themselves to social groups and feel their suffering should be recognized, they may identify with collective pain or marginalized identities' },
       { letter: "B", text: 'They avoid all social interaction' },
       { letter: "C", text: 'They become the most cheerful and upbeat Four subtype' },
       { letter: "D", text: 'They focus solely on one romantic relationship' },
@@ -3191,7 +3191,7 @@ const originalQuestions: TypeQuizQuestion[] = [
       { letter: "D", text: 'None' },
     ],
     answer: "C",
-    explanation: 'Type 4 is in the Frustration group (with 1 and 7). They persistently feel that something in their experience is not quite right — what they have is never what they truly want.',
+    explanation: 'Type 4 is in the Frustration group (with 1 and 7). They persistently feel that something in their experience is not quite right, what they have is never what they truly want.',
   },
   {
     id: 188,
@@ -3222,7 +3222,7 @@ const originalQuestions: TypeQuizQuestion[] = [
       { letter: "A", text: 'SP Four' },
       { letter: "B", text: 'SO Four' },
       { letter: "C", text: 'SX Four' },
-      { letter: "D", text: 'None — Fours never resemble Eights' },
+      { letter: "D", text: 'None, Fours never resemble Eights' },
     ],
     answer: "C",
     explanation: 'SX Fours can look remarkably like Eights due to their intensity, competitiveness, vocal expression of demands, and willingness to confront. The difference is that SX Fours act from envy and deficiency, while Eights act from power and autonomy.',
@@ -3271,7 +3271,7 @@ const originalQuestions: TypeQuizQuestion[] = [
     question: 'At unhealthy Levels of Development, how might a Type 4 manifest?',
     options: [
       { letter: "A", text: 'They become overly cheerful and superficial' },
-      { letter: "B", text: 'They become self-destructive, tormented, and alienated — turning their sense of deficiency into hatred of self and others, potentially becoming self-sabotaging or suicidal' },
+      { letter: "B", text: 'They become self-destructive, tormented, and alienated, turning their sense of deficiency into hatred of self and others, potentially becoming self-sabotaging or suicidal' },
       { letter: "C", text: 'They become rigidly organized' },
       { letter: "D", text: 'They become excessively social' },
     ],
@@ -3310,7 +3310,7 @@ const originalQuestions: TypeQuizQuestion[] = [
       { letter: "D", text: 'The 4-6-8 is more peaceful' },
     ],
     answer: "B",
-    explanation: 'The 4-6-8 tritype creates one of the most emotionally reactive combinations — passionate, anxious, and forceful. The 4-5-9 creates one of the most internally focused — deep, quiet, and removed.',
+    explanation: 'The 4-6-8 tritype creates one of the most emotionally reactive combinations, passionate, anxious, and forceful. The 4-5-9 creates one of the most internally focused, deep, quiet, and removed.',
   },
   {
     id: 195,
@@ -3338,7 +3338,7 @@ const originalQuestions: TypeQuizQuestion[] = [
     category: 'Misidentification',
     question: 'How can you distinguish a Type 4 from a Type 5 when both appear withdrawn and unconventional?',
     options: [
-      { letter: "A", text: 'You cannot — they are the same' },
+      { letter: "A", text: 'You cannot, they are the same' },
       { letter: "B", text: 'Type 4 withdraws into emotional depth and wants to be understood; Type 5 withdraws into intellectual depth and wants to be left alone' },
       { letter: "C", text: 'Type 5 is more emotional than Type 4' },
       { letter: "D", text: 'Type 4 is more detached than Type 5' },
@@ -3373,7 +3373,7 @@ const originalQuestions: TypeQuizQuestion[] = [
     question: 'What is the relationship between the Four\'s passion (Envy) and their virtue (Equanimity)?',
     options: [
       { letter: "A", text: 'Equanimity means the Four feels nothing' },
-      { letter: "B", text: 'Equanimity is the ability to be fully present to whatever is happening — including joy — without comparing, longing, or creating drama to feel special' },
+      { letter: "B", text: 'Equanimity is the ability to be fully present to whatever is happening, including joy, without comparing, longing, or creating drama to feel special' },
       { letter: "C", text: 'Envy and Equanimity are unrelated' },
       { letter: "D", text: 'Equanimity means the Four gets everything they want' },
     ],
@@ -3429,7 +3429,7 @@ const originalQuestions: TypeQuizQuestion[] = [
       { letter: "D", text: 'Being morally corrupt' },
     ],
     answer: "B",
-    explanation: 'Fives fear being incapable, depleted, or overwhelmed. They believe the world demands more than they have to give, so they conserve resources — energy, time, knowledge — to avoid being overtaken.',
+    explanation: 'Fives fear being incapable, depleted, or overwhelmed. They believe the world demands more than they have to give, so they conserve resources, energy, time, knowledge, to avoid being overtaken.',
   },
   {
     id: 202,
@@ -3463,7 +3463,7 @@ const originalQuestions: TypeQuizQuestion[] = [
       { letter: "D", text: 'The drive to maintain moral standards' },
     ],
     answer: "B",
-    explanation: 'Fives are motivated by the need to understand before engaging. They gather knowledge, develop expertise, and observe from a distance — all to feel prepared enough to participate in life.',
+    explanation: 'Fives are motivated by the need to understand before engaging. They gather knowledge, develop expertise, and observe from a distance, all to feel prepared enough to participate in life.',
   },
   {
     id: 204,
@@ -3492,7 +3492,7 @@ const originalQuestions: TypeQuizQuestion[] = [
     question: 'How does a Type 5 typically respond when someone makes unexpected emotional demands on them?',
     options: [
       { letter: "A", text: 'They eagerly engage and offer comfort' },
-      { letter: "B", text: 'They feel invaded and retreat — needing to process alone before they can respond' },
+      { letter: "B", text: 'They feel invaded and retreat, needing to process alone before they can respond' },
       { letter: "C", text: 'They become angry and aggressive' },
       { letter: "D", text: 'They immediately comply to avoid conflict' },
     ],
@@ -3531,7 +3531,7 @@ const originalQuestions: TypeQuizQuestion[] = [
       { letter: "D", text: 'Sloth' },
     ],
     answer: "C",
-    explanation: 'The passion of the Five is Avarice — not greed for money, but a hoarding of inner resources: energy, time, knowledge, space, and privacy. They hold back from full engagement to preserve themselves.',
+    explanation: 'The passion of the Five is Avarice, not greed for money, but a hoarding of inner resources: energy, time, knowledge, space, and privacy. They hold back from full engagement to preserve themselves.',
   },
   {
     id: 208,
@@ -3543,12 +3543,12 @@ const originalQuestions: TypeQuizQuestion[] = [
     question: 'How does the Five\'s avarice typically manifest?',
     options: [
       { letter: "A", text: 'They accumulate wealth aggressively' },
-      { letter: "B", text: 'They withdraw from engagement, minimize their needs, and hoard their time and energy — giving as little as possible to preserve their inner reserves' },
+      { letter: "B", text: 'They withdraw from engagement, minimize their needs, and hoard their time and energy, giving as little as possible to preserve their inner reserves' },
       { letter: "C", text: 'They become excessively generous to compensate' },
       { letter: "D", text: 'They become materialistic consumers' },
     ],
     answer: "B",
-    explanation: 'Five\'s avarice is about conservation, not consumption. They minimize their footprint, reduce their needs, and guard their resources — creating a life that demands as little output as possible.',
+    explanation: 'Five\'s avarice is about conservation, not consumption. They minimize their footprint, reduce their needs, and guard their resources, creating a life that demands as little output as possible.',
   },
   {
     id: 209,
@@ -3582,7 +3582,7 @@ const originalQuestions: TypeQuizQuestion[] = [
       { letter: "D", text: 'Type 3' },
     ],
     answer: "B",
-    explanation: 'This captures the Five\'s core strategy: preparation through understanding. They delay action until they feel competent, which can become a permanent delay — always preparing, never engaging.',
+    explanation: 'This captures the Five\'s core strategy: preparation through understanding. They delay action until they feel competent, which can become a permanent delay, always preparing, never engaging.',
   },
   {
     id: 211,
@@ -3650,7 +3650,7 @@ const originalQuestions: TypeQuizQuestion[] = [
       { letter: "D", text: 'Equanimity' },
     ],
     answer: "B",
-    explanation: 'Non-Attachment is the virtue of the Five. Paradoxically, it means the Five can let go of hoarding and begin to give freely — sharing their resources, knowledge, and presence generously.',
+    explanation: 'Non-Attachment is the virtue of the Five. Paradoxically, it means the Five can let go of hoarding and begin to give freely, sharing their resources, knowledge, and presence generously.',
   },
   {
     id: 215,
@@ -3667,7 +3667,7 @@ const originalQuestions: TypeQuizQuestion[] = [
       { letter: "D", text: 'Vengeance' },
     ],
     answer: "B",
-    explanation: 'Stinginess is the Five\'s mental fixation — the cognitive pattern of calculating what they can afford to give (time, energy, emotion) and consistently erring on the side of withholding.',
+    explanation: 'Stinginess is the Five\'s mental fixation, the cognitive pattern of calculating what they can afford to give (time, energy, emotion) and consistently erring on the side of withholding.',
   },
   {
     id: 216,
@@ -3684,7 +3684,7 @@ const originalQuestions: TypeQuizQuestion[] = [
       { letter: "D", text: 'Holy Wisdom' },
     ],
     answer: "C",
-    explanation: 'Holy Omniscience is the realization that the Five is already part of the knowing universe — they do not need to hoard knowledge from the outside because understanding is inherent to their nature.',
+    explanation: 'Holy Omniscience is the realization that the Five is already part of the knowing universe, they do not need to hoard knowledge from the outside because understanding is inherent to their nature.',
   },
   {
     id: 217,
@@ -3764,7 +3764,7 @@ const originalQuestions: TypeQuizQuestion[] = [
     question: 'When a Type 5 moves to Type 7 under stress, what behavior emerges?',
     options: [
       { letter: "A", text: 'They become more focused and disciplined' },
-      { letter: "B", text: 'They become scattered, restless, and impulsive — seeking stimulation and distraction instead of maintaining their usual depth of focus' },
+      { letter: "B", text: 'They become scattered, restless, and impulsive, seeking stimulation and distraction instead of maintaining their usual depth of focus' },
       { letter: "C", text: 'They become aggressive and confrontational' },
       { letter: "D", text: 'They become clingy and people-pleasing' },
     ],
@@ -3871,7 +3871,7 @@ const originalQuestions: TypeQuizQuestion[] = [
       { letter: "D", text: 'None' },
     ],
     answer: "C",
-    explanation: 'Type 5 is in the Withdrawn group (with 4 and 9). They "move away" from others to get needs met through internal resources — thinking, analyzing, and observing from a protected distance.',
+    explanation: 'Type 5 is in the Withdrawn group (with 4 and 9). They "move away" from others to get needs met through internal resources, thinking, analyzing, and observing from a protected distance.',
   },
   {
     id: 228,
@@ -3934,7 +3934,7 @@ const originalQuestions: TypeQuizQuestion[] = [
     question: 'How does the Self-Preservation (SP) instinct manifest in a Type 5?',
     options: [
       { letter: "A", text: 'They become socially gregarious' },
-      { letter: "B", text: 'They focus on minimizing needs and creating a secure, self-sufficient "castle" — their home becomes a sanctuary of knowledge and solitude' },
+      { letter: "B", text: 'They focus on minimizing needs and creating a secure, self-sufficient "castle", their home becomes a sanctuary of knowledge and solitude' },
       { letter: "C", text: 'They become emotionally expressive' },
       { letter: "D", text: 'They seek out large groups for stimulation' },
     ],
@@ -3951,7 +3951,7 @@ const originalQuestions: TypeQuizQuestion[] = [
     question: 'How does the Sexual (SX) instinct manifest in a Type 5?',
     options: [
       { letter: "A", text: 'They become emotionally detached from everyone' },
-      { letter: "B", text: 'They seek an ideal partner or confidant with whom they can share their inner world intensely — they want deep one-to-one connection despite their general withdrawal' },
+      { letter: "B", text: 'They seek an ideal partner or confidant with whom they can share their inner world intensely, they want deep one-to-one connection despite their general withdrawal' },
       { letter: "C", text: 'They become the most social Five subtype' },
       { letter: "D", text: 'They avoid all intimate relationships' },
     ],
@@ -3968,12 +3968,12 @@ const originalQuestions: TypeQuizQuestion[] = [
     question: 'How does the Social (SO) instinct manifest in a Type 5?',
     options: [
       { letter: "A", text: 'They become the life of the party' },
-      { letter: "B", text: 'They seek expertise and intellectual status within groups — becoming the "wise expert" who contributes knowledge rather than social energy' },
+      { letter: "B", text: 'They seek expertise and intellectual status within groups, becoming the "wise expert" who contributes knowledge rather than social energy' },
       { letter: "C", text: 'They withdraw from all group involvement' },
       { letter: "D", text: 'They become emotionally supportive leaders' },
     ],
     answer: "B",
-    explanation: 'SO Fives engage with groups through their specialty. They find their social role as the expert, teacher, or advisor — contributing intellectual value while maintaining emotional distance.',
+    explanation: 'SO Fives engage with groups through their specialty. They find their social role as the expert, teacher, or advisor, contributing intellectual value while maintaining emotional distance.',
   },
   {
     id: 234,
@@ -4002,12 +4002,12 @@ const originalQuestions: TypeQuizQuestion[] = [
     question: 'Why is the Sexual Five considered the countertype?',
     options: [
       { letter: "A", text: 'Because they are the most withdrawn Five' },
-      { letter: "B", text: 'Because they actively seek deep intimate connection and share their inner world with a trusted partner — going against the typical Five pattern of emotional hoarding' },
+      { letter: "B", text: 'Because they actively seek deep intimate connection and share their inner world with a trusted partner, going against the typical Five pattern of emotional hoarding' },
       { letter: "C", text: 'Because they have no avarice' },
       { letter: "D", text: 'Because they are indistinguishable from Type 4' },
     ],
     answer: "B",
-    explanation: 'Most Fives guard their inner world carefully. The SX Five opens it to a chosen person with surprising intensity, making intimacy their primary arena of engagement — the opposite of the Five\'s usual self-containment.',
+    explanation: 'Most Fives guard their inner world carefully. The SX Five opens it to a chosen person with surprising intensity, making intimacy their primary arena of engagement, the opposite of the Five\'s usual self-containment.',
   },
   {
     id: 236,
@@ -4092,7 +4092,7 @@ const originalQuestions: TypeQuizQuestion[] = [
       { letter: "D", text: 'SP Nines are more withdrawn than SP Fives' },
     ],
     answer: "A",
-    explanation: 'SP Fives reduce needs strategically — every possession and commitment must justify its resource cost. SP Nines simplify for comfort — reducing complexity to maintain their inner peace.',
+    explanation: 'SP Fives reduce needs strategically, every possession and commitment must justify its resource cost. SP Nines simplify for comfort, reducing complexity to maintain their inner peace.',
   },
   {
     id: 241,
@@ -4121,7 +4121,7 @@ const originalQuestions: TypeQuizQuestion[] = [
     question: 'At unhealthy Levels of Development, how might a Type 5 manifest?',
     options: [
       { letter: "A", text: 'They become gregarious and attention-seeking' },
-      { letter: "B", text: 'They become increasingly isolated, paranoid, nihilistic, and disconnected from reality — potentially becoming eccentric recluses who reject all human connection' },
+      { letter: "B", text: 'They become increasingly isolated, paranoid, nihilistic, and disconnected from reality, potentially becoming eccentric recluses who reject all human connection' },
       { letter: "C", text: 'They become aggressive leaders' },
       { letter: "D", text: 'They become people-pleasers' },
     ],
@@ -4160,7 +4160,7 @@ const originalQuestions: TypeQuizQuestion[] = [
       { letter: "D", text: 'The 5-4-9 is more achievement-oriented' },
     ],
     answer: "B",
-    explanation: 'The 5-4-9 creates a deeply interior personality — rich inner world, low external engagement. The 5-1-3 creates a more externally effective personality — still cerebral but far more action-oriented.',
+    explanation: 'The 5-4-9 creates a deeply interior personality, rich inner world, low external engagement. The 5-1-3 creates a more externally effective personality, still cerebral but far more action-oriented.',
   },
   {
     id: 245,
@@ -4188,8 +4188,8 @@ const originalQuestions: TypeQuizQuestion[] = [
     category: 'Misidentification',
     question: 'How can you distinguish a Type 5 from a Type 9 when both appear quiet and withdrawn?',
     options: [
-      { letter: "A", text: 'You cannot — they are the same' },
-      { letter: "B", text: 'Type 5 withdraws to protect energy and pursue understanding; Type 9 withdraws to maintain inner peace and avoid disturbance — the Five is actively thinking, the Nine is passively comfortable' },
+      { letter: "A", text: 'You cannot, they are the same' },
+      { letter: "B", text: 'Type 5 withdraws to protect energy and pursue understanding; Type 9 withdraws to maintain inner peace and avoid disturbance, the Five is actively thinking, the Nine is passively comfortable' },
       { letter: "C", text: 'Type 9 is more intellectual than Type 5' },
       { letter: "D", text: 'Type 5 is more easygoing than Type 9' },
     ],
@@ -4223,7 +4223,7 @@ const originalQuestions: TypeQuizQuestion[] = [
     question: 'What is the relationship between the Five\'s passion (Avarice) and their virtue (Non-Attachment)?',
     options: [
       { letter: "A", text: 'Non-Attachment means the Five cares about nothing' },
-      { letter: "B", text: 'Non-Attachment is the paradoxical discovery that letting go of hoarding and giving freely actually creates abundance — they have more by holding less' },
+      { letter: "B", text: 'Non-Attachment is the paradoxical discovery that letting go of hoarding and giving freely actually creates abundance, they have more by holding less' },
       { letter: "C", text: 'Avarice and Non-Attachment are unrelated' },
       { letter: "D", text: 'Non-Attachment means the Five rejects all possessions' },
     ],
@@ -4239,7 +4239,7 @@ const originalQuestions: TypeQuizQuestion[] = [
     category: 'Cross-Type Comparison',
     question: 'Both Type 5 and Type 7 are Head Center types. How do they relate to knowledge differently?',
     options: [
-      { letter: "A", text: 'Type 5 goes deep into specialized knowledge to feel competent; Type 7 goes broad across many topics to stay stimulated — depth versus breadth' },
+      { letter: "A", text: 'Type 5 goes deep into specialized knowledge to feel competent; Type 7 goes broad across many topics to stay stimulated, depth versus breadth' },
       { letter: "B", text: 'They relate to knowledge identically' },
       { letter: "C", text: 'Only Type 5 values knowledge' },
       { letter: "D", text: 'Type 7 is more intellectual than Type 5' },
@@ -4274,7 +4274,7 @@ const originalQuestions: TypeQuizQuestion[] = [
     question: 'What is the core fear of a Type 6?',
     options: [
       { letter: "A", text: 'Being worthless without achievements' },
-      { letter: "B", text: 'Being without support, guidance, or security — left to face dangers alone' },
+      { letter: "B", text: 'Being without support, guidance, or security, left to face dangers alone' },
       { letter: "C", text: 'Being ordinary and insignificant' },
       { letter: "D", text: 'Being controlled by others' },
     ],
@@ -4296,7 +4296,7 @@ const originalQuestions: TypeQuizQuestion[] = [
       { letter: "D", text: 'To be free from all obligations' },
     ],
     answer: "C",
-    explanation: 'Sixes long for a stable ground to stand on — reliable people, clear guidelines, predictable systems. They want to know that they can count on something solid when the ground shakes.',
+    explanation: 'Sixes long for a stable ground to stand on, reliable people, clear guidelines, predictable systems. They want to know that they can count on something solid when the ground shakes.',
   },
   {
     id: 253,
@@ -4313,7 +4313,7 @@ const originalQuestions: TypeQuizQuestion[] = [
       { letter: "D", text: 'The drive to experience all of life\'s pleasures' },
     ],
     answer: "B",
-    explanation: 'Sixes are motivated by security-seeking. They test people, question authorities, prepare for worst cases, and build loyal alliances — all to create a predictable, safe environment.',
+    explanation: 'Sixes are motivated by security-seeking. They test people, question authorities, prepare for worst cases, and build loyal alliances, all to create a predictable, safe environment.',
   },
   {
     id: 254,
@@ -4343,7 +4343,7 @@ const originalQuestions: TypeQuizQuestion[] = [
     options: [
       { letter: "A", text: 'They always obey without question' },
       { letter: "B", text: 'They always rebel without exception' },
-      { letter: "C", text: 'They have a complex, ambivalent relationship — sometimes loyal and obedient, sometimes rebellious and questioning' },
+      { letter: "C", text: 'They have a complex, ambivalent relationship, sometimes loyal and obedient, sometimes rebellious and questioning' },
       { letter: "D", text: 'They are indifferent to authority' },
     ],
     answer: "C",
@@ -4381,7 +4381,7 @@ const originalQuestions: TypeQuizQuestion[] = [
       { letter: "D", text: 'Envy' },
     ],
     answer: "C",
-    explanation: 'The passion of the Six is Fear — the chronic anticipation of danger that pervades their experience. It is not necessarily overt terror but a pervasive anxiety and doubt that colors all their perceptions.',
+    explanation: 'The passion of the Six is Fear, the chronic anticipation of danger that pervades their experience. It is not necessarily overt terror but a pervasive anxiety and doubt that colors all their perceptions.',
   },
   {
     id: 258,
@@ -4424,7 +4424,7 @@ const originalQuestions: TypeQuizQuestion[] = [
     track1Day: 9,
     track2Day: 6,
     category: 'Type Identification',
-    question: 'Someone says: "I always see what could go wrong. People think I\'m negative, but I\'m just being realistic — if I prepare for the worst, it can\'t blindside me." Which type is speaking?',
+    question: 'Someone says: "I always see what could go wrong. People think I\'m negative, but I\'m just being realistic, if I prepare for the worst, it can\'t blindside me." Which type is speaking?',
     options: [
       { letter: "A", text: 'Type 1' },
       { letter: "B", text: 'Type 5' },
@@ -4432,7 +4432,7 @@ const originalQuestions: TypeQuizQuestion[] = [
       { letter: "D", text: 'Type 8' },
     ],
     answer: "C",
-    explanation: 'This reveals the Six\'s vigilance strategy: anticipating danger is not pessimism but self-protection. By imagining the worst, they feel prepared — even if it means living in a constant state of alert.',
+    explanation: 'This reveals the Six\'s vigilance strategy: anticipating danger is not pessimism but self-protection. By imagining the worst, they feel prepared, even if it means living in a constant state of alert.',
   },
   {
     id: 261,
@@ -4517,7 +4517,7 @@ const originalQuestions: TypeQuizQuestion[] = [
       { letter: "D", text: 'Planning' },
     ],
     answer: "A",
-    explanation: 'Cowardice is the Six\'s mental fixation — not a lack of bravery, but the cognitive pattern of chronic doubt and hesitation that prevents them from trusting their own inner authority and taking decisive action.',
+    explanation: 'Cowardice is the Six\'s mental fixation, not a lack of bravery, but the cognitive pattern of chronic doubt and hesitation that prevents them from trusting their own inner authority and taking decisive action.',
   },
   {
     id: 266,
@@ -4562,7 +4562,7 @@ const originalQuestions: TypeQuizQuestion[] = [
     category: 'Center of Intelligence',
     question: 'How does the Type 6 relate to anxiety compared to the other Head types (5 and 7)?',
     options: [
-      { letter: "A", text: 'Sixes are the most directly confronted by anxiety — they feel it most acutely and use vigilance to manage it' },
+      { letter: "A", text: 'Sixes are the most directly confronted by anxiety, they feel it most acutely and use vigilance to manage it' },
       { letter: "B", text: 'All Head types experience the same level of anxiety' },
       { letter: "C", text: 'Sixes feel no anxiety' },
       { letter: "D", text: 'Only Sevens feel anxiety' },
@@ -4614,7 +4614,7 @@ const originalQuestions: TypeQuizQuestion[] = [
     question: 'When a Type 6 moves to Type 3 under stress, what behavior emerges?',
     options: [
       { letter: "A", text: 'They become more relaxed and trusting' },
-      { letter: "B", text: 'They become competitive, image-conscious, and driven to prove themselves through external achievement — overcompensating for their inner doubt' },
+      { letter: "B", text: 'They become competitive, image-conscious, and driven to prove themselves through external achievement, overcompensating for their inner doubt' },
       { letter: "C", text: 'They become more withdrawn and intellectual' },
       { letter: "D", text: 'They become passive and disengaged' },
     ],
@@ -4648,12 +4648,12 @@ const originalQuestions: TypeQuizQuestion[] = [
     question: 'What drives the Six into their stress move toward Type 3?',
     options: [
       { letter: "A", text: 'Feeling too secure' },
-      { letter: "B", text: 'A sense that their usual strategies of vigilance and alliance are not enough — they need to prove they can stand alone and succeed' },
+      { letter: "B", text: 'A sense that their usual strategies of vigilance and alliance are not enough, they need to prove they can stand alone and succeed' },
       { letter: "C", text: 'Receiving too much support' },
       { letter: "D", text: 'Being overly praised' },
     ],
     answer: "B",
-    explanation: 'When a Six feels their support systems are failing, they may try to become self-reliant through Three-like achieving — essentially trying to become someone who does not need the safety net.',
+    explanation: 'When a Six feels their support systems are failing, they may try to become self-reliant through Three-like achieving, essentially trying to become someone who does not need the safety net.',
   },
   {
     id: 274,
@@ -4687,7 +4687,7 @@ const originalQuestions: TypeQuizQuestion[] = [
       { letter: "D", text: 'Wing movement to Type 7' },
     ],
     answer: "B",
-    explanation: 'The Nine growth line gives Sixes access to trust, calm, and acceptance — qualities they desperately need but find hardest to access. This represents the Six\'s deepest liberation.',
+    explanation: 'The Nine growth line gives Sixes access to trust, calm, and acceptance, qualities they desperately need but find hardest to access. This represents the Six\'s deepest liberation.',
   },
   {
     id: 276,
@@ -4784,7 +4784,7 @@ const originalQuestions: TypeQuizQuestion[] = [
     question: 'How does the Self-Preservation (SP) instinct manifest in a Type 6?',
     options: [
       { letter: "A", text: 'They become carefree risk-takers' },
-      { letter: "B", text: 'They focus on security through warmth and affiliation — being friendly, dutiful, and insecure in a soft, endearing way to elicit protection from others' },
+      { letter: "B", text: 'They focus on security through warmth and affiliation, being friendly, dutiful, and insecure in a soft, endearing way to elicit protection from others' },
       { letter: "C", text: 'They become the most confrontational Six subtype' },
       { letter: "D", text: 'They avoid all relationships' },
     ],
@@ -4801,7 +4801,7 @@ const originalQuestions: TypeQuizQuestion[] = [
     question: 'How does the Sexual (SX) instinct manifest in a Type 6?',
     options: [
       { letter: "A", text: 'They become the most timid and avoidant Six' },
-      { letter: "B", text: 'They become intensely counterphobic — facing fears head-on, appearing strong and intimidating, and proving through action that they are not afraid' },
+      { letter: "B", text: 'They become intensely counterphobic, facing fears head-on, appearing strong and intimidating, and proving through action that they are not afraid' },
       { letter: "C", text: 'They become passive and accommodating' },
       { letter: "D", text: 'They focus primarily on career advancement' },
     ],
@@ -4818,7 +4818,7 @@ const originalQuestions: TypeQuizQuestion[] = [
     question: 'How does the Social (SO) instinct manifest in a Type 6?',
     options: [
       { letter: "A", text: 'They avoid groups entirely' },
-      { letter: "B", text: 'They seek security through adherence to rules, ideologies, reference groups, and clear authority structures — becoming the most "by the book" Six' },
+      { letter: "B", text: 'They seek security through adherence to rules, ideologies, reference groups, and clear authority structures, becoming the most "by the book" Six' },
       { letter: "C", text: 'They become lone wolves' },
       { letter: "D", text: 'They become the most counterphobic Six' },
     ],
@@ -4840,7 +4840,7 @@ const originalQuestions: TypeQuizQuestion[] = [
       { letter: "D", text: 'Type 6 has no countertype' },
     ],
     answer: "C",
-    explanation: 'The SX Six is the countertype. While typical Sixes appear anxious and security-seeking, the SX Six overcompensates by being bold, intimidating, and confrontational — looking nothing like the stereotypical Six.',
+    explanation: 'The SX Six is the countertype. While typical Sixes appear anxious and security-seeking, the SX Six overcompensates by being bold, intimidating, and confrontational, looking nothing like the stereotypical Six.',
   },
   {
     id: 285,
@@ -4922,7 +4922,7 @@ const originalQuestions: TypeQuizQuestion[] = [
       { letter: "A", text: 'SX Six' },
       { letter: "B", text: 'SO Six' },
       { letter: "C", text: 'SP Six' },
-      { letter: "D", text: 'None — Sixes never resemble Twos' },
+      { letter: "D", text: 'None, Sixes never resemble Twos' },
     ],
     answer: "C",
     explanation: 'SP Sixes, with their warmth, friendliness, and desire to be liked and protected, can look like Twos. The difference is that SP Sixes give warmth to earn safety, while Twos give to earn love.',
@@ -4942,7 +4942,7 @@ const originalQuestions: TypeQuizQuestion[] = [
       { letter: "D", text: 'SO Sixes rebel against all authority' },
     ],
     answer: "A",
-    explanation: 'SO Sixes are "good soldiers" — following rules because the structure provides safety. SO Ones follow rules because they believe in moral correctness. Same obedient behavior, different motivation.',
+    explanation: 'SO Sixes are "good soldiers", following rules because the structure provides safety. SO Ones follow rules because they believe in moral correctness. Same obedient behavior, different motivation.',
   },
   {
     id: 291,
@@ -4954,7 +4954,7 @@ const originalQuestions: TypeQuizQuestion[] = [
     question: 'At healthy Levels of Development, how does a Type 6 manifest?',
     options: [
       { letter: "A", text: 'They become anxious and paranoid' },
-      { letter: "B", text: 'They become courageously loyal, self-reliant, and able to act decisively despite uncertainty — trusting themselves and advocating for the underdog' },
+      { letter: "B", text: 'They become courageously loyal, self-reliant, and able to act decisively despite uncertainty, trusting themselves and advocating for the underdog' },
       { letter: "C", text: 'They become passive and complacent' },
       { letter: "D", text: 'They become aggressively counterphobic' },
     ],
@@ -4971,7 +4971,7 @@ const originalQuestions: TypeQuizQuestion[] = [
     question: 'At unhealthy Levels of Development, how might a Type 6 manifest?',
     options: [
       { letter: "A", text: 'They become overconfident and reckless' },
-      { letter: "B", text: 'They become paranoid, clinging, and potentially authoritarian — seeing enemies everywhere, demanding absolute loyalty, and projecting their fears onto imagined conspiracies' },
+      { letter: "B", text: 'They become paranoid, clinging, and potentially authoritarian, seeing enemies everywhere, demanding absolute loyalty, and projecting their fears onto imagined conspiracies' },
       { letter: "C", text: 'They become emotionally numb' },
       { letter: "D", text: 'They become self-absorbed and dramatic' },
     ],
@@ -4993,7 +4993,7 @@ const originalQuestions: TypeQuizQuestion[] = [
       { letter: "D", text: 'The three types create an assertive leader' },
     ],
     answer: "A",
-    explanation: 'This tritype combines all Compliant types, creating someone deeply invested in doing the right thing, helping others, and following trusted systems — but who may over-subordinate their own needs and judgment.',
+    explanation: 'This tritype combines all Compliant types, creating someone deeply invested in doing the right thing, helping others, and following trusted systems, but who may over-subordinate their own needs and judgment.',
   },
   {
     id: 294,
@@ -5038,13 +5038,13 @@ const originalQuestions: TypeQuizQuestion[] = [
     category: 'Misidentification',
     question: 'How can you distinguish a counterphobic Type 6 from a Type 8?',
     options: [
-      { letter: "A", text: 'You cannot — counterphobic Sixes are just Eights' },
+      { letter: "A", text: 'You cannot, counterphobic Sixes are just Eights' },
       { letter: "B", text: 'The counterphobic Six\'s aggression is fueled by underlying fear and proves something to themselves; the Eight\'s aggression is natural and instinctive, requiring no underlying fear to motivate it' },
       { letter: "C", text: 'Eights are more anxious than Sixes' },
       { letter: "D", text: 'Sixes are physically stronger than Eights' },
     ],
     answer: "B",
-    explanation: 'Counterphobic Sixes overcompensate for fear — their bravery is a reaction against anxiety. Eights are naturally assertive and do not need fear as a catalyst. The Six charges at the dragon out of terror; the Eight because it is in their way.',
+    explanation: 'Counterphobic Sixes overcompensate for fear, their bravery is a reaction against anxiety. Eights are naturally assertive and do not need fear as a catalyst. The Six charges at the dragon out of terror; the Eight because it is in their way.',
   },
   {
     id: 297,
@@ -5073,7 +5073,7 @@ const originalQuestions: TypeQuizQuestion[] = [
     question: 'What is the relationship between the Six\'s passion (Fear) and their virtue (Courage)?',
     options: [
       { letter: "A", text: 'Courage means the Six no longer feels fear' },
-      { letter: "B", text: 'Courage is the capacity to act in alignment with their own inner authority despite fear — trusting themselves rather than external structures' },
+      { letter: "B", text: 'Courage is the capacity to act in alignment with their own inner authority despite fear, trusting themselves rather than external structures' },
       { letter: "C", text: 'Fear and Courage are unrelated' },
       { letter: "D", text: 'Courage means the Six becomes reckless' },
     ],
@@ -5089,7 +5089,7 @@ const originalQuestions: TypeQuizQuestion[] = [
     category: 'Cross-Type Comparison',
     question: 'Both Type 6 and Type 1 are in the Compliant Hornevian group. How does their relationship to rules differ?',
     options: [
-      { letter: "A", text: 'Sixes follow rules to feel safe and belong; Ones follow rules because they are morally correct — safety versus rightness' },
+      { letter: "A", text: 'Sixes follow rules to feel safe and belong; Ones follow rules because they are morally correct, safety versus rightness' },
       { letter: "B", text: 'They follow rules for the same reason' },
       { letter: "C", text: 'Only Ones follow rules' },
       { letter: "D", text: 'Neither type follows rules' },
@@ -5124,7 +5124,7 @@ const originalQuestions: TypeQuizQuestion[] = [
     question: 'What is the core fear of a Type 7?',
     options: [
       { letter: "A", text: 'Being controlled by others' },
-      { letter: "B", text: 'Being trapped in pain, deprivation, or boredom — missing out on life\'s possibilities' },
+      { letter: "B", text: 'Being trapped in pain, deprivation, or boredom, missing out on life\'s possibilities' },
       { letter: "C", text: 'Being unworthy of love' },
       { letter: "D", text: 'Being morally wrong' },
     ],
@@ -5142,7 +5142,7 @@ const originalQuestions: TypeQuizQuestion[] = [
     options: [
       { letter: "A", text: 'To be safe and secure' },
       { letter: "B", text: 'To be loved unconditionally' },
-      { letter: "C", text: 'To be satisfied, fulfilled, and to have their needs met — to experience life\'s abundance' },
+      { letter: "C", text: 'To be satisfied, fulfilled, and to have their needs met, to experience life\'s abundance' },
       { letter: "D", text: 'To be seen as unique' },
     ],
     answer: "C",
@@ -5214,7 +5214,7 @@ const originalQuestions: TypeQuizQuestion[] = [
       { letter: "D", text: 'A careful monitoring of moral standards' },
     ],
     answer: "B",
-    explanation: 'The Seven\'s mind is like a pinball machine of ideas. They are always anticipating the next exciting thing, planning adventures, and generating possibilities — while a subtle anxiety hums beneath the excitement.',
+    explanation: 'The Seven\'s mind is like a pinball machine of ideas. They are always anticipating the next exciting thing, planning adventures, and generating possibilities, while a subtle anxiety hums beneath the excitement.',
   },
   {
     id: 307,
@@ -5231,7 +5231,7 @@ const originalQuestions: TypeQuizQuestion[] = [
       { letter: "D", text: 'Avarice' },
     ],
     answer: "C",
-    explanation: 'The passion of the Seven is Gluttony — not just for food, but for experiences, ideas, plans, and stimulation. They consume more than they can digest, always reaching for the next thing before absorbing the current one.',
+    explanation: 'The passion of the Seven is Gluttony, not just for food, but for experiences, ideas, plans, and stimulation. They consume more than they can digest, always reaching for the next thing before absorbing the current one.',
   },
   {
     id: 308,
@@ -5243,7 +5243,7 @@ const originalQuestions: TypeQuizQuestion[] = [
     question: 'How does the Seven\'s gluttony typically manifest?',
     options: [
       { letter: "A", text: 'Overeating exclusively' },
-      { letter: "B", text: 'An insatiable appetite for stimulation — overcommitting, over-planning, consuming ideas and experiences faster than they can be integrated' },
+      { letter: "B", text: 'An insatiable appetite for stimulation, overcommitting, over-planning, consuming ideas and experiences faster than they can be integrated' },
       { letter: "C", text: 'Hoarding physical possessions' },
       { letter: "D", text: 'A total lack of appetite for anything' },
     ],
@@ -5274,7 +5274,7 @@ const originalQuestions: TypeQuizQuestion[] = [
     track1Day: 9,
     track2Day: 7,
     category: 'Type Identification',
-    question: 'Someone says: "I just think life is too short to dwell on the negative. There\'s always something amazing around the corner — why waste time being sad?" Which type is speaking?',
+    question: 'Someone says: "I just think life is too short to dwell on the negative. There\'s always something amazing around the corner, why waste time being sad?" Which type is speaking?',
     options: [
       { letter: "A", text: 'Type 9' },
       { letter: "B", text: 'Type 2' },
@@ -5350,7 +5350,7 @@ const originalQuestions: TypeQuizQuestion[] = [
       { letter: "D", text: 'Serenity' },
     ],
     answer: "C",
-    explanation: 'Sobriety is the virtue of the Seven. It is the capacity to be present to what is actually happening — including pain — rather than constantly escaping into fantasies about what could be.',
+    explanation: 'Sobriety is the virtue of the Seven. It is the capacity to be present to what is actually happening, including pain, rather than constantly escaping into fantasies about what could be.',
   },
   {
     id: 315,
@@ -5367,7 +5367,7 @@ const originalQuestions: TypeQuizQuestion[] = [
       { letter: "D", text: 'Vanity' },
     ],
     answer: "B",
-    explanation: 'Planning is the Seven\'s mental fixation — the compulsive mental generation of future possibilities, options, and escape routes that keeps them in anticipation rather than in the present moment.',
+    explanation: 'Planning is the Seven\'s mental fixation, the compulsive mental generation of future possibilities, options, and escape routes that keeps them in anticipation rather than in the present moment.',
   },
   {
     id: 316,
@@ -5384,7 +5384,7 @@ const originalQuestions: TypeQuizQuestion[] = [
       { letter: "D", text: 'Holy Love' },
     ],
     answer: "A",
-    explanation: 'Holy Wisdom (or Holy Work/Holy Plan) is the recognition that true satisfaction comes from depth, not breadth — from fully engaging with what is present rather than chasing the next stimulation.',
+    explanation: 'Holy Wisdom (or Holy Work/Holy Plan) is the recognition that true satisfaction comes from depth, not breadth, from fully engaging with what is present rather than chasing the next stimulation.',
   },
   {
     id: 317,
@@ -5412,7 +5412,7 @@ const originalQuestions: TypeQuizQuestion[] = [
     category: 'Center of Intelligence',
     question: 'How does the Type 7 relate to anxiety compared to the other Head types (5 and 6)?',
     options: [
-      { letter: "A", text: 'Sevens escape anxiety by reframing it into excitement and generating positive possibilities — they run away from fear into pleasure' },
+      { letter: "A", text: 'Sevens escape anxiety by reframing it into excitement and generating positive possibilities, they run away from fear into pleasure' },
       { letter: "B", text: 'Sevens feel more anxiety than other Head types' },
       { letter: "C", text: 'Sevens feel no anxiety at all' },
       { letter: "D", text: 'All Head types manage anxiety identically' },
@@ -5464,12 +5464,12 @@ const originalQuestions: TypeQuizQuestion[] = [
     question: 'When a Type 7 moves to Type 1 under stress, what behavior emerges?',
     options: [
       { letter: "A", text: 'They become even more scattered and enthusiastic' },
-      { letter: "B", text: 'They become rigid, critical, perfectionistic, and angry — suddenly focused on what is wrong rather than what is possible' },
+      { letter: "B", text: 'They become rigid, critical, perfectionistic, and angry, suddenly focused on what is wrong rather than what is possible' },
       { letter: "C", text: 'They become withdrawn and intellectual' },
       { letter: "D", text: 'They become clingy and dependent' },
     ],
     answer: "B",
-    explanation: 'The Seven\'s stress move to One is a dramatic personality shift. The usually positive, flexible Seven becomes a harsh critic, fixating on mistakes and feeling resentful — channeling a One\'s inner judge.',
+    explanation: 'The Seven\'s stress move to One is a dramatic personality shift. The usually positive, flexible Seven becomes a harsh critic, fixating on mistakes and feeling resentful, channeling a One\'s inner judge.',
   },
   {
     id: 322,
@@ -5498,7 +5498,7 @@ const originalQuestions: TypeQuizQuestion[] = [
     question: 'What triggers the Seven\'s stress move to Type 1?',
     options: [
       { letter: "A", text: 'Having too much freedom' },
-      { letter: "B", text: 'Feeling trapped with no escape from pain, limitation, or boredom — leading them to try controlling the situation through rigid standards instead of escaping it' },
+      { letter: "B", text: 'Feeling trapped with no escape from pain, limitation, or boredom, leading them to try controlling the situation through rigid standards instead of escaping it' },
       { letter: "C", text: 'Being given too many options' },
       { letter: "D", text: 'Receiving compliments' },
     ],
@@ -5549,7 +5549,7 @@ const originalQuestions: TypeQuizQuestion[] = [
     question: 'What is the key internal shift for a Type 7 accessing their Type 5 growth line?',
     options: [
       { letter: "A", text: 'They learn to plan even more adventures' },
-      { letter: "B", text: 'They discover that presence and depth are more satisfying than breadth and anticipation — that being here fully beats always looking ahead' },
+      { letter: "B", text: 'They discover that presence and depth are more satisfying than breadth and anticipation, that being here fully beats always looking ahead' },
       { letter: "C", text: 'They become detached and isolated' },
       { letter: "D", text: 'They stop all creative thinking' },
     ],
@@ -5622,7 +5622,7 @@ const originalQuestions: TypeQuizQuestion[] = [
       { letter: "D", text: 'Only Type 9 uses positive outlook' },
     ],
     answer: "A",
-    explanation: 'Sevens escape pain through mental reframing ("this is actually an opportunity!"), Twos through other-focus ("forget me — how are you?"), and Nines through minimization ("it\'s not a big deal"). Different escape routes, same avoidance.',
+    explanation: 'Sevens escape pain through mental reframing ("this is actually an opportunity!"), Twos through other-focus ("forget me, how are you?"), and Nines through minimization ("it\'s not a big deal"). Different escape routes, same avoidance.',
   },
   {
     id: 331,
@@ -5634,7 +5634,7 @@ const originalQuestions: TypeQuizQuestion[] = [
     question: 'How does the Self-Preservation (SP) instinct manifest in a Type 7?',
     options: [
       { letter: "A", text: 'They focus on social status and group leadership' },
-      { letter: "B", text: 'They create a network of practical opportunities, comfort, and material security — the "foodie," "collector," or "deal-finder" archetype' },
+      { letter: "B", text: 'They create a network of practical opportunities, comfort, and material security, the "foodie," "collector," or "deal-finder" archetype' },
       { letter: "C", text: 'They become completely detached from material concerns' },
       { letter: "D", text: 'They focus exclusively on romantic relationships' },
     ],
@@ -5651,7 +5651,7 @@ const originalQuestions: TypeQuizQuestion[] = [
     question: 'How does the Sexual (SX) instinct manifest in a Type 7?',
     options: [
       { letter: "A", text: 'They become the most restrained and cautious Seven' },
-      { letter: "B", text: 'They seek stimulation through idealistic visions and fascination with people and experiences — the dreamer who sees the world through rose-colored glasses' },
+      { letter: "B", text: 'They seek stimulation through idealistic visions and fascination with people and experiences, the dreamer who sees the world through rose-colored glasses' },
       { letter: "C", text: 'They avoid all intimate relationships' },
       { letter: "D", text: 'They become practical and grounded' },
     ],
@@ -5741,7 +5741,7 @@ const originalQuestions: TypeQuizQuestion[] = [
       { letter: "D", text: 'None' },
     ],
     answer: "C",
-    explanation: 'Type 7 is in the Frustration group (with 1 and 4). They perpetually feel that current reality is not quite satisfying enough — always sensing that something better is just out of reach.',
+    explanation: 'Type 7 is in the Frustration group (with 1 and 4). They perpetually feel that current reality is not quite satisfying enough, always sensing that something better is just out of reach.',
   },
   {
     id: 338,
@@ -5792,7 +5792,7 @@ const originalQuestions: TypeQuizQuestion[] = [
       { letter: "D", text: 'SX Sevens experience more suffering than SX Fours' },
     ],
     answer: "A",
-    explanation: 'SX Sevens use idealization as an escape — keeping the world enchanted and avoiding disillusionment. SX Fours use intensity (including painful intensity) as a way of feeling deeply alive. Same romantic quality, different purpose.',
+    explanation: 'SX Sevens use idealization as an escape, keeping the world enchanted and avoiding disillusionment. SX Fours use intensity (including painful intensity) as a way of feeling deeply alive. Same romantic quality, different purpose.',
   },
   {
     id: 341,
@@ -5804,7 +5804,7 @@ const originalQuestions: TypeQuizQuestion[] = [
     question: 'At healthy Levels of Development, how does a Type 7 manifest?',
     options: [
       { letter: "A", text: 'They become even more scattered and avoidant' },
-      { letter: "B", text: 'They become deeply grateful, present, and joyful — appreciating what IS rather than chasing what could be, and producing meaningful creative contributions' },
+      { letter: "B", text: 'They become deeply grateful, present, and joyful, appreciating what IS rather than chasing what could be, and producing meaningful creative contributions' },
       { letter: "C", text: 'They become rigid and perfectionistic' },
       { letter: "D", text: 'They become withdrawn and intellectual' },
     ],
@@ -5821,7 +5821,7 @@ const originalQuestions: TypeQuizQuestion[] = [
     question: 'At unhealthy Levels of Development, how might a Type 7 manifest?',
     options: [
       { letter: "A", text: 'They become responsible and disciplined' },
-      { letter: "B", text: 'They become manic, addictive, impulsive, and desperately seeking any stimulation to avoid confronting their pain — potentially developing substance abuse or reckless behavior' },
+      { letter: "B", text: 'They become manic, addictive, impulsive, and desperately seeking any stimulation to avoid confronting their pain, potentially developing substance abuse or reckless behavior' },
       { letter: "C", text: 'They become withdrawn recluses' },
       { letter: "D", text: 'They become moralistic and controlling' },
     ],
@@ -5843,7 +5843,7 @@ const originalQuestions: TypeQuizQuestion[] = [
       { letter: "D", text: 'The three types create a dark, brooding personality' },
     ],
     answer: "A",
-    explanation: 'This tritype combines all Positive Outlook types, creating the most relentlessly upbeat personality possible — but also potentially the most disconnected from painful reality and genuine emotional depth.',
+    explanation: 'This tritype combines all Positive Outlook types, creating the most relentlessly upbeat personality possible, but also potentially the most disconnected from painful reality and genuine emotional depth.',
   },
   {
     id: 344,
@@ -5860,7 +5860,7 @@ const originalQuestions: TypeQuizQuestion[] = [
       { letter: "D", text: 'The 7-3-8 is more withdrawn' },
     ],
     answer: "B",
-    explanation: 'The 7-3-8 creates a powerhouse personality — dynamic, ambitious, and forceful in pursuing what they want. The 7-4-5 creates a more nuanced, inner-directed Seven who is drawn to depth and creativity.',
+    explanation: 'The 7-3-8 creates a powerhouse personality, dynamic, ambitious, and forceful in pursuing what they want. The 7-4-5 creates a more nuanced, inner-directed Seven who is drawn to depth and creativity.',
   },
   {
     id: 345,
@@ -5888,7 +5888,7 @@ const originalQuestions: TypeQuizQuestion[] = [
     category: 'Misidentification',
     question: 'How can you distinguish a Type 7 from a Type 2 when both appear warm and enthusiastic?',
     options: [
-      { letter: "A", text: 'You cannot — they are the same' },
+      { letter: "A", text: 'You cannot, they are the same' },
       { letter: "B", text: 'Type 7\'s warmth is driven by the desire for stimulation and mutual fun; Type 2\'s warmth is driven by the need to be loved and to create emotional bonds through caretaking' },
       { letter: "C", text: 'Type 2 is more fun than Type 7' },
       { letter: "D", text: 'Type 7 is more caring than Type 2' },
@@ -5923,7 +5923,7 @@ const originalQuestions: TypeQuizQuestion[] = [
     question: 'What is the relationship between the Seven\'s passion (Gluttony) and their virtue (Sobriety)?',
     options: [
       { letter: "A", text: 'Sobriety means the Seven becomes joyless' },
-      { letter: "B", text: 'Sobriety is the capacity to be fully present to the current moment — including its pain — finding that reality as it is contains more richness than any fantasy about what could be' },
+      { letter: "B", text: 'Sobriety is the capacity to be fully present to the current moment, including its pain, finding that reality as it is contains more richness than any fantasy about what could be' },
       { letter: "C", text: 'Gluttony and Sobriety are unrelated' },
       { letter: "D", text: 'Sobriety means the Seven never has fun' },
     ],
@@ -5974,7 +5974,7 @@ const originalQuestions: TypeQuizQuestion[] = [
     question: 'What is the core fear of a Type 8?',
     options: [
       { letter: "A", text: 'Being seen as incompetent' },
-      { letter: "B", text: 'Being controlled, harmed, or violated by others — having their autonomy taken away' },
+      { letter: "B", text: 'Being controlled, harmed, or violated by others, having their autonomy taken away' },
       { letter: "C", text: 'Being unloved or unwanted' },
       { letter: "D", text: 'Being morally flawed' },
     ],
@@ -6030,7 +6030,7 @@ const originalQuestions: TypeQuizQuestion[] = [
       { letter: "D", text: 'Seeking the approval of authority figures' },
     ],
     answer: "B",
-    explanation: 'Eights enter a room and take charge. They speak bluntly, confront what they see as deception, and push against others to see who can stand up to them — respecting only those who push back.',
+    explanation: 'Eights enter a room and take charge. They speak bluntly, confront what they see as deception, and push against others to see who can stand up to them, respecting only those who push back.',
   },
   {
     id: 355,
@@ -6042,7 +6042,7 @@ const originalQuestions: TypeQuizQuestion[] = [
     question: 'How does a Type 8 typically respond when someone tries to control or manipulate them?',
     options: [
       { letter: "A", text: 'They comply to avoid conflict' },
-      { letter: "B", text: 'They feel an immediate, visceral resistance and push back forcefully — control attempts are met with intensified assertion' },
+      { letter: "B", text: 'They feel an immediate, visceral resistance and push back forcefully, control attempts are met with intensified assertion' },
       { letter: "C", text: 'They withdraw silently' },
       { letter: "D", text: 'They try to understand the other person\'s perspective first' },
     ],
@@ -6081,7 +6081,7 @@ const originalQuestions: TypeQuizQuestion[] = [
       { letter: "D", text: 'Fear' },
     ],
     answer: "C",
-    explanation: 'The passion of the Eight is Lust — not just sexual desire, but an excessive intensity, a need for more of everything: more power, more sensation, more control, more experience. They live at full volume.',
+    explanation: 'The passion of the Eight is Lust, not just sexual desire, but an excessive intensity, a need for more of everything: more power, more sensation, more control, more experience. They live at full volume.',
   },
   {
     id: 358,
@@ -6093,7 +6093,7 @@ const originalQuestions: TypeQuizQuestion[] = [
     question: 'How does the Eight\'s lust typically manifest?',
     options: [
       { letter: "A", text: 'As sexual excess exclusively' },
-      { letter: "B", text: 'As an excessive intensity in everything — bigger reactions, stronger opinions, more forceful presence, and a drive to experience life at maximum volume' },
+      { letter: "B", text: 'As an excessive intensity in everything, bigger reactions, stronger opinions, more forceful presence, and a drive to experience life at maximum volume' },
       { letter: "C", text: 'As quiet contemplation' },
       { letter: "D", text: 'As a desire for spiritual transcendence' },
     ],
@@ -6166,7 +6166,7 @@ const originalQuestions: TypeQuizQuestion[] = [
       { letter: "D", text: 'Both' },
     ],
     answer: "B",
-    explanation: 'The 8w9 is sometimes called "The Bear" because the Nine wing\'s calm containment and the Eight\'s power create someone who is quiet and easygoing — until provoked, at which point their force is overwhelming.',
+    explanation: 'The 8w9 is sometimes called "The Bear" because the Nine wing\'s calm containment and the Eight\'s power create someone who is quiet and easygoing, until provoked, at which point their force is overwhelming.',
   },
   {
     id: 363,
@@ -6200,7 +6200,7 @@ const originalQuestions: TypeQuizQuestion[] = [
       { letter: "D", text: 'Action' },
     ],
     answer: "C",
-    explanation: 'Innocence is the virtue of the Eight. It is the return to a tender, open-hearted state — the willingness to be vulnerable, gentle, and trusting without needing to armor up against the world.',
+    explanation: 'Innocence is the virtue of the Eight. It is the return to a tender, open-hearted state, the willingness to be vulnerable, gentle, and trusting without needing to armor up against the world.',
   },
   {
     id: 365,
@@ -6217,7 +6217,7 @@ const originalQuestions: TypeQuizQuestion[] = [
       { letter: "D", text: 'Resentment' },
     ],
     answer: "A",
-    explanation: 'Vengeance is the Eight\'s mental fixation — the cognitive pattern of evaluating who has wronged them and ensuring that justice (or retribution) is delivered. The score must always be settled.',
+    explanation: 'Vengeance is the Eight\'s mental fixation, the cognitive pattern of evaluating who has wronged them and ensuring that justice (or retribution) is delivered. The score must always be settled.',
   },
   {
     id: 366,
@@ -6262,7 +6262,7 @@ const originalQuestions: TypeQuizQuestion[] = [
     category: 'Center of Intelligence',
     question: 'How does the Type 8 relate to anger compared to the other Gut types (9 and 1)?',
     options: [
-      { letter: "A", text: 'Eights over-express anger — they use it freely and directly as fuel for action and self-assertion' },
+      { letter: "A", text: 'Eights over-express anger, they use it freely and directly as fuel for action and self-assertion' },
       { letter: "B", text: 'Eights suppress anger like Type 1' },
       { letter: "C", text: 'Eights are unaware of anger like Type 9' },
       { letter: "D", text: 'All Gut types express anger identically' },
@@ -6285,7 +6285,7 @@ const originalQuestions: TypeQuizQuestion[] = [
       { letter: "D", text: 'Toward Type 1' },
     ],
     answer: "B",
-    explanation: 'Under stress, Eights move toward the unhealthy side of Type 5, becoming withdrawn, secretive, cerebral, and paranoid — retreating from the world they usually dominate.',
+    explanation: 'Under stress, Eights move toward the unhealthy side of Type 5, becoming withdrawn, secretive, cerebral, and paranoid, retreating from the world they usually dominate.',
   },
   {
     id: 370,
@@ -6302,7 +6302,7 @@ const originalQuestions: TypeQuizQuestion[] = [
       { letter: "D", text: 'Toward Type 9' },
     ],
     answer: "B",
-    explanation: 'In growth, Eights move toward the healthy side of Type 2, becoming nurturing, tender, open-hearted, and genuinely caring — allowing their vulnerability to show through their strength.',
+    explanation: 'In growth, Eights move toward the healthy side of Type 2, becoming nurturing, tender, open-hearted, and genuinely caring, allowing their vulnerability to show through their strength.',
   },
   {
     id: 371,
@@ -6314,12 +6314,12 @@ const originalQuestions: TypeQuizQuestion[] = [
     question: 'When a Type 8 moves to Type 5 under stress, what behavior emerges?',
     options: [
       { letter: "A", text: 'They become even more aggressive and confrontational' },
-      { letter: "B", text: 'They withdraw, become secretive, hoard resources, and retreat into their mind — losing their characteristic boldness and becoming isolated' },
+      { letter: "B", text: 'They withdraw, become secretive, hoard resources, and retreat into their mind, losing their characteristic boldness and becoming isolated' },
       { letter: "C", text: 'They become people-pleasing and accommodating' },
       { letter: "D", text: 'They become scattered and impulsive' },
     ],
     answer: "B",
-    explanation: 'The Eight\'s stress move to Five is a dramatic withdrawal. The usually bold, present-in-the-room Eight becomes guarded, calculating, and isolated — retreating into their mind like a wounded animal into its den.',
+    explanation: 'The Eight\'s stress move to Five is a dramatic withdrawal. The usually bold, present-in-the-room Eight becomes guarded, calculating, and isolated, retreating into their mind like a wounded animal into its den.',
   },
   {
     id: 372,
@@ -6348,7 +6348,7 @@ const originalQuestions: TypeQuizQuestion[] = [
     question: 'What drives the Eight into their stress move toward Type 5?',
     options: [
       { letter: "A", text: 'Being given too much power' },
-      { letter: "B", text: 'Feeling that their usual strategy of force and directness is failing — that the world is too complex or threatening to control through strength alone' },
+      { letter: "B", text: 'Feeling that their usual strategy of force and directness is failing, that the world is too complex or threatening to control through strength alone' },
       { letter: "C", text: 'Having too many friends' },
       { letter: "D", text: 'Being overly praised' },
     ],
@@ -6365,7 +6365,7 @@ const originalQuestions: TypeQuizQuestion[] = [
     question: 'When a Type 8 moves toward Type 2 in growth, what positive changes emerge?',
     options: [
       { letter: "A", text: 'They become more controlling and aggressive' },
-      { letter: "B", text: 'They become more tender, nurturing, and open-hearted — using their strength to genuinely serve and care for others rather than to dominate' },
+      { letter: "B", text: 'They become more tender, nurturing, and open-hearted, using their strength to genuinely serve and care for others rather than to dominate' },
       { letter: "C", text: 'They become more analytical and detached' },
       { letter: "D", text: 'They become more competitive' },
     ],
@@ -6399,7 +6399,7 @@ const originalQuestions: TypeQuizQuestion[] = [
     question: 'What is the key internal shift for a Type 8 accessing their Type 2 growth line?',
     options: [
       { letter: "A", text: 'They learn to be even more forceful' },
-      { letter: "B", text: 'They discover that vulnerability is not weakness — that showing their tender side actually deepens their connections and makes them more powerful, not less' },
+      { letter: "B", text: 'They discover that vulnerability is not weakness, that showing their tender side actually deepens their connections and makes them more powerful, not less' },
       { letter: "C", text: 'They become people-pleasers' },
       { letter: "D", text: 'They learn to suppress all emotions' },
     ],
@@ -6484,7 +6484,7 @@ const originalQuestions: TypeQuizQuestion[] = [
     question: 'How does the Self-Preservation (SP) instinct manifest in a Type 8?',
     options: [
       { letter: "A", text: 'They become gentle and yielding' },
-      { letter: "B", text: 'They focus on material security and survival with a no-nonsense, practical intensity — ensuring they have enough resources and that their domain is secure' },
+      { letter: "B", text: 'They focus on material security and survival with a no-nonsense, practical intensity, ensuring they have enough resources and that their domain is secure' },
       { letter: "C", text: 'They focus primarily on social influence' },
       { letter: "D", text: 'They become the most emotionally expressive Eight' },
     ],
@@ -6518,12 +6518,12 @@ const originalQuestions: TypeQuizQuestion[] = [
     question: 'How does the Social (SO) instinct manifest in a Type 8?',
     options: [
       { letter: "A", text: 'They avoid all group involvement' },
-      { letter: "B", text: 'They channel their power into influencing groups, communities, and social structures — becoming leaders, protectors, and champions of the underdog on a societal scale' },
+      { letter: "B", text: 'They channel their power into influencing groups, communities, and social structures, becoming leaders, protectors, and champions of the underdog on a societal scale' },
       { letter: "C", text: 'They become quiet followers' },
       { letter: "D", text: 'They focus exclusively on personal relationships' },
     ],
     answer: "B",
-    explanation: 'SO Eights are the protector-leaders of the Enneagram. They use their power to defend groups, fight injustice, and shape social structures — often becoming community leaders or advocates.',
+    explanation: 'SO Eights are the protector-leaders of the Enneagram. They use their power to defend groups, fight injustice, and shape social structures, often becoming community leaders or advocates.',
   },
   {
     id: 384,
@@ -6622,7 +6622,7 @@ const originalQuestions: TypeQuizQuestion[] = [
       { letter: "A", text: 'SP Eight' },
       { letter: "B", text: 'SX Eight' },
       { letter: "C", text: 'SO Eight' },
-      { letter: "D", text: 'None — Eights never resemble Twos' },
+      { letter: "D", text: 'None, Eights never resemble Twos' },
     ],
     answer: "C",
     explanation: 'SO Eights who dedicate their power to protecting and serving groups can look remarkably like Twos. The distinction is that SO Eights operate from power and justice, while Twos operate from love and the need to be needed.',
@@ -6636,7 +6636,7 @@ const originalQuestions: TypeQuizQuestion[] = [
     category: 'Subtype Nuances',
     question: 'How does the SP Eight\'s approach to resources differ from the SP Five\'s?',
     options: [
-      { letter: "A", text: 'SP Eights aggressively acquire and control resources; SP Fives minimally hoard and conserve resources — expansion versus contraction' },
+      { letter: "A", text: 'SP Eights aggressively acquire and control resources; SP Fives minimally hoard and conserve resources, expansion versus contraction' },
       { letter: "B", text: 'They approach resources identically' },
       { letter: "C", text: 'SP Fives are more acquisitive than SP Eights' },
       { letter: "D", text: 'Neither type cares about resources' },
@@ -6654,12 +6654,12 @@ const originalQuestions: TypeQuizQuestion[] = [
     question: 'At healthy Levels of Development, how does a Type 8 manifest?',
     options: [
       { letter: "A", text: 'They become more aggressive and domineering' },
-      { letter: "B", text: 'They become magnanimous, heroic, and genuinely protective — using their enormous strength to empower others and champion justice without needing to dominate' },
+      { letter: "B", text: 'They become magnanimous, heroic, and genuinely protective, using their enormous strength to empower others and champion justice without needing to dominate' },
       { letter: "C", text: 'They become passive and withdrawn' },
       { letter: "D", text: 'They become meticulous and rule-following' },
     ],
     answer: "B",
-    explanation: 'Healthy Eights are the heroic protectors of the Enneagram. They use their power to uplift the vulnerable, fight injustice, and create environments where others can flourish — leading with strength and heart.',
+    explanation: 'Healthy Eights are the heroic protectors of the Enneagram. They use their power to uplift the vulnerable, fight injustice, and create environments where others can flourish, leading with strength and heart.',
   },
   {
     id: 392,
@@ -6671,7 +6671,7 @@ const originalQuestions: TypeQuizQuestion[] = [
     question: 'At unhealthy Levels of Development, how might a Type 8 manifest?',
     options: [
       { letter: "A", text: 'They become timid and avoidant' },
-      { letter: "B", text: 'They become ruthless, tyrannical, and destructive — using their power to crush opposition, control through fear, and destroy anything that threatens their dominance' },
+      { letter: "B", text: 'They become ruthless, tyrannical, and destructive, using their power to crush opposition, control through fear, and destroy anything that threatens their dominance' },
       { letter: "C", text: 'They become emotionally needy' },
       { letter: "D", text: 'They become intellectually obsessive' },
     ],
@@ -6693,7 +6693,7 @@ const originalQuestions: TypeQuizQuestion[] = [
       { letter: "D", text: 'The three types create a passive personality' },
     ],
     answer: "B",
-    explanation: 'This tritype combines all Assertive types, creating perhaps the most forceful personality combination in the Enneagram — bold, ambitious, energetic, and oriented toward making things happen in the world.',
+    explanation: 'This tritype combines all Assertive types, creating perhaps the most forceful personality combination in the Enneagram, bold, ambitious, energetic, and oriented toward making things happen in the world.',
   },
   {
     id: 394,
@@ -6727,7 +6727,7 @@ const originalQuestions: TypeQuizQuestion[] = [
       { letter: "D", text: '"Are you physically strong?"' },
     ],
     answer: "B",
-    explanation: 'Eights are naturally assertive — they do not need to prove anything. Counterphobic Sixes overcompensate for fear through aggression — their boldness is reactive, not instinctive.',
+    explanation: 'Eights are naturally assertive, they do not need to prove anything. Counterphobic Sixes overcompensate for fear through aggression, their boldness is reactive, not instinctive.',
   },
   {
     id: 396,
@@ -6738,8 +6738,8 @@ const originalQuestions: TypeQuizQuestion[] = [
     category: 'Misidentification',
     question: 'How can you distinguish a Type 8 from a Type 1 when both appear strong and principled?',
     options: [
-      { letter: "A", text: 'You cannot — they are identical' },
-      { letter: "B", text: 'Type 8 operates from gut instinct and personal power; Type 1 operates from internalized moral standards — the Eight says "I decide what\'s right," the One says "there IS a right"' },
+      { letter: "A", text: 'You cannot, they are identical' },
+      { letter: "B", text: 'Type 8 operates from gut instinct and personal power; Type 1 operates from internalized moral standards, the Eight says "I decide what\'s right," the One says "there IS a right"' },
       { letter: "C", text: 'Type 1 is stronger than Type 8' },
       { letter: "D", text: 'Type 8 follows more rules than Type 1' },
     ],
@@ -6773,12 +6773,12 @@ const originalQuestions: TypeQuizQuestion[] = [
     question: 'What is the relationship between the Eight\'s passion (Lust) and their virtue (Innocence)?',
     options: [
       { letter: "A", text: 'Innocence means the Eight becomes naive' },
-      { letter: "B", text: 'Innocence is the return to the open-hearted, tender state that existed before the Eight armored up — being strong enough to be soft, powerful enough to be vulnerable' },
+      { letter: "B", text: 'Innocence is the return to the open-hearted, tender state that existed before the Eight armored up, being strong enough to be soft, powerful enough to be vulnerable' },
       { letter: "C", text: 'Lust and Innocence are unrelated' },
       { letter: "D", text: 'Innocence means the Eight abandons all power' },
     ],
     answer: "B",
-    explanation: 'Innocence transforms the Eight\'s excess into simplicity. It is not naivety but the profound strength required to let go of armor and meet the world with an open heart — the Eight\'s ultimate act of courage.',
+    explanation: 'Innocence transforms the Eight\'s excess into simplicity. It is not naivety but the profound strength required to let go of armor and meet the world with an open heart, the Eight\'s ultimate act of courage.',
   },
   {
     id: 399,
@@ -6795,7 +6795,7 @@ const originalQuestions: TypeQuizQuestion[] = [
       { letter: "D", text: 'Ones are angrier than Eights' },
     ],
     answer: "A",
-    explanation: 'Eights let anger flow — it is their energy source. Ones dam anger up because it conflicts with their self-image of being good and controlled. Same emotion, radically different relationship.',
+    explanation: 'Eights let anger flow, it is their energy source. Ones dam anger up because it conflicts with their self-image of being good and controlled. Same emotion, radically different relationship.',
   },
   {
     id: 400,
@@ -6806,7 +6806,7 @@ const originalQuestions: TypeQuizQuestion[] = [
     category: 'Cross-Type Comparison',
     question: 'Type 8 and Type 3 are both in the Assertive Hornevian group. How does their drive for impact differ?',
     options: [
-      { letter: "A", text: 'Eights seek impact through raw power and control; Threes seek impact through achievement and admiration — dominance versus performance' },
+      { letter: "A", text: 'Eights seek impact through raw power and control; Threes seek impact through achievement and admiration, dominance versus performance' },
       { letter: "B", text: 'They seek impact identically' },
       { letter: "C", text: 'Only Threes seek impact' },
       { letter: "D", text: 'Eights are less ambitious than Threes' },
@@ -6846,7 +6846,7 @@ const originalQuestions: TypeQuizQuestion[] = [
       { letter: "D", text: 'To be safe and supported' },
     ],
     answer: "C",
-    explanation: 'Nines desire above all to maintain peace — within themselves and in their relationships. They want to feel connected, comfortable, and undisturbed, creating a sense of wholeness and union.',
+    explanation: 'Nines desire above all to maintain peace, within themselves and in their relationships. They want to feel connected, comfortable, and undisturbed, creating a sense of wholeness and union.',
   },
   {
     id: 403,
@@ -6897,7 +6897,7 @@ const originalQuestions: TypeQuizQuestion[] = [
       { letter: "D", text: 'They analyze the conflict intellectually' },
     ],
     answer: "B",
-    explanation: 'Conflict triggers the Nine\'s core fear. They may go silent, change the subject, agree superficially, or dig in with passive resistance — anything to avoid the perceived threat of open confrontation.',
+    explanation: 'Conflict triggers the Nine\'s core fear. They may go silent, change the subject, agree superficially, or dig in with passive resistance, anything to avoid the perceived threat of open confrontation.',
   },
   {
     id: 406,
@@ -6914,7 +6914,7 @@ const originalQuestions: TypeQuizQuestion[] = [
       { letter: "D", text: 'A constant stream of anxiety about the future' },
     ],
     answer: "B",
-    explanation: 'Nines experience a kind of inner fog — not unconsciousness, but a diffused awareness that softens edges, reduces urgency, and makes everything feel roughly equivalent in importance.',
+    explanation: 'Nines experience a kind of inner fog, not unconsciousness, but a diffused awareness that softens edges, reduces urgency, and makes everything feel roughly equivalent in importance.',
   },
   {
     id: 407,
@@ -6931,7 +6931,7 @@ const originalQuestions: TypeQuizQuestion[] = [
       { letter: "D", text: 'Sloth' },
     ],
     answer: "D",
-    explanation: 'The passion of the Nine is Sloth — not physical laziness, but a psychological inertia: a falling asleep to their own desires, priorities, and agency. They lose themselves by merging with the comfortable and familiar.',
+    explanation: 'The passion of the Nine is Sloth, not physical laziness, but a psychological inertia: a falling asleep to their own desires, priorities, and agency. They lose themselves by merging with the comfortable and familiar.',
   },
   {
     id: 408,
@@ -6943,7 +6943,7 @@ const originalQuestions: TypeQuizQuestion[] = [
     question: 'How does the Nine\'s sloth typically manifest?',
     options: [
       { letter: "A", text: 'They lie in bed all day refusing to move' },
-      { letter: "B", text: 'They numb out through comfortable routines, procrastinate on things that matter to them personally, and lose themselves in others\' agendas — not laziness of body but laziness of selfhood' },
+      { letter: "B", text: 'They numb out through comfortable routines, procrastinate on things that matter to them personally, and lose themselves in others\' agendas, not laziness of body but laziness of selfhood' },
       { letter: "C", text: 'They become hyperactive to compensate' },
       { letter: "D", text: 'They become obsessed with efficiency' },
     ],
@@ -6974,7 +6974,7 @@ const originalQuestions: TypeQuizQuestion[] = [
     track1Day: 9,
     track2Day: 9,
     category: 'Type Identification',
-    question: 'Someone says: "I honestly don\'t know what I want for dinner. You decide — I\'m fine with anything. I just don\'t want to argue about it." Which type is speaking?',
+    question: 'Someone says: "I honestly don\'t know what I want for dinner. You decide, I\'m fine with anything. I just don\'t want to argue about it." Which type is speaking?',
     options: [
       { letter: "A", text: 'Type 6' },
       { letter: "B", text: 'Type 2' },
@@ -6999,7 +6999,7 @@ const originalQuestions: TypeQuizQuestion[] = [
       { letter: "D", text: 'They are identical' },
     ],
     answer: "A",
-    explanation: 'The Eight wing gives the Nine access to more assertive, gutsy energy — they can be surprisingly forceful when pushed. The One wing adds a sense of duty, order, and moral purpose to the Nine\'s peacemaking.',
+    explanation: 'The Eight wing gives the Nine access to more assertive, gutsy energy, they can be surprisingly forceful when pushed. The One wing adds a sense of duty, order, and moral purpose to the Nine\'s peacemaking.',
   },
   {
     id: 412,
@@ -7050,7 +7050,7 @@ const originalQuestions: TypeQuizQuestion[] = [
       { letter: "D", text: 'Innocence' },
     ],
     answer: "C",
-    explanation: 'Action (or Right Action) is the virtue of the Nine. It is the capacity to know what they want, prioritize it, and take decisive action on their own behalf — waking up from the slumber of self-forgetting.',
+    explanation: 'Action (or Right Action) is the virtue of the Nine. It is the capacity to know what they want, prioritize it, and take decisive action on their own behalf, waking up from the slumber of self-forgetting.',
   },
   {
     id: 415,
@@ -7067,7 +7067,7 @@ const originalQuestions: TypeQuizQuestion[] = [
       { letter: "D", text: 'Cowardice' },
     ],
     answer: "C",
-    explanation: 'Indolence is the Nine\'s mental fixation — the cognitive pattern of numbing out, losing focus on priorities, and substituting comfortable inessentials for the essential work of knowing and pursuing their own desires.',
+    explanation: 'Indolence is the Nine\'s mental fixation, the cognitive pattern of numbing out, losing focus on priorities, and substituting comfortable inessentials for the essential work of knowing and pursuing their own desires.',
   },
   {
     id: 416,
@@ -7084,7 +7084,7 @@ const originalQuestions: TypeQuizQuestion[] = [
       { letter: "D", text: 'Holy Faith' },
     ],
     answer: "B",
-    explanation: 'Holy Love is the recognition that genuine connection and union do not require self-erasure. The Nine can be fully present as themselves and still be deeply connected — they do not have to disappear to belong.',
+    explanation: 'Holy Love is the recognition that genuine connection and union do not require self-erasure. The Nine can be fully present as themselves and still be deeply connected, they do not have to disappear to belong.',
   },
   {
     id: 417,
@@ -7101,7 +7101,7 @@ const originalQuestions: TypeQuizQuestion[] = [
       { letter: "D", text: 'None specifically' },
     ],
     answer: "C",
-    explanation: 'Type 9 is in the Gut (Body/Instinctive) Center along with Types 8 and 1. Despite their calm exterior, their core issue is with anger — which they suppress to maintain peace.',
+    explanation: 'Type 9 is in the Gut (Body/Instinctive) Center along with Types 8 and 1. Despite their calm exterior, their core issue is with anger, which they suppress to maintain peace.',
   },
   {
     id: 418,
@@ -7112,13 +7112,13 @@ const originalQuestions: TypeQuizQuestion[] = [
     category: 'Center of Intelligence',
     question: 'How does the Type 9 relate to anger compared to the other Gut types (8 and 1)?',
     options: [
-      { letter: "A", text: 'Nines fall asleep to their anger — they suppress it so deeply that they are often genuinely unaware of it, unlike Eights who express it and Ones who internalize it' },
+      { letter: "A", text: 'Nines fall asleep to their anger, they suppress it so deeply that they are often genuinely unaware of it, unlike Eights who express it and Ones who internalize it' },
       { letter: "B", text: 'Nines express anger the most directly' },
       { letter: "C", text: 'Nines feel no anger at all' },
       { letter: "D", text: 'All Gut types suppress anger equally' },
     ],
     answer: "A",
-    explanation: 'Nines have the deepest suppression of anger. Eights let it out, Ones convert it to resentment, but Nines bury it so thoroughly that they lose touch with it entirely — along with their agency and assertiveness.',
+    explanation: 'Nines have the deepest suppression of anger. Eights let it out, Ones convert it to resentment, but Nines bury it so thoroughly that they lose touch with it entirely, along with their agency and assertiveness.',
   },
   {
     id: 419,
@@ -7135,7 +7135,7 @@ const originalQuestions: TypeQuizQuestion[] = [
       { letter: "D", text: 'Toward Type 4' },
     ],
     answer: "B",
-    explanation: 'Under stress, Nines move toward the unhealthy side of Type 6, becoming anxious, worried, suspicious, and uncharacteristically reactive — losing their usual calm and becoming filled with doubt.',
+    explanation: 'Under stress, Nines move toward the unhealthy side of Type 6, becoming anxious, worried, suspicious, and uncharacteristically reactive, losing their usual calm and becoming filled with doubt.',
   },
   {
     id: 420,
@@ -7164,7 +7164,7 @@ const originalQuestions: TypeQuizQuestion[] = [
     question: 'When a Type 9 moves to Type 6 under stress, what behavior emerges?',
     options: [
       { letter: "A", text: 'They become more relaxed and calm' },
-      { letter: "B", text: 'They become anxious, worried, suspicious, and reactive — the usual calm gives way to worst-case thinking and a frantic search for reassurance' },
+      { letter: "B", text: 'They become anxious, worried, suspicious, and reactive, the usual calm gives way to worst-case thinking and a frantic search for reassurance' },
       { letter: "C", text: 'They become competitive and achievement-driven' },
       { letter: "D", text: 'They become controlling and domineering' },
     ],
@@ -7186,7 +7186,7 @@ const originalQuestions: TypeQuizQuestion[] = [
       { letter: "D", text: 'They are developing healthy vigilance' },
     ],
     answer: "B",
-    explanation: 'This Six-like anxiety erupts when the Nine\'s usual strategy of numbing out fails. Unable to maintain the peace, they flip into the Six\'s vigilant, fearful mode — an unfamiliar and deeply uncomfortable state.',
+    explanation: 'This Six-like anxiety erupts when the Nine\'s usual strategy of numbing out fails. Unable to maintain the peace, they flip into the Six\'s vigilant, fearful mode, an unfamiliar and deeply uncomfortable state.',
   },
   {
     id: 423,
@@ -7198,7 +7198,7 @@ const originalQuestions: TypeQuizQuestion[] = [
     question: 'What triggers the Nine\'s stress move to Type 6?',
     options: [
       { letter: "A", text: 'Having too much peace and comfort' },
-      { letter: "B", text: 'Feeling that their usual strategies of going along and maintaining harmony are failing — that disruption is unavoidable and they cannot escape the conflict' },
+      { letter: "B", text: 'Feeling that their usual strategies of going along and maintaining harmony are failing, that disruption is unavoidable and they cannot escape the conflict' },
       { letter: "C", text: 'Being praised publicly' },
       { letter: "D", text: 'Receiving too many options' },
     ],
@@ -7237,7 +7237,7 @@ const originalQuestions: TypeQuizQuestion[] = [
       { letter: "D", text: 'Wing movement to Type 1' },
     ],
     answer: "B",
-    explanation: 'The Three growth line gives Nines access to ambition, self-development, and effectiveness. They learn that pursuing personal goals does not destroy relationships — it enriches them.',
+    explanation: 'The Three growth line gives Nines access to ambition, self-development, and effectiveness. They learn that pursuing personal goals does not destroy relationships, it enriches them.',
   },
   {
     id: 426,
@@ -7249,12 +7249,12 @@ const originalQuestions: TypeQuizQuestion[] = [
     question: 'What is the key internal shift for a Type 9 accessing their Type 3 growth line?',
     options: [
       { letter: "A", text: 'They learn to be even more accommodating' },
-      { letter: "B", text: 'They discover that they matter — that their own desires, goals, and development are worth prioritizing, and that becoming someone does not mean losing connection' },
+      { letter: "B", text: 'They discover that they matter, that their own desires, goals, and development are worth prioritizing, and that becoming someone does not mean losing connection' },
       { letter: "C", text: 'They become focused on image over substance' },
       { letter: "D", text: 'They learn to suppress their needs more effectively' },
     ],
     answer: "B",
-    explanation: 'The Three line teaches Nines that showing up as themselves in the world — with ambitions, opinions, and a visible presence — actually creates deeper, more honest connections than self-erasure ever could.',
+    explanation: 'The Three line teaches Nines that showing up as themselves in the world, with ambitions, opinions, and a visible presence, actually creates deeper, more honest connections than self-erasure ever could.',
   },
   {
     id: 427,
@@ -7288,7 +7288,7 @@ const originalQuestions: TypeQuizQuestion[] = [
       { letter: "D", text: 'Only Fours truly withdraw' },
     ],
     answer: "A",
-    explanation: 'Nines retreat into comfort and diffusion — a foggy, pleasant inner space where nothing is too urgent or painful. Fours retreat into emotional intensity, and Fives into mental frameworks. Each creates a different inner world.',
+    explanation: 'Nines retreat into comfort and diffusion, a foggy, pleasant inner space where nothing is too urgent or painful. Fours retreat into emotional intensity, and Fives into mental frameworks. Each creates a different inner world.',
   },
   {
     id: 429,
@@ -7316,7 +7316,7 @@ const originalQuestions: TypeQuizQuestion[] = [
     category: 'Harmonic Group',
     question: 'How does Type 9\'s Positive Outlook differ from Types 2 and 7?',
     options: [
-      { letter: "A", text: 'Type 9 minimizes problems by numbing and going along ("it\'s fine, it\'s not a big deal"); Type 2 by focusing on others ("forget me — how are you?"); Type 7 by reframing into positives ("this is actually great!")' },
+      { letter: "A", text: 'Type 9 minimizes problems by numbing and going along ("it\'s fine, it\'s not a big deal"); Type 2 by focusing on others ("forget me, how are you?"); Type 7 by reframing into positives ("this is actually great!")' },
       { letter: "B", text: 'All three maintain positivity identically' },
       { letter: "C", text: 'Type 9 is not genuinely positive' },
       { letter: "D", text: 'Only Type 7 uses positive outlook' },
@@ -7334,7 +7334,7 @@ const originalQuestions: TypeQuizQuestion[] = [
     question: 'How does the Self-Preservation (SP) instinct manifest in a Type 9?',
     options: [
       { letter: "A", text: 'They become highly assertive and goal-oriented' },
-      { letter: "B", text: 'They seek comfort through physical pleasures, routine, and concrete activities — using food, sleep, hobbies, and familiar patterns to maintain their sense of ease' },
+      { letter: "B", text: 'They seek comfort through physical pleasures, routine, and concrete activities, using food, sleep, hobbies, and familiar patterns to maintain their sense of ease' },
       { letter: "C", text: 'They become the most socially active Nine' },
       { letter: "D", text: 'They focus primarily on intimate relationships' },
     ],
@@ -7351,12 +7351,12 @@ const originalQuestions: TypeQuizQuestion[] = [
     question: 'How does the Sexual (SX) instinct manifest in a Type 9?',
     options: [
       { letter: "A", text: 'They become the most independent and self-contained Nine' },
-      { letter: "B", text: 'They merge deeply with a partner or significant person, losing themselves in the other\'s identity, preferences, and life — becoming a fusion of two into one' },
+      { letter: "B", text: 'They merge deeply with a partner or significant person, losing themselves in the other\'s identity, preferences, and life, becoming a fusion of two into one' },
       { letter: "C", text: 'They avoid all close relationships' },
       { letter: "D", text: 'They become confrontational in relationships' },
     ],
     answer: "B",
-    explanation: 'SX Nines are the merging subtype. They dissolve their own identity into their partner\'s, taking on the other\'s interests, opinions, and even mannerisms — a deep fusion that can feel both beautiful and suffocating.',
+    explanation: 'SX Nines are the merging subtype. They dissolve their own identity into their partner\'s, taking on the other\'s interests, opinions, and even mannerisms, a deep fusion that can feel both beautiful and suffocating.',
   },
   {
     id: 433,
@@ -7373,7 +7373,7 @@ const originalQuestions: TypeQuizQuestion[] = [
       { letter: "D", text: 'They focus exclusively on personal comfort' },
     ],
     answer: "B",
-    explanation: 'SO Nines find peace through belonging to groups. They work tirelessly for communities, teams, and families, often at the expense of their own individuality — becoming the invisible backbone that holds everything together.',
+    explanation: 'SO Nines find peace through belonging to groups. They work tirelessly for communities, teams, and families, often at the expense of their own individuality, becoming the invisible backbone that holds everything together.',
   },
   {
     id: 434,
@@ -7402,12 +7402,12 @@ const originalQuestions: TypeQuizQuestion[] = [
     question: 'Why is the Social Nine considered the countertype?',
     options: [
       { letter: "A", text: 'Because they are the most passive Nine' },
-      { letter: "B", text: 'Because their dedication to group activities and hard work for the community can mask the typical Nine pattern of inertia and self-forgetting — they look busy and engaged rather than passive' },
+      { letter: "B", text: 'Because their dedication to group activities and hard work for the community can mask the typical Nine pattern of inertia and self-forgetting, they look busy and engaged rather than passive' },
       { letter: "C", text: 'Because they have no sloth' },
       { letter: "D", text: 'Because they are identical to Type 3' },
     ],
     answer: "B",
-    explanation: 'SO Nines are busy and productive — but their busyness is in service of the group, not themselves. Their sloth is hidden because they are active, but they are still asleep to their own individual priorities and desires.',
+    explanation: 'SO Nines are busy and productive, but their busyness is in service of the group, not themselves. Their sloth is hidden because they are active, but they are still asleep to their own individual priorities and desires.',
   },
   {
     id: 436,
@@ -7472,7 +7472,7 @@ const originalQuestions: TypeQuizQuestion[] = [
       { letter: "A", text: 'SP Nine' },
       { letter: "B", text: 'SX Nine' },
       { letter: "C", text: 'SO Nine' },
-      { letter: "D", text: 'None — Nines never resemble Fours' },
+      { letter: "D", text: 'None, Nines never resemble Fours' },
     ],
     answer: "B",
     explanation: 'SX Nines who merge deeply with a romantic partner can resemble Fours in their emotional intensity within relationships, their idealization of the partner, and their sense of being incomplete without the other person.',
@@ -7492,7 +7492,7 @@ const originalQuestions: TypeQuizQuestion[] = [
       { letter: "D", text: 'SP Nines are more adventurous than SP Sevens' },
     ],
     answer: "A",
-    explanation: 'SP Nines seek comfort to quiet the inner world and maintain inertia — comfort as sedation. SP Sevens seek comfort to enjoy and be satisfied — comfort as pleasure. Same comfortable habits, opposite underlying drives.',
+    explanation: 'SP Nines seek comfort to quiet the inner world and maintain inertia, comfort as sedation. SP Sevens seek comfort to enjoy and be satisfied, comfort as pleasure. Same comfortable habits, opposite underlying drives.',
   },
   {
     id: 441,
@@ -7504,12 +7504,12 @@ const originalQuestions: TypeQuizQuestion[] = [
     question: 'At healthy Levels of Development, how does a Type 9 manifest?',
     options: [
       { letter: "A", text: 'They become even more passive and self-erasing' },
-      { letter: "B", text: 'They become genuinely serene, present, and able to hold space for all perspectives while maintaining their own grounded sense of self — becoming powerful peacemakers' },
+      { letter: "B", text: 'They become genuinely serene, present, and able to hold space for all perspectives while maintaining their own grounded sense of self, becoming powerful peacemakers' },
       { letter: "C", text: 'They become controlling and aggressive' },
       { letter: "D", text: 'They become emotionally volatile' },
     ],
     answer: "B",
-    explanation: 'Healthy Nines embody true peace — not the absence of conflict, but the ability to hold all perspectives without losing themselves. They are inclusive, wise mediators who bring genuine harmony.',
+    explanation: 'Healthy Nines embody true peace, not the absence of conflict, but the ability to hold all perspectives without losing themselves. They are inclusive, wise mediators who bring genuine harmony.',
   },
   {
     id: 442,
@@ -7521,7 +7521,7 @@ const originalQuestions: TypeQuizQuestion[] = [
     question: 'At unhealthy Levels of Development, how might a Type 9 manifest?',
     options: [
       { letter: "A", text: 'They become overachieving and type-A' },
-      { letter: "B", text: 'They become profoundly dissociated, neglectful, stubbornly passive-aggressive, and unable to function — essentially "checked out" from their own life while maintaining an appearance of calm' },
+      { letter: "B", text: 'They become profoundly dissociated, neglectful, stubbornly passive-aggressive, and unable to function, essentially "checked out" from their own life while maintaining an appearance of calm' },
       { letter: "C", text: 'They become confrontational and aggressive' },
       { letter: "D", text: 'They become obsessively organized' },
     ],
@@ -7560,7 +7560,7 @@ const originalQuestions: TypeQuizQuestion[] = [
       { letter: "D", text: 'The 9-4-5 is more socially active' },
     ],
     answer: "B",
-    explanation: 'The 9-4-5 creates maximum withdrawal — a rich inner world but significant difficulty showing up in the outer one. The 9-2-7 creates maximum positivity — warm, friendly, and agreeable, but potentially disconnected from harder truths.',
+    explanation: 'The 9-4-5 creates maximum withdrawal, a rich inner world but significant difficulty showing up in the outer one. The 9-2-7 creates maximum positivity, warm, friendly, and agreeable, but potentially disconnected from harder truths.',
   },
   {
     id: 445,
@@ -7588,8 +7588,8 @@ const originalQuestions: TypeQuizQuestion[] = [
     category: 'Misidentification',
     question: 'How can you distinguish a Type 9 from a Type 5 when both appear quiet and detached?',
     options: [
-      { letter: "A", text: 'You cannot — they are the same' },
-      { letter: "B", text: 'Type 9\'s detachment comes from numbness and merging; Type 5\'s detachment comes from intellectual withdrawal and resource conservation — the Nine is diffuse, the Five is focused' },
+      { letter: "A", text: 'You cannot, they are the same' },
+      { letter: "B", text: 'Type 9\'s detachment comes from numbness and merging; Type 5\'s detachment comes from intellectual withdrawal and resource conservation, the Nine is diffuse, the Five is focused' },
       { letter: "C", text: 'Type 5 is more easygoing than Type 9' },
       { letter: "D", text: 'Type 9 is more intellectual than Type 5' },
     ],
@@ -7623,12 +7623,12 @@ const originalQuestions: TypeQuizQuestion[] = [
     question: 'What is the relationship between the Nine\'s passion (Sloth) and their virtue (Action)?',
     options: [
       { letter: "A", text: 'Action means the Nine becomes hyperactive and restless' },
-      { letter: "B", text: 'Action is the awakening from self-forgetting — the Nine discovers what they want, claims it as worthy, and moves toward it with full presence and engaged vitality' },
+      { letter: "B", text: 'Action is the awakening from self-forgetting, the Nine discovers what they want, claims it as worthy, and moves toward it with full presence and engaged vitality' },
       { letter: "C", text: 'Sloth and Action are unrelated' },
       { letter: "D", text: 'Action means the Nine becomes aggressive and forceful' },
     ],
     answer: "B",
-    explanation: 'Action transforms the Nine\'s inertia into engaged vitality. It is not merely "doing more" but waking up to their own desires, priorities, and agency — claiming a place in the world as a fully present individual.',
+    explanation: 'Action transforms the Nine\'s inertia into engaged vitality. It is not merely "doing more" but waking up to their own desires, priorities, and agency, claiming a place in the world as a fully present individual.',
   },
   {
     id: 449,
@@ -7639,7 +7639,7 @@ const originalQuestions: TypeQuizQuestion[] = [
     category: 'Cross-Type Comparison',
     question: 'Both Type 9 and Type 2 are in the Positive Outlook group. How do they avoid their own pain differently?',
     options: [
-      { letter: "A", text: 'Nines avoid pain by numbing and minimizing ("it\'s fine, not a big deal"); Twos avoid pain by redirecting attention to others\' needs ("enough about me — how can I help you?")' },
+      { letter: "A", text: 'Nines avoid pain by numbing and minimizing ("it\'s fine, not a big deal"); Twos avoid pain by redirecting attention to others\' needs ("enough about me, how can I help you?")' },
       { letter: "B", text: 'They avoid pain identically' },
       { letter: "C", text: 'Only Twos avoid pain' },
       { letter: "D", text: 'Nines never avoid pain' },
@@ -7656,7 +7656,7 @@ const originalQuestions: TypeQuizQuestion[] = [
     category: 'Cross-Type Comparison',
     question: 'Type 9 and Type 3 are both in the Attachment Object Relations group. How does their self-loss differ?',
     options: [
-      { letter: "A", text: 'Nines lose themselves by merging with others and forgetting their own desires; Threes lose themselves by performing a role and forgetting their authentic feelings — both types struggle to answer "who am I really?"' },
+      { letter: "A", text: 'Nines lose themselves by merging with others and forgetting their own desires; Threes lose themselves by performing a role and forgetting their authentic feelings, both types struggle to answer "who am I really?"' },
       { letter: "B", text: 'Only Nines lose themselves' },
       { letter: "C", text: 'Threes have a stronger sense of self than Nines' },
       { letter: "D", text: 'They experience self-loss identically' },

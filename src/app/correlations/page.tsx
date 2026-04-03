@@ -17,7 +17,7 @@ const enneagramToCognitiveCorrelations: Record<string, { types: { code: string; 
       { code: "INFJ", percentage: 10, note: "Ni-Fe: Idealistic moral vision" },
       { code: "ISFJ", percentage: 8, note: "Si-Fe: Dutiful service and traditional values" },
     ],
-    insight: "Type 1s strongly correlate with Te and Si functions — the drive for correctness maps to systematic external organization (Te) and adherence to established standards (Si). The inner critic aligns with strong judging function preference."
+    insight: "Type 1s strongly correlate with Te and Si functions, the drive for correctness maps to systematic external organization (Te) and adherence to established standards (Si). The inner critic aligns with strong judging function preference."
   },
   "2": {
     types: [
@@ -27,7 +27,7 @@ const enneagramToCognitiveCorrelations: Record<string, { types: { code: string; 
       { code: "ENFP", percentage: 10, note: "Ne-Fi: Enthusiastic emotional connection" },
       { code: "INFJ", percentage: 8, note: "Ni-Fe: Deep empathic insight" },
     ],
-    insight: "Type 2s overwhelmingly correlate with Fe (Extraverted Feeling) — the core motivation to be loved maps directly to attunement to others' emotional needs. Fe-dominant types make up over 50% of observed 2s."
+    insight: "Type 2s overwhelmingly correlate with Fe (Extraverted Feeling), the core motivation to be loved maps directly to attunement to others' emotional needs. Fe-dominant types make up over 50% of observed 2s."
   },
   "3": {
     types: [
@@ -37,7 +37,7 @@ const enneagramToCognitiveCorrelations: Record<string, { types: { code: string; 
       { code: "ENFJ", percentage: 12, note: "Fe-Ni: Charismatic inspiring leadership" },
       { code: "ENTP", percentage: 8, note: "Ne-Ti: Versatile, entrepreneurial innovation" },
     ],
-    insight: "Type 3s correlate strongly with Te and Se — achievement orientation maps to Te's drive for measurable results, while image-consciousness maps to Se's awareness of external presentation. Extraverted types dominate."
+    insight: "Type 3s correlate strongly with Te and Se, achievement orientation maps to Te's drive for measurable results, while image-consciousness maps to Se's awareness of external presentation. Extraverted types dominate."
   },
   "4": {
     types: [
@@ -45,9 +45,9 @@ const enneagramToCognitiveCorrelations: Record<string, { types: { code: string; 
       { code: "INFJ", percentage: 20, note: "Ni-Fe: Profound emotional depth and symbolic meaning" },
       { code: "ISFP", percentage: 15, note: "Fi-Se: Aesthetic authenticity in the moment" },
       { code: "ENFP", percentage: 10, note: "Ne-Fi: Expressive emotional exploration" },
-      { code: "INTJ", percentage: 5, note: "Ni-Te: 4w5 — intense, withdrawn intellectual depth" },
+      { code: "INTJ", percentage: 5, note: "Ni-Te: 4w5, intense, withdrawn intellectual depth" },
     ],
-    insight: "Type 4s correlate overwhelmingly with Fi (Introverted Feeling) — the core drive for authenticity and unique identity maps directly to Fi's internal value system. INFPs make up the largest single group of 4s in PDB data."
+    insight: "Type 4s correlate overwhelmingly with Fi (Introverted Feeling), the core drive for authenticity and unique identity maps directly to Fi's internal value system. INFPs make up the largest single group of 4s in PDB data."
   },
   "5": {
     types: [
@@ -57,7 +57,7 @@ const enneagramToCognitiveCorrelations: Record<string, { types: { code: string; 
       { code: "INFJ", percentage: 8, note: "Ni-Fe: Withdrawn insightful observation (5w4)" },
       { code: "ISTJ", percentage: 7, note: "Si-Te: Methodical, detail-oriented mastery" },
     ],
-    insight: "Type 5s correlate strongly with Ti and Ni — the drive for competence and understanding maps to Ti's analytical precision and Ni's deep pattern recognition. Introverted types dominate overwhelmingly (90%+). Your type — INTJ 5 — is one of the most common pairings."
+    insight: "Type 5s correlate strongly with Ti and Ni, the drive for competence and understanding maps to Ti's analytical precision and Ni's deep pattern recognition. Introverted types dominate overwhelmingly (90%+). Your type, INTJ 5, is one of the most common pairings."
   },
   "6": {
     types: [
@@ -67,7 +67,7 @@ const enneagramToCognitiveCorrelations: Record<string, { types: { code: string; 
       { code: "ESFJ", percentage: 10, note: "Fe-Si: Community-oriented security seeking" },
       { code: "INTP", percentage: 8, note: "Ti-Ne: Counterphobic intellectual questioning (6w5)" },
     ],
-    insight: "Type 6 shows the widest distribution across cognitive types — anxiety and loyalty are not function-specific. However, Si correlates strongly with the phobic subtype (security through precedent), while counterphobic 6s show more diverse function stacks."
+    insight: "Type 6 shows the widest distribution across cognitive types, anxiety and loyalty are not function-specific. However, Si correlates strongly with the phobic subtype (security through precedent), while counterphobic 6s show more diverse function stacks."
   },
   "7": {
     types: [
@@ -77,7 +77,7 @@ const enneagramToCognitiveCorrelations: Record<string, { types: { code: string; 
       { code: "ESFP", percentage: 10, note: "Se-Fi: Joyful sensory experience" },
       { code: "ENFJ", percentage: 7, note: "Fe-Ni: Social enthusiasm with vision" },
     ],
-    insight: "Type 7s correlate overwhelmingly with Ne and Se — the drive to avoid pain through stimulation maps to Ne's possibility-seeking and Se's sensory engagement. Extraverted Perceiving dominates. The 'gluttony' of 7 manifests as cognitive appetite for Ne-doms and sensory appetite for Se-doms."
+    insight: "Type 7s correlate overwhelmingly with Ne and Se, the drive to avoid pain through stimulation maps to Ne's possibility-seeking and Se's sensory engagement. Extraverted Perceiving dominates. The 'gluttony' of 7 manifests as cognitive appetite for Ne-doms and sensory appetite for Se-doms."
   },
   "8": {
     types: [
@@ -87,7 +87,7 @@ const enneagramToCognitiveCorrelations: Record<string, { types: { code: string; 
       { code: "INTJ", percentage: 10, note: "Ni-Te: Quiet, intense strategic control (8w9 or sp8)" },
       { code: "ISTP", percentage: 8, note: "Ti-Se: Independent, self-sufficient competence" },
     ],
-    insight: "Type 8s correlate with Te and Se — the drive for control and autonomy maps to Te's executive function and Se's physical assertiveness. The lust/intensity of 8 manifests as decisive action (Te) or visceral force (Se). Thinking types dominate."
+    insight: "Type 8s correlate with Te and Se, the drive for control and autonomy maps to Te's executive function and Se's physical assertiveness. The lust/intensity of 8 manifests as decisive action (Te) or visceral force (Se). Thinking types dominate."
   },
   "9": {
     types: [
@@ -97,7 +97,7 @@ const enneagramToCognitiveCorrelations: Record<string, { types: { code: string; 
       { code: "INFJ", percentage: 12, note: "Ni-Fe: Merging with others' perspectives" },
       { code: "INTP", percentage: 8, note: "Ti-Ne: Withdrawn, easygoing intellectual (9w5)" },
     ],
-    insight: "Type 9s show a strong preference for Introverted and Feeling functions — the drive to maintain inner peace maps to Fi's gentle value system and Si's stability-seeking. The 'sloth' of 9 (self-forgetting) appears as lost access to the dominant function's assertiveness."
+    insight: "Type 9s show a strong preference for Introverted and Feeling functions, the drive to maintain inner peace maps to Fi's gentle value system and Si's stability-seeking. The 'sloth' of 9 (self-forgetting) appears as lost access to the dominant function's assertiveness."
   },
 };
 
@@ -120,7 +120,7 @@ const cognitiveToEnneagramCorrelations: Record<string, { types: { num: number; p
       { num: 5, percentage: 8, note: "Withdrawn INFPs sometimes identify as 5w4" },
       { num: 2, percentage: 7, note: "Fi empathy can express as 2's helping drive" },
     ],
-    insight: "INFPs are the type most commonly associated with Enneagram 4 — Fi's drive for authenticity maps directly to 4's identity fixation. However, the INFP 9 combination is underappreciated and produces a distinctly gentle, accommodating pattern."
+    insight: "INFPs are the type most commonly associated with Enneagram 4, Fi's drive for authenticity maps directly to 4's identity fixation. However, the INFP 9 combination is underappreciated and produces a distinctly gentle, accommodating pattern."
   },
   "ENTP": {
     types: [
@@ -130,7 +130,7 @@ const cognitiveToEnneagramCorrelations: Record<string, { types: { num: number; p
       { num: 8, percentage: 10, note: "Assertive ENTPs often type as 8 or 7w8" },
       { num: 6, percentage: 8, note: "Ti questioning and Ne pattern-scanning serve 6's vigilance" },
     ],
-    insight: "ENTPs overwhelmingly type as 7 — Ne's hunger for possibilities is the cognitive equivalent of 7's gluttony. The ENTP 7w8 is the classic 'entrepreneurial visionary' pattern."
+    insight: "ENTPs overwhelmingly type as 7, Ne's hunger for possibilities is the cognitive equivalent of 7's gluttony. The ENTP 7w8 is the classic 'entrepreneurial visionary' pattern."
   },
   "INFJ": {
     types: [
@@ -141,7 +141,7 @@ const cognitiveToEnneagramCorrelations: Record<string, { types: { num: number; p
       { num: 2, percentage: 10, note: "Fe caregiving maps to 2's helping drive" },
       { num: 6, percentage: 8, note: "Ni anticipation maps to 6's anxiety and foresight" },
     ],
-    insight: "INFJs show the most diverse Enneagram distribution of any cognitive type — Ni-Fe serves multiple core motivations equally well. The INFJ 4w5 and INFJ 1w9 are both extremely common and produce very different personalities despite the same cognitive stack."
+    insight: "INFJs show the most diverse Enneagram distribution of any cognitive type, Ni-Fe serves multiple core motivations equally well. The INFJ 4w5 and INFJ 1w9 are both extremely common and produce very different personalities despite the same cognitive stack."
   },
   "ENFP": {
     types: [
@@ -151,7 +151,7 @@ const cognitiveToEnneagramCorrelations: Record<string, { types: { num: number; p
       { num: 9, percentage: 10, note: "Fi gentleness with Ne adaptability maps to 9's peacemaking" },
       { num: 6, percentage: 8, note: "Ne-Fi questioning and loyalty map to 6's pattern" },
     ],
-    insight: "ENFPs split between 7 (Ne-dominant enthusiasm) and 4 (Fi-auxiliary depth). An ENFP 7w6 vs ENFP 4w3 can appear like entirely different types despite the same function stack — highlighting how Enneagram and cognitive functions capture different dimensions."
+    insight: "ENFPs split between 7 (Ne-dominant enthusiasm) and 4 (Fi-auxiliary depth). An ENFP 7w6 vs ENFP 4w3 can appear like entirely different types despite the same function stack, highlighting how Enneagram and cognitive functions capture different dimensions."
   },
   "INTP": {
     types: [
@@ -161,7 +161,7 @@ const cognitiveToEnneagramCorrelations: Record<string, { types: { num: number; p
       { num: 6, percentage: 10, note: "Ti skepticism and Ne pattern-scanning map to 6's vigilant questioning" },
       { num: 1, percentage: 8, note: "Perfectionist Ti standards can align with 1's inner critic" },
     ],
-    insight: "INTPs are the type most commonly associated with Enneagram 5 alongside INTJs — Ti's drive for internal logical mastery maps directly to 5's hoarding of knowledge. The INTP 5w4 is particularly distinctive: analytical depth with emotional intensity."
+    insight: "INTPs are the type most commonly associated with Enneagram 5 alongside INTJs, Ti's drive for internal logical mastery maps directly to 5's hoarding of knowledge. The INTP 5w4 is particularly distinctive: analytical depth with emotional intensity."
   },
   "ENTJ": {
     types: [
@@ -171,7 +171,7 @@ const cognitiveToEnneagramCorrelations: Record<string, { types: { num: number; p
       { num: 5, percentage: 10, note: "Ni depth with Te efficiency creates the 5's competence drive" },
       { num: 6, percentage: 7, note: "Strategic Te anticipation aligns with 6's preparation" },
     ],
-    insight: "ENTJs cluster around 3 and 8 — Te's drive for measurable results and Ni's strategic authority serve both archetypes. The ENTJ 8w7 is the classic 'commanding general' while ENTJ 3w4 produces the 'strategic visionary achiever.'"
+    insight: "ENTJs cluster around 3 and 8, Te's drive for measurable results and Ni's strategic authority serve both archetypes. The ENTJ 8w7 is the classic 'commanding general' while ENTJ 3w4 produces the 'strategic visionary achiever.'"
   },
   "ENFJ": {
     types: [
@@ -181,7 +181,7 @@ const cognitiveToEnneagramCorrelations: Record<string, { types: { num: number; p
       { num: 4, percentage: 12, note: "Ni depth and Fe feeling create the 4's emotional authenticity" },
       { num: 9, percentage: 8, note: "Fe merging tendency maps to 9's self-forgetting harmony" },
     ],
-    insight: "ENFJs concentrate in types 1, 2, and 3 — all sharing a strong relational orientation. Fe's attunement to others' needs serves the Helper's love drive (2), the Reformer's social idealism (1), and the Achiever's interpersonal performance (3)."
+    insight: "ENFJs concentrate in types 1, 2, and 3, all sharing a strong relational orientation. Fe's attunement to others' needs serves the Helper's love drive (2), the Reformer's social idealism (1), and the Achiever's interpersonal performance (3)."
   },
   "ISFJ": {
     types: [
@@ -191,7 +191,7 @@ const cognitiveToEnneagramCorrelations: Record<string, { types: { num: number; p
       { num: 9, percentage: 12, note: "Si stability and Fe accommodation map to 9's peacekeeping" },
       { num: 4, percentage: 6, note: "Introspective ISFJs with strong anima may identify with 4" },
     ],
-    insight: "ISFJs cluster in types 6 and 2 — Si's deep need for familiar security maps to 6's loyalty and anxiety, while Fe's warm caregiving maps to 2's drive to be needed. The ISFJ 6w7 produces the steadfast loyal friend archetype."
+    insight: "ISFJs cluster in types 6 and 2, Si's deep need for familiar security maps to 6's loyalty and anxiety, while Fe's warm caregiving maps to 2's drive to be needed. The ISFJ 6w7 produces the steadfast loyal friend archetype."
   },
   "ESFJ": {
     types: [
@@ -201,7 +201,7 @@ const cognitiveToEnneagramCorrelations: Record<string, { types: { num: number; p
       { num: 3, percentage: 10, note: "Fe social image and Si performance create 3's people-oriented achiever" },
       { num: 9, percentage: 8, note: "Fe harmony-seeking and Si accommodation map to 9's peacekeeping" },
     ],
-    insight: "ESFJs are the most common Type 2 cognitive type — Fe dominant caregiving is the cognitive signature of 2's love and approval drive. Si's attachment to traditional community adds a layer of loyalty and reliability that deepens both 2 and 6 patterns."
+    insight: "ESFJs are the most common Type 2 cognitive type, Fe dominant caregiving is the cognitive signature of 2's love and approval drive. Si's attachment to traditional community adds a layer of loyalty and reliability that deepens both 2 and 6 patterns."
   },
   "ISTJ": {
     types: [
@@ -211,7 +211,7 @@ const cognitiveToEnneagramCorrelations: Record<string, { types: { num: number; p
       { num: 3, percentage: 10, note: "Te efficiency and Si reliability create 3's dependable achiever" },
       { num: 9, percentage: 8, note: "Si routine and Te steady delivery align with 9's easygoing stability" },
     ],
-    insight: "ISTJs cluster around types 1 and 6 — Si's reverence for established standards and Te's drive for correctness align with both 1's perfectionism and 6's security through structure. The ISTJ 1w9 is the classic 'reliable pillar of integrity.'"
+    insight: "ISTJs cluster around types 1 and 6, Si's reverence for established standards and Te's drive for correctness align with both 1's perfectionism and 6's security through structure. The ISTJ 1w9 is the classic 'reliable pillar of integrity.'"
   },
   "ESTJ": {
     types: [
@@ -221,7 +221,7 @@ const cognitiveToEnneagramCorrelations: Record<string, { types: { num: number; p
       { num: 8, percentage: 12, note: "Te decisiveness and authority align with 8's commanding control" },
       { num: 2, percentage: 6, note: "Warm ESTJs may identify with 2's service drive" },
     ],
-    insight: "ESTJs concentrate in types 1, 3, and 6 — Te's drive for external systems and results serves all three. Si's attachment to proven methods amplifies both 1's standards and 6's traditional security. The ESTJ 8w7 creates the decisive executive archetype."
+    insight: "ESTJs concentrate in types 1, 3, and 6, Te's drive for external systems and results serves all three. Si's attachment to proven methods amplifies both 1's standards and 6's traditional security. The ESTJ 8w7 creates the decisive executive archetype."
   },
   "ISTP": {
     types: [
@@ -231,7 +231,7 @@ const cognitiveToEnneagramCorrelations: Record<string, { types: { num: number; p
       { num: 4, percentage: 10, note: "Introspective ISTPs with Fe anima may identify with 4's depth" },
       { num: 6, percentage: 8, note: "Ti skepticism and Se vigilance can map to 6's counterphobic pattern" },
     ],
-    insight: "ISTPs cluster in types 5 and 9 — Ti's detached mastery maps to 5's knowledge hoarding, while Se-Ti's present-moment equanimity maps to 9's peaceful independence. The ISTP 9w8 produces the archetype of the quiet, self-sufficient craftsman."
+    insight: "ISTPs cluster in types 5 and 9, Ti's detached mastery maps to 5's knowledge hoarding, while Se-Ti's present-moment equanimity maps to 9's peaceful independence. The ISTP 9w8 produces the archetype of the quiet, self-sufficient craftsman."
   },
   "ESTP": {
     types: [
@@ -241,7 +241,7 @@ const cognitiveToEnneagramCorrelations: Record<string, { types: { num: number; p
       { num: 6, percentage: 10, note: "Se vigilance and Ti pattern-testing align with 6's counterphobic scanning" },
       { num: 9, percentage: 7, note: "Easygoing ESTPs can present as 9w8's low-key assertiveness" },
     ],
-    insight: "ESTPs cluster around types 8 and 7 — Se's direct physical engagement maps to 8's commanding force, while Se's stimulation-seeking maps to 7's experiential hunger. The ESTP 8w7 is the archetype of raw, energetic dominance."
+    insight: "ESTPs cluster around types 8 and 7, Se's direct physical engagement maps to 8's commanding force, while Se's stimulation-seeking maps to 7's experiential hunger. The ESTP 8w7 is the archetype of raw, energetic dominance."
   },
   "ISFP": {
     types: [
@@ -251,7 +251,7 @@ const cognitiveToEnneagramCorrelations: Record<string, { types: { num: number; p
       { num: 6, percentage: 10, note: "Fi loyalty and Se caution can map to 6's devoted security" },
       { num: 1, percentage: 7, note: "Strong Fi values in ISFPs can present as 1's principled integrity" },
     ],
-    insight: "ISFPs cluster in types 9 and 4 — Fi's quiet depth serves 4's identity-seeking, while Fi-Se's present-moment gentleness maps to 9's peaceful flow. The ISFP 4w5 produces the introverted artist archetype; ISFP 9w8 the serene but quietly assertive loner."
+    insight: "ISFPs cluster in types 9 and 4, Fi's quiet depth serves 4's identity-seeking, while Fi-Se's present-moment gentleness maps to 9's peaceful flow. The ISFP 4w5 produces the introverted artist archetype; ISFP 9w8 the serene but quietly assertive loner."
   },
   "ESFP": {
     types: [
@@ -261,7 +261,7 @@ const cognitiveToEnneagramCorrelations: Record<string, { types: { num: number; p
       { num: 9, percentage: 10, note: "Fi-Se present-moment acceptance maps to 9's easygoing harmony" },
       { num: 4, percentage: 7, note: "Emotionally intense ESFPs with strong Fi may identify with 4" },
     ],
-    insight: "ESFPs cluster around types 7 and 2 — Se's sensory joy maps to 7's gluttony for experience, while Fi's genuine warmth maps to 2's drive to love and be loved. The ESFP 7w6 is the archetypal party host; the ESFP 2w3 the warm, giving performer."
+    insight: "ESFPs cluster around types 7 and 2, Se's sensory joy maps to 7's gluttony for experience, while Fi's genuine warmth maps to 2's drive to love and be loved. The ESFP 7w6 is the archetypal party host; the ESFP 2w3 the warm, giving performer."
   },
 };
 

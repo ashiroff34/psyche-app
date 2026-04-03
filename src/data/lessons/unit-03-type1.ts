@@ -21,7 +21,7 @@ const lesson1: Lesson = {
       content: {
         type: "concept-intro",
         title: "Meet the Perfectionist",
-        body: "Type 1s are driven by a deep need to be good, right, and ethical. They have an ever-present inner voice — often called the Inner Critic — that constantly evaluates whether they and the world are measuring up.",
+        body: "Type 1s are driven by a deep need to be good, right, and ethical. They have an ever-present inner voice, often called the Inner Critic, that constantly evaluates whether they and the world are measuring up.",
         highlight: "Inner Critic",
       },
     },
@@ -83,7 +83,7 @@ const lesson1: Lesson = {
         ],
         correctIndex: 1,
         explanation:
-          "The Inner Critic is the hallmark of Type 1. It's a relentless internal evaluator comparing what IS to what SHOULD BE — running practically 24/7.",
+          "The Inner Critic is the hallmark of Type 1. It's a relentless internal evaluator comparing what IS to what SHOULD BE, running practically 24/7.",
       },
     },
     {
@@ -123,7 +123,7 @@ const lesson1: Lesson = {
         options: ["WAS", "COULD BE", "SHOULD BE", "WILL BE"],
         correctIndex: 2,
         explanation:
-          "The Inner Critic operates on 'shoulds' — an idealized version of reality. This gap between what is and what should be creates the chronic tension Ones feel.",
+          "The Inner Critic operates on 'shoulds', an idealized version of reality. This gap between what is and what should be creates the chronic tension Ones feel.",
       },
     },
     {
@@ -142,7 +142,7 @@ const lesson1: Lesson = {
         ],
         correctIndex: 1,
         explanation:
-          "Classic Type 1 — even when things go well, the Inner Critic zeroes in on what went wrong. Ones have a hard time celebrating success because their attention is magnetically drawn to imperfections.",
+          "Classic Type 1, even when things go well, the Inner Critic zeroes in on what went wrong. Ones have a hard time celebrating success because their attention is magnetically drawn to imperfections.",
       },
     },
     {
@@ -161,7 +161,7 @@ const lesson1: Lesson = {
         ],
         correctIndex: 2,
         explanation:
-          "Ones can get paralyzed by their own standards. The drive to make things perfect can actually work against their equally strong sense of responsibility — creating real internal conflict.",
+          "Ones can get paralyzed by their own standards. The drive to make things perfect can actually work against their equally strong sense of responsibility, creating real internal conflict.",
       },
     },
     {
@@ -181,7 +181,7 @@ const lesson1: Lesson = {
         ],
         correctIndex: 1,
         explanation:
-          "Ones sit in the Gut/Body triad and have a complicated relationship with anger. Since anger feels 'bad,' they suppress it — but it leaks out as resentment, rigidity, and passive-aggressive tension.",
+          "Ones sit in the Gut/Body triad and have a complicated relationship with anger. Since anger feels 'bad,' they suppress it, but it leaks out as resentment, rigidity, and passive-aggressive tension.",
       },
     },
     {
@@ -195,11 +195,11 @@ const lesson1: Lesson = {
           "Heart Center (feeling)",
           "Head Center (thinking)",
           "Body/Gut Center (instinct)",
-          "None — they use all equally",
+          "None, they use all equally",
         ],
         correctIndex: 2,
         explanation:
-          "Type 1 is in the Body/Gut triad alongside Types 8 and 9. Their core emotion is anger — though unlike 8s who express it openly, Ones try to control and suppress it.",
+          "Type 1 is in the Body/Gut triad alongside Types 8 and 9. Their core emotion is anger, though unlike 8s who express it openly, Ones try to control and suppress it.",
       },
     },
   ],
@@ -221,7 +221,7 @@ const lesson2: Lesson = {
       content: {
         type: "concept-intro",
         title: "The Passion: Anger",
-        body: "In Naranjo's system, every type has a 'passion' — a core emotional habit that distorts perception. For Type 1, it's Anger. Not explosive rage, but a chronic tension: suppressed frustration that the world isn't as it should be.",
+        body: "In Naranjo's system, every type has a 'passion', a core emotional habit that distorts perception. For Type 1, it's Anger. Not explosive rage, but a chronic tension: suppressed frustration that the world isn't as it should be.",
         highlight: "Anger",
       },
     },
@@ -231,7 +231,7 @@ const lesson2: Lesson = {
       content: {
         type: "concept-intro",
         title: "The Virtue: Serenity",
-        body: "The antidote to anger is Serenity — the ability to accept imperfection without losing inner peace. When healthy, Ones move from 'everything must be fixed' to 'things can be imperfect and still be okay.'",
+        body: "The antidote to anger is Serenity, the ability to accept imperfection without losing inner peace. When healthy, Ones move from 'everything must be fixed' to 'things can be imperfect and still be okay.'",
         highlight: "Serenity",
       },
     },
@@ -245,7 +245,7 @@ const lesson2: Lesson = {
         options: ["Pride", "Envy", "Anger", "Fear"],
         correctIndex: 2,
         explanation:
-          "Anger is the passion of Type 1. It manifests as a simmering undercurrent of resentment, irritation, and tension — not usually as outward rage.",
+          "Anger is the passion of Type 1. It manifests as a simmering undercurrent of resentment, irritation, and tension, not usually as outward rage.",
       },
     },
     {
@@ -257,7 +257,7 @@ const lesson2: Lesson = {
         options: ["Humility", "Serenity", "Truthfulness", "Non-Attachment"],
         correctIndex: 1,
         explanation:
-          "Serenity is the state Ones access when they let go of the need to fix everything. It's acceptance without resignation — peace with imperfection.",
+          "Serenity is the state Ones access when they let go of the need to fix everything. It's acceptance without resignation, peace with imperfection.",
       },
     },
     {
@@ -275,7 +275,7 @@ const lesson2: Lesson = {
         ],
         correctIndex: 1,
         explanation:
-          "Because Ones believe anger is 'bad,' they suppress it. But it doesn't disappear — it shows up as bodily tension, judgmental thoughts, irritability, and that signature One resentment.",
+          "Because Ones believe anger is 'bad,' they suppress it. But it doesn't disappear, it shows up as bodily tension, judgmental thoughts, irritability, and that signature One resentment.",
       },
     },
     {
@@ -306,7 +306,7 @@ const lesson2: Lesson = {
         options: ["Serenity", "Pride", "Humility", "Detachment"],
         correctIndex: 0,
         explanation:
-          "Serenity is the virtue that healthy Ones access. It's not apathy — it's the wisdom to know that imperfection is part of life, and that's genuinely okay.",
+          "Serenity is the virtue that healthy Ones access. It's not apathy, it's the wisdom to know that imperfection is part of life, and that's genuinely okay.",
       },
     },
     {
@@ -345,14 +345,14 @@ const lesson2: Lesson = {
           "Morgan is a team lead. When a junior employee makes an error in a report, Morgan calmly helps them fix it, explains why accuracy matters, and acknowledges their effort. Morgan doesn't dwell on the mistake afterward.",
         question: "Which health level is Morgan operating from?",
         options: [
-          "Unhealthy — Morgan is suppressing their real feelings",
-          "Average — Morgan is being rigidly proper",
-          "Healthy — Morgan channels their standards constructively with grace",
+          "Unhealthy, Morgan is suppressing their real feelings",
+          "Average, Morgan is being rigidly proper",
+          "Healthy, Morgan channels their standards constructively with grace",
           "This doesn't sound like a Type 1 at all",
         ],
         correctIndex: 2,
         explanation:
-          "This is a healthy One — they still care about getting it right, but they bring wisdom and patience instead of harsh criticism. They've found the balance between standards and compassion.",
+          "This is a healthy One, they still care about getting it right, but they bring wisdom and patience instead of harsh criticism. They've found the balance between standards and compassion.",
       },
     },
     {
@@ -383,9 +383,9 @@ const lesson2: Lesson = {
           "Chris has become convinced they are the only person who truly understands ethics. They publicly shame coworkers for minor infractions, keep detailed records of others' mistakes, and feel justified punishing anyone who falls short.",
         question: "What health level does this represent for a Type 1?",
         options: [
-          "Healthy — Chris has strong moral convictions",
-          "Average — Chris is just being a perfectionist",
-          "Unhealthy — self-righteous, punitive, and obsessive",
+          "Healthy, Chris has strong moral convictions",
+          "Average, Chris is just being a perfectionist",
+          "Unhealthy, self-righteous, punitive, and obsessive",
           "This is actually a Type 8 pattern",
         ],
         correctIndex: 2,
@@ -408,7 +408,7 @@ const lesson2: Lesson = {
         ],
         correctIndex: 1,
         explanation:
-          "In Naranjo's framework, each type has a 'passion' — an automatic emotional pattern that keeps you stuck in your type's fixation. For Ones, that passion is Anger.",
+          "In Naranjo's framework, each type has a 'passion', an automatic emotional pattern that keeps you stuck in your type's fixation. For Ones, that passion is Anger.",
       },
     },
   ],
@@ -440,7 +440,7 @@ const lesson3: Lesson = {
       content: {
         type: "concept-intro",
         title: "Stress & Growth Lines",
-        body: "Under stress, Ones move to Type 4 — becoming moody, emotionally volatile, and melancholic. In growth, Ones move to Type 7 — becoming spontaneous, joyful, and able to relax their rigid standards.",
+        body: "Under stress, Ones move to Type 4, becoming moody, emotionally volatile, and melancholic. In growth, Ones move to Type 7, becoming spontaneous, joyful, and able to relax their rigid standards.",
         highlight: "Stress → 4, Growth → 7",
       },
     },
@@ -471,7 +471,7 @@ const lesson3: Lesson = {
         options: ["Type 7", "Type 4", "Type 8", "Type 2"],
         correctIndex: 1,
         explanation:
-          "Under stress, Ones move to the lower side of Type 4 — they become moody, self-pitying, and emotionally volatile. The usual composure cracks and intense feelings pour through.",
+          "Under stress, Ones move to the lower side of Type 4, they become moody, self-pitying, and emotionally volatile. The usual composure cracks and intense feelings pour through.",
       },
     },
     {
@@ -484,7 +484,7 @@ const lesson3: Lesson = {
         options: ["Type 4", "Type 7", "Type 9", "Type 3"],
         correctIndex: 1,
         explanation:
-          "Growing Ones access healthy Type 7 energy — becoming spontaneous, joyful, and playful. They learn that life doesn't have to be an endless improvement project.",
+          "Growing Ones access healthy Type 7 energy, becoming spontaneous, joyful, and playful. They learn that life doesn't have to be an endless improvement project.",
       },
     },
     {
@@ -554,7 +554,7 @@ const lesson3: Lesson = {
       content: {
         type: "scenario",
         scenario:
-          "Derek, normally a rule-following perfectionist, has been working on personal growth. Lately he's been trying new restaurants without reading reviews first, laughing at his own mistakes, and signed up for an improv comedy class — something that would have terrified him a year ago.",
+          "Derek, normally a rule-following perfectionist, has been working on personal growth. Lately he's been trying new restaurants without reading reviews first, laughing at his own mistakes, and signed up for an improv comedy class, something that would have terrified him a year ago.",
         question: "What's happening in Derek's Enneagram journey?",
         options: [
           "He's moving to his stress point (Type 4)",
@@ -564,7 +564,7 @@ const lesson3: Lesson = {
         ],
         correctIndex: 2,
         explanation:
-          "Derek is accessing healthy Seven energy — spontaneity, joy, and the freedom to be imperfect. This is what growth looks like for a One: loosening up without abandoning their values.",
+          "Derek is accessing healthy Seven energy, spontaneity, joy, and the freedom to be imperfect. This is what growth looks like for a One: loosening up without abandoning their values.",
       },
     },
     {
@@ -583,7 +583,7 @@ const lesson3: Lesson = {
         ],
         correctIndex: 0,
         explanation:
-          "Wings flavor how the core type is expressed. The 1w9 turns inward — more cerebral and detached. The 1w2 turns outward — more people-focused and crusading. Same core drive for goodness, different expression.",
+          "Wings flavor how the core type is expressed. The 1w9 turns inward, more cerebral and detached. The 1w2 turns outward, more people-focused and crusading. Same core drive for goodness, different expression.",
       },
     },
     {
@@ -593,14 +593,14 @@ const lesson3: Lesson = {
         type: "multiple-choice",
         question: "True or false: A Type 1's wing must be either 9 or 2.",
         options: [
-          "True — wings are always adjacent numbers",
-          "False — you can have any type as a wing",
-          "False — wings don't exist for Type 1",
-          "True — but only if you're an introvert",
+          "True, wings are always adjacent numbers",
+          "False, you can have any type as a wing",
+          "False, wings don't exist for Type 1",
+          "True, but only if you're an introvert",
         ],
         correctIndex: 0,
         explanation:
-          "Wings are always the numbers directly next to your core type on the Enneagram circle. For Type 1, that's 9 and 2 — no exceptions.",
+          "Wings are always the numbers directly next to your core type on the Enneagram circle. For Type 1, that's 9 and 2, no exceptions.",
       },
     },
   ],
@@ -650,7 +650,7 @@ const lesson4: Lesson = {
         ],
         correctIndex: 1,
         explanation:
-          "Ones notice imperfections like a radar — a typo in an email, a misaligned picture, a grammatical error. Their attention is automatically drawn to what could be corrected.",
+          "Ones notice imperfections like a radar, a typo in an email, a misaligned picture, a grammatical error. Their attention is automatically drawn to what could be corrected.",
       },
     },
     {
@@ -662,7 +662,7 @@ const lesson4: Lesson = {
         options: ["Type 3", "Type 6", "Type 7", "Type 8"],
         correctIndex: 1,
         explanation:
-          "Ones and Sixes look similar on the surface — both are responsible, dutiful, and follow rules. But Ones follow their internal standards of right/wrong, while Sixes follow rules for security and belonging.",
+          "Ones and Sixes look similar on the surface, both are responsible, dutiful, and follow rules. But Ones follow their internal standards of right/wrong, while Sixes follow rules for security and belonging.",
       },
     },
     {
@@ -708,7 +708,7 @@ const lesson4: Lesson = {
         options: ["fun", "security", "attention", "power"],
         correctIndex: 1,
         explanation:
-          "This is the crucial distinction. Sixes are dutiful because it creates safety and belonging. Ones are dutiful because their inner moral compass demands it — even when it's personally costly.",
+          "This is the crucial distinction. Sixes are dutiful because it creates safety and belonging. Ones are dutiful because their inner moral compass demands it, even when it's personally costly.",
       },
     },
     {
@@ -752,13 +752,13 @@ const lesson4: Lesson = {
       content: {
         type: "scenario",
         scenario:
-          "Two coworkers both refuse to cut corners on a project. Person A says: 'It's just not right — we committed to doing quality work.' Person B says: 'What if the client finds out? We could lose the account and our reputation.'",
+          "Two coworkers both refuse to cut corners on a project. Person A says: 'It's just not right, we committed to doing quality work.' Person B says: 'What if the client finds out? We could lose the account and our reputation.'",
         question: "Which person is more likely a Type 1, and which a Type 6?",
         options: [
           "A is Type 1 (internal standards), B is Type 6 (fear of consequences)",
           "A is Type 6 (loyalty), B is Type 1 (perfectionism)",
-          "Both are Type 1 — same motivation",
-          "Both are Type 6 — same motivation",
+          "Both are Type 1, same motivation",
+          "Both are Type 6, same motivation",
         ],
         correctIndex: 0,
         explanation:
@@ -771,14 +771,14 @@ const lesson4: Lesson = {
       content: {
         type: "scenario",
         scenario:
-          "At a dinner party, someone shares a hot take about politics. One person at the table feels a surge of irritation — not because of the politics, but because the argument was logically sloppy and factually incorrect. They can't let it go.",
+          "At a dinner party, someone shares a hot take about politics. One person at the table feels a surge of irritation, not because of the politics, but because the argument was logically sloppy and factually incorrect. They can't let it go.",
         question:
           "Is this more likely a Type 1 or a Type 5 reaction, and why?",
         options: [
-          "Type 1 — they're upset because the person is morally wrong",
-          "Type 5 — they're upset because the argument is intellectually sloppy",
-          "Could be either — need to know if they're upset about ethics or logic",
-          "Neither — this is a Type 8 reaction",
+          "Type 1, they're upset because the person is morally wrong",
+          "Type 5, they're upset because the argument is intellectually sloppy",
+          "Could be either, need to know if they're upset about ethics or logic",
+          "Neither, this is a Type 8 reaction",
         ],
         correctIndex: 2,
         explanation:
@@ -791,17 +791,17 @@ const lesson4: Lesson = {
       content: {
         type: "scenario",
         scenario:
-          "You're trying to figure out if your friend is a Type 1 or Type 3. Both are high-achieving and organized. Your friend says: 'I don't care if people are impressed — I just need to know I did it the right way.'",
+          "You're trying to figure out if your friend is a Type 1 or Type 3. Both are high-achieving and organized. Your friend says: 'I don't care if people are impressed, I just need to know I did it the right way.'",
         question: "What does this statement suggest?",
         options: [
-          "Definitely Type 3 — they're image-managing",
-          "Definitely Type 1 — internal standards matter more than external validation",
-          "Could be either — Threes also care about quality",
-          "Neither — this sounds like a Type 6",
+          "Definitely Type 3, they're image-managing",
+          "Definitely Type 1, internal standards matter more than external validation",
+          "Could be either, Threes also care about quality",
+          "Neither, this sounds like a Type 6",
         ],
         correctIndex: 1,
         explanation:
-          "This is a strong One signal. Threes care about how their work is perceived by others. Ones care about whether the work meets their own internal standard of rightness — even if nobody ever sees it.",
+          "This is a strong One signal. Threes care about how their work is perceived by others. Ones care about whether the work meets their own internal standard of rightness, even if nobody ever sees it.",
       },
     },
     {
@@ -819,7 +819,7 @@ const lesson4: Lesson = {
         ],
         correctIndex: 2,
         explanation:
-          "Ones literally hold tension in their body — their suppressed anger and self-control show up as rigidity, stiff posture, and controlled movements. The body is a map of the type's inner world.",
+          "Ones literally hold tension in their body, their suppressed anger and self-control show up as rigidity, stiff posture, and controlled movements. The body is a map of the type's inner world.",
       },
     },
   ],

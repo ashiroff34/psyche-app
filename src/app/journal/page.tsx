@@ -1042,7 +1042,7 @@ function TypeDynamicsSimulator() {
 // SECTION 3: Cognitive Reframe Tool
 // ============================================================
 
-// Cognitive reframe engine — generates personalized responses based on situation + type
+// Cognitive reframe engine, generates personalized responses based on situation + type
 function generateAIReframe(situation: string, fnCode: string, fnName: string, position: string, typeCode: string): string {
   const sit = situation.toLowerCase();
   const isConflict = sit.includes("conflict") || sit.includes("argument") || sit.includes("disagree") || sit.includes("fight");
@@ -1054,50 +1054,50 @@ function generateAIReframe(situation: string, fnCode: string, fnName: string, po
 
   const reframes: Record<string, Record<string, string>> = {
     Ni: {
-      conflict: `Your Ni as ${position} can see where this conflict is actually heading. Step back from the immediate tension and ask: what is the deeper pattern here? This isn't really about the surface issue — your intuition is likely already sensing the underlying dynamic. Trust that knowing. What does your gut tell you about what this person actually needs?`,
-      decision: `As a ${typeCode} with Ni ${position === "Dominant" ? "leading" : "supporting"}, you don't make decisions through pros-and-cons lists. You synthesize. Let yourself sit with this. The answer is forming in your unconscious right now. Instead of forcing a choice, ask: "Which path feels like it leads somewhere meaningful?" Your Ni converges on truth — let it.`,
-      relationship: `Your Ni can see the long trajectory of this relationship. Rather than reacting to what's happening now, ask: where is this actually going? Your ${position} Ni gives you the rare ability to see whether this person is growing or contracting. The question isn't "what do I feel right now?" — it's "what do I know, deep down, about where this is heading?"`,
-      work: `Your Ni as ${position} gives you strategic vision that most people don't have. If work feels stagnant, it's because you can already see that the current path leads somewhere you don't want to be. What vision keeps pulling at you? That persistent internal image of "where things should go" is your Ni's gift — stop dismissing it as impractical.`,
-      anxiety: `When Ni-doms feel anxious, it's often because your intuition has detected something the conscious mind hasn't processed yet. Instead of fighting the feeling, get curious: what is your unconscious trying to tell you? Write down the first three images that come to mind about this situation. Your Ni communicates in symbols and metaphors — listen to them.`,
-      self: `Your Ni is your identity's foundation — you ARE your vision. If you feel lost, it's because you've been cut off from your deepest intuitive knowing. Reconnect: what image of your future keeps returning, unbidden? That persistent pull toward a particular path IS your Ni telling you who you're meant to become.`,
-      default: `Through your ${position} Ni: this situation has a deeper pattern your unconscious has already detected. Instead of analyzing the surface, ask yourself — what does your intuition say is really going on here? As a ${typeCode}, your Ni gives you access to a convergent knowing that goes beyond logic. Trust what emerges when you sit with this quietly.`,
+      conflict: `Your Ni as ${position} can see where this conflict is actually heading. Step back from the immediate tension and ask: what is the deeper pattern here? This isn't really about the surface issue, your intuition is likely already sensing the underlying dynamic. Trust that knowing. What does your gut tell you about what this person actually needs?`,
+      decision: `As a ${typeCode} with Ni ${position === "Dominant" ? "leading" : "supporting"}, you don't make decisions through pros-and-cons lists. You synthesize. Let yourself sit with this. The answer is forming in your unconscious right now. Instead of forcing a choice, ask: "Which path feels like it leads somewhere meaningful?" Your Ni converges on truth, let it.`,
+      relationship: `Your Ni can see the long trajectory of this relationship. Rather than reacting to what's happening now, ask: where is this actually going? Your ${position} Ni gives you the rare ability to see whether this person is growing or contracting. The question isn't "what do I feel right now?", it's "what do I know, deep down, about where this is heading?"`,
+      work: `Your Ni as ${position} gives you strategic vision that most people don't have. If work feels stagnant, it's because you can already see that the current path leads somewhere you don't want to be. What vision keeps pulling at you? That persistent internal image of "where things should go" is your Ni's gift, stop dismissing it as impractical.`,
+      anxiety: `When Ni-doms feel anxious, it's often because your intuition has detected something the conscious mind hasn't processed yet. Instead of fighting the feeling, get curious: what is your unconscious trying to tell you? Write down the first three images that come to mind about this situation. Your Ni communicates in symbols and metaphors, listen to them.`,
+      self: `Your Ni is your identity's foundation, you ARE your vision. If you feel lost, it's because you've been cut off from your deepest intuitive knowing. Reconnect: what image of your future keeps returning, unbidden? That persistent pull toward a particular path IS your Ni telling you who you're meant to become.`,
+      default: `Through your ${position} Ni: this situation has a deeper pattern your unconscious has already detected. Instead of analyzing the surface, ask yourself, what does your intuition say is really going on here? As a ${typeCode}, your Ni gives you access to a convergent knowing that goes beyond logic. Trust what emerges when you sit with this quietly.`,
     },
     Ne: {
-      conflict: `Your Ne as ${position} sees this conflict is actually full of untapped possibilities. What if this disagreement is pointing toward a third option neither of you have considered? Brainstorm: what are five completely different ways this could resolve? Your Ne's gift is seeing connections others miss — there's a creative solution here.`,
-      decision: `As a ${typeCode} with Ne in ${position} position, you're not stuck — you're overwhelmed by options. Your Ne sees too many possibilities, which feels paralyzing. Try this: set a timer for 5 minutes and list every option without editing. Then ask: which one makes your body feel expansive rather than contracted?`,
-      relationship: `Your Ne sees the potential in this person and this relationship — but are you in love with who they actually are, or who they could be? Your ${position} Ne is brilliant at seeing possibility, but can miss what's actually present. Ground yourself: what is real about this relationship right now, not what could be?`,
+      conflict: `Your Ne as ${position} sees this conflict is actually full of untapped possibilities. What if this disagreement is pointing toward a third option neither of you have considered? Brainstorm: what are five completely different ways this could resolve? Your Ne's gift is seeing connections others miss, there's a creative solution here.`,
+      decision: `As a ${typeCode} with Ne in ${position} position, you're not stuck, you're overwhelmed by options. Your Ne sees too many possibilities, which feels paralyzing. Try this: set a timer for 5 minutes and list every option without editing. Then ask: which one makes your body feel expansive rather than contracted?`,
+      relationship: `Your Ne sees the potential in this person and this relationship, but are you in love with who they actually are, or who they could be? Your ${position} Ne is brilliant at seeing possibility, but can miss what's actually present. Ground yourself: what is real about this relationship right now, not what could be?`,
       default: `Your ${position} Ne is showing you that this situation has more dimensions than you're currently seeing. What unexpected connections can you make? What would happen if you approached this from a completely different angle? As a ${typeCode}, your Ne gives you the ability to reframe any problem as an opportunity for creative exploration.`,
     },
     Ti: {
-      conflict: `Your Ti as ${position} wants to dissect this conflict logically. Strip away the emotions for a moment and ask: what is the actual structural problem here? Not who's right — what's the logical inconsistency in the situation itself? Your Ti can find the precise point where the reasoning breaks down, and that's where the solution lives.`,
-      decision: `Your ${position} Ti approaches decisions by building an internal logical framework. Don't trust the surface options — deconstruct them. What are the first principles at play? As a ${typeCode}, your strength is cutting through noise to find the underlying logic. What does this situation look like when you strip it to its simplest form?`,
-      default: `Through your ${position} Ti: analyze the internal logic of this situation. As a ${typeCode}, your Ti cuts through emotional noise to find structural truth. What assumptions are you making that haven't been examined? Take the situation apart piece by piece — where does the logic actually break down?`,
+      conflict: `Your Ti as ${position} wants to dissect this conflict logically. Strip away the emotions for a moment and ask: what is the actual structural problem here? Not who's right, what's the logical inconsistency in the situation itself? Your Ti can find the precise point where the reasoning breaks down, and that's where the solution lives.`,
+      decision: `Your ${position} Ti approaches decisions by building an internal logical framework. Don't trust the surface options, deconstruct them. What are the first principles at play? As a ${typeCode}, your strength is cutting through noise to find the underlying logic. What does this situation look like when you strip it to its simplest form?`,
+      default: `Through your ${position} Ti: analyze the internal logic of this situation. As a ${typeCode}, your Ti cuts through emotional noise to find structural truth. What assumptions are you making that haven't been examined? Take the situation apart piece by piece, where does the logic actually break down?`,
     },
     Te: {
-      conflict: `Your Te as ${position} sees this as a systems problem. What's the most efficient path to resolution? Don't get lost in feelings about the conflict — what's the measurable outcome you need? Create a plan: step 1, step 2, step 3. Your Te turns chaos into structure.`,
+      conflict: `Your Te as ${position} sees this as a systems problem. What's the most efficient path to resolution? Don't get lost in feelings about the conflict, what's the measurable outcome you need? Create a plan: step 1, step 2, step 3. Your Te turns chaos into structure.`,
       decision: `As a ${typeCode} with ${position} Te, you decide based on what works. Gather the external evidence: what do the facts say? What has the best track record? Your Te cuts through indecision by asking: "What is the most effective action I can take right now?" Take that action, then adjust.`,
       default: `Your ${position} Te asks: what is the most effective course of action here? As a ${typeCode}, you have the ability to see through complexity to find what actually works. What measurable steps can you take? What's the plan? Your Te transforms problems into actionable solutions.`,
     },
     Fi: {
-      conflict: `Your Fi as ${position} is telling you something important about this conflict. What value of yours is being violated? Not what you think you should feel — what do you actually feel, deep in your core? That authentic reaction is information. Your Fi's moral compass is precise — listen to it.`,
-      relationship: `Your ${position} Fi knows, with absolute certainty, whether this relationship aligns with your deepest values. Stop second-guessing that knowing. The question isn't whether you can make it work — it's whether it's authentic. Does being with this person allow you to be who you truly are?`,
-      self: `Your Fi IS your identity — your values, your authenticity, your deepest sense of self. If you feel lost, you've been compromising your values to fit in. Reconnect: what matters to you so deeply that you'd fight for it? What makes you feel like your truest self? That's your Fi speaking.`,
-      default: `Through your ${position} Fi: check in with your deepest values. What does your authentic self actually feel about this situation — not what others think you should feel? As a ${typeCode}, your Fi gives you access to a precise internal moral compass. Trust what it's telling you.`,
+      conflict: `Your Fi as ${position} is telling you something important about this conflict. What value of yours is being violated? Not what you think you should feel, what do you actually feel, deep in your core? That authentic reaction is information. Your Fi's moral compass is precise, listen to it.`,
+      relationship: `Your ${position} Fi knows, with absolute certainty, whether this relationship aligns with your deepest values. Stop second-guessing that knowing. The question isn't whether you can make it work, it's whether it's authentic. Does being with this person allow you to be who you truly are?`,
+      self: `Your Fi IS your identity, your values, your authenticity, your deepest sense of self. If you feel lost, you've been compromising your values to fit in. Reconnect: what matters to you so deeply that you'd fight for it? What makes you feel like your truest self? That's your Fi speaking.`,
+      default: `Through your ${position} Fi: check in with your deepest values. What does your authentic self actually feel about this situation, not what others think you should feel? As a ${typeCode}, your Fi gives you access to a precise internal moral compass. Trust what it's telling you.`,
     },
     Fe: {
-      conflict: `Your Fe as ${position} is attuned to the relational damage this conflict is causing. But here's the reframe: harmony maintained at the cost of truth isn't real harmony. What does this situation need — your peacemaking skill, or your honest voice? Sometimes the most Fe thing you can do is name the elephant in the room.`,
+      conflict: `Your Fe as ${position} is attuned to the relational damage this conflict is causing. But here's the reframe: harmony maintained at the cost of truth isn't real harmony. What does this situation need, your peacemaking skill, or your honest voice? Sometimes the most Fe thing you can do is name the elephant in the room.`,
       relationship: `Your ${position} Fe makes you exquisitely sensitive to what others need. The growth question: what do YOU need? Your Fe is so good at creating harmony that it can lose itself in others' emotional worlds. Pause and ask: in this relationship, where does their world end and yours begin?`,
-      default: `Your ${position} Fe reads the emotional landscape of this situation with remarkable precision. What is the group dynamic telling you? What does the emotional atmosphere need? As a ${typeCode}, your Fe can create the conditions for everyone to feel heard — but make sure you include yourself in "everyone."`,
+      default: `Your ${position} Fe reads the emotional landscape of this situation with remarkable precision. What is the group dynamic telling you? What does the emotional atmosphere need? As a ${typeCode}, your Fe can create the conditions for everyone to feel heard, but make sure you include yourself in "everyone."`,
     },
     Se: {
-      decision: `Your Se as ${position} says: stop overthinking and act. What does your body want to do right now? Se trusts real-time data over abstract analysis. Try one option — you'll learn more from 5 minutes of action than 5 hours of deliberation.`,
+      decision: `Your Se as ${position} says: stop overthinking and act. What does your body want to do right now? Se trusts real-time data over abstract analysis. Try one option, you'll learn more from 5 minutes of action than 5 hours of deliberation.`,
       anxiety: `Your ${position} Se is the antidote to anxiety. Get into your body: go for a run, cook something, engage your senses fully. Anxiety lives in the head; Se lives in the present moment. What can you see, hear, feel, taste RIGHT NOW? Ground yourself in sensory reality.`,
-      default: `Your ${position} Se asks: what is actually happening right here, right now? Not what you're imagining or fearing — what is the concrete, tangible reality of this situation? As a ${typeCode}, your Se gives you the ability to respond to what IS rather than what might be. Engage your senses and trust your real-time read.`,
+      default: `Your ${position} Se asks: what is actually happening right here, right now? Not what you're imagining or fearing, what is the concrete, tangible reality of this situation? As a ${typeCode}, your Se gives you the ability to respond to what IS rather than what might be. Engage your senses and trust your real-time read.`,
     },
     Si: {
-      conflict: `Your Si as ${position} remembers how similar situations played out before. What worked last time? What didn't? Your experiential database is rich — don't ignore it. But also check: are you applying a past template to a genuinely new situation? Sometimes Si needs to let go of what was to see what is.`,
+      conflict: `Your Si as ${position} remembers how similar situations played out before. What worked last time? What didn't? Your experiential database is rich, don't ignore it. But also check: are you applying a past template to a genuinely new situation? Sometimes Si needs to let go of what was to see what is.`,
       decision: `Your ${position} Si has a wealth of past experience to draw on. What does your personal history tell you about choices like this? But here's the growth edge: is there a pattern you keep repeating? Sometimes the most Si-honoring choice is deliberately choosing the unfamiliar.`,
-      default: `Your ${position} Si holds the wisdom of your lived experience. What precedent exists for this situation? What worked before that might apply here? As a ${typeCode}, your Si gives you stability and grounding — trust the lessons you've already learned.`,
+      default: `Your ${position} Si holds the wisdom of your lived experience. What precedent exists for this situation? What worked before that might apply here? As a ${typeCode}, your Si gives you stability and grounding, trust the lessons you've already learned.`,
     },
   };
 
@@ -1129,7 +1129,7 @@ function CognitiveReframeTool() {
     setAiResponse("");
     setAiLoading(true);
 
-    // Static reframe — no AI needed
+    // Static reframe, no AI needed
     setAiResponse("");
     setAiLoading(false);
 
@@ -1329,7 +1329,7 @@ function CognitiveReframeTool() {
                             </span>
                           </h4>
                           <p className="text-xs text-white/60">
-                            {lens.label} &mdash; {fn.alias}
+                            {lens.label}, {fn.alias}
                           </p>
                         </div>
                       </div>

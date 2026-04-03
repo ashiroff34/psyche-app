@@ -559,7 +559,7 @@ export function useGameState() {
             localStorage.setItem(STORAGE_KEY, JSON.stringify(migratedDefaults));
           }
         } catch {
-          // Migration failed — use defaults
+          // Migration failed, use defaults
         }
       }
     } catch {
@@ -847,7 +847,7 @@ export function useGameState() {
             totalTokensSpent: prev.totalTokensSpent + cost,
             petHealth: 100,
             petHappiness: 100,
-            petLastFed: nowISO, // full reset — counts down from now
+            petLastFed: nowISO, // full reset, counts down from now
             petAlive: true,
           };
         } else {
@@ -1004,15 +1004,15 @@ export function useGameState() {
 
   const recordQuizComplete = useCallback(
     (durationSeconds: number, accuracy: number) => {
-      // Speed demon — quiz completed in under 60 seconds
+      // Speed demon, quiz completed in under 60 seconds
       if (durationSeconds > 0 && durationSeconds < 60) {
         unlockBadge("speed-demon");
       }
-      // Perfect score — 100% accuracy on a completed quiz
+      // Perfect score, 100% accuracy on a completed quiz
       if (accuracy >= 100) {
         unlockBadge("perfect-score");
       }
-      // First steps — completed a quiz
+      // First steps, completed a quiz
       unlockBadge("first-steps");
     },
     [unlockBadge]
@@ -1120,7 +1120,7 @@ export function useGameState() {
       const heartsToAdd = Math.floor(elapsed / HEART_REFILL_MS);
       if (heartsToAdd <= 0) return prev;
       const newHearts = Math.min(prev.maxHearts, prev.hearts + heartsToAdd);
-      // Advance refill time by exactly heartsToAdd intervals — preserves partial progress
+      // Advance refill time by exactly heartsToAdd intervals, preserves partial progress
       const newRefillTime =
         newHearts >= prev.maxHearts
           ? null
@@ -1214,18 +1214,18 @@ export function useGameState() {
       const raw = localStorage.getItem("psyche-profile");
       if (raw) {
         const p = JSON.parse(raw);
-        // First steps — has any XP at all
+        // First steps, has any XP at all
         if (state.totalAttempted >= 1) unlockBadge("first-steps");
-        // Type explorer — discovered enneagram type
+        // Type explorer, discovered enneagram type
         if (p.enneagramType) unlockBadge("type-explorer");
-        // Function master — discovered cognitive type
+        // Function master, discovered cognitive type
         if (p.cognitiveType || p.mbtiType) unlockBadge("function-master");
-        // Dual wielder — both assessments done
+        // Dual wielder, both assessments done
         if (p.enneagramType && (p.cognitiveType || p.mbtiType)) unlockBadge("dual-wielder");
       }
     } catch {}
 
-    // Perfect score — 5+ correct streak means at least one perfect quiz run
+    // Perfect score, 5+ correct streak means at least one perfect quiz run
     if (state.totalCorrect > 0 && state.totalAttempted > 0 && state.totalCorrect === state.totalAttempted) {
       unlockBadge("perfect-score");
     }
@@ -1234,7 +1234,7 @@ export function useGameState() {
       unlockBadge("perfect-score");
     }
 
-    // Pet parent — pet alive 30+ days (use accountCreated as proxy for pet birth)
+    // Pet parent, pet alive 30+ days (use accountCreated as proxy for pet birth)
     if (state.petAlive && state.accountCreated) {
       const daysSinceBorn = Math.floor(
         (Date.now() - new Date(state.accountCreated).getTime()) / 86400000
@@ -1242,19 +1242,19 @@ export function useGameState() {
       if (daysSinceBorn >= 30) unlockBadge("pet-parent");
     }
 
-    // Daily devotee — streak of 7+ means consistent daily goals
+    // Daily devotee, streak of 7+ means consistent daily goals
     if (state.streakCount >= 7) unlockBadge("daily-devotee");
 
-    // Goal setter — changed daily goal from the default "regular"
+    // Goal setter, changed daily goal from the default "regular"
     if (state.dailyGoal !== "regular") unlockBadge("goal-setter");
 
-    // Shadow diver — explored shadow functions topic
+    // Shadow diver, explored shadow functions topic
     if ((state.topicProgress["shadow-functions"] ?? 0) > 0) unlockBadge("shadow-diver");
 
-    // Bookworm — completed the history topic
+    // Bookworm, completed the history topic
     if ((state.topicProgress["history"] ?? 0) >= 100) unlockBadge("bookworm");
 
-    // Streak saver — used a streak freeze at some point
+    // Streak saver, used a streak freeze at some point
     if (state.streakFreezeUsedDate) unlockBadge("streak-saver");
 
   }, [loaded, state.streakCount, state.level, state.totalAttempted, state.quizStreak, state.tokens, state.totalTokensSpent, state.topicProgress, state.lastActivityDate, state.totalCorrect, state.totalXPEarned, state.hearts, state.heartsRefillTime, state.dailyGoal, state.petAlive, state.accountCreated, state.streakFreezeUsedDate, unlockBadge, refillHearts]);

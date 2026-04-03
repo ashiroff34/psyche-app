@@ -570,7 +570,7 @@ export default function QuizFullscreen({
           )}
 
           <p className="text-sm mb-6 max-w-xs leading-relaxed" style={{ color: "rgba(255,255,255,0.5)" }}>
-            Hearts refill 1 every 10 minutes. Or pass the time exploring the reading library — your hearts keep refilling while you read!
+            Hearts refill 1 every 10 minutes. Or pass the time exploring the reading library, your hearts keep refilling while you read!
           </p>
 
           <div className="flex flex-col gap-3 w-full">

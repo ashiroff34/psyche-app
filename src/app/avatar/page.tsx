@@ -416,7 +416,7 @@ export default function AvatarPage() {
 
       <FirstVisitTooltip
         storageKey="psyche-visited-pet"
-        message="Earn tokens from daily quizzes — spend them here to feed and care for your pet!"
+        message="Earn tokens from daily quizzes, spend them here to feed and care for your pet!"
         icon="🐾"
       />
 

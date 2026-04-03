@@ -13,7 +13,7 @@ const lesson1: Lesson = {
   unitId: "what-are-cognitive-functions",
   order: 1,
   title: "Two Kinds of Brain Work",
-  subtitle: "Perceiving and judging — the two things your brain does",
+  subtitle: "Perceiving and judging, the two things your brain does",
   exercises: [
     {
       id: "u13-l1-e1",
@@ -31,7 +31,7 @@ const lesson1: Lesson = {
       content: {
         type: "concept-intro",
         title: "Perceiving = Taking In",
-        body: "Perceiving is about gathering information — noticing what's around you, sensing patterns, remembering details, imagining possibilities. It's the 'input' side of your brain. You're perceiving right now as you read these words.",
+        body: "Perceiving is about gathering information, noticing what's around you, sensing patterns, remembering details, imagining possibilities. It's the 'input' side of your brain. You're perceiving right now as you read these words.",
         highlight: "Perceiving",
       },
     },
@@ -48,7 +48,7 @@ const lesson1: Lesson = {
           "Setting a budget for your coffee habit",
         ],
         correctIndex: 0,
-        explanation: "Smelling the coffee is pure information-gathering — your brain is taking in sensory data. That's Perceiving! The other options involve making decisions (Judging).",
+        explanation: "Smelling the coffee is pure information-gathering, your brain is taking in sensory data. That's Perceiving! The other options involve making decisions (Judging).",
       },
     },
     {
@@ -64,7 +64,7 @@ const lesson1: Lesson = {
           "Remembering yesterday's weather",
         ],
         correctIndex: 2,
-        explanation: "Deciding to bring an umbrella is a judgment call — you're evaluating information and making a decision. The others are all forms of Perceiving (taking in information).",
+        explanation: "Deciding to bring an umbrella is a judgment call, you're evaluating information and making a decision. The others are all forms of Perceiving (taking in information).",
       },
     },
     {
@@ -130,7 +130,7 @@ const lesson1: Lesson = {
       difficulty: 3,
       content: {
         type: "scenario",
-        scenario: "You're walking through a farmers market. You notice the bright colors of the produce, smell fresh bread, and spot an interesting spice you've never seen before. Then you think: 'That bread is overpriced, but those tomatoes look worth it. I'll skip the spice — I wouldn't know how to use it.'",
+        scenario: "You're walking through a farmers market. You notice the bright colors of the produce, smell fresh bread, and spot an interesting spice you've never seen before. Then you think: 'That bread is overpriced, but those tomatoes look worth it. I'll skip the spice, I wouldn't know how to use it.'",
         question: "Where did your brain switch from Perceiving to Judging?",
         options: [
           "It was all Perceiving the whole time",
@@ -147,16 +147,16 @@ const lesson1: Lesson = {
       difficulty: 3,
       content: {
         type: "scenario",
-        scenario: "Two friends are apartment hunting. Alex walks in and immediately says, 'The layout is weird and the kitchen is too small — pass.' Jordan walks in and spends ten minutes examining every detail, opening cabinets, testing faucets, and checking the light in each room before saying anything.",
+        scenario: "Two friends are apartment hunting. Alex walks in and immediately says, 'The layout is weird and the kitchen is too small, pass.' Jordan walks in and spends ten minutes examining every detail, opening cabinets, testing faucets, and checking the light in each room before saying anything.",
         question: "What's the difference in their approach?",
         options: [
           "Alex is smarter than Jordan",
           "Alex jumped quickly to Judging, while Jordan spent more time in Perceiving mode first",
           "Jordan is indecisive and Alex is decisive",
-          "There's no cognitive difference — they just have different taste",
+          "There's no cognitive difference, they just have different taste",
         ],
         correctIndex: 1,
-        explanation: "Alex moved quickly from Perceiving to Judging (quick intake, fast verdict). Jordan stayed in Perceiving mode much longer (thorough information gathering). Neither approach is better — they just have different preferences for how long to gather info before deciding.",
+        explanation: "Alex moved quickly from Perceiving to Judging (quick intake, fast verdict). Jordan stayed in Perceiving mode much longer (thorough information gathering). Neither approach is better, they just have different preferences for how long to gather info before deciding.",
       },
     },
     {
@@ -167,12 +167,12 @@ const lesson1: Lesson = {
         question: "Why are Perceiving and Judging called 'cognitive functions'?",
         options: [
           "Because they only happen during tests",
-          "Because they're the fundamental operations of the mind — how your brain functions",
+          "Because they're the fundamental operations of the mind, how your brain functions",
           "Because Carl Jung made up the terms randomly",
           "Because they only work when you're concentrating",
         ],
         correctIndex: 1,
-        explanation: "They're called 'cognitive functions' because they are the basic functions (operations) of cognition (thinking). Your brain is always either taking in information or making decisions — these are its core jobs.",
+        explanation: "They're called 'cognitive functions' because they are the basic functions (operations) of cognition (thinking). Your brain is always either taking in information or making decisions, these are its core jobs.",
       },
     },
     {
@@ -188,7 +188,7 @@ const lesson1: Lesson = {
           "Conscious and Unconscious",
         ],
         correctIndex: 0,
-        explanation: "Perceiving and Judging — that's the foundation! Every cognitive function is either a way of taking in information or a way of making decisions. Simple as that.",
+        explanation: "Perceiving and Judging, that's the foundation! Every cognitive function is either a way of taking in information or a way of making decisions. Simple as that.",
       },
     },
   ],
@@ -210,7 +210,7 @@ const lesson2: Lesson = {
       content: {
         type: "concept-intro",
         title: "Not All Perceiving Is the Same",
-        body: "Remember Perceiving — taking in information? It turns out there are FOUR different ways your brain can do this. Each one gathers information in a completely different style. Think of them as four different camera lenses on the same world.",
+        body: "Remember Perceiving, taking in information? It turns out there are FOUR different ways your brain can do this. Each one gathers information in a completely different style. Think of them as four different camera lenses on the same world.",
         highlight: "four different ways",
       },
     },
@@ -229,7 +229,7 @@ const lesson2: Lesson = {
       difficulty: 1,
       content: {
         type: "multiple-choice",
-        question: "Which perceiving function is about being fully present in the moment — noticing sights, sounds, and textures right NOW?",
+        question: "Which perceiving function is about being fully present in the moment, noticing sights, sounds, and textures right NOW?",
         options: [
           "Se (Extraverted Sensing)",
           "Si (Introverted Sensing)",
@@ -237,7 +237,7 @@ const lesson2: Lesson = {
           "Ni (Introverted Intuition)",
         ],
         correctIndex: 0,
-        explanation: "Se is all about the present moment and physical reality. Someone strong in Se notices what's happening right now with vivid sensory clarity — the taste of food, the feel of the breeze, the energy in a room.",
+        explanation: "Se is all about the present moment and physical reality. Someone strong in Se notices what's happening right now with vivid sensory clarity, the taste of food, the feel of the breeze, the energy in a room.",
       },
     },
     {
@@ -245,7 +245,7 @@ const lesson2: Lesson = {
       difficulty: 1,
       content: {
         type: "multiple-choice",
-        question: "Which perceiving function is about detailed memory — comparing the present to past experiences?",
+        question: "Which perceiving function is about detailed memory, comparing the present to past experiences?",
         options: [
           "Se (Extraverted Sensing)",
           "Si (Introverted Sensing)",
@@ -253,7 +253,7 @@ const lesson2: Lesson = {
           "Ni (Introverted Intuition)",
         ],
         correctIndex: 1,
-        explanation: "Si stores detailed impressions from the past and constantly compares them to the present. 'This tastes just like grandma's recipe' or 'Last time we tried this, it didn't work' — that's Si in action.",
+        explanation: "Si stores detailed impressions from the past and constantly compares them to the present. 'This tastes just like grandma's recipe' or 'Last time we tried this, it didn't work', that's Si in action.",
       },
     },
     {
@@ -269,7 +269,7 @@ const lesson2: Lesson = {
           "Ni (Introverted Intuition)",
         ],
         correctIndex: 2,
-        explanation: "Ne is the brainstormer — it sees connections between seemingly unrelated things and generates a flood of possibilities. 'What if we combined these two ideas?' or 'That reminds me of five other things!' — that's Ne.",
+        explanation: "Ne is the brainstormer, it sees connections between seemingly unrelated things and generates a flood of possibilities. 'What if we combined these two ideas?' or 'That reminds me of five other things!', that's Ne.",
       },
     },
     {
@@ -294,7 +294,7 @@ const lesson2: Lesson = {
         sentence: "Someone who says 'I just have a gut feeling about how this will turn out' is likely using ___.",
         options: ["Ni (Introverted Intuition)", "Se (Extraverted Sensing)", "Si (Introverted Sensing)", "Ne (Extraverted Intuition)"],
         correctIndex: 0,
-        explanation: "Ni is the 'just knowing' function — it synthesizes patterns unconsciously and delivers insights as gut feelings or sudden realizations, often without being able to explain how.",
+        explanation: "Ni is the 'just knowing' function, it synthesizes patterns unconsciously and delivers insights as gut feelings or sudden realizations, often without being able to explain how.",
       },
     },
     {
@@ -313,7 +313,7 @@ const lesson2: Lesson = {
       difficulty: 3,
       content: {
         type: "scenario",
-        scenario: "Four friends taste a new dish at a restaurant. Friend A says: 'Wow, these flavors are incredible right now.' Friend B says: 'This reminds me of something my mom used to make.' Friend C says: 'Ooh, what if we added lime? Or used this spice in tacos? Or made it into a soup?' Friend D says: 'I have a feeling this restaurant is going to blow up — there's something special about their approach.'",
+        scenario: "Four friends taste a new dish at a restaurant. Friend A says: 'Wow, these flavors are incredible right now.' Friend B says: 'This reminds me of something my mom used to make.' Friend C says: 'Ooh, what if we added lime? Or used this spice in tacos? Or made it into a soup?' Friend D says: 'I have a feeling this restaurant is going to blow up, there's something special about their approach.'",
         question: "Match each friend to their likely perceiving function:",
         options: [
           "A=Se, B=Si, C=Ne, D=Ni",
@@ -333,10 +333,10 @@ const lesson2: Lesson = {
         scenario: "You're exploring a new city. You could: (A) wander and soak in the sights, sounds, and street food, (B) compare everything to cities you've visited before, (C) brainstorm all the hidden gems and side streets you could explore, or (D) follow your gut feeling about which neighborhood 'feels right.'",
         question: "Which option represents Ne (Extraverted Intuition)?",
         options: [
-          "Option A — soaking in the sights",
-          "Option B — comparing to past cities",
-          "Option C — brainstorming possibilities to explore",
-          "Option D — following gut feeling",
+          "Option A, soaking in the sights",
+          "Option B, comparing to past cities",
+          "Option C, brainstorming possibilities to explore",
+          "Option D, following gut feeling",
         ],
         correctIndex: 2,
         explanation: "Ne is the 'what else could we explore?' function. It generates possibilities, sees connections, and wants to discover what's around every corner. Pure brainstorming energy.",
@@ -350,10 +350,10 @@ const lesson2: Lesson = {
         instruction: "Sort these into Sensing functions (concrete) vs. Intuition functions (abstract):",
         categories: ["Sensing (concrete, tangible)", "Intuition (abstract, patterns)"],
         items: [
-          { text: "Se — present-moment awareness", categoryIndex: 0 },
-          { text: "Si — detailed memory recall", categoryIndex: 0 },
-          { text: "Ne — brainstorming possibilities", categoryIndex: 1 },
-          { text: "Ni — deep pattern recognition", categoryIndex: 1 },
+          { text: "Se, present-moment awareness", categoryIndex: 0 },
+          { text: "Si, detailed memory recall", categoryIndex: 0 },
+          { text: "Ne, brainstorming possibilities", categoryIndex: 1 },
+          { text: "Ni, deep pattern recognition", categoryIndex: 1 },
         ],
       },
     },
@@ -365,7 +365,7 @@ const lesson2: Lesson = {
         question: "How many perceiving functions are there in total?",
         options: [
           "Two",
-          "Four — Se, Si, Ne, Ni",
+          "Four, Se, Si, Ne, Ni",
           "Eight",
           "One",
         ],
@@ -419,7 +419,7 @@ const lesson3: Lesson = {
           "Fi (Introverted Feeling)",
         ],
         correctIndex: 0,
-        explanation: "Te is the 'let's get results' function. It focuses on efficiency, data, metrics, and organizing the external world. 'What's the most effective plan?' — that's Te talking.",
+        explanation: "Te is the 'let's get results' function. It focuses on efficiency, data, metrics, and organizing the external world. 'What's the most effective plan?', that's Te talking.",
       },
     },
     {
@@ -473,10 +473,10 @@ const lesson3: Lesson = {
       difficulty: 2,
       content: {
         type: "fill-in-blank",
-        sentence: "Someone who says 'I don't care if it's efficient — it doesn't feel right to me personally' is likely using ___.",
+        sentence: "Someone who says 'I don't care if it's efficient, it doesn't feel right to me personally' is likely using ___.",
         options: ["Fi (Introverted Feeling)", "Te (Extraverted Thinking)", "Fe (Extraverted Feeling)", "Ti (Introverted Thinking)"],
         correctIndex: 0,
-        explanation: "Fi is the inner compass — it evaluates choices against deeply held personal values. When something conflicts with your core sense of right and wrong, Fi speaks up, regardless of logic or group opinion.",
+        explanation: "Fi is the inner compass, it evaluates choices against deeply held personal values. When something conflicts with your core sense of right and wrong, Fi speaks up, regardless of logic or group opinion.",
       },
     },
     {
@@ -484,10 +484,10 @@ const lesson3: Lesson = {
       difficulty: 2,
       content: {
         type: "fill-in-blank",
-        sentence: "A project manager who says 'Show me the data — what approach gets us the best results fastest?' is using ___.",
+        sentence: "A project manager who says 'Show me the data, what approach gets us the best results fastest?' is using ___.",
         options: ["Te (Extraverted Thinking)", "Fi (Introverted Feeling)", "Ti (Introverted Thinking)", "Fe (Extraverted Feeling)"],
         correctIndex: 0,
-        explanation: "Te is all about external metrics, efficiency, and results. 'What works? What's measurable? What's the fastest path to the goal?' — that's pure Te.",
+        explanation: "Te is all about external metrics, efficiency, and results. 'What works? What's measurable? What's the fastest path to the goal?', that's pure Te.",
       },
     },
     {
@@ -495,7 +495,7 @@ const lesson3: Lesson = {
       difficulty: 3,
       content: {
         type: "scenario",
-        scenario: "Four coworkers disagree about whether to fire an underperforming team member. Coworker A says: 'The numbers speak for themselves — they're not meeting targets.' Coworker B says: 'But logically, have we analyzed WHY they're underperforming? The system might be the issue.' Coworker C says: 'How is the team feeling about this? We need to handle it in a way that doesn't damage group morale.' Coworker D says: 'This doesn't sit right with me — I believe everyone deserves more support before we give up on them.'",
+        scenario: "Four coworkers disagree about whether to fire an underperforming team member. Coworker A says: 'The numbers speak for themselves, they're not meeting targets.' Coworker B says: 'But logically, have we analyzed WHY they're underperforming? The system might be the issue.' Coworker C says: 'How is the team feeling about this? We need to handle it in a way that doesn't damage group morale.' Coworker D says: 'This doesn't sit right with me, I believe everyone deserves more support before we give up on them.'",
         question: "Match each coworker to their likely judging function:",
         options: [
           "A=Te, B=Ti, C=Fe, D=Fi",
@@ -515,10 +515,10 @@ const lesson3: Lesson = {
         scenario: "You're choosing between two job offers. One pays more and has a clear promotion track (great metrics). The other is at a small nonprofit doing work that deeply aligns with your personal values but pays less.",
         question: "If you chose the nonprofit because 'it aligns with who I am,' which judging function most influenced your decision?",
         options: [
-          "Te — because you evaluated the options logically",
-          "Ti — because you built a framework for the decision",
-          "Fe — because you considered how others would feel",
-          "Fi — because you followed your personal values and inner compass",
+          "Te, because you evaluated the options logically",
+          "Ti, because you built a framework for the decision",
+          "Fe, because you considered how others would feel",
+          "Fi, because you followed your personal values and inner compass",
         ],
         correctIndex: 3,
         explanation: "Choosing based on deep personal values and authenticity ('this is who I am') is classic Fi. Te might have chosen the higher-paying job; Fe might have considered how others would react; Ti might have analyzed the logical trade-offs.",
@@ -532,10 +532,10 @@ const lesson3: Lesson = {
         instruction: "Sort these into Thinking functions (logic) vs. Feeling functions (values):",
         categories: ["Thinking (logic-based)", "Feeling (values-based)"],
         items: [
-          { text: "Te — efficiency and results", categoryIndex: 0 },
-          { text: "Ti — frameworks and precision", categoryIndex: 0 },
-          { text: "Fe — group harmony and social bonds", categoryIndex: 1 },
-          { text: "Fi — personal values and authenticity", categoryIndex: 1 },
+          { text: "Te, efficiency and results", categoryIndex: 0 },
+          { text: "Ti, frameworks and precision", categoryIndex: 0 },
+          { text: "Fe, group harmony and social bonds", categoryIndex: 1 },
+          { text: "Fi, personal values and authenticity", categoryIndex: 1 },
         ],
       },
     },
@@ -547,7 +547,7 @@ const lesson3: Lesson = {
         question: "How many judging (decision-making) functions are there?",
         options: [
           "Two",
-          "Four — Te, Ti, Fe, Fi",
+          "Four, Te, Ti, Fe, Fi",
           "Eight",
           "One",
         ],
@@ -584,7 +584,7 @@ const lesson4: Lesson = {
       content: {
         type: "concept-intro",
         title: "Inward vs Outward",
-        body: "Introverted functions (Ti, Fi, Si, Ni) are directed INWARD — they process in your internal world. Extraverted functions (Te, Fe, Se, Ne) are directed OUTWARD — they engage with the external world. It's not about being shy or social — it's about which direction the function points.",
+        body: "Introverted functions (Ti, Fi, Si, Ni) are directed INWARD, they process in your internal world. Extraverted functions (Te, Fe, Se, Ne) are directed OUTWARD, they engage with the external world. It's not about being shy or social, it's about which direction the function points.",
         highlight: "INWARD vs OUTWARD",
       },
     },
@@ -596,7 +596,7 @@ const lesson4: Lesson = {
         question: "What does 'introverted' mean when describing a cognitive function?",
         options: [
           "The person is shy and quiet",
-          "The function is directed inward — processing in your internal world",
+          "The function is directed inward, processing in your internal world",
           "The function only works when you're alone",
           "The function is weaker than extraverted functions",
         ],
@@ -613,7 +613,7 @@ const lesson4: Lesson = {
         options: [
           "The person is loud and outgoing",
           "The function only works in groups",
-          "The function is directed outward — engaging with the external world",
+          "The function is directed outward, engaging with the external world",
           "The function is always stronger than introverted functions",
         ],
         correctIndex: 2,
@@ -643,10 +643,10 @@ const lesson4: Lesson = {
         type: "matching-pairs",
         instruction: "Match each function to its direction:",
         pairs: [
-          { left: "Ti — internal logic", right: "Introverted (inward)" },
-          { left: "Fe — group harmony", right: "Extraverted (outward)" },
-          { left: "Ni — deep pattern recognition", right: "Introverted (inward)" },
-          { left: "Se — present-moment awareness", right: "Extraverted (outward)" },
+          { left: "Ti, internal logic", right: "Introverted (inward)" },
+          { left: "Fe, group harmony", right: "Extraverted (outward)" },
+          { left: "Ni, deep pattern recognition", right: "Introverted (inward)" },
+          { left: "Se, present-moment awareness", right: "Extraverted (outward)" },
         ],
       },
     },
@@ -669,12 +669,12 @@ const lesson4: Lesson = {
         instruction: "Sort these functions by their direction:",
         categories: ["Introverted (directed inward)", "Extraverted (directed outward)"],
         items: [
-          { text: "Ti — internal frameworks", categoryIndex: 0 },
-          { text: "Te — external efficiency", categoryIndex: 1 },
-          { text: "Fi — personal values", categoryIndex: 0 },
-          { text: "Fe — group harmony", categoryIndex: 1 },
-          { text: "Ni — deep inner knowing", categoryIndex: 0 },
-          { text: "Ne — brainstorming possibilities", categoryIndex: 1 },
+          { text: "Ti, internal frameworks", categoryIndex: 0 },
+          { text: "Te, external efficiency", categoryIndex: 1 },
+          { text: "Fi, personal values", categoryIndex: 0 },
+          { text: "Fe, group harmony", categoryIndex: 1 },
+          { text: "Ni, deep inner knowing", categoryIndex: 0 },
+          { text: "Ne, brainstorming possibilities", categoryIndex: 1 },
         ],
       },
     },
@@ -683,7 +683,7 @@ const lesson4: Lesson = {
       difficulty: 3,
       content: {
         type: "scenario",
-        scenario: "Two people are both 'thinkers,' but they approach problems very differently. Person A says: 'Let me look at the data and metrics — what approach gets results?' Person B says: 'Wait, let me think this through from first principles — I need to understand WHY before I act.'",
+        scenario: "Two people are both 'thinkers,' but they approach problems very differently. Person A says: 'Let me look at the data and metrics, what approach gets results?' Person B says: 'Wait, let me think this through from first principles, I need to understand WHY before I act.'",
         question: "Which thinking function is each person using?",
         options: [
           "A = Te (extraverted, external data), B = Ti (introverted, internal framework)",
@@ -692,7 +692,7 @@ const lesson4: Lesson = {
           "Neither is using a Thinking function",
         ],
         correctIndex: 0,
-        explanation: "Person A is using Te — focused on external data and measurable results. Person B is using Ti — focused on building an internal logical framework. Both are 'thinking,' but in completely different directions!",
+        explanation: "Person A is using Te, focused on external data and measurable results. Person B is using Ti, focused on building an internal logical framework. Both are 'thinking,' but in completely different directions!",
       },
     },
     {
@@ -700,7 +700,7 @@ const lesson4: Lesson = {
       difficulty: 3,
       content: {
         type: "scenario",
-        scenario: "Two people react to a friend's breakup. Person A immediately says: 'Are you okay? What do you need? Let me rally our friend group to support you.' Person B thinks quietly: 'This feels deeply wrong to me — they deserved better. I need to process my feelings about this privately before I can talk about it.'",
+        scenario: "Two people react to a friend's breakup. Person A immediately says: 'Are you okay? What do you need? Let me rally our friend group to support you.' Person B thinks quietly: 'This feels deeply wrong to me, they deserved better. I need to process my feelings about this privately before I can talk about it.'",
         question: "Which feeling function is each person using?",
         options: [
           "A = Fe (outward, group-focused), B = Fi (inward, personal values)",
@@ -709,7 +709,7 @@ const lesson4: Lesson = {
           "Neither is using a Feeling function",
         ],
         correctIndex: 0,
-        explanation: "Person A immediately moves outward — reading emotions, mobilizing the group, managing the social situation (Fe). Person B turns inward — checking personal values, processing privately, needing time alone with their feelings (Fi).",
+        explanation: "Person A immediately moves outward, reading emotions, mobilizing the group, managing the social situation (Fe). Person B turns inward, checking personal values, processing privately, needing time alone with their feelings (Fi).",
       },
     },
     {
@@ -719,7 +719,7 @@ const lesson4: Lesson = {
         type: "multiple-choice",
         question: "Why is the introverted/extraverted distinction so important in cognitive function theory?",
         options: [
-          "It's not important — all functions work the same way",
+          "It's not important, all functions work the same way",
           "Because the same base function (like Thinking) operates in fundamentally different ways depending on its direction",
           "Because introverted functions are always better",
           "Because it determines if you're an introvert or extravert",
@@ -737,7 +737,7 @@ const lesson4: Lesson = {
         options: [
           "Four",
           "Six",
-          "Eight — Se, Si, Ne, Ni, Te, Ti, Fe, Fi",
+          "Eight, Se, Si, Ne, Ni, Te, Ti, Fe, Fi",
           "Sixteen",
         ],
         correctIndex: 2,
@@ -763,7 +763,7 @@ const lesson5: Lesson = {
       content: {
         type: "concept-intro",
         title: "Everyone Uses All Eight",
-        body: "Here's a key insight: every person has access to all eight cognitive functions. You can use Se AND Ni, Te AND Fi. The difference between types isn't WHICH functions you have — it's the ORDER in which you prefer them. That order is called your 'function stack.'",
+        body: "Here's a key insight: every person has access to all eight cognitive functions. You can use Se AND Ni, Te AND Fi. The difference between types isn't WHICH functions you have, it's the ORDER in which you prefer them. That order is called your 'function stack.'",
         highlight: "function stack",
       },
     },
@@ -773,7 +773,7 @@ const lesson5: Lesson = {
       content: {
         type: "concept-intro",
         title: "The Four Stack Positions",
-        body: "Your stack has four main positions: Dominant (your superpower — automatic and effortless), Auxiliary (your helper — balances the dominant), Tertiary (your growing edge — playful but less reliable), and Inferior (your blind spot — clumsy and draining to use).",
+        body: "Your stack has four main positions: Dominant (your superpower, automatic and effortless), Auxiliary (your helper, balances the dominant), Tertiary (your growing edge, playful but less reliable), and Inferior (your blind spot, clumsy and draining to use).",
         highlight: "Dominant, Auxiliary, Tertiary, Inferior",
       },
     },
@@ -806,7 +806,7 @@ const lesson5: Lesson = {
           "Inferior",
         ],
         correctIndex: 2,
-        explanation: "The Dominant function is your strongest — it's automatic, effortless, and the first to develop. It's like your dominant hand: you don't even think about reaching for it.",
+        explanation: "The Dominant function is your strongest, it's automatic, effortless, and the first to develop. It's like your dominant hand: you don't even think about reaching for it.",
       },
     },
     {
@@ -822,7 +822,7 @@ const lesson5: Lesson = {
           "Inferior",
         ],
         correctIndex: 3,
-        explanation: "The Inferior function is the weakest — it's clumsy, energy-draining, and the source of stress reactions. It's the opposite of your dominant and the hardest for you to use skillfully.",
+        explanation: "The Inferior function is the weakest, it's clumsy, energy-draining, and the source of stress reactions. It's the opposite of your dominant and the hardest for you to use skillfully.",
       },
     },
     {
@@ -832,10 +832,10 @@ const lesson5: Lesson = {
         type: "matching-pairs",
         instruction: "Match each stack position to its description:",
         pairs: [
-          { left: "Dominant", right: "Your superpower — automatic and effortless" },
-          { left: "Auxiliary", right: "Your helper — balances the dominant" },
-          { left: "Tertiary", right: "Your growing edge — playful but unreliable" },
-          { left: "Inferior", right: "Your blind spot — clumsy and draining" },
+          { left: "Dominant", right: "Your superpower, automatic and effortless" },
+          { left: "Auxiliary", right: "Your helper, balances the dominant" },
+          { left: "Tertiary", right: "Your growing edge, playful but unreliable" },
+          { left: "Inferior", right: "Your blind spot, clumsy and draining" },
         ],
       },
     },
@@ -858,7 +858,7 @@ const lesson5: Lesson = {
         sentence: "Everyone has access to all ___ cognitive functions, but uses them in a specific preference order.",
         options: ["eight", "four", "two", "sixteen"],
         correctIndex: 0,
-        explanation: "All eight functions (Se, Si, Ne, Ni, Te, Ti, Fe, Fi) are available to everyone. Your type is determined by which ones you prefer and in what order — not by which ones you 'have.'",
+        explanation: "All eight functions (Se, Si, Ne, Ni, Te, Ti, Fe, Fi) are available to everyone. Your type is determined by which ones you prefer and in what order, not by which ones you 'have.'",
       },
     },
     {
@@ -866,7 +866,7 @@ const lesson5: Lesson = {
       difficulty: 3,
       content: {
         type: "scenario",
-        scenario: "Two people walk into the same job interview. Person A (dominant Te) immediately thinks about how to present their results and achievements efficiently. Person B (dominant Fi) thinks about whether this company's values align with their personal ethics. Both are competent — they just lead with different functions.",
+        scenario: "Two people walk into the same job interview. Person A (dominant Te) immediately thinks about how to present their results and achievements efficiently. Person B (dominant Fi) thinks about whether this company's values align with their personal ethics. Both are competent, they just lead with different functions.",
         question: "Why do they approach the same situation so differently?",
         options: [
           "One is more qualified than the other",
@@ -875,7 +875,7 @@ const lesson5: Lesson = {
           "Cognitive functions don't actually affect behavior",
         ],
         correctIndex: 1,
-        explanation: "This is the power of the function stack. Your dominant function is the lens through which you first see every situation. Te-dominant sees efficiency and results; Fi-dominant sees values and authenticity. Neither is wrong — they're just wired differently.",
+        explanation: "This is the power of the function stack. Your dominant function is the lens through which you first see every situation. Te-dominant sees efficiency and results; Fi-dominant sees values and authenticity. Neither is wrong, they're just wired differently.",
       },
     },
     {
@@ -886,13 +886,13 @@ const lesson5: Lesson = {
         scenario: "Someone asks: 'If everyone uses all eight functions, why does type matter at all?' Good question!",
         question: "Why does the ORDER of functions matter so much?",
         options: [
-          "It doesn't — all orders are identical in practice",
-          "Because the dominant function colors everything, the auxiliary shapes your balance, and the inferior determines your stress points — order creates totally different experiences of life",
+          "It doesn't, all orders are identical in practice",
+          "Because the dominant function colors everything, the auxiliary shapes your balance, and the inferior determines your stress points, order creates totally different experiences of life",
           "Because you can only use one function at a time",
           "Because the government requires you to know your type",
         ],
         correctIndex: 1,
-        explanation: "The order is everything! Leading with Ni (INTJ) vs. leading with Se (ESFP) creates fundamentally different ways of experiencing reality — even though both types have access to Ni and Se. It's like how everyone has two hands, but whether you're left- or right-handed changes how you do everything.",
+        explanation: "The order is everything! Leading with Ni (INTJ) vs. leading with Se (ESFP) creates fundamentally different ways of experiencing reality, even though both types have access to Ni and Se. It's like how everyone has two hands, but whether you're left- or right-handed changes how you do everything.",
       },
     },
     {
@@ -918,7 +918,7 @@ const lesson5: Lesson = {
         question: "What determines your cognitive type (like INTJ or ENFP)?",
         options: [
           "Your zodiac sign",
-          "The order of your function stack — which functions you prefer and in what sequence",
+          "The order of your function stack, which functions you prefer and in what sequence",
           "How smart you are",
           "Your favorite color",
         ],

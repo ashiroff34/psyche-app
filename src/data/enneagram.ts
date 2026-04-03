@@ -34,7 +34,7 @@ export const enneagramTypes: EnneagramType[] = [
     healthyTraits: ["Wise", "Discerning", "Realistic", "Noble", "Morally heroic"],
     averageTraits: ["Orderly", "Impersonal", "Rigid", "Critical", "Judgmental"],
     unhealthyTraits: ["Intolerant", "Obsessive", "Contradictory", "Punitive", "Self-righteous"],
-    wings: { left: "1w9 — The Idealist", right: "1w2 — The Advocate" },
+    wings: { left: "1w9, The Idealist", right: "1w2, The Advocate" },
     integrationLine: 7,
     disintegrationLine: 4,
     growthTips: [
@@ -67,7 +67,7 @@ export const enneagramTypes: EnneagramType[] = [
     healthyTraits: ["Unconditionally loving", "Altruistic", "Giving", "Nurturing", "Joyful"],
     averageTraits: ["People-pleasing", "Possessive", "Intrusive", "Demonstrative", "Hovering"],
     unhealthyTraits: ["Manipulative", "Self-deceptive", "Entitled", "Coercive", "Victimized"],
-    wings: { left: "2w1 — The Servant", right: "2w3 — The Host" },
+    wings: { left: "2w1, The Servant", right: "2w3, The Host" },
     integrationLine: 4,
     disintegrationLine: 8,
     growthTips: [
@@ -100,7 +100,7 @@ export const enneagramTypes: EnneagramType[] = [
     healthyTraits: ["Authentic", "Self-accepting", "Charitable", "Genuine", "Inspiring"],
     averageTraits: ["Image-conscious", "Competitive", "Calculating", "Self-promoting", "Grandiose"],
     unhealthyTraits: ["Deceptive", "Narcissistic", "Vindictive", "Exploitative", "Malicious"],
-    wings: { left: "3w2 — The Charmer", right: "3w4 — The Professional" },
+    wings: { left: "3w2, The Charmer", right: "3w4, The Professional" },
     integrationLine: 6,
     disintegrationLine: 9,
     growthTips: [
@@ -133,7 +133,7 @@ export const enneagramTypes: EnneagramType[] = [
     healthyTraits: ["Inspired", "Creative", "Self-renewing", "Transformative", "Profound"],
     averageTraits: ["Self-absorbed", "Temperamental", "Melancholic", "Envious", "Withdrawn"],
     unhealthyTraits: ["Depressive", "Alienated", "Self-destructive", "Emotionally turbulent", "Hopeless"],
-    wings: { left: "4w3 — The Aristocrat", right: "4w5 — The Bohemian" },
+    wings: { left: "4w3, The Aristocrat", right: "4w5, The Bohemian" },
     integrationLine: 1,
     disintegrationLine: 2,
     growthTips: [
@@ -166,14 +166,14 @@ export const enneagramTypes: EnneagramType[] = [
     healthyTraits: ["Visionary", "Pioneering", "Perceptive", "Mindful", "Open-minded"],
     averageTraits: ["Detached", "Provocative", "Cerebral", "Eccentric", "Isolated"],
     unhealthyTraits: ["Nihilistic", "Reclusive", "Unstable", "Delusional", "Schizoid"],
-    wings: { left: "5w4 — The Iconoclast", right: "5w6 — The Problem Solver" },
+    wings: { left: "5w4, The Iconoclast", right: "5w6, The Problem Solver" },
     integrationLine: 8,
     disintegrationLine: 7,
     growthTips: [
       "Practice stepping into action rather than endless preparation (integration to 8).",
       "Share your knowledge and inner world with trusted people.",
       "Engage your body through physical activity to balance cerebral tendencies.",
-      "Set limits on information gathering — act on what you know.",
+      "Set limits on information gathering, act on what you know.",
       "Allow yourself to need others without seeing it as weakness."
     ],
     journalPrompts: [
@@ -191,7 +191,7 @@ export const enneagramTypes: EnneagramType[] = [
     name: "The Loyalist",
     alias: "The Skeptic",
     brief: "Engaging, responsible, anxious, and suspicious.",
-    description: "Sixes are reliable, hard-working, responsible, and trustworthy. Excellent troubleshooters, they foresee problems and foster cooperation, but can also become defensive, evasive, and anxious—running on stress while complaining about it. They can be cautious and indecisive, but also reactive, defiant, and rebellious. They typically have problems with self-doubt and suspicion.",
+    description: "Sixes are reliable, hard-working, responsible, and trustworthy. Excellent troubleshooters, they foresee problems and foster cooperation, but can also become defensive, evasive, and anxious, running on stress while complaining about it. They can be cautious and indecisive, but also reactive, defiant, and rebellious. They typically have problems with self-doubt and suspicion.",
     coreMotivation: "To have security and support, to have certainty and reassurance, to test the attitudes of others toward them.",
     coreFear: "Of being without support and guidance, of being unable to survive on their own.",
     coreDesire: "To have security and support.",
@@ -199,7 +199,7 @@ export const enneagramTypes: EnneagramType[] = [
     healthyTraits: ["Self-reliant", "Courageous", "Trusting", "Cooperative", "Stable"],
     averageTraits: ["Anxious", "Suspicious", "Indecisive", "Reactive", "Defensive"],
     unhealthyTraits: ["Paranoid", "Panicky", "Punitive", "Divisive", "Self-defeating"],
-    wings: { left: "6w5 — The Defender", right: "6w7 — The Buddy" },
+    wings: { left: "6w5, The Defender", right: "6w7, The Buddy" },
     integrationLine: 9,
     disintegrationLine: 3,
     growthTips: [
@@ -232,7 +232,7 @@ export const enneagramTypes: EnneagramType[] = [
     healthyTraits: ["Joyful", "Grateful", "Accomplished", "Satisfied", "Present"],
     averageTraits: ["Scattered", "Acquisitive", "Excessive", "Restless", "Distracted"],
     unhealthyTraits: ["Impulsive", "Escapist", "Manic", "Addictive", "Reckless"],
-    wings: { left: "7w6 — The Entertainer", right: "7w8 — The Realist" },
+    wings: { left: "7w6, The Entertainer", right: "7w8, The Realist" },
     integrationLine: 5,
     disintegrationLine: 1,
     growthTips: [
@@ -265,7 +265,7 @@ export const enneagramTypes: EnneagramType[] = [
     healthyTraits: ["Magnanimous", "Heroic", "Merciful", "Forbearing", "Courageous"],
     averageTraits: ["Domineering", "Confrontational", "Intimidating", "Combative", "Willful"],
     unhealthyTraits: ["Ruthless", "Dictatorial", "Destructive", "Vengeful", "Megalomaniacal"],
-    wings: { left: "8w7 — The Maverick", right: "8w9 — The Bear" },
+    wings: { left: "8w7, The Maverick", right: "8w9, The Bear" },
     integrationLine: 2,
     disintegrationLine: 5,
     growthTips: [
@@ -298,7 +298,7 @@ export const enneagramTypes: EnneagramType[] = [
     healthyTraits: ["Self-possessed", "Dynamic", "Healing", "Serene", "Connected"],
     averageTraits: ["Complacent", "Passive-aggressive", "Disengaged", "Stubborn", "Numb"],
     unhealthyTraits: ["Neglectful", "Dissociated", "Helpless", "Depersonalized", "Obstinate"],
-    wings: { left: "9w8 — The Referee", right: "9w1 — The Dreamer" },
+    wings: { left: "9w8, The Referee", right: "9w1, The Dreamer" },
     integrationLine: 3,
     disintegrationLine: 6,
     growthTips: [
@@ -337,7 +337,7 @@ export const enneagramQuestions = [
   },
   {
     id: 2,
-    text: "Continuing — which of these core drives feels most honest?",
+    text: "Continuing, which of these core drives feels most honest?",
     options: [
       { text: "A need to understand how things work so I feel prepared for the world", scores: { 5: 3 } },
       { text: "A need for certainty, security, and knowing where I stand", scores: { 6: 3 } },
@@ -349,10 +349,10 @@ export const enneagramQuestions = [
     id: 3,
     text: "When you are most stressed, which pattern do you fall into?",
     options: [
-      { text: "I become rigidly critical — of myself and everyone around me", scores: { 1: 3 } },
-      { text: "I become possessive and intrusive — I need to be needed more intensely", scores: { 2: 3 } },
+      { text: "I become rigidly critical, of myself and everyone around me", scores: { 1: 3 } },
+      { text: "I become possessive and intrusive, I need to be needed more intensely", scores: { 2: 3 } },
       { text: "I merge with others' agendas and go numb to my own desires and anger", scores: { 9: 3 } },
-      { text: "I become scattered and impulsive — I grab at whatever promises relief", scores: { 7: 3 } }
+      { text: "I become scattered and impulsive, I grab at whatever promises relief", scores: { 7: 3 } }
     ]
   },
   {
@@ -361,7 +361,7 @@ export const enneagramQuestions = [
     options: [
       { text: "A constant inner evaluator comparing what IS to what SHOULD BE", scores: { 1: 3 } },
       { text: "A sense that others have something essential that I'm missing", scores: { 4: 3 } },
-      { text: "A scanning vigilance — checking for hidden threats or inconsistencies", scores: { 6: 3 } },
+      { text: "A scanning vigilance, checking for hidden threats or inconsistencies", scores: { 6: 3 } },
       { text: "A feeling that the world is intrusive and I must protect my inner resources", scores: { 5: 3 } }
     ]
   },
@@ -370,9 +370,9 @@ export const enneagramQuestions = [
     text: "Which describes your relationship with anger most honestly?",
     options: [
       { text: "I experience anger as simmering resentment that I try to control because expressing it feels wrong", scores: { 1: 3 } },
-      { text: "I express anger directly and forcefully — I'd rather be too much than too weak", scores: { 8: 3 } },
-      { text: "I rarely feel angry — I tend to go along with things and avoid rocking the boat", scores: { 9: 3 } },
-      { text: "My anger comes out as anxious reactivity — I get defensive before I realize I'm angry", scores: { 6: 3 } }
+      { text: "I express anger directly and forcefully, I'd rather be too much than too weak", scores: { 8: 3 } },
+      { text: "I rarely feel angry, I tend to go along with things and avoid rocking the boat", scores: { 9: 3 } },
+      { text: "My anger comes out as anxious reactivity, I get defensive before I realize I'm angry", scores: { 6: 3 } }
     ]
   },
   {
@@ -381,18 +381,18 @@ export const enneagramQuestions = [
     options: [
       { text: "I feel shame that I wasn't good enough and redouble my effort to be beyond reproach", scores: { 1: 3 } },
       { text: "I feel hurt that my giving and caring wasn't recognized or valued", scores: { 2: 3 } },
-      { text: "I feel threatened — is this person trustworthy? What are they really after?", scores: { 6: 3 } },
-      { text: "I feel exposed — like they've seen something deficient in me that I can't fix", scores: { 4: 3 } }
+      { text: "I feel threatened, is this person trustworthy? What are they really after?", scores: { 6: 3 } },
+      { text: "I feel exposed, like they've seen something deficient in me that I can't fix", scores: { 4: 3 } }
     ]
   },
   {
     id: 7,
     text: "Which defense mechanism do you recognize most in yourself?",
     options: [
-      { text: "Transforming unacceptable impulses into their opposite — wanting to be lazy but becoming compulsively productive", scores: { 1: 3 } },
+      { text: "Transforming unacceptable impulses into their opposite, wanting to be lazy but becoming compulsively productive", scores: { 1: 3 } },
       { text: "Pushing my own needs out of awareness so I can focus on being there for others", scores: { 2: 3 } },
       { text: "Becoming so identified with my role or image that I lose track of my actual feelings", scores: { 3: 3 } },
-      { text: "Separating my thinking from my feeling — I can analyze emotions without actually experiencing them", scores: { 5: 3 } }
+      { text: "Separating my thinking from my feeling, I can analyze emotions without actually experiencing them", scores: { 5: 3 } }
     ]
   },
   {
@@ -400,7 +400,7 @@ export const enneagramQuestions = [
     text: "Which defense mechanism do you recognize most in yourself?",
     options: [
       { text: "Absorbing emotional experiences and making them part of my identity rather than processing and releasing them", scores: { 4: 3 } },
-      { text: "Attributing my own inner states onto others — seeing my fears or aggression as coming from them", scores: { 6: 3 } },
+      { text: "Attributing my own inner states onto others, seeing my fears or aggression as coming from them", scores: { 6: 3 } },
       { text: "Using mental agility to reframe negatives as positives, finding silver linings to avoid sitting with pain", scores: { 7: 3 } },
       { text: "Refusing to acknowledge vulnerability, tenderness, or the impact of my intensity on others", scores: { 8: 3 } }
     ]
@@ -430,8 +430,8 @@ export const enneagramQuestions = [
     text: "What happens when you feel overwhelmed?",
     options: [
       { text: "I detach emotionally and retreat into my mind to analyze the situation from a safe distance", scores: { 5: 3 } },
-      { text: "I numb out through comfortable routines — food, TV, sleep — anything to avoid the intensity", scores: { 9: 3 } },
-      { text: "I get busy — I channel the overwhelm into productive action so I don't have to feel it", scores: { 3: 3 } },
+      { text: "I numb out through comfortable routines, food, TV, sleep, anything to avoid the intensity", scores: { 9: 3 } },
+      { text: "I get busy, I channel the overwhelm into productive action so I don't have to feel it", scores: { 3: 3 } },
       { text: "I seek out someone who can absorb my emotional intensity and hold space for me", scores: { 4: 2, 6: 1 } }
     ]
   },
@@ -442,7 +442,7 @@ export const enneagramQuestions = [
       { text: "That I am fundamentally flawed or corrupt at my core", scores: { 1: 3 } },
       { text: "That without my helpfulness, nobody would actually want me around", scores: { 2: 3 } },
       { text: "That beneath my accomplishments, I have no inherent value as a person", scores: { 3: 3 } },
-      { text: "That I am fundamentally deficient — that everyone else got something I was denied", scores: { 4: 3 } }
+      { text: "That I am fundamentally deficient, that everyone else got something I was denied", scores: { 4: 3 } }
     ]
   },
   {
@@ -459,50 +459,50 @@ export const enneagramQuestions = [
     id: 14,
     text: "Which describes your experience of personal identity most accurately?",
     options: [
-      { text: "I have a strong moral identity — I know what's right, and that certainty defines me", scores: { 1: 3 } },
-      { text: "My identity shifts depending on context — I become what the situation needs me to be", scores: { 3: 2, 9: 1 } },
+      { text: "I have a strong moral identity, I know what's right, and that certainty defines me", scores: { 1: 3 } },
+      { text: "My identity shifts depending on context, I become what the situation needs me to be", scores: { 3: 2, 9: 1 } },
       { text: "My identity is built on being different, authentic, and emotionally deep", scores: { 4: 3 } },
-      { text: "I sometimes feel like I don't have a clear identity at all — I merge with others' perspectives", scores: { 9: 3 } }
+      { text: "I sometimes feel like I don't have a clear identity at all, I merge with others' perspectives", scores: { 9: 3 } }
     ]
   },
   {
     id: 15,
     text: "How do you relate to the concept of 'enough'?",
     options: [
-      { text: "Nothing is ever quite good enough — there's always a way it could be better", scores: { 1: 3 } },
-      { text: "I never give enough — I could always do more for the people I care about", scores: { 2: 3 } },
-      { text: "I never achieve enough — there's always the next level to reach", scores: { 3: 3 } },
-      { text: "I never have enough depth — ordinary experience feels insufficient", scores: { 4: 3 } }
+      { text: "Nothing is ever quite good enough, there's always a way it could be better", scores: { 1: 3 } },
+      { text: "I never give enough, I could always do more for the people I care about", scores: { 2: 3 } },
+      { text: "I never achieve enough, there's always the next level to reach", scores: { 3: 3 } },
+      { text: "I never have enough depth, ordinary experience feels insufficient", scores: { 4: 3 } }
     ]
   },
   {
     id: 16,
     text: "How do you relate to the concept of 'enough'?",
     options: [
-      { text: "I never know enough — there's always more I need to understand before I can act", scores: { 5: 3 } },
-      { text: "I'm never certain enough — there's always another variable I haven't accounted for", scores: { 6: 3 } },
-      { text: "I never have enough options — closing a door feels like losing a possibility forever", scores: { 7: 3 } },
-      { text: "Nothing is ever intense enough — I keep pushing for more impact, more life, more everything", scores: { 8: 3 } }
+      { text: "I never know enough, there's always more I need to understand before I can act", scores: { 5: 3 } },
+      { text: "I'm never certain enough, there's always another variable I haven't accounted for", scores: { 6: 3 } },
+      { text: "I never have enough options, closing a door feels like losing a possibility forever", scores: { 7: 3 } },
+      { text: "Nothing is ever intense enough, I keep pushing for more impact, more life, more everything", scores: { 8: 3 } }
     ]
   },
   {
     id: 17,
     text: "When a close relationship ends, what is your most immediate internal response?",
     options: [
-      { text: "I analyze what went wrong — where did I fail to live up to the standard?", scores: { 1: 2, 5: 1 } },
-      { text: "I feel abandoned and unlovable — clearly I wasn't needed enough", scores: { 2: 3 } },
-      { text: "I immediately start building a narrative about what I lost — the beautiful tragedy of it", scores: { 4: 3 } },
-      { text: "I distract myself quickly — I don't want to sit in this pain", scores: { 7: 2, 3: 1 } }
+      { text: "I analyze what went wrong, where did I fail to live up to the standard?", scores: { 1: 2, 5: 1 } },
+      { text: "I feel abandoned and unlovable, clearly I wasn't needed enough", scores: { 2: 3 } },
+      { text: "I immediately start building a narrative about what I lost, the beautiful tragedy of it", scores: { 4: 3 } },
+      { text: "I distract myself quickly, I don't want to sit in this pain", scores: { 7: 2, 3: 1 } }
     ]
   },
   {
     id: 18,
     text: "When a close relationship ends, what is your most immediate internal response?",
     options: [
-      { text: "I withdraw and need extensive alone time to process — people are exhausting right now", scores: { 5: 3 } },
-      { text: "I question everything — was this person ever really trustworthy?", scores: { 6: 3 } },
-      { text: "I get angry — no one walks away from me without consequences", scores: { 8: 3 } },
-      { text: "I feel the loss but try to be okay with it — getting upset won't help anyone", scores: { 9: 3 } }
+      { text: "I withdraw and need extensive alone time to process, people are exhausting right now", scores: { 5: 3 } },
+      { text: "I question everything, was this person ever really trustworthy?", scores: { 6: 3 } },
+      { text: "I get angry, no one walks away from me without consequences", scores: { 8: 3 } },
+      { text: "I feel the loss but try to be okay with it, getting upset won't help anyone", scores: { 9: 3 } }
     ]
   },
 ];

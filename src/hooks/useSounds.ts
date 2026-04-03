@@ -1,5 +1,5 @@
 /**
- * useSounds — Web Audio API tones, no sound files required.
+ * useSounds, Web Audio API tones, no sound files required.
  * Generates Duolingo-style correct/wrong/streak/levelup chimes in the browser.
  */
 
@@ -38,7 +38,7 @@ function playTone(
 }
 
 export function useSounds() {
-  // ✅ Correct answer — bright ascending two-note chime (C5 → E5)
+  // ✅ Correct answer, bright ascending two-note chime (C5 → E5)
   function playCorrect() {
     const ctx = getAudioContext();
     if (!ctx) return;
@@ -47,7 +47,7 @@ export function useSounds() {
     playTone(ctx, 659.25, t + 0.1,  0.22, 0.20); // E5
   }
 
-  // ❌ Wrong answer — low descending thud (A3 → F3)
+  // ❌ Wrong answer, low descending thud (A3 → F3)
   function playWrong() {
     const ctx = getAudioContext();
     if (!ctx) return;
@@ -56,7 +56,7 @@ export function useSounds() {
     playTone(ctx, 174.61, t + 0.08, 0.18, 0.10, "sawtooth"); // F3
   }
 
-  // 🔥 Streak milestone — three ascending notes (C5 → E5 → G5)
+  // 🔥 Streak milestone, three ascending notes (C5 → E5 → G5)
   function playStreak() {
     const ctx = getAudioContext();
     if (!ctx) return;
@@ -66,7 +66,7 @@ export function useSounds() {
     playTone(ctx, 783.99, t + 0.18, 0.22, 0.22); // G5
   }
 
-  // ⬆️ Level up — triumphant four-note fanfare (C5→E5→G5→C6)
+  // ⬆️ Level up, triumphant four-note fanfare (C5→E5→G5→C6)
   function playLevelUp() {
     const ctx = getAudioContext();
     if (!ctx) return;
@@ -77,7 +77,7 @@ export function useSounds() {
     playTone(ctx, 1046.50, t + 0.36, 0.35, 0.24); // C6
   }
 
-  // 💡 Hint used — soft single chime
+  // 💡 Hint used, soft single chime
   function playHint() {
     const ctx = getAudioContext();
     if (!ctx) return;

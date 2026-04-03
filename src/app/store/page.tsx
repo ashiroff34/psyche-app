@@ -156,17 +156,17 @@ export default function StorePage() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-amber-50/30 to-slate-50">
-      {/* Decorative orbs */}
+    <div className="min-h-screen" style={{ background: "#0f0a1e" }}>
+      {/* Aurora orbs */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute -top-32 -right-32 w-96 h-96 rounded-full bg-gradient-to-br from-amber-200/30 to-orange-200/20 blur-3xl" />
-        <div className="absolute top-1/3 -left-48 w-80 h-80 rounded-full bg-gradient-to-br from-sky-200/25 to-indigo-200/15 blur-3xl" />
-        <div className="absolute bottom-0 right-1/4 w-72 h-72 rounded-full bg-gradient-to-br from-purple-200/20 to-rose-200/15 blur-3xl" />
+        <div className="absolute -top-32 -right-32 w-96 h-96 rounded-full blur-3xl" style={{ background: "radial-gradient(circle, rgba(251,191,36,0.08) 0%, transparent 70%)" }} />
+        <div className="absolute top-1/3 -left-48 w-80 h-80 rounded-full blur-3xl" style={{ background: "radial-gradient(circle, rgba(139,92,246,0.1) 0%, transparent 70%)" }} />
+        <div className="absolute bottom-0 right-1/4 w-72 h-72 rounded-full blur-3xl" style={{ background: "radial-gradient(circle, rgba(99,102,241,0.08) 0%, transparent 70%)" }} />
       </div>
 
       <FirstVisitTooltip
         storageKey="psyche-visited-store"
-        message="Earn free tokens daily by completing your practice — no purchase needed!"
+        message="Earn free tokens daily by completing your practice, no purchase needed!"
         icon="🪙"
       />
 
@@ -175,7 +175,8 @@ export default function StorePage() {
         <motion.div {...fadeUp} className="mb-6">
           <Link
             href="/game"
-            className="inline-flex items-center gap-2 text-slate-500 hover:text-slate-700 transition-colors text-sm font-medium"
+            className="inline-flex items-center gap-2 transition-colors text-sm font-medium"
+            style={{ color: "rgba(255,255,255,0.45)" }}
           >
             <ArrowLeft className="w-4 h-4" />
             Back to Game
@@ -184,15 +185,18 @@ export default function StorePage() {
 
         {/* Page Header */}
         <motion.div {...fadeUp} className="text-center mb-12">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gradient-to-r from-amber-100 to-orange-100 border border-amber-200/60 mb-4">
-            <Coins className="w-4 h-4 text-amber-600" />
-            <span className="text-sm font-semibold text-amber-700">Token Store</span>
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full mb-4" style={{ background: "rgba(251,191,36,0.12)", border: "1px solid rgba(251,191,36,0.2)" }}>
+            <Coins className="w-4 h-4" style={{ color: "#fbbf24" }} />
+            <span className="text-sm font-semibold" style={{ color: "#fbbf24" }}>Token Store</span>
           </div>
-          <h1 className="text-4xl sm:text-5xl font-serif font-bold text-slate-800 mb-3">
-            Power Up Your <span className="bg-gradient-to-r from-amber-500 to-orange-500 bg-clip-text text-transparent">Journey</span>
+          <h1 className="text-4xl sm:text-5xl font-serif font-bold mb-3" style={{ color: "rgba(255,255,255,0.95)" }}>
+            Power Up Your{" "}
+            <span style={{ background: "linear-gradient(135deg, #fbbf24, #f97316)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>
+              Journey
+            </span>
           </h1>
-          <p className="text-slate-500 text-lg max-w-2xl mx-auto">
-            Get tokens to unlock pets, outfits, and streak freezes &mdash; or go Pro for the ultimate Thyself experience.
+          <p className="text-lg max-w-2xl mx-auto" style={{ color: "rgba(255,255,255,0.5)" }}>
+            Get tokens to unlock pets, outfits, and streak freezes. Or go Pro for the ultimate Thyself experience.
           </p>
         </motion.div>
 
@@ -200,20 +204,21 @@ export default function StorePage() {
         {tokenBalance !== null && (
           <motion.div {...fadeUp} transition={{ delay: 0.05 }} className="mb-10">
             {tokenBalance === 0 ? (
-              /* Zero-state: guide user to earn tokens first */
-              <div className="flex flex-col sm:flex-row items-center gap-5 p-6 rounded-3xl bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-200/60 shadow-sm">
-                <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-amber-400 to-orange-500 flex items-center justify-center shadow-lg shadow-amber-200/50 flex-shrink-0">
+              /* Zero-state */
+              <div className="flex flex-col sm:flex-row items-center gap-5 p-6 rounded-3xl" style={{ background: "rgba(251,191,36,0.08)", border: "1px solid rgba(251,191,36,0.18)" }}>
+                <div className="w-14 h-14 rounded-2xl flex items-center justify-center flex-shrink-0" style={{ background: "linear-gradient(135deg, #f59e0b, #f97316)", boxShadow: "0 8px 20px rgba(245,158,11,0.3)" }}>
                   <Coins className="w-7 h-7 text-white" />
                 </div>
                 <div className="flex-1 text-center sm:text-left">
-                  <p className="font-bold text-slate-800 mb-0.5">You have 0 tokens right now</p>
-                  <p className="text-sm text-slate-500">
-                    Complete your daily practice to earn tokens for free — then come back to spend them!
+                  <p className="font-bold mb-0.5" style={{ color: "rgba(255,255,255,0.9)" }}>You have 0 tokens right now</p>
+                  <p className="text-sm" style={{ color: "rgba(255,255,255,0.5)" }}>
+                    Complete your daily practice to earn tokens for free, then come back to spend them!
                   </p>
                 </div>
                 <Link
                   href="/daily"
-                  className="flex-shrink-0 flex items-center gap-2 px-5 py-2.5 rounded-2xl bg-gradient-to-r from-amber-400 to-orange-500 text-white text-sm font-bold shadow-md hover:shadow-lg transition-all active:scale-95"
+                  className="flex-shrink-0 flex items-center gap-2 px-5 py-2.5 rounded-2xl text-white text-sm font-bold transition-all active:scale-95"
+                  style={{ background: "linear-gradient(135deg, #f59e0b, #f97316)", boxShadow: "0 4px 16px rgba(245,158,11,0.35)" }}
                 >
                   <Flame className="w-4 h-4" />
                   Go earn tokens
@@ -221,10 +226,10 @@ export default function StorePage() {
               </div>
             ) : (
               /* Has tokens: show balance */
-              <div className="flex items-center gap-3 px-5 py-3 rounded-2xl bg-white/80 border border-amber-100 shadow-sm w-fit">
-                <Coins className="w-5 h-5 text-amber-500" />
-                <span className="text-sm font-medium text-slate-600">Your balance:</span>
-                <span className="text-lg font-extrabold bg-gradient-to-r from-amber-500 to-orange-500 bg-clip-text text-transparent">
+              <div className="flex items-center gap-3 px-5 py-3 rounded-2xl w-fit" style={{ background: "rgba(251,191,36,0.1)", border: "1px solid rgba(251,191,36,0.18)" }}>
+                <Coins className="w-5 h-5" style={{ color: "#fbbf24" }} />
+                <span className="text-sm font-medium" style={{ color: "rgba(255,255,255,0.6)" }}>Your balance:</span>
+                <span className="text-lg font-extrabold" style={{ background: "linear-gradient(135deg, #fbbf24, #f97316)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>
                   {tokenBalance.toLocaleString()} tokens
                 </span>
               </div>
@@ -237,12 +242,12 @@ export default function StorePage() {
            ══════════════════════════════════════════════════════════════════════ */}
         <motion.section {...fadeUp} transition={{ delay: 0.1 }} className="mb-16">
           <div className="flex items-center gap-3 mb-2">
-            <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-amber-400 to-yellow-500 flex items-center justify-center shadow-lg shadow-amber-200/40">
+            <div className="w-10 h-10 rounded-2xl flex items-center justify-center" style={{ background: "linear-gradient(135deg, #f59e0b, #eab308)", boxShadow: "0 4px 16px rgba(245,158,11,0.3)" }}>
               <Coins className="w-5 h-5 text-white" />
             </div>
-            <h2 className="text-2xl font-serif font-bold text-slate-800">Token Packs</h2>
+            <h2 className="text-2xl font-serif font-bold" style={{ color: "rgba(255,255,255,0.95)" }}>Token Packs</h2>
           </div>
-          <p className="text-slate-500 text-sm mb-6 ml-[52px]">
+          <p className="text-sm mb-6 ml-[52px]" style={{ color: "rgba(255,255,255,0.45)" }}>
             In-app currency for pet food, avatar outfits, streak freezes, hints & revivals.
           </p>
 
@@ -251,9 +256,10 @@ export default function StorePage() {
             {TOKEN_USES.map((u) => (
               <span
                 key={u.label}
-                className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/80 border border-amber-100 text-xs font-medium text-slate-600"
+                className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium"
+                style={{ background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.1)", color: "rgba(255,255,255,0.65)" }}
               >
-                <u.icon className="w-3.5 h-3.5 text-amber-500" />
+                <u.icon className="w-3.5 h-3.5" style={{ color: "#fbbf24" }} />
                 {u.label}
               </span>
             ))}
@@ -271,48 +277,50 @@ export default function StorePage() {
                 variants={cardItem}
                 whileHover={{ y: -6, scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                className={`relative rounded-3xl bg-white/80 backdrop-blur-md border border-white/40 p-6 cursor-pointer shadow-lg ${pack.shadow} transition-shadow hover:shadow-xl`}
+                className="relative rounded-3xl p-6 cursor-pointer transition-all"
+                style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.09)", boxShadow: "0 4px 24px rgba(0,0,0,0.3)" }}
               >
                 {pack.badge && (
-                  <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-0.5 rounded-full bg-gradient-to-r from-amber-500 to-orange-500 text-white text-[11px] font-bold tracking-wide uppercase shadow-md shadow-orange-200/60">
+                  <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-0.5 rounded-full text-white text-[11px] font-bold tracking-wide uppercase" style={{ background: "linear-gradient(135deg, #f59e0b, #f97316)", boxShadow: "0 4px 12px rgba(245,158,11,0.4)" }}>
                     {pack.badge}
                   </div>
                 )}
 
                 {/* Icon */}
-                <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${pack.color} flex items-center justify-center mb-4 shadow-md ${pack.shadow}`}>
+                <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${pack.color} flex items-center justify-center mb-4`} style={{ boxShadow: "0 4px 16px rgba(0,0,0,0.3)" }}>
                   <pack.icon className="w-7 h-7 text-white" />
                 </div>
 
                 {/* Name */}
-                <h3 className="font-bold text-slate-800 text-lg mb-1">{pack.name}</h3>
+                <h3 className="font-bold text-lg mb-1" style={{ color: "rgba(255,255,255,0.92)" }}>{pack.name}</h3>
 
                 {/* Token amount */}
                 <div className="flex items-baseline gap-1.5 mb-1">
-                  <span className="text-2xl font-extrabold bg-gradient-to-r from-amber-500 to-orange-500 bg-clip-text text-transparent">
+                  <span className="text-2xl font-extrabold" style={{ background: "linear-gradient(135deg, #fbbf24, #f97316)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>
                     {pack.tokens.toLocaleString()}
                   </span>
-                  <span className="text-sm font-medium text-slate-500">tokens</span>
+                  <span className="text-sm font-medium" style={{ color: "rgba(255,255,255,0.45)" }}>tokens</span>
                 </div>
 
                 {/* Bonus */}
                 {pack.bonus > 0 && (
-                  <div className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-emerald-50 border border-emerald-200/60 mb-3">
-                    <Gift className="w-3 h-3 text-emerald-500" />
-                    <span className="text-xs font-semibold text-emerald-600">+{pack.bonus} bonus</span>
+                  <div className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full mb-3" style={{ background: "rgba(52,211,153,0.12)", border: "1px solid rgba(52,211,153,0.2)" }}>
+                    <Gift className="w-3 h-3" style={{ color: "#34d399" }} />
+                    <span className="text-xs font-semibold" style={{ color: "#34d399" }}>+{pack.bonus} bonus</span>
                   </div>
                 )}
                 {pack.bonus === 0 && <div className="h-[26px] mb-3" />}
 
                 {/* Price & Buy */}
-                <div className="flex items-center justify-between mt-auto pt-3 border-t border-slate-100">
-                  <span className="text-xl font-bold text-slate-800">{pack.price}</span>
+                <div className="flex items-center justify-between mt-auto pt-3" style={{ borderTop: "1px solid rgba(255,255,255,0.08)" }}>
+                  <span className="text-xl font-bold" style={{ color: "rgba(255,255,255,0.9)" }}>{pack.price}</span>
                   <button
                     onClick={() => {
-                      setPurchaseToast(`${pack.name} — payment integration coming soon!`);
+                      setPurchaseToast(`${pack.name}, payment integration coming soon!`);
                       setTimeout(() => setPurchaseToast(null), 3000);
                     }}
-                    className={`px-5 py-2 rounded-xl bg-gradient-to-r ${pack.color} text-white text-sm font-bold shadow-md ${pack.shadow} hover:shadow-lg transition-all active:scale-95`}
+                    className={`px-5 py-2 rounded-xl bg-gradient-to-r ${pack.color} text-white text-sm font-bold transition-all active:scale-95`}
+                    style={{ boxShadow: "0 4px 12px rgba(0,0,0,0.3)" }}
                   >
                     Buy
                   </button>
@@ -323,52 +331,50 @@ export default function StorePage() {
         </motion.section>
 
         {/* ══════════════════════════════════════════════════════════════════════
-           SECTION 2: Premium Subscription — Thyself Pro
+           SECTION 2: Premium Subscription, Thyself Pro
            ══════════════════════════════════════════════════════════════════════ */}
         <motion.section {...fadeUp} transition={{ delay: 0.2 }} className="mb-16">
           <div className="flex items-center gap-3 mb-6">
-            <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center shadow-lg shadow-indigo-200/40">
+            <div className="w-10 h-10 rounded-2xl flex items-center justify-center" style={{ background: "linear-gradient(135deg, #6366f1, #7c3aed)", boxShadow: "0 4px 16px rgba(99,102,241,0.35)" }}>
               <Crown className="w-5 h-5 text-white" />
             </div>
-            <h2 className="text-2xl font-serif font-bold text-slate-800">Thyself Pro</h2>
+            <h2 className="text-2xl font-serif font-bold" style={{ color: "rgba(255,255,255,0.95)" }}>Thyself Pro</h2>
           </div>
 
           <div className="relative rounded-3xl overflow-hidden">
-            {/* Gradient border effect */}
-            <div className="absolute inset-0 bg-gradient-to-br from-indigo-500 via-purple-500 to-rose-500 rounded-3xl" />
-            <div className="relative m-[2px] rounded-[22px] bg-white/95 backdrop-blur-xl p-8 sm:p-10">
+            {/* Gradient border */}
+            <div className="absolute inset-0 rounded-3xl" style={{ background: "linear-gradient(135deg, #6366f1, #7c3aed, #ec4899)" }} />
+            <div className="relative m-[2px] rounded-[22px] p-8 sm:p-10" style={{ background: "rgba(18,10,40,0.97)" }}>
               {/* Top banner */}
               <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
                 <div>
                   <div className="flex items-center gap-2 mb-2">
-                    <Crown className="w-6 h-6 text-purple-500" />
-                    <h3 className="text-2xl font-serif font-bold text-slate-800">Premium Subscription</h3>
+                    <Crown className="w-6 h-6" style={{ color: "#a78bfa" }} />
+                    <h3 className="text-2xl font-serif font-bold" style={{ color: "rgba(255,255,255,0.95)" }}>Premium Subscription</h3>
                   </div>
-                  <p className="text-slate-500">Unlock the full Thyself experience with Pro.</p>
+                  <p style={{ color: "rgba(255,255,255,0.5)" }}>Unlock the full Thyself experience with Pro.</p>
                 </div>
 
                 {/* Billing toggle */}
-                <div className="inline-flex items-center gap-1 p-1 rounded-xl bg-slate-100 border border-slate-200/60">
+                <div className="inline-flex items-center gap-1 p-1 rounded-xl" style={{ background: "rgba(255,255,255,0.07)", border: "1px solid rgba(255,255,255,0.1)" }}>
                   <button
                     onClick={() => setBillingCycle("monthly")}
-                    className={`px-4 py-2 rounded-lg text-sm font-semibold transition-all ${
-                      billingCycle === "monthly"
-                        ? "bg-white text-slate-800 shadow-sm"
-                        : "text-slate-500 hover:text-slate-700"
-                    }`}
+                    className="px-4 py-2 rounded-lg text-sm font-semibold transition-all"
+                    style={billingCycle === "monthly"
+                      ? { background: "rgba(255,255,255,0.12)", color: "rgba(255,255,255,0.95)" }
+                      : { color: "rgba(255,255,255,0.4)" }}
                   >
                     Monthly
                   </button>
                   <button
                     onClick={() => setBillingCycle("annual")}
-                    className={`px-4 py-2 rounded-lg text-sm font-semibold transition-all ${
-                      billingCycle === "annual"
-                        ? "bg-white text-slate-800 shadow-sm"
-                        : "text-slate-500 hover:text-slate-700"
-                    }`}
+                    className="px-4 py-2 rounded-lg text-sm font-semibold transition-all"
+                    style={billingCycle === "annual"
+                      ? { background: "rgba(255,255,255,0.12)", color: "rgba(255,255,255,0.95)" }
+                      : { color: "rgba(255,255,255,0.4)" }}
                   >
                     Annual
-                    <span className="ml-1.5 px-1.5 py-0.5 rounded-md bg-emerald-100 text-emerald-600 text-[10px] font-bold">
+                    <span className="ml-1.5 px-1.5 py-0.5 rounded-md text-[10px] font-bold" style={{ background: "rgba(52,211,153,0.15)", color: "#34d399" }}>
                       -33%
                     </span>
                   </button>
@@ -380,34 +386,35 @@ export default function StorePage() {
                 {PRO_FEATURES.map((feat) => (
                   <div
                     key={feat.label}
-                    className="flex items-start gap-3 p-4 rounded-2xl bg-gradient-to-br from-indigo-50/60 to-purple-50/40 border border-indigo-100/50"
+                    className="flex items-start gap-3 p-4 rounded-2xl"
+                    style={{ background: "rgba(139,92,246,0.08)", border: "1px solid rgba(139,92,246,0.15)" }}
                   >
-                    <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-indigo-400 to-purple-500 flex items-center justify-center flex-shrink-0 shadow-sm">
-                      <feat.icon className="w-4.5 h-4.5 text-white" />
+                    <div className="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0" style={{ background: "linear-gradient(135deg, #6366f1, #7c3aed)" }}>
+                      <feat.icon className="w-4 h-4 text-white" />
                     </div>
-                    <span className="text-sm font-medium text-slate-700 leading-snug pt-1.5">{feat.label}</span>
+                    <span className="text-sm font-medium leading-snug pt-1.5" style={{ color: "rgba(255,255,255,0.75)" }}>{feat.label}</span>
                   </div>
                 ))}
               </div>
 
               {/* Price & CTA */}
-              <div className="flex flex-col sm:flex-row items-center justify-between gap-6 p-6 rounded-2xl bg-gradient-to-r from-indigo-50 to-purple-50 border border-indigo-100/50">
+              <div className="flex flex-col sm:flex-row items-center justify-between gap-6 p-6 rounded-2xl" style={{ background: "rgba(139,92,246,0.1)", border: "1px solid rgba(139,92,246,0.2)" }}>
                 <div>
                   <div className="flex items-baseline gap-1">
-                    <span className="text-4xl font-extrabold text-slate-800">
+                    <span className="text-4xl font-extrabold" style={{ color: "rgba(255,255,255,0.95)" }}>
                       {billingCycle === "monthly" ? "$4.99" : "$39.99"}
                     </span>
-                    <span className="text-slate-500 font-medium">
+                    <span className="font-medium" style={{ color: "rgba(255,255,255,0.5)" }}>
                       /{billingCycle === "monthly" ? "month" : "year"}
                     </span>
                   </div>
                   {billingCycle === "annual" && (
-                    <p className="text-sm text-emerald-600 font-semibold mt-1">
-                      That&apos;s just $3.33/month &mdash; save $19.89/year
+                    <p className="text-sm font-semibold mt-1" style={{ color: "#34d399" }}>
+                      That&apos;s just $3.33/month. Save $19.89/year.
                     </p>
                   )}
                 </div>
-                <button className="w-full sm:w-auto px-8 py-3.5 rounded-2xl bg-gradient-to-r from-indigo-500 to-purple-600 text-white font-bold text-base shadow-lg shadow-indigo-200/50 hover:shadow-xl hover:shadow-indigo-300/50 transition-all active:scale-[0.97]">
+                <button className="w-full sm:w-auto px-8 py-3.5 rounded-2xl text-white font-bold text-base transition-all active:scale-[0.97]" style={{ background: "linear-gradient(135deg, #6366f1, #7c3aed)", boxShadow: "0 8px 24px rgba(99,102,241,0.4)" }}>
                   {billingCycle === "monthly" ? "Subscribe Monthly" : "Subscribe Annually (Save 33%)"}
                 </button>
               </div>
@@ -420,13 +427,13 @@ export default function StorePage() {
            ══════════════════════════════════════════════════════════════════════ */}
         <motion.section {...fadeUp} transition={{ delay: 0.3 }} className="mb-16">
           <div className="flex items-center gap-3 mb-2">
-            <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-emerald-400 to-teal-500 flex items-center justify-center shadow-lg shadow-emerald-200/40">
+            <div className="w-10 h-10 rounded-2xl flex items-center justify-center" style={{ background: "linear-gradient(135deg, #10b981, #0d9488)", boxShadow: "0 4px 16px rgba(16,185,129,0.3)" }}>
               <Gift className="w-5 h-5 text-white" />
             </div>
-            <h2 className="text-2xl font-serif font-bold text-slate-800">How to Earn Free Tokens</h2>
+            <h2 className="text-2xl font-serif font-bold" style={{ color: "rgba(255,255,255,0.95)" }}>How to Earn Free Tokens</h2>
           </div>
-          <p className="text-slate-500 text-sm mb-6 ml-[52px]">
-            No purchase needed &mdash; earn tokens just by learning and staying consistent.
+          <p className="text-sm mb-6 ml-[52px]" style={{ color: "rgba(255,255,255,0.45)" }}>
+            No purchase needed. Earn tokens just by learning and staying consistent.
           </p>
 
           <motion.div
@@ -440,20 +447,21 @@ export default function StorePage() {
                 key={item.label}
                 variants={cardItem}
                 whileHover={{ y: -4 }}
-                className="relative rounded-3xl bg-white/80 backdrop-blur-md border border-white/40 p-5 shadow-md hover:shadow-lg transition-shadow"
+                className="relative rounded-3xl p-5 transition-all"
+                style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.09)" }}
               >
-                <div className={`w-10 h-10 rounded-xl bg-gradient-to-br ${item.color} flex items-center justify-center mb-3 shadow-sm`}>
+                <div className={`w-10 h-10 rounded-xl bg-gradient-to-br ${item.color} flex items-center justify-center mb-3`}>
                   <item.icon className="w-5 h-5 text-white" />
                 </div>
 
-                <p className="text-sm font-medium text-slate-700 mb-2 leading-snug">{item.label}</p>
+                <p className="text-sm font-medium mb-2 leading-snug" style={{ color: "rgba(255,255,255,0.78)" }}>{item.label}</p>
 
                 <div className="flex items-center gap-1.5">
-                  <Coins className="w-4 h-4 text-amber-500" />
-                  <span className="text-lg font-extrabold bg-gradient-to-r from-amber-500 to-orange-500 bg-clip-text text-transparent">
+                  <Coins className="w-4 h-4" style={{ color: "#fbbf24" }} />
+                  <span className="text-lg font-extrabold" style={{ background: "linear-gradient(135deg, #fbbf24, #f97316)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>
                     +{item.tokens}
                   </span>
-                  <span className="text-xs font-medium text-slate-400">
+                  <span className="text-xs font-medium" style={{ color: "rgba(255,255,255,0.35)" }}>
                     {item.isBonus ? "bonus" : "tokens"}
                   </span>
                 </div>
@@ -467,12 +475,12 @@ export default function StorePage() {
            ══════════════════════════════════════════════════════════════════════ */}
         <motion.section {...fadeUp} transition={{ delay: 0.4 }} className="mb-16">
           <div className="flex items-center gap-3 mb-2">
-            <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-purple-400 to-rose-500 flex items-center justify-center shadow-lg shadow-purple-200/40">
+            <div className="w-10 h-10 rounded-2xl flex items-center justify-center" style={{ background: "linear-gradient(135deg, #a855f7, #ec4899)", boxShadow: "0 4px 16px rgba(168,85,247,0.3)" }}>
               <Gem className="w-5 h-5 text-white" />
             </div>
-            <h2 className="text-2xl font-serif font-bold text-slate-800">Premium Items Preview</h2>
+            <h2 className="text-2xl font-serif font-bold" style={{ color: "rgba(255,255,255,0.95)" }}>Premium Items Preview</h2>
           </div>
-          <p className="text-slate-500 text-sm mb-6 ml-[52px]">
+          <p className="text-sm mb-6 ml-[52px]" style={{ color: "rgba(255,255,255,0.45)" }}>
             Exclusive items available with Thyself Pro. Subscribe to unlock them all.
           </p>
 
@@ -487,25 +495,26 @@ export default function StorePage() {
                 key={item.name}
                 variants={cardItem}
                 whileHover={{ y: -4 }}
-                className="relative group rounded-3xl bg-white/80 backdrop-blur-md border border-white/40 p-5 shadow-md overflow-hidden"
+                className="relative group rounded-3xl p-5 overflow-hidden"
+                style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.09)" }}
               >
-                {/* Blurred/locked overlay */}
-                <div className="absolute inset-0 bg-gradient-to-br from-slate-100/60 to-slate-200/40 backdrop-blur-[2px] flex flex-col items-center justify-center z-10 transition-opacity group-hover:bg-slate-100/70">
-                  <div className="w-10 h-10 rounded-full bg-gradient-to-br from-purple-500 to-rose-500 flex items-center justify-center shadow-lg mb-2">
+                {/* Locked overlay */}
+                <div className="absolute inset-0 backdrop-blur-[2px] flex flex-col items-center justify-center z-10 transition-opacity" style={{ background: "rgba(10,5,25,0.55)" }}>
+                  <div className="w-10 h-10 rounded-full flex items-center justify-center mb-2" style={{ background: "linear-gradient(135deg, #7c3aed, #ec4899)", boxShadow: "0 4px 16px rgba(124,58,237,0.4)" }}>
                     <Lock className="w-5 h-5 text-white" />
                   </div>
-                  <span className="px-2.5 py-0.5 rounded-full bg-gradient-to-r from-purple-500 to-rose-500 text-white text-[10px] font-bold uppercase tracking-wider">
+                  <span className="px-2.5 py-0.5 rounded-full text-white text-[10px] font-bold uppercase tracking-wider" style={{ background: "linear-gradient(135deg, #7c3aed, #ec4899)" }}>
                     Pro
                   </span>
                 </div>
 
-                {/* Card content (visible beneath blur) */}
+                {/* Card content */}
                 <div className="relative">
-                  <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-purple-100 to-rose-100 flex items-center justify-center mb-3">
-                    <item.icon className="w-6 h-6 text-purple-400" />
+                  <div className="w-12 h-12 rounded-2xl flex items-center justify-center mb-3" style={{ background: "rgba(168,85,247,0.15)" }}>
+                    <item.icon className="w-6 h-6" style={{ color: "#c084fc" }} />
                   </div>
-                  <h4 className="font-bold text-slate-700 text-sm mb-0.5">{item.name}</h4>
-                  <p className="text-xs text-slate-400">{item.type}</p>
+                  <h4 className="font-bold text-sm mb-0.5" style={{ color: "rgba(255,255,255,0.8)" }}>{item.name}</h4>
+                  <p className="text-xs" style={{ color: "rgba(255,255,255,0.4)" }}>{item.type}</p>
                 </div>
               </motion.div>
             ))}
@@ -518,12 +527,13 @@ export default function StorePage() {
         <motion.div
           {...fadeUp}
           transition={{ delay: 0.5 }}
-          className="text-center py-8 border-t border-slate-200/60"
+          className="text-center py-8"
+          style={{ borderTop: "1px solid rgba(255,255,255,0.07)" }}
         >
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-slate-100/80 border border-slate-200/60">
-            <Shield className="w-4 h-4 text-slate-400" />
-            <p className="text-xs text-slate-500">
-              <span className="font-semibold">This is a demo.</span> This store page is a prototype &mdash; no real payments are processed and no charges will be made.
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full" style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.09)" }}>
+            <Shield className="w-4 h-4" style={{ color: "rgba(255,255,255,0.35)" }} />
+            <p className="text-xs" style={{ color: "rgba(255,255,255,0.4)" }}>
+              <span className="font-semibold" style={{ color: "rgba(255,255,255,0.6)" }}>This is a demo.</span> No real payments are processed and no charges will be made.
             </p>
           </div>
         </motion.div>

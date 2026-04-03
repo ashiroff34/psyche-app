@@ -211,10 +211,10 @@ const loopSelfCheck: { question: string; ifYes: string }[] = [
 
 // Types that use each axis
 const axisTypes: Record<string, { dominant: string[]; auxiliary: string[] }> = {
-  "Ti — Fe": { dominant: ["INTP", "ISTP", "ENFJ", "ESFJ"], auxiliary: ["ENTP", "ESTP", "INFJ", "ISFJ"] },
-  "Te — Fi": { dominant: ["ENTJ", "ESTJ", "INFP", "ISFP"], auxiliary: ["INTJ", "ISTJ", "ENFP", "ESFP"] },
-  "Ni — Se": { dominant: ["INTJ", "INFJ", "ESTP", "ESFP"], auxiliary: ["ENTJ", "ENFJ", "ISTP", "ISFP"] },
-  "Ne — Si": { dominant: ["ENTP", "ENFP", "ISTJ", "ISFJ"], auxiliary: ["INTP", "INFP", "ESTJ", "ESFJ"] },
+  "Ti, Fe": { dominant: ["INTP", "ISTP", "ENFJ", "ESFJ"], auxiliary: ["ENTP", "ESTP", "INFJ", "ISFJ"] },
+  "Te, Fi": { dominant: ["ENTJ", "ESTJ", "INFP", "ISFP"], auxiliary: ["INTJ", "ISTJ", "ENFP", "ESFP"] },
+  "Ni, Se": { dominant: ["INTJ", "INFJ", "ESTP", "ESFP"], auxiliary: ["ENTJ", "ENFJ", "ISTP", "ISFP"] },
+  "Ne, Si": { dominant: ["ENTP", "ENFP", "ISTJ", "ISFJ"], auxiliary: ["INTP", "INFP", "ESTJ", "ESFJ"] },
 };
 
 // Common mistypes for each type
@@ -389,7 +389,7 @@ function Tab8Functions() {
   const [selectedFunc, setSelectedFunc] = useState<string | null>(null);
   const currentFunc = selectedFunc ? funcMap[selectedFunc] : null;
 
-  // Get user's type stack for highlighting (reactive — updates when profile changes)
+  // Get user's type stack for highlighting (reactive, updates when profile changes)
   const { profile } = useProfile();
   const userCode = profile.cognitiveType ?? profile.mbtiType;
   const myStack = userCode && typeMap[userCode] ? typeMap[userCode].stack : [];
@@ -736,7 +736,7 @@ function TabFunctionAxes() {
                 <div>
                   <h2 className="text-xl font-serif font-bold" style={{ color: "rgba(255,255,255,0.93)" }}>{axis.axis}</h2>
                   <p className="text-xs" style={{ color: "rgba(255,255,255,0.35)" }}>
-                    {funcMap[axis.functions[0]]?.name} &mdash; {funcMap[axis.functions[1]]?.name}
+                    {funcMap[axis.functions[0]]?.name} / {funcMap[axis.functions[1]]?.name}
                   </p>
                 </div>
               </div>
@@ -883,7 +883,7 @@ function TabShadow() {
             {/* 8-position stack */}
             <div className="p-6 rounded-3xl shadow-sm" style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.09)" }}>
               <h3 className="text-lg font-serif font-bold mb-1" style={{ color: "rgba(255,255,255,0.93)" }}>
-                {type.code} &mdash; Full 8-Function Stack
+                {type.code}: Full 8-Function Stack
               </h3>
               <p className="text-xs mb-6" style={{ color: "rgba(255,255,255,0.35)" }}>Click any position to learn more</p>
 
@@ -970,7 +970,7 @@ function TabShadow() {
                           Position {selectedPosition + 1}: {shadowPositions[selectedPosition]?.archetype}
                         </h4>
                         <p className="text-xs" style={{ color: "rgba(255,255,255,0.35)" }}>
-                          {fullStack[selectedPosition]} &mdash; {funcMap[fullStack[selectedPosition]]?.name || fullStack[selectedPosition]}
+                          {fullStack[selectedPosition]}: {funcMap[fullStack[selectedPosition]]?.name || fullStack[selectedPosition]}
                         </p>
                       </div>
                     </div>
@@ -1680,14 +1680,14 @@ function CognitiveLearnContent() {
             Learn Cognitive Functions
           </h1>
           <p className="max-w-2xl" style={{ color: "rgba(255,255,255,0.5)" }}>
-            Discover the 8 mental tools we all use to think and make decisions — and which ones come most naturally to you.
+            Discover the 8 mental tools we all use to think and make decisions, and which ones come most naturally to you.
           </p>
 
           {/* Intro card */}
           <div className="mt-4 p-5 rounded-2xl" style={{ background: "linear-gradient(135deg, rgba(139,92,246,0.12), rgba(14,165,233,0.08))", border: "1px solid rgba(139,92,246,0.2)" }}>
             <h3 className="font-semibold mb-2" style={{ color: "rgba(255,255,255,0.93)" }}>What are cognitive functions?</h3>
             <p className="text-sm leading-relaxed mb-3" style={{ color: "rgba(255,255,255,0.6)" }}>
-              Carl Jung identified 8 mental processes — ways the mind perceives information and makes decisions. Everyone uses all 8, but in a specific order. Your top 4 are your &ldquo;ego stack&rdquo; and shape how you naturally think, communicate, and process the world.
+              Carl Jung identified 8 mental processes, ways the mind perceives information and makes decisions. Everyone uses all 8, but in a specific order. Your top 4 are your &ldquo;ego stack&rdquo; and shape how you naturally think, communicate, and process the world.
             </p>
             <div className="grid grid-cols-2 gap-2 text-xs">
               <div className="p-2 rounded-lg" style={{ background: "rgba(255,255,255,0.06)" }}>
@@ -1707,7 +1707,7 @@ function CognitiveLearnContent() {
           <div className="mt-4 p-4 rounded-xl" style={{ background: "rgba(99,102,241,0.08)", border: "1px solid rgba(99,102,241,0.2)" }}>
             <p className="text-xs leading-relaxed" style={{ color: "rgba(255,255,255,0.6)" }}>
               <strong>A note on typology:</strong> This system is based on Carl Jung&apos;s original <em>Psychological Types</em> (1921), not the commercial MBTI&reg; instrument.
-              The 16 type codes (INTJ, ENFP, etc.) are used as convenient shorthand for cognitive function stacks &mdash; what matters is the functions themselves.
+              The 16 type codes (INTJ, ENFP, etc.) are used as convenient shorthand for cognitive function stacks. What matters is the functions themselves.
               16Personalities is <em>not</em> the same as Jungian typology.
             </p>
           </div>
@@ -1749,7 +1749,7 @@ function CognitiveLearnContent() {
         <NextStepBanner
           href="/cognitive/assess"
           label="Take the cognitive assessment"
-          sublabel="Find your cognitive function stack — dominant, auxiliary, shadow, and more"
+          sublabel="Find your cognitive function stack, dominant, auxiliary, shadow, and more"
           icon={<Brain className="w-5 h-5" />}
           color="#6366f1"
           dismissKey="cognitive-learn-assess"

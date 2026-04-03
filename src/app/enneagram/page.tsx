@@ -45,7 +45,7 @@ function BeginnerIntro() {
           >
             <div className="px-5 pb-5 space-y-3 text-sm text-sky-900 leading-relaxed">
               <p>
-                The Enneagram is a personality system that describes <strong>9 core types</strong>, each defined by a central motivation, fear, and pattern of behavior. Unlike simpler systems, it focuses on the <em>why</em> behind what you do — not just surface traits.
+                The Enneagram is a personality system that describes <strong>9 core types</strong>, each defined by a central motivation, fear, and pattern of behavior. Unlike simpler systems, it focuses on the <em>why</em> behind what you do, not just surface traits.
               </p>
               <p>
                 Each type has a number (1–9), a name (like "The Reformer" or "The Helper"), and a rich set of psychological layers: wings, integration lines, instinctual subtypes, and developmental levels.
@@ -101,14 +101,14 @@ export default function EnneagramPage() {
                   transition={{ delay: 0.2 }}
                   className="text-lg text-slate-500 leading-relaxed mb-4 max-w-2xl"
                 >
-                  An ancient system mapping nine distinct personality patterns — each with unique motivations, fears, and paths to growth. The Enneagram reveals not just <em>what</em> you do, but <em>why</em> you do it.
+                  An ancient system mapping nine distinct personality patterns, each with unique motivations, fears, and paths to growth. The Enneagram reveals not just <em>what</em> you do, but <em>why</em> you do it.
                 </motion.p>
               )}
 
               {/* Intermediate/Advanced: shorter description */}
               {!isBeginner && (
                 <p className="text-lg text-slate-500 leading-relaxed mb-4 max-w-2xl">
-                  Nine personality structures defined by core motivations and fears — with subtypes, tritypes, instinctual stackings, and clinical depth from Naranjo, Chestnut, and Riso-Hudson.
+                  Nine personality structures defined by core motivations and fears, with subtypes, tritypes, instinctual stackings, and clinical depth from Naranjo, Chestnut, and Riso-Hudson.
                 </p>
               )}
 
@@ -281,7 +281,7 @@ export default function EnneagramPage() {
               <NextStepBanner
                 href="/assessments"
                 label="Ready to find your type?"
-                sublabel="Take the validated assessment — results in 12–65 min depending on depth"
+                sublabel="Take the validated assessment, results in 12–65 min depending on depth"
                 icon={<MessageCircle className="w-5 h-5" />}
                 color="#0ea5e9"
                 dismissKey="enneagram-hub-assess"
@@ -302,7 +302,7 @@ export default function EnneagramPage() {
               {[
                 {
                   title: "Core Motivations",
-                  text: "Each type is driven by a core motivation — a fundamental desire that shapes behavior, decisions, and relationships. Understanding your core motivation unlocks deep self-awareness.",
+                  text: "Each type is driven by a core motivation, a fundamental desire that shapes behavior, decisions, and relationships. Understanding your core motivation unlocks deep self-awareness.",
                 },
                 {
                   title: "Wings",

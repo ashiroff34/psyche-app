@@ -71,7 +71,7 @@ const READING_SECTIONS = [
   {
     id: "history",
     title: "History of Typology",
-    subtitle: "Jung, Ichazo, Naranjo — the lineage of type theory",
+    subtitle: "Jung, Ichazo, Naranjo, the lineage of type theory",
     href: "/history",
     icon: ScrollText,
     color: "from-amber-400 to-orange-500",
@@ -229,7 +229,7 @@ export default function ReadPage() {
           <div>
             <p className="text-sm font-semibold text-amber-800 mb-0.5">Need hearts faster?</p>
             <p className="text-xs text-amber-600 leading-relaxed mb-2">
-              Spend 20 tokens in the store to instantly refill all hearts — no waiting.
+              Spend 20 tokens in the store to instantly refill all hearts, no waiting.
             </p>
             <Link
               href="/store"

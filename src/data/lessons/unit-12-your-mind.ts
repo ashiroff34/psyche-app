@@ -21,7 +21,7 @@ const lesson1: Lesson = {
       content: {
         type: "concept-intro",
         title: "Everyone Has a Superpower",
-        body: "Your brain has a default mode — one cognitive function it reaches for first, automatically, like a dominant hand. For you, that function is {{dominantFunctionName}} ({{dominantFunction}}). It's your mental home base.",
+        body: "Your brain has a default mode, one cognitive function it reaches for first, automatically, like a dominant hand. For you, that function is {{dominantFunctionName}} ({{dominantFunction}}). It's your mental home base.",
         highlight: "{{dominantFunctionName}}",
       },
     },
@@ -31,7 +31,7 @@ const lesson1: Lesson = {
       content: {
         type: "concept-intro",
         title: "What 'Dominant' Really Means",
-        body: "Your dominant function isn't just something you're good at — it's the lens through which you see everything. It developed first, it's the most natural, and it's usually running in the background even when you're not aware of it.",
+        body: "Your dominant function isn't just something you're good at, it's the lens through which you see everything. It developed first, it's the most natural, and it's usually running in the background even when you're not aware of it.",
         highlight: "dominant function",
       },
     },
@@ -48,7 +48,7 @@ const lesson1: Lesson = {
           "It's the function you'll develop last in life",
         ],
         correctIndex: 0,
-        explanation: "Your dominant function is like breathing — it happens naturally, without effort. {{dominantFunctionName}} is your default mode of engaging with the world.",
+        explanation: "Your dominant function is like breathing, it happens naturally, without effort. {{dominantFunctionName}} is your default mode of engaging with the world.",
       },
     },
     {
@@ -75,7 +75,7 @@ const lesson1: Lesson = {
         question: "When did your dominant function ({{dominantFunction}}) start developing?",
         options: [
           "In your 30s",
-          "In early childhood — it was the first to develop",
+          "In early childhood, it was the first to develop",
           "During college",
           "It hasn't developed yet",
         ],
@@ -88,10 +88,10 @@ const lesson1: Lesson = {
       difficulty: 2,
       content: {
         type: "fill-in-blank",
-        sentence: "Your dominant function is like your brain's ___ — it's the mode you default to without thinking.",
+        sentence: "Your dominant function is like your brain's ___, it's the mode you default to without thinking.",
         options: ["home base", "emergency exit", "spare tire", "backup plan"],
         correctIndex: 0,
-        explanation: "Your dominant function is your home base — the place your mind goes naturally, effortlessly, and most comfortably.",
+        explanation: "Your dominant function is your home base, the place your mind goes naturally, effortlessly, and most comfortably.",
       },
     },
     {
@@ -124,10 +124,10 @@ const lesson1: Lesson = {
       difficulty: 3,
       content: {
         type: "scenario",
-        scenario: "You're at a party where you don't know many people. Without even thinking about it, your mind immediately starts doing what feels most natural — using {{dominantFunctionName}}.",
+        scenario: "You're at a party where you don't know many people. Without even thinking about it, your mind immediately starts doing what feels most natural, using {{dominantFunctionName}}.",
         question: "Why does your mind default to {{dominantFunction}} in new situations?",
         options: [
-          "Because it's your dominant function — your automatic first response",
+          "Because it's your dominant function, your automatic first response",
           "Because parties are stressful and you're in grip mode",
           "Because you consciously chose to use that function",
           "Because it's the only function available in social settings",
@@ -141,11 +141,11 @@ const lesson1: Lesson = {
       difficulty: 3,
       content: {
         type: "scenario",
-        scenario: "A friend tells you: 'I don't understand how your brain works — you always seem to approach things through {{dominantFunctionName}}.' You realize they're noticing something about you that you barely notice yourself.",
+        scenario: "A friend tells you: 'I don't understand how your brain works, you always seem to approach things through {{dominantFunctionName}}.' You realize they're noticing something about you that you barely notice yourself.",
         question: "Why might you not notice how much you use {{dominantFunction}}?",
         options: [
           "Because you rarely use it",
-          "Because it's so natural it feels invisible — like breathing",
+          "Because it's so natural it feels invisible, like breathing",
           "Because it only activates during emergencies",
           "Because you actively suppress it in social settings",
         ],
@@ -160,7 +160,7 @@ const lesson1: Lesson = {
         type: "multiple-choice",
         question: "If someone with a DIFFERENT dominant function watched you think through a problem, what would they likely notice?",
         options: [
-          "Nothing — everyone thinks the same way",
+          "Nothing, everyone thinks the same way",
           "That you lean heavily on {{dominantFunctionName}} in ways they don't",
           "That you're using all eight functions equally",
           "That you deliberately avoid using {{dominantFunction}}",
@@ -179,7 +179,7 @@ const lesson1: Lesson = {
           "{{dominantFunctionName}} ({{dominantFunction}})",
           "{{inferiorFunctionName}} ({{inferiorFunction}})",
           "A random function that changes daily",
-          "None — you don't have a dominant function",
+          "None, you don't have a dominant function",
         ],
         correctIndex: 0,
         explanation: "You got it! {{dominantFunctionName}} ({{dominantFunction}}) is your mental home base. It's the foundation of how you experience and interact with the world.",
@@ -216,7 +216,7 @@ const lesson2: Lesson = {
       content: {
         type: "concept-intro",
         title: "The Balancing Act",
-        body: "If your dominant function is introverted, your auxiliary is extraverted (and vice versa). This gives you balance — one function looks inward while the other engages the outer world. Together, {{dominantFunction}} and {{auxiliaryFunction}} form your core cognitive partnership.",
+        body: "If your dominant function is introverted, your auxiliary is extraverted (and vice versa). This gives you balance, one function looks inward while the other engages the outer world. Together, {{dominantFunction}} and {{auxiliaryFunction}} form your core cognitive partnership.",
         highlight: "balance",
       },
     },
@@ -286,10 +286,10 @@ const lesson2: Lesson = {
         type: "matching-pairs",
         instruction: "Match each role in the cognitive stack:",
         pairs: [
-          { left: "{{dominantFunction}}", right: "The captain — your default mode" },
-          { left: "{{auxiliaryFunction}}", right: "The first mate — your balancing partner" },
+          { left: "{{dominantFunction}}", right: "The captain, your default mode" },
+          { left: "{{auxiliaryFunction}}", right: "The first mate, your balancing partner" },
           { left: "{{tertiaryFunction}}", right: "The developing crew member" },
-          { left: "{{inferiorFunction}}", right: "The stowaway — least conscious" },
+          { left: "{{inferiorFunction}}", right: "The stowaway, least conscious" },
         ],
       },
     },
@@ -301,7 +301,7 @@ const lesson2: Lesson = {
         sentence: "The auxiliary function typically develops during your ___ and into your 20s.",
         options: ["teenage years", "infancy", "retirement", "30s"],
         correctIndex: 0,
-        explanation: "The auxiliary comes online during adolescence. This is when many people start to feel more balanced and capable — they now have two strong cognitive tools instead of just one.",
+        explanation: "The auxiliary comes online during adolescence. This is when many people start to feel more balanced and capable, they now have two strong cognitive tools instead of just one.",
       },
     },
     {
@@ -309,13 +309,13 @@ const lesson2: Lesson = {
       difficulty: 3,
       content: {
         type: "scenario",
-        scenario: "You're making a big decision — say, choosing a career path. Your dominant function ({{dominantFunction}}) kicks in first and gives you its take. But then {{auxiliaryFunction}} chimes in with a different angle, adding information your dominant might miss.",
+        scenario: "You're making a big decision, say, choosing a career path. Your dominant function ({{dominantFunction}}) kicks in first and gives you its take. But then {{auxiliaryFunction}} chimes in with a different angle, adding information your dominant might miss.",
         question: "What is the auxiliary function doing here?",
         options: [
           "Overriding the dominant function",
           "Providing a complementary perspective that balances the dominant's view",
           "Causing confusion and indecision",
-          "Nothing useful — only the dominant matters",
+          "Nothing useful, only the dominant matters",
         ],
         correctIndex: 1,
         explanation: "This is exactly how the dominant-auxiliary partnership works. {{dominantFunction}} leads, but {{auxiliaryFunction}} adds balance, giving you a more complete picture than either function alone could provide.",
@@ -346,8 +346,8 @@ const lesson2: Lesson = {
         question: "What happens when someone relies ONLY on their dominant function and neglects their auxiliary?",
         options: [
           "They become perfectly balanced",
-          "They become one-sided — either too inward-focused or too outward-focused",
-          "Nothing — the auxiliary isn't important",
+          "They become one-sided, either too inward-focused or too outward-focused",
+          "Nothing, the auxiliary isn't important",
           "They develop their inferior function faster",
         ],
         correctIndex: 1,
@@ -391,7 +391,7 @@ const lesson3: Lesson = {
       content: {
         type: "concept-intro",
         title: "Your Third Function",
-        body: "Below your dominant and auxiliary sits a third function: {{tertiaryFunctionName}} ({{tertiaryFunction}}). It's less developed than your top two, but it's far from useless — it often shows up during play, relaxation, and creative moments.",
+        body: "Below your dominant and auxiliary sits a third function: {{tertiaryFunctionName}} ({{tertiaryFunction}}). It's less developed than your top two, but it's far from useless, it often shows up during play, relaxation, and creative moments.",
         highlight: "{{tertiaryFunctionName}}",
       },
     },
@@ -418,7 +418,7 @@ const lesson3: Lesson = {
           "{{inferiorFunctionName}} ({{inferiorFunction}})",
         ],
         correctIndex: 0,
-        explanation: "Your tertiary is {{tertiaryFunctionName}} ({{tertiaryFunction}}) — the third function in your stack, with a playful, developing quality.",
+        explanation: "Your tertiary is {{tertiaryFunctionName}} ({{tertiaryFunction}}), the third function in your stack, with a playful, developing quality.",
       },
     },
     {
@@ -431,7 +431,7 @@ const lesson3: Lesson = {
           "During high-pressure work situations",
           "During relaxation, play, and creative moments",
           "Only in emergencies",
-          "Never — it's completely dormant",
+          "Never, it's completely dormant",
         ],
         correctIndex: 1,
         explanation: "The tertiary function has a playful, relief-seeking quality. It tends to emerge when you're relaxed, having fun, or engaged in creative activities.",
@@ -450,7 +450,7 @@ const lesson3: Lesson = {
           "Because it only works when you're around kids",
         ],
         correctIndex: 1,
-        explanation: "The tertiary function is 'childlike' because it's less developed — it has a naive, playful quality. It's eager but not yet refined, which can make it both charming and unreliable.",
+        explanation: "The tertiary function is 'childlike' because it's less developed, it has a naive, playful quality. It's eager but not yet refined, which can make it both charming and unreliable.",
       },
     },
     {
@@ -461,7 +461,7 @@ const lesson3: Lesson = {
         sentence: "The tertiary function ({{tertiaryFunction}}) often emerges during ___ rather than high-pressure situations.",
         options: ["play and relaxation", "deep sleep", "arguments", "exams"],
         correctIndex: 0,
-        explanation: "Your tertiary function shows up when you're at ease. It's your 'play mode' function — less pressure means more room for this developing part of you to express itself.",
+        explanation: "Your tertiary function shows up when you're at ease. It's your 'play mode' function, less pressure means more room for this developing part of you to express itself.",
       },
     },
     {
@@ -471,10 +471,10 @@ const lesson3: Lesson = {
         type: "matching-pairs",
         instruction: "Match each function position to when it typically develops:",
         pairs: [
-          { left: "Dominant ({{dominantFunction}})", right: "Childhood — earliest to develop" },
-          { left: "Auxiliary ({{auxiliaryFunction}})", right: "Teens/20s — second to develop" },
-          { left: "Tertiary ({{tertiaryFunction}})", right: "30s/40s — midlife development" },
-          { left: "Inferior ({{inferiorFunction}})", right: "Ongoing challenge — least developed" },
+          { left: "Dominant ({{dominantFunction}})", right: "Childhood, earliest to develop" },
+          { left: "Auxiliary ({{auxiliaryFunction}})", right: "Teens/20s, second to develop" },
+          { left: "Tertiary ({{tertiaryFunction}})", right: "30s/40s, midlife development" },
+          { left: "Inferior ({{inferiorFunction}})", right: "Ongoing challenge, least developed" },
         ],
       },
     },
@@ -511,7 +511,7 @@ const lesson3: Lesson = {
       difficulty: 3,
       content: {
         type: "scenario",
-        scenario: "A {{cognitiveType}} in their 30s notices they're becoming interested in activities that engage {{tertiaryFunctionName}} — things they never cared about in their 20s. Friends comment that they seem more well-rounded.",
+        scenario: "A {{cognitiveType}} in their 30s notices they're becoming interested in activities that engage {{tertiaryFunctionName}}, things they never cared about in their 20s. Friends comment that they seem more well-rounded.",
         question: "What's happening developmentally?",
         options: [
           "They're losing their dominant function",
@@ -520,7 +520,7 @@ const lesson3: Lesson = {
           "Their type is changing completely",
         ],
         correctIndex: 1,
-        explanation: "The tertiary function naturally develops in the 30s and 40s. This is a normal, healthy part of cognitive development — the person isn't changing type, they're becoming a fuller version of their type.",
+        explanation: "The tertiary function naturally develops in the 30s and 40s. This is a normal, healthy part of cognitive development, the person isn't changing type, they're becoming a fuller version of their type.",
       },
     },
     {
@@ -530,13 +530,13 @@ const lesson3: Lesson = {
         type: "multiple-choice",
         question: "What's the difference between a well-developed tertiary function and a dominant function?",
         options: [
-          "No difference — all functions work the same way",
+          "No difference, all functions work the same way",
           "The tertiary is playful and creative but less reliable; the dominant is automatic and dependable",
           "The tertiary is always stronger than the dominant",
           "The dominant is only for children; adults use the tertiary",
         ],
         correctIndex: 1,
-        explanation: "Even when well-developed, the tertiary retains its playful, slightly unreliable quality. Your dominant ({{dominantFunction}}) is rock-solid; your tertiary ({{tertiaryFunction}}) is more like a fun hobby — enjoyable but not your main tool.",
+        explanation: "Even when well-developed, the tertiary retains its playful, slightly unreliable quality. Your dominant ({{dominantFunction}}) is rock-solid; your tertiary ({{tertiaryFunction}}) is more like a fun hobby, enjoyable but not your main tool.",
       },
     },
     {
@@ -552,7 +552,7 @@ const lesson3: Lesson = {
           "{{auxiliaryFunctionName}} ({{auxiliaryFunction}})",
         ],
         correctIndex: 0,
-        explanation: "{{tertiaryFunctionName}} ({{tertiaryFunction}}) is your growing edge — the playful, creative third function in your stack!",
+        explanation: "{{tertiaryFunctionName}} ({{tertiaryFunction}}) is your growing edge, the playful, creative third function in your stack!",
       },
     },
   ],
@@ -576,7 +576,7 @@ const lesson4: Lesson = {
       content: {
         type: "concept-intro",
         title: "The Function You Struggle With",
-        body: "Every type has a function that feels awkward, draining, and unreliable. For you as a {{cognitiveType}}, that's {{inferiorFunctionName}} ({{inferiorFunction}}). It's your inferior function — the opposite of your dominant, and the one most likely to trip you up.",
+        body: "Every type has a function that feels awkward, draining, and unreliable. For you as a {{cognitiveType}}, that's {{inferiorFunctionName}} ({{inferiorFunction}}). It's your inferior function, the opposite of your dominant, and the one most likely to trip you up.",
         highlight: "{{inferiorFunctionName}}",
       },
     },
@@ -586,7 +586,7 @@ const lesson4: Lesson = {
       content: {
         type: "concept-intro",
         title: "What Happens Under Stress",
-        body: "Here's the surprising part: under extreme stress, your inferior function can 'take over' in clumsy, exaggerated ways. This is called being 'in the grip.' When {{inferiorFunction}} grips you, it doesn't work smoothly — it erupts awkwardly, like a beginner forced to perform on stage.",
+        body: "Here's the surprising part: under extreme stress, your inferior function can 'take over' in clumsy, exaggerated ways. This is called being 'in the grip.' When {{inferiorFunction}} grips you, it doesn't work smoothly, it erupts awkwardly, like a beginner forced to perform on stage.",
         highlight: "in the grip",
       },
     },
@@ -603,7 +603,7 @@ const lesson4: Lesson = {
           "{{tertiaryFunctionName}} ({{tertiaryFunction}})",
         ],
         correctIndex: 0,
-        explanation: "Your inferior function is {{inferiorFunctionName}} ({{inferiorFunction}}) — the function at the bottom of your stack, and the opposite of your dominant.",
+        explanation: "Your inferior function is {{inferiorFunctionName}} ({{inferiorFunction}}), the function at the bottom of your stack, and the opposite of your dominant.",
       },
     },
     {
@@ -635,7 +635,7 @@ const lesson4: Lesson = {
           "When your dominant function is extra strong",
         ],
         correctIndex: 1,
-        explanation: "A grip experience happens when prolonged stress exhausts your dominant function, and the inferior rushes in to fill the void — but without skill or finesse.",
+        explanation: "A grip experience happens when prolonged stress exhausts your dominant function, and the inferior rushes in to fill the void, but without skill or finesse.",
       },
     },
     {
@@ -643,10 +643,10 @@ const lesson4: Lesson = {
       difficulty: 2,
       content: {
         type: "fill-in-blank",
-        sentence: "The inferior function is the ___ of the dominant function — they are cognitive opposites.",
+        sentence: "The inferior function is the ___ of the dominant function, they are cognitive opposites.",
         options: ["mirror image", "twin", "copy", "upgrade"],
         correctIndex: 0,
-        explanation: "The inferior and dominant are polar opposites. Your dominant {{dominantFunction}} is strong and natural; your inferior {{inferiorFunction}} is the mirror image — weak and effortful.",
+        explanation: "The inferior and dominant are polar opposites. Your dominant {{dominantFunction}} is strong and natural; your inferior {{inferiorFunction}} is the mirror image, weak and effortful.",
       },
     },
     {
@@ -684,16 +684,16 @@ const lesson4: Lesson = {
       difficulty: 3,
       content: {
         type: "scenario",
-        scenario: "You've been under intense stress for weeks — barely sleeping, overwhelmed by deadlines. Suddenly you find yourself acting in ways that feel completely unlike you. You're behaving in an exaggerated, clumsy version of {{inferiorFunctionName}}.",
+        scenario: "You've been under intense stress for weeks, barely sleeping, overwhelmed by deadlines. Suddenly you find yourself acting in ways that feel completely unlike you. You're behaving in an exaggerated, clumsy version of {{inferiorFunctionName}}.",
         question: "What's happening to you?",
         options: [
-          "You're experiencing an inferior function grip — {{inferiorFunction}} is taking over under stress",
+          "You're experiencing an inferior function grip, {{inferiorFunction}} is taking over under stress",
           "You've permanently changed personality types",
           "Your dominant function has gotten even stronger",
           "You're developing a new cognitive function",
         ],
         correctIndex: 0,
-        explanation: "This is a classic grip experience. When stress exhausts your dominant ({{dominantFunction}}), your inferior ({{inferiorFunction}}) erupts — but without the skill or nuance it would have if it were someone else's dominant function.",
+        explanation: "This is a classic grip experience. When stress exhausts your dominant ({{dominantFunction}}), your inferior ({{inferiorFunction}}) erupts, but without the skill or nuance it would have if it were someone else's dominant function.",
       },
     },
     {
@@ -710,7 +710,7 @@ const lesson4: Lesson = {
           "Pretend everything is fine",
         ],
         correctIndex: 1,
-        explanation: "The best response to a grip state is self-compassion and stress reduction. Once the pressure eases, your dominant function naturally reasserts itself. The grip isn't permanent — it's a signal that you need rest.",
+        explanation: "The best response to a grip state is self-compassion and stress reduction. Once the pressure eases, your dominant function naturally reasserts itself. The grip isn't permanent, it's a signal that you need rest.",
       },
     },
     {
@@ -720,10 +720,10 @@ const lesson4: Lesson = {
         type: "multiple-choice",
         question: "Can you ever develop your inferior function ({{inferiorFunction}}) into a strength?",
         options: [
-          "No — it will always be your weakest function",
-          "Yes — with conscious effort it can become more accessible, though never as strong as your dominant",
-          "Yes — you can make it stronger than your dominant",
-          "No — you should completely ignore it",
+          "No, it will always be your weakest function",
+          "Yes, with conscious effort it can become more accessible, though never as strong as your dominant",
+          "Yes, you can make it stronger than your dominant",
+          "No, you should completely ignore it",
         ],
         correctIndex: 1,
         explanation: "With intentional practice, the inferior function becomes more accessible over time. It will never rival your dominant, but it can grow from a liability into a useful (if still somewhat clumsy) tool.",
@@ -742,7 +742,7 @@ const lesson4: Lesson = {
           "{{auxiliaryFunctionName}} ({{auxiliaryFunction}})",
         ],
         correctIndex: 0,
-        explanation: "{{inferiorFunctionName}} ({{inferiorFunction}}) is your inferior — your blind spot and the source of grip experiences. Knowing this is powerful self-knowledge!",
+        explanation: "{{inferiorFunctionName}} ({{inferiorFunction}}) is your inferior, your blind spot and the source of grip experiences. Knowing this is powerful self-knowledge!",
       },
     },
   ],
@@ -776,7 +776,7 @@ const lesson5: Lesson = {
       content: {
         type: "concept-intro",
         title: "A Team, Not a List",
-        body: "Your stack isn't just a ranked list — it's a team. {{dominantFunction}} leads, {{auxiliaryFunction}} supports, {{tertiaryFunction}} adds creativity, and even {{inferiorFunction}} has gifts to offer when you're not under stress. The goal isn't to make all four equal, but to appreciate what each contributes.",
+        body: "Your stack isn't just a ranked list, it's a team. {{dominantFunction}} leads, {{auxiliaryFunction}} supports, {{tertiaryFunction}} adds creativity, and even {{inferiorFunction}} has gifts to offer when you're not under stress. The goal isn't to make all four equal, but to appreciate what each contributes.",
         highlight: "team",
       },
     },
@@ -803,7 +803,7 @@ const lesson5: Lesson = {
         type: "multiple-choice",
         question: "How many cognitive functions does everyone actually use?",
         options: [
-          "Only their dominant — one function",
+          "Only their dominant, one function",
           "Just the top two",
           "All eight, but in a specific preference order",
           "It varies randomly from day to day",
@@ -822,7 +822,7 @@ const lesson5: Lesson = {
           "Because they have completely different brains",
           "Because they lead with different dominant functions and have different stack orders",
           "Because some people are smarter than others",
-          "They don't — everyone experiences things the same way",
+          "They don't, everyone experiences things the same way",
         ],
         correctIndex: 1,
         explanation: "The function stack order is what creates different 'flavors' of personality. A type that leads with {{dominantFunction}} will process the same event very differently from someone who leads with {{inferiorFunction}}.",
@@ -877,12 +877,12 @@ const lesson5: Lesson = {
         question: "What does this scenario illustrate about your function stack?",
         options: [
           "You should only use your dominant function for planning",
-          "All four functions contribute to how you experience life — each in its own way",
+          "All four functions contribute to how you experience life, each in its own way",
           "The inferior function ruins everything",
           "Only the top two functions matter in real life",
         ],
         correctIndex: 1,
-        explanation: "This is the stack in action! Each function plays its role — leading, supporting, playing, and challenging. That's the richness of being a {{cognitiveType}}.",
+        explanation: "This is the stack in action! Each function plays its role, leading, supporting, playing, and challenging. That's the richness of being a {{cognitiveType}}.",
       },
     },
     {
@@ -890,16 +890,16 @@ const lesson5: Lesson = {
       difficulty: 3,
       content: {
         type: "scenario",
-        scenario: "Someone with the OPPOSITE function stack from you (their dominant is your inferior, and vice versa) approaches a problem. You watch them and feel a mix of admiration and frustration — they make your weakest function look effortless, but they seem to struggle with things that come naturally to you.",
+        scenario: "Someone with the OPPOSITE function stack from you (their dominant is your inferior, and vice versa) approaches a problem. You watch them and feel a mix of admiration and frustration, they make your weakest function look effortless, but they seem to struggle with things that come naturally to you.",
         question: "What explains this dynamic?",
         options: [
           "They're a better person than you",
-          "Their dominant is your inferior and vice versa — you have mirror-image strengths and weaknesses",
+          "Their dominant is your inferior and vice versa, you have mirror-image strengths and weaknesses",
           "They must be faking their abilities",
           "Cognitive functions don't actually affect how people think",
         ],
         correctIndex: 1,
-        explanation: "This is one of the most fascinating aspects of type theory. Someone whose dominant is {{inferiorFunction}} will find effortless what you find exhausting — and they'll struggle with what comes naturally to you ({{dominantFunction}}).",
+        explanation: "This is one of the most fascinating aspects of type theory. Someone whose dominant is {{inferiorFunction}} will find effortless what you find exhausting, and they'll struggle with what comes naturally to you ({{dominantFunction}}).",
       },
     },
     {
@@ -911,7 +911,7 @@ const lesson5: Lesson = {
         options: [
           "To prove your type is the best",
           "To avoid ever using your weaker functions",
-          "To gain self-awareness — knowing your strengths, growth areas, and stress patterns",
+          "To gain self-awareness, knowing your strengths, growth areas, and stress patterns",
           "To change your type to a better one",
         ],
         correctIndex: 2,

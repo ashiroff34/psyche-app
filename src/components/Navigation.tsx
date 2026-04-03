@@ -31,7 +31,7 @@ import {
 } from "lucide-react";
 import OuroborosLogo from "@/components/OuroborosLogo";
 
-// ── Bottom Tab Bar (5 main tabs — Duolingo-style) ──────────────────────────
+// ── Bottom Tab Bar (5 main tabs, Duolingo-style) ──────────────────────────
 
 const bottomTabs = [
   { href: "/", label: "Home", icon: Home },
@@ -232,7 +232,7 @@ function SwipeNavigator() {
     };
   }, [pathname, router]);
 
-  return null; // No overlay needed — listeners are on document
+  return null; // No overlay needed, listeners are on document
 }
 
 // ── Main Navigation Component ───────────────────────────────────────────────
@@ -309,7 +309,7 @@ export default function Navigation() {
 
   const hideChrome = isOnboarding || isNewUser;
 
-  if (isNewUser) return null; // Completely hide nav for brand-new users — fullscreen intro
+  if (isNewUser) return null; // Completely hide nav for brand-new users, fullscreen intro
 
   return (
     <>
@@ -334,7 +334,7 @@ export default function Navigation() {
                 </button>
               )}
               <Link href="/" className="flex items-center gap-2 group">
-                <img src={assetPath("/icon-192.png")} alt="Thyself" className="w-8 h-8 rounded-xl shadow-lg shadow-sky-200/50" />
+                <img src={assetPath("/thyself-logo.svg")} alt="Thyself" className="w-8 h-8 rounded-xl shadow-lg" style={{ boxShadow: "0 4px 12px rgba(124,58,237,0.4)" }} />
                 <span className="text-lg font-serif font-semibold tracking-tight" style={{ color: "rgba(255,255,255,0.92)" }}>
                   Thyself
                 </span>

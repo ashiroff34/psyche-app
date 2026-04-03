@@ -1,5 +1,5 @@
 // ─────────────────────────────────────────────────────────────────────────────
-// Unit 10 — Type 8: The Challenger
+// Unit 10, Type 8: The Challenger
 // 4 lessons × 12 exercises each
 // ─────────────────────────────────────────────────────────────────────────────
 
@@ -21,7 +21,7 @@ const lesson1: Lesson = {
       content: {
         type: "concept-intro",
         title: "Meet the Challenger",
-        body: "Type 8 is driven by a need for control, autonomy, and the protection of the vulnerable. They are the most assertive and powerful of all types — direct, decisive, and willing to confront anyone. Beneath this strength lies a deep refusal to ever be controlled or harmed again.",
+        body: "Type 8 is driven by a need for control, autonomy, and the protection of the vulnerable. They are the most assertive and powerful of all types, direct, decisive, and willing to confront anyone. Beneath this strength lies a deep refusal to ever be controlled or harmed again.",
         highlight: "control and autonomy",
       },
     },
@@ -66,7 +66,7 @@ const lesson1: Lesson = {
         ],
         correctIndex: 2,
         explanation:
-          "Eights' deepest fear is losing autonomy — being controlled, manipulated, or harmed by others. This drives their fierce independence and confrontational stance.",
+          "Eights' deepest fear is losing autonomy, being controlled, manipulated, or harmed by others. This drives their fierce independence and confrontational stance.",
       },
     },
     {
@@ -112,7 +112,7 @@ const lesson1: Lesson = {
         options: ["ambition", "vulnerability", "intelligence", "creativity"],
         correctIndex: 1,
         explanation:
-          "The Eight's armor of toughness is built to hide vulnerability. They've decided — often unconsciously — that tenderness is dangerous and strength is the only safe option.",
+          "The Eight's armor of toughness is built to hide vulnerability. They've decided, often unconsciously, that tenderness is dangerous and strength is the only safe option.",
       },
     },
     {
@@ -121,7 +121,7 @@ const lesson1: Lesson = {
       content: {
         type: "fill-in-blank",
         sentence:
-          "Unlike types who seek external validation, Eights are primarily motivated by ___ — the ability to determine their own path.",
+          "Unlike types who seek external validation, Eights are primarily motivated by ___, the ability to determine their own path.",
         options: ["admiration", "autonomy", "belonging", "knowledge"],
         correctIndex: 1,
         explanation:
@@ -134,17 +134,17 @@ const lesson1: Lesson = {
       content: {
         type: "scenario",
         scenario:
-          "At a restaurant, the server gets Dani's order wrong. Dani immediately calls them over, speaks firmly: 'This isn't what I ordered. I need this fixed now.' Their dinner companion is embarrassed, but Dani doesn't see the problem — 'I'm just being direct. Why would I eat something I didn't order?'",
+          "At a restaurant, the server gets Dani's order wrong. Dani immediately calls them over, speaks firmly: 'This isn't what I ordered. I need this fixed now.' Their dinner companion is embarrassed, but Dani doesn't see the problem, 'I'm just being direct. Why would I eat something I didn't order?'",
         question: "Which Eight pattern is Dani displaying?",
         options: [
           "Rude behavior unrelated to type",
-          "Eight directness — they say exactly what they mean and expect action",
+          "Eight directness, they say exactly what they mean and expect action",
           "Passive-aggressive manipulation",
           "Anxious overreaction to a small problem",
         ],
         correctIndex: 1,
         explanation:
-          "Dani's directness is classic Eight. They don't see it as rude — they see it as honest. Eights often can't understand why others don't just say what they want.",
+          "Dani's directness is classic Eight. They don't see it as rude, they see it as honest. Eights often can't understand why others don't just say what they want.",
       },
     },
     {
@@ -153,17 +153,17 @@ const lesson1: Lesson = {
       content: {
         type: "scenario",
         scenario:
-          "Marcus notices his quiet coworker is being talked over in every meeting. Without being asked, Marcus interrupts the next meeting to say, 'Hey — Priya had the floor. Let her finish.' He does this consistently, even when Priya doesn't ask for help.",
+          "Marcus notices his quiet coworker is being talked over in every meeting. Without being asked, Marcus interrupts the next meeting to say, 'Hey, Priya had the floor. Let her finish.' He does this consistently, even when Priya doesn't ask for help.",
         question: "What core Eight motivation drives Marcus?",
         options: [
           "A need to be admired as a leader",
-          "Protectiveness — using his power to defend someone vulnerable",
+          "Protectiveness, using his power to defend someone vulnerable",
           "A need to control the meeting",
           "Anxiety about conflict in the group",
         ],
         correctIndex: 1,
         explanation:
-          "Marcus is expressing the Eight's protective instinct. Eights are natural champions of the underdog — they instinctively use their power to shield those who can't or won't fight for themselves.",
+          "Marcus is expressing the Eight's protective instinct. Eights are natural champions of the underdog, they instinctively use their power to shield those who can't or won't fight for themselves.",
       },
     },
     {
@@ -172,11 +172,11 @@ const lesson1: Lesson = {
       content: {
         type: "scenario",
         scenario:
-          "After a vulnerable conversation where Rosa accidentally cried in front of a colleague, she spends the next week overcompensating — being extra tough, taking on massive projects, and shutting down any personal conversations. She's furious at herself for 'losing control.'",
+          "After a vulnerable conversation where Rosa accidentally cried in front of a colleague, she spends the next week overcompensating, being extra tough, taking on massive projects, and shutting down any personal conversations. She's furious at herself for 'losing control.'",
         question: "What core Eight fear was triggered?",
         options: [
           "Fear of not being successful enough",
-          "Fear of being seen as vulnerable — which means being controllable",
+          "Fear of being seen as vulnerable, which means being controllable",
           "Fear of losing friends",
           "Fear of not being unique",
         ],
@@ -193,14 +193,14 @@ const lesson1: Lesson = {
         question:
           "What lies beneath the Eight's tough exterior?",
         options: [
-          "Nothing — they are exactly as tough as they appear",
+          "Nothing, they are exactly as tough as they appear",
           "A tender, vulnerable core they work hard to protect",
           "A desire to be the center of attention",
           "Intellectual curiosity they're hiding",
         ],
         correctIndex: 1,
         explanation:
-          "Beneath every Eight's armor is a tender heart. Their toughness isn't absence of feeling — it's a fierce protection of deep feeling they've learned to hide.",
+          "Beneath every Eight's armor is a tender heart. Their toughness isn't absence of feeling, it's a fierce protection of deep feeling they've learned to hide.",
       },
     },
   ],
@@ -222,7 +222,7 @@ const lesson2: Lesson = {
       content: {
         type: "concept-intro",
         title: "The Passion: Lust",
-        body: "In Naranjo's system, Eight's emotional passion is Lust — but NOT sexual desire. Lust here means intensity, excess, and going big in everything: big emotions, big reactions, big appetites. Eights approach life at full throttle and can't stand anything that feels half-hearted or lukewarm.",
+        body: "In Naranjo's system, Eight's emotional passion is Lust, but NOT sexual desire. Lust here means intensity, excess, and going big in everything: big emotions, big reactions, big appetites. Eights approach life at full throttle and can't stand anything that feels half-hearted or lukewarm.",
         highlight: "Lust",
       },
     },
@@ -232,7 +232,7 @@ const lesson2: Lesson = {
       content: {
         type: "concept-intro",
         title: "The Virtue: Innocence",
-        body: "The antidote to Lust is Innocence — a return to openness, tenderness, and simplicity. Healthy Eights discover that they don't need to dominate every situation. They can let their guard down, be gentle, and experience life without needing to control it.",
+        body: "The antidote to Lust is Innocence, a return to openness, tenderness, and simplicity. Healthy Eights discover that they don't need to dominate every situation. They can let their guard down, be gentle, and experience life without needing to control it.",
         highlight: "Innocence",
       },
     },
@@ -245,12 +245,12 @@ const lesson2: Lesson = {
         options: [
           "Sexual desire",
           "A craving for power over others",
-          "Intensity and excess in all things — going big, living at full throttle",
+          "Intensity and excess in all things, going big, living at full throttle",
           "Laziness disguised as ambition",
         ],
         correctIndex: 2,
         explanation:
-          "Naranjo's Lust is about intensity, not sex. Eights approach everything — work, play, conflict, love — with maximum force. Anything lukewarm feels inauthentic to them.",
+          "Naranjo's Lust is about intensity, not sex. Eights approach everything, work, play, conflict, love, with maximum force. Anything lukewarm feels inauthentic to them.",
       },
     },
     {
@@ -267,7 +267,7 @@ const lesson2: Lesson = {
         ],
         correctIndex: 1,
         explanation:
-          "Innocence for an Eight means recovering the openness and tenderness they armored over. It's not naivety — it's the courage to be gentle and receptive.",
+          "Innocence for an Eight means recovering the openness and tenderness they armored over. It's not naivety, it's the courage to be gentle and receptive.",
       },
     },
     {
@@ -285,7 +285,7 @@ const lesson2: Lesson = {
         ],
         correctIndex: 1,
         explanation:
-          "The word 'Lust' misleads people into thinking it's about sex. Naranjo means a lust for LIFE — for intensity, impact, volume, and full-throttle engagement with everything.",
+          "The word 'Lust' misleads people into thinking it's about sex. Naranjo means a lust for LIFE, for intensity, impact, volume, and full-throttle engagement with everything.",
       },
     },
     {
@@ -326,11 +326,11 @@ const lesson2: Lesson = {
       content: {
         type: "fill-in-blank",
         sentence:
-          "An Eight's Lust shows up not just in anger but in everything — they love ___, fight hard, work intensely, and feel deeply.",
+          "An Eight's Lust shows up not just in anger but in everything, they love ___, fight hard, work intensely, and feel deeply.",
         options: ["cautiously", "fiercely", "analytically", "passively"],
         correctIndex: 1,
         explanation:
-          "The Eight's Lust is all-encompassing intensity. They don't do anything halfway — their love is fierce, their anger is powerful, their play is intense.",
+          "The Eight's Lust is all-encompassing intensity. They don't do anything halfway, their love is fierce, their anger is powerful, their play is intense.",
       },
     },
     {
@@ -339,13 +339,13 @@ const lesson2: Lesson = {
       content: {
         type: "scenario",
         scenario:
-          "Alex runs a startup. When things go well, the celebrations are huge — expensive dinners, big bonuses. When a competitor threatens them, Alex works 18-hour days, takes every meeting as a battle, and tells the team they're 'going to war.' Everything is at maximum volume, all the time.",
+          "Alex runs a startup. When things go well, the celebrations are huge, expensive dinners, big bonuses. When a competitor threatens them, Alex works 18-hour days, takes every meeting as a battle, and tells the team they're 'going to war.' Everything is at maximum volume, all the time.",
         question: "What Eight passion is driving Alex?",
         options: [
-          "Vanity — they want to appear successful",
-          "Gluttony — they can't get enough experiences",
-          "Lust — they approach everything with maximum intensity and excess",
-          "Fear — they're anxious about the competition",
+          "Vanity, they want to appear successful",
+          "Gluttony, they can't get enough experiences",
+          "Lust, they approach everything with maximum intensity and excess",
+          "Fear, they're anxious about the competition",
         ],
         correctIndex: 2,
         explanation:
@@ -361,14 +361,14 @@ const lesson2: Lesson = {
           "After a health scare, tough-as-nails CEO Jordan starts showing a different side. They write heartfelt thank-you notes to employees, admit mistakes publicly, and tell their children 'I love you' for the first time in years. Their team is stunned but deeply moved.",
         question: "What virtue is Jordan discovering?",
         options: [
-          "Courage — becoming braver",
-          "Innocence — opening up to tenderness and vulnerability",
-          "Sobriety — becoming more restrained",
-          "Right Action — becoming more productive",
+          "Courage, becoming braver",
+          "Innocence, opening up to tenderness and vulnerability",
+          "Sobriety, becoming more restrained",
+          "Right Action, becoming more productive",
         ],
         correctIndex: 1,
         explanation:
-          "Jordan is touching the Eight's virtue of Innocence: letting the armor drop, allowing tenderness to come through, and discovering that vulnerability isn't weakness — it's the deepest kind of strength.",
+          "Jordan is touching the Eight's virtue of Innocence: letting the armor drop, allowing tenderness to come through, and discovering that vulnerability isn't weakness, it's the deepest kind of strength.",
       },
     },
     {
@@ -381,7 +381,7 @@ const lesson2: Lesson = {
         question: "What health level shift has Carmen undergone?",
         options: [
           "She moved from average to healthy by becoming more assertive",
-          "She moved from healthy to unhealthy — her power has become destructive and vengeful",
+          "She moved from healthy to unhealthy, her power has become destructive and vengeful",
           "She stayed at the same level but changed tactics",
           "She's expressing healthy Eight directness",
         ],
@@ -427,7 +427,7 @@ const lesson3: Lesson = {
       content: {
         type: "concept-intro",
         title: "Wings: 8w7 and 8w9",
-        body: "8w7 (The Maverick) combines Eight's power with Seven's energy — they're entrepreneurial, outgoing, and always in motion. 8w9 (The Bear) combines Eight's strength with Nine's groundedness — they're calmer, more patient, and their power is quieter but immovable.",
+        body: "8w7 (The Maverick) combines Eight's power with Seven's energy, they're entrepreneurial, outgoing, and always in motion. 8w9 (The Bear) combines Eight's strength with Nine's groundedness, they're calmer, more patient, and their power is quieter but immovable.",
         highlight: "8w7 vs 8w9",
       },
     },
@@ -437,7 +437,7 @@ const lesson3: Lesson = {
       content: {
         type: "concept-intro",
         title: "Stress and Growth Lines",
-        body: "Under stress, Eights move to the unhealthy side of Type 5: becoming withdrawn, secretive, and cerebral — retreating from the world they usually dominate. In growth, they move to the healthy side of Type 2: becoming nurturing, caring, and open-hearted.",
+        body: "Under stress, Eights move to the unhealthy side of Type 5: becoming withdrawn, secretive, and cerebral, retreating from the world they usually dominate. In growth, they move to the healthy side of Type 2: becoming nurturing, caring, and open-hearted.",
         highlight: "stress to 5, growth to 2",
       },
     },
@@ -450,7 +450,7 @@ const lesson3: Lesson = {
         options: ["To 2", "To 7", "To 5", "To 1"],
         correctIndex: 2,
         explanation:
-          "Under stress, Eights move to the unhealthy side of 5: they withdraw, become secretive, and retreat into their minds — the opposite of their usual expansive, confrontational energy.",
+          "Under stress, Eights move to the unhealthy side of 5: they withdraw, become secretive, and retreat into their minds, the opposite of their usual expansive, confrontational energy.",
       },
     },
     {
@@ -489,8 +489,8 @@ const lesson3: Lesson = {
         type: "matching-pairs",
         instruction: "Match each wing or line to its description.",
         pairs: [
-          { left: "8w7 — The Maverick", right: "Outgoing, entrepreneurial, high-energy" },
-          { left: "8w9 — The Bear", right: "Quiet strength, grounded, patient" },
+          { left: "8w7, The Maverick", right: "Outgoing, entrepreneurial, high-energy" },
+          { left: "8w9, The Bear", right: "Quiet strength, grounded, patient" },
           { left: "Stress to 5", right: "Withdraws, becomes secretive and cerebral" },
           { left: "Growth to 2", right: "Becomes nurturing, caring, open-hearted" },
         ],
@@ -506,7 +506,7 @@ const lesson3: Lesson = {
         options: ["growth", "wing", "stress", "integration"],
         correctIndex: 2,
         explanation:
-          "Withdrawal is the Eight's stress signal. When overwhelmed, they retreat into Five-like isolation — the opposite of their usual expansive, in-charge presence.",
+          "Withdrawal is the Eight's stress signal. When overwhelmed, they retreat into Five-like isolation, the opposite of their usual expansive, in-charge presence.",
       },
     },
     {
@@ -528,17 +528,17 @@ const lesson3: Lesson = {
       content: {
         type: "scenario",
         scenario:
-          "After a major business setback, normally bold and visible CEO Taylor goes silent. They stop attending meetings, lock themselves in their office, obsessively analyze financial data alone, and refuse to talk to anyone about what's happening. The team is confused — this isn't the Taylor they know.",
+          "After a major business setback, normally bold and visible CEO Taylor goes silent. They stop attending meetings, lock themselves in their office, obsessively analyze financial data alone, and refuse to talk to anyone about what's happening. The team is confused, this isn't the Taylor they know.",
         question: "What is happening to Taylor?",
         options: [
           "Taylor is showing healthy Eight self-reliance",
-          "Taylor is moving to their stress point at Type 5 — withdrawing and becoming cerebral",
+          "Taylor is moving to their stress point at Type 5, withdrawing and becoming cerebral",
           "Taylor is showing their 8w9 wing",
           "Taylor has always been a Type 5, not an Eight",
         ],
         correctIndex: 1,
         explanation:
-          "Taylor is in their stress line to Type 5. Under extreme pressure, Eights can withdraw completely — retreating into analysis and secrecy instead of their usual take-charge approach.",
+          "Taylor is in their stress line to Type 5. Under extreme pressure, Eights can withdraw completely, retreating into analysis and secrecy instead of their usual take-charge approach.",
       },
     },
     {
@@ -550,14 +550,14 @@ const lesson3: Lesson = {
           "A tough-as-nails sports coach known for being demanding and confrontational starts mentoring struggling athletes after hours, driving players to doctor's appointments, and quietly paying for a team member's school supplies. They still coach hard, but there's genuine warmth underneath.",
         question: "What growth line is this coach accessing?",
         options: [
-          "Stress to 5 — becoming more analytical about coaching",
-          "Growth to 2 — channeling power into genuine care and nurturing",
-          "Wing shift to 8w9 — becoming calmer",
-          "Losing their Eight edge — becoming too soft",
+          "Stress to 5, becoming more analytical about coaching",
+          "Growth to 2, channeling power into genuine care and nurturing",
+          "Wing shift to 8w9, becoming calmer",
+          "Losing their Eight edge, becoming too soft",
         ],
         correctIndex: 1,
         explanation:
-          "This coach is accessing their growth line to Type 2: using their power and resources to genuinely nurture and care for others. This is the Eight at their best — strong AND tender.",
+          "This coach is accessing their growth line to Type 2: using their power and resources to genuinely nurture and care for others. This is the Eight at their best, strong AND tender.",
       },
     },
     {
@@ -566,7 +566,7 @@ const lesson3: Lesson = {
       content: {
         type: "sorting",
         instruction: "Sort these behaviors by whether they belong to 8w7 or 8w9.",
-        categories: ["8w7 — The Maverick", "8w9 — The Bear"],
+        categories: ["8w7, The Maverick", "8w9, The Bear"],
         items: [
           { text: "Entrepreneurial, always launching new ventures", categoryIndex: 0 },
           { text: "Quiet authority, doesn't need to prove their power", categoryIndex: 1 },
@@ -587,8 +587,8 @@ const lesson3: Lesson = {
         options: [
           "Healthy growth",
           "Natural Eight behavior",
-          "Stress — moving to the shadow side of Type 5",
-          "A mistype — they're actually a Type 5",
+          "Stress, moving to the shadow side of Type 5",
+          "A mistype, they're actually a Type 5",
         ],
         correctIndex: 2,
         explanation:
@@ -624,7 +624,7 @@ const lesson4: Lesson = {
       content: {
         type: "concept-intro",
         title: "Common Mistypes",
-        body: "Eights are most confused with counterphobic Sixes (both confrontational — but Eights are naturally dominant while counterphobic 6s fight their fear) and Type 3 (both driven — but 8s seek control while 3s seek admiration).",
+        body: "Eights are most confused with counterphobic Sixes (both confrontational, but Eights are naturally dominant while counterphobic 6s fight their fear) and Type 3 (both driven, but 8s seek control while 3s seek admiration).",
         highlight: "counterphobic 6 and Type 3",
       },
     },
@@ -679,7 +679,7 @@ const lesson4: Lesson = {
         ],
         correctIndex: 2,
         explanation:
-          "Eights don't avoid conflict — they walk straight into it. For Eights, direct confrontation feels honest and efficient. Avoiding conflict feels dishonest and weak.",
+          "Eights don't avoid conflict, they walk straight into it. For Eights, direct confrontation feels honest and efficient. Avoiding conflict feels dishonest and weak.",
       },
     },
     {
@@ -688,7 +688,7 @@ const lesson4: Lesson = {
       content: {
         type: "matching-pairs",
         instruction:
-          "Match the behavior to the correct type — Eight or its common mistype.",
+          "Match the behavior to the correct type, Eight or its common mistype.",
         pairs: [
           { left: "Confrontational because they're naturally powerful", right: "Type 8" },
           { left: "Confrontational because they're fighting inner fear", right: "Counterphobic 6" },
@@ -707,7 +707,7 @@ const lesson4: Lesson = {
         options: ["flattery", "confrontation", "withdrawal", "helpfulness"],
         correctIndex: 1,
         explanation:
-          "Eights test people by pushing against them — if you can stand up to an Eight without crumbling, they respect you. Sixes test through questioning and doubt.",
+          "Eights test people by pushing against them, if you can stand up to an Eight without crumbling, they respect you. Sixes test through questioning and doubt.",
       },
     },
     {
@@ -729,11 +729,11 @@ const lesson4: Lesson = {
       content: {
         type: "scenario",
         scenario:
-          "Two leaders both demand a lot from their teams. Leader A says, 'We need to hit these numbers — our reputation depends on it. Let's make sure our presentation blows them away.' Leader B says, 'I don't care what they think. We're doing this my way because I know it's right, and anyone who has a problem with that can talk to me directly.'",
+          "Two leaders both demand a lot from their teams. Leader A says, 'We need to hit these numbers, our reputation depends on it. Let's make sure our presentation blows them away.' Leader B says, 'I don't care what they think. We're doing this my way because I know it's right, and anyone who has a problem with that can talk to me directly.'",
         question: "Which leader is more likely the Eight?",
         options: [
-          "Leader A — they're demanding and driven",
-          "Leader B — they're focused on control, directness, and autonomy, not image",
+          "Leader A, they're demanding and driven",
+          "Leader B, they're focused on control, directness, and autonomy, not image",
           "Both are Eights with different wings",
           "Neither is an Eight",
         ],
@@ -748,13 +748,13 @@ const lesson4: Lesson = {
       content: {
         type: "scenario",
         scenario:
-          "Two coworkers both pushed back in a heated meeting. Afterward, one goes home and replays the argument anxiously: 'Did I go too far? Will there be consequences? What if they come after me now?' The other goes home and doesn't think about it again — the confrontation felt natural and necessary.",
+          "Two coworkers both pushed back in a heated meeting. Afterward, one goes home and replays the argument anxiously: 'Did I go too far? Will there be consequences? What if they come after me now?' The other goes home and doesn't think about it again, the confrontation felt natural and necessary.",
         question: "Which one is the Eight?",
         options: [
-          "The first — their intensity signals Eight energy",
-          "The second — the confrontation felt natural, not fear-driven",
+          "The first, their intensity signals Eight energy",
+          "The second, the confrontation felt natural, not fear-driven",
           "Both are Eights who process differently",
-          "Neither — Eights don't attend meetings",
+          "Neither, Eights don't attend meetings",
         ],
         correctIndex: 1,
         explanation:
@@ -777,7 +777,7 @@ const lesson4: Lesson = {
         ],
         correctIndex: 1,
         explanation:
-          "Uncle Ray shows the full Eight picture: taking charge naturally, cutting through conflict directly, and using his power to protect someone vulnerable — all without seeking recognition.",
+          "Uncle Ray shows the full Eight picture: taking charge naturally, cutting through conflict directly, and using his power to protect someone vulnerable, all without seeking recognition.",
       },
     },
     {
@@ -795,7 +795,7 @@ const lesson4: Lesson = {
         ],
         correctIndex: 1,
         explanation:
-          "The most reliable Eight signal is the immediate, natural response to challenge: they push back. Eights don't calculate — they act. And they take charge as naturally as breathing.",
+          "The most reliable Eight signal is the immediate, natural response to challenge: they push back. Eights don't calculate, they act. And they take charge as naturally as breathing.",
       },
     },
   ],

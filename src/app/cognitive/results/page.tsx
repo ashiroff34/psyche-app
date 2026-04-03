@@ -19,11 +19,11 @@ const beebeData: Record<string, { function: string; archetype: string; descripti
   INTJ: [
     { function: "Ni", archetype: "Hero", description: "Your primary mode of operation. Ni as Hero means you lead with visionary foresight, reading patterns others miss. Your identity is built around your capacity to see the future before it arrives." },
     { function: "Te", archetype: "Good Parent", description: "Te as auxiliary supports and structures your Ni visions. You nurture others through efficiency, competence, and clear systems. A reliable source of strength you offer the world." },
-    { function: "Fi", archetype: "Divine Child", description: "Fi as tertiary gives you a deep but often private value system. It can be naive or childlike — intensely felt but less reliable than your dominant functions. It awakens more fully in midlife." },
+    { function: "Fi", archetype: "Divine Child", description: "Fi as tertiary gives you a deep but often private value system. It can be naive or childlike, intensely felt but less reliable than your dominant functions. It awakens more fully in midlife." },
     { function: "Se", archetype: "Anima/Animus", description: "Se as inferior is your gateway to the unconscious. You may be drawn to rich sensory experiences but overwhelmed by them. In stress, Se can erupt as overindulgence or compulsive physical behavior." },
     { function: "Ne", archetype: "Opposing", description: "Ne as Nemesis makes external brainstorming and possibility-generation feel threatening. You may dismiss others' ideas defensively when your singular Ni vision is challenged." },
-    { function: "Ti", archetype: "Critical Parent", description: "Ti as Critical Parent creates a harsh inner critic around logical frameworks. You may brutally critique internal consistency — in yourself and in others' arguments." },
-    { function: "Fe", archetype: "Trickster", description: "Fe as Trickster can manipulate social situations in ways you're not fully aware of. You may use group dynamics instinctively but poorly — with unintended consequences for relationships." },
+    { function: "Ti", archetype: "Critical Parent", description: "Ti as Critical Parent creates a harsh inner critic around logical frameworks. You may brutally critique internal consistency, in yourself and in others' arguments." },
+    { function: "Fe", archetype: "Trickster", description: "Fe as Trickster can manipulate social situations in ways you're not fully aware of. You may use group dynamics instinctively but poorly, with unintended consequences for relationships." },
     { function: "Si", archetype: "Demon", description: "Si as Demon is your most unconscious function. When stressed beyond limits, you may become obsessively focused on past mistakes or physical sensations in a rigid, compulsive way." },
   ],
   INFJ: [
@@ -38,7 +38,7 @@ const beebeData: Record<string, { function: string; archetype: string; descripti
   ],
   ENTJ: [
     { function: "Te", archetype: "Hero", description: "Te as Hero means you lead with decisive, external logic. You naturally see how systems should be organized and feel compelled to impose order and efficiency on the world." },
-    { function: "Ni", archetype: "Good Parent", description: "Ni as auxiliary gives your Te goals visionary direction. You are not just efficient — you are efficient toward a meaningful future vision. This combination is powerfully strategic." },
+    { function: "Ni", archetype: "Good Parent", description: "Ni as auxiliary gives your Te goals visionary direction. You are not just efficient, you are efficient toward a meaningful future vision. This combination is powerfully strategic." },
     { function: "Se", archetype: "Divine Child", description: "Se as tertiary gives you energy for action and engagement with the physical world. It can be playfully bold but is less reliable than your top two functions." },
     { function: "Fi", archetype: "Anima/Animus", description: "Fi as inferior means personal values and inner emotional life are your gateway to the unconscious. Under extreme stress, you may become uncharacteristically emotional or rigidly principled." },
     { function: "Ti", archetype: "Opposing", description: "Ti as Nemesis makes purely internal logical consistency feel frustrating. You may dismiss those who over-analyze without producing concrete, measurable results." },
@@ -48,13 +48,13 @@ const beebeData: Record<string, { function: string; archetype: string; descripti
   ],
   ENFJ: [
     { function: "Fe", archetype: "Hero", description: "Fe as Hero means you lead with social and emotional intelligence. You naturally sense group dynamics, read others' needs, and create harmony and inspiration around you." },
-    { function: "Ni", archetype: "Good Parent", description: "Ni as auxiliary gives your Fe leadership visionary depth. You do not just respond to others' immediate needs — you see where they need to grow long-term." },
+    { function: "Ni", archetype: "Good Parent", description: "Ni as auxiliary gives your Fe leadership visionary depth. You do not just respond to others' immediate needs, you see where they need to grow long-term." },
     { function: "Se", archetype: "Divine Child", description: "Se as tertiary gives you a playful engagement with the physical world and presence in the moment that can be infectious and energizing for those around you." },
     { function: "Ti", archetype: "Anima/Animus", description: "Ti as inferior means internal logical analysis is your unconscious function. Under stress, you may suddenly become hyper-analytical or brutally critical of others' reasoning." },
     { function: "Fi", archetype: "Opposing", description: "Fi as Nemesis makes purely personal, subjective emotional needs feel threatening when they conflict with group harmony and collective wellbeing." },
     { function: "Ne", archetype: "Critical Parent", description: "Ne as Critical Parent may create a harsh inner voice about not exploring enough possibilities or missing creative connections that matter." },
-    { function: "Si", archetype: "Trickster", description: "Si as Trickster means past patterns may mislead you — applying precedents from memory that do not quite fit the current situation in important ways." },
-    { function: "Te", archetype: "Demon", description: "Te as Demon can manifest in extreme stress as cold, harsh efficiency that shocks those who know your warmth — or as complete inability to make practical decisions." },
+    { function: "Si", archetype: "Trickster", description: "Si as Trickster means past patterns may mislead you, applying precedents from memory that do not quite fit the current situation in important ways." },
+    { function: "Te", archetype: "Demon", description: "Te as Demon can manifest in extreme stress as cold, harsh efficiency that shocks those who know your warmth, or as complete inability to make practical decisions." },
   ],
   INTP: [
     { function: "Ti", archetype: "Hero", description: "Ti as Hero means you lead with an obsessive need for internal logical precision. Your identity is built around your capacity for rigorous, impartial, thorough analysis." },
@@ -63,7 +63,7 @@ const beebeData: Record<string, { function: string; archetype: string; descripti
     { function: "Fe", archetype: "Anima/Animus", description: "Fe as inferior means social harmony and emotional connection are your unconscious domain. Under stress, you may suddenly become hypersensitive to others' approval and belonging." },
     { function: "Te", archetype: "Opposing", description: "Te as Nemesis makes purely external efficiency feel threatening. You may resist systems that do not pass your rigorous internal logical standards first." },
     { function: "Ni", archetype: "Critical Parent", description: "Ni as Critical Parent creates harsh self-criticism when your visions seem unclear or when you fail to have a singular, confident long-term direction." },
-    { function: "Se", archetype: "Trickster", description: "Se as Trickster means you may misjudge physical or sensory reality — acting on sensory information in ways that backfire unexpectedly in the real world." },
+    { function: "Se", archetype: "Trickster", description: "Se as Trickster means you may misjudge physical or sensory reality, acting on sensory information in ways that backfire unexpectedly in the real world." },
     { function: "Fi", archetype: "Demon", description: "Fi as Demon can emerge in deepest stress as an overwhelming personal values crisis or extreme emotional reactions that seem completely out of character to everyone." },
   ],
   ENTP: [
@@ -72,8 +72,8 @@ const beebeData: Record<string, { function: string; archetype: string; descripti
     { function: "Fe", archetype: "Divine Child", description: "Fe as tertiary gives you social charisma and emotional attunement that can appear suddenly. You can be surprisingly empathetic in a playful, childlike way." },
     { function: "Si", archetype: "Anima/Animus", description: "Si as inferior means past experience, routine, and bodily needs are your least conscious area. Under stress, you may become obsessively nostalgic or hyperfocused on one rigid routine." },
     { function: "Ni", archetype: "Opposing", description: "Ni as Nemesis makes singular, convergent thinking feel threatening. You may resist conclusions or visions that seem to close off the expansive possibilities you love." },
-    { function: "Te", archetype: "Critical Parent", description: "Te as Critical Parent creates a harsh inner voice about productivity and efficiency — feeling you should be more organized, systematic, and results-oriented." },
-    { function: "Fi", archetype: "Trickster", description: "Fi as Trickster means personal value conflicts can unexpectedly derail your plans — acting on values you were not fully aware of having until they surface." },
+    { function: "Te", archetype: "Critical Parent", description: "Te as Critical Parent creates a harsh inner voice about productivity and efficiency, feeling you should be more organized, systematic, and results-oriented." },
+    { function: "Fi", archetype: "Trickster", description: "Fi as Trickster means personal value conflicts can unexpectedly derail your plans, acting on values you were not fully aware of having until they surface." },
     { function: "Se", archetype: "Demon", description: "Se as Demon can emerge in extreme stress as sensory overwhelm, compulsive impulsive action, or complete inability to engage with immediate physical reality." },
   ],
   ISFJ: [
@@ -91,15 +91,15 @@ const beebeData: Record<string, { function: string; archetype: string; descripti
     { function: "Si", archetype: "Good Parent", description: "Si as auxiliary gives your Fe warmth a grounding in tradition, reliability, and familiar comfort. You care for others by preserving and honoring what has worked before." },
     { function: "Ne", archetype: "Divine Child", description: "Ne as tertiary gives you bursts of creative playfulness and novel thinking, though less reliably developed than your top two functions." },
     { function: "Ti", archetype: "Anima/Animus", description: "Ti as inferior means internal logical analysis is your unconscious domain. Under stress, you may become hyper-analytical or get stuck obsessively finding inconsistencies." },
-    { function: "Fi", archetype: "Opposing", description: "Fi as Nemesis makes purely personal emotional authenticity feel threatening — especially when it conflicts with group harmony and social expectations you uphold." },
-    { function: "Se", archetype: "Critical Parent", description: "Se as Critical Parent may create harsh self-judgment around physical action or sensory presence — feeling you are not quick or action-oriented enough." },
+    { function: "Fi", archetype: "Opposing", description: "Fi as Nemesis makes purely personal emotional authenticity feel threatening, especially when it conflicts with group harmony and social expectations you uphold." },
+    { function: "Se", archetype: "Critical Parent", description: "Se as Critical Parent may create harsh self-judgment around physical action or sensory presence, feeling you are not quick or action-oriented enough." },
     { function: "Ni", archetype: "Trickster", description: "Ni as Trickster may produce sudden strong hunches about the future that misfire, leading you to make confident claims about what will happen that do not pan out." },
-    { function: "Te", archetype: "Demon", description: "Te as Demon can emerge in extreme stress as cold, impersonal decision-making completely at odds with your warmth — or complete inability to make any logical decisions." },
+    { function: "Te", archetype: "Demon", description: "Te as Demon can emerge in extreme stress as cold, impersonal decision-making completely at odds with your warmth, or complete inability to make any logical decisions." },
   ],
   ISTJ: [
     { function: "Si", archetype: "Hero", description: "Si as Hero means you lead with reliable attention to past experience and concrete detail. Your identity is built around being thorough, responsible, and deeply consistent." },
     { function: "Te", archetype: "Good Parent", description: "Te as auxiliary makes you a systematic organizer who nurtures through building and maintaining reliable structures and getting important things done efficiently." },
-    { function: "Fi", archetype: "Divine Child", description: "Fi as tertiary gives you a quiet, deep value system that operates in the background — sometimes emerging with surprising intensity in matters of personal moral importance." },
+    { function: "Fi", archetype: "Divine Child", description: "Fi as tertiary gives you a quiet, deep value system that operates in the background, sometimes emerging with surprising intensity in matters of personal moral importance." },
     { function: "Ne", archetype: "Anima/Animus", description: "Ne as inferior means novel possibilities are your unconscious domain. Under stress, you may spiral into catastrophizing all the ways things could go terribly wrong." },
     { function: "Se", archetype: "Opposing", description: "Se as Nemesis makes purely reactive, in-the-moment sensory engagement challenging. You prefer careful preparation over spontaneous action and reaction." },
     { function: "Ti", archetype: "Critical Parent", description: "Ti as Critical Parent creates a harsh inner voice around whether your logical frameworks are internally consistent and truly rigorous." },
@@ -119,46 +119,46 @@ const beebeData: Record<string, { function: string; archetype: string; descripti
   INFP: [
     { function: "Fi", archetype: "Hero", description: "Fi as Hero means you lead with deep personal values and authentic feeling. Your identity is built around your capacity for profound inner truth and emotional depth." },
     { function: "Ne", archetype: "Good Parent", description: "Ne as auxiliary gives your Fi values creative expression and exploratory range. You nurture through helping others see new possibilities and discover deeper personal meanings." },
-    { function: "Si", archetype: "Divine Child", description: "Si as tertiary gives you a nostalgic, detail-oriented side — finding meaning in particular memories, aesthetics, and sensory details that resonate personally with you." },
+    { function: "Si", archetype: "Divine Child", description: "Si as tertiary gives you a nostalgic, detail-oriented side, finding meaning in particular memories, aesthetics, and sensory details that resonate personally with you." },
     { function: "Te", archetype: "Anima/Animus", description: "Te as inferior means external logic and systematic organization are your least conscious domain. Under stress, you may become uncharacteristically controlling or harshly logical." },
     { function: "Fe", archetype: "Opposing", description: "Fe as Nemesis makes social harmony and group expectations feel threatening to your authenticity when they conflict with your deeply held personal values." },
     { function: "Ni", archetype: "Critical Parent", description: "Ni as Critical Parent creates a harsh inner voice about whether you are living toward your deepest purpose or long-term vision with enough commitment." },
-    { function: "Se", archetype: "Trickster", description: "Se as Trickster means physical reality and immediate sensory engagement can catch you off guard — acting impulsively in ways that surprise even yourself." },
-    { function: "Ti", archetype: "Demon", description: "Ti as Demon can emerge in extreme stress as brutal internal logic that systematically tears apart your values or identity — a harsh critic unlike your usual gentle self." },
+    { function: "Se", archetype: "Trickster", description: "Se as Trickster means physical reality and immediate sensory engagement can catch you off guard, acting impulsively in ways that surprise even yourself." },
+    { function: "Ti", archetype: "Demon", description: "Ti as Demon can emerge in extreme stress as brutal internal logic that systematically tears apart your values or identity, a harsh critic unlike your usual gentle self." },
   ],
   ENFP: [
     { function: "Ne", archetype: "Hero", description: "Ne as Hero means you lead with enthusiastic exploration of possibilities, connections, and meanings. Your identity is built around your capacity for imaginative, expansive vision." },
     { function: "Fi", archetype: "Good Parent", description: "Fi as auxiliary gives your Ne a values-based compass. You nurture others through helping them connect with their authentic selves and their deepest personal values." },
-    { function: "Te", archetype: "Divine Child", description: "Te as tertiary gives you a practical, results-oriented side that can emerge with surprising effectiveness — especially when you care deeply about an outcome." },
+    { function: "Te", archetype: "Divine Child", description: "Te as tertiary gives you a practical, results-oriented side that can emerge with surprising effectiveness, especially when you care deeply about an outcome." },
     { function: "Si", archetype: "Anima/Animus", description: "Si as inferior means bodily needs, routine, and detailed past tracking are your least conscious area. Under stress, you may ignore these entirely or become obsessively fixated on them." },
     { function: "Ni", archetype: "Opposing", description: "Ni as Nemesis makes convergent, singular-vision thinking feel threatening. You may resist when others try to narrow your expansive explorations to one conclusion." },
-    { function: "Fe", archetype: "Critical Parent", description: "Fe as Critical Parent creates a harsh voice about social responsibility — feeling you should care more about group harmony or be more attuned to others' feelings." },
+    { function: "Fe", archetype: "Critical Parent", description: "Fe as Critical Parent creates a harsh voice about social responsibility, feeling you should care more about group harmony or be more attuned to others' feelings." },
     { function: "Ti", archetype: "Trickster", description: "Ti as Trickster means you may apply internal logical frameworks in clever but ultimately flawed ways that you do not recognize as incorrect until too late." },
     { function: "Se", archetype: "Demon", description: "Se as Demon can emerge in extreme stress as hyper-reactive engagement with immediate physical reality or complete sensory overwhelm and shutdown." },
   ],
   ISTP: [
     { function: "Ti", archetype: "Hero", description: "Ti as Hero means you lead with precise internal logical analysis. You have an uncompromising need to understand exactly how things work on their own terms." },
-    { function: "Se", archetype: "Good Parent", description: "Se as auxiliary grounds your Ti in direct sensory engagement. You learn by doing and experiencing — your thinking is always connected to physical, testable reality." },
-    { function: "Ni", archetype: "Divine Child", description: "Ni as tertiary gives you occasional flashes of insight and strategic vision that can seem prescient — a deeper pattern recognition that surprises those around you." },
+    { function: "Se", archetype: "Good Parent", description: "Se as auxiliary grounds your Ti in direct sensory engagement. You learn by doing and experiencing, your thinking is always connected to physical, testable reality." },
+    { function: "Ni", archetype: "Divine Child", description: "Ni as tertiary gives you occasional flashes of insight and strategic vision that can seem prescient, a deeper pattern recognition that surprises those around you." },
     { function: "Fe", archetype: "Anima/Animus", description: "Fe as inferior means social attunement and emotional expression are your unconscious domain. Under stress, you may shut down entirely or become unexpectedly, overwhelmingly expressive." },
-    { function: "Te", archetype: "Opposing", description: "Te as Nemesis makes purely external systematic thinking feel reductive — you may bristle when forced to follow someone else's imposed logical framework." },
-    { function: "Si", archetype: "Critical Parent", description: "Si as Critical Parent creates a harsh inner voice about traditional methods and established standards — feeling you should do things the proven, conventional way." },
+    { function: "Te", archetype: "Opposing", description: "Te as Nemesis makes purely external systematic thinking feel reductive, you may bristle when forced to follow someone else's imposed logical framework." },
+    { function: "Si", archetype: "Critical Parent", description: "Si as Critical Parent creates a harsh inner voice about traditional methods and established standards, feeling you should do things the proven, conventional way." },
     { function: "Ne", archetype: "Trickster", description: "Ne as Trickster means you may occasionally generate possibilities that seem logical but miss the bigger picture in ways you are not aware of." },
     { function: "Fi", archetype: "Demon", description: "Fi as Demon can emerge in extreme stress as an overwhelming personal values crisis or sudden explosive emotional reaction completely at odds with your cool exterior." },
   ],
   ESTP: [
     { function: "Se", archetype: "Hero", description: "Se as Hero means you lead with immediate sensory engagement and real-time response to the physical world. You are fully alive and sharp in the present moment." },
     { function: "Ti", archetype: "Good Parent", description: "Ti as auxiliary gives your Se action a precise logical framework. You understand exactly how things work and can troubleshoot systems in real time under pressure." },
-    { function: "Fe", archetype: "Divine Child", description: "Fe as tertiary gives you social charm and a playful ability to read and engage groups — you can be unexpectedly empathetic and entertaining when you let it emerge." },
+    { function: "Fe", archetype: "Divine Child", description: "Fe as tertiary gives you social charm and a playful ability to read and engage groups, you can be unexpectedly empathetic and entertaining when you let it emerge." },
     { function: "Ni", archetype: "Anima/Animus", description: "Ni as inferior means long-term vision and meaning-making are your unconscious domain. Under stress, you may become suddenly consumed by dark premonitions or existential anxiety." },
     { function: "Si", archetype: "Opposing", description: "Si as Nemesis makes relying on past experience or tradition feel constraining. You may actively resist being bound by precedent or conventional methods." },
-    { function: "Te", archetype: "Critical Parent", description: "Te as Critical Parent creates self-criticism about efficiency and systematic organization — feeling you should be more structured and goal-directed in your approach." },
-    { function: "Fi", archetype: "Trickster", description: "Fi as Trickster means personal values may unexpectedly drive behavior in ways you were not aware of — surprising yourself with sudden ethical stances." },
+    { function: "Te", archetype: "Critical Parent", description: "Te as Critical Parent creates self-criticism about efficiency and systematic organization, feeling you should be more structured and goal-directed in your approach." },
+    { function: "Fi", archetype: "Trickster", description: "Fi as Trickster means personal values may unexpectedly drive behavior in ways you were not aware of, surprising yourself with sudden ethical stances." },
     { function: "Ne", archetype: "Demon", description: "Ne as Demon can emerge in extreme stress as overwhelming possibilities-thinking or anxious catastrophizing about everything that could potentially go wrong." },
   ],
   ISFP: [
     { function: "Fi", archetype: "Hero", description: "Fi as Hero means you lead with deep personal values and authentic emotional truth. You have a profound inner compass that quietly guides all your decisions and actions." },
-    { function: "Se", archetype: "Good Parent", description: "Se as auxiliary grounds your Fi in direct sensory experience — you express your values through action, art, craft, and physical engagement with the living world." },
+    { function: "Se", archetype: "Good Parent", description: "Se as auxiliary grounds your Fi in direct sensory experience, you express your values through action, art, craft, and physical engagement with the living world." },
     { function: "Ni", archetype: "Divine Child", description: "Ni as tertiary gives you occasional moments of powerful insight and long-term vision that can seem emotionally prescient and deeply meaningful to you." },
     { function: "Te", archetype: "Anima/Animus", description: "Te as inferior means systematic organization and external logic are your unconscious domain. Under stress, you may become uncharacteristically demanding or harshly critical." },
     { function: "Fe", archetype: "Opposing", description: "Fe as Nemesis makes social expectations and group harmony feel threatening when they require compromising your authentic values and personal integrity." },
@@ -168,12 +168,12 @@ const beebeData: Record<string, { function: string; archetype: string; descripti
   ],
   ESFP: [
     { function: "Se", archetype: "Hero", description: "Se as Hero means you lead with joyful, immediate engagement with life. You are fully present, energized by direct experience and connection with people and the vibrant world." },
-    { function: "Fi", archetype: "Good Parent", description: "Fi as auxiliary gives your Se a warm values core. You do not just experience — you care deeply, nurturing others through genuine emotional presence and personal authenticity." },
+    { function: "Fi", archetype: "Good Parent", description: "Fi as auxiliary gives your Se a warm values core. You do not just experience, you care deeply, nurturing others through genuine emotional presence and personal authenticity." },
     { function: "Te", archetype: "Divine Child", description: "Te as tertiary gives you practical problem-solving ability that can appear with surprising effectiveness when you care about getting real results." },
     { function: "Ni", archetype: "Anima/Animus", description: "Ni as inferior means long-term vision is your unconscious domain. Under stress, you may be suddenly flooded with dark premonitions or existential questions about meaning and purpose." },
     { function: "Si", archetype: "Opposing", description: "Si as Nemesis makes relying on past patterns or tradition feel constraining and deadening to your present-moment vitality and joy." },
     { function: "Fe", archetype: "Critical Parent", description: "Fe as Critical Parent creates self-judgment about whether you are being socially responsible enough and sufficiently attuned to what others actually need from you." },
-    { function: "Ti", archetype: "Trickster", description: "Ti as Trickster means internal logical frameworks may occasionally lead you astray in ways you do not notice — applying reasoning that seems right but has hidden flaws." },
+    { function: "Ti", archetype: "Trickster", description: "Ti as Trickster means internal logical frameworks may occasionally lead you astray in ways you do not notice, applying reasoning that seems right but has hidden flaws." },
     { function: "Ne", archetype: "Demon", description: "Ne as Demon can emerge in extreme stress as overwhelming anxiety about future possibilities, producing a flood of catastrophic what-if thinking entirely at odds with your usual joy." },
   ],
 };
@@ -182,58 +182,58 @@ const beebeData: Record<string, { function: string; archetype: string; descripti
 
 const functionPositionDescriptions: Record<string, string[]> = {
   INTJ: [
-    "As your dominant function, Ni is your primary lens on the world. You operate from a near-constant stream of future visions and pattern syntheses that arrive pre-verbally. You often know things without being able to explain why — and you are usually right.",
+    "As your dominant function, Ni is your primary lens on the world. You operate from a near-constant stream of future visions and pattern syntheses that arrive pre-verbally. You often know things without being able to explain why, and you are usually right.",
     "Te as your auxiliary structures and externalizes your Ni visions. You have a natural compulsion toward systems, plans, and measurable results. This is how your inner knowing becomes outer reality.",
-    "Fi is quieter in you — a deep personal value system that runs beneath the surface. Others may not see it, but it guides your choices. It often becomes more prominent and important in your 30s and beyond.",
-    "Se is your most unconscious function — the place where you are least comfortable. You may feel clumsy in purely sensory, spontaneous situations. In stress, Se erupts as overindulgence or compulsive physical behavior.",
+    "Fi is quieter in you, a deep personal value system that runs beneath the surface. Others may not see it, but it guides your choices. It often becomes more prominent and important in your 30s and beyond.",
+    "Se is your most unconscious function, the place where you are least comfortable. You may feel clumsy in purely sensory, spontaneous situations. In stress, Se erupts as overindulgence or compulsive physical behavior.",
   ],
   INFJ: [
     "Ni as your dominant function gives you an almost uncanny ability to perceive patterns in human behavior and foresee how situations will develop. Your insights about people often feel more like knowing than reasoning.",
     "Fe as auxiliary makes you acutely attuned to the emotional atmosphere around you. You often absorb others' feelings and feel responsible for the emotional wellbeing of those you care about.",
-    "Ti in the tertiary position gives you an analytical backup system. When your Ni insights need justification, Ti provides the logical scaffolding — though it can be unreliable under pressure.",
+    "Ti in the tertiary position gives you an analytical backup system. When your Ni insights need justification, Ti provides the logical scaffolding, though it can be unreliable under pressure.",
     "Se as inferior makes the immediate physical world feel simultaneously alluring and overwhelming. You may neglect your body, then swing to sensory indulgence when stressed.",
   ],
   ENTJ: [
     "Te as your dominant function means you naturally lead by organizing, deciding, and executing. You think in terms of goals, efficiency, and outcomes. Ambiguity and inefficiency feel personally offensive to you.",
-    "Ni as auxiliary provides the strategic vision that makes your Te purposeful. Without Ni, Te is just busywork. With it, you are one of the most powerfully strategic types — you see the endgame and know how to get there.",
+    "Ni as auxiliary provides the strategic vision that makes your Te purposeful. Without Ni, Te is just busywork. With it, you are one of the most powerfully strategic types, you see the endgame and know how to get there.",
     "Se as tertiary keeps you grounded in physical and tactical reality. It gives you an appreciation for action and presence that complements your long-range planning.",
-    "Fi as inferior is your emotional blind spot — the place where you are most likely to be ambushed by your own feelings. Deep personal values and emotional vulnerability are your unconscious frontier.",
+    "Fi as inferior is your emotional blind spot, the place where you are most likely to be ambushed by your own feelings. Deep personal values and emotional vulnerability are your unconscious frontier.",
   ],
   ENFJ: [
-    "Fe as your dominant function makes you exceptionally attuned to group dynamics, emotional undercurrents, and what others need. You naturally create harmony and inspire people — it is not performance, it is your native mode.",
-    "Ni as auxiliary gives your empathy a visionary depth. You do not just feel what others feel — you see where they need to grow and what they are capable of becoming. This makes you a natural mentor.",
+    "Fe as your dominant function makes you exceptionally attuned to group dynamics, emotional undercurrents, and what others need. You naturally create harmony and inspire people, it is not performance, it is your native mode.",
+    "Ni as auxiliary gives your empathy a visionary depth. You do not just feel what others feel, you see where they need to grow and what they are capable of becoming. This makes you a natural mentor.",
     "Se as tertiary gives you a physical presence and engagement with the world that makes your warmth tangible and immediate rather than abstract.",
     "Ti as inferior means your inner logical critic is often underdeveloped. Under stress, it erupts as cold, unexpected analytical harshness that shocks those who know your warmth.",
   ],
   INTP: [
-    "Ti as your dominant function means you are in a constant state of internal analysis. You need to understand the precise logical structure of everything. Inconsistency — in ideas, in people, in systems — is deeply unsettling.",
+    "Ti as your dominant function means you are in a constant state of internal analysis. You need to understand the precise logical structure of everything. Inconsistency, in ideas, in people, in systems, is deeply unsettling.",
     "Ne as auxiliary generates the raw material for your Ti to analyze. It scans for connections, anomalies, and novel possibilities, keeping your thinking dynamic and exploratory rather than rigid.",
     "Si as tertiary gives you an accumulated archive of past analyses and reliable knowledge. It provides depth and continuity to your intellectual life, though it can also produce a preference for known methods.",
-    "Fe as inferior is the function that most humbles you. Social harmony, emotional expression, and the desire to be liked are your unconscious frontier — they surface unexpectedly, especially under stress.",
+    "Fe as inferior is the function that most humbles you. Social harmony, emotional expression, and the desire to be liked are your unconscious frontier, they surface unexpectedly, especially under stress.",
   ],
   ENTP: [
-    "Ne as your dominant function means your mind is in constant generative motion — producing connections, alternatives, and possibilities at high speed. You are energized by ideas and novelty, and you find most people's thinking too narrow.",
-    "Ti as auxiliary provides the analytical filter for your Ne's output. It is what distinguishes your best insights from interesting noise — Ti tests whether your ideas actually hold up under logical scrutiny.",
+    "Ne as your dominant function means your mind is in constant generative motion, producing connections, alternatives, and possibilities at high speed. You are energized by ideas and novelty, and you find most people's thinking too narrow.",
+    "Ti as auxiliary provides the analytical filter for your Ne's output. It is what distinguishes your best insights from interesting noise, Ti tests whether your ideas actually hold up under logical scrutiny.",
     "Fe as tertiary gives you social charm that can appear suddenly and powerfully. You are often more attuned to group dynamics than you realize, and you can be surprisingly empathetic when you engage this function.",
     "Si as inferior means routine, physical consistency, and detailed past-tracking are your least developed areas. Under stress, you may swing to obsessive nostalgic attachment or compulsive single-routine fixation.",
   ],
   ISFJ: [
     "Si as your dominant function means you live in rich continuity with your past experience. You notice details, remember how things felt, and use that accumulated knowledge to navigate the present with care and reliability.",
     "Fe as auxiliary makes you deeply attuned to others' needs and feelings. You are a natural caregiver who anticipates what people need before they ask, and you feel genuine discomfort when those around you are suffering.",
-    "Ti as tertiary gives you a quiet precision in certain domains — you can be surprisingly logical and systematic in your areas of expertise, even though this is not your primary mode.",
+    "Ti as tertiary gives you a quiet precision in certain domains, you can be surprisingly logical and systematic in your areas of expertise, even though this is not your primary mode.",
     "Ne as inferior means open-ended possibility thinking and uncertainty feel threatening. Under stress, your mind generates worst-case scenarios and catastrophizes about what could go wrong.",
   ],
   ESFJ: [
     "Fe as your dominant function makes social harmony not just a preference but a genuine need. You are constantly aware of the emotional atmosphere, and you feel personally responsible for the wellbeing of your group.",
-    "Si as auxiliary grounds your Fe in reliable tradition, proven methods, and accumulated experience. You care for others by preserving and honoring what has worked — you are the keeper of meaningful rituals and continuity.",
+    "Si as auxiliary grounds your Fe in reliable tradition, proven methods, and accumulated experience. You care for others by preserving and honoring what has worked, you are the keeper of meaningful rituals and continuity.",
     "Ne as tertiary gives you occasional creative insights and openness to new possibilities, though this is less developed and less reliable than your warmth and tradition-keeping.",
-    "Ti as inferior means logical analysis and internal consistency are your unconscious frontier. Under stress, your Ti erupts as surprisingly harsh, cutting criticism — of others or of yourself.",
+    "Ti as inferior means logical analysis and internal consistency are your unconscious frontier. Under stress, your Ti erupts as surprisingly harsh, cutting criticism, of others or of yourself.",
   ],
   ISTJ: [
     "Si as your dominant function means you are a thoroughgoing empiricist of your own experience. What has worked before is your most reliable guide. You approach life with careful attention to what is proven, reliable, and concrete.",
-    "Te as auxiliary gives your Si-gathered knowledge a systematic, organized expression. You are not just thorough — you are organized. You build and maintain the structures that keep things running reliably.",
-    "Fi as tertiary operates quietly beneath your dutiful exterior — a deep personal value system that occasionally surfaces with surprising intensity, especially around moral matters that touch your integrity.",
-    "Ne as inferior means novel, open-ended possibility thinking is your least comfortable territory. Under sustained stress, it erupts as catastrophizing — your mind generating all the terrible things that could happen.",
+    "Te as auxiliary gives your Si-gathered knowledge a systematic, organized expression. You are not just thorough, you are organized. You build and maintain the structures that keep things running reliably.",
+    "Fi as tertiary operates quietly beneath your dutiful exterior, a deep personal value system that occasionally surfaces with surprising intensity, especially around moral matters that touch your integrity.",
+    "Ne as inferior means novel, open-ended possibility thinking is your least comfortable territory. Under sustained stress, it erupts as catastrophizing, your mind generating all the terrible things that could happen.",
   ],
   ESTJ: [
     "Te as your dominant function means you naturally think in terms of systems, procedures, and measurable outcomes. You see inefficiency and feel compelled to fix it. You are one of the most naturally organized and decisive of all types.",
@@ -242,38 +242,38 @@ const functionPositionDescriptions: Record<string, string[]> = {
     "Fi as inferior means deep personal feeling and individual values are your unconscious frontier. Under extreme stress, your inferior Fi surfaces as overwhelming emotional intensity that surprises even you.",
   ],
   INFP: [
-    "Fi as your dominant function means you live by an intensely personal inner compass. Your sense of what is right, beautiful, authentic, and meaningful is your primary guide — and compromising it feels like a betrayal of self.",
+    "Fi as your dominant function means you live by an intensely personal inner compass. Your sense of what is right, beautiful, authentic, and meaningful is your primary guide, and compromising it feels like a betrayal of self.",
     "Ne as auxiliary gives your values creative and exploratory expression. Your Fi knows what matters; your Ne explores all the ways it might manifest, the possibilities it opens, and the connections it makes.",
     "Si as tertiary gives you a fondness for certain memories, aesthetics, and sensory details that feel personally resonant. Your past is a living source of meaning, not just history.",
     "Te as inferior means external organization, logic, and systems are your least conscious domain. Under stress, Te erupts as uncharacteristic harshness, rigidity, or an obsessive need to control and organize.",
   ],
   ENFP: [
     "Ne as your dominant function means you perceive the world through a lens of infinite possibility and connection. You find meaning everywhere, see potential in everyone, and are energized by exploring what could be.",
-    "Fi as auxiliary gives your expansive Ne a personal values core. You are not just exploring possibilities — you are searching for what is authentic, meaningful, and true to who you are. Fi is your compass.",
-    "Te as tertiary can emerge with surprising effectiveness when you are motivated. You can be remarkably practical and goal-oriented when you care deeply about an outcome — it surprises those who know your dreamy exterior.",
+    "Fi as auxiliary gives your expansive Ne a personal values core. You are not just exploring possibilities, you are searching for what is authentic, meaningful, and true to who you are. Fi is your compass.",
+    "Te as tertiary can emerge with surprising effectiveness when you are motivated. You can be remarkably practical and goal-oriented when you care deeply about an outcome, it surprises those who know your dreamy exterior.",
     "Si as inferior means physical routine, bodily needs, and detailed past-tracking are your unconscious frontier. Under stress, you may completely neglect your physical needs or suddenly become obsessively attached to one rigid routine.",
   ],
   ISTP: [
     "Ti as your dominant function means you have an uncompromising need to understand exactly how things work at their most fundamental level. You build precise internal models through direct engagement and testing.",
-    "Se as auxiliary connects your Ti directly to physical reality. You are not an armchair analyst — you test your models through hands-on engagement, and your understanding is always grounded in concrete, observable reality.",
-    "Ni as tertiary gives you occasional flashes of strategic insight — a sense of where things are heading that goes beyond your immediate analysis. These intuitions can be remarkably accurate.",
+    "Se as auxiliary connects your Ti directly to physical reality. You are not an armchair analyst, you test your models through hands-on engagement, and your understanding is always grounded in concrete, observable reality.",
+    "Ni as tertiary gives you occasional flashes of strategic insight, a sense of where things are heading that goes beyond your immediate analysis. These intuitions can be remarkably accurate.",
     "Fe as inferior means the social and emotional world is your least developed territory. You often find it unpredictable and confusing. Under extreme stress, Fe surfaces as either complete emotional shutdown or sudden overwhelming emotional expression.",
   ],
   ESTP: [
-    "Se as your dominant function means you are fully, brilliantly present in the moment. You perceive the physical world with extraordinary acuity — every detail, every shift in energy, every opportunity registers instantly.",
-    "Ti as auxiliary gives your sensory engagement a powerful analytical framework. You can rapidly process what you observe and calculate the optimal response — this combination makes you formidable in any real-time situation.",
+    "Se as your dominant function means you are fully, brilliantly present in the moment. You perceive the physical world with extraordinary acuity, every detail, every shift in energy, every opportunity registers instantly.",
+    "Ti as auxiliary gives your sensory engagement a powerful analytical framework. You can rapidly process what you observe and calculate the optimal response, this combination makes you formidable in any real-time situation.",
     "Fe as tertiary gives you social savvy and charm that operates in the background. You can read and influence social dynamics with a naturalness that others find magnetic, even when you are not consciously trying.",
     "Ni as inferior means long-term vision and abstract future-thinking are your unconscious frontier. Under extreme stress, Ni erupts as dark, fatalistic premonitions and an uncharacteristic brooding quality.",
   ],
   ISFP: [
     "Fi as your dominant function gives you a profound, quiet inner compass. Your sense of what is authentic, beautiful, and personally meaningful runs deep and guides every significant choice you make.",
-    "Se as auxiliary brings your inner world into direct contact with physical reality. You express your values through action, craft, art, and sensory engagement — you are always reaching through the body to touch what is true.",
-    "Ni as tertiary gives you occasional moments of deep, meaningful insight that seem to come from beyond your immediate experience — a sense of larger patterns and deeper significance that can be startling.",
+    "Se as auxiliary brings your inner world into direct contact with physical reality. You express your values through action, craft, art, and sensory engagement, you are always reaching through the body to touch what is true.",
+    "Ni as tertiary gives you occasional moments of deep, meaningful insight that seem to come from beyond your immediate experience, a sense of larger patterns and deeper significance that can be startling.",
     "Te as inferior means external systems, organization, and assertive management are your least conscious territory. Under stress, Te surfaces as harsh criticism, rigid efficiency demands, or an uncharacteristic need to control.",
   ],
   ESFP: [
     "Se as your dominant function means you inhabit the present moment more fully than almost any other type. The world comes to you in vivid sensory richness, and you respond to it with an immediacy and joy that is genuinely infectious.",
-    "Fi as auxiliary gives your sensory engagement authentic emotional depth. You are not just experiencing — you are experiencing with your whole self, filtered through a personal value system that makes each moment genuinely meaningful.",
+    "Fi as auxiliary gives your sensory engagement authentic emotional depth. You are not just experiencing, you are experiencing with your whole self, filtered through a personal value system that makes each moment genuinely meaningful.",
     "Te as tertiary gives you practical problem-solving capacity that can emerge when stakes are high. You can be more organized and results-focused than your playful exterior suggests when you truly care about something.",
     "Ni as inferior means abstract future-thinking and long-term vision are your least developed territory. Under stress, Ni erupts as suddenly overwhelming dark premonitions or existential anxiety about where your life is heading.",
   ],
@@ -293,26 +293,26 @@ const loopData: Record<string, {
     bypasses: "Te",
     behavior: "You develop elaborate internal narratives about what will happen and how you feel about it, without testing any of it against external reality. You become increasingly certain of a negative vision while withdrawing from the structured action that would actually address it.",
     warnings: ["Increasingly paranoid or fatalistic thinking", "Withdrawing from plans and commitments", "Certainty about negative outcomes with no action taken", "Dismissing all external feedback"],
-    breakOut: "Force yourself to take one concrete external action. Use Te deliberately — make a plan, organize something, measure something. Tell someone your concerns and actually listen to their response.",
+    breakOut: "Force yourself to take one concrete external action. Use Te deliberately, make a plan, organize something, measure something. Tell someone your concerns and actually listen to their response.",
   },
   INFJ: {
     functions: ["Ni", "Ti"],
     bypasses: "Fe",
-    behavior: "You retreat into internal theorizing — constructing elaborate logical explanations for your intuitive visions without checking them against the social world. You may develop conspiratorial or cynical frameworks that feel airtight but are completely disconnected from other people.",
+    behavior: "You retreat into internal theorizing, constructing elaborate logical explanations for your intuitive visions without checking them against the social world. You may develop conspiratorial or cynical frameworks that feel airtight but are completely disconnected from other people.",
     warnings: ["Increasing isolation and withdrawal", "Developing complex theories no one else can access", "Cold detachment replacing your usual warmth", "Certainty about ideas that have never been tested with others"],
-    breakOut: "Reach out to someone you trust. Share your thinking and genuinely listen. Use Fe deliberately — ask how someone is doing and focus entirely on them rather than your internal world.",
+    breakOut: "Reach out to someone you trust. Share your thinking and genuinely listen. Use Fe deliberately, ask how someone is doing and focus entirely on them rather than your internal world.",
   },
   ENTJ: {
     functions: ["Te", "Se"],
     bypasses: "Ni",
-    behavior: "You become obsessively busy — controlling, organizing, and optimizing at a tactical level without any guiding strategic vision. You micromanage, pursue short-term wins that undermine long-term goals, and become tyrannically focused on immediate measurable results with no sense of direction.",
+    behavior: "You become obsessively busy, controlling, organizing, and optimizing at a tactical level without any guiding strategic vision. You micromanage, pursue short-term wins that undermine long-term goals, and become tyrannically focused on immediate measurable results with no sense of direction.",
     warnings: ["Constant busyness with no clear purpose", "Micromanaging others", "Dismissing long-term planning as impractical", "Exhausting yourself with activity that feels meaningless"],
     breakOut: "Stop doing and start thinking strategically. Ask yourself what this activity is actually serving. Reconnect with your Ni by sitting quietly and letting yourself vision where things are actually heading.",
   },
   ENFJ: {
     functions: ["Fe", "Se"],
     bypasses: "Ni",
-    behavior: "You become a reactive social performer — reading and responding to immediate emotional cues while staying completely engaged with the physical and social scene, but with no deeper vision or sense of where you are guiding yourself or others. You exhaust yourself managing other people's present feelings.",
+    behavior: "You become a reactive social performer, reading and responding to immediate emotional cues while staying completely engaged with the physical and social scene, but with no deeper vision or sense of where you are guiding yourself or others. You exhaust yourself managing other people's present feelings.",
     warnings: ["Feeling drained by constant social responsiveness", "No sense of personal direction or purpose", "Over-involvement in others' immediate problems", "Losing your sense of vision and long-term guidance"],
     breakOut: "Deliberately spend time alone. Ask yourself what you actually envision for your own life and the lives of those you care about. Reconnect with Ni through journaling, meditation, or contemplative time.",
   },
@@ -321,14 +321,14 @@ const loopData: Record<string, {
     bypasses: "Ne",
     behavior: "You obsessively re-analyze the same past data through an increasingly rigid logical framework. Instead of exploring new possibilities, you review, categorize, and re-categorize what you already know, seeking a logical closure that never arrives. Your thinking becomes narrow and circular.",
     warnings: ["Obsessively revisiting the same analysis", "No new ideas or approaches emerging", "Feeling intellectually stuck or stagnant", "Dismissing new information as irrelevant"],
-    breakOut: "Deliberately seek something new — a book you have never read, a conversation with someone outside your usual circle, a problem domain you have never explored. Force Ne engagement by brainstorming without judgment.",
+    breakOut: "Deliberately seek something new, a book you have never read, a conversation with someone outside your usual circle, a problem domain you have never explored. Force Ne engagement by brainstorming without judgment.",
   },
   ENTP: {
     functions: ["Ne", "Ni"],
     bypasses: "Ti",
     behavior: "Your Ne generates possibilities at its usual rapid pace, but instead of running them through Ti's logical filter, you jump directly to Ni's convergent conclusions. You become convinced of big-picture patterns and future scenarios without doing the rigorous analytical work to evaluate them.",
     warnings: ["Making grand pronouncements without evidence", "Skipping analysis to reach conclusions", "Feeling certain about things you have not actually thought through", "Others pointing out logical gaps you cannot see"],
-    breakOut: "Slow down and actually analyze one idea all the way through. Use Ti deliberately — look for the flaw in your favorite theory. Make yourself steelman a position you disagree with.",
+    breakOut: "Slow down and actually analyze one idea all the way through. Use Ti deliberately, look for the flaw in your favorite theory. Make yourself steelman a position you disagree with.",
   },
   ISFJ: {
     functions: ["Si", "Ti"],
@@ -354,7 +354,7 @@ const loopData: Record<string, {
   ESTJ: {
     functions: ["Te", "Si"],
     bypasses: "Ni",
-    behavior: "You become rigidly procedural — executing established systems through aggressive external management with no strategic vision for where any of it is heading. You enforce rules and procedures without any sense of their larger purpose.",
+    behavior: "You become rigidly procedural, executing established systems through aggressive external management with no strategic vision for where any of it is heading. You enforce rules and procedures without any sense of their larger purpose.",
     warnings: ["Enforcing rules without understanding their purpose", "Busyness that feels hollow", "Rigidly applying past solutions to new problems", "Dismissing strategic thinking as impractical"],
     breakOut: "Ask yourself why. Why does this system exist? Where is this going? Force yourself to think strategically about the purpose behind your actions and reconnect with Ni.",
   },
@@ -363,7 +363,7 @@ const loopData: Record<string, {
     bypasses: "Ne",
     behavior: "You become absorbed in intensely personal feelings about past experiences, retreating into nostalgic or grieving rumination that feels deeply meaningful but generates no new possibilities or ways forward. You feel everything very intensely but see no path.",
     warnings: ["Endless rumination on past pain", "Feeling deeply but seeing no way forward", "Nostalgia that traps rather than inspires", "Cutting yourself off from new experiences or ideas"],
-    breakOut: "Force yourself to explore something genuinely new — a place, idea, or creative project. Engage Ne deliberately: brainstorm, wonder, explore possibilities without judging them.",
+    breakOut: "Force yourself to explore something genuinely new, a place, idea, or creative project. Engage Ne deliberately: brainstorm, wonder, explore possibilities without judging them.",
   },
   ENFP: {
     functions: ["Ne", "Si"],
@@ -377,7 +377,7 @@ const loopData: Record<string, {
     bypasses: "Se",
     behavior: "You construct internal theories about how things work and project them into convergent visions of the future without testing any of it against physical reality. You become increasingly certain about conclusions that have never been reality-tested.",
     warnings: ["Developing theories disconnected from physical evidence", "Increasing certainty without real-world testing", "Paranoid analysis of hidden patterns", "Withdrawing from hands-on engagement"],
-    breakOut: "Do something physical and concrete. Engage Se deliberately — work with your hands, exercise, engage directly with the physical world. Let reality test your theories.",
+    breakOut: "Do something physical and concrete. Engage Se deliberately, work with your hands, exercise, engage directly with the physical world. Let reality test your theories.",
   },
   ESTP: {
     functions: ["Se", "Fe"],
@@ -396,7 +396,7 @@ const loopData: Record<string, {
   ESFP: {
     functions: ["Se", "Te"],
     bypasses: "Fi",
-    behavior: "You fill every moment with activity and measure it by productivity, losing touch with your authentic personal values and the genuine feeling that normally animates your engagement with the world. You become busy but hollow — doing everything, feeling nothing.",
+    behavior: "You fill every moment with activity and measure it by productivity, losing touch with your authentic personal values and the genuine feeling that normally animates your engagement with the world. You become busy but hollow, doing everything, feeling nothing.",
     warnings: ["Feeling hollow despite constant activity", "No sense of what personally matters anymore", "Measuring life by productivity metrics", "Disconnected from your authentic emotional life"],
     breakOut: "Stop doing and feel. Ask yourself: what do I actually care about? What feels genuinely meaningful, not just stimulating? Let Fi speak before acting.",
   },
@@ -413,14 +413,14 @@ const gripData: Record<string, {
   INTJ: {
     inferiorFunction: "Se",
     triggers: ["Prolonged high-stress or burnout", "Loss of control over important outcomes", "Major plans failing or being invalidated", "Feeling unseen or underestimated for too long"],
-    symptoms: ["Uncharacteristic overindulgence in food, drink, or shopping", "Hypersensitivity to physical environment — noise, mess, discomfort", "Impulsive, reckless actions completely unlike your usual caution", "Fixation on immediate sensory details at the expense of all planning"],
+    symptoms: ["Uncharacteristic overindulgence in food, drink, or shopping", "Hypersensitivity to physical environment, noise, mess, discomfort", "Impulsive, reckless actions completely unlike your usual caution", "Fixation on immediate sensory details at the expense of all planning"],
     recovery: "Remove yourself from the stressor if possible. Give yourself permission to rest without forcing planning or productivity. Accept that a period of reduced effectiveness is normal. Gentle physical activity such as walking or swimming can help ground the Se energy constructively.",
   },
   INFJ: {
     inferiorFunction: "Se",
     triggers: ["Emotional exhaustion from over-giving to others", "Feeling invisible or profoundly misunderstood", "Loss of meaningful connection or purpose", "Accumulated physical neglect"],
-    symptoms: ["Impulsive sensory indulgence — overeating, drinking, reckless behavior", "Sudden hyperfocus on physical appearance or environment", "Making rash decisions based on immediate physical desire", "Sensory overwhelm in normally manageable situations"],
-    recovery: "Honor your body's needs directly and without guilt. Reduce emotional demands from others temporarily. Gentle sensory experience — nature, music, physical movement — can help integrate rather than suppress the inferior function.",
+    symptoms: ["Impulsive sensory indulgence, overeating, drinking, reckless behavior", "Sudden hyperfocus on physical appearance or environment", "Making rash decisions based on immediate physical desire", "Sensory overwhelm in normally manageable situations"],
+    recovery: "Honor your body's needs directly and without guilt. Reduce emotional demands from others temporarily. Gentle sensory experience, nature, music, physical movement, can help integrate rather than suppress the inferior function.",
   },
   ENTJ: {
     inferiorFunction: "Fi",
@@ -438,12 +438,12 @@ const gripData: Record<string, {
     inferiorFunction: "Fe",
     triggers: ["Sustained social rejection or isolation", "Feeling intellectually dismissed by those whose regard matters", "Total inability to connect meaningfully with anyone", "Prolonged failure with no logical explanation"],
     symptoms: ["Uncharacteristic emotional outbursts or tearfulness", "Desperate need for social approval and fear of rejection", "Interpreting neutral interactions as personal slights", "Heavy-handed emotional gestures to create harmony that backfire"],
-    recovery: "Allow yourself to feel without analyzing the feelings to death. Reach out to someone safe — not to solve anything, just to connect. Accept that your need for belonging is human, not a logical failure.",
+    recovery: "Allow yourself to feel without analyzing the feelings to death. Reach out to someone safe, not to solve anything, just to connect. Accept that your need for belonging is human, not a logical failure.",
   },
   ENTP: {
     inferiorFunction: "Si",
     triggers: ["Prolonged chaos with no stability or ground", "Feeling permanently unmoored with no safe harbor", "Physical exhaustion or health crisis forcing bodily attention", "Everything new failing simultaneously"],
-    symptoms: ["Obsessive nostalgic attachment to a past time that felt safe", "Compulsive fixation on one rigid routine as an anchor", "Hyperfocus on physical symptoms and health anxiety", "Inability to generate any new ideas — complete creative shutdown"],
+    symptoms: ["Obsessive nostalgic attachment to a past time that felt safe", "Compulsive fixation on one rigid routine as an anchor", "Hyperfocus on physical symptoms and health anxiety", "Inability to generate any new ideas, complete creative shutdown"],
     recovery: "Establish one simple, reliable daily routine. Honor your body's needs for rest, food, and basic physical comfort. Contact someone from your past who represents safety. Stability before creativity.",
   },
   ISFJ: {
@@ -456,31 +456,31 @@ const gripData: Record<string, {
     inferiorFunction: "Ti",
     triggers: ["Public humiliation or social rejection", "Feeling that all your caring has been for nothing", "Relational betrayal by someone you deeply trusted", "Prolonged inability to create harmony despite effort"],
     symptoms: ["Caustic, cutting logical criticism of others completely unlike your warmth", "Harsh analytical self-judgment about your own worth and adequacy", "Cold detachment from those who need your care", "Building elaborate logical arguments for your own failure"],
-    recovery: "Allow yourself to be on the receiving end of care from a trusted person. Step back from social responsibilities temporarily. Channel the analytical energy into structured writing — journaling your feelings can help integrate Ti without weaponizing it.",
+    recovery: "Allow yourself to be on the receiving end of care from a trusted person. Step back from social responsibilities temporarily. Channel the analytical energy into structured writing, journaling your feelings can help integrate Ti without weaponizing it.",
   },
   ISTJ: {
     inferiorFunction: "Ne",
     triggers: ["Loss of established structures or routines", "Being forced to operate without clear rules or precedent", "Major unexpected change with no preparation time", "Feeling completely out of control of outcomes"],
     symptoms: ["Spiral of catastrophizing about every bad possibility", "Inability to access past reliable experience as comfort", "Seeing threats and dangers everywhere", "Overwhelming anxiety about the unknowable future"],
-    recovery: "Re-establish one concrete, reliable routine immediately. Make a list — any list. Organize one thing. Reconnect with what you actually know from experience, and let that knowledge reassure you rather than focusing on what you do not know.",
+    recovery: "Re-establish one concrete, reliable routine immediately. Make a list, any list. Organize one thing. Reconnect with what you actually know from experience, and let that knowledge reassure you rather than focusing on what you do not know.",
   },
   ESTJ: {
     inferiorFunction: "Fi",
     triggers: ["Feeling profoundly disrespected despite doing everything right", "Major failure in a domain central to your identity", "Moral situation where no efficient solution preserves your integrity", "Deep loneliness beneath surface competence"],
     symptoms: ["Overwhelming emotional intensity that paralyzes your usual decisiveness", "Feeling fundamentally unworthy or unloved", "Hypersensitivity to personal criticism that would normally roll off", "Eruptions of value-based anger at perceived injustice"],
-    recovery: "Allow yourself to feel without needing to immediately solve. Trusted relationships — not professional ones — are essential here. This is not weakness; it is the part of you that was never given space to develop. Be patient with yourself.",
+    recovery: "Allow yourself to feel without needing to immediately solve. Trusted relationships, not professional ones, are essential here. This is not weakness; it is the part of you that was never given space to develop. Be patient with yourself.",
   },
   INFP: {
     inferiorFunction: "Te",
     triggers: ["Prolonged inability to make your values real in the world", "Feeling utterly ineffective despite deep caring", "External chaos that feels beyond all control", "Being dismissed or ignored over a long period"],
     symptoms: ["Uncharacteristic controlling, organizing behavior", "Harsh, blunt criticism of others' competence and logic", "Obsessive list-making and system-building", "Rigid, efficiency-driven thinking completely unlike your usual warmth"],
-    recovery: "Step back from the control-seeking behavior and return to what you actually value. Gentle creative expression — writing, art — can reconnect you to your Fi without triggering the Te grip response.",
+    recovery: "Step back from the control-seeking behavior and return to what you actually value. Gentle creative expression, writing, art, can reconnect you to your Fi without triggering the Te grip response.",
   },
   ENFP: {
     inferiorFunction: "Si",
     triggers: ["Prolonged instability with no anchor", "Physical exhaustion from neglecting basic needs too long", "Feeling completely unmoored from any stable identity", "Everything that was exciting turning hollow simultaneously"],
     symptoms: ["Obsessive fixation on a past time that felt safe and meaningful", "Compulsive attachment to one rigid routine as a lifeline", "Physical health anxiety and hyperfocus on body symptoms", "Complete loss of enthusiasm and generative energy"],
-    recovery: "Honor basic physical needs without guilt — sleep, food, rest. Establish one small reliable routine. Contact someone who represents continuity and safety in your life. The generative energy will return once you have a stable foundation.",
+    recovery: "Honor basic physical needs without guilt, sleep, food, rest. Establish one small reliable routine. Contact someone who represents continuity and safety in your life. The generative energy will return once you have a stable foundation.",
   },
   ISTP: {
     inferiorFunction: "Fe",
@@ -492,13 +492,13 @@ const gripData: Record<string, {
     inferiorFunction: "Ni",
     triggers: ["Actions catching up with you in ways you did not foresee", "Feeling that your life lacks any deeper meaning", "A major failure you cannot solve through action", "Prolonged inability to find the next exciting challenge"],
     symptoms: ["Dark, fatalistic visions of inevitable catastrophe", "Uncharacteristic brooding and withdrawal from action", "Obsessive search for hidden meaning in ordinary events", "Conspiracy-minded thinking and tunnel vision"],
-    recovery: "Reconnect with physical, concrete reality through Se. Take action on something — anything — rather than remaining in the brooding internal space. Trusted friends who know your natural energy can help pull you back to the present.",
+    recovery: "Reconnect with physical, concrete reality through Se. Take action on something, anything, rather than remaining in the brooding internal space. Trusted friends who know your natural energy can help pull you back to the present.",
   },
   ISFP: {
     inferiorFunction: "Te",
     triggers: ["Prolonged feeling of ineffectiveness in making your values real", "External chaos you cannot control", "Being dismissed or not seen over a long period", "Accumulated responsibilities that conflict with authenticity"],
     symptoms: ["Harsh, demanding criticism of others' incompetence", "Compulsive organizing and efficiency-seeking completely unlike you", "Rigid insistence on external metrics of success", "Blunt, critical behavior that shocks those who know your gentleness"],
-    recovery: "Return to beauty and creative expression. Give yourself permission to create without any productivity goal. Reconnect with what genuinely moves you aesthetically and emotionally — let the values come before the efficiency.",
+    recovery: "Return to beauty and creative expression. Give yourself permission to create without any productivity goal. Reconnect with what genuinely moves you aesthetically and emotionally, let the values come before the efficiency.",
   },
   ESFP: {
     inferiorFunction: "Ni",
@@ -518,60 +518,60 @@ const inferiorDevelopmentStages: Record<string, {
   practices: string[];
 }> = {
   Se: {
-    function: "Se — Extraverted Sensing",
+    function: "Se, Extraverted Sensing",
     stage1: { name: "Avoidance", description: "The sensory world feels overwhelming, distracting, or beneath your depth. You may dismiss physical pleasure, neglect your body, or treat sensory experience as something that interferes with your real thinking." },
-    stage2: { name: "Fascination and Excess", description: "Se begins breaking through in uncontrolled bursts — overindulgence, impulsive physical decisions, sudden intense interest in aesthetics or physical experience. The function is awakening but not yet integrated." },
-    stage3: { name: "Integration", description: "You develop a genuine, sustained relationship with sensory experience. You can be fully present in your body, appreciate beauty, engage physically, and let the immediate moment be real — without losing your long-range orientation." },
-    practices: ["Schedule one purely sensory experience weekly — cooking, nature walks, art — with no agenda", "Practice five-minute body scan meditations to develop present-moment physical awareness", "Learn one physical skill such as an instrument, craft, or sport that requires sustained sensory attention", "Eat at least one meal per day slowly and with full sensory attention, without screens", "Spend time in nature regularly, deliberately noticing what you see, hear, smell, and feel"],
+    stage2: { name: "Fascination and Excess", description: "Se begins breaking through in uncontrolled bursts, overindulgence, impulsive physical decisions, sudden intense interest in aesthetics or physical experience. The function is awakening but not yet integrated." },
+    stage3: { name: "Integration", description: "You develop a genuine, sustained relationship with sensory experience. You can be fully present in your body, appreciate beauty, engage physically, and let the immediate moment be real, without losing your long-range orientation." },
+    practices: ["Schedule one purely sensory experience weekly, cooking, nature walks, art, with no agenda", "Practice five-minute body scan meditations to develop present-moment physical awareness", "Learn one physical skill such as an instrument, craft, or sport that requires sustained sensory attention", "Eat at least one meal per day slowly and with full sensory attention, without screens", "Spend time in nature regularly, deliberately noticing what you see, hear, smell, and feel"],
   },
   Fi: {
-    function: "Fi — Introverted Feeling",
+    function: "Fi, Introverted Feeling",
     stage1: { name: "Avoidance", description: "Personal values and inner emotional life feel soft, irrelevant, or dangerously subjective. You may dismiss your own feelings as noise that interferes with clear thinking or effective action." },
-    stage2: { name: "Eruption", description: "Fi breaks through in dramatic, uncontrolled emotional episodes — sudden overwhelming sensitivity to criticism, unexpected value-based fury, or episodes of feeling profoundly unloved or worthless." },
+    stage2: { name: "Eruption", description: "Fi breaks through in dramatic, uncontrolled emotional episodes, sudden overwhelming sensitivity to criticism, unexpected value-based fury, or episodes of feeling profoundly unloved or worthless." },
     stage3: { name: "Integration", description: "You develop a genuine and stable relationship with your inner emotional life. You know what you value, why you value it, and you can act from those values rather than from pure external logic or efficiency." },
-    practices: ["Journal about what you personally value — not what you should value, but what genuinely moves and matters to you", "Practice noticing your emotional reactions before analyzing them away", "Allow yourself one relationship where you share vulnerability rather than competence", "Ask yourself regularly what you actually feel about this — and wait for an honest answer", "Read or watch art that moves you emotionally, and let yourself be moved without critique"],
+    practices: ["Journal about what you personally value, not what you should value, but what genuinely moves and matters to you", "Practice noticing your emotional reactions before analyzing them away", "Allow yourself one relationship where you share vulnerability rather than competence", "Ask yourself regularly what you actually feel about this, and wait for an honest answer", "Read or watch art that moves you emotionally, and let yourself be moved without critique"],
   },
   Te: {
-    function: "Te — Extraverted Thinking",
+    function: "Te, Extraverted Thinking",
     stage1: { name: "Avoidance", description: "External systems, organization, and measurable results feel cold, inauthentic, or threatening to your inner world. You may dismiss practical logistics as beneath your depth or incompatible with genuine living." },
-    stage2: { name: "Eruption", description: "Te breaks through in controlling, demanding, or harshly critical episodes — suddenly insisting on efficiency and logic in situations where you would normally be gentle or fluid." },
+    stage2: { name: "Eruption", description: "Te breaks through in controlling, demanding, or harshly critical episodes, suddenly insisting on efficiency and logic in situations where you would normally be gentle or fluid." },
     stage3: { name: "Integration", description: "You develop the ability to organize, plan, and execute in the external world without abandoning your authentic inner life. You learn that structure can serve values rather than destroy them." },
     practices: ["Practice completing one concrete external project from start to finish", "Create and maintain one simple organizational system such as a planner or filing system", "Set one clear, measurable goal per month and track it honestly", "Practice stating your needs or opinions directly rather than hinting or withdrawing", "Find one domain where external efficiency genuinely serves what you value most"],
   },
   Fe: {
-    function: "Fe — Extraverted Feeling",
+    function: "Fe, Extraverted Feeling",
     stage1: { name: "Avoidance", description: "Social harmony, emotional expression, and others' feelings feel like external pressure that threatens your autonomous thinking. You may dismiss emotional needs as irrational interference." },
-    stage2: { name: "Eruption", description: "Fe breaks through in clumsy, desperate, or overwhelmingly needy emotional episodes — sudden hunger for belonging, sensitivity to rejection, or heavy-handed attempts to create harmony." },
+    stage2: { name: "Eruption", description: "Fe breaks through in clumsy, desperate, or overwhelmingly needy emotional episodes, sudden hunger for belonging, sensitivity to rejection, or heavy-handed attempts to create harmony." },
     stage3: { name: "Integration", description: "You develop a genuine capacity for social attunement and emotional connection that enriches rather than threatens your independent thinking. You can care for others and yourself simultaneously." },
-    practices: ["Practice asking someone how they are and actually listening to the full answer", "Attend a social event with the intention of contributing to others' comfort rather than your own stimulation", "Share a genuine positive feeling with someone close to you — appreciation, gratitude, warmth", "Practice facial and vocal expressiveness in low-stakes situations", "Join a group activity that requires sustained cooperation and mutual consideration"],
+    practices: ["Practice asking someone how they are and actually listening to the full answer", "Attend a social event with the intention of contributing to others' comfort rather than your own stimulation", "Share a genuine positive feeling with someone close to you, appreciation, gratitude, warmth", "Practice facial and vocal expressiveness in low-stakes situations", "Join a group activity that requires sustained cooperation and mutual consideration"],
   },
   Ne: {
-    function: "Ne — Extraverted Intuition",
+    function: "Ne, Extraverted Intuition",
     stage1: { name: "Avoidance", description: "Open-ended possibilities and abstract speculation feel threatening to your reliable, experience-grounded approach. Uncertainty and novelty may feel irresponsible or unsafe." },
-    stage2: { name: "Eruption", description: "Ne breaks through as catastrophizing — your mind suddenly generates all the terrible things that could go wrong, treating each possibility as equally real and equally threatening." },
+    stage2: { name: "Eruption", description: "Ne breaks through as catastrophizing, your mind suddenly generates all the terrible things that could go wrong, treating each possibility as equally real and equally threatening." },
     stage3: { name: "Integration", description: "You develop the ability to explore possibilities with genuine curiosity rather than anxiety. You can hold open questions without needing immediate closure, and you can see what is new without it threatening what is established." },
-    practices: ["Practice brainstorming without immediately evaluating — generate ten ideas before judging any", "Read one book per month in a completely unfamiliar domain", "Ask what-if questions deliberately in low-stakes situations", "Practice tolerating open questions: note when you rush to close and gently resist", "Spend time with creative, exploratory people who are comfortable with uncertainty"],
+    practices: ["Practice brainstorming without immediately evaluating, generate ten ideas before judging any", "Read one book per month in a completely unfamiliar domain", "Ask what-if questions deliberately in low-stakes situations", "Practice tolerating open questions: note when you rush to close and gently resist", "Spend time with creative, exploratory people who are comfortable with uncertainty"],
   },
   Si: {
-    function: "Si — Introverted Sensing",
+    function: "Si, Introverted Sensing",
     stage1: { name: "Avoidance", description: "Routine, tradition, and detailed past experience feel constraining or deadening to your forward-moving energy. You may neglect your body's established needs and dismiss the wisdom in what has already worked." },
     stage2: { name: "Eruption", description: "Si breaks through as obsessive nostalgia for a past that felt safe, compulsive attachment to one rigid routine as an anchor, or hyperfocus on physical symptoms and health anxiety." },
     stage3: { name: "Integration", description: "You develop genuine appreciation for continuity, embodied learning from experience, and the stability that reliable routines provide. You can honor the past without being trapped by it." },
-    practices: ["Establish one morning or evening routine and maintain it for 30 days", "Keep a simple record of what works in your daily life — sleep, food, practices — and consult it", "Reconnect with one meaningful tradition from your past and engage it intentionally", "Practice noticing and responding to your body's recurring signals before they become crises", "Interview an elder about what they have learned — practice the value of accumulated experience"],
+    practices: ["Establish one morning or evening routine and maintain it for 30 days", "Keep a simple record of what works in your daily life, sleep, food, practices, and consult it", "Reconnect with one meaningful tradition from your past and engage it intentionally", "Practice noticing and responding to your body's recurring signals before they become crises", "Interview an elder about what they have learned, practice the value of accumulated experience"],
   },
   Ni: {
-    function: "Ni — Introverted Intuition",
+    function: "Ni, Introverted Intuition",
     stage1: { name: "Avoidance", description: "Long-term vision and abstract pattern-recognition feel impractical or irrelevant compared to the concrete, immediate reality you navigate so effectively. Singular commitments may feel like closing off possibilities." },
     stage2: { name: "Eruption", description: "Ni breaks through as dark premonitions, a crushing sense of inevitable negative outcomes, or sudden obsessive fixation on one symbolic interpretation of events." },
     stage3: { name: "Integration", description: "You develop the capacity to perceive patterns over time and sustain a meaningful long-term vision without losing your present-moment acuity. You can commit to where you are going without losing the richness of where you are." },
-    practices: ["Write a five-year vision for your life once per quarter — not a plan, a vision", "Practice sitting with one question for a week without resolving it — let insights arrive", "Study one subject deeply for a sustained period rather than sampling broadly", "Meditate on what this situation is really about beneath the surface", "Seek one trusted mentor who thinks strategically and learn from how they hold long arcs"],
+    practices: ["Write a five-year vision for your life once per quarter, not a plan, a vision", "Practice sitting with one question for a week without resolving it, let insights arrive", "Study one subject deeply for a sustained period rather than sampling broadly", "Meditate on what this situation is really about beneath the surface", "Seek one trusted mentor who thinks strategically and learn from how they hold long arcs"],
   },
   Ti: {
-    function: "Ti — Introverted Thinking",
+    function: "Ti, Introverted Thinking",
     stage1: { name: "Avoidance", description: "Internal logical analysis feels cold, disconnected, or threatening to your warmth and relational harmony. You may dismiss precise thinking as pedantic or unkind." },
-    stage2: { name: "Eruption", description: "Ti breaks through as sudden cold, cutting analytical criticism that shocks those who know your warmth — a harsh inner or outer critic that finds and exposes logical inconsistencies with painful precision." },
+    stage2: { name: "Eruption", description: "Ti breaks through as sudden cold, cutting analytical criticism that shocks those who know your warmth, a harsh inner or outer critic that finds and exposes logical inconsistencies with painful precision." },
     stage3: { name: "Integration", description: "You develop genuine analytical precision that enriches your warmth rather than threatening it. You can think clearly about people and situations without losing your care for them." },
-    practices: ["Spend time weekly with a challenging intellectual problem that has nothing to do with people", "Practice identifying the logical structure of your favorite beliefs — where are the assumptions?", "Read one rigorous analytical text per month — philosophy, logic, or systems thinking", "Practice the discipline of finishing one idea completely before moving to the next", "Learn to distinguish between what you feel is true and what you can demonstrate is true"],
+    practices: ["Spend time weekly with a challenging intellectual problem that has nothing to do with people", "Practice identifying the logical structure of your favorite beliefs, where are the assumptions?", "Read one rigorous analytical text per month, philosophy, logic, or systems thinking", "Practice the discipline of finishing one idea completely before moving to the next", "Learn to distinguish between what you feel is true and what you can demonstrate is true"],
   },
 };
 
@@ -694,7 +694,7 @@ function ResultsContent() {
             <div className="max-w-md mx-auto mb-6 p-4 rounded-2xl bg-amber-50 border border-amber-100 text-left">
               <p className="text-xs font-mono text-amber-600 uppercase tracking-wider mb-1">Low preference clarity</p>
               <p className="text-sm text-amber-700 leading-relaxed">
-                Your results show a weaker preference on one or more axes. This is common — some people are genuinely
+                Your results show a weaker preference on one or more axes. This is common, some people are genuinely
                 close to the middle of an axis. Consider the full 8-function stack below rather than focusing only on
                 the type label. Taking the full assessment may produce a clearer result.
               </p>
@@ -896,10 +896,10 @@ function ResultsContent() {
                             {isExpanded && (
                               <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }} exit={{ height: 0, opacity: 0 }}>
                                 <div className="px-4 pb-3 pt-2 text-xs text-slate-500 leading-relaxed border-t border-slate-50">
-                                  {i === 0 && <p>The Hero function is your ego&apos;s primary tool — the function through which you assert yourself in the world. Overdeveloping this function without developing the others creates imbalance.</p>}
+                                  {i === 0 && <p>The Hero function is your ego&apos;s primary tool, the function through which you assert yourself in the world. Overdeveloping this function without developing the others creates imbalance.</p>}
                                   {i === 1 && <p>The Good Parent is supportive, reliable, and nurturing. This function serves and supports the Hero, providing the ground from which your dominant function can operate safely.</p>}
-                                  {i === 2 && <p>The Divine Child is eternal, playful, and potentially naive. This function has both a gifted and a shadow side — when developed, it brings creativity; when immature, it can be unreliable.</p>}
-                                  {i === 3 && <p>The Anima/Animus is your gateway to the unconscious — the place where growth happens and where you are most vulnerable. This function often projects onto others and appears in dreams.</p>}
+                                  {i === 2 && <p>The Divine Child is eternal, playful, and potentially naive. This function has both a gifted and a shadow side, when developed, it brings creativity; when immature, it can be unreliable.</p>}
+                                  {i === 3 && <p>The Anima/Animus is your gateway to the unconscious, the place where growth happens and where you are most vulnerable. This function often projects onto others and appears in dreams.</p>}
                                 </div>
                               </motion.div>
                             )}
@@ -947,8 +947,8 @@ function ResultsContent() {
                                 <div className="px-4 pb-3 pt-2 text-xs text-slate-500 leading-relaxed border-t border-slate-50">
                                   {i === 0 && <p><span className="font-medium text-slate-600">The Opposing / Nemesis:</span> This function resists and opposes your Hero. Where you feel most defensively triggered, your Nemesis is usually operating. Learning to recognize it creates remarkable freedom.</p>}
                                   {i === 1 && <p><span className="font-medium text-slate-600">The Critical Parent / Senex:</span> This function operates as a harsh inner critic. It judges you and others by impossibly high standards in its domain. Developing awareness of this voice is a key psychological task.</p>}
-                                  {i === 2 && <p><span className="font-medium text-slate-600">The Trickster:</span> This function operates in an uncontrolled, double-binding way — it can be both playful and deceptive, leading you to act in ways that undermine your own intentions without awareness.</p>}
-                                  {i === 3 && <p><span className="font-medium text-slate-600">The Demon / Daimon:</span> The deepest shadow function, capable of great destruction or — when integrated — profound creative power. This is the function Jung associated with the deepest levels of the unconscious.</p>}
+                                  {i === 2 && <p><span className="font-medium text-slate-600">The Trickster:</span> This function operates in an uncontrolled, double-binding way. It can be both playful and deceptive, leading you to act in ways that undermine your own intentions without awareness.</p>}
+                                  {i === 3 && <p><span className="font-medium text-slate-600">The Demon / Daimon:</span> The deepest shadow function, capable of great destruction or, when integrated, profound creative power. This is the function Jung associated with the deepest levels of the unconscious.</p>}
                                 </div>
                               </motion.div>
                             )}
@@ -1054,7 +1054,7 @@ function ResultsContent() {
 
               <div>
                 <h2 className="font-serif font-bold text-slate-800 text-lg mb-2">The Grip</h2>
-                <p className="text-sm text-slate-500 leading-relaxed mb-5">The grip occurs when the inferior function (position 4) temporarily hijacks the personality under extreme or prolonged stress. It produces behavior that is completely out of character — the least developed part of the psyche suddenly takes over. Understanding your grip experience is one of the most practically valuable things in psychological typology.</p>
+                <p className="text-sm text-slate-500 leading-relaxed mb-5">The grip occurs when the inferior function (position 4) temporarily hijacks the personality under extreme or prolonged stress. It produces behavior that is completely out of character, the least developed part of the psyche suddenly takes over. Understanding your grip experience is one of the most practically valuable things in psychological typology.</p>
 
                 <div className="bg-white border border-slate-100 rounded-2xl p-6 shadow-sm mb-4">
                   {(() => {
@@ -1119,7 +1119,7 @@ function ResultsContent() {
               {inferiorDev && (
                 <div className="mb-8">
                   <h2 className="font-serif font-bold text-slate-800 text-lg mb-2">Inferior Function Development</h2>
-                  <p className="text-sm text-slate-500 leading-relaxed mb-5">Jung taught that individuation — the lifelong journey toward psychological wholeness — centers on developing a conscious relationship with the inferior function. It is your greatest weakness and, ultimately, your greatest source of growth.</p>
+                  <p className="text-sm text-slate-500 leading-relaxed mb-5">Jung taught that individuation, the lifelong journey toward psychological wholeness, centers on developing a conscious relationship with the inferior function. It is your greatest weakness and, ultimately, your greatest source of growth.</p>
 
                   {(() => {
                     const infFunc = cognitiveFunctions.find(f => f.code === inferiorFunc);
@@ -1233,7 +1233,7 @@ function ResultsContent() {
                     <p className="text-sm text-slate-500 leading-relaxed">
                       {bestType.temperament.includes("NT") && "The NT Rational temperament is driven by the pursuit of knowledge, competence, and strategic mastery. Rationals are natural theorists and systems-thinkers who feel most alive when solving complex problems."}
                       {bestType.temperament.includes("NF") && "The NF Idealist temperament is oriented toward meaning, authenticity, and human potential. Idealists are drawn to understanding people deeply and helping them grow into their fullest selves."}
-                      {bestType.temperament.includes("SJ") && "The SJ Guardian temperament is driven by responsibility, reliability, and preserving what works. Guardians are the stabilizing force in any community — dependable, thorough, and deeply committed to serving others."}
+                      {bestType.temperament.includes("SJ") && "The SJ Guardian temperament is driven by responsibility, reliability, and preserving what works. Guardians are the stabilizing force in any community, dependable, thorough, and deeply committed to serving others."}
                       {bestType.temperament.includes("SP") && "The SP Artisan temperament is oriented toward freedom, action, and immediate engagement with life. Artisans are at their best when they can respond spontaneously to what is happening right now."}
                     </p>
                   </div>
@@ -1241,7 +1241,7 @@ function ResultsContent() {
                     <div className="text-xs font-medium text-slate-400 uppercase tracking-wide mb-1">Interaction Style</div>
                     <div className="font-serif font-bold text-slate-800 text-lg mb-2">{bestType.interactionStyle}</div>
                     <p className="text-sm text-slate-500 leading-relaxed">
-                      {bestType.interactionStyle === "Chart the Course" && "You prefer to have a clear goal and plan in mind before engaging. You work best when you can direct your energy toward a defined outcome, and you tend to lead from behind — setting direction rather than pushing from the front."}
+                      {bestType.interactionStyle === "Chart the Course" && "You prefer to have a clear goal and plan in mind before engaging. You work best when you can direct your energy toward a defined outcome, and you tend to lead from behind, setting direction rather than pushing from the front."}
                       {bestType.interactionStyle === "Behind the Scenes" && "You prefer to work carefully and thoroughly, often influencing situations through thoughtful preparation rather than direct assertion. You tend to process deeply before acting and prefer quality of engagement over speed."}
                       {bestType.interactionStyle === "In Charge" && "You naturally move into leadership and direction when a situation requires it. You are comfortable making decisions, taking responsibility, and keeping things moving efficiently toward a goal."}
                       {bestType.interactionStyle === "Get Things Going" && "You are energized by engaging others and getting collective momentum building. You bring enthusiasm and responsiveness to interactions and are skilled at initiating and sustaining collaboration."}

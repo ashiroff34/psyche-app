@@ -30,7 +30,7 @@ const primarySources = [
     author: "Don Richard Riso & Russ Hudson",
     title: "Personality Types: Using the Enneagram for Self-Discovery",
     year: "1996",
-    description: "Introduces the 9 Levels of Development for each type — from healthy integration to average functioning to unhealthy disintegration. A key framework for understanding type dynamics.",
+    description: "Introduces the 9 Levels of Development for each type, from healthy integration to average functioning to unhealthy disintegration. A key framework for understanding type dynamics.",
     category: "Enneagram",
   },
   {
@@ -84,10 +84,10 @@ export default function SourcesPage() {
               <h3 className="font-serif font-semibold text-slate-800 mb-2">A Note on Scientific Validity</h3>
               <div className="space-y-3 text-sm text-slate-600 leading-relaxed">
                 <p>
-                  <strong>On Cognitive Functions:</strong> The type system used here is based on <strong>Carl Jung&apos;s original cognitive function theory</strong> from Psychological Types (1921) — NOT the commercial MBTI instrument or the 16Personalities website. The four-letter type codes (INTJ, ENFP, etc.) are used as convenient shorthand for <em>cognitive function stacks</em>, not as fixed personality labels.
+                  <strong>On Cognitive Functions:</strong> The type system used here is based on <strong>Carl Jung&apos;s original cognitive function theory</strong> from Psychological Types (1921), not the commercial MBTI instrument or the 16Personalities website. The four-letter type codes (INTJ, ENFP, etc.) are used as convenient shorthand for <em>cognitive function stacks</em>, not as fixed personality labels.
                 </p>
                 <p>
-                  <strong>16Personalities is not Jungian typology.</strong> The popular 16Personalities website uses Big Five personality traits repackaged with MBTI-like labels. It does not assess cognitive functions at all. Our app focuses on the functions themselves — how you perceive and judge information — which is the actual substance of Jung&apos;s theory.
+                  <strong>16Personalities is not Jungian typology.</strong> The popular 16Personalities website uses Big Five personality traits repackaged with MBTI-like labels. It does not assess cognitive functions at all. Our app focuses on the functions themselves, how you perceive and judge information, which is the actual substance of Jung&apos;s theory.
                 </p>
                 <p>
                   <strong>On the Enneagram:</strong> The Enneagram as used here draws primarily from Naranjo&apos;s clinical framework, which maps personality patterns to established psychological constructs (defense mechanisms, attachment theory, DSM correlates). While the Enneagram lacks the same level of empirical validation as Big Five, its clinical utility has been demonstrated in psychotherapy contexts.

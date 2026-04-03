@@ -107,7 +107,7 @@ const levelsOfDevelopment: Record<number, { level: number; label: string; descri
     { level: 5, label: "Critically Judgmental", description: "Becoming critical of others who don't meet their standards. Can be impersonal, cold, and self-righteous. Feels others are not trying hard enough." },
     { level: 6, label: "Preachy & Opinionated", description: "Feeling they must tell others what's right. Overly critical, moralizing, condescending. Resentful when others don't follow their standards." },
     { level: 7, label: "Intolerant & Inflexible", description: "Repressed by their own strictness. Hypocritical, claiming to be righteous while violating their own principles. Becoming obsessive." },
-    { level: 8, label: "Obsessive & Punitive", description: "Severe and punishing — to themselves and others. Breakdowns of self-control in the very areas they've judged others." },
+    { level: 8, label: "Obsessive & Punitive", description: "Severe and punishing, to themselves and others. Breakdowns of self-control in the very areas they've judged others." },
     { level: 9, label: "Condemnatory & Cruel", description: "Fanatical moralizing combined with actions that contradict their stated values. Potential for harm done in the name of righteousness." },
   ],
   2: [
@@ -122,7 +122,7 @@ const levelsOfDevelopment: Record<number, { level: number; label: string; descri
     { level: 9, label: "Chronic Self-Neglect", description: "Severe psychosomatic illness. Believing self-sacrifice is the path to love, reaching a state of total self-depletion." },
   ],
   3: [
-    { level: 1, label: "Authentic & Self-Accepting", description: "Genuinely outstanding — inspirational to others. A living example that success and integrity are compatible. Authentic, inner-directed, and deeply real." },
+    { level: 1, label: "Authentic & Self-Accepting", description: "Genuinely outstanding, inspirational to others. A living example that success and integrity are compatible. Authentic, inner-directed, and deeply real." },
     { level: 2, label: "Self-Assured & Admirable", description: "Highly adaptable, energetic, and ambitious. Competent and effective in everything they undertake. Genuinely impressive and worth admiring." },
     { level: 3, label: "Goal-Oriented & Efficient", description: "Extremely industrious and productive. Focused on goals, making things happen. A reliable team leader who inspires confidence in others." },
     { level: 4, label: "Status-Conscious & Competitive", description: "Becoming highly concerned with performance and image. Comparing themselves to others. Needing to demonstrate their superiority." },
@@ -130,11 +130,11 @@ const levelsOfDevelopment: Record<number, { level: number; label: string; descri
     { level: 6, label: "Deceptive & Opportunistic", description: "Becoming deliberately deceptive. Saying whatever is needed to get ahead. Exploiting others while maintaining charming exterior." },
     { level: 7, label: "Unprincipled & Devious", description: "Willing to do anything to succeed. Betrayal of others for personal gain. Sabotaging competitors." },
     { level: 8, label: "Jealous & Malicious", description: "Terrified of being exposed as a fraud. Vindictive and cruel toward those who see through them." },
-    { level: 9, label: "Psychopathic Betrayal", description: "Complete loss of morality in service of image. Profound self-alienation — no longer knowing who they are beneath the persona." },
+    { level: 9, label: "Psychopathic Betrayal", description: "Complete loss of morality in service of image. Profound self-alienation, no longer knowing who they are beneath the persona." },
   ],
   4: [
-    { level: 1, label: "Inspired & Deeply Creative", description: "Renewing themselves through creative expression. Profoundly individualistic — transforming personal pain into universal art. Emotionally honest and courageous." },
-    { level: 2, label: "Introspective & Sensitive", description: "Highly perceptive and self-aware. Creating beauty from personal experience. Deeply feeling and empathetic — seeing into the hearts of others." },
+    { level: 1, label: "Inspired & Deeply Creative", description: "Renewing themselves through creative expression. Profoundly individualistic, transforming personal pain into universal art. Emotionally honest and courageous." },
+    { level: 2, label: "Introspective & Sensitive", description: "Highly perceptive and self-aware. Creating beauty from personal experience. Deeply feeling and empathetic, seeing into the hearts of others." },
     { level: 3, label: "Emotionally Authentic", description: "Finding the universal in the personal. Creating from genuine emotional truth. Witty, aesthetically refined, and gentle." },
     { level: 4, label: "Romanticizing & Self-Pitying", description: "Beginning to exaggerate emotional responses. Feeling misunderstood and different. Withdrawing from others. Longing for the beautiful or ideal." },
     { level: 5, label: "Self-Indulgent & Withdrawn", description: "Consumed by moods and feelings. Becoming self-absorbed. Unable or unwilling to function normally. Using aesthetic experience as escape." },
@@ -144,7 +144,7 @@ const levelsOfDevelopment: Record<number, { level: number; label: string; descri
     { level: 9, label: "Self-Destructive & Despairing", description: "Complete emotional breakdown. Possibly engaging in self-destructive behavior as a form of control over feelings. Clinical crisis." },
   ],
   5: [
-    { level: 1, label: "Visionary & Pioneering", description: "A true visionary — contributing genuinely revolutionary insights. Able to synthesize vast amounts of information into profound understanding." },
+    { level: 1, label: "Visionary & Pioneering", description: "A true visionary, contributing genuinely revolutionary insights. Able to synthesize vast amounts of information into profound understanding." },
     { level: 2, label: "Perceptive & Innovative", description: "Exceptionally observant. Able to see what others miss. Forming deep, penetrating insights. A love of learning that is joyful rather than defensive." },
     { level: 3, label: "Concentrated & Capable", description: "Focusing intensely on areas of interest. Becoming expert and specialized. Patient, thorough, and methodically building knowledge." },
     { level: 4, label: "Detached & Cerebral", description: "Starting to use intellect to maintain distance from feelings and demands. Becoming more private. Needing to understand everything before engaging." },
@@ -155,15 +155,15 @@ const levelsOfDevelopment: Record<number, { level: number; label: string; descri
     { level: 9, label: "Psychotic Breaks", description: "Complete withdrawal from reality. Possible schizoid or psychotic episodes. Total breakdown of ability to engage with external world." },
   ],
   6: [
-    { level: 1, label: "Courageous & Self-Affirming", description: "Profoundly courageous — acting on inner truth despite fear. Deeply loyal and self-affirming. Able to bring a group together through genuine commitment." },
+    { level: 1, label: "Courageous & Self-Affirming", description: "Profoundly courageous, acting on inner truth despite fear. Deeply loyal and self-affirming. Able to bring a group together through genuine commitment." },
     { level: 2, label: "Engaging & Reliable", description: "Warm, engaging, and reliable. Deeply committed to people and causes. Balancing personal security needs with genuine trust of others." },
     { level: 3, label: "Responsible & Hardworking", description: "Committed, responsible, and trustworthy. Creating safety through competence and preparation. Building loyal relationships and solid communities." },
     { level: 4, label: "Dutiful & Dependent", description: "Becoming more dependent on outside authority. Needing clear guidelines and rules. Anxiety when facing ambiguity or having to act independently." },
     { level: 5, label: "Suspicious & Doubtful", description: "Beginning to mistrust their own judgment. Seeking reassurance but not believing it. Seeing potential threats everywhere. Difficulty committing." },
     { level: 6, label: "Defensive & Anxious", description: "Feeling persecuted and besieged. Overreacting to perceived threats. Either over-compliant or rebelliously counterdependent." },
-    { level: 7, label: "Paranoid & Blaming", description: "Seeing dangerous forces everywhere. Paranoid projection — attributing their own fears to others. Becoming accusatory and hostile." },
+    { level: 7, label: "Paranoid & Blaming", description: "Seeing dangerous forces everywhere. Paranoid projection, attributing their own fears to others. Becoming accusatory and hostile." },
     { level: 8, label: "Masochistic & Self-Defeating", description: "Feeling helpless and trapped. Clinging to sources of security that further undermine them. Panicking and making decisions that create the feared outcomes." },
-    { level: 9, label: "Self-Abasing & Crises", description: "Complete loss of trust in self and world. Breakdown of ego — profound identity crisis." },
+    { level: 9, label: "Self-Abasing & Crises", description: "Complete loss of trust in self and world. Breakdown of ego, profound identity crisis." },
   ],
   7: [
     { level: 1, label: "Ecstatic & Assimilating", description: "Appreciating and savoring the full richness of experience. Deeply joyful without grasping. Able to be present with satisfaction rather than seeking more." },
@@ -177,7 +177,7 @@ const levelsOfDevelopment: Record<number, { level: number; label: string; descri
     { level: 9, label: "Hysterical & Paralyzed", description: "Complete panic as reality closes in. Feeling trapped. Possible breakdown or flight into substances as the only way out." },
   ],
   8: [
-    { level: 1, label: "Heroically Strong & Magnanimous", description: "Using strength to protect and empower others. Truly heroic — fighting for justice with no fear of personal cost. Magnanimous and big-hearted." },
+    { level: 1, label: "Heroically Strong & Magnanimous", description: "Using strength to protect and empower others. Truly heroic, fighting for justice with no fear of personal cost. Magnanimous and big-hearted." },
     { level: 2, label: "Decisive & Authoritative", description: "Self-confident and strong. A natural leader who takes charge when needed. Protective of those under their care. Straight-talking and fair." },
     { level: 3, label: "Resourceful & Hardworking", description: "Energetic and self-reliant. Taking initiative and making things happen. Direct and decisive without being overbearing." },
     { level: 4, label: "Domineering & Confrontational", description: "Starting to push others around. Boastful about self-sufficiency. Needing to be in control and to prevail. Challenging authority." },
@@ -314,7 +314,7 @@ function ResultsInner() {
                 {showTwo && secondTypeData && (
                   <div className="mt-4 p-4 rounded-2xl bg-white/60 border border-indigo-100">
                     <p className="text-xs font-mono text-amber-600 uppercase tracking-wider mb-2">
-                      Also a strong match — read both
+                      Also a strong match, read both
                     </p>
                     <div className="flex items-center gap-3">
                       <span className="text-3xl font-serif font-bold text-slate-700">{secondTypeData.number}</span>
@@ -326,7 +326,7 @@ function ResultsInner() {
                     </div>
                     <p className="text-xs text-slate-500 mt-2 leading-relaxed">
                       Your scores for types {typeData.number} and {secondTypeData.number} are close. Per iEQ9 reporting
-                      norms, both are considered valid candidates — read both descriptions and decide which resonates
+                      norms, both are considered valid candidates, read both descriptions and decide which resonates
                       more deeply at the level of motivation, not behavior.
                     </p>
                   </div>
@@ -652,7 +652,7 @@ function ResultsInner() {
               <div>
                 <div className="flex items-center gap-2 mb-3">
                   <div className="w-3 h-3 rounded-full bg-emerald-400" />
-                  <span className="text-xs font-bold text-emerald-700 uppercase tracking-wide">Healthy — Levels 1-3</span>
+                  <span className="text-xs font-bold text-emerald-700 uppercase tracking-wide">Healthy, Levels 1-3</span>
                 </div>
                 <div className="space-y-2">
                   {healthyLevels.map((lvl) => (
@@ -693,7 +693,7 @@ function ResultsInner() {
               <div>
                 <div className="flex items-center gap-2 mb-3">
                   <div className="w-3 h-3 rounded-full bg-amber-400" />
-                  <span className="text-xs font-bold text-amber-700 uppercase tracking-wide">Average — Levels 4-6</span>
+                  <span className="text-xs font-bold text-amber-700 uppercase tracking-wide">Average, Levels 4-6</span>
                 </div>
                 <div className="space-y-2">
                   {averageLevels.map((lvl) => (
@@ -734,7 +734,7 @@ function ResultsInner() {
               <div>
                 <div className="flex items-center gap-2 mb-3">
                   <div className="w-3 h-3 rounded-full bg-rose-400" />
-                  <span className="text-xs font-bold text-rose-700 uppercase tracking-wide">Unhealthy — Levels 7-9</span>
+                  <span className="text-xs font-bold text-rose-700 uppercase tracking-wide">Unhealthy, Levels 7-9</span>
                 </div>
                 <div className="space-y-2">
                   {unhealthyLevels.map((lvl) => (
@@ -810,7 +810,7 @@ function ResultsInner() {
                         <h3 className="font-semibold text-slate-800">Growing Toward Type {typeData.integrationLine}</h3>
                       </div>
                       <p className="text-sm text-slate-600 leading-relaxed mb-4">
-                        In genuine growth, Type {typeNum} begins to embody the healthy qualities of Type {typeData.integrationLine}: {intLine?.healthyTraits.join(", ")}. This isn't mimicry — it's the natural expansion that happens when you're no longer run by your type's core fear.
+                        In genuine growth, Type {typeNum} begins to embody the healthy qualities of Type {typeData.integrationLine}: {intLine?.healthyTraits.join(", ")}. This isn't mimicry, it's the natural expansion that happens when you're no longer run by your type's core fear.
                       </p>
                       <div className="flex flex-wrap gap-2">
                         {intLine?.healthyTraits.map((t) => (

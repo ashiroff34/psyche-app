@@ -1,5 +1,5 @@
 /**
- * useAmbientMusic — Tone.js generative ambient music.
+ * useAmbientMusic, Tone.js generative ambient music.
  * Pentatonic arpeggio + reverb + slight delay. No files. No licensing.
  * Only starts after a user gesture (browser autoplay policy).
  */
@@ -16,7 +16,7 @@ interface ToneRefs {
   seq: any | null;
 }
 
-// Pentatonic scale across two octaves — always pleasant, never jarring
+// Pentatonic scale across two octaves, always pleasant, never jarring
 const PENTATONIC = [
   "C4", "D4", "E4", "G4", "A4",
   "C5", "D5", "E5", "G5", "A5",
@@ -34,7 +34,7 @@ export function useAmbientMusic() {
 
   const start = useCallback(async () => {
     if (loadedRef.current) {
-      // Already initialized — just restart transport
+      // Already initialized, just restart transport
       const Tone = await import("tone");
       Tone.getTransport().start();
       setIsPlaying(true);

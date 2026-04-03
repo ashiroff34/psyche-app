@@ -22,7 +22,7 @@ import {
 import { notifyProfileChanged } from "@/hooks/useProfile";
 import OuroborosLogo from "@/components/OuroborosLogo";
 
-// Total visible steps = 6 (0 through 5). Step "Why Thyself" removed — covered by Welcome.
+// Total visible steps = 6 (0 through 5). Step "Why Thyself" removed, covered by Welcome.
 const TOTAL_STEPS = 6;
 
 // ── Step 0: Welcome ───────────────────────────────────────────────────────────
@@ -30,30 +30,31 @@ const TOTAL_STEPS = 6;
 function StepWelcome() {
   return (
     <div className="flex flex-col items-center text-center px-4">
-      <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-3xl bg-gradient-to-br from-sky-400 to-indigo-500 flex items-center justify-center mb-8 shadow-xl shadow-sky-200/50">
+      <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-3xl bg-gradient-to-br from-violet-500 to-indigo-600 flex items-center justify-center mb-8 shadow-xl" style={{ boxShadow: "0 12px 40px rgba(124,58,237,0.5)" }}>
         <OuroborosLogo size={48} />
       </div>
 
-      <h1 className="text-4xl sm:text-5xl font-serif font-bold text-slate-900 mb-4">
+      <h1 className="text-4xl sm:text-5xl font-serif font-bold mb-4" style={{ color: "rgba(255,255,255,0.95)" }}>
         Welcome to{" "}
-        <span className="bg-gradient-to-r from-sky-500 to-indigo-500 bg-clip-text text-transparent">
+        <span style={{ background: "linear-gradient(135deg, #a78bfa, #818cf8)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>
           Thyself
         </span>
       </h1>
 
-      <p className="text-lg sm:text-xl text-slate-500 leading-relaxed max-w-lg mb-8">
+      <p className="text-lg sm:text-xl leading-relaxed max-w-lg mb-8" style={{ color: "rgba(255,255,255,0.55)" }}>
         A research-grounded personality system that combines the
-        <span className="text-sky-600 font-medium"> Enneagram </span>
+        <span style={{ color: "#a78bfa" }} className="font-medium"> Enneagram </span>
         with Carl Jung&apos;s
-        <span className="text-indigo-600 font-medium"> cognitive function theory</span>
-        {" "}&mdash; for real depth, not pop psychology.
+        <span style={{ color: "#818cf8" }} className="font-medium"> cognitive function theory</span>
+        {" "}for real depth, not pop psychology.
       </p>
 
       <div className="flex flex-wrap justify-center gap-3 mb-6">
         {["9 Enneagram Types", "8 Cognitive Functions", "27 Subtypes", "Shadow Model"].map((tag) => (
           <span
             key={tag}
-            className="px-4 py-2 rounded-2xl bg-white/70 backdrop-blur-sm border border-slate-200 text-sm text-slate-600 font-medium"
+            className="px-4 py-2 rounded-2xl text-sm font-medium"
+            style={{ background: "rgba(255,255,255,0.07)", border: "1px solid rgba(255,255,255,0.12)", color: "rgba(255,255,255,0.75)" }}
           >
             {tag}
           </span>
@@ -73,22 +74,22 @@ function StepTwoSystems() {
   return (
     <div className="px-4">
       <div className="text-center mb-8">
-        <h2 className="text-3xl sm:text-4xl font-serif font-bold text-slate-900 mb-3">
+        <h2 className="text-3xl sm:text-4xl font-serif font-bold mb-3" style={{ color: "rgba(255,255,255,0.93)" }}>
           Two Systems, One You
         </h2>
-        <p className="text-slate-500 max-w-md mx-auto">
+        <p className="max-w-md mx-auto" style={{ color: "rgba(255,255,255,0.5)" }}>
           Two complementary lenses that illuminate different dimensions of who you are.
         </p>
       </div>
 
       <div className="grid sm:grid-cols-2 gap-6 max-w-2xl mx-auto">
         {/* Enneagram card */}
-        <div className="p-6 rounded-3xl bg-white/60 backdrop-blur-sm border border-sky-100 shadow-sm">
-          <div className="w-12 h-12 rounded-2xl bg-sky-50 flex items-center justify-center mb-4">
-            <Compass className="w-6 h-6 text-sky-600" />
+        <div className="p-6 rounded-3xl" style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(167,139,250,0.2)" }}>
+          <div className="w-12 h-12 rounded-2xl flex items-center justify-center mb-4" style={{ background: "rgba(167,139,250,0.12)" }}>
+            <Compass className="w-6 h-6" style={{ color: "#a78bfa" }} />
           </div>
-          <h3 className="text-xl font-serif font-bold text-slate-800 mb-2">The Enneagram</h3>
-          <p className="text-sm text-slate-500 leading-relaxed mb-4">
+          <h3 className="text-xl font-serif font-bold mb-2" style={{ color: "rgba(255,255,255,0.93)" }}>The Enneagram</h3>
+          <p className="text-sm leading-relaxed mb-4" style={{ color: "rgba(255,255,255,0.55)" }}>
             Maps your core motivations, fears, and defense mechanisms through 9 interconnected personality structures.
           </p>
           <div className="space-y-2 mb-4">
@@ -98,18 +99,18 @@ function StepTwoSystems() {
               { label: "27 Subtypes", desc: "Type + instinct combinations" },
             ].map((item) => (
               <div key={item.label} className="flex items-start gap-2">
-                <CheckCircle className="w-4 h-4 text-sky-400 mt-0.5 flex-shrink-0" />
+                <CheckCircle className="w-4 h-4 mt-0.5 flex-shrink-0" style={{ color: "#a78bfa" }} />
                 <div>
-                  <span className="text-sm font-medium text-slate-700">{item.label}</span>
-                  <span className="text-xs text-slate-400 ml-1">&mdash; {item.desc}</span>
+                  <span className="text-sm font-medium" style={{ color: "rgba(255,255,255,0.8)" }}>{item.label}</span>
+                  <span className="text-xs ml-1" style={{ color: "rgba(255,255,255,0.4)" }}>{item.desc}</span>
                 </div>
               </div>
             ))}
           </div>
-          {/* Learn more toggle */}
           <button
             onClick={() => setExpandedEnneagram((v) => !v)}
-            className="flex items-center gap-1.5 text-xs font-semibold text-sky-500 hover:text-sky-700 transition-colors"
+            className="flex items-center gap-1.5 text-xs font-semibold transition-colors"
+            style={{ color: "#a78bfa" }}
           >
             <motion.span animate={{ rotate: expandedEnneagram ? 90 : 0 }} transition={{ duration: 0.18 }}>▶</motion.span>
             {expandedEnneagram ? "Show less" : "Learn more"}
@@ -123,8 +124,8 @@ function StepTwoSystems() {
                 transition={{ duration: 0.22 }}
                 className="overflow-hidden"
               >
-                <p className="text-xs text-slate-500 leading-relaxed mt-3 pt-3 border-t border-sky-100">
-                  The Enneagram reveals your <strong>WHY</strong> — your core fear, desire, and the defense mechanisms you unconsciously rely on. Rooted in Naranjo&apos;s clinical tradition and Chestnut&apos;s subtype research, it goes far deeper than popular misconceptions. Your type isn&apos;t a box — it&apos;s a map to your patterns. Understanding it helps you recognize when you&apos;re acting from fear vs. genuine choice.
+                <p className="text-xs leading-relaxed mt-3 pt-3" style={{ color: "rgba(255,255,255,0.5)", borderTop: "1px solid rgba(167,139,250,0.15)" }}>
+                  The Enneagram reveals your <strong style={{ color: "rgba(255,255,255,0.8)" }}>WHY</strong>, your core fear, desire, and the defense mechanisms you unconsciously rely on. Rooted in Naranjo&apos;s clinical tradition and Chestnut&apos;s subtype research, it goes far deeper than popular misconceptions. Your type isn&apos;t a box, it&apos;s a map to your patterns.
                 </p>
               </motion.div>
             )}
@@ -132,13 +133,13 @@ function StepTwoSystems() {
         </div>
 
         {/* Cognitive Functions card */}
-        <div className="p-6 rounded-3xl bg-white/60 backdrop-blur-sm border border-indigo-100 shadow-sm">
-          <div className="w-12 h-12 rounded-2xl bg-indigo-50 flex items-center justify-center mb-4">
-            <Brain className="w-6 h-6 text-indigo-600" />
+        <div className="p-6 rounded-3xl" style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(129,140,248,0.2)" }}>
+          <div className="w-12 h-12 rounded-2xl flex items-center justify-center mb-4" style={{ background: "rgba(129,140,248,0.12)" }}>
+            <Brain className="w-6 h-6" style={{ color: "#818cf8" }} />
           </div>
-          <h3 className="text-xl font-serif font-bold text-slate-800 mb-2">Cognitive Functions</h3>
-          <p className="text-sm text-slate-500 leading-relaxed mb-4">
-            Reveals how your mind processes information &mdash; perceiving and judging through 8 distinct mental functions.
+          <h3 className="text-xl font-serif font-bold mb-2" style={{ color: "rgba(255,255,255,0.93)" }}>Cognitive Functions</h3>
+          <p className="text-sm leading-relaxed mb-4" style={{ color: "rgba(255,255,255,0.55)" }}>
+            Reveals how your mind processes information, perceiving and judging through 8 distinct mental functions.
           </p>
           <div className="space-y-2 mb-4">
             {[
@@ -147,18 +148,18 @@ function StepTwoSystems() {
               { label: "Shadow Stack", desc: "Beebe's archetypal model" },
             ].map((item) => (
               <div key={item.label} className="flex items-start gap-2">
-                <CheckCircle className="w-4 h-4 text-indigo-400 mt-0.5 flex-shrink-0" />
+                <CheckCircle className="w-4 h-4 mt-0.5 flex-shrink-0" style={{ color: "#818cf8" }} />
                 <div>
-                  <span className="text-sm font-medium text-slate-700">{item.label}</span>
-                  <span className="text-xs text-slate-400 ml-1">&mdash; {item.desc}</span>
+                  <span className="text-sm font-medium" style={{ color: "rgba(255,255,255,0.8)" }}>{item.label}</span>
+                  <span className="text-xs ml-1" style={{ color: "rgba(255,255,255,0.4)" }}>{item.desc}</span>
                 </div>
               </div>
             ))}
           </div>
-          {/* Learn more toggle */}
           <button
             onClick={() => setExpandedCognitive((v) => !v)}
-            className="flex items-center gap-1.5 text-xs font-semibold text-indigo-500 hover:text-indigo-700 transition-colors"
+            className="flex items-center gap-1.5 text-xs font-semibold transition-colors"
+            style={{ color: "#818cf8" }}
           >
             <motion.span animate={{ rotate: expandedCognitive ? 90 : 0 }} transition={{ duration: 0.18 }}>▶</motion.span>
             {expandedCognitive ? "Show less" : "Learn more"}
@@ -172,8 +173,8 @@ function StepTwoSystems() {
                 transition={{ duration: 0.22 }}
                 className="overflow-hidden"
               >
-                <p className="text-xs text-slate-500 leading-relaxed mt-3 pt-3 border-t border-indigo-100">
-                  Jung&apos;s cognitive functions describe <strong>HOW you think</strong> — the mental processes you rely on most. Unlike MBTI pop-culture tests, Thyself uses the full 8-function Beebe model including your shadow stack. This reveals not just your strengths, but the unconscious functions that emerge in stress, projection, and moments of unexpected reaction.
+                <p className="text-xs leading-relaxed mt-3 pt-3" style={{ color: "rgba(255,255,255,0.5)", borderTop: "1px solid rgba(129,140,248,0.15)" }}>
+                  Jung&apos;s cognitive functions describe <strong style={{ color: "rgba(255,255,255,0.8)" }}>HOW you think</strong>, the mental processes you rely on most. Unlike MBTI pop-culture tests, Thyself uses the full 8-function Beebe model including your shadow stack. This reveals not just your strengths, but the unconscious functions that emerge in stress, projection, and moments of unexpected reaction.
                 </p>
               </motion.div>
             )}
@@ -195,31 +196,31 @@ function StepJourney() {
       label: "Discover Your Type",
       desc: "Take the Enneagram + Cognitive assessments",
       color: "from-sky-400 to-sky-500",
-      more: "You'll take two in-depth assessments using behavioral scenarios and forced-choice questions — designed to minimize self-report bias. Results unlock personalized quizzes, growth prompts, and reading material tailored to your exact type combination.",
+      more: "You'll take two in-depth assessments using behavioral scenarios and forced-choice questions, designed to minimize self-report bias. Results unlock personalized quizzes, growth prompts, and reading material tailored to your exact type combination.",
     },
     {
       icon: Flame,
       label: "Build a Daily Practice",
       desc: "Quizzes, growth challenges & streaks",
       color: "from-orange-400 to-orange-500",
-      more: "Each day you get a warm-up quiz, then deeper modules on your type, integration paths, and Jungian concepts. Correct answers earn XP and tokens. Your streak tracks consistency — miss a day and it resets, but a Streak Freeze can save you.",
+      more: "Each day you get a warm-up quiz, then deeper modules on your type, integration paths, and Jungian concepts. Correct answers earn XP and tokens. Your streak tracks consistency, miss a day and it resets, but a Streak Freeze can save you.",
     },
     {
       icon: Heart,
       label: "Do the Inner Work",
       desc: "Shadow work, reframing, integration",
       color: "from-rose-400 to-rose-500",
-      more: "Growth means moving toward your integration direction — the type you borrow from when healthy. Reflection prompts ask you to notice your patterns in real situations. Shadow challenges invite you to engage your weaker functions with curiosity instead of avoidance.",
+      more: "Growth means moving toward your integration direction, the type you borrow from when healthy. Reflection prompts ask you to notice your patterns in real situations. Shadow challenges invite you to engage your weaker functions with curiosity instead of avoidance.",
     },
   ];
 
   return (
     <div className="px-4">
       <div className="text-center mb-8">
-        <h2 className="text-3xl sm:text-4xl font-serif font-bold text-slate-900 mb-3">
+        <h2 className="text-3xl sm:text-4xl font-serif font-bold mb-3" style={{ color: "rgba(255,255,255,0.93)" }}>
           Your Journey
         </h2>
-        <p className="text-slate-500 max-w-md mx-auto">
+        <p className="max-w-md mx-auto" style={{ color: "rgba(255,255,255,0.5)" }}>
           Three phases, from first insight to deep integration.
         </p>
       </div>
@@ -232,15 +233,16 @@ function StepJourney() {
                 <step.icon className="w-5 h-5 text-white" />
               </div>
               {i < steps.length - 1 && (
-                <div className="w-0.5 h-full min-h-[2rem] bg-gradient-to-b from-slate-200 to-slate-100 my-1" />
+                <div className="w-0.5 h-full min-h-[2rem] my-1" style={{ background: "rgba(255,255,255,0.08)" }} />
               )}
             </div>
             <div className="pb-5 flex-1">
-              <div className="text-sm font-semibold text-slate-800">{step.label}</div>
-              <div className="text-xs text-slate-400 mb-2">{step.desc}</div>
+              <div className="text-sm font-semibold" style={{ color: "rgba(255,255,255,0.88)" }}>{step.label}</div>
+              <div className="text-xs mb-2" style={{ color: "rgba(255,255,255,0.4)" }}>{step.desc}</div>
               <button
                 onClick={() => setExpanded(expanded === i ? null : i)}
-                className="flex items-center gap-1.5 text-xs font-semibold text-slate-400 hover:text-slate-600 transition-colors"
+                className="flex items-center gap-1.5 text-xs font-semibold transition-colors"
+                style={{ color: "rgba(255,255,255,0.35)" }}
               >
                 <motion.span animate={{ rotate: expanded === i ? 90 : 0 }} transition={{ duration: 0.18 }}>▶</motion.span>
                 {expanded === i ? "Show less" : "Learn more"}
@@ -254,7 +256,7 @@ function StepJourney() {
                     transition={{ duration: 0.22 }}
                     className="overflow-hidden"
                   >
-                    <p className="text-xs text-slate-500 leading-relaxed mt-2 pl-1 border-l-2 border-slate-200">
+                    <p className="text-xs leading-relaxed mt-2 pl-1" style={{ color: "rgba(255,255,255,0.5)", borderLeft: "2px solid rgba(255,255,255,0.12)" }}>
                       {step.more}
                     </p>
                   </motion.div>
@@ -276,18 +278,18 @@ function StepDifferent() {
   return (
     <div className="px-4">
       <div className="text-center mb-8">
-        <h2 className="text-3xl sm:text-4xl font-serif font-bold text-slate-900 mb-3">
+        <h2 className="text-3xl sm:text-4xl font-serif font-bold mb-3" style={{ color: "rgba(255,255,255,0.93)" }}>
           What Makes This Different
         </h2>
-        <p className="text-slate-500 max-w-md mx-auto">
-          Grounded in real personality science &mdash; not internet quizzes.
+        <p className="max-w-md mx-auto" style={{ color: "rgba(255,255,255,0.5)" }}>
+          Grounded in real personality science, not internet quizzes.
         </p>
       </div>
 
       <div className="max-w-2xl mx-auto space-y-4">
         <div className="grid sm:grid-cols-2 gap-4">
-          <div className="p-5 rounded-3xl bg-red-50/50 border border-red-100">
-            <div className="text-xs font-bold text-red-400 uppercase tracking-wider mb-3">What we are not</div>
+          <div className="p-5 rounded-3xl" style={{ background: "rgba(239,68,68,0.08)", border: "1px solid rgba(239,68,68,0.2)" }}>
+            <div className="text-xs font-bold uppercase tracking-wider mb-3" style={{ color: "#f87171" }}>What we are not</div>
             <ul className="space-y-2">
               {[
                 "16Personalities (not Jungian, uses Big Five)",
@@ -295,16 +297,16 @@ function StepDifferent() {
                 "Pop-psychology entertainment quizzes",
                 "Astrology-tier pseudoscience",
               ].map((item) => (
-                <li key={item} className="flex items-start gap-2 text-sm text-slate-600">
-                  <X className="w-4 h-4 text-red-300 mt-0.5 flex-shrink-0" />
+                <li key={item} className="flex items-start gap-2 text-sm" style={{ color: "rgba(255,255,255,0.6)" }}>
+                  <X className="w-4 h-4 mt-0.5 flex-shrink-0" style={{ color: "#f87171" }} />
                   {item}
                 </li>
               ))}
             </ul>
           </div>
 
-          <div className="p-5 rounded-3xl bg-emerald-50/50 border border-emerald-100">
-            <div className="text-xs font-bold text-emerald-500 uppercase tracking-wider mb-3">What we are</div>
+          <div className="p-5 rounded-3xl" style={{ background: "rgba(52,211,153,0.08)", border: "1px solid rgba(52,211,153,0.2)" }}>
+            <div className="text-xs font-bold uppercase tracking-wider mb-3" style={{ color: "#34d399" }}>What we are</div>
             <ul className="space-y-2">
               {[
                 "Jung's Psychological Types (1921)",
@@ -312,8 +314,8 @@ function StepDifferent() {
                 "Beatrice Chestnut's subtype research",
                 "Beebe's archetypal shadow model",
               ].map((item) => (
-                <li key={item} className="flex items-start gap-2 text-sm text-slate-600">
-                  <CheckCircle className="w-4 h-4 text-emerald-400 mt-0.5 flex-shrink-0" />
+                <li key={item} className="flex items-start gap-2 text-sm" style={{ color: "rgba(255,255,255,0.6)" }}>
+                  <CheckCircle className="w-4 h-4 mt-0.5 flex-shrink-0" style={{ color: "#34d399" }} />
                   {item}
                 </li>
               ))}
@@ -321,14 +323,15 @@ function StepDifferent() {
           </div>
         </div>
 
-        <div className="p-5 rounded-3xl bg-white/60 backdrop-blur-sm border border-slate-100">
-          <p className="text-sm text-slate-500 leading-relaxed">
+        <div className="p-5 rounded-3xl" style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)" }}>
+          <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.55)" }}>
             Every framework in Thyself is traceable to qualified clinical or academic research.
-            We use forced-choice dichotomies and behavioral scenarios &mdash; not self-report bias traps.
+            We use forced-choice dichotomies and behavioral scenarios, not self-report bias traps.
           </p>
           <button
             onClick={() => setExpandedWhy((v) => !v)}
-            className="flex items-center gap-1.5 text-xs font-semibold text-slate-400 hover:text-slate-600 transition-colors mt-3"
+            className="flex items-center gap-1.5 text-xs font-semibold transition-colors mt-3"
+            style={{ color: "rgba(255,255,255,0.35)" }}
           >
             <motion.span animate={{ rotate: expandedWhy ? 90 : 0 }} transition={{ duration: 0.18 }}>▶</motion.span>
             {expandedWhy ? "Show less" : "Why does this matter?"}
@@ -342,8 +345,8 @@ function StepDifferent() {
                 transition={{ duration: 0.22 }}
                 className="overflow-hidden"
               >
-                <p className="text-xs text-slate-500 leading-relaxed mt-3 pt-3 border-t border-slate-100">
-                  Most people type themselves as what they <em>aspire</em> to be, not what they actually are. That&apos;s self-report bias — and it&apos;s why most personality tests give you flattering but useless results. Thyself uses behavioral scenarios designed to reveal patterns you might not consciously acknowledge. The goal isn&apos;t to validate your self-image — it&apos;s to show you the parts of yourself that are harder to see.
+                <p className="text-xs leading-relaxed mt-3 pt-3" style={{ color: "rgba(255,255,255,0.5)", borderTop: "1px solid rgba(255,255,255,0.08)" }}>
+                  Most people type themselves as what they <em>aspire</em> to be, not what they actually are. That&apos;s self-report bias, and it&apos;s why most personality tests give you flattering but useless results. Thyself uses behavioral scenarios designed to reveal patterns you might not consciously acknowledge. The goal isn&apos;t to validate your self-image, it&apos;s to show you the parts of yourself that are harder to see.
                 </p>
               </motion.div>
             )}
@@ -354,7 +357,7 @@ function StepDifferent() {
   );
 }
 
-// ── Step 4: Personalisation — Name + Email ───────────────────────────────────
+// ── Step 4: Personalisation, Name + Email ───────────────────────────────────
 
 function isValidEmail(email: string): boolean {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
@@ -394,21 +397,21 @@ function StepPersonalization({
 
   return (
     <div className="flex flex-col items-center text-center px-4">
-      <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-violet-400 to-indigo-500 flex items-center justify-center mb-7 shadow-xl shadow-violet-200/50">
+      <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-violet-500 to-indigo-600 flex items-center justify-center mb-7 shadow-xl" style={{ boxShadow: "0 8px 32px rgba(124,58,237,0.45)" }}>
         <User className="w-8 h-8 text-white" />
       </div>
 
-      <h2 className="text-3xl sm:text-4xl font-serif font-bold text-slate-900 mb-3">
+      <h2 className="text-3xl sm:text-4xl font-serif font-bold mb-3" style={{ color: "rgba(255,255,255,0.93)" }}>
         Let&apos;s make this yours
       </h2>
-      <p className="text-slate-500 max-w-md mx-auto mb-8">
+      <p className="max-w-md mx-auto mb-8" style={{ color: "rgba(255,255,255,0.5)" }}>
         Add your email so we can notify you when new features drop and keep your progress safe.
       </p>
 
       <div className="w-full max-w-sm space-y-4">
         {/* Name */}
         <div className="relative">
-          <div className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none">
+          <div className="absolute left-4 top-1/2 -translate-y-1/2 pointer-events-none" style={{ color: "rgba(255,255,255,0.35)" }}>
             <User className="w-4 h-4" />
           </div>
           <input
@@ -417,14 +420,15 @@ function StepPersonalization({
             onChange={(e) => onChangeName(e.target.value)}
             placeholder="Name or nickname (optional)"
             maxLength={40}
-            className="w-full pl-11 pr-5 py-4 text-base rounded-2xl border-2 border-slate-200 focus:border-sky-400 focus:outline-none bg-white/80 backdrop-blur-sm text-slate-800 placeholder-slate-300 transition-all shadow-sm"
+            className="w-full pl-11 pr-5 py-4 text-base rounded-2xl focus:outline-none transition-all"
+            style={{ background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.12)", color: "rgba(255,255,255,0.88)" }}
           />
         </div>
 
         {/* Email with validation */}
         <div>
           <div className="relative">
-            <div className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none">
+            <div className="absolute left-4 top-1/2 -translate-y-1/2 pointer-events-none" style={{ color: "rgba(255,255,255,0.35)" }}>
               <Mail className="w-4 h-4" />
             </div>
             <input
@@ -433,17 +437,20 @@ function StepPersonalization({
               onChange={(e) => handleEmailChange(e.target.value)}
               onBlur={handleEmailBlur}
               placeholder="Email address"
-              className={`w-full pl-11 pr-5 py-4 text-base rounded-2xl border-2 ${
-                emailError ? "border-rose-400 focus:border-rose-500" : "border-slate-200 focus:border-sky-400"
-              } focus:outline-none bg-white/80 backdrop-blur-sm text-slate-800 placeholder-slate-300 transition-all shadow-sm`}
+              className="w-full pl-11 pr-5 py-4 text-base rounded-2xl focus:outline-none transition-all"
+              style={{
+                background: "rgba(255,255,255,0.06)",
+                border: emailError ? "1px solid rgba(248,113,113,0.6)" : "1px solid rgba(255,255,255,0.12)",
+                color: "rgba(255,255,255,0.88)"
+              }}
             />
           </div>
           {emailError && (
-            <p className="text-xs text-rose-500 mt-1 text-left pl-1">{emailError}</p>
+            <p className="text-xs mt-1 text-left pl-1" style={{ color: "#f87171" }}>{emailError}</p>
           )}
         </div>
 
-        <p className="text-xs text-slate-400 mt-1">
+        <p className="text-xs mt-1" style={{ color: "rgba(255,255,255,0.35)" }}>
           We&apos;ll notify you of new features &amp; updates. No spam, unsubscribe anytime.
         </p>
       </div>
@@ -485,36 +492,107 @@ function StepChoosePath({ onComplete }: { onComplete: (href: string) => void }) 
   return (
     <div className="px-4">
       <div className="text-center mb-8">
-        <h2 className="text-3xl sm:text-4xl font-serif font-bold text-slate-900 mb-3">
+        <h2 className="text-3xl sm:text-4xl font-serif font-bold mb-3" style={{ color: "rgba(255,255,255,0.93)" }}>
           Choose Your Path
         </h2>
-        <p className="text-slate-500 max-w-md mx-auto">
+        <p className="max-w-md mx-auto" style={{ color: "rgba(255,255,255,0.5)" }}>
           Where are you on your self-discovery journey?
         </p>
       </div>
 
       <div className="max-w-lg mx-auto space-y-4">
-        {paths.map((path, i) => (
+        {paths.map((path) => (
           <button
             key={path.title}
             onClick={() => onComplete(path.href)}
-            className="w-full flex items-center gap-4 p-5 rounded-3xl bg-white/70 backdrop-blur-sm border border-slate-100 hover:border-sky-200 hover:shadow-lg hover:-translate-y-0.5 transition-all text-left group"
+            className="w-full flex items-center gap-4 p-5 rounded-3xl transition-all text-left group hover:-translate-y-0.5"
+            style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.09)" }}
           >
-            <div className={`w-12 h-12 rounded-2xl ${path.bgColor} flex items-center justify-center flex-shrink-0`}>
-              <path.icon className="w-6 h-6 text-slate-600" />
+            <div className="w-12 h-12 rounded-2xl flex items-center justify-center flex-shrink-0" style={{ background: "rgba(167,139,250,0.12)" }}>
+              <path.icon className="w-6 h-6" style={{ color: "#a78bfa" }} />
             </div>
             <div className="flex-1 min-w-0">
-              <div className="font-semibold text-slate-800 mb-0.5">{path.title}</div>
-              <div className="text-sm text-slate-400">{path.description}</div>
+              <div className="font-semibold mb-0.5" style={{ color: "rgba(255,255,255,0.88)" }}>{path.title}</div>
+              <div className="text-sm" style={{ color: "rgba(255,255,255,0.45)" }}>{path.description}</div>
             </div>
-            <ArrowRight className="w-5 h-5 text-slate-300 group-hover:text-sky-500 group-hover:translate-x-1 transition-all flex-shrink-0" />
+            <ArrowRight className="w-5 h-5 flex-shrink-0 transition-all group-hover:translate-x-1" style={{ color: "rgba(167,139,250,0.5)" }} />
           </button>
         ))}
       </div>
 
-      <p className="text-xs text-slate-400 text-center mt-6 italic">
+      <p className="text-xs text-center mt-6 italic" style={{ color: "rgba(255,255,255,0.3)" }}>
         First stop: find your Enneagram type
       </p>
+    </div>
+  );
+}
+
+// ── Terms Screen ─────────────────────────────────────────────────────────────
+
+function TermsScreen({ onAccept }: { onAccept: () => void }) {
+  const [expanded, setExpanded] = useState(false);
+  return (
+    <div className="min-h-screen flex items-center justify-center px-4" style={{ background: "#0f0a1e" }}>
+      <div className="w-full max-w-md">
+        <div className="rounded-3xl p-8" style={{ background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.09)" }}>
+          <div className="flex items-center gap-3 mb-6">
+            <div className="w-10 h-10 rounded-xl flex items-center justify-center shadow-lg overflow-hidden" style={{ boxShadow: "0 4px 16px rgba(124,58,237,0.4)" }}>
+              <OuroborosLogo size={40} />
+            </div>
+            <span className="text-xl font-serif font-semibold" style={{ color: "rgba(255,255,255,0.92)" }}>Thyself</span>
+          </div>
+
+          <h2 className="text-xl font-serif font-bold mb-2" style={{ color: "rgba(255,255,255,0.93)" }}>A few things first</h2>
+
+          {/* Key points — always visible */}
+          <div className="space-y-3 mb-4">
+            {[
+              { icon: "🔬", text: "For self-exploration only, not a clinical diagnosis" },
+              { icon: "🔒", text: "Your data stays on your device, never sold" },
+              { icon: "🔞", text: "You must be 13 or older to use Thyself" },
+            ].map(({ icon, text }) => (
+              <div key={text} className="flex items-start gap-3 px-4 py-3 rounded-2xl" style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.07)" }}>
+                <span className="text-base mt-0.5 flex-shrink-0">{icon}</span>
+                <span className="text-sm leading-snug" style={{ color: "rgba(255,255,255,0.72)" }}>{text}</span>
+              </div>
+            ))}
+          </div>
+
+          {/* Expandable full terms */}
+          <button
+            onClick={() => setExpanded((v) => !v)}
+            className="flex items-center gap-1.5 text-xs mb-4 transition-colors"
+            style={{ color: "rgba(167,139,250,0.8)" }}
+          >
+            <span>{expanded ? "Hide full terms" : "See full terms"}</span>
+            <span style={{ display: "inline-block", transform: expanded ? "rotate(180deg)" : "rotate(0deg)", transition: "transform 0.2s" }}>▾</span>
+          </button>
+
+          {expanded && (
+            <div className="mb-4 p-4 rounded-2xl text-xs leading-relaxed space-y-2.5 max-h-52 overflow-y-auto" style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)", color: "rgba(255,255,255,0.55)" }}>
+              <p><strong style={{ color: "rgba(255,255,255,0.82)" }}>1. Purpose.</strong> Thyself is an educational tool for personality self-discovery. It is not a substitute for professional psychological, medical, or therapeutic advice.</p>
+              <p><strong style={{ color: "rgba(255,255,255,0.82)" }}>2. No Clinical Diagnosis.</strong> Assessment results are for self-exploration only and do not constitute a clinical diagnosis.</p>
+              <p><strong style={{ color: "rgba(255,255,255,0.82)" }}>3. Your Data.</strong> Your profile is stored locally on your device. If you provide an email, we may send occasional insights. Unsubscribe any time.</p>
+              <p><strong style={{ color: "rgba(255,255,255,0.82)" }}>4. Accuracy.</strong> Content is grounded in established frameworks (Riso-Hudson, Naranjo, Chestnut, Beebe) but personality is complex. Use results as a starting point.</p>
+              <p><strong style={{ color: "rgba(255,255,255,0.82)" }}>5. Age.</strong> You must be at least 13 years old.</p>
+              <p><strong style={{ color: "rgba(255,255,255,0.82)" }}>6. Compatibility.</strong> Type comparison features are for self-understanding only and do not predict relationship outcomes.</p>
+              <p><strong style={{ color: "rgba(255,255,255,0.82)" }}>Privacy.</strong> We collect minimal data. Email addresses are used only for insights and never shared with third parties.</p>
+            </div>
+          )}
+
+          <button
+            onClick={onAccept}
+            className="w-full py-3.5 rounded-2xl text-sm font-bold text-white transition-all active:scale-[0.98] hover:-translate-y-0.5"
+            style={{ background: "linear-gradient(135deg, #7c3aed, #4f46e5)", boxShadow: "0 8px 24px rgba(124,58,237,0.45)" }}
+          >
+            I Accept, Let&apos;s Go
+          </button>
+
+          <p className="text-[10px] text-center mt-3" style={{ color: "rgba(255,255,255,0.3)" }}>
+            By tapping above, you agree to our Terms of Service and Privacy Policy.
+          </p>
+        </div>
+      </div>
     </div>
   );
 }
@@ -560,49 +638,10 @@ export default function OnboardingPage() {
 
   // Terms & Conditions screen
   if (!acceptedTerms) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-sky-50 via-white to-indigo-50 px-4">
-        <div className="w-full max-w-md">
-          <div className="bg-white rounded-3xl border border-slate-100 shadow-xl p-8">
-            <div className="flex items-center gap-3 mb-6">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-sky-400 to-indigo-500 flex items-center justify-center shadow-lg shadow-sky-200/50">
-                <OuroborosLogo size={22} />
-              </div>
-              <span className="text-xl font-serif font-semibold text-slate-800">Thyself</span>
-            </div>
-
-            <h2 className="text-xl font-serif font-bold text-slate-900 mb-2">Before we begin</h2>
-            <p className="text-sm text-slate-500 mb-6">Please review and accept our terms to continue.</p>
-
-            <div className="h-48 overflow-y-auto mb-6 p-4 rounded-2xl bg-slate-50 border border-slate-200 text-xs text-slate-600 leading-relaxed space-y-3">
-              <p><strong>Terms of Service</strong></p>
-              <p>By using Thyself, you agree to the following:</p>
-              <p><strong>1. Purpose.</strong> Thyself is an educational tool for personality self-discovery based on the Enneagram and Jungian cognitive function theory. It is not a substitute for professional psychological, medical, or therapeutic advice.</p>
-              <p><strong>2. No Clinical Diagnosis.</strong> Assessment results are for self-exploration only. They do not constitute a clinical diagnosis or professional evaluation.</p>
-              <p><strong>3. Your Data.</strong> Your profile data is stored locally on your device. If you provide an email, we may send periodic insights. You can unsubscribe at any time.</p>
-              <p><strong>4. Accuracy.</strong> While our content is grounded in established frameworks (Riso-Hudson, Naranjo, Chestnut, Beebe), personality is complex and no system captures it completely. Use results as a starting point, not a final answer.</p>
-              <p><strong>5. Age Requirement.</strong> You must be at least 13 years old to use Thyself.</p>
-              <p><strong>6. Relationship Compatibility.</strong> Type comparison features are for self-understanding only. They do not predict relationship outcomes or prescribe behavior.</p>
-              <p><strong>Privacy Policy:</strong> We collect minimal data. Your personality profile stays on your device. Email addresses (if provided) are used only for daily insight emails and are never shared with third parties.</p>
-            </div>
-
-            <button
-              onClick={() => {
-                setAcceptedTerms(true);
-                try { localStorage.setItem("psyche-terms-accepted", "true"); } catch {}
-              }}
-              className="w-full py-3.5 rounded-2xl text-sm font-bold text-white bg-gradient-to-r from-sky-500 to-indigo-500 shadow-lg shadow-sky-200/50 hover:shadow-xl transition-all active:scale-[0.98]"
-            >
-              I Accept — Let&apos;s Go
-            </button>
-
-            <p className="text-[10px] text-slate-400 text-center mt-3">
-              By tapping above, you agree to our Terms of Service and Privacy Policy.
-            </p>
-          </div>
-        </div>
-      </div>
-    );
+    return <TermsScreen onAccept={() => {
+      setAcceptedTerms(true);
+      try { localStorage.setItem("psyche-terms-accepted", "true"); } catch {}
+    }} />;
   }
 
   const markComplete = (displayNameVal?: string, emailVal?: string) => {
@@ -616,7 +655,7 @@ export default function OnboardingPage() {
       localStorage.setItem("psyche-profile", JSON.stringify({ ...p, ...updates }));
       notifyProfileChanged();
 
-      // Email is saved to localStorage profile above — no server subscription needed
+      // Email is saved to localStorage profile above, no server subscription needed
       // (app uses static export / Capacitor; push notifications are handled natively)
     } catch {}
   };
@@ -661,19 +700,18 @@ export default function OnboardingPage() {
     }
   };
 
-  // On the choose-path step (last), path cards handle navigation — hide Next button
+  // On the choose-path step (last), path cards handle navigation, hide Next button
   const isLastStep = step === TOTAL_STEPS - 1;
   const showNextButton = !isLastStep;
 
 
   return (
-    <div className="min-h-screen relative overflow-hidden">
-      {/* Background */}
-      <div className="fixed inset-0 -z-10">
-        <div className="absolute inset-0 bg-gradient-to-br from-sky-50 via-white to-indigo-50" />
-        <div className="absolute top-20 left-10 w-72 h-72 bg-sky-200/20 rounded-full blur-3xl" />
-        <div className="absolute top-40 right-20 w-96 h-96 bg-indigo-200/15 rounded-full blur-3xl" />
-        <div className="absolute bottom-20 left-1/3 w-64 h-64 bg-violet-200/15 rounded-full blur-3xl" />
+    <div className="min-h-screen relative overflow-hidden" style={{ background: "#0f0a1e" }}>
+      {/* Aurora background orbs */}
+      <div className="fixed inset-0 -z-10 pointer-events-none">
+        <div className="absolute top-20 left-10 w-72 h-72 rounded-full blur-3xl" style={{ background: "radial-gradient(circle, rgba(139,92,246,0.12) 0%, transparent 70%)" }} />
+        <div className="absolute top-40 right-20 w-96 h-96 rounded-full blur-3xl" style={{ background: "radial-gradient(circle, rgba(79,70,229,0.1) 0%, transparent 70%)" }} />
+        <div className="absolute bottom-20 left-1/3 w-64 h-64 rounded-full blur-3xl" style={{ background: "radial-gradient(circle, rgba(124,58,237,0.08) 0%, transparent 70%)" }} />
       </div>
 
       {/* Top Bar: Progress Dots + Skip */}
@@ -689,19 +727,23 @@ export default function OnboardingPage() {
                     setStep(i);
                   }
                 }}
-                className={`transition-all duration-300 rounded-full ${
-                  i === step
-                    ? "w-8 h-3 bg-gradient-to-r from-sky-400 to-indigo-500"
+                className="transition-all duration-300 rounded-full"
+                style={{
+                  width: i === step ? 32 : 12,
+                  height: 12,
+                  background: i === step
+                    ? "linear-gradient(90deg, #7c3aed, #4f46e5)"
                     : i < step
-                    ? "w-3 h-3 bg-sky-300"
-                    : "w-3 h-3 bg-slate-200"
-                }`}
+                    ? "rgba(167,139,250,0.5)"
+                    : "rgba(255,255,255,0.12)"
+                }}
               />
             ))}
           </div>
           <button
             onClick={skip}
-            className="text-sm text-slate-400 hover:text-slate-600 font-medium transition-colors"
+            className="text-sm font-medium transition-colors"
+            style={{ color: "rgba(255,255,255,0.35)" }}
           >
             Skip
           </button>
@@ -731,16 +773,16 @@ export default function OnboardingPage() {
       </div>
 
       {/* Bottom Navigation */}
-      <div className="fixed bottom-0 left-0 right-0 z-40 pb-8 px-4 sm:px-8">
-        <div className="max-w-2xl mx-auto flex items-center justify-between">
+      <div className="fixed bottom-0 left-0 right-0 z-40 pb-8 px-4 sm:px-8" style={{ background: "linear-gradient(to top, rgba(15,10,30,0.95) 60%, transparent)" }}>
+        <div className="max-w-2xl mx-auto flex items-center justify-between pt-4">
           <button
             onClick={prev}
             disabled={step === 0}
-            className={`flex items-center gap-2 px-5 py-3 rounded-2xl font-medium transition-all ${
-              step === 0
-                ? "text-slate-300 cursor-not-allowed"
-                : "text-slate-600 hover:bg-white/70 hover:shadow-sm"
-            }`}
+            className="flex items-center gap-2 px-5 py-3 rounded-2xl font-medium transition-all"
+            style={{
+              color: step === 0 ? "rgba(255,255,255,0.18)" : "rgba(255,255,255,0.5)",
+              cursor: step === 0 ? "not-allowed" : "pointer"
+            }}
           >
             <ArrowLeft className="w-4 h-4" />
             Back
@@ -749,7 +791,8 @@ export default function OnboardingPage() {
           {showNextButton && (
             <button
               onClick={next}
-              className="flex items-center gap-2 px-6 py-3 rounded-2xl font-semibold shadow-lg transition-all bg-gradient-to-r from-sky-500 to-indigo-500 text-white shadow-sky-200/50 hover:shadow-xl hover:-translate-y-0.5"
+              className="flex items-center gap-2 px-6 py-3 rounded-2xl font-semibold transition-all text-white hover:-translate-y-0.5"
+              style={{ background: "linear-gradient(135deg, #7c3aed, #4f46e5)", boxShadow: "0 8px 24px rgba(124,58,237,0.45)" }}
             >
               Next
               <ArrowRight className="w-4 h-4" />

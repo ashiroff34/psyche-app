@@ -154,7 +154,7 @@ export default function HubView({
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // First-time token explainer — shows once after user earns their first tokens
+  // First-time token explainer, shows once after user earns their first tokens
   const [showTokenTooltip, setShowTokenTooltip] = useState(false);
   useEffect(() => {
     if (typeof window === "undefined" || tokens <= 0) return;
@@ -190,7 +190,7 @@ export default function HubView({
               style={{ background: "linear-gradient(135deg, #8b5cf6, #d946ef)", boxShadow: "0 4px 16px rgba(139,92,246,0.35)" }}
             >
               <Zap className="w-5 h-5 shrink-0 fill-white" />
-              <span>You&apos;ve already earned <strong>{totalXP} XP</strong> — you&apos;re ahead of the starting line!</span>
+              <span>You&apos;ve already earned <strong>{totalXP} XP</strong>. You&apos;re ahead of the starting line!</span>
             </motion.div>
           )}
         </AnimatePresence>
@@ -467,7 +467,7 @@ export default function HubView({
               <Flame className="w-5 h-5 text-orange-500 shrink-0" />
               <div className="flex-1 min-w-0">
                 <p className="text-sm font-bold text-orange-700 leading-tight">
-                  {streak}-day streak at risk — {countdown.label} left
+                  {streak}-day streak at risk, {countdown.label} left
                 </p>
                 <p className="text-xs text-orange-500 mt-0.5">Don't let your streak break tonight.</p>
               </div>
@@ -506,7 +506,7 @@ export default function HubView({
             const isAllLocked = nodes.every(n => n.status === "locked");
             const pct = Math.round((completedCount / Math.max(nodes.length, 1)) * 100);
 
-            // S-curve offsets — Duolingo zigzag
+            // S-curve offsets, Duolingo zigzag
             const offsets = [
               { x: 20, align: "flex-start" },
               { x: 80, align: "center" },
@@ -825,7 +825,7 @@ export default function HubView({
                     )}
                   </div>
                   <p className={`text-sm font-medium ${readingDoneToday ? "text-emerald-700" : "text-slate-700"}`}>
-                    {readingDoneToday ? "Reading complete — great work!" : "Tap to read today's insight"}
+                    {readingDoneToday ? "Reading complete, great work!" : "Tap to read today's insight"}
                   </p>
                 </div>
                 {!readingDoneToday && (
@@ -863,7 +863,7 @@ export default function HubView({
               <p className="text-slate-700 leading-relaxed font-serif text-[14px] italic mb-1.5">
                 &ldquo;{insightData.quote}&rdquo;
               </p>
-              <p className="text-xs text-slate-400 mb-2">— {insightData.author}</p>
+              <p className="text-xs text-slate-400 mb-2">{insightData.author}</p>
               <p className="text-slate-600 text-sm leading-relaxed">{insightData.reflection}</p>
             </div>
           </motion.div>

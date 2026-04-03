@@ -43,13 +43,13 @@ function BeginnerIntro() {
           >
             <div className="px-5 pb-5 space-y-3 text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.6)" }}>
               <p>
-                Carl Jung proposed that the human mind uses <strong>8 distinct mental processes</strong> — called cognitive functions — to perceive the world and make decisions. Everyone uses all 8, but in a specific order of preference.
+                Carl Jung proposed that the human mind uses <strong>8 distinct mental processes</strong>, called cognitive functions, to perceive the world and make decisions. Everyone uses all 8, but in a specific order of preference.
               </p>
               <p>
                 Your <em>dominant</em> function is the one you use most naturally. Your <em>inferior</em> function (the opposite of your dominant) is your biggest growth edge. The 4 shadow functions are largely unconscious.
               </p>
               <p>
-                This is <strong>different from MBTI</strong> — MBTI uses four letter dichotomies (I/E, N/S, T/F, J/P). Cognitive function theory goes deeper: it looks at the actual mental processes behind those letters.
+                This is <strong>different from MBTI</strong>. MBTI uses four letter dichotomies (I/E, N/S, T/F, J/P). Cognitive function theory goes deeper: it looks at the actual mental processes behind those letters.
               </p>
               <p>
                 <strong>Recommended starting point:</strong> Take the cognitive assessment to discover your function stack, then read your type deep-dive.
@@ -95,7 +95,7 @@ export default function CognitivePage() {
                   className="text-lg leading-relaxed mb-4 max-w-2xl"
                   style={{ color: "rgba(255,255,255,0.6)" }}
                 >
-                  Carl Jung&apos;s theory of cognitive functions describes eight distinct ways the mind perceives information and makes judgments. Your unique stack of these functions shapes how you experience everything — from how you learn to how you handle stress.
+                  Carl Jung&apos;s theory of cognitive functions describes eight distinct ways the mind perceives information and makes judgments. Your unique stack of these functions shapes how you experience everything, from how you learn to how you handle stress.
                 </motion.p>
               )}
 
@@ -114,7 +114,7 @@ export default function CognitivePage() {
                   transition={{ delay: 0.15 }}
                 >
                   <p className="text-lg leading-relaxed mb-4 max-w-2xl" style={{ color: "rgba(255,255,255,0.6)" }}>
-                    Jung&apos;s 8-function model (Psychological Types, 1921) — perceiving axes Ni/Se and Ne/Si, judging axes Ti/Fe and Te/Fi — as extended by John Beebe&apos;s archetypal shadow model (Individuation and Multiplicity, 2017).
+                    Jung&apos;s 8-function model (Psychological Types, 1921), perceiving axes Ni/Se and Ne/Si, judging axes Ti/Fe and Te/Fi, as extended by John Beebe&apos;s archetypal shadow model (Individuation and Multiplicity, 2017).
                   </p>
                   <div className="flex flex-wrap gap-2 mb-6">
                     {["Ni/Se axis", "Ne/Si axis", "Ti/Fe axis", "Te/Fi axis", "Beebe's 8-position stack", "Grip reactions", "Loop dynamics"].map((tag) => (
@@ -306,7 +306,7 @@ export default function CognitivePage() {
             <p className="text-xs leading-relaxed" style={{ color: "rgba(255,255,255,0.6)" }}>
               <strong>A note on typology:</strong> This system is grounded in Carl Jung&apos;s original <em>Psychological Types</em> (1921), not the commercial MBTI&reg; instrument.
               The 16 type codes (INTJ, ENFP, etc.) are used here as convenient shorthand for cognitive function stacks.
-              This app focuses on the cognitive functions themselves &mdash; the actual substance of Jung&apos;s theory &mdash; rather than dichotomy-based trait sorting.
+              This app focuses on the cognitive functions themselves, the actual substance of Jung&apos;s theory, rather than dichotomy-based trait sorting.
               Note that 16Personalities is <em>not</em> the same as Jungian typology; it uses Big Five personality traits with type-like labels.
             </p>
           </div>

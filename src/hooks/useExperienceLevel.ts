@@ -58,7 +58,7 @@ export const TERM_GLOSSARY: Record<string, { short: string; full: string }> = {
   },
   "Tritype": {
     short: "Your type from each of the 3 centers",
-    full: "The tritype identifies which type you use in each of the three intelligence centers: Head (5, 6, 7 — thinking), Heart (2, 3, 4 — feeling), and Gut (8, 9, 1 — instinct). Your tritype shows your full three-center strategy.",
+    full: "The tritype identifies which type you use in each of the three intelligence centers: Head (5, 6, 7, thinking), Heart (2, 3, 4, feeling), and Gut (8, 9, 1, instinct). Your tritype shows your full three-center strategy.",
   },
   "Subtype": {
     short: "Your core type + dominant instinct",
@@ -78,7 +78,7 @@ export const TERM_GLOSSARY: Record<string, { short: string; full: string }> = {
   },
   "Passion": {
     short: "Your type's emotional vice (Naranjo)",
-    full: "In Claudio Naranjo's framework, each type has a core emotional 'passion' — an automatic emotional habit that drives behavior. For example, Type 5's passion is Avarice (hoarding of energy and resources), and Type 2's passion is Pride (belief that you don't have needs).",
+    full: "In Claudio Naranjo's framework, each type has a core emotional 'passion', an automatic emotional habit that drives behavior. For example, Type 5's passion is Avarice (hoarding of energy and resources), and Type 2's passion is Pride (belief that you don't have needs).",
   },
   "Fixation": {
     short: "Your type's cognitive distortion",
@@ -86,7 +86,7 @@ export const TERM_GLOSSARY: Record<string, { short: string; full: string }> = {
   },
   "Virtue": {
     short: "Your type's healthy emotional quality",
-    full: "The virtue is the healthy emotional quality that naturally emerges when the passion is transcended. For Type 5, the virtue is Non-Attachment — generous presence without needing to hoard.",
+    full: "The virtue is the healthy emotional quality that naturally emerges when the passion is transcended. For Type 5, the virtue is Non-Attachment, generous presence without needing to hoard.",
   },
   // Cognitive function terms
   "Cognitive Functions": {

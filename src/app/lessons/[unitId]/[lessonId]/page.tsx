@@ -14,7 +14,7 @@ export function generateStaticParams() {
   return params;
 }
 
-// ── Server Page — delegates to client component ─────────────────────────────
+// ── Server Page, delegates to client component ─────────────────────────────
 
 export default function LessonPage({
   params,

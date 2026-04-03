@@ -215,7 +215,7 @@ export default function GrowthPage() {
               <div className="relative">
                 <textarea
                   rows={4}
-                  placeholder="Write your reflection here... (optional — saved privately)"
+                  placeholder="Write your reflection here... (optional, saved privately)"
                   value={reflectionText}
                   onChange={(e) => { setReflectionText(e.target.value); setSaved(false); }}
                   className="w-full resize-none rounded-2xl p-4 text-sm focus:outline-none focus:ring-2 focus:ring-violet-500/30 transition-colors"

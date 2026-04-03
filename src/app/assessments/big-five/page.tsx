@@ -123,7 +123,7 @@ export default function BigFivePage() {
           <ArrowLeft className="w-4 h-4" /> Back
         </button>
         <h1 className="text-2xl font-serif font-bold text-slate-900 mb-1">Big Five Personality</h1>
-        <p className="text-sm text-slate-400 mb-2">The OCEAN model — the most scientifically validated personality framework. {items.length} items.</p>
+        <p className="text-sm text-slate-400 mb-2">The OCEAN model, the most scientifically validated personality framework. {items.length} items.</p>
       </div>
       <LikertAssessment
         title="Big Five (OCEAN)"

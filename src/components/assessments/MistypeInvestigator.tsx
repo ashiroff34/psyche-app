@@ -51,7 +51,7 @@ export default function MistypeInvestigator({
       setCurrentPairIdx(currentPairIdx + 1);
       setCurrentQIdx(0);
     } else {
-      // Done — calculate results
+      // Done, calculate results
       const sorted = Object.entries(newScores)
         .map(([key, score]) => ({ key, score }))
         .sort((a, b) => b.score - a.score);

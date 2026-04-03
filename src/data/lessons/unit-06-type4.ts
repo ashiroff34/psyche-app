@@ -21,7 +21,7 @@ const lesson1: Lesson = {
       content: {
         type: "concept-intro",
         title: "Meet the Individualist",
-        body: "Type 4s are driven by a deep need for identity, authenticity, and significance. They feel fundamentally different from others — and both treasure and suffer from that sense of being unique. Their emotional life is rich, intense, and central to who they are.",
+        body: "Type 4s are driven by a deep need for identity, authenticity, and significance. They feel fundamentally different from others, and both treasure and suffer from that sense of being unique. Their emotional life is rich, intense, and central to who they are.",
         highlight: "identity and authenticity",
       },
     },
@@ -31,7 +31,7 @@ const lesson1: Lesson = {
       content: {
         type: "concept-intro",
         title: "Fear, Desire & Motivation",
-        body: "The core fear of Type 4 is having no identity — being fundamentally flawed or insignificant. Their core desire is to find themselves and their personal significance. The haunting question: 'Who am I, and why do I feel like something essential is missing?'",
+        body: "The core fear of Type 4 is having no identity, being fundamentally flawed or insignificant. Their core desire is to find themselves and their personal significance. The haunting question: 'Who am I, and why do I feel like something essential is missing?'",
         highlight: "something essential is missing",
       },
     },
@@ -49,7 +49,7 @@ const lesson1: Lesson = {
         ],
         correctIndex: 2,
         explanation:
-          "Fours fear that they have no real identity — that they're somehow missing something essential that everyone else seems to have. This creates both their creative depth and their suffering.",
+          "Fours fear that they have no real identity, that they're somehow missing something essential that everyone else seems to have. This creates both their creative depth and their suffering.",
       },
     },
     {
@@ -83,7 +83,7 @@ const lesson1: Lesson = {
         ],
         correctIndex: 1,
         explanation:
-          "While Twos cope with shame by becoming needed and Threes cope by becoming successful, Fours absorb shame directly — turning it into a sense of being uniquely defective. 'Something is wrong with me that nobody else has.'",
+          "While Twos cope with shame by becoming needed and Threes cope by becoming successful, Fours absorb shame directly, turning it into a sense of being uniquely defective. 'Something is wrong with me that nobody else has.'",
       },
     },
     {
@@ -110,7 +110,7 @@ const lesson1: Lesson = {
         options: ["powerful", "essential", "dangerous", "boring"],
         correctIndex: 1,
         explanation:
-          "This sense that others have something you lack — ease, happiness, belonging, normalcy — is central to the Four's inner world. It fuels both their longing and their creativity.",
+          "This sense that others have something you lack, ease, happiness, belonging, normalcy, is central to the Four's inner world. It fuels both their longing and their creativity.",
       },
     },
     {
@@ -136,13 +136,13 @@ const lesson1: Lesson = {
         question: "What Type 4 dynamic is at work here?",
         options: [
           "Simple social anxiety",
-          "The simultaneous suffering and identity-building from feeling different — 'I'm flawed, but at least I'm deep'",
+          "The simultaneous suffering and identity-building from feeling different, 'I'm flawed, but at least I'm deep'",
           "Type 5 withdrawal for energy conservation",
           "Type 9 disengagement",
         ],
         correctIndex: 1,
         explanation:
-          "This is quintessential Four — the painful feeling of being different, combined with a subtle pride in that difference. They suffer from not belonging, but belonging too easily would feel like losing themselves.",
+          "This is quintessential Four, the painful feeling of being different, combined with a subtle pride in that difference. They suffer from not belonging, but belonging too easily would feel like losing themselves.",
       },
     },
     {
@@ -151,7 +151,7 @@ const lesson1: Lesson = {
       content: {
         type: "scenario",
         scenario:
-          "Alex creates a deeply personal playlist for a friend's birthday. Each song was chosen for its emotional significance and connection to shared memories. When the friend says 'Cool playlist, thanks!' and moves on, Alex is crushed — feeling like their emotional depth was completely missed.",
+          "Alex creates a deeply personal playlist for a friend's birthday. Each song was chosen for its emotional significance and connection to shared memories. When the friend says 'Cool playlist, thanks!' and moves on, Alex is crushed, feeling like their emotional depth was completely missed.",
         question: "What's happening for Alex?",
         options: [
           "Alex is overreacting to a normal response",
@@ -161,7 +161,7 @@ const lesson1: Lesson = {
         ],
         correctIndex: 1,
         explanation:
-          "Fours pour their identity into what they create. When it's received casually, it doesn't just feel unappreciated — it feels like they themselves are unseen. The playlist wasn't just music; it was Alex's inner world on display.",
+          "Fours pour their identity into what they create. When it's received casually, it doesn't just feel unappreciated, it feels like they themselves are unseen. The playlist wasn't just music; it was Alex's inner world on display.",
       },
     },
     {
@@ -173,14 +173,14 @@ const lesson1: Lesson = {
           "Morgan scrolls through social media seeing friends' engagement photos, vacation pics, and career milestones. Instead of feeling happy for them, Morgan feels a hollow ache and thinks: 'Everyone else got the manual for life. Why do I always feel like I'm on the outside looking in?'",
         question: "This illustrates which central Four experience?",
         options: [
-          "Jealousy — Morgan wants what they have",
-          "The sense of fundamental deficiency — others have what Fours feel they're missing",
+          "Jealousy, Morgan wants what they have",
+          "The sense of fundamental deficiency, others have what Fours feel they're missing",
           "Depression unrelated to type",
           "Type 3 competitive comparison",
         ],
         correctIndex: 1,
         explanation:
-          "This goes deeper than jealousy. It's the Four's existential sense of lack — not wanting specific things, but feeling that others possess a fundamental ease of being that the Four was denied. It's about identity, not stuff.",
+          "This goes deeper than jealousy. It's the Four's existential sense of lack, not wanting specific things, but feeling that others possess a fundamental ease of being that the Four was denied. It's about identity, not stuff.",
       },
     },
     {
@@ -197,7 +197,7 @@ const lesson1: Lesson = {
         ],
         correctIndex: 2,
         explanation:
-          "Fours are in the Heart triad alongside Types 2 and 3. Their core issue is identity and shame — but while Twos and Threes try to escape shame, Fours dive straight into it.",
+          "Fours are in the Heart triad alongside Types 2 and 3. Their core issue is identity and shame, but while Twos and Threes try to escape shame, Fours dive straight into it.",
       },
     },
   ],
@@ -219,7 +219,7 @@ const lesson2: Lesson = {
       content: {
         type: "concept-intro",
         title: "The Passion: Envy",
-        body: "Naranjo identified the Four's passion as Envy — not wanting someone's specific possessions, but a deep sense that others have something essential you lack. It's existential envy: 'They have an ease of being that was denied to me.'",
+        body: "Naranjo identified the Four's passion as Envy, not wanting someone's specific possessions, but a deep sense that others have something essential you lack. It's existential envy: 'They have an ease of being that was denied to me.'",
         highlight: "Envy",
       },
     },
@@ -229,7 +229,7 @@ const lesson2: Lesson = {
       content: {
         type: "concept-intro",
         title: "The Virtue: Equanimity",
-        body: "The antidote is Equanimity — emotional balance and the recognition that you already have what you need. Healthy Fours stop chasing what's missing and discover that the present moment, exactly as it is, can be enough.",
+        body: "The antidote is Equanimity, emotional balance and the recognition that you already have what you need. Healthy Fours stop chasing what's missing and discover that the present moment, exactly as it is, can be enough.",
         highlight: "Equanimity",
       },
     },
@@ -242,7 +242,7 @@ const lesson2: Lesson = {
         options: ["Pride", "Anger", "Envy", "Sloth"],
         correctIndex: 2,
         explanation:
-          "Envy in the Enneagram sense isn't about wanting someone's car or job — it's the deep feeling that everyone else got something essential that you didn't. It's a longing for what seems permanently out of reach.",
+          "Envy in the Enneagram sense isn't about wanting someone's car or job, it's the deep feeling that everyone else got something essential that you didn't. It's a longing for what seems permanently out of reach.",
       },
     },
     {
@@ -254,7 +254,7 @@ const lesson2: Lesson = {
         options: ["Serenity", "Equanimity", "Humility", "Truthfulness"],
         correctIndex: 1,
         explanation:
-          "Equanimity is emotional balance — the ability to be present with what is, rather than longing for what's missing. Healthy Fours discover that completeness was always available; they just couldn't see it through the haze of envy.",
+          "Equanimity is emotional balance, the ability to be present with what is, rather than longing for what's missing. Healthy Fours discover that completeness was always available; they just couldn't see it through the haze of envy.",
       },
     },
     {
@@ -264,7 +264,7 @@ const lesson2: Lesson = {
         type: "multiple-choice",
         question: "How does the Four's Envy differ from ordinary jealousy?",
         options: [
-          "It doesn't — they're the same thing",
+          "It doesn't, they're the same thing",
           "It's about existential lack, not specific possessions",
           "It's less intense than regular jealousy",
           "It only applies to romantic relationships",
@@ -301,7 +301,7 @@ const lesson2: Lesson = {
         options: ["present", "missing", "powerful", "logical"],
         correctIndex: 1,
         explanation:
-          "Fours have a radar for absence. Their attention is magnetically drawn to what's lacking, distant, or lost — in relationships, in themselves, in life. The full glass always looks half-empty.",
+          "Fours have a radar for absence. Their attention is magnetically drawn to what's lacking, distant, or lost, in relationships, in themselves, in life. The full glass always looks half-empty.",
       },
     },
     {
@@ -328,7 +328,7 @@ const lesson2: Lesson = {
         question: "What passion dynamic is this?",
         options: [
           "Healthy creative drive",
-          "The Envy cycle — brief contact with completeness, then back to focusing on what's missing",
+          "The Envy cycle, brief contact with completeness, then back to focusing on what's missing",
           "Type 3 perfectionism about their work",
           "Type 1 inner critic about quality",
         ],
@@ -346,14 +346,14 @@ const lesson2: Lesson = {
           "Sam used to spend hours analyzing why they felt sad, often canceling plans to stay home and journal. After working on growth, Sam now notices the sadness, acknowledges it, and then goes to meet friends anyway. Sam tells a therapist: 'I used to think my sadness was who I am. Now I see it's just one color in the palette.'",
         question: "What growth is Sam demonstrating?",
         options: [
-          "Sam is suppressing their emotions — this isn't healthy",
-          "Sam is accessing Equanimity — emotional balance without losing depth",
-          "Sam is becoming a Type 7 — just avoiding pain",
+          "Sam is suppressing their emotions, this isn't healthy",
+          "Sam is accessing Equanimity, emotional balance without losing depth",
+          "Sam is becoming a Type 7, just avoiding pain",
           "Sam is no longer a Type 4",
         ],
         correctIndex: 1,
         explanation:
-          "This is Equanimity in action. Sam hasn't lost their emotional depth — they've gained the ability to hold it without being consumed by it. The sadness is welcomed but no longer runs the show.",
+          "This is Equanimity in action. Sam hasn't lost their emotional depth, they've gained the ability to hold it without being consumed by it. The sadness is welcomed but no longer runs the show.",
       },
     },
     {
@@ -365,14 +365,14 @@ const lesson2: Lesson = {
           "Jordan has been spiraling for weeks. They've pushed away friends, convinced nobody truly understands them, and spend hours listening to the same sad songs on repeat. Jordan has started romanticizing their suffering, posting cryptic quotes about beautiful pain. The isolation feels both terrible and somehow right.",
         question: "What health level is Jordan at?",
         options: [
-          "Healthy — they're processing emotions deeply",
-          "Average — melancholy has become an identity and they're indulging it",
-          "Unhealthy — complete emotional turbulence",
-          "This is between average and unhealthy — the romanticizing of suffering is a warning sign",
+          "Healthy, they're processing emotions deeply",
+          "Average, melancholy has become an identity and they're indulging it",
+          "Unhealthy, complete emotional turbulence",
+          "This is between average and unhealthy, the romanticizing of suffering is a warning sign",
         ],
         correctIndex: 3,
         explanation:
-          "Jordan is sliding from average toward unhealthy. The romanticizing of pain ('beautiful pain') is a key marker — the Four has started using suffering as identity fuel. When isolation feels 'right,' the pattern has become self-reinforcing.",
+          "Jordan is sliding from average toward unhealthy. The romanticizing of pain ('beautiful pain') is a key marker, the Four has started using suffering as identity fuel. When isolation feels 'right,' the pattern has become self-reinforcing.",
       },
     },
     {
@@ -383,13 +383,13 @@ const lesson2: Lesson = {
         question: "Equanimity for a Four means:",
         options: [
           "Suppressing all emotions to be calm",
-          "Emotional balance — appreciating what's present instead of longing for what's missing",
+          "Emotional balance, appreciating what's present instead of longing for what's missing",
           "Becoming emotionally numb",
           "Always being happy",
         ],
         correctIndex: 1,
         explanation:
-          "Equanimity isn't numbness or forced positivity — it's the genuine ability to be at peace with what is. For Fours, it means discovering that wholeness was always available in the present moment.",
+          "Equanimity isn't numbness or forced positivity, it's the genuine ability to be at peace with what is. For Fours, it means discovering that wholeness was always available in the present moment.",
       },
     },
   ],
@@ -411,7 +411,7 @@ const lesson3: Lesson = {
       content: {
         type: "concept-intro",
         title: "The Two Wings of Type 4",
-        body: "A 4w3 (The Aristocrat) combines emotional depth with ambition — they want to be unique AND successful, and are more image-aware. A 4w5 (The Bohemian) combines emotional depth with intellectual withdrawal — they're more eccentric, reclusive, and unconventional.",
+        body: "A 4w3 (The Aristocrat) combines emotional depth with ambition, they want to be unique AND successful, and are more image-aware. A 4w5 (The Bohemian) combines emotional depth with intellectual withdrawal, they're more eccentric, reclusive, and unconventional.",
         highlight: "4w3 vs 4w5",
       },
     },
@@ -421,7 +421,7 @@ const lesson3: Lesson = {
       content: {
         type: "concept-intro",
         title: "Stress & Growth Lines",
-        body: "Under stress, Fours move to Type 2 — becoming clingy, people-pleasing, and over-involved in others' lives to escape their own pain. In growth, Fours move to Type 1 — becoming principled, disciplined, and action-oriented instead of wallowing in feelings.",
+        body: "Under stress, Fours move to Type 2, becoming clingy, people-pleasing, and over-involved in others' lives to escape their own pain. In growth, Fours move to Type 1, becoming principled, disciplined, and action-oriented instead of wallowing in feelings.",
         highlight: "Stress → 2, Growth → 1",
       },
     },
@@ -439,7 +439,7 @@ const lesson3: Lesson = {
         ],
         correctIndex: 0,
         explanation:
-          "The 4w3 (Aristocrat) is more ambitious and image-aware — they want their uniqueness recognized. The 4w5 (Bohemian) is more withdrawn and cerebral — they create in solitude without needing an audience.",
+          "The 4w3 (Aristocrat) is more ambitious and image-aware, they want their uniqueness recognized. The 4w5 (Bohemian) is more withdrawn and cerebral, they create in solitude without needing an audience.",
       },
     },
     {
@@ -463,7 +463,7 @@ const lesson3: Lesson = {
         options: ["Type 1", "Type 2", "Type 7", "Type 8"],
         correctIndex: 0,
         explanation:
-          "Growing Fours access healthy One energy — they become disciplined, principled, and action-oriented. Instead of endlessly processing emotions, they channel their depth into constructive creation and commitment.",
+          "Growing Fours access healthy One energy, they become disciplined, principled, and action-oriented. Instead of endlessly processing emotions, they channel their depth into constructive creation and commitment.",
       },
     },
     {
@@ -490,7 +490,7 @@ const lesson3: Lesson = {
         options: ["Aristocrat", "Bohemian", "Romantic", "Artist"],
         correctIndex: 1,
         explanation:
-          "The 4w5 (Bohemian) lives in a rich inner world of feelings and ideas. They're the avant-garde artists, the unconventional thinkers — more comfortable in their own strange universe than in the mainstream.",
+          "The 4w5 (Bohemian) lives in a rich inner world of feelings and ideas. They're the avant-garde artists, the unconventional thinkers, more comfortable in their own strange universe than in the mainstream.",
       },
     },
     {
@@ -512,17 +512,17 @@ const lesson3: Lesson = {
       content: {
         type: "scenario",
         scenario:
-          "After a painful breakup, Quinn — usually fiercely independent — suddenly starts texting friends constantly, showing up uninvited, bringing gifts, and saying things like 'You're the only person who really gets me. Please don't leave me too.' This is very unlike Quinn's usual behavior.",
+          "After a painful breakup, Quinn, usually fiercely independent, suddenly starts texting friends constantly, showing up uninvited, bringing gifts, and saying things like 'You're the only person who really gets me. Please don't leave me too.' This is very unlike Quinn's usual behavior.",
         question: "What's happening?",
         options: [
           "Quinn discovered they're actually a Type 2",
-          "Quinn is moving to their stress point (Type 2) — becoming clingy and over-attaching",
+          "Quinn is moving to their stress point (Type 2), becoming clingy and over-attaching",
           "Quinn is growing into healthy One energy",
           "This is Quinn's 4w3 wing emerging",
         ],
         correctIndex: 1,
         explanation:
-          "Under intense stress, Fours abandon their signature independence and become Two-like — desperate for connection, clingy, and seeking reassurance through over-giving. The fear of abandonment overrides the need for authenticity.",
+          "Under intense stress, Fours abandon their signature independence and become Two-like, desperate for connection, clingy, and seeking reassurance through over-giving. The fear of abandonment overrides the need for authenticity.",
       },
     },
     {
@@ -531,17 +531,17 @@ const lesson3: Lesson = {
       content: {
         type: "scenario",
         scenario:
-          "Reese, a talented songwriter who used to spend days lost in emotional process, has started waking up at 6am to write for two hours before work. They set a goal of finishing one song per week and stick to it. Reese says: 'I used to wait for inspiration. Now I show up and work, and the depth is still there — but it actually becomes something.'",
+          "Reese, a talented songwriter who used to spend days lost in emotional process, has started waking up at 6am to write for two hours before work. They set a goal of finishing one song per week and stick to it. Reese says: 'I used to wait for inspiration. Now I show up and work, and the depth is still there, but it actually becomes something.'",
         question: "What growth line is Reese accessing?",
         options: [
           "Stress move to Type 2",
-          "Growth to Type 1 — channeling depth into disciplined practice",
-          "Wing shift to 4w3 — becoming more ambitious",
+          "Growth to Type 1, channeling depth into disciplined practice",
+          "Wing shift to 4w3, becoming more ambitious",
           "This means Reese is losing their Four identity",
         ],
         correctIndex: 1,
         explanation:
-          "This is the Four-to-One growth move at its best. Reese hasn't lost their emotional depth — they've added structure and discipline. The feelings now serve the work instead of the work serving the feelings.",
+          "This is the Four-to-One growth move at its best. Reese hasn't lost their emotional depth, they've added structure and discipline. The feelings now serve the work instead of the work serving the feelings.",
       },
     },
     {
@@ -553,14 +553,14 @@ const lesson3: Lesson = {
           "Two Fours are both creative artists. One showcases work at galleries, has a strong social media presence, and cares deeply about building a unique personal brand. The other creates intensely personal work in a home studio, rarely shows anyone, and reads philosophy books between painting sessions.",
         question: "How do their wings differ?",
         options: [
-          "First is 4w3 (Aristocrat — ambitious, image-aware), second is 4w5 (Bohemian — withdrawn, intellectual)",
+          "First is 4w3 (Aristocrat, ambitious, image-aware), second is 4w5 (Bohemian, withdrawn, intellectual)",
           "First is 4w5, second is 4w3",
-          "Both are 4w3 — all artists want recognition",
+          "Both are 4w3, all artists want recognition",
           "Wings don't affect creative expression",
         ],
         correctIndex: 0,
         explanation:
-          "The 4w3 wants their uniqueness recognized by the world — they combine Four depth with Three ambition. The 4w5 creates primarily for themselves — they combine Four depth with Five intellectual withdrawal.",
+          "The 4w3 wants their uniqueness recognized by the world, they combine Four depth with Three ambition. The 4w5 creates primarily for themselves, they combine Four depth with Five intellectual withdrawal.",
       },
     },
     {
@@ -577,7 +577,7 @@ const lesson3: Lesson = {
         ],
         correctIndex: 1,
         explanation:
-          "One energy doesn't flatten the Four's depth — it gives it structure. Growing Fours learn that showing up consistently and taking principled action can express their inner world more powerfully than emotional processing alone.",
+          "One energy doesn't flatten the Four's depth, it gives it structure. Growing Fours learn that showing up consistently and taking principled action can express their inner world more powerfully than emotional processing alone.",
       },
     },
   ],
@@ -599,7 +599,7 @@ const lesson4: Lesson = {
       content: {
         type: "concept-intro",
         title: "How to Spot a Type 4",
-        body: "Fours often have a distinctive personal style — they express their identity through clothing, aesthetic choices, and creative expression. They're drawn to deep conversations, dislike small talk, and have an emotional intensity that can fill a room.",
+        body: "Fours often have a distinctive personal style, they express their identity through clothing, aesthetic choices, and creative expression. They're drawn to deep conversations, dislike small talk, and have an emotional intensity that can fill a room.",
         highlight: "distinctive personal style",
       },
     },
@@ -627,7 +627,7 @@ const lesson4: Lesson = {
         ],
         correctIndex: 1,
         explanation:
-          "Fours use external aesthetics to express internal identity. Their clothing, living space, and creative choices are deeply personal statements — never just about looking good, always about being authentic.",
+          "Fours use external aesthetics to express internal identity. Their clothing, living space, and creative choices are deeply personal statements, never just about looking good, always about being authentic.",
       },
     },
     {
@@ -656,7 +656,7 @@ const lesson4: Lesson = {
         ],
         correctIndex: 1,
         explanation:
-          "This is the crucial distinction. Fours turn up the emotional volume — they want to feel everything intensely. Nines turn it down — they want to smooth everything out. Both are withdrawn, but for opposite reasons.",
+          "This is the crucial distinction. Fours turn up the emotional volume, they want to feel everything intensely. Nines turn it down, they want to smooth everything out. Both are withdrawn, but for opposite reasons.",
       },
     },
     {
@@ -737,8 +737,8 @@ const lesson4: Lesson = {
         options: [
           "A is Type 4 (retreats into emotions), B is Type 5 (retreats into knowledge)",
           "A is Type 5, B is Type 4",
-          "Both are Type 4 — they both need alone time",
-          "Both are Type 5 — they both withdraw",
+          "Both are Type 4, they both need alone time",
+          "Both are Type 5, they both withdraw",
         ],
         correctIndex: 0,
         explanation:
@@ -754,14 +754,14 @@ const lesson4: Lesson = {
           "Someone says: 'I just feel like nobody really sees me. I'm tired of pretending to be okay when everything inside me feels so intense and complicated. I wish people could handle the real me.'",
         question: "Is this more likely a Four or a Nine?",
         options: [
-          "Type 9 — they feel unseen too",
-          "Type 4 — the desire to be seen in their full emotional complexity, plus frustration at having to tone it down",
-          "Could be either — both feel misunderstood",
+          "Type 9, they feel unseen too",
+          "Type 4, the desire to be seen in their full emotional complexity, plus frustration at having to tone it down",
+          "Could be either, both feel misunderstood",
           "This is a Type 2 pattern",
         ],
         correctIndex: 1,
         explanation:
-          "The key phrase is 'everything inside me feels so intense and complicated.' A Nine would more likely say 'I don't even know what I feel.' The Four knows exactly how complex their inner world is — they just can't find anyone who can hold it.",
+          "The key phrase is 'everything inside me feels so intense and complicated.' A Nine would more likely say 'I don't even know what I feel.' The Four knows exactly how complex their inner world is, they just can't find anyone who can hold it.",
       },
     },
     {
@@ -773,14 +773,14 @@ const lesson4: Lesson = {
           "You're trying to determine if someone is a Type 4 or a Type 9. Both seem dreamy and somewhat withdrawn. You ask: 'What really makes you angry?' The person pauses and says: 'When people are inauthentic. When they pretend everything is fine when it's not. Surface-level existence makes me want to scream.'",
         question: "What does this response suggest?",
         options: [
-          "Type 9 — they're angry about conflict",
-          "Type 4 — anger about inauthenticity and superficiality is a strong Four signal",
+          "Type 9, they're angry about conflict",
+          "Type 4, anger about inauthenticity and superficiality is a strong Four signal",
           "Could be either type",
           "This is actually a Type 1 response",
         ],
         correctIndex: 1,
         explanation:
-          "Fours have a visceral reaction to inauthenticity and superficiality. A Nine, when asked what makes them angry, would more likely struggle to answer at all — or say something about people being mean to each other.",
+          "Fours have a visceral reaction to inauthenticity and superficiality. A Nine, when asked what makes them angry, would more likely struggle to answer at all, or say something about people being mean to each other.",
       },
     },
     {
@@ -797,7 +797,7 @@ const lesson4: Lesson = {
         ],
         correctIndex: 1,
         explanation:
-          "Fours naturally pull conversations toward depth, meaning, and emotional honesty. Small talk feels like a waste to them — they want to know how you really feel, what you really think, who you really are.",
+          "Fours naturally pull conversations toward depth, meaning, and emotional honesty. Small talk feels like a waste to them, they want to know how you really feel, what you really think, who you really are.",
       },
     },
   ],

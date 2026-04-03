@@ -25,6 +25,7 @@ import HubView from "@/components/daily/HubView";
 import PathIteration4, { type PathUnit } from "@/components/daily/PathIteration4";
 import NodeBottomSheet, { type PathNodeConfig } from "@/components/daily/NodeBottomSheet";
 import QuizFullscreen from "@/components/daily/QuizFullscreen";
+import LessonBriefOverlay from "@/components/daily/LessonBriefOverlay";
 import DailyReading from "@/components/daily/DailyReading";
 import { getDailyReading } from "@/data/dailyReadings";
 import { typeQuizQuestions } from "@/data/type-quizzes";
@@ -94,9 +95,9 @@ interface Question {
   exp: string;
   /**
    * Knowledge tier:
-   *   0 = Framework intro  (what IS this system — not yet in bank)
-   *   1 = Recognition      (label/name from a hint — not yet in bank)
-   *   2 = Recall           (core-fear, passion, integration — current "easy")
+   *   0 = Framework intro  (what IS this system, not yet in bank)
+   *   1 = Recognition      (label/name from a hint, not yet in bank)
+   *   2 = Recall           (core-fear, passion, integration, current "easy")
    *   3 = Application      (subtypes, harmonic groups, scenarios)
    *   4 = Analysis         (Naranjo fixations, Riso levels, countertypes)
    */
@@ -128,7 +129,7 @@ interface DifficultyState {
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
-   DAILY INSIGHTS (per type, 7 each — rotated by day)
+   DAILY INSIGHTS (per type, 7 each, rotated by day)
    ═══════════════════════════════════════════════════════════════════════════ */
 const typeInsights: Record<number, string[]> = {
   1: [
@@ -302,7 +303,7 @@ const typeChallenges: Record<number, string[]> = {
 };
 
 /* ═══════════════════════════════════════════════════════════════════════════
-   QUESTION BANK — adapted from type-quizzes.ts (451 questions)
+   QUESTION BANK, adapted from type-quizzes.ts (451 questions)
    ═══════════════════════════════════════════════════════════════════════════ */
 
 const LETTER_TO_INDEX: Record<string, number> = { A: 0, B: 1, C: 2, D: 3 };
@@ -320,7 +321,7 @@ function categoryToTag(cat: string): string {
 }
 
 const QUESTION_BANK: Question[] = [
-  // Intro questions (tier 0-1) — teach the frameworks first
+  // Intro questions (tier 0-1), teach the frameworks first
   ...introQuestions.map((iq) => ({
     id: iq.id,
     q: iq.q,
@@ -453,7 +454,7 @@ const colorMap: Record<string, { bg: string; border: string; text: string; light
 };
 
 /* ═══════════════════════════════════════════════════════════════════════════
-   SPACED REPETITION — per-question stat tracking
+   SPACED REPETITION, per-question stat tracking
    ═══════════════════════════════════════════════════════════════════════════ */
 const SR_KEY = "psyche-question-stats";
 
@@ -514,7 +515,7 @@ function srSelectQuestions(pool: Question[], n: number, stats: Record<string, QS
 
   // Take top n from sorted list, then shuffle just those to avoid a predictable ordering
   const top = weighted.slice(0, n).map(w => w.q);
-  // Fisher-Yates with simple random (not seeded — we want variety even within same priority tier)
+  // Fisher-Yates with simple random (not seeded, we want variety even within same priority tier)
   for (let i = top.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
     [top[i], top[j]] = [top[j], top[i]];
@@ -532,9 +533,10 @@ export default function DailyPage() {
   const { petState: livePetState, awardDailyGoalXP } = usePetState(enneagramTypeForPet);
 
   // ── View state (hub / path / quiz) ──
-  const [view, setView] = useState<"hub" | "path" | "quiz" | "reading">("path");
+  const [view, setView] = useState<"hub" | "path" | "quiz" | "lesson" | "reading">("path");
   const [bottomSheetNode, setBottomSheetNode] = useState<PathNodeConfig | null>(null);
   const [quizSourceNode, setQuizSourceNode] = useState<PathNodeConfig | null>(null);
+  const [pendingQuizNode, setPendingQuizNode] = useState<PathNodeConfig | null>(null);
 
   // ── Legacy tab (kept for stats tab) ──
   const [activeTab, setActiveTab] = useState<"today" | "deep" | "stats">("today");
@@ -594,7 +596,7 @@ export default function DailyPage() {
   // Streak freezes (from psyche-game-state)
   const [streakFreezes, setStreakFreezes] = useState<number>(0);
 
-  // Pet widget — derived live from usePetState hook (always in sync)
+  // Pet widget, derived live from usePetState hook (always in sync)
   const petWidget = livePetState ? {
     name: livePetState.name,
     petType: livePetState.type,
@@ -614,7 +616,7 @@ export default function DailyPage() {
   const insightFallback = {
     quote: "The unexamined life is not worth living.",
     author: "Socrates",
-    reflection: "Self-knowledge isn't a luxury — it's the foundation everything else is built on.",
+    reflection: "Self-knowledge isn't a luxury, it's the foundation everything else is built on.",
     category: "philosophy",
   };
   useEffect(() => {
@@ -859,7 +861,7 @@ export default function DailyPage() {
     return shuffleWithSeed(selected, seed + moduleId.charCodeAt(0)).slice(0, count);
   }, [difficulty.level, seed, profile.enneagramType]);
 
-  // Warmup questions — intro foundations for new users, then progressively harder
+  // Warmup questions, intro foundations for new users, then progressively harder
   const warmupQuestions = useMemo(() => {
     const hasStats = Object.keys(qStats).length > 0;
     // New users (level 1-2): prioritize tier 0-1 intro questions so they learn the systems
@@ -1180,13 +1182,12 @@ export default function DailyPage() {
   const allPathNodes = currentUnits.flatMap(u => u.nodes);
   const miniPathNodes = allPathNodes.slice(0, 5);
   const nextNode = allPathNodes.find(n => n.status !== "completed") ?? null;
-  // First non-warmup, non-completed node — used for "Keep Going" after warmup
+  // First non-warmup, non-completed node, used for "Keep Going" after warmup
   const postWarmupNode = allPathNodes.find(n => n.moduleId !== "warmup" && n.status !== "completed") ?? null;
   const completedTodayCount = allPathNodes.filter(n => n.status === "completed").length;
 
-  // ── Start a node (from bottom sheet) ──
-  const startNode = (node: PathNodeConfig) => {
-    setBottomSheetNode(null);
+  // ── Actually begin the quiz for a node (after lesson is done/skipped) ──
+  const beginQuizForNode = (node: PathNodeConfig) => {
     setQuizSourceNode(node);
     if (node.moduleId === "warmup") {
       // Reset local warmup state so "Practice Again" works correctly
@@ -1205,6 +1206,15 @@ export default function DailyPage() {
       startModule(node.moduleId);
       setView("quiz");
       setActiveTab("deep");
+    }
+  };
+
+  // ── Start a node (from bottom sheet) — show lesson first ──
+  const startNode = (node: PathNodeConfig) => {
+    setBottomSheetNode(null);
+    if (node.moduleId) {
+      setPendingQuizNode(node);
+      setView("lesson");
     }
   };
 
@@ -1693,6 +1703,25 @@ export default function DailyPage() {
     );
   }
 
+  // ── Lesson view (shown before quiz begins) ──
+  if (view === "lesson" && pendingQuizNode) {
+    return (
+      <LessonBriefOverlay
+        moduleId={pendingQuizNode.moduleId ?? "warmup"}
+        moduleName={pendingQuizNode.label}
+        enneagramType={enneagramType}
+        onBeginQuiz={() => {
+          setView("quiz");
+          beginQuizForNode(pendingQuizNode);
+        }}
+        onSkip={() => {
+          setView("quiz");
+          beginQuizForNode(pendingQuizNode);
+        }}
+      />
+    );
+  }
+
   // ── Quiz view (fullscreen overlay + fallback content) ──
   // Keep overlay visible after completion so the results screen shows
   const quizIsActive =
@@ -1945,7 +1974,7 @@ export default function DailyPage() {
                       <p className="text-slate-700 leading-relaxed font-serif text-[15px] italic mb-2">
                         &ldquo;{dailyInsightData.quote}&rdquo;
                       </p>
-                      <p className="text-xs text-slate-400 mb-3">— {dailyInsightData.author}</p>
+                      <p className="text-xs text-slate-400 mb-3">{dailyInsightData.author}</p>
                       <p className="text-slate-600 leading-relaxed text-sm">
                         {dailyInsightData.reflection}
                       </p>

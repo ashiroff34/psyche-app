@@ -1,5 +1,5 @@
 // ─────────────────────────────────────────────────────────────────────────────
-// Unit 21 — Extraverted Sensing (Se)
+// Unit 21, Extraverted Sensing (Se)
 // Present-moment amplifier, full physical awareness, real-time reaction
 // ─────────────────────────────────────────────────────────────────────────────
 
@@ -23,7 +23,7 @@ const lesson1: Lesson = {
       content: {
         type: "concept-intro",
         title: "What Is Extraverted Sensing?",
-        body: "Se is full immersion in the present moment. It asks: 'What's happening RIGHT NOW?' Colors are brighter, sounds are sharper, reactions are instant. Se is the function of being completely, physically HERE — fully embodied and engaged with the real, concrete world.",
+        body: "Se is full immersion in the present moment. It asks: 'What's happening RIGHT NOW?' Colors are brighter, sounds are sharper, reactions are instant. Se is the function of being completely, physically HERE, fully embodied and engaged with the real, concrete world.",
         highlight: "present moment",
       },
     },
@@ -33,7 +33,7 @@ const lesson1: Lesson = {
       content: {
         type: "concept-intro",
         title: "Se from the Inside",
-        body: "People with strong Se describe a heightened aliveness — feeling the bass vibrate through their chest at a concert, noticing the exact moment a wave is about to break, reading a room's energy the instant they walk in. It's split-second physical intelligence that doesn't need to think before acting.",
+        body: "People with strong Se describe a heightened aliveness, feeling the bass vibrate through their chest at a concert, noticing the exact moment a wave is about to break, reading a room's energy the instant they walk in. It's split-second physical intelligence that doesn't need to think before acting.",
         highlight: "heightened aliveness",
       },
     },
@@ -50,7 +50,7 @@ const lesson1: Lesson = {
           "What does the group need from me emotionally?",
         ],
         correctIndex: 2,
-        explanation: "Se is locked into the present moment. It doesn't compare to the past (Si) or project into the future (Ni) — it fully absorbs and responds to what is happening right here, right now.",
+        explanation: "Se is locked into the present moment. It doesn't compare to the past (Si) or project into the future (Ni), it fully absorbs and responds to what is happening right here, right now.",
       },
     },
     {
@@ -61,12 +61,12 @@ const lesson1: Lesson = {
         question: "What makes Se different from just 'having good senses'?",
         options: [
           "Se users have biologically superior eyesight and hearing",
-          "Se is an active engagement with the physical environment — seeking stimulation, responding in real time, and being fully embodied in the moment",
+          "Se is an active engagement with the physical environment, seeking stimulation, responding in real time, and being fully embodied in the moment",
           "Se only works during athletic activities",
           "Se is the same as having good reflexes",
         ],
         correctIndex: 1,
-        explanation: "Se isn't about having better senses — it's a way of ENGAGING with the world. Se users actively orient toward sensory experience, seek stimulation, and respond to the physical environment with their whole being.",
+        explanation: "Se isn't about having better senses, it's a way of ENGAGING with the world. Se users actively orient toward sensory experience, seek stimulation, and respond to the physical environment with their whole being.",
       },
     },
     {
@@ -105,7 +105,7 @@ const lesson1: Lesson = {
       difficulty: 2,
       content: {
         type: "fill-in-blank",
-        sentence: "Se users experience the world with a kind of heightened ___ — as if the volume on all five senses has been turned up.",
+        sentence: "Se users experience the world with a kind of heightened ___, as if the volume on all five senses has been turned up.",
         options: ["aliveness", "anxiety", "nostalgia", "abstraction"],
         correctIndex: 0,
         explanation: "Se creates an amplified experience of physical reality. Strong Se users often describe feeling intensely alive and present, as if sensory experience is richer and more vivid than it is for others.",
@@ -116,10 +116,10 @@ const lesson1: Lesson = {
       difficulty: 2,
       content: {
         type: "fill-in-blank",
-        sentence: "A strong Se user doesn't need to ___ before reacting — their body knows what to do in the moment, whether catching a falling glass or swerving to avoid a pothole.",
+        sentence: "A strong Se user doesn't need to ___ before reacting, their body knows what to do in the moment, whether catching a falling glass or swerving to avoid a pothole.",
         options: ["think", "remember", "plan", "ask"],
         correctIndex: 0,
-        explanation: "Se's real-time processing bypasses conscious deliberation. The body responds before the mind catches up — which is why Se is the function of athletes, surgeons, firefighters, and anyone who needs split-second physical response.",
+        explanation: "Se's real-time processing bypasses conscious deliberation. The body responds before the mind catches up, which is why Se is the function of athletes, surgeons, firefighters, and anyone who needs split-second physical response.",
       },
     },
     {
@@ -127,16 +127,16 @@ const lesson1: Lesson = {
       difficulty: 3,
       content: {
         type: "scenario",
-        scenario: "Kai is surfing. A wave rises behind them. Without consciously thinking, they read the wave's shape, shift their weight, adjust their stance, and ride it perfectly — reacting to each micro-change in the water in real time. Afterward, they can't fully explain HOW they did it.",
+        scenario: "Kai is surfing. A wave rises behind them. Without consciously thinking, they read the wave's shape, shift their weight, adjust their stance, and ride it perfectly, reacting to each micro-change in the water in real time. Afterward, they can't fully explain HOW they did it.",
         question: "What cognitive function is Kai primarily using?",
         options: [
-          "Si — they're comparing this wave to past waves",
-          "Ti — they're logically analyzing wave physics",
-          "Se — they're fully immersed in real-time physical response to the present moment",
-          "Ni — they're predicting where the wave will go",
+          "Si, they're comparing this wave to past waves",
+          "Ti, they're logically analyzing wave physics",
+          "Se, they're fully immersed in real-time physical response to the present moment",
+          "Ni, they're predicting where the wave will go",
         ],
         correctIndex: 2,
-        explanation: "Kai is in pure Se flow: fully engaged with the physical environment, responding in real time to constantly changing conditions, with the body acting faster than conscious thought. The inability to explain it afterward is classic — Se operates below verbal processing.",
+        explanation: "Kai is in pure Se flow: fully engaged with the physical environment, responding in real time to constantly changing conditions, with the body acting faster than conscious thought. The inability to explain it afterward is classic, Se operates below verbal processing.",
       },
     },
     {
@@ -144,16 +144,16 @@ const lesson1: Lesson = {
       difficulty: 3,
       content: {
         type: "scenario",
-        scenario: "Two friends attend a live concert. Friend A says afterward: 'That was incredible — I could feel the bass in my ribcage, the lights were insane, and when the crowd surged forward I just moved with it. Pure energy.' Friend B says: 'It was good! Reminded me of that show we saw in 2019 — similar setlist, but I think the sound mixing was better back then.'",
+        scenario: "Two friends attend a live concert. Friend A says afterward: 'That was incredible, I could feel the bass in my ribcage, the lights were insane, and when the crowd surged forward I just moved with it. Pure energy.' Friend B says: 'It was good! Reminded me of that show we saw in 2019, similar setlist, but I think the sound mixing was better back then.'",
         question: "Which friend is demonstrating Se?",
         options: [
-          "Friend B — they have detailed recall of the experience",
-          "Friend A — they were fully immersed in the present-moment physical experience",
+          "Friend B, they have detailed recall of the experience",
+          "Friend A, they were fully immersed in the present-moment physical experience",
           "Both are using Se equally",
-          "Neither — concerts are just fun for everyone",
+          "Neither, concerts are just fun for everyone",
         ],
         correctIndex: 1,
-        explanation: "Friend A demonstrates Se: fully absorbed in the present sensory experience — the physical sensations, the energy, the immediacy. Friend B demonstrates Si: automatically comparing the present concert to a stored past impression.",
+        explanation: "Friend A demonstrates Se: fully absorbed in the present sensory experience, the physical sensations, the energy, the immediacy. Friend B demonstrates Si: automatically comparing the present concert to a stored past impression.",
       },
     },
     {
@@ -166,9 +166,9 @@ const lesson1: Lesson = {
         items: [
           { text: "Feel that bass? This is INCREDIBLE right now", categoryIndex: 0 },
           { text: "This reminds me of something from years ago", categoryIndex: 1 },
-          { text: "I just reacted — my body knew what to do", categoryIndex: 0 },
+          { text: "I just reacted, my body knew what to do", categoryIndex: 0 },
           { text: "I need to think about this more before acting", categoryIndex: 1 },
-          { text: "Look at that sunset — the colors are unreal", categoryIndex: 0 },
+          { text: "Look at that sunset, the colors are unreal", categoryIndex: 0 },
           { text: "I wonder what this could potentially become", categoryIndex: 1 },
         ],
       },
@@ -208,7 +208,7 @@ const lesson2: Lesson = {
       content: {
         type: "concept-intro",
         title: "Stack Position Changes Everything",
-        body: "Se as a dominant function (ESTP, ESFP) creates people who are fully alive in their bodies, reacting to the world with effortless physical grace. Se as an inferior function (INTJ, INFJ) manifests as sensory overindulgence under stress — binge eating, impulsive shopping, or reckless physical behavior.",
+        body: "Se as a dominant function (ESTP, ESFP) creates people who are fully alive in their bodies, reacting to the world with effortless physical grace. Se as an inferior function (INTJ, INFJ) manifests as sensory overindulgence under stress, binge eating, impulsive shopping, or reckless physical behavior.",
         highlight: "Stack position changes everything",
       },
     },
@@ -218,7 +218,7 @@ const lesson2: Lesson = {
       content: {
         type: "concept-intro",
         title: "The Beebe Model & Se",
-        body: "In Beebe's archetypal model, dominant Se is the Hero — a powerful, trusted relationship with the physical world. Inferior Se is the Anima/Animus — the least conscious function. For Ni-dominant types (INTJ, INFJ), inferior Se is their greatest vulnerability: a clumsy, feast-or-famine relationship with physical reality.",
+        body: "In Beebe's archetypal model, dominant Se is the Hero, a powerful, trusted relationship with the physical world. Inferior Se is the Anima/Animus, the least conscious function. For Ni-dominant types (INTJ, INFJ), inferior Se is their greatest vulnerability: a clumsy, feast-or-famine relationship with physical reality.",
         highlight: "Hero vs. Anima/Animus",
       },
     },
@@ -289,10 +289,10 @@ const lesson2: Lesson = {
       difficulty: 2,
       content: {
         type: "fill-in-blank",
-        sentence: "An INFJ under extreme stress may experience their inferior Se as sudden ___ — impulsive shopping sprees, binge eating, or reckless physical decisions.",
+        sentence: "An INFJ under extreme stress may experience their inferior Se as sudden ___, impulsive shopping sprees, binge eating, or reckless physical decisions.",
         options: ["sensory overindulgence", "abstract theorizing", "social withdrawal", "logical analysis"],
         correctIndex: 0,
-        explanation: "When inferior Se erupts in Ni-dominant types, it flips from deprivation to excess. The normally cerebral, future-focused INFJ suddenly craves intense physical experience — but without the skill to moderate it.",
+        explanation: "When inferior Se erupts in Ni-dominant types, it flips from deprivation to excess. The normally cerebral, future-focused INFJ suddenly craves intense physical experience, but without the skill to moderate it.",
       },
     },
     {
@@ -300,10 +300,10 @@ const lesson2: Lesson = {
       difficulty: 2,
       content: {
         type: "fill-in-blank",
-        sentence: "INTJs and INFJs with inferior Se often describe feeling ___ in their own bodies — as if they're living more in their head than in physical reality.",
+        sentence: "INTJs and INFJs with inferior Se often describe feeling ___ in their own bodies, as if they're living more in their head than in physical reality.",
         options: ["disconnected", "powerful", "hyperaware", "grounded"],
         correctIndex: 0,
-        explanation: "Inferior Se creates a disconnect from the body. Ni-dominant types often forget to eat, bump into furniture, or feel like they're observing physical reality from behind glass — until stress forces Se to erupt with full intensity.",
+        explanation: "Inferior Se creates a disconnect from the body. Ni-dominant types often forget to eat, bump into furniture, or feel like they're observing physical reality from behind glass, until stress forces Se to erupt with full intensity.",
       },
     },
     {
@@ -315,7 +315,7 @@ const lesson2: Lesson = {
         question: "What is happening psychologically?",
         options: [
           "She is using healthy Se to enjoy life",
-          "Her inferior Se erupted — deprived of physical experience for weeks, it exploded into impulsive sensory indulgence",
+          "Her inferior Se erupted, deprived of physical experience for weeks, it exploded into impulsive sensory indulgence",
           "She is developing her dominant Ni further",
           "Her Te is driving her to acquire resources",
         ],
@@ -328,16 +328,16 @@ const lesson2: Lesson = {
       difficulty: 3,
       content: {
         type: "scenario",
-        scenario: "Two people both enjoy cooking. Person A (ESFP) cooks by feel — tasting constantly, adjusting in real time, improvising based on what looks and smells right. They've never written down a recipe. Person B (INFJ) occasionally gets an intense urge to spend an entire weekend in the kitchen, cooking elaborate meals, then doesn't cook again for months.",
+        scenario: "Two people both enjoy cooking. Person A (ESFP) cooks by feel, tasting constantly, adjusting in real time, improvising based on what looks and smells right. They've never written down a recipe. Person B (INFJ) occasionally gets an intense urge to spend an entire weekend in the kitchen, cooking elaborate meals, then doesn't cook again for months.",
         question: "What explains the difference in their relationship to the physical act of cooking?",
         options: [
           "Person A is a better cook",
           "Person A has dominant Se and naturally lives in physical engagement; Person B has inferior Se and experiences it in intense, irregular bursts",
           "Person B doesn't actually enjoy cooking",
-          "There is no meaningful difference — cooking is just a hobby",
+          "There is no meaningful difference, cooking is just a hobby",
         ],
         correctIndex: 1,
-        explanation: "Dominant Se enables a smooth, continuous relationship with physical activity — it's just part of life. Inferior Se creates an all-or-nothing pattern: long periods of ignoring physical engagement followed by intense bursts of sensory immersion.",
+        explanation: "Dominant Se enables a smooth, continuous relationship with physical activity, it's just part of life. Inferior Se creates an all-or-nothing pattern: long periods of ignoring physical engagement followed by intense bursts of sensory immersion.",
       },
     },
     {
@@ -364,10 +364,10 @@ const lesson2: Lesson = {
         type: "multiple-choice",
         question: "True or false: Se works the same way regardless of its position in someone's cognitive stack.",
         options: [
-          "True — Se is Se",
-          "False — stack position dramatically changes how Se manifests",
-          "True — but only for extraverts",
-          "False — but only because of personality differences",
+          "True, Se is Se",
+          "False, stack position dramatically changes how Se manifests",
+          "True, but only for extraverts",
+          "False, but only because of personality differences",
         ],
         correctIndex: 1,
         explanation: "Stack position is crucial. Dominant Se is effortless physical mastery. Inferior Se is a clumsy, feast-or-famine relationship with the physical world that can erupt as overindulgence under stress. Same function, completely different experience.",
@@ -392,7 +392,7 @@ const lesson3: Lesson = {
       content: {
         type: "concept-intro",
         title: "Se in Relationships",
-        body: "Se users show love through shared experiences: road trips, cooking together, dancing, physical affection. They're fully present with you — not checking their phone or drifting into thought. Their gift is making ordinary moments feel vivid and alive through their infectious energy.",
+        body: "Se users show love through shared experiences: road trips, cooking together, dancing, physical affection. They're fully present with you, not checking their phone or drifting into thought. Their gift is making ordinary moments feel vivid and alive through their infectious energy.",
         highlight: "shared experiences",
       },
     },
@@ -402,7 +402,7 @@ const lesson3: Lesson = {
       content: {
         type: "concept-intro",
         title: "Se Under Stress",
-        body: "When stressed, Se users may escalate physical stimulation — driving faster, partying harder, taking bigger risks. In extreme stress (the 'grip'), ESTPs flip to inferior Ni, becoming paranoid about hidden meanings and convinced of conspiracy-like interpretations. ESFPs may descend into dark, doom-filled visions of the future.",
+        body: "When stressed, Se users may escalate physical stimulation, driving faster, partying harder, taking bigger risks. In extreme stress (the 'grip'), ESTPs flip to inferior Ni, becoming paranoid about hidden meanings and convinced of conspiracy-like interpretations. ESFPs may descend into dark, doom-filled visions of the future.",
         highlight: "grip",
       },
     },
@@ -414,12 +414,12 @@ const lesson3: Lesson = {
         question: "How does Se typically show love in close relationships?",
         options: [
           "Writing long reflective letters about their feelings",
-          "Shared physical experiences — cooking together, adventures, being fully present and engaged",
+          "Shared physical experiences, cooking together, adventures, being fully present and engaged",
           "Developing a long-term strategic plan for the relationship",
           "Remembering exact details from years of shared history",
         ],
         correctIndex: 1,
-        explanation: "Se shows love through being fully, physically present. Se users want to DO things together — experience life side by side in real time. Their full attention in the moment is their love language.",
+        explanation: "Se shows love through being fully, physically present. Se users want to DO things together, experience life side by side in real time. Their full attention in the moment is their love language.",
       },
     },
     {
@@ -435,7 +435,7 @@ const lesson3: Lesson = {
           "They start caring deeply about everyone's feelings",
         ],
         correctIndex: 1,
-        explanation: "The ESTP's inferior function is Ni. In a grip, the normally grounded, here-and-now ESTP becomes haunted by dark interpretations and hidden meanings — seeing conspiracies and sinister patterns that aren't there.",
+        explanation: "The ESTP's inferior function is Ni. In a grip, the normally grounded, here-and-now ESTP becomes haunted by dark interpretations and hidden meanings, seeing conspiracies and sinister patterns that aren't there.",
       },
     },
     {
@@ -451,7 +451,7 @@ const lesson3: Lesson = {
           "Abstract brainstorming about future possibilities",
         ],
         correctIndex: 1,
-        explanation: "Se users are at their best when things need to happen NOW. Emergency rooms, kitchens, trading floors, construction sites — anywhere that rewards real-time physical response and the ability to stay calm under pressure.",
+        explanation: "Se users are at their best when things need to happen NOW. Emergency rooms, kitchens, trading floors, construction sites, anywhere that rewards real-time physical response and the ability to stay calm under pressure.",
       },
     },
     {
@@ -474,10 +474,10 @@ const lesson3: Lesson = {
       difficulty: 2,
       content: {
         type: "fill-in-blank",
-        sentence: "Se users thrive in careers that demand ___ — surgeons, chefs, athletes, firefighters, and performers all rely heavily on Se.",
+        sentence: "Se users thrive in careers that demand ___, surgeons, chefs, athletes, firefighters, and performers all rely heavily on Se.",
         options: ["real-time physical response", "long-range planning", "abstract theorizing", "detailed record-keeping"],
         correctIndex: 0,
-        explanation: "Se is the function of split-second physical intelligence. Careers that demand immediate, embodied response to a changing environment — where hesitation could mean failure — are where Se users shine brightest.",
+        explanation: "Se is the function of split-second physical intelligence. Careers that demand immediate, embodied response to a changing environment, where hesitation could mean failure, are where Se users shine brightest.",
       },
     },
     {
@@ -485,7 +485,7 @@ const lesson3: Lesson = {
       difficulty: 2,
       content: {
         type: "fill-in-blank",
-        sentence: "Se-driven creativity tends to be ___ — performance, physical craft, cooking, dance — rather than purely conceptual or theoretical.",
+        sentence: "Se-driven creativity tends to be ___, performance, physical craft, cooking, dance, rather than purely conceptual or theoretical.",
         options: ["embodied", "abstract", "retrospective", "solitary"],
         correctIndex: 0,
         explanation: "Se creativity lives in the body and in the material world. Se artists sculpt, dance, cook, perform, and build. Their art exists in physical space and engages the senses directly, rather than living primarily on a page or in theory.",
@@ -496,13 +496,13 @@ const lesson3: Lesson = {
       difficulty: 3,
       content: {
         type: "scenario",
-        scenario: "Chef Tomás is in the middle of a dinner rush. Three orders come in simultaneously, a sauce is about to burn, and a prep cook just cut their finger. Without missing a beat, Tomás pulls the sauce off the heat, directs the prep cook to first aid, calls out the new orders, and tastes a dish — all within thirty seconds.",
+        scenario: "Chef Tomás is in the middle of a dinner rush. Three orders come in simultaneously, a sauce is about to burn, and a prep cook just cut their finger. Without missing a beat, Tomás pulls the sauce off the heat, directs the prep cook to first aid, calls out the new orders, and tastes a dish, all within thirty seconds.",
         question: "What Se ability is Tomás demonstrating?",
         options: [
-          "Si — he's recalling how he handled past rushes",
-          "Se — real-time environmental awareness and instant physical response to multiple simultaneous demands",
-          "Te — he's organizing the kitchen efficiently",
-          "Fe — he's managing the team's emotions",
+          "Si, he's recalling how he handled past rushes",
+          "Se, real-time environmental awareness and instant physical response to multiple simultaneous demands",
+          "Te, he's organizing the kitchen efficiently",
+          "Fe, he's managing the team's emotions",
         ],
         correctIndex: 1,
         explanation: "Tomás is in full Se flow: simultaneously aware of multiple physical stimuli (sauce, injury, orders) and responding to all of them in real time. This kind of multi-track physical awareness and instant response is pure Se mastery.",
@@ -513,16 +513,16 @@ const lesson3: Lesson = {
       difficulty: 3,
       content: {
         type: "scenario",
-        scenario: "After a breakup, an ESFP named Rina starts going out every night, staying out until 4 AM, bungee jumping on weekends, and drinking more than usual. Her friend says, 'You seem like you're having fun.' But Rina's inner experience is one of desperate numbness — she's using sensation to avoid feeling the pain.",
+        scenario: "After a breakup, an ESFP named Rina starts going out every night, staying out until 4 AM, bungee jumping on weekends, and drinking more than usual. Her friend says, 'You seem like you're having fun.' But Rina's inner experience is one of desperate numbness, she's using sensation to avoid feeling the pain.",
         question: "What is happening with Se here?",
         options: [
           "Rina is using healthy Se to enjoy life",
-          "Rina is using Se as an escape mechanism — escalating physical stimulation to drown out emotional pain she doesn't want to face",
-          "This has nothing to do with Se — she's just partying",
+          "Rina is using Se as an escape mechanism, escalating physical stimulation to drown out emotional pain she doesn't want to face",
+          "This has nothing to do with Se, she's just partying",
           "Rina is developing her inferior Ni",
         ],
         correctIndex: 1,
-        explanation: "Se under stress can become a numbing agent. Instead of processing difficult emotions, the Se user escalates sensory stimulation — louder music, faster speeds, stronger drinks — using physical intensity to overwhelm the pain.",
+        explanation: "Se under stress can become a numbing agent. Instead of processing difficult emotions, the Se user escalates sensory stimulation, louder music, faster speeds, stronger drinks, using physical intensity to overwhelm the pain.",
       },
     },
     {
@@ -555,7 +555,7 @@ const lesson3: Lesson = {
           "Seeing abstract patterns that others miss",
         ],
         correctIndex: 1,
-        explanation: "Se's greatest everyday strength is presence. In a world where most people are distracted, Se users are fully HERE — noticing, reacting, engaging. This makes them invaluable in emergencies, performance, and any situation that demands real-time physical response.",
+        explanation: "Se's greatest everyday strength is presence. In a world where most people are distracted, Se users are fully HERE, noticing, reacting, engaging. This makes them invaluable in emergencies, performance, and any situation that demands real-time physical response.",
       },
     },
   ],
@@ -577,7 +577,7 @@ const lesson4: Lesson = {
       content: {
         type: "concept-intro",
         title: "The Critical Distinction: Se vs. Ne",
-        body: "Se and Ne are BOTH extraverted perceiving functions, but they engage with different realities. Se perceives concrete, physical reality — what IS. Ne perceives abstract possibilities — what COULD BE. Se says 'Look at this!' Ne says 'Imagine if this were...'",
+        body: "Se and Ne are BOTH extraverted perceiving functions, but they engage with different realities. Se perceives concrete, physical reality, what IS. Ne perceives abstract possibilities, what COULD BE. Se says 'Look at this!' Ne says 'Imagine if this were...'",
         highlight: "IS vs. COULD BE",
       },
     },
@@ -587,7 +587,7 @@ const lesson4: Lesson = {
       content: {
         type: "concept-intro",
         title: "Other Common Confusions",
-        body: "Se is often confused with Si because both are 'sensing' functions. But Se is locked into NOW — the immediate physical environment. Si is locked into THEN — the stored impressions of past experience. Se is also confused with thrill-seeking in general, but not all Se users are adrenaline junkies. Se is simply full engagement with physical reality, whether that's cooking, gardening, or surgery.",
+        body: "Se is often confused with Si because both are 'sensing' functions. But Se is locked into NOW, the immediate physical environment. Si is locked into THEN, the stored impressions of past experience. Se is also confused with thrill-seeking in general, but not all Se users are adrenaline junkies. Se is simply full engagement with physical reality, whether that's cooking, gardening, or surgery.",
         highlight: "NOW vs. THEN",
       },
     },
@@ -614,13 +614,13 @@ const lesson4: Lesson = {
         type: "multiple-choice",
         question: "Someone walks into a room and instantly notices: the lighting is warm, the music is at the wrong tempo for the mood, and the host is wearing an incredible outfit. Which function is this?",
         options: [
-          "Ne — they're generating possibilities about the room",
-          "Si — they're comparing to past rooms they've been in",
-          "Se — they're absorbing the concrete sensory details of the present environment",
-          "Fe — they're reading the group's emotions",
+          "Ne, they're generating possibilities about the room",
+          "Si, they're comparing to past rooms they've been in",
+          "Se, they're absorbing the concrete sensory details of the present environment",
+          "Fe, they're reading the group's emotions",
         ],
         correctIndex: 2,
-        explanation: "Immediately absorbing the concrete physical details of a space — lighting, music, visual aesthetics — is textbook Se. Si would compare to a past room, Ne would imagine what the room could become, and Fe would focus on the social-emotional atmosphere.",
+        explanation: "Immediately absorbing the concrete physical details of a space, lighting, music, visual aesthetics, is textbook Se. Si would compare to a past room, Ne would imagine what the room could become, and Fe would focus on the social-emotional atmosphere.",
       },
     },
     {
@@ -636,7 +636,7 @@ const lesson4: Lesson = {
           "Because Se is objectively the most basic function",
         ],
         correctIndex: 1,
-        explanation: "Se's depth lies in its engagement with PHYSICAL reality — the surgeon's precise cut, the chef's perfect timing, the firefighter's instant response. This is not shallow; it's a different KIND of depth that abstract-dominant types sometimes fail to appreciate.",
+        explanation: "Se's depth lies in its engagement with PHYSICAL reality, the surgeon's precise cut, the chef's perfect timing, the firefighter's instant response. This is not shallow; it's a different KIND of depth that abstract-dominant types sometimes fail to appreciate.",
       },
     },
     {
@@ -648,7 +648,7 @@ const lesson4: Lesson = {
         pairs: [
           { left: "Se", right: "'Look at the way that light hits the water right now'" },
           { left: "Ne", right: "'What if water could conduct data like fiber optics?'" },
-          { left: "Se", right: "'Taste this — the salt and acid are perfectly balanced'" },
+          { left: "Se", right: "'Taste this, the salt and acid are perfectly balanced'" },
           { left: "Ne", right: "'This recipe reminds me of twelve other things we could try'" },
         ],
       },
@@ -661,7 +661,7 @@ const lesson4: Lesson = {
         instruction: "Sort these behaviors into Se vs. Ne.",
         categories: ["Se", "Ne"],
         items: [
-          { text: "Catches a ball without thinking — pure reflex", categoryIndex: 0 },
+          { text: "Catches a ball without thinking, pure reflex", categoryIndex: 0 },
           { text: "Sees a ball and imagines ten new games you could invent", categoryIndex: 1 },
           { text: "Describes exactly what a dish tastes like in precise sensory detail", categoryIndex: 0 },
           { text: "Wonders what would happen if you combined this cuisine with another", categoryIndex: 1 },
@@ -686,7 +686,7 @@ const lesson4: Lesson = {
       difficulty: 3,
       content: {
         type: "scenario",
-        scenario: "Two people are exploring a farmers' market. Person A picks up a peach, examines its color, smells it deeply, squeezes it gently, and says, 'This one is perfect — ripe, fragrant, firm but yielding. I'm getting this.' Person B picks up a peach and says, 'Ooh, what if we made a peach-lavender sorbet? Or a grilled peach salad! Actually, peaches would be amazing in that Thai curry recipe I've been thinking about.'",
+        scenario: "Two people are exploring a farmers' market. Person A picks up a peach, examines its color, smells it deeply, squeezes it gently, and says, 'This one is perfect, ripe, fragrant, firm but yielding. I'm getting this.' Person B picks up a peach and says, 'Ooh, what if we made a peach-lavender sorbet? Or a grilled peach salad! Actually, peaches would be amazing in that Thai curry recipe I've been thinking about.'",
         question: "Which person is demonstrating Se and which Ne?",
         options: [
           "Person A = Ne, Person B = Se",
@@ -695,7 +695,7 @@ const lesson4: Lesson = {
           "Both are using Ne",
         ],
         correctIndex: 1,
-        explanation: "Person A is in pure Se mode: engaging with the concrete, physical qualities of the peach RIGHT NOW — its color, scent, texture. Person B is in Ne mode: the peach triggers a cascade of abstract possibilities about what it COULD become.",
+        explanation: "Person A is in pure Se mode: engaging with the concrete, physical qualities of the peach RIGHT NOW, its color, scent, texture. Person B is in Ne mode: the peach triggers a cascade of abstract possibilities about what it COULD become.",
       },
     },
     {
@@ -706,13 +706,13 @@ const lesson4: Lesson = {
         scenario: "Two athletes describe their experience during competition. Athlete A: 'When I'm playing, everything else disappears. I see the ball, I feel my body move, and I just REACT. It's like time slows down.' Athlete B: 'Before a match, I visualize every scenario that could unfold and prepare a response for each. During the game, I'm executing my internal playbook.'",
         question: "Which athlete is primarily using Se?",
         options: [
-          "Athlete B — they're more strategic",
-          "Athlete A — they're fully immersed in real-time physical response without conscious deliberation",
+          "Athlete B, they're more strategic",
+          "Athlete A, they're fully immersed in real-time physical response without conscious deliberation",
           "Both are using Se equally",
-          "Neither — sports isn't about cognitive functions",
+          "Neither, sports isn't about cognitive functions",
         ],
         correctIndex: 1,
-        explanation: "Athlete A describes classic Se flow: present-moment immersion, body-first response, time distortion from pure engagement. Athlete B is using more Ni-Te — pre-visualizing scenarios and executing planned strategies. Both can be effective athletes, but A's experience is Se-dominant.",
+        explanation: "Athlete A describes classic Se flow: present-moment immersion, body-first response, time distortion from pure engagement. Athlete B is using more Ni-Te, pre-visualizing scenarios and executing planned strategies. Both can be effective athletes, but A's experience is Se-dominant.",
       },
     },
     {
@@ -723,13 +723,13 @@ const lesson4: Lesson = {
         scenario: "You're trying to decide if someone uses Se or is just an active person who likes exercise. They go to the gym regularly and enjoy sports.",
         question: "What's the best way to distinguish genuine Se from simply being physically active?",
         options: [
-          "Se users engage with the QUALITY of physical experience — they notice sensory details, respond to environmental changes in real time, and are fully embodied, not just going through the motions",
-          "There is no difference — exercise IS Se",
+          "Se users engage with the QUALITY of physical experience, they notice sensory details, respond to environmental changes in real time, and are fully embodied, not just going through the motions",
+          "There is no difference, exercise IS Se",
           "Se users only like extreme sports",
           "Se users are always the most athletic person in the room",
         ],
         correctIndex: 0,
-        explanation: "The key differentiator is QUALITY OF ENGAGEMENT. Anyone can exercise, but Se users are fully immersed in the physical experience — noticing how their body feels, responding to environmental changes, and present in a way that goes beyond just completing a workout.",
+        explanation: "The key differentiator is QUALITY OF ENGAGEMENT. Anyone can exercise, but Se users are fully immersed in the physical experience, noticing how their body feels, responding to environmental changes, and present in a way that goes beyond just completing a workout.",
       },
     },
     {
@@ -740,12 +740,12 @@ const lesson4: Lesson = {
         question: "Quick review: Se is best described as...",
         options: [
           "An internal archive of past sensory memories",
-          "Full immersion in the present moment — real-time physical engagement with concrete reality",
+          "Full immersion in the present moment, real-time physical engagement with concrete reality",
           "A possibility generator that sees what things could become",
           "A pattern recognizer that predicts future events",
         ],
         correctIndex: 1,
-        explanation: "Se is the present-moment amplifier. It is a perceiving function that fully engages with the concrete, physical world as it exists right now — bringing heightened sensory awareness, instant reaction, and complete embodied presence.",
+        explanation: "Se is the present-moment amplifier. It is a perceiving function that fully engages with the concrete, physical world as it exists right now, bringing heightened sensory awareness, instant reaction, and complete embodied presence.",
       },
     },
   ],

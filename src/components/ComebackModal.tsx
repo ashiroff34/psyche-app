@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Trophy, Heart, X, Zap, Snowflake } from "lucide-react";
 import PetSprite from "@/components/PetSprite";
+import { acquireNotificationLock, releaseNotificationLock } from "@/lib/notificationLock";
 
 // ─── Helpers ─────────────────────────────────────────────────────────────────
 
@@ -71,6 +72,9 @@ export default function ComebackModal() {
     const cognitiveType = typeof profile.cognitiveType === "string" ? profile.cognitiveType : null;
     const userType = cognitiveType ?? (enneagramType ? `Type ${enneagramType}` : null);
 
+    // Only show if no other notification is currently visible
+    if (!acquireNotificationLock("comeback-modal")) return;
+
     setData({
       petName: typeof petState?.name === "string" ? petState.name : "Your pet",
       petType: (petState?.type ?? enneagramType ?? 1) as number,
@@ -84,6 +88,11 @@ export default function ComebackModal() {
     setShow(true);
     sessionStorage.setItem("comeback-shown", "true");
   }, []);
+
+  const handleClose = () => {
+    releaseNotificationLock("comeback-modal");
+    setShow(false);
+  };
 
   const handleClaim = () => {
     const today = getDateKey();
@@ -102,10 +111,11 @@ export default function ComebackModal() {
     sessionStorage.setItem("comeback-claimed-date", today);
 
     setClaimed(true);
-    setTimeout(() => setShow(false), 1200);
+    setTimeout(() => {
+      releaseNotificationLock("comeback-modal");
+      setShow(false);
+    }, 1200);
   };
-
-  const handleClose = () => setShow(false);
 
   if (!data) return null;
 
@@ -148,7 +158,7 @@ export default function ComebackModal() {
             transition={{ type: "spring", stiffness: 300, damping: 28 }}
             className="fixed inset-0 z-50 flex items-center justify-center px-4 pointer-events-none"
           >
-            <div className="pointer-events-auto w-full max-w-sm bg-white rounded-3xl shadow-2xl shadow-indigo-200/40 overflow-hidden">
+            <div className="pointer-events-auto w-full max-w-sm rounded-3xl overflow-hidden" style={{ background: "rgba(18,12,36,0.98)", border: "1px solid rgba(139,92,246,0.25)", boxShadow: "0 24px 60px rgba(0,0,0,0.6)" }}>
               {/* Header gradient strip */}
               <div className="h-1.5 bg-gradient-to-r from-violet-400 via-indigo-500 to-sky-400" />
 
@@ -157,17 +167,18 @@ export default function ComebackModal() {
                 <button
                   onClick={handleClose}
                   aria-label="Close"
-                  className="absolute top-4 right-4 p-2.5 rounded-xl text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition"
+                  className="absolute top-4 right-4 p-2.5 rounded-xl transition"
+                  style={{ color: "rgba(255,255,255,0.4)" }}
                 >
                   <X className="w-4 h-4" />
                 </button>
 
                 {/* Heading */}
                 <div className="text-center mb-6">
-                  <h2 className="text-2xl font-serif font-bold text-slate-900 mb-0.5">
+                  <h2 className="text-2xl font-serif font-bold mb-0.5" style={{ color: "rgba(255,255,255,0.95)" }}>
                     Welcome back{data.userType ? `, ${data.userType}` : ""}
                   </h2>
-                  <p className="text-sm text-slate-500">
+                  <p className="text-sm" style={{ color: "rgba(255,255,255,0.5)" }}>
                     {data.daysSince === 1
                       ? "You were away for 1 day"
                       : `You were away for ${data.daysSince} days`}
@@ -175,50 +186,50 @@ export default function ComebackModal() {
                 </div>
 
                 {/* Comeback bonus card */}
-                <div className="p-4 rounded-2xl bg-gradient-to-br from-violet-50 to-indigo-50 border border-violet-100 mb-4">
-                  <p className="text-xs font-semibold text-violet-600 tracking-wide mb-3 uppercase">
+                <div className="p-4 rounded-2xl mb-4" style={{ background: "rgba(139,92,246,0.12)", border: "1px solid rgba(139,92,246,0.2)" }}>
+                  <p className="text-xs font-semibold tracking-wide mb-3 uppercase" style={{ color: "#a78bfa" }}>
                     Comeback Bonus
                   </p>
                   <div className="space-y-2">
                     <div className="flex items-center gap-2.5">
-                      <div className="w-8 h-8 rounded-xl bg-amber-100 flex items-center justify-center">
-                        <Zap className="w-4 h-4 text-amber-600" />
+                      <div className="w-8 h-8 rounded-xl flex items-center justify-center" style={{ background: "rgba(251,191,36,0.15)" }}>
+                        <Zap className="w-4 h-4" style={{ color: "#fbbf24" }} />
                       </div>
-                      <span className="text-sm font-medium text-slate-700">+50 XP</span>
+                      <span className="text-sm font-medium" style={{ color: "rgba(255,255,255,0.82)" }}>+50 XP</span>
                     </div>
                     <div className="flex items-center gap-2.5">
-                      <div className="w-8 h-8 rounded-xl bg-sky-100 flex items-center justify-center">
-                        <Snowflake className="w-4 h-4 text-sky-600" />
+                      <div className="w-8 h-8 rounded-xl flex items-center justify-center" style={{ background: "rgba(56,189,248,0.15)" }}>
+                        <Snowflake className="w-4 h-4" style={{ color: "#38bdf8" }} />
                       </div>
-                      <span className="text-sm font-medium text-slate-700">+1 Streak Freeze</span>
+                      <span className="text-sm font-medium" style={{ color: "rgba(255,255,255,0.82)" }}>+1 Streak Freeze</span>
                     </div>
                   </div>
                 </div>
 
                 {/* Pet status (if pet exists) */}
                 {data.petName !== "Your pet" || data.petHealth !== null ? (
-                  <div className="p-4 rounded-2xl bg-slate-50 border border-slate-100 mb-5">
+                  <div className="p-4 rounded-2xl mb-5" style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.08)" }}>
                     <div className="flex items-center gap-3 mb-3">
                       <PetSprite type={data.petType} size={60} />
                       <div>
-                        <p className="text-sm font-semibold text-slate-800">
+                        <p className="text-sm font-semibold" style={{ color: "rgba(255,255,255,0.9)" }}>
                           {data.petName} missed you!
                         </p>
                         {!data.petAlive && (
-                          <p className="text-xs text-red-500 font-medium">Needs revival</p>
+                          <p className="text-xs font-medium" style={{ color: "#f87171" }}>Needs revival</p>
                         )}
                       </div>
                     </div>
                     {data.petHealth !== null && data.petAlive && (
                       <div className="space-y-2">
                         <div>
-                          <div className="flex justify-between text-xs text-slate-400 mb-1">
+                          <div className="flex justify-between text-xs mb-1" style={{ color: "rgba(255,255,255,0.4)" }}>
                             <span className="flex items-center gap-1">
                               <Heart className="w-3 h-3" /> Health
                             </span>
                             <span>{data.petHealth}%</span>
                           </div>
-                          <div className="h-1.5 bg-slate-200 rounded-full overflow-hidden">
+                          <div className="h-1.5 rounded-full overflow-hidden" style={{ background: "rgba(255,255,255,0.1)" }}>
                             <div
                               className={`h-full rounded-full transition-all ${petHealthColor}`}
                               style={{ width: `${data.petHealth}%` }}
@@ -227,11 +238,11 @@ export default function ComebackModal() {
                         </div>
                         {data.petHunger !== null && (
                           <div>
-                            <div className="flex justify-between text-xs text-slate-400 mb-1">
+                            <div className="flex justify-between text-xs mb-1" style={{ color: "rgba(255,255,255,0.4)" }}>
                               <span>Hunger</span>
                               <span>{data.petHunger}%</span>
                             </div>
-                            <div className="h-1.5 bg-slate-200 rounded-full overflow-hidden">
+                            <div className="h-1.5 rounded-full overflow-hidden" style={{ background: "rgba(255,255,255,0.1)" }}>
                               <div
                                 className={`h-full rounded-full transition-all ${petHungerColor}`}
                                 style={{ width: `${data.petHunger}%` }}
@@ -249,11 +260,11 @@ export default function ComebackModal() {
                   onClick={handleClaim}
                   disabled={claimed}
                   whileTap={{ scale: 0.97 }}
-                  className={`w-full py-3.5 rounded-2xl text-sm font-semibold flex items-center justify-center gap-2 transition-all ${
-                    claimed
-                      ? "bg-emerald-100 text-emerald-700 cursor-default"
-                      : "bg-gradient-to-r from-violet-500 to-indigo-500 hover:from-violet-600 hover:to-indigo-600 text-white shadow-lg shadow-violet-200/50"
-                  }`}
+                  className="w-full py-3.5 rounded-2xl text-sm font-semibold flex items-center justify-center gap-2 transition-all text-white"
+                  style={claimed
+                    ? { background: "rgba(52,211,153,0.15)", color: "#34d399", cursor: "default" }
+                    : { background: "linear-gradient(135deg, #7c3aed, #4f46e5)", boxShadow: "0 8px 24px rgba(124,58,237,0.4)" }
+                  }
                 >
                   {claimed ? (
                     <>Bonus Claimed!</>

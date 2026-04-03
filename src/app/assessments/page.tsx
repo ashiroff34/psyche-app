@@ -200,7 +200,7 @@ const assessments: AssessmentCard[] = [
     tab: "scientific",
     icon: BarChart3,
     title: "Big Five Personality (OCEAN)",
-    subtitle: "The scientific gold standard — 120 items",
+    subtitle: "The scientific gold standard, 120 items",
     description: "The most scientifically validated personality model in psychology. Measures Openness, Conscientiousness, Extraversion, Agreeableness, and Neuroticism with 6 facets each.",
     timeEstimate: "~15 min",
     tags: ["120 Qs", "IPIP-NEO"],
@@ -225,7 +225,7 @@ export default function AssessmentsPage() {
             Discover Your Type
           </h1>
           <p className="text-slate-500 text-sm max-w-md mx-auto leading-relaxed">
-            Multiple paths to self-discovery — from expert-recommended self-identification to scientifically validated assessments.
+            Multiple paths to self-discovery, from expert-recommended self-identification to scientifically validated assessments.
           </p>
           <div className="mt-4 p-3 rounded-xl bg-indigo-50 border border-indigo-100 text-xs text-indigo-700 max-w-md mx-auto leading-relaxed">
             <strong>Thyself focuses primarily on the Enneagram</strong> as your core personality framework, but we also offer Carl Jung&apos;s Cognitive Functions and Big Five assessments for a complete picture.

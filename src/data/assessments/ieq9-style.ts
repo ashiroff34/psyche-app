@@ -476,7 +476,7 @@ export const coreStatements: LikertStatement[] = [
   },
   {
     id: 79,
-    text: 'I go to excess — in work, pleasure, or conflict — because half-measures feel pointless.',
+    text: 'I go to excess, in work, pleasure, or conflict, because half-measures feel pointless.',
     scores: { '7': 1, '8': 3 },
     category: 'core',
   },
@@ -542,7 +542,7 @@ export const coreStatements: LikertStatement[] = [
   },
   {
     id: 90,
-    text: 'My deepest longing is for a sense of union — with others, with myself, and with the world.',
+    text: 'My deepest longing is for a sense of union, with others, with myself, and with the world.',
     scores: { '9': 3 },
     category: 'core',
   },
@@ -587,7 +587,7 @@ export const wingStatements: LikertStatement[] = [
   },
   {
     id: 97,
-    text: 'I want to be seen as both caring and successful — the person who has it all together.',
+    text: 'I want to be seen as both caring and successful, the person who has it all together.',
     scores: { '2': 2, '3': 2 },
     category: 'wing',
   },
@@ -707,7 +707,7 @@ export const wingStatements: LikertStatement[] = [
   },
   {
     id: 117,
-    text: 'I go after what I want with bold, aggressive energy — pleasure and power combined.',
+    text: 'I go after what I want with bold, aggressive energy, pleasure and power combined.',
     scores: { '7': 2, '8': 2 },
     category: 'wing',
   },
@@ -719,7 +719,7 @@ export const wingStatements: LikertStatement[] = [
   },
   {
     id: 119,
-    text: 'I combine raw power with a hunger for stimulation — I want intensity and variety.',
+    text: 'I combine raw power with a hunger for stimulation, I want intensity and variety.',
     scores: { '7': 2, '8': 2 },
     category: 'wing',
   },
@@ -770,7 +770,7 @@ export const wingStatements: LikertStatement[] = [
 export const instinctStatements: LikertStatement[] = [
   {
     id: 127,
-    text: 'My first concern in any new situation is whether my basic needs — food, shelter, finances — are secure.',
+    text: 'My first concern in any new situation is whether my basic needs, food, shelter, finances, are secure.',
     scores: {  },
     category: 'instinct',
   },
@@ -788,7 +788,7 @@ export const instinctStatements: LikertStatement[] = [
   },
   {
     id: 130,
-    text: 'I accumulate resources — money, supplies, skills — as insurance against future hardship.',
+    text: 'I accumulate resources, money, supplies, skills, as insurance against future hardship.',
     scores: {  },
     category: 'instinct',
   },
@@ -1025,7 +1025,7 @@ export const stressGrowthStatements: LikertStatement[] = [
   },
   {
     id: 169,
-    text: 'When trapped or frustrated, I become critical, rigid, and perfectionistic — a stark contrast to my usual spontaneity.',
+    text: 'When trapped or frustrated, I become critical, rigid, and perfectionistic, a stark contrast to my usual spontaneity.',
     scores: { '1': 2, '7': 2 },
     category: 'stress-growth',
   },

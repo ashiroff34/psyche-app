@@ -3,15 +3,15 @@
 import { assetPath } from "@/lib/assetPath";
 
 /**
- * Ouroboros (snake eating its tail) — the Thyself app logo.
+ * Ouroboros (snake eating its tail), the Thyself app logo.
  * Uses the user's exact traced SVG paths from their custom icon.
  * Rendered as white on the gradient background.
  */
 export default function OuroborosLogo({ size = 32, className = "" }: { size?: number; className?: string }) {
-  // Use the PNG image for crisp rendering at all sizes
+  // Use the SVG logo which has a built-in gradient background
   return (
     <img
-      src={assetPath("/ouroboros-icon.png")}
+      src={assetPath("/thyself-logo.svg")}
       alt="Thyself logo"
       width={size}
       height={size}

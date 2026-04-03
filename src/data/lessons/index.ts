@@ -1,5 +1,5 @@
 // ─────────────────────────────────────────────────────────────────────────────
-// Lesson Units — Master Index
+// Lesson Units, Master Index
 // Defines all 21 units with metadata. Lesson arrays will be populated by
 // dedicated data files created by other agents.
 // ─────────────────────────────────────────────────────────────────────────────
@@ -58,7 +58,7 @@ export const LESSON_UNITS: Unit[] = [
   {
     id: "type-1",
     order: 3,
-    title: "Type 1 — The Reformer",
+    title: "Type 1, The Reformer",
     subtitle: "Principled, purposeful, self-controlled",
     icon: "\u2696\uFE0F",
     category: "enneagram-type",
@@ -68,7 +68,7 @@ export const LESSON_UNITS: Unit[] = [
   {
     id: "type-2",
     order: 4,
-    title: "Type 2 — The Helper",
+    title: "Type 2, The Helper",
     subtitle: "Generous, demonstrative, people-pleasing",
     icon: "\u{1F49A}",
     category: "enneagram-type",
@@ -78,7 +78,7 @@ export const LESSON_UNITS: Unit[] = [
   {
     id: "type-3",
     order: 5,
-    title: "Type 3 — The Achiever",
+    title: "Type 3, The Achiever",
     subtitle: "Adaptable, excelling, driven",
     icon: "\u{1F31F}",
     category: "enneagram-type",
@@ -88,7 +88,7 @@ export const LESSON_UNITS: Unit[] = [
   {
     id: "type-4",
     order: 6,
-    title: "Type 4 — The Individualist",
+    title: "Type 4, The Individualist",
     subtitle: "Expressive, dramatic, self-aware",
     icon: "\u{1F3A8}",
     category: "enneagram-type",
@@ -98,7 +98,7 @@ export const LESSON_UNITS: Unit[] = [
   {
     id: "type-5",
     order: 7,
-    title: "Type 5 — The Investigator",
+    title: "Type 5, The Investigator",
     subtitle: "Perceptive, innovative, cerebral",
     icon: "\u{1F50D}",
     category: "enneagram-type",
@@ -108,7 +108,7 @@ export const LESSON_UNITS: Unit[] = [
   {
     id: "type-6",
     order: 8,
-    title: "Type 6 — The Loyalist",
+    title: "Type 6, The Loyalist",
     subtitle: "Engaging, responsible, vigilant",
     icon: "\u{1F6E1}\uFE0F",
     category: "enneagram-type",
@@ -118,7 +118,7 @@ export const LESSON_UNITS: Unit[] = [
   {
     id: "type-7",
     order: 9,
-    title: "Type 7 — The Enthusiast",
+    title: "Type 7, The Enthusiast",
     subtitle: "Spontaneous, versatile, adventurous",
     icon: "\u{1F389}",
     category: "enneagram-type",
@@ -128,7 +128,7 @@ export const LESSON_UNITS: Unit[] = [
   {
     id: "type-8",
     order: 10,
-    title: "Type 8 — The Challenger",
+    title: "Type 8, The Challenger",
     subtitle: "Self-confident, decisive, protective",
     icon: "\u{1F525}",
     category: "enneagram-type",
@@ -138,7 +138,7 @@ export const LESSON_UNITS: Unit[] = [
   {
     id: "type-9",
     order: 11,
-    title: "Type 9 — The Peacemaker",
+    title: "Type 9, The Peacemaker",
     subtitle: "Receptive, reassuring, harmonious",
     icon: "\u{1F54A}\uFE0F",
     category: "enneagram-type",

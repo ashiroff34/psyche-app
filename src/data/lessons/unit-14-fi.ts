@@ -1,5 +1,5 @@
 // ─────────────────────────────────────────────────────────────────────────────
-// Unit 14 — Introverted Feeling (Fi)
+// Unit 14, Introverted Feeling (Fi)
 // Inner value compass, deep personal authenticity, ethical individualism
 // ─────────────────────────────────────────────────────────────────────────────
 
@@ -33,7 +33,7 @@ const lesson1: Lesson = {
       content: {
         type: "concept-intro",
         title: "Fi from the Inside",
-        body: "People with strong Fi describe an inner 'gut sense' of rightness or wrongness that doesn't need external justification. It's not about logic or social norms — it's a felt sense of authenticity. When something violates their values, they feel it physically.",
+        body: "People with strong Fi describe an inner 'gut sense' of rightness or wrongness that doesn't need external justification. It's not about logic or social norms, it's a felt sense of authenticity. When something violates their values, they feel it physically.",
         highlight: "felt sense of authenticity",
       },
     },
@@ -45,7 +45,7 @@ const lesson1: Lesson = {
         question: "What is the core question that Fi asks?",
         options: [
           "What does the group need right now?",
-          "How do I truly feel about this — does it align with who I am?",
+          "How do I truly feel about this, does it align with who I am?",
           "What is the most logically consistent explanation?",
           "What do the measurable results show?",
         ],
@@ -108,7 +108,7 @@ const lesson1: Lesson = {
         sentence: "Fi evaluates experiences against deeply held ___, producing convictions that feel non-negotiable.",
         options: ["personal values", "social expectations", "logical frameworks", "past experiences"],
         correctIndex: 0,
-        explanation: "Fi is fundamentally about personal values — an internal system of what matters most to the individual, independent of what others think or what logic dictates.",
+        explanation: "Fi is fundamentally about personal values, an internal system of what matters most to the individual, independent of what others think or what logic dictates.",
       },
     },
     {
@@ -127,7 +127,7 @@ const lesson1: Lesson = {
       difficulty: 3,
       content: {
         type: "scenario",
-        scenario: "Jordan's company announces a new policy that conflicts with something Jordan deeply believes in. Their coworkers seem fine with it. Jordan's manager says, 'Everyone else is on board — what's the issue?'",
+        scenario: "Jordan's company announces a new policy that conflicts with something Jordan deeply believes in. Their coworkers seem fine with it. Jordan's manager says, 'Everyone else is on board, what's the issue?'",
         question: "How would someone with strong Fi most likely respond internally?",
         options: [
           "They'd immediately agree to avoid conflict with the group",
@@ -144,13 +144,13 @@ const lesson1: Lesson = {
       difficulty: 3,
       content: {
         type: "scenario",
-        scenario: "Two friends are debating whether it's okay to lie to spare someone's feelings. One friend says it depends on the situation and what the group expects. The other says, 'I just can't — it goes against everything I stand for, no matter what.'",
+        scenario: "Two friends are debating whether it's okay to lie to spare someone's feelings. One friend says it depends on the situation and what the group expects. The other says, 'I just can't, it goes against everything I stand for, no matter what.'",
         question: "Which friend is most clearly demonstrating Fi?",
         options: [
           "The first friend, who considers the situation contextually",
           "The second friend, who references an internal moral standard",
-          "Neither — this is a thinking function debate",
-          "Both equally — they're both using feeling",
+          "Neither, this is a thinking function debate",
+          "Both equally, they're both using feeling",
         ],
         correctIndex: 1,
         explanation: "The second friend demonstrates Fi by referencing an internal, personal moral standard ('everything I stand for') rather than adapting to situational or social expectations.",
@@ -168,7 +168,7 @@ const lesson1: Lesson = {
           { text: "Let me check what the data says before deciding", categoryIndex: 1 },
           { text: "This just feels wrong to me on a deep level", categoryIndex: 0 },
           { text: "What does the group need me to do here?", categoryIndex: 1 },
-          { text: "I can't compromise on this — it's who I am", categoryIndex: 0 },
+          { text: "I can't compromise on this, it's who I am", categoryIndex: 0 },
           { text: "Let's organize this for maximum efficiency", categoryIndex: 1 },
         ],
       },
@@ -218,7 +218,7 @@ const lesson2: Lesson = {
       content: {
         type: "concept-intro",
         title: "The Beebe Model & Fi",
-        body: "In Beebe's archetypal model, your dominant function is the Hero — the most developed and trusted. Your inferior function is the Anima/Animus — the least conscious, most vulnerable, and potentially most transformative when integrated.",
+        body: "In Beebe's archetypal model, your dominant function is the Hero, the most developed and trusted. Your inferior function is the Anima/Animus, the least conscious, most vulnerable, and potentially most transformative when integrated.",
         highlight: "Hero vs. Anima/Animus",
       },
     },
@@ -292,7 +292,7 @@ const lesson2: Lesson = {
         sentence: "An ENTJ under extreme stress may experience their inferior Fi as sudden ___ after years of prioritizing efficiency and results.",
         options: ["emotional eruptions", "logical analysis", "sensory overload", "brainstorming sessions"],
         correctIndex: 0,
-        explanation: "When inferior Fi erupts in Te-dominant types, it often manifests as intense, overwhelming emotional experiences that feel alien and uncontrollable — precisely because these feelings have been suppressed.",
+        explanation: "When inferior Fi erupts in Te-dominant types, it often manifests as intense, overwhelming emotional experiences that feel alien and uncontrollable, precisely because these feelings have been suppressed.",
       },
     },
     {
@@ -300,7 +300,7 @@ const lesson2: Lesson = {
       difficulty: 2,
       content: {
         type: "fill-in-blank",
-        sentence: "In Beebe's model, the inferior function is called the ___ — the least conscious but potentially most transformative part of the psyche.",
+        sentence: "In Beebe's model, the inferior function is called the ___, the least conscious but potentially most transformative part of the psyche.",
         options: ["Anima/Animus", "Hero", "Trickster", "Senex"],
         correctIndex: 0,
         explanation: "Beebe associates the inferior function with the Anima/Animus archetype. It represents our most vulnerable psychological area, but also our greatest potential for growth when consciously integrated.",
@@ -328,16 +328,16 @@ const lesson2: Lesson = {
       difficulty: 3,
       content: {
         type: "scenario",
-        scenario: "Consider two people who both refuse to attend a social event. Person A (INFP) says: 'It doesn't feel right — the host said something last week that crossed a line for me.' Person B (ENTJ) says: 'I don't know why, but I just can't go. Something about it makes me uncomfortable and I can't explain it.'",
+        scenario: "Consider two people who both refuse to attend a social event. Person A (INFP) says: 'It doesn't feel right, the host said something last week that crossed a line for me.' Person B (ENTJ) says: 'I don't know why, but I just can't go. Something about it makes me uncomfortable and I can't explain it.'",
         question: "What explains the difference in their self-awareness about their Fi?",
         options: [
           "Person B is just being difficult",
           "Person A has dominant Fi and can articulate values clearly; Person B has inferior Fi and the feeling is vague and hard to name",
           "Person A is using Fe, not Fi",
-          "There is no real difference — both are Fi",
+          "There is no real difference, both are Fi",
         ],
         correctIndex: 1,
-        explanation: "Dominant Fi users have precise access to their value system and can explain why something feels wrong. Inferior Fi users experience the same discomfort but can't easily articulate it — the feeling is murky and confusing.",
+        explanation: "Dominant Fi users have precise access to their value system and can explain why something feels wrong. Inferior Fi users experience the same discomfort but can't easily articulate it, the feeling is murky and confusing.",
       },
     },
     {
@@ -364,10 +364,10 @@ const lesson2: Lesson = {
         type: "multiple-choice",
         question: "True or false: Fi works the same way regardless of its position in someone's cognitive stack.",
         options: [
-          "True — Fi is Fi",
-          "False — stack position dramatically changes how Fi manifests",
-          "True — but only for introverts",
-          "False — but only because of age differences",
+          "True, Fi is Fi",
+          "False, stack position dramatically changes how Fi manifests",
+          "True, but only for introverts",
+          "False, but only because of age differences",
         ],
         correctIndex: 1,
         explanation: "Stack position is crucial. Dominant Fi is a well-developed inner compass. Inferior Fi is a blind spot that can erupt unpredictably. Same function, completely different experience.",
@@ -402,7 +402,7 @@ const lesson3: Lesson = {
       content: {
         type: "concept-intro",
         title: "Fi Under Stress",
-        body: "When stressed, Fi users may withdraw completely into their inner world, becoming uncommunicative. In extreme stress (the 'grip'), they can flip to their inferior function — for INFPs this means obsessive, harsh Te self-criticism about productivity and competence.",
+        body: "When stressed, Fi users may withdraw completely into their inner world, becoming uncommunicative. In extreme stress (the 'grip'), they can flip to their inferior function, for INFPs this means obsessive, harsh Te self-criticism about productivity and competence.",
         highlight: "grip",
       },
     },
@@ -419,7 +419,7 @@ const lesson3: Lesson = {
           "Constant verbal affirmation in public settings",
         ],
         correctIndex: 1,
-        explanation: "Fi shows love through deep, personal understanding. Fi users want to know the real you — your values, dreams, and inner world — and they offer the same vulnerability in return.",
+        explanation: "Fi shows love through deep, personal understanding. Fi users want to know the real you, your values, dreams, and inner world, and they offer the same vulnerability in return.",
       },
     },
     {
@@ -474,7 +474,7 @@ const lesson3: Lesson = {
       difficulty: 2,
       content: {
         type: "fill-in-blank",
-        sentence: "Fi users often experience a 'values ___' — once someone crosses a deeply held line, it can be very difficult to repair the relationship.",
+        sentence: "Fi users often experience a 'values ___', once someone crosses a deeply held line, it can be very difficult to repair the relationship.",
         options: ["door slam", "explosion", "negotiation", "compromise"],
         correctIndex: 0,
         explanation: "The Fi 'door slam' (especially associated with INFPs and ISFPs) happens when someone repeatedly violates the Fi user's core values. The relationship can feel permanently damaged, because the violation was against something fundamental.",
@@ -488,7 +488,7 @@ const lesson3: Lesson = {
         sentence: "Fi-driven creativity tends to be deeply ___, drawing from the creator's own emotional experience rather than external trends.",
         options: ["personal", "commercial", "collaborative", "systematic"],
         correctIndex: 0,
-        explanation: "Fi creativity is autobiographical at its core. Fi artists, writers, and musicians create work that expresses their inner world — think of singer-songwriters who pour their personal pain into their art.",
+        explanation: "Fi creativity is autobiographical at its core. Fi artists, writers, and musicians create work that expresses their inner world, think of singer-songwriters who pour their personal pain into their art.",
       },
     },
     {
@@ -496,7 +496,7 @@ const lesson3: Lesson = {
       difficulty: 3,
       content: {
         type: "scenario",
-        scenario: "Priya works at a marketing firm. She's offered a huge promotion, but the role involves promoting a product she believes is harmful to consumers. Her colleagues say, 'It's just business — don't take it personally.'",
+        scenario: "Priya works at a marketing firm. She's offered a huge promotion, but the role involves promoting a product she believes is harmful to consumers. Her colleagues say, 'It's just business, don't take it personally.'",
         question: "What will a strong Fi user most likely do?",
         options: [
           "Take the promotion and compartmentalize their feelings",
@@ -505,7 +505,7 @@ const lesson3: Lesson = {
           "Ask the team to vote on whether the product is ethical",
         ],
         correctIndex: 1,
-        explanation: "Strong Fi users genuinely cannot compartmentalize values conflicts. 'It's just business' doesn't compute — everything IS personal when your identity is built on your values. The inner dissonance would be intolerable.",
+        explanation: "Strong Fi users genuinely cannot compartmentalize values conflicts. 'It's just business' doesn't compute, everything IS personal when your identity is built on your values. The inner dissonance would be intolerable.",
       },
     },
     {
@@ -517,7 +517,7 @@ const lesson3: Lesson = {
         question: "What is most likely causing Alex's distress?",
         options: [
           "They need more social interaction",
-          "Their Fi is starving — the work lacks personal meaning and authentic expression",
+          "Their Fi is starving, the work lacks personal meaning and authentic expression",
           "They need a more structured schedule",
           "They are experiencing sensory overload from too many images",
         ],
@@ -555,7 +555,7 @@ const lesson3: Lesson = {
           "Reading the emotional temperature of a room instantly",
         ],
         correctIndex: 1,
-        explanation: "Fi's greatest strength is moral courage — the ability to stay true to personal convictions regardless of external pressure. This is what makes Fi users the conscience of their communities.",
+        explanation: "Fi's greatest strength is moral courage, the ability to stay true to personal convictions regardless of external pressure. This is what makes Fi users the conscience of their communities.",
       },
     },
   ],
@@ -577,7 +577,7 @@ const lesson4: Lesson = {
       content: {
         type: "concept-intro",
         title: "The Critical Distinction: Fi vs. Fe",
-        body: "Fi and Fe are BOTH feeling functions, but they face opposite directions. Fi asks 'What do I value?' — it's an inner compass. Fe asks 'What does the group need?' — it's a social thermostat. Fi can seem selfish to Fe users; Fe can seem fake to Fi users.",
+        body: "Fi and Fe are BOTH feeling functions, but they face opposite directions. Fi asks 'What do I value?', it's an inner compass. Fe asks 'What does the group need?', it's a social thermostat. Fi can seem selfish to Fe users; Fe can seem fake to Fi users.",
         highlight: "opposite directions",
       },
     },
@@ -587,7 +587,7 @@ const lesson4: Lesson = {
       content: {
         type: "concept-intro",
         title: "Other Common Confusions",
-        body: "Fi can be confused with Ni (both are 'internal knowing'), but Fi knows what it VALUES while Ni knows what WILL HAPPEN. Fi is also confused with emotions in general — but everyone has emotions. Fi is specifically a judging function that structures identity around values.",
+        body: "Fi can be confused with Ni (both are 'internal knowing'), but Fi knows what it VALUES while Ni knows what WILL HAPPEN. Fi is also confused with emotions in general, but everyone has emotions. Fi is specifically a judging function that structures identity around values.",
         highlight: "judging function",
       },
     },
@@ -614,10 +614,10 @@ const lesson4: Lesson = {
         type: "multiple-choice",
         question: "Someone says: 'I adjusted my honest opinion because I could see it was hurting the group dynamic.' Which function is this?",
         options: [
-          "Fi — they're being emotionally aware",
-          "Fe — they're adjusting to serve group harmony",
-          "Ti — they're thinking about social logic",
-          "Ni — they're predicting consequences",
+          "Fi, they're being emotionally aware",
+          "Fe, they're adjusting to serve group harmony",
+          "Ti, they're thinking about social logic",
+          "Ni, they're predicting consequences",
         ],
         correctIndex: 1,
         explanation: "Adjusting your own expression to maintain group harmony is textbook Fe. An Fi user would more likely think: 'I have to say what I really believe, even if it's uncomfortable.'",
@@ -636,7 +636,7 @@ const lesson4: Lesson = {
           "Because Fi users are always focused on money",
         ],
         correctIndex: 1,
-        explanation: "Fi's insistence on personal authenticity can look like selfishness to Fe users who prioritize group harmony. It's not selfish — it's a different orientation. Fi users have deep empathy, but they won't sacrifice their core values for social comfort.",
+        explanation: "Fi's insistence on personal authenticity can look like selfishness to Fe users who prioritize group harmony. It's not selfish, it's a different orientation. Fi users have deep empathy, but they won't sacrifice their core values for social comfort.",
       },
     },
     {
@@ -646,7 +646,7 @@ const lesson4: Lesson = {
         type: "matching-pairs",
         instruction: "Match each response to whether it reflects Fi or Fe.",
         pairs: [
-          { left: "Fi", right: "'I can't support this — it goes against who I am'" },
+          { left: "Fi", right: "'I can't support this, it goes against who I am'" },
           { left: "Fe", right: "'Let's find something everyone can agree on'" },
           { left: "Fi", right: "'I don't care if everyone else is okay with it'" },
           { left: "Fe", right: "'Can you sense the tension in this room?'" },
@@ -686,7 +686,7 @@ const lesson4: Lesson = {
       difficulty: 3,
       content: {
         type: "scenario",
-        scenario: "At a dinner party, the host makes a casually racist joke. Person A immediately says to the group, 'Hey, that's not cool — we don't talk like that here.' Person B says nothing at dinner but later privately tells the host, 'That joke crossed a line for me and I want you to know that.'",
+        scenario: "At a dinner party, the host makes a casually racist joke. Person A immediately says to the group, 'Hey, that's not cool, we don't talk like that here.' Person B says nothing at dinner but later privately tells the host, 'That joke crossed a line for me and I want you to know that.'",
         question: "Which person is demonstrating Fi and which Fe?",
         options: [
           "Person A = Fi, Person B = Fe",
@@ -695,7 +695,7 @@ const lesson4: Lesson = {
           "Both are Fe",
         ],
         correctIndex: 1,
-        explanation: "Person A addresses the group dynamic publicly ('we don't talk like that here') — classic Fe managing the social environment. Person B addresses it privately and personally ('crossed a line for me') — classic Fi honoring individual values.",
+        explanation: "Person A addresses the group dynamic publicly ('we don't talk like that here'), classic Fe managing the social environment. Person B addresses it privately and personally ('crossed a line for me'), classic Fi honoring individual values.",
       },
     },
     {
@@ -703,7 +703,7 @@ const lesson4: Lesson = {
       difficulty: 3,
       content: {
         type: "scenario",
-        scenario: "Two artists explain their creative process. Artist 1: 'I create what I need to express from within — if others connect with it, great, but that's not why I make it.' Artist 2: 'I create to move people emotionally — I'm always thinking about how the audience will feel.'",
+        scenario: "Two artists explain their creative process. Artist 1: 'I create what I need to express from within, if others connect with it, great, but that's not why I make it.' Artist 2: 'I create to move people emotionally, I'm always thinking about how the audience will feel.'",
         question: "Which artist is using Fi and which is using Fe in their creative process?",
         options: [
           "Artist 1 = Fe, Artist 2 = Fi",
@@ -724,7 +724,7 @@ const lesson4: Lesson = {
         question: "What's the best way to distinguish genuine Fi from simple stubbornness?",
         options: [
           "Fi users can articulate the values behind their stance; stubborn people just don't want to be wrong",
-          "There is no difference — Fi IS stubbornness",
+          "There is no difference, Fi IS stubbornness",
           "Fi users are always calm; stubborn people get angry",
           "Fi users only care about moral issues; stubborn people care about everything",
         ],

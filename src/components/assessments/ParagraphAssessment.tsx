@@ -79,7 +79,7 @@ export default function ParagraphAssessment({
             Which descriptions fit you best?
           </h2>
           <p className="text-sm text-slate-500 max-w-lg mx-auto">
-            Read each paragraph carefully. Select up to 3 that resonate most deeply with your lifelong patterns — especially the parts about motivation and fear.
+            Read each paragraph carefully. Select up to 3 that resonate most deeply with your lifelong patterns, especially the parts about motivation and fear.
           </p>
         </div>
 

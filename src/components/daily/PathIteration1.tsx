@@ -3,12 +3,12 @@
 /**
  * ITERATION 1: "Classic Duolingo"
  *
- * - Big solid-color circles (72px) — NO gradient rings, NO SVG strokes
+ * - Big solid-color circles (72px), NO gradient rings, NO SVG strokes
  * - Green = complete (with gold crown), Gold = current (pulsing glow + big START), Gray = locked
  * - Thick curved connector lines (4px)
  * - Background color bands per section
  * - Chibi sprite peeks out next to current node
- * - No unit headers at all — one continuous flow
+ * - No unit headers at all, one continuous flow
  * - Labels below nodes, clean and minimal
  */
 

@@ -1,5 +1,5 @@
 // ─────────────────────────────────────────────────────────────────────────────
-// Unit 17 — Extraverted Thinking (Te)
+// Unit 17, Extraverted Thinking (Te)
 // Results machine, external organization, measurable effectiveness
 // ─────────────────────────────────────────────────────────────────────────────
 
@@ -23,7 +23,7 @@ const lesson1: Lesson = {
       content: {
         type: "concept-intro",
         title: "What Is Extraverted Thinking?",
-        body: "Te is an organizing force that structures the external world for efficiency and measurable results. It asks: 'What works? What do the results show? What's the most effective path to the outcome?' Te doesn't care about elegant theory — it cares about getting things done.",
+        body: "Te is an organizing force that structures the external world for efficiency and measurable results. It asks: 'What works? What do the results show? What's the most effective path to the outcome?' Te doesn't care about elegant theory, it cares about getting things done.",
         highlight: "measurable results",
       },
     },
@@ -50,7 +50,7 @@ const lesson1: Lesson = {
           "What are all the possibilities?",
         ],
         correctIndex: 2,
-        explanation: "Te is laser-focused on effectiveness. It measures success by external, verifiable results — not by how elegant the theory is, not by how it feels, but by what actually WORKS.",
+        explanation: "Te is laser-focused on effectiveness. It measures success by external, verifiable results, not by how elegant the theory is, not by how it feels, but by what actually WORKS.",
       },
     },
     {
@@ -108,7 +108,7 @@ const lesson1: Lesson = {
         sentence: "Te organizes the ___ world for efficiency, while Ti organizes the ___ world for logical consistency.",
         options: ["external / internal", "internal / external", "social / personal", "past / future"],
         correctIndex: 0,
-        explanation: "The i/e distinction is about direction. Te faces outward — organizing systems, processes, and people in the external world. Ti faces inward — organizing ideas, models, and logical frameworks in the internal world.",
+        explanation: "The i/e distinction is about direction. Te faces outward, organizing systems, processes, and people in the external world. Ti faces inward, organizing ideas, models, and logical frameworks in the internal world.",
       },
     },
     {
@@ -116,7 +116,7 @@ const lesson1: Lesson = {
       difficulty: 2,
       content: {
         type: "fill-in-blank",
-        sentence: "Te users often have a natural ability to ___ — breaking complex goals into actionable steps with deadlines.",
+        sentence: "Te users often have a natural ability to ___, breaking complex goals into actionable steps with deadlines.",
         options: ["create action plans", "build theories", "read emotions", "generate ideas"],
         correctIndex: 0,
         explanation: "Te excels at turning abstract goals into concrete, step-by-step plans with deadlines and accountability. This is the function behind project management, business strategy, and operational efficiency.",
@@ -136,7 +136,7 @@ const lesson1: Lesson = {
           "Using Fe to manage the team dynamic",
         ],
         correctIndex: 1,
-        explanation: "This is pure Te in action: creating structure (timeline, roles, budget), defining success (metrics), and demanding evidence ('show me data'). It's not about being controlling — it's about ensuring the effort produces measurable results.",
+        explanation: "This is pure Te in action: creating structure (timeline, roles, budget), defining success (metrics), and demanding evidence ('show me data'). It's not about being controlling, it's about ensuring the effort produces measurable results.",
       },
     },
     {
@@ -147,13 +147,13 @@ const lesson1: Lesson = {
         scenario: "Two students prepare for the same exam. Student A reads every textbook chapter twice, takes detailed notes, and builds study guides. Student B skips the textbook, finds a YouTube video that summarizes the key concepts, does practice tests to identify gaps, and studies only what they get wrong.",
         question: "Which student is demonstrating Te?",
         options: [
-          "Student A — they're more thorough",
-          "Student B — they optimized for the RESULT (passing the exam) using the most efficient path",
+          "Student A, they're more thorough",
+          "Student B, they optimized for the RESULT (passing the exam) using the most efficient path",
           "Both equally",
-          "Neither — this is just study habits",
+          "Neither, this is just study habits",
         ],
         correctIndex: 1,
-        explanation: "Student B is using Te logic: What's the goal? (pass the exam) What's the most efficient path? (target weak areas) What measures progress? (practice tests). Student A's thoroughness might reflect Si or Ti — understanding everything, not just what's needed.",
+        explanation: "Student B is using Te logic: What's the goal? (pass the exam) What's the most efficient path? (target weak areas) What measures progress? (practice tests). Student A's thoroughness might reflect Si or Ti, understanding everything, not just what's needed.",
       },
     },
     {
@@ -168,7 +168,7 @@ const lesson1: Lesson = {
           { text: "I need to understand the underlying theory first", categoryIndex: 1 },
           { text: "Let's set clear KPIs and review weekly", categoryIndex: 0 },
           { text: "How does this align with my personal values?", categoryIndex: 1 },
-          { text: "If it ain't broke, don't fix it — but if it IS broke, fix it NOW", categoryIndex: 0 },
+          { text: "If it ain't broke, don't fix it, but if it IS broke, fix it NOW", categoryIndex: 0 },
           { text: "I need more time to think about all the possibilities", categoryIndex: 1 },
         ],
       },
@@ -292,7 +292,7 @@ const lesson2: Lesson = {
         sentence: "An INFP under stress may experience inferior Te as a harsh inner voice saying: 'You're not ___ enough. Everyone else is getting things done and you're falling behind.'",
         options: ["productive", "creative", "social", "spiritual"],
         correctIndex: 0,
-        explanation: "Inferior Te in Fi-dominant types manifests as brutal self-criticism about PRODUCTIVITY and ACHIEVEMENT — the exact domain they normally don't prioritize. It's their own Te turning against them with Te standards they can't meet.",
+        explanation: "Inferior Te in Fi-dominant types manifests as brutal self-criticism about PRODUCTIVITY and ACHIEVEMENT, the exact domain they normally don't prioritize. It's their own Te turning against them with Te standards they can't meet.",
       },
     },
     {
@@ -303,7 +303,7 @@ const lesson2: Lesson = {
         sentence: "ENFPs with tertiary Te often develop better ___ as they mature, learning to follow through on their many ideas.",
         options: ["organizational skills", "emotional depth", "sensory awareness", "logical analysis"],
         correctIndex: 0,
-        explanation: "Tertiary Te develops through adulthood. ENFPs who mature well learn to harness Te to actually implement their Ne ideas — turning from chronic idea-starters into effective idea-completers.",
+        explanation: "Tertiary Te develops through adulthood. ENFPs who mature well learn to harness Te to actually implement their Ne ideas, turning from chronic idea-starters into effective idea-completers.",
       },
     },
     {
@@ -315,7 +315,7 @@ const lesson2: Lesson = {
         question: "What's happening psychologically?",
         options: [
           "Maya is becoming more organized and mature",
-          "Her inferior Te has taken over — she's using productivity as a substitute for the authentic creative expression she needs",
+          "Her inferior Te has taken over, she's using productivity as a substitute for the authentic creative expression she needs",
           "Maya is developing a healthy Te",
           "She's experiencing an Ni grip",
         ],
@@ -364,10 +364,10 @@ const lesson2: Lesson = {
         type: "multiple-choice",
         question: "True or false: Inferior Te means the person can never be organized.",
         options: [
-          "True — they're destined to be messy",
-          "False — they can develop Te, but it will always feel like more effort than it does for Te-dominant types",
-          "True — only Te-dominant types can organize",
-          "False — inferior Te is actually more powerful than dominant Te",
+          "True, they're destined to be messy",
+          "False, they can develop Te, but it will always feel like more effort than it does for Te-dominant types",
+          "True, only Te-dominant types can organize",
+          "False, inferior Te is actually more powerful than dominant Te",
         ],
         correctIndex: 1,
         explanation: "Inferior Te can be developed through conscious effort and maturity. But it will never feel as natural or effortless as it does for ENTJ/ESTJ types. The key is learning to use Te without letting it become a self-attacking force.",
@@ -392,7 +392,7 @@ const lesson3: Lesson = {
       content: {
         type: "concept-intro",
         title: "Te in Relationships",
-        body: "Te users show love through ACTION — solving your problems, fixing your broken appliance, creating systems that make your life easier. They struggle when partners want emotional validation rather than solutions. 'I fixed it for you' IS their love language.",
+        body: "Te users show love through ACTION, solving your problems, fixing your broken appliance, creating systems that make your life easier. They struggle when partners want emotional validation rather than solutions. 'I fixed it for you' IS their love language.",
         highlight: "love through action",
       },
     },
@@ -419,7 +419,7 @@ const lesson3: Lesson = {
           "Giving lots of space and independence",
         ],
         correctIndex: 1,
-        explanation: "Te's love language is practical action. They show they care by DOING — fixing things, organizing things, solving problems, making your life more efficient. It's not romantic in a traditional sense, but it's deeply caring.",
+        explanation: "Te's love language is practical action. They show they care by DOING, fixing things, organizing things, solving problems, making your life more efficient. It's not romantic in a traditional sense, but it's deeply caring.",
       },
     },
     {
@@ -435,7 +435,7 @@ const lesson3: Lesson = {
           "Focusing too much on the past",
         ],
         correctIndex: 1,
-        explanation: "Te instinctively responds to problems with solutions. But emotional pain often doesn't need solving — it needs witnessing. Te's 'Let me fix this' can feel dismissive to a partner who needs 'I hear you and I'm here.'",
+        explanation: "Te instinctively responds to problems with solutions. But emotional pain often doesn't need solving, it needs witnessing. Te's 'Let me fix this' can feel dismissive to a partner who needs 'I hear you and I'm here.'",
       },
     },
     {
@@ -477,7 +477,7 @@ const lesson3: Lesson = {
         sentence: "Unhealthy Te can treat people as ___ to be optimized rather than humans to be understood.",
         options: ["resources", "theories", "emotions", "puzzles"],
         correctIndex: 0,
-        explanation: "Te's shadow reduces people to their utility. 'What value do you add?' becomes the only question. This is why Te integration with Fi is crucial — Fi reminds Te that people have intrinsic worth beyond their productivity.",
+        explanation: "Te's shadow reduces people to their utility. 'What value do you add?' becomes the only question. This is why Te integration with Fi is crucial, Fi reminds Te that people have intrinsic worth beyond their productivity.",
       },
     },
     {
@@ -488,7 +488,7 @@ const lesson3: Lesson = {
         sentence: "The phrase 'time is money' perfectly captures Te's tendency to ___ everything, including relationships and rest.",
         options: ["quantify", "spiritualize", "ignore", "beautify"],
         correctIndex: 0,
-        explanation: "Te naturally quantifies — turning everything into measurable units. This is powerful for business but can be destructive when applied to things that resist measurement, like love, creativity, and personal growth.",
+        explanation: "Te naturally quantifies, turning everything into measurable units. This is powerful for business but can be destructive when applied to things that resist measurement, like love, creativity, and personal growth.",
       },
     },
     {
@@ -500,12 +500,12 @@ const lesson3: Lesson = {
         question: "What's happening here?",
         options: [
           "She's successfully applying Te to her personal life",
-          "She's applying Te to a domain (relationships) that requires Fi — you can't schedule and measure love",
+          "She's applying Te to a domain (relationships) that requires Fi, you can't schedule and measure love",
           "She doesn't care about her family",
           "She needs to work harder on her business",
         ],
         correctIndex: 1,
-        explanation: "This is Te trying to solve an Fi problem. You can't fix a relationship with a spreadsheet. Her family doesn't need optimized quality time — they need her authentic emotional presence (Fi). Te tools don't work for every problem.",
+        explanation: "This is Te trying to solve an Fi problem. You can't fix a relationship with a spreadsheet. Her family doesn't need optimized quality time, they need her authentic emotional presence (Fi). Te tools don't work for every problem.",
       },
     },
     {
@@ -517,7 +517,7 @@ const lesson3: Lesson = {
         question: "What does this reveal about Te's strengths and limitations?",
         options: [
           "Te is always better because Person A recovered faster",
-          "Te excels at efficient action but may skip the deeper question of 'What do I actually want?' — which Fi provides",
+          "Te excels at efficient action but may skip the deeper question of 'What do I actually want?', which Fi provides",
           "Person B was lazy for taking so long",
           "Te and Fi produce identical outcomes",
         ],
@@ -550,12 +550,12 @@ const lesson3: Lesson = {
         question: "What does healthy Te development require?",
         options: [
           "Eliminating all emotions from decision-making",
-          "Integrating Fi — remembering that people and values matter alongside results",
+          "Integrating Fi, remembering that people and values matter alongside results",
           "Working harder and longer hours",
           "Only focusing on measurable outcomes",
         ],
         correctIndex: 1,
-        explanation: "Healthy Te integrates Fi — personal values, emotional awareness, and recognition that not everything valuable can be measured. Without Fi, Te becomes a machine that optimizes for metrics while missing what truly matters.",
+        explanation: "Healthy Te integrates Fi, personal values, emotional awareness, and recognition that not everything valuable can be measured. Without Fi, Te becomes a machine that optimizes for metrics while missing what truly matters.",
       },
     },
   ],
@@ -587,7 +587,7 @@ const lesson4: Lesson = {
       content: {
         type: "concept-intro",
         title: "Te vs. Se: Action vs. Reaction",
-        body: "Te and Se are both action-oriented, but differently. Te acts to achieve PLANNED outcomes — it's strategic. Se acts in response to PRESENT circumstances — it's tactical. Te plans the war; Se wins the fight. Both get things done, but through different mechanisms.",
+        body: "Te and Se are both action-oriented, but differently. Te acts to achieve PLANNED outcomes, it's strategic. Se acts in response to PRESENT circumstances, it's tactical. Te plans the war; Se wins the fight. Both get things done, but through different mechanisms.",
         highlight: "strategic vs. tactical",
       },
     },
@@ -598,10 +598,10 @@ const lesson4: Lesson = {
         type: "multiple-choice",
         question: "Someone builds a detailed project plan with milestones, deadlines, and KPIs before starting any work. Is this Te or Ti?",
         options: [
-          "Ti — they're being thorough and logical",
-          "Te — they're organizing EXTERNAL structures for measurable results",
+          "Ti, they're being thorough and logical",
+          "Te, they're organizing EXTERNAL structures for measurable results",
           "Both equally",
-          "Neither — this is just good planning",
+          "Neither, this is just good planning",
         ],
         correctIndex: 1,
         explanation: "Project plans with milestones, deadlines, and KPIs are textbook Te. They organize the EXTERNAL world for measurable achievement. Ti would be more like building an internal model to understand HOW the project works.",
@@ -614,13 +614,13 @@ const lesson4: Lesson = {
         type: "multiple-choice",
         question: "Someone values 'best practices,' industry standards, and proven methodologies. Which function?",
         options: [
-          "Ti — they respect logical rigor",
-          "Te — they trust externally validated, results-proven approaches",
-          "Si — they value tradition",
-          "Ni — they see the pattern",
+          "Ti, they respect logical rigor",
+          "Te, they trust externally validated, results-proven approaches",
+          "Si, they value tradition",
+          "Ni, they see the pattern",
         ],
         correctIndex: 1,
-        explanation: "Te trusts what has been PROVEN to work externally — best practices, industry standards, expert consensus. Ti would want to verify these from first principles. Te accepts external validation; Ti demands personal verification.",
+        explanation: "Te trusts what has been PROVEN to work externally, best practices, industry standards, expert consensus. Ti would want to verify these from first principles. Te accepts external validation; Ti demands personal verification.",
       },
     },
     {
@@ -650,7 +650,7 @@ const lesson4: Lesson = {
           { text: "Let's try it and see what the results tell us", categoryIndex: 0 },
           { text: "Let me think through all the implications first", categoryIndex: 1 },
           { text: "What do the industry benchmarks say?", categoryIndex: 0 },
-          { text: "I don't care what experts say — does it make logical sense?", categoryIndex: 1 },
+          { text: "I don't care what experts say, does it make logical sense?", categoryIndex: 1 },
           { text: "We need to ship by Friday, good enough is good enough", categoryIndex: 0 },
           { text: "I'd rather delay than ship something I don't fully understand", categoryIndex: 1 },
         ],
@@ -686,7 +686,7 @@ const lesson4: Lesson = {
       difficulty: 3,
       content: {
         type: "scenario",
-        scenario: "At a startup, the CTO (INTP) and CEO (ENTJ) clash constantly. The CTO says: 'We can't launch — the architecture has fundamental flaws I need to redesign.' The CEO says: 'Customers don't care about architecture — they care about features. Ship it, learn from users, iterate.'",
+        scenario: "At a startup, the CTO (INTP) and CEO (ENTJ) clash constantly. The CTO says: 'We can't launch, the architecture has fundamental flaws I need to redesign.' The CEO says: 'Customers don't care about architecture, they care about features. Ship it, learn from users, iterate.'",
         question: "What function clash is happening?",
         options: [
           "Fe vs. Fi",
@@ -695,7 +695,7 @@ const lesson4: Lesson = {
           "Se vs. Si",
         ],
         correctIndex: 1,
-        explanation: "Classic Ti vs. Te clash. The Ti user can't ship something with known logical flaws. The Te user prioritizes real-world feedback over theoretical perfection. Both have valid points — the best outcomes usually involve compromise between these orientations.",
+        explanation: "Classic Ti vs. Te clash. The Ti user can't ship something with known logical flaws. The Te user prioritizes real-world feedback over theoretical perfection. Both have valid points, the best outcomes usually involve compromise between these orientations.",
       },
     },
     {
@@ -703,7 +703,7 @@ const lesson4: Lesson = {
       difficulty: 3,
       content: {
         type: "scenario",
-        scenario: "You're trying to determine if your coworker uses Te or is just a 'Type A personality.' They're organized, driven, and results-focused — but is that Te specifically?",
+        scenario: "You're trying to determine if your coworker uses Te or is just a 'Type A personality.' They're organized, driven, and results-focused, but is that Te specifically?",
         question: "What would confirm Te specifically rather than just general ambition?",
         options: [
           "They work long hours",
@@ -712,7 +712,7 @@ const lesson4: Lesson = {
           "They arrive to work early",
         ],
         correctIndex: 1,
-        explanation: "Te is specifically about EXTERNAL organization and MEASURABLE results. Being personally ambitious could come from any function. Te creates systems, structures processes, and insists on quantifiable metrics — it organizes the external world, not just the self.",
+        explanation: "Te is specifically about EXTERNAL organization and MEASURABLE results. Being personally ambitious could come from any function. Te creates systems, structures processes, and insists on quantifiable metrics, it organizes the external world, not just the self.",
       },
     },
     {
@@ -720,7 +720,7 @@ const lesson4: Lesson = {
       difficulty: 3,
       content: {
         type: "scenario",
-        scenario: "Two people both say 'That's wrong.' Person A means: 'That's factually incorrect — the data doesn't support it.' Person B means: 'That's logically incoherent — there's a contradiction in the reasoning.'",
+        scenario: "Two people both say 'That's wrong.' Person A means: 'That's factually incorrect, the data doesn't support it.' Person B means: 'That's logically incoherent, there's a contradiction in the reasoning.'",
         question: "Which is Te and which is Ti?",
         options: [
           "Person A = Ti, Person B = Te",
@@ -729,7 +729,7 @@ const lesson4: Lesson = {
           "Both are Ti",
         ],
         correctIndex: 2,
-        explanation: "Person A references EXTERNAL evidence (data, facts) — Te's standard of proof. Person B references INTERNAL logical coherence (contradictions in reasoning) — Ti's standard of proof. Both are valid forms of 'wrong' but from different thinking orientations.",
+        explanation: "Person A references EXTERNAL evidence (data, facts), Te's standard of proof. Person B references INTERNAL logical coherence (contradictions in reasoning), Ti's standard of proof. Both are valid forms of 'wrong' but from different thinking orientations.",
       },
     },
     {
@@ -745,7 +745,7 @@ const lesson4: Lesson = {
           "An inner value compass that judges authenticity",
         ],
         correctIndex: 2,
-        explanation: "Te is the results machine. It organizes the external world — systems, processes, people, resources — to produce measurable, verifiable outcomes as efficiently as possible.",
+        explanation: "Te is the results machine. It organizes the external world, systems, processes, people, resources, to produce measurable, verifiable outcomes as efficiently as possible.",
       },
     },
   ],

@@ -1,5 +1,5 @@
 // ─────────────────────────────────────────────────────────────────────────────
-// Unit 7 — Type 5: The Investigator
+// Unit 7, Type 5: The Investigator
 // 4 lessons × 12 exercises each
 // ─────────────────────────────────────────────────────────────────────────────
 
@@ -31,7 +31,7 @@ const lesson1: Lesson = {
       content: {
         type: "concept-intro",
         title: "Fear, Desire & the Limited Battery",
-        body: "The core fear of Type 5 is being useless, helpless, or overwhelmed by the world's demands. Their core desire is to be competent and capable. Fives operate with a 'limited battery' metaphor — they feel they have finite energy for social interaction and emotional engagement, and must recharge alone.",
+        body: "The core fear of Type 5 is being useless, helpless, or overwhelmed by the world's demands. Their core desire is to be competent and capable. Fives operate with a 'limited battery' metaphor, they feel they have finite energy for social interaction and emotional engagement, and must recharge alone.",
         highlight: "limited battery",
       },
     },
@@ -49,7 +49,7 @@ const lesson1: Lesson = {
         ],
         correctIndex: 1,
         explanation:
-          "Fives fear being incapable, overwhelmed, or depleted. The world feels demanding, and they worry they don't have enough inner resources to meet those demands — so they retreat to build competence and conserve energy.",
+          "Fives fear being incapable, overwhelmed, or depleted. The world feels demanding, and they worry they don't have enough inner resources to meet those demands, so they retreat to build competence and conserve energy.",
       },
     },
     {
@@ -66,7 +66,7 @@ const lesson1: Lesson = {
         ],
         correctIndex: 2,
         explanation:
-          "Fives want mastery and understanding above all. If they can comprehend how something works — from quantum physics to human behavior — they feel equipped to handle the world. Knowledge is their safety net.",
+          "Fives want mastery and understanding above all. If they can comprehend how something works, from quantum physics to human behavior, they feel equipped to handle the world. Knowledge is their safety net.",
       },
     },
     {
@@ -83,7 +83,7 @@ const lesson1: Lesson = {
         ],
         correctIndex: 1,
         explanation:
-          "Fives experience social and emotional engagement as genuinely draining — not laziness, but a felt sense that their inner resources are limited. They need solitude to recharge in a way other types may not fully understand.",
+          "Fives experience social and emotional engagement as genuinely draining, not laziness, but a felt sense that their inner resources are limited. They need solitude to recharge in a way other types may not fully understand.",
       },
     },
     {
@@ -110,7 +110,7 @@ const lesson1: Lesson = {
         options: ["attacking", "withdrawing", "complaining", "performing"],
         correctIndex: 1,
         explanation:
-          "Withdrawal is the Five's primary strategy. They step back from the world to watch, analyze, and accumulate knowledge — building an internal fortress of understanding before engaging.",
+          "Withdrawal is the Five's primary strategy. They step back from the world to watch, analyze, and accumulate knowledge, building an internal fortress of understanding before engaging.",
       },
     },
     {
@@ -132,11 +132,11 @@ const lesson1: Lesson = {
       content: {
         type: "scenario",
         scenario:
-          "At a team meeting, everyone is brainstorming loudly and energetically. Kai sits quietly, taking mental notes but saying nothing. Afterward, Kai goes back to their desk feeling exhausted and puts on headphones. Later that evening, Kai sends a detailed email with a fully formed analysis of the problem — better than anything discussed in the meeting.",
+          "At a team meeting, everyone is brainstorming loudly and energetically. Kai sits quietly, taking mental notes but saying nothing. Afterward, Kai goes back to their desk feeling exhausted and puts on headphones. Later that evening, Kai sends a detailed email with a fully formed analysis of the problem, better than anything discussed in the meeting.",
         question: "What Type 5 dynamic is at work here?",
         options: [
           "Kai is being passive-aggressive about the meeting",
-          "The limited battery in action — Kai conserves energy in group settings, then contributes from the safety of solitude",
+          "The limited battery in action, Kai conserves energy in group settings, then contributes from the safety of solitude",
           "Kai is a Type 9 avoiding conflict",
           "Kai is simply an introvert, not necessarily a Five",
         ],
@@ -151,11 +151,11 @@ const lesson1: Lesson = {
       content: {
         type: "scenario",
         scenario:
-          "River's partner says: 'You never share what you're feeling. I have to guess what's going on with you.' River genuinely doesn't understand the complaint — they feel like they share plenty. But River's idea of sharing is explaining their theory about why a situation happened, not expressing how it made them feel.",
+          "River's partner says: 'You never share what you're feeling. I have to guess what's going on with you.' River genuinely doesn't understand the complaint, they feel like they share plenty. But River's idea of sharing is explaining their theory about why a situation happened, not expressing how it made them feel.",
         question: "What Five pattern does this illustrate?",
         options: [
           "River is being emotionally manipulative",
-          "River replaces emotional engagement with intellectual analysis — understanding substitutes for feeling",
+          "River replaces emotional engagement with intellectual analysis, understanding substitutes for feeling",
           "River is a Type 3 avoiding vulnerability",
           "This is normal behavior for everyone, not type-specific",
         ],
@@ -170,17 +170,17 @@ const lesson1: Lesson = {
       content: {
         type: "scenario",
         scenario:
-          "Drew has been invited to a weekend cabin trip with friends. Instead of feeling excited, Drew feels a knot of dread: two full days of constant social interaction with no escape route. Drew wants to go — they care about these people — but starts strategizing: 'Maybe I can take a long walk alone Saturday afternoon. I'll need at least a few hours to recharge.'",
+          "Drew has been invited to a weekend cabin trip with friends. Instead of feeling excited, Drew feels a knot of dread: two full days of constant social interaction with no escape route. Drew wants to go, they care about these people, but starts strategizing: 'Maybe I can take a long walk alone Saturday afternoon. I'll need at least a few hours to recharge.'",
         question: "What core Five experience is Drew dealing with?",
         options: [
           "Social anxiety disorder",
-          "The fundamental feeling that their energy is finite and must be rationed — even for people they love",
+          "The fundamental feeling that their energy is finite and must be rationed, even for people they love",
           "Drew doesn't actually like their friends",
           "Type 6 worry about what could go wrong",
         ],
         correctIndex: 1,
         explanation:
-          "Drew genuinely cares but experiences togetherness as a resource drain. This isn't dislike or anxiety — it's the Five's core experience that engagement costs energy they may not be able to replenish. Planning escape routes is survival strategy, not rejection.",
+          "Drew genuinely cares but experiences togetherness as a resource drain. This isn't dislike or anxiety, it's the Five's core experience that engagement costs energy they may not be able to replenish. Planning escape routes is survival strategy, not rejection.",
       },
     },
     {
@@ -197,7 +197,7 @@ const lesson1: Lesson = {
         ],
         correctIndex: 2,
         explanation:
-          "Fives are in the Head triad alongside Types 6 and 7. Their core issue is fear — specifically, fear of being overwhelmed and incompetent. They manage this fear by retreating into their minds to observe and understand.",
+          "Fives are in the Head triad alongside Types 6 and 7. Their core issue is fear, specifically, fear of being overwhelmed and incompetent. They manage this fear by retreating into their minds to observe and understand.",
       },
     },
   ],
@@ -219,7 +219,7 @@ const lesson2: Lesson = {
       content: {
         type: "concept-intro",
         title: "The Passion: Avarice",
-        body: "Naranjo identified the Five's passion as Avarice — but not greed for money. It's the hoarding of time, energy, knowledge, and personal space. Fives feel they never have 'enough' inner resources, so they clutch what they have and minimize what they give out.",
+        body: "Naranjo identified the Five's passion as Avarice, but not greed for money. It's the hoarding of time, energy, knowledge, and personal space. Fives feel they never have 'enough' inner resources, so they clutch what they have and minimize what they give out.",
         highlight: "Avarice",
       },
     },
@@ -229,7 +229,7 @@ const lesson2: Lesson = {
       content: {
         type: "concept-intro",
         title: "The Virtue: Non-Attachment",
-        body: "The antidote is Non-Attachment — the generous sharing of self, time, and knowledge without fear of depletion. Healthy Fives discover that giving doesn't empty them; it actually creates more energy. Engagement replenishes rather than drains.",
+        body: "The antidote is Non-Attachment, the generous sharing of self, time, and knowledge without fear of depletion. Healthy Fives discover that giving doesn't empty them; it actually creates more energy. Engagement replenishes rather than drains.",
         highlight: "Non-Attachment",
       },
     },
@@ -242,7 +242,7 @@ const lesson2: Lesson = {
         options: ["Envy", "Avarice", "Sloth", "Anger"],
         correctIndex: 1,
         explanation:
-          "Avarice in the Enneagram sense isn't about money — it's the hoarding of inner resources. Fives cling to their time, energy, space, and knowledge because they feel these are in permanently short supply.",
+          "Avarice in the Enneagram sense isn't about money, it's the hoarding of inner resources. Fives cling to their time, energy, space, and knowledge because they feel these are in permanently short supply.",
       },
     },
     {
@@ -254,7 +254,7 @@ const lesson2: Lesson = {
         options: ["Equanimity", "Non-Attachment", "Humility", "Courage"],
         correctIndex: 1,
         explanation:
-          "Non-Attachment allows Fives to share freely — their knowledge, their time, their presence — without the constant fear of being depleted. They discover that generosity of self actually generates more energy, not less.",
+          "Non-Attachment allows Fives to share freely, their knowledge, their time, their presence, without the constant fear of being depleted. They discover that generosity of self actually generates more energy, not less.",
       },
     },
     {
@@ -264,14 +264,14 @@ const lesson2: Lesson = {
         type: "multiple-choice",
         question: "How does Five-type Avarice differ from ordinary greed?",
         options: [
-          "It doesn't — they're the same thing",
-          "It's about hoarding time, energy, and space — not material wealth",
+          "It doesn't, they're the same thing",
+          "It's about hoarding time, energy, and space, not material wealth",
           "It's less intense than regular greed",
           "It only applies to knowledge",
         ],
         correctIndex: 1,
         explanation:
-          "A Five might live in a tiny apartment and own very little, yet be intensely 'greedy' about their time and solitude. Avarice here means clutching your inner resources — not your bank account.",
+          "A Five might live in a tiny apartment and own very little, yet be intensely 'greedy' about their time and solitude. Avarice here means clutching your inner resources, not your bank account.",
       },
     },
     {
@@ -324,17 +324,17 @@ const lesson2: Lesson = {
       content: {
         type: "scenario",
         scenario:
-          "Morgan has spent three years becoming an expert on climate science. A colleague asks Morgan to give a talk at an internal conference. Morgan's first instinct is resistance: 'If I share everything I know, what will I have left? They'll take my ideas and I'll have given away my advantage.' Morgan almost declines — not from stage fright, but from the feeling of being emptied out.",
+          "Morgan has spent three years becoming an expert on climate science. A colleague asks Morgan to give a talk at an internal conference. Morgan's first instinct is resistance: 'If I share everything I know, what will I have left? They'll take my ideas and I'll have given away my advantage.' Morgan almost declines, not from stage fright, but from the feeling of being emptied out.",
         question: "What passion dynamic is this?",
         options: [
           "Healthy boundary-setting about intellectual property",
-          "Avarice — the fear that sharing knowledge will deplete a finite internal resource",
+          "Avarice, the fear that sharing knowledge will deplete a finite internal resource",
           "Type 3 competitiveness about being the best",
           "Type 6 suspicion of colleagues' motives",
         ],
         correctIndex: 1,
         explanation:
-          "This is Avarice in its purest form. Morgan experiences knowledge as a limited resource that will be 'used up' if shared. The fear isn't about credit or competition — it's the gut feeling that giving away what you know leaves you with less.",
+          "This is Avarice in its purest form. Morgan experiences knowledge as a limited resource that will be 'used up' if shared. The fear isn't about credit or competition, it's the gut feeling that giving away what you know leaves you with less.",
       },
     },
     {
@@ -343,17 +343,17 @@ const lesson2: Lesson = {
       content: {
         type: "scenario",
         scenario:
-          "After years of living like a hermit, Dr. Chen — a brilliant researcher — starts mentoring graduate students, giving public lectures, and even hosting dinner parties. A friend says: 'You seem so different.' Dr. Chen replies: 'I realized that sharing my work doesn't drain me — it actually energizes me. The more I give, the more I have.'",
+          "After years of living like a hermit, Dr. Chen, a brilliant researcher, starts mentoring graduate students, giving public lectures, and even hosting dinner parties. A friend says: 'You seem so different.' Dr. Chen replies: 'I realized that sharing my work doesn't drain me, it actually energizes me. The more I give, the more I have.'",
         question: "What growth is Dr. Chen demonstrating?",
         options: [
-          "Dr. Chen is suppressing their Five nature — this won't last",
-          "Dr. Chen is accessing Non-Attachment — discovering that generosity creates rather than depletes",
+          "Dr. Chen is suppressing their Five nature, this won't last",
+          "Dr. Chen is accessing Non-Attachment, discovering that generosity creates rather than depletes",
           "Dr. Chen is becoming a Type 2",
           "Dr. Chen was never really a Five",
         ],
         correctIndex: 1,
         explanation:
-          "This is Non-Attachment in action. Dr. Chen hasn't lost their depth or need for solitude — they've discovered the paradox at the heart of Five growth: giving away knowledge and presence actually generates more energy than hoarding ever did.",
+          "This is Non-Attachment in action. Dr. Chen hasn't lost their depth or need for solitude, they've discovered the paradox at the heart of Five growth: giving away knowledge and presence actually generates more energy than hoarding ever did.",
       },
     },
     {
@@ -365,10 +365,10 @@ const lesson2: Lesson = {
           "Alex hasn't left their apartment in two weeks. They've stopped answering calls, convinced that people only want something from them. The apartment is full of books and research, but Alex has stopped eating properly. Alex thinks: 'None of it matters anyway. The universe is indifferent and human connection is just mutual exploitation.'",
         question: "What health level is Alex at?",
         options: [
-          "Healthy — they're deep in focused research",
-          "Average — normal Five withdrawal",
-          "Unhealthy — isolation has become paranoid withdrawal with nihilistic thinking",
-          "This is between average and unhealthy — the nihilism is a warning sign",
+          "Healthy, they're deep in focused research",
+          "Average, normal Five withdrawal",
+          "Unhealthy, isolation has become paranoid withdrawal with nihilistic thinking",
+          "This is between average and unhealthy, the nihilism is a warning sign",
         ],
         correctIndex: 2,
         explanation:
@@ -383,13 +383,13 @@ const lesson2: Lesson = {
         question: "Non-Attachment for a Five means:",
         options: [
           "Not caring about anything",
-          "Sharing freely — time, energy, knowledge — without fear of being depleted",
+          "Sharing freely, time, energy, knowledge, without fear of being depleted",
           "Giving up all possessions",
           "Becoming emotionally detached",
         ],
         correctIndex: 1,
         explanation:
-          "Non-Attachment isn't indifference or detachment — it's the freedom to give generously because you've discovered that your inner resources aren't as limited as you feared. It's openness, not emptiness.",
+          "Non-Attachment isn't indifference or detachment, it's the freedom to give generously because you've discovered that your inner resources aren't as limited as you feared. It's openness, not emptiness.",
       },
     },
   ],
@@ -411,7 +411,7 @@ const lesson3: Lesson = {
       content: {
         type: "concept-intro",
         title: "The Two Wings of Type 5",
-        body: "A 5w4 (The Iconoclast) combines intellectual depth with emotional intensity — they're more creative, idiosyncratic, and drawn to the unconventional. A 5w6 (The Problem Solver) combines intellectual depth with practical loyalty — they're more systematic, community-oriented, and focused on real-world applications.",
+        body: "A 5w4 (The Iconoclast) combines intellectual depth with emotional intensity, they're more creative, idiosyncratic, and drawn to the unconventional. A 5w6 (The Problem Solver) combines intellectual depth with practical loyalty, they're more systematic, community-oriented, and focused on real-world applications.",
         highlight: "5w4 vs 5w6",
       },
     },
@@ -421,7 +421,7 @@ const lesson3: Lesson = {
       content: {
         type: "concept-intro",
         title: "Stress & Growth Lines",
-        body: "Under stress, Fives move to Type 7 — becoming scattered, hyperactive, and escapist, chasing stimulation instead of focused depth. In growth, Fives move to Type 8 — becoming decisive, action-oriented, confident, and engaging with the world powerfully instead of just observing it.",
+        body: "Under stress, Fives move to Type 7, becoming scattered, hyperactive, and escapist, chasing stimulation instead of focused depth. In growth, Fives move to Type 8, becoming decisive, action-oriented, confident, and engaging with the world powerfully instead of just observing it.",
         highlight: "Stress → 7, Growth → 8",
       },
     },
@@ -439,7 +439,7 @@ const lesson3: Lesson = {
         ],
         correctIndex: 0,
         explanation:
-          "The 5w4 (Iconoclast) is more creative and emotionally intense — they combine Five's analytical depth with Four's uniqueness. The 5w6 (Problem Solver) is more practical and loyal — they combine Five's depth with Six's reliability.",
+          "The 5w4 (Iconoclast) is more creative and emotionally intense, they combine Five's analytical depth with Four's uniqueness. The 5w6 (Problem Solver) is more practical and loyal, they combine Five's depth with Six's reliability.",
       },
     },
     {
@@ -451,7 +451,7 @@ const lesson3: Lesson = {
         options: ["Type 1", "Type 4", "Type 7", "Type 8"],
         correctIndex: 2,
         explanation:
-          "Stressed Fives suddenly become scattered and overstimulated, like unhealthy Sevens. Instead of their usual focused depth, they jump between topics, binge consume media, and chase distractions — manic activity replacing contemplative calm.",
+          "Stressed Fives suddenly become scattered and overstimulated, like unhealthy Sevens. Instead of their usual focused depth, they jump between topics, binge consume media, and chase distractions, manic activity replacing contemplative calm.",
       },
     },
     {
@@ -463,7 +463,7 @@ const lesson3: Lesson = {
         options: ["Type 1", "Type 4", "Type 7", "Type 8"],
         correctIndex: 3,
         explanation:
-          "Growing Fives access healthy Eight energy — they become decisive, bold, and action-oriented. Instead of endlessly preparing and observing, they step into the world with confidence and make things happen.",
+          "Growing Fives access healthy Eight energy, they become decisive, bold, and action-oriented. Instead of endlessly preparing and observing, they step into the world with confidence and make things happen.",
       },
     },
     {
@@ -490,7 +490,7 @@ const lesson3: Lesson = {
         options: ["Problem Solver", "Iconoclast", "Observer", "Scholar"],
         correctIndex: 1,
         explanation:
-          "The 5w4 (Iconoclast) blends the Five's analytical mind with the Four's emotional intensity and individuality. They're the original thinkers, the ones who challenge paradigms — often brilliant and eccentric.",
+          "The 5w4 (Iconoclast) blends the Five's analytical mind with the Four's emotional intensity and individuality. They're the original thinkers, the ones who challenge paradigms, often brilliant and eccentric.",
       },
     },
     {
@@ -512,17 +512,17 @@ const lesson3: Lesson = {
       content: {
         type: "scenario",
         scenario:
-          "After a stressful week at work, Jordan — usually focused and methodical — can't sit still. They start three different books without finishing any, open dozens of browser tabs on random topics, binge a TV series, then suddenly decide to research starting a podcast. Their partner says: 'This isn't like you at all.'",
+          "After a stressful week at work, Jordan, usually focused and methodical, can't sit still. They start three different books without finishing any, open dozens of browser tabs on random topics, binge a TV series, then suddenly decide to research starting a podcast. Their partner says: 'This isn't like you at all.'",
         question: "What's happening?",
         options: [
           "Jordan discovered they're actually a Type 7",
-          "Jordan is moving to their stress point (Type 7) — becoming scattered and seeking stimulation to escape anxiety",
+          "Jordan is moving to their stress point (Type 7), becoming scattered and seeking stimulation to escape anxiety",
           "Jordan is growing into healthy Eight energy",
           "Jordan is just taking a mental health break",
         ],
         correctIndex: 1,
         explanation:
-          "Under stress, Fives lose their signature focus and become Seven-like — chasing novelty, consuming without depth, and scattering their attention. It's an attempt to outrun the anxiety through stimulation instead of their usual strategy of focused withdrawal.",
+          "Under stress, Fives lose their signature focus and become Seven-like, chasing novelty, consuming without depth, and scattering their attention. It's an attempt to outrun the anxiety through stimulation instead of their usual strategy of focused withdrawal.",
       },
     },
     {
@@ -531,17 +531,17 @@ const lesson3: Lesson = {
       content: {
         type: "scenario",
         scenario:
-          "Dr. Patel, a quiet researcher who usually avoids confrontation, walks into a board meeting and firmly says: 'This project is going in the wrong direction. Here's what needs to change.' They present a clear, decisive plan and don't back down when challenged. Colleagues are shocked — this is a side of Dr. Patel they've never seen.",
+          "Dr. Patel, a quiet researcher who usually avoids confrontation, walks into a board meeting and firmly says: 'This project is going in the wrong direction. Here's what needs to change.' They present a clear, decisive plan and don't back down when challenged. Colleagues are shocked, this is a side of Dr. Patel they've never seen.",
         question: "What growth line is Dr. Patel accessing?",
         options: [
           "Stress move to Type 7",
-          "Growth to Type 8 — stepping into decisive, confident engagement with the world",
-          "Wing shift to 5w6 — becoming more loyal to the team",
+          "Growth to Type 8, stepping into decisive, confident engagement with the world",
+          "Wing shift to 5w6, becoming more loyal to the team",
           "This means Dr. Patel is losing their Five identity",
         ],
         correctIndex: 1,
         explanation:
-          "This is the Five-to-Eight growth move at its best. Dr. Patel hasn't lost their depth of knowledge — they've added the Eight's courage, directness, and willingness to act on what they know. Observation has become leadership.",
+          "This is the Five-to-Eight growth move at its best. Dr. Patel hasn't lost their depth of knowledge, they've added the Eight's courage, directness, and willingness to act on what they know. Observation has become leadership.",
       },
     },
     {
@@ -550,17 +550,17 @@ const lesson3: Lesson = {
       content: {
         type: "scenario",
         scenario:
-          "Two Fives are both brilliant in their fields. One writes surreal, genre-defying novels that blend philosophy with dark emotional landscapes, and lives alone in a cabin. The other works at a cybersecurity firm, builds reliable systems, and is known as the person everyone calls when something breaks — steady, trusted, methodical.",
+          "Two Fives are both brilliant in their fields. One writes surreal, genre-defying novels that blend philosophy with dark emotional landscapes, and lives alone in a cabin. The other works at a cybersecurity firm, builds reliable systems, and is known as the person everyone calls when something breaks, steady, trusted, methodical.",
         question: "How do their wings differ?",
         options: [
-          "First is 5w4 (Iconoclast — creative, emotionally intense), second is 5w6 (Problem Solver — practical, systematic)",
+          "First is 5w4 (Iconoclast, creative, emotionally intense), second is 5w6 (Problem Solver, practical, systematic)",
           "First is 5w6, second is 5w4",
-          "Both are 5w4 — all Fives are creative",
+          "Both are 5w4, all Fives are creative",
           "Wings don't affect how Fives express their intelligence",
         ],
         correctIndex: 0,
         explanation:
-          "The 5w4 channels their intellect through creative, unconventional expression — the surreal novelist. The 5w6 channels their intellect through practical, reliable systems — the trusted problem solver. Same core type, very different flavor.",
+          "The 5w4 channels their intellect through creative, unconventional expression, the surreal novelist. The 5w6 channels their intellect through practical, reliable systems, the trusted problem solver. Same core type, very different flavor.",
       },
     },
     {
@@ -577,7 +577,7 @@ const lesson3: Lesson = {
         ],
         correctIndex: 1,
         explanation:
-          "Eight energy doesn't replace the Five's depth — it activates it. Growing Fives learn that knowledge without action is hoarding, and that stepping boldly into the world is the ultimate expression of competence.",
+          "Eight energy doesn't replace the Five's depth, it activates it. Growing Fives learn that knowledge without action is hoarding, and that stepping boldly into the world is the ultimate expression of competence.",
       },
     },
   ],
@@ -599,7 +599,7 @@ const lesson4: Lesson = {
       content: {
         type: "concept-intro",
         title: "How to Spot a Type 5",
-        body: "Fives often have minimal social energy, deep expertise in niche areas, and a default 'observer mode.' They value privacy intensely, speak precisely, and tend to know a staggering amount about a few specific topics. They watch before participating — and may never participate at all.",
+        body: "Fives often have minimal social energy, deep expertise in niche areas, and a default 'observer mode.' They value privacy intensely, speak precisely, and tend to know a staggering amount about a few specific topics. They watch before participating, and may never participate at all.",
         highlight: "observer mode",
       },
     },
@@ -627,7 +627,7 @@ const lesson4: Lesson = {
         ],
         correctIndex: 1,
         explanation:
-          "Fives are the niche experts — the person who knows everything about mycology, or medieval weaponry, or a specific programming language. They go deep, not wide, and social energy is always rationed carefully.",
+          "Fives are the niche experts, the person who knows everything about mycology, or medieval weaponry, or a specific programming language. They go deep, not wide, and social energy is always rationed carefully.",
       },
     },
     {
@@ -638,7 +638,7 @@ const lesson4: Lesson = {
         question: "What's the key difference between Type 5 and Type 4?",
         options: [
           "Fives are introverts, Fours are extroverts",
-          "Both are introspective — Fives seek intellectual depth, Fours seek emotional depth",
+          "Both are introspective, Fives seek intellectual depth, Fours seek emotional depth",
           "There's no meaningful difference",
           "Fives are creative, Fours are analytical",
         ],
@@ -655,7 +655,7 @@ const lesson4: Lesson = {
         question: "What's the key difference between Type 5 and Type 9?",
         options: [
           "Fives are lazy, Nines are intellectual",
-          "Both are withdrawn — Fives are actively thinking and analyzing, Nines are actively numbing and disengaging",
+          "Both are withdrawn, Fives are actively thinking and analyzing, Nines are actively numbing and disengaging",
           "There's no meaningful difference",
           "Fives avoid conflict, Nines seek it",
         ],
@@ -742,12 +742,12 @@ const lesson4: Lesson = {
         options: [
           "A is Type 5 (actively analyzing), B is Type 9 (passively disengaging)",
           "A is Type 9, B is Type 5",
-          "Both are Type 5 — they're both quiet",
-          "Both are Type 9 — they're both withdrawn",
+          "Both are Type 5, they're both quiet",
+          "Both are Type 9, they're both withdrawn",
         ],
         correctIndex: 0,
         explanation:
-          "Same external behavior (quiet in meetings), completely different inner processes. The Five is intensely active internally — building frameworks, analyzing data. The Nine has checked out — their quiet comes from disengagement, not deep processing.",
+          "Same external behavior (quiet in meetings), completely different inner processes. The Five is intensely active internally, building frameworks, analyzing data. The Nine has checked out, their quiet comes from disengagement, not deep processing.",
       },
     },
     {
@@ -759,14 +759,14 @@ const lesson4: Lesson = {
           "Someone says: 'I need to understand this completely before I can act on it. I've been researching for months and I'm almost ready. I just need a bit more data before I can commit to a decision. Also, could we not discuss this at dinner? I've used up my people energy for today.'",
         question: "Is this more likely a Five or a One?",
         options: [
-          "Type 1 — they want to get it right before acting",
-          "Type 5 — the need to understand completely before acting, combined with the 'people energy' comment, is distinctly Five",
-          "Could be either — both are thorough",
+          "Type 1, they want to get it right before acting",
+          "Type 5, the need to understand completely before acting, combined with the 'people energy' comment, is distinctly Five",
+          "Could be either, both are thorough",
           "This is a Type 6 pattern of doubt",
         ],
         correctIndex: 1,
         explanation:
-          "The 'people energy' comment is the giveaway. A One might also research thoroughly, but they'd frame it as wanting to do the right thing, not as running out of social battery. The Five's need isn't about correctness — it's about competence and energy conservation.",
+          "The 'people energy' comment is the giveaway. A One might also research thoroughly, but they'd frame it as wanting to do the right thing, not as running out of social battery. The Five's need isn't about correctness, it's about competence and energy conservation.",
       },
     },
     {
@@ -778,8 +778,8 @@ const lesson4: Lesson = {
           "You're trying to determine if someone is a Type 5 or a Type 4. Both seem withdrawn and introspective. You ask: 'What do you do when you're really stressed?' Person replies: 'I go to my room and read. I need to understand what's happening. If I can build a mental model of the situation, it stops being so threatening. Feelings just cloud the analysis.'",
         question: "What does this response suggest?",
         options: [
-          "Type 4 — they're retreating into their inner world",
-          "Type 5 — retreating into intellectual understanding and explicitly deprioritizing feelings is a strong Five signal",
+          "Type 4, they're retreating into their inner world",
+          "Type 5, retreating into intellectual understanding and explicitly deprioritizing feelings is a strong Five signal",
           "Could be either type",
           "This is actually a Type 1 response",
         ],
@@ -796,7 +796,7 @@ const lesson4: Lesson = {
         question: "The fastest way to distinguish a Type 5 from other withdrawn types is:",
         options: [
           "Fives are always the smartest person in the room",
-          "Fives withdraw to think and understand — their inner world is analytical, not emotional or peaceful",
+          "Fives withdraw to think and understand, their inner world is analytical, not emotional or peaceful",
           "Fives never have any emotions",
           "Fives are always reading books",
         ],

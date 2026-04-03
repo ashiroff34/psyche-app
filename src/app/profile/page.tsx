@@ -255,25 +255,25 @@ function getInferiorTips(inferiorCode: string): string[] {
     Se: [
       "Practice grounding: walk barefoot, cook a meal mindfully, engage your senses.",
       "Push yourself to try one new physical experience this week.",
-      "When you feel stuck in abstraction, move your body — even a brief walk helps.",
+      "When you feel stuck in abstraction, move your body, even a brief walk helps.",
     ],
     Si: [
       "Create one small routine and stick to it. Consistency is its own reward.",
-      "Document your experiences — journaling builds the Si memory bank.",
+      "Document your experiences, journaling builds the Si memory bank.",
       "Practice being present with sensory details instead of leaping to the next idea.",
     ],
     Ne: [
       "Allow yourself to brainstorm without editing. Let ideas flow freely.",
-      "Explore something outside your usual domain — a podcast, book, or conversation.",
+      "Explore something outside your usual domain, a podcast, book, or conversation.",
       "When you feel boxed in, list five 'what if' possibilities. Even silly ones count.",
     ],
     Ni: [
       "Set aside quiet time to reflect on the bigger picture of your life.",
-      "Practice sitting with ambiguity — not everything needs an immediate answer.",
+      "Practice sitting with ambiguity, not everything needs an immediate answer.",
       "Ask: where is this all heading? Trust the vision that emerges, even if it's faint.",
     ],
     Fe: [
-      "Practice expressing warmth directly — tell someone what they mean to you.",
+      "Practice expressing warmth directly, tell someone what they mean to you.",
       "Observe group dynamics and practice attuning to the emotional atmosphere.",
       "Ask others how they feel, then listen without analyzing or fixing.",
     ],
@@ -290,7 +290,7 @@ function getInferiorTips(inferiorCode: string): string[] {
     Ti: [
       "When you catch yourself deferring to group opinion, pause and think it through yourself.",
       "Practice deconstructing arguments logically before responding emotionally.",
-      "Build a personal framework for something that interests you — define your own terms.",
+      "Build a personal framework for something that interests you, define your own terms.",
     ],
   };
   return tips[inferiorCode] || [];
@@ -300,7 +300,7 @@ function getIntegrationTips(enneaType: number, integrationLine: number): string[
   const targetType = enneagramTypes.find(t => t.number === integrationLine);
   if (!targetType) return [];
   return targetType.healthyTraits.slice(0, 3).map(trait =>
-    `Practice embodying ${trait.toLowerCase()} — this is the gift your integration to Type ${integrationLine} (${targetType.name}) offers you.`
+    `Practice embodying ${trait.toLowerCase()}, this is the gift your integration to Type ${integrationLine} (${targetType.name}) offers you.`
   );
 }
 
@@ -529,7 +529,7 @@ function TritypePicker({
 
   const tritypeDisplay = selected.length === 3 ? selected.join("-") : selected.length > 0 ? selected.join("-") + "-?" : null;
 
-  // Which slots are active — colors spelled out in full for Tailwind JIT
+  // Which slots are active, colors spelled out in full for Tailwind JIT
   const slots = [
     { label: "1st", sublabel: "Dominant / Core", value: first, onSelect: onFirst,
       headerBg: "bg-violet-50/50", dotBg: "bg-violet-500", labelText: "text-violet-700" },
@@ -558,7 +558,7 @@ function TritypePicker({
         )}
       </div>
       <p className="text-xs text-white/35 mb-1">
-        <span className="font-semibold text-white/60">Order matters — drag to reorder.</span> Pick one type from each center (Gut: 8,9,1 · Heart: 2,3,4 · Head: 5,6,7). First is your dominant, last is least used. Tap the arrows to swap positions.
+        <span className="font-semibold text-white/60">Order matters. Drag to reorder.</span> Pick one type from each center (Gut: 8,9,1 · Heart: 2,3,4 · Head: 5,6,7). First is your dominant, last is least used. Tap the arrows to swap positions.
       </p>
 
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-3">
@@ -665,7 +665,7 @@ function TritypePicker({
                 {slot.value && (
                   <div className="mt-2 px-2 py-1.5 rounded-xl bg-white/5 border border-white/[0.09] flex items-center justify-between">
                     <span className="text-xs font-medium text-white/93">
-                      Type {slot.value} — {enneagramTypes.find(t => t.number === slot.value)?.name}
+                      Type {slot.value}, {enneagramTypes.find(t => t.number === slot.value)?.name}
                     </span>
                     <span className={`text-[10px] font-medium px-1.5 py-0.5 rounded-md ${getCenterColor(slot.value).bg} ${getCenterColor(slot.value).text}`}>
                       {getCenterLabel(slot.value)}
@@ -688,7 +688,7 @@ function TritypePicker({
             <Target className="w-3.5 h-3.5 text-white" />
           </div>
           <div>
-            <div className="text-xs font-semibold text-violet-300">{selected.join("-")} — {archetype}</div>
+            <div className="text-xs font-semibold text-violet-300">{selected.join("-")}, {archetype}</div>
             <div className="text-[10px] text-violet-400 mt-0.5">
               Dominant: {selected[0]} ({getCenterLabel(selected[0])} center) · Second: {selected[1]} ({getCenterLabel(selected[1])} center) · Third: {selected[2]} ({getCenterLabel(selected[2])} center)
             </div>
@@ -792,7 +792,7 @@ function ProfileCard({ profile }: { profile: PsycheProfile }) {
               </div>
               <BeginnerBanner
                 dismissKey="profile-cognitive-intro"
-                message="Your cognitive type shows HOW you think — the mental tools you use most naturally. It goes deeper than MBTI letters. Tap any function abbreviation below to learn what it means."
+                message="Your cognitive type shows HOW you think, the mental tools you use most naturally. It goes deeper than MBTI letters. Tap any function abbreviation below to learn what it means."
                 primaryLabel="Learn more"
                 primaryHref="/cognitive"
               />
@@ -983,7 +983,7 @@ function PersonalizedInsights({ profile }: { profile: PsycheProfile }) {
                   {enneaData.integrationLine}
                 </div>
                 <div className="text-xs text-white/60">
-                  <span className="font-medium text-emerald-400">Growth</span> &mdash; {enneagramTypes.find(t => t.number === enneaData.integrationLine)?.name}
+                  <span className="font-medium text-emerald-400">Growth:</span> {enneagramTypes.find(t => t.number === enneaData.integrationLine)?.name}
                 </div>
               </div>
               <div className="flex items-center gap-3">
@@ -995,7 +995,7 @@ function PersonalizedInsights({ profile }: { profile: PsycheProfile }) {
                   {enneaData.disintegrationLine}
                 </div>
                 <div className="text-xs text-white/60">
-                  <span className="font-medium text-rose-400">Stress</span> &mdash; {enneagramTypes.find(t => t.number === enneaData.disintegrationLine)?.name}
+                  <span className="font-medium text-rose-400">Stress:</span> {enneagramTypes.find(t => t.number === enneaData.disintegrationLine)?.name}
                 </div>
               </div>
             </div>
@@ -1083,7 +1083,7 @@ function GrowthEdge({ profile }: { profile: PsycheProfile }) {
               </div>
               <div>
                 <div className="text-sm font-medium text-white/93">Inferior Function: {inferiorFunc.code}</div>
-                <div className="text-[10px] text-white/35">{inferiorFunc.name} &mdash; {inferiorFunc.alias}</div>
+                <div className="text-[10px] text-white/35">{inferiorFunc.name}, {inferiorFunc.alias}</div>
               </div>
             </div>
             <p className="text-xs text-white/60 leading-relaxed">
@@ -1149,7 +1149,7 @@ const STATIC_INTENTIONS: Record<number, string[]> = {
   1: [
     "Notice one moment today where 'good enough' actually is enough.",
     "Practice saying yes to something imperfect.",
-    "Let one small thing go uncorrected — and breathe through it.",
+    "Let one small thing go uncorrected, and breathe through it.",
     "Appreciate your own effort before judging the result.",
     "Ask yourself: what would I do if I weren't afraid of getting it wrong?",
   ],
@@ -1161,7 +1161,7 @@ const STATIC_INTENTIONS: Record<number, string[]> = {
     "Set one small limit and hold it without guilt.",
   ],
   3: [
-    "Do one thing today purely for enjoyment — not for results.",
+    "Do one thing today purely for enjoyment, not for results.",
     "Share something vulnerable with someone you trust.",
     "Pause before your next task and ask: who am I being, not what am I doing?",
     "Let a conversation go somewhere unproductive without steering it back.",
@@ -1169,41 +1169,41 @@ const STATIC_INTENTIONS: Record<number, string[]> = {
   ],
   4: [
     "Find one ordinary thing today that actually moves you.",
-    "Do a mundane task with full presence — no meaning-making required.",
+    "Do a mundane task with full presence, no meaning-making required.",
     "Reach out to someone instead of waiting to be found.",
-    "Notice the gap between how you feel and how others perceive you — and be curious about it.",
+    "Notice the gap between how you feel and how others perceive you, and be curious about it.",
     "Let yourself be average at something today, and stay with that feeling.",
   ],
   5: [
     "Share one thought or observation before you've fully refined it.",
     "Stay physically present in a social situation a little longer than is comfortable.",
-    "Let someone help you with something — accept the offer without analysis.",
+    "Let someone help you with something, accept the offer without analysis.",
     "Notice when you're retreating into your head and gently come back to the room.",
-    "Do something with your hands today — make, build, or move.",
+    "Do something with your hands today, make, build, or move.",
   ],
   6: [
     "Make one small decision today without seeking reassurance.",
     "Notice a worry and ask: what is the most likely outcome, not the worst case?",
     "Trust your gut on something small.",
-    "Do one thing that feels slightly risky — and notice you're okay afterward.",
+    "Do one thing that feels slightly risky, and notice you're okay afterward.",
     "Thank someone who has been consistent and reliable in your life.",
   ],
   7: [
     "Stay with one feeling of discomfort today instead of moving past it.",
     "Finish something you've been putting off.",
-    "Spend 10 minutes doing nothing — no input, no plans.",
+    "Spend 10 minutes doing nothing, no input, no plans.",
     "Let one conversation go deep instead of keeping it light.",
-    "Notice when you're reframing a difficulty as an adventure — and ask what you might be avoiding.",
+    "Notice when you're reframing a difficulty as an adventure, and ask what you might be avoiding.",
   ],
   8: [
     "Let someone else lead something today, even if you'd do it differently.",
-    "Ask someone how they're doing — and listen without fixing.",
+    "Ask someone how they're doing, and listen without fixing.",
     "Share something you find difficult without framing it as already handled.",
     "Soften your approach with one person who seems to be struggling.",
     "Notice the difference between strength and force today.",
   ],
   9: [
-    "State one preference today — even a small one like where to eat.",
+    "State one preference today, even a small one like where to eat.",
     "Notice when you're drifting into someone else's agenda and gently return to yours.",
     "Start one thing you've been putting off, even just for 5 minutes.",
     "Ask yourself: what do I actually want right now?",
@@ -1262,7 +1262,7 @@ function TodaysIntentionCard({ profile }: { profile: Pick<PsycheProfile, "enneag
     setLoading(true);
     setIntention("");
 
-    // Use static fallback — no AI needed
+    // Use static fallback, no AI needed
     setIntention(fallbackIntention);
     try {
       localStorage.setItem(storageKey, fallbackIntention);
@@ -1348,7 +1348,7 @@ export default function ProfilePage() {
   const { profile, loaded, updateProfile } = useProfile();
   const [isEditing, setIsEditing] = useState(false);
 
-  // (Editor no longer auto-opens — the empty state card has a CTA button)
+  // (Editor no longer auto-opens, the empty state card has a CTA button)
 
   const updateField = useCallback(
     (key: string, value: any) => {
@@ -1377,7 +1377,7 @@ export default function ProfilePage() {
 
   const hasProfile = profile.cognitiveType || profile.enneagramType;
 
-  // Compatibility shim — the sub-components expect old field names
+  // Compatibility shim, the sub-components expect old field names
   const compat = {
     mbtiType: profile.cognitiveType || profile.mbtiType,
     enneagramCore: profile.enneagramType || profile.enneagramCore,
@@ -1416,7 +1416,7 @@ export default function ProfilePage() {
     <div className="min-h-screen" style={{ background: "linear-gradient(160deg, #160f38 0%, #0f0a1e 100%)" }}>
       <FirstVisitTooltip
         storageKey="psyche-visited-profile"
-        message="Set your Enneagram type here — your daily practice and chibi pet unlock once you do!"
+        message="Set your Enneagram type here, your daily practice and chibi pet unlock once you do!"
         icon="✨"
       />
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
@@ -1424,7 +1424,7 @@ export default function ProfilePage() {
         {/* Beginner onboarding banner */}
         <BeginnerBanner
           dismissKey="profile-page"
-          message="This is your personality profile. Explore your type below — check your instinctual subtype, wing, and tritype. When you're ready, head to your Daily Path to start learning."
+          message="This is your personality profile. Explore your type below, check your instinctual subtype, wing, and tritype. When you're ready, head to your Daily Path to start learning."
           primaryLabel="Go to Daily Path"
           primaryHref="/daily"
         />
@@ -1514,7 +1514,7 @@ export default function ProfilePage() {
             </div>
             <h2 className="text-2xl font-serif font-bold text-white/93 mb-2">Your profile is empty</h2>
             <p className="text-white/60 text-sm max-w-md mx-auto mb-6 leading-relaxed">
-              Tell Thyself your Enneagram type and MBTI — everything personalises once you do.
+              Tell Thyself your Enneagram type and MBTI, everything personalises once you do.
             </p>
             <div className="flex flex-wrap justify-center gap-3 mb-8">
               {[
@@ -1642,9 +1642,9 @@ export default function ProfilePage() {
                 <h3 className="text-base font-serif font-bold text-white/93 mb-1">Complete Your Profile</h3>
                 <p className="text-sm text-white/80 mb-4">
                   {!compat.mbtiType && compat.enneagramCore
-                    ? "You know your Enneagram type — now discover your cognitive function stack to get the full picture."
+                    ? "You know your Enneagram type, now discover your cognitive function stack to get the full picture."
                     : !compat.enneagramCore && compat.mbtiType
-                    ? "You know your cognitive type — now discover your Enneagram to understand your core motivations."
+                    ? "You know your cognitive type, now discover your Enneagram to understand your core motivations."
                     : "Discover more of your type to unlock deeper insights."}
                 </p>
                 <div className="flex flex-wrap gap-2">
@@ -1671,7 +1671,7 @@ export default function ProfilePage() {
                     className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white/5 text-white/60 text-sm font-medium border border-white/[0.09] hover:border-white/20 transition"
                   >
                     <Edit3 className="w-3.5 h-3.5" />
-                    I know it — enter manually
+                    I know it, enter manually
                   </button>
                 </div>
               </div>

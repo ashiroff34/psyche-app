@@ -1,5 +1,5 @@
 // ─────────────────────────────────────────────────────────────────────────────
-// Unit 18 — Introverted Intuition (Ni)
+// Unit 18, Introverted Intuition (Ni)
 // Unconscious pattern synthesis, convergent insight, "just knowing"
 // ─────────────────────────────────────────────────────────────────────────────
 
@@ -23,7 +23,7 @@ const lesson1: Lesson = {
       content: {
         type: "concept-intro",
         title: "What Is Introverted Intuition?",
-        body: "Ni is an unconscious pattern-synthesis engine that takes in many scattered inputs and converges them into a single, fully-formed insight. It asks: 'What is this REALLY about? Where is this heading?' The result often arrives as a sudden 'aha' — a knowing without knowing how you know.",
+        body: "Ni is an unconscious pattern-synthesis engine that takes in many scattered inputs and converges them into a single, fully-formed insight. It asks: 'What is this REALLY about? Where is this heading?' The result often arrives as a sudden 'aha', a knowing without knowing how you know.",
         highlight: "convergent insight",
       },
     },
@@ -33,7 +33,7 @@ const lesson1: Lesson = {
       content: {
         type: "concept-intro",
         title: "Ni from the Inside",
-        body: "People with strong Ni describe insights that appear fully formed, like mental lightning bolts. They can't always explain the steps that got them there — the processing happens beneath conscious awareness. It's the hardest cognitive function to explain because it literally works in the dark.",
+        body: "People with strong Ni describe insights that appear fully formed, like mental lightning bolts. They can't always explain the steps that got them there, the processing happens beneath conscious awareness. It's the hardest cognitive function to explain because it literally works in the dark.",
         highlight: "mental lightning bolts",
       },
     },
@@ -82,7 +82,7 @@ const lesson1: Lesson = {
           "It catalogs past experiences for future reference",
         ],
         correctIndex: 1,
-        explanation: "Ni is convergent — many inputs funnel down into a single insight. This is the opposite of Ne, which diverges outward from one idea into many possibilities.",
+        explanation: "Ni is convergent, many inputs funnel down into a single insight. This is the opposite of Ne, which diverges outward from one idea into many possibilities.",
       },
     },
     {
@@ -116,7 +116,7 @@ const lesson1: Lesson = {
       difficulty: 2,
       content: {
         type: "fill-in-blank",
-        sentence: "Ni users often describe their insights as arriving like ___ — sudden, complete, and difficult to trace back to a source.",
+        sentence: "Ni users often describe their insights as arriving like ___, sudden, complete, and difficult to trace back to a source.",
         options: ["lightning bolts", "slow calculations", "group discussions", "memorized facts"],
         correctIndex: 0,
         explanation: "The 'lightning bolt' metaphor captures how Ni delivers its conclusions: suddenly, without warning, and fully formed. The processing happened unconsciously, so the insight seems to appear from nowhere.",
@@ -127,13 +127,13 @@ const lesson1: Lesson = {
       difficulty: 3,
       content: {
         type: "scenario",
-        scenario: "Maya is sitting in a meeting where the team is discussing a new business strategy. Halfway through, she suddenly says, 'This isn't going to work — I can feel it.' When pressed for specifics, she struggles to articulate exactly why. Two months later, the strategy fails for exactly the reasons she sensed but couldn't explain.",
+        scenario: "Maya is sitting in a meeting where the team is discussing a new business strategy. Halfway through, she suddenly says, 'This isn't going to work, I can feel it.' When pressed for specifics, she struggles to articulate exactly why. Two months later, the strategy fails for exactly the reasons she sensed but couldn't explain.",
         question: "What cognitive function is Maya most likely using?",
         options: [
-          "Te — she analyzed the data and found logical flaws",
-          "Si — she remembered a similar past failure",
-          "Ni — her unconscious pattern recognition detected the problem before she could articulate it",
-          "Fe — she sensed the group's emotional resistance to the plan",
+          "Te, she analyzed the data and found logical flaws",
+          "Si, she remembered a similar past failure",
+          "Ni, her unconscious pattern recognition detected the problem before she could articulate it",
+          "Fe, she sensed the group's emotional resistance to the plan",
         ],
         correctIndex: 2,
         explanation: "This is textbook Ni: a strong conviction about what will happen, arriving before conscious reasoning can explain it. Ni users often 'just know' but can't show their work, which frustrates others (and sometimes themselves).",
@@ -144,7 +144,7 @@ const lesson1: Lesson = {
       difficulty: 3,
       content: {
         type: "scenario",
-        scenario: "Two friends are watching a movie. Twenty minutes in, Friend A says, 'The butler did it.' Friend B asks, 'How can you possibly know that already?' Friend A says, 'I don't know — something about the way the story is set up just points there.' At the end, Friend A is right.",
+        scenario: "Two friends are watching a movie. Twenty minutes in, Friend A says, 'The butler did it.' Friend B asks, 'How can you possibly know that already?' Friend A says, 'I don't know, something about the way the story is set up just points there.' At the end, Friend A is right.",
         question: "What is happening in Friend A's mind?",
         options: [
           "They've seen this movie before and remember the ending",
@@ -153,7 +153,7 @@ const lesson1: Lesson = {
           "They're using Te to logically deduce the answer from clues",
         ],
         correctIndex: 1,
-        explanation: "Ni picks up on patterns — narrative structure, character archetypes, subtle foreshadowing — and synthesizes them unconsciously into a prediction. The person can't always explain the clues because the processing happened below awareness.",
+        explanation: "Ni picks up on patterns, narrative structure, character archetypes, subtle foreshadowing, and synthesizes them unconsciously into a prediction. The person can't always explain the clues because the processing happened below awareness.",
       },
     },
     {
@@ -218,7 +218,7 @@ const lesson2: Lesson = {
       content: {
         type: "concept-intro",
         title: "The Beebe Model & Ni",
-        body: "In Beebe's archetypal model, dominant Ni is the Hero — trusted foresight that guides decisions. Inferior Ni is the Anima/Animus — the least conscious function that can hijack the personality under stress, turning an action-oriented ESTP into a doom-spiraling fortune teller.",
+        body: "In Beebe's archetypal model, dominant Ni is the Hero, trusted foresight that guides decisions. Inferior Ni is the Anima/Animus, the least conscious function that can hijack the personality under stress, turning an action-oriented ESTP into a doom-spiraling fortune teller.",
         highlight: "Hero vs. Anima/Animus",
       },
     },
@@ -235,7 +235,7 @@ const lesson2: Lesson = {
           "Organizing people toward group harmony",
         ],
         correctIndex: 1,
-        explanation: "Dominant Ni users have an almost eerie ability to see where things are going. They tend to be focused, strategic, and future-oriented — often quietly confident about outcomes before evidence is available.",
+        explanation: "Dominant Ni users have an almost eerie ability to see where things are going. They tend to be focused, strategic, and future-oriented, often quietly confident about outcomes before evidence is available.",
       },
     },
     {
@@ -289,7 +289,7 @@ const lesson2: Lesson = {
       difficulty: 2,
       content: {
         type: "fill-in-blank",
-        sentence: "An ESTP under extreme stress may experience their inferior Ni as obsessive ___ — becoming convinced that something terrible is going to happen.",
+        sentence: "An ESTP under extreme stress may experience their inferior Ni as obsessive ___, becoming convinced that something terrible is going to happen.",
         options: ["catastrophizing", "brainstorming", "reminiscing", "organizing"],
         correctIndex: 0,
         explanation: "When inferior Ni erupts in Se-dominant types, it often manifests as dark, paranoid visions of the future. The normally action-oriented, live-in-the-moment person becomes paralyzed by a single terrifying 'what if.'",
@@ -311,16 +311,16 @@ const lesson2: Lesson = {
       difficulty: 3,
       content: {
         type: "scenario",
-        scenario: "Jake, an ESTP, is normally the life of the party — spontaneous, action-oriented, fully in the moment. But after a series of setbacks, he starts saying things like, 'I can see where all of this is going and it's nowhere good. Everything is falling apart and there's nothing I can do.' He becomes withdrawn and fixated on worst-case scenarios.",
+        scenario: "Jake, an ESTP, is normally the life of the party, spontaneous, action-oriented, fully in the moment. But after a series of setbacks, he starts saying things like, 'I can see where all of this is going and it's nowhere good. Everything is falling apart and there's nothing I can do.' He becomes withdrawn and fixated on worst-case scenarios.",
         question: "What is happening psychologically?",
         options: [
           "He's developing his dominant Se further",
-          "His inferior Ni has him in its grip — he's experiencing paranoid future-catastrophizing",
+          "His inferior Ni has him in its grip, he's experiencing paranoid future-catastrophizing",
           "He's using Fe to read the group's emotions",
           "He's maturely integrating his auxiliary Ti",
         ],
         correctIndex: 1,
-        explanation: "This is a classic inferior Ni grip. The Se-dominant person, normally grounded in the present, gets hijacked by the unconscious Ni — producing dark, tunnel-vision predictions that feel absolutely certain and inescapable.",
+        explanation: "This is a classic inferior Ni grip. The Se-dominant person, normally grounded in the present, gets hijacked by the unconscious Ni, producing dark, tunnel-vision predictions that feel absolutely certain and inescapable.",
       },
     },
     {
@@ -328,16 +328,16 @@ const lesson2: Lesson = {
       difficulty: 3,
       content: {
         type: "scenario",
-        scenario: "Two people both predict that a friend's new business will fail. Person A (INFJ) says: 'Something about the whole picture doesn't add up — I can sense the trajectory and it's off.' Person B (ESFP under stress) says: 'It's all going to crash and burn. Everything always does. I can just FEEL the doom.'",
+        scenario: "Two people both predict that a friend's new business will fail. Person A (INFJ) says: 'Something about the whole picture doesn't add up, I can sense the trajectory and it's off.' Person B (ESFP under stress) says: 'It's all going to crash and burn. Everything always does. I can just FEEL the doom.'",
         question: "What explains the difference in how their Ni operates?",
         options: [
           "Person A is smarter than Person B",
           "Person A has dominant Ni giving measured foresight; Person B has inferior Ni producing catastrophic, all-or-nothing doom",
           "Person A is using Fe, not Ni",
-          "There is no real difference — both are Ni",
+          "There is no real difference, both are Ni",
         ],
         correctIndex: 1,
-        explanation: "Dominant Ni produces nuanced, measured foresight — a sense of trajectory. Inferior Ni produces extreme, all-or-nothing doom visions. Same function, dramatically different maturity levels.",
+        explanation: "Dominant Ni produces nuanced, measured foresight, a sense of trajectory. Inferior Ni produces extreme, all-or-nothing doom visions. Same function, dramatically different maturity levels.",
       },
     },
     {
@@ -364,10 +364,10 @@ const lesson2: Lesson = {
         type: "multiple-choice",
         question: "True or false: Ni works the same way regardless of its position in someone's cognitive stack.",
         options: [
-          "True — Ni is Ni",
-          "False — stack position dramatically changes how Ni manifests",
-          "True — but only for introverts",
-          "False — but only because of personality differences",
+          "True, Ni is Ni",
+          "False, stack position dramatically changes how Ni manifests",
+          "True, but only for introverts",
+          "False, but only because of personality differences",
         ],
         correctIndex: 1,
         explanation: "Stack position is crucial. Dominant Ni is trusted strategic foresight. Inferior Ni is paranoid catastrophizing. Same function, completely different experience.",
@@ -392,7 +392,7 @@ const lesson3: Lesson = {
       content: {
         type: "concept-intro",
         title: "Ni in Relationships",
-        body: "Ni users often feel like they can 'see through' people — sensing hidden motivations and future intentions. This makes them deeply perceptive partners, but it can also lead to frustration when they 'know' something is wrong but their partner hasn't caught up yet.",
+        body: "Ni users often feel like they can 'see through' people, sensing hidden motivations and future intentions. This makes them deeply perceptive partners, but it can also lead to frustration when they 'know' something is wrong but their partner hasn't caught up yet.",
         highlight: "see through people",
       },
     },
@@ -402,7 +402,7 @@ const lesson3: Lesson = {
       content: {
         type: "concept-intro",
         title: "Ni Under Stress",
-        body: "When stressed, dominant Ni users can fall into a 'grip' of their inferior function Se. For INTJs and INFJs, this means sudden overindulgence in sensory experiences — binge eating, impulsive shopping, or reckless physical behavior that feels completely out of character.",
+        body: "When stressed, dominant Ni users can fall into a 'grip' of their inferior function Se. For INTJs and INFJs, this means sudden overindulgence in sensory experiences, binge eating, impulsive shopping, or reckless physical behavior that feels completely out of character.",
         highlight: "Se grip",
       },
     },
@@ -419,7 +419,7 @@ const lesson3: Lesson = {
           "Generating dozens of brainstormed ideas in every meeting",
         ],
         correctIndex: 1,
-        explanation: "Ni excels at strategic, long-term thinking. Ni users are often the ones who say 'here's where this industry is heading in five years' — and they're frequently right.",
+        explanation: "Ni excels at strategic, long-term thinking. Ni users are often the ones who say 'here's where this industry is heading in five years', and they're frequently right.",
       },
     },
     {
@@ -430,12 +430,12 @@ const lesson3: Lesson = {
         question: "What happens to an INTJ in an 'Se grip' (extreme stress)?",
         options: [
           "They become hyper-social and emotionally expressive",
-          "They overindulge in sensory experiences — binge eating, impulsive spending, or reckless behavior",
+          "They overindulge in sensory experiences, binge eating, impulsive spending, or reckless behavior",
           "They start making elaborate spreadsheets and to-do lists",
           "They retreat into nostalgic memories of the past",
         ],
         correctIndex: 1,
-        explanation: "The INTJ's inferior function is Se. In a grip, INTJs flip from their natural strategic, future-focused approach to uncharacteristic sensory overindulgence — a desperate attempt to 'ground' themselves.",
+        explanation: "The INTJ's inferior function is Se. In a grip, INTJs flip from their natural strategic, future-focused approach to uncharacteristic sensory overindulgence, a desperate attempt to 'ground' themselves.",
       },
     },
     {
@@ -451,7 +451,7 @@ const lesson3: Lesson = {
           "Asking the group how they feel about a decision",
         ],
         correctIndex: 1,
-        explanation: "Ni users frequently see outcomes far in advance. The 'I told you so' moment happens when an insight they couldn't fully explain at the time is eventually validated by reality — sometimes months or years later.",
+        explanation: "Ni users frequently see outcomes far in advance. The 'I told you so' moment happens when an insight they couldn't fully explain at the time is eventually validated by reality, sometimes months or years later.",
       },
     },
     {
@@ -477,7 +477,7 @@ const lesson3: Lesson = {
         sentence: "Ni-driven creativity tends to be deeply ___, using metaphor and symbolism to express insights that can't be communicated literally.",
         options: ["symbolic", "spontaneous", "collaborative", "data-driven"],
         correctIndex: 0,
-        explanation: "Ni naturally thinks in symbols and archetypes. Ni creative work — writing, art, music — often has layers of meaning beneath the surface, sometimes even hidden from the creator's own conscious awareness.",
+        explanation: "Ni naturally thinks in symbols and archetypes. Ni creative work, writing, art, music, often has layers of meaning beneath the surface, sometimes even hidden from the creator's own conscious awareness.",
       },
     },
     {
@@ -485,7 +485,7 @@ const lesson3: Lesson = {
       difficulty: 2,
       content: {
         type: "fill-in-blank",
-        sentence: "One of Ni's greatest workplace strengths is the ability to see ___ — anticipating shifts that data-driven analysis might miss.",
+        sentence: "One of Ni's greatest workplace strengths is the ability to see ___, anticipating shifts that data-driven analysis might miss.",
         options: ["around corners", "past mistakes", "group emotions", "physical details"],
         correctIndex: 0,
         explanation: "Ni's unconscious pattern synthesis allows it to pick up on trends and trajectories before they become obvious. This 'seeing around corners' quality makes Ni users valuable strategists.",
@@ -496,16 +496,16 @@ const lesson3: Lesson = {
       difficulty: 3,
       content: {
         type: "scenario",
-        scenario: "Elena, an INFJ therapist, has a new client who presents a cheerful, everything-is-fine exterior. After just one session, Elena has an unshakable gut feeling that something much deeper is going on — possibly trauma the client hasn't disclosed. She has no concrete evidence for this.",
+        scenario: "Elena, an INFJ therapist, has a new client who presents a cheerful, everything-is-fine exterior. After just one session, Elena has an unshakable gut feeling that something much deeper is going on, possibly trauma the client hasn't disclosed. She has no concrete evidence for this.",
         question: "What is most likely happening with Elena's Ni?",
         options: [
           "She's projecting her own issues onto the client",
-          "Her Ni is synthesizing micro-signals — body language, word choice, tone — into a convergent insight about what's really going on",
+          "Her Ni is synthesizing micro-signals, body language, word choice, tone, into a convergent insight about what's really going on",
           "She's using Te to logically analyze the client's statements",
           "She's remembering a similar client from the past (Si)",
         ],
         correctIndex: 1,
-        explanation: "Ni picks up on patterns that the conscious mind doesn't register individually — tiny inconsistencies, micro-expressions, word choices — and synthesizes them into a unified insight. Elena 'just knows' because her Ni connected dots she couldn't consciously identify.",
+        explanation: "Ni picks up on patterns that the conscious mind doesn't register individually, tiny inconsistencies, micro-expressions, word choices, and synthesizes them into a unified insight. Elena 'just knows' because her Ni connected dots she couldn't consciously identify.",
       },
     },
     {
@@ -518,8 +518,8 @@ const lesson3: Lesson = {
         options: [
           "Ni users are always right about predictions",
           "Ni's foresight can be frustratingly hard to justify to others because it arrives before the evidence does",
-          "David was using Si — he remembered a past system failure",
-          "David was lucky — anyone could have made that prediction",
+          "David was using Si, he remembered a past system failure",
+          "David was lucky, anyone could have made that prediction",
         ],
         correctIndex: 1,
         explanation: "Ni's greatest professional challenge is the 'Cassandra problem': seeing what's coming but being unable to convince others because the evidence doesn't exist yet. The insight is real, but the justification lags behind.",
@@ -555,7 +555,7 @@ const lesson3: Lesson = {
           "Generating dozens of creative ideas per minute",
         ],
         correctIndex: 1,
-        explanation: "Ni's superpower is foresight — the ability to see trajectories and outcomes that others can't yet perceive. This makes Ni users natural strategists, advisors, and visionaries.",
+        explanation: "Ni's superpower is foresight, the ability to see trajectories and outcomes that others can't yet perceive. This makes Ni users natural strategists, advisors, and visionaries.",
       },
     },
   ],
@@ -577,7 +577,7 @@ const lesson4: Lesson = {
       content: {
         type: "concept-intro",
         title: "The Critical Distinction: Ni vs. Ne",
-        body: "Ni and Ne are BOTH intuitive functions, but they work in opposite directions. Ni converges: many inputs funnel into ONE insight. Ne diverges: one input explodes into MANY possibilities. Ni asks 'what will happen?' — Ne asks 'what COULD happen?'",
+        body: "Ni and Ne are BOTH intuitive functions, but they work in opposite directions. Ni converges: many inputs funnel into ONE insight. Ne diverges: one input explodes into MANY possibilities. Ni asks 'what will happen?', Ne asks 'what COULD happen?'",
         highlight: "converges vs. diverges",
       },
     },
@@ -587,7 +587,7 @@ const lesson4: Lesson = {
       content: {
         type: "concept-intro",
         title: "Ni vs. Si: The Other Confusion",
-        body: "Ni and Si are both introverted perceiving functions, so they can look similar from the outside — both involve 'internal knowing.' But Ni knows what WILL happen (future patterns), while Si knows what HAS happened (past experience). Ni synthesizes; Si catalogs.",
+        body: "Ni and Si are both introverted perceiving functions, so they can look similar from the outside, both involve 'internal knowing.' But Ni knows what WILL happen (future patterns), while Si knows what HAS happened (past experience). Ni synthesizes; Si catalogs.",
         highlight: "future patterns vs. past memories",
       },
     },
@@ -612,12 +612,12 @@ const lesson4: Lesson = {
       difficulty: 1,
       content: {
         type: "multiple-choice",
-        question: "Someone says: 'I had this feeling for weeks that something was off with the project, and then it clicked — the entire approach is wrong and here's what we should do instead.' Which function is this?",
+        question: "Someone says: 'I had this feeling for weeks that something was off with the project, and then it clicked, the entire approach is wrong and here's what we should do instead.' Which function is this?",
         options: [
-          "Ne — they're exploring possibilities",
-          "Ni — they had a slow-building convergent insight that crystallized into clarity",
-          "Si — they're comparing to past projects",
-          "Te — they're organizing external data",
+          "Ne, they're exploring possibilities",
+          "Ni, they had a slow-building convergent insight that crystallized into clarity",
+          "Si, they're comparing to past projects",
+          "Te, they're organizing external data",
         ],
         correctIndex: 1,
         explanation: "The slow build followed by sudden crystallization is classic Ni. The insight coalesced over time beneath conscious awareness, then emerged fully formed. Ne would generate many alternatives; Ni arrives at THE answer.",
@@ -703,7 +703,7 @@ const lesson4: Lesson = {
       difficulty: 3,
       content: {
         type: "scenario",
-        scenario: "A manager is warned about a potential problem. Manager A says: 'This reminds me of exactly what happened at my last company — we should do what worked then.' Manager B says: 'I have a sense of where this is going, and it's not anywhere we've been before. We need a completely new approach.'",
+        scenario: "A manager is warned about a potential problem. Manager A says: 'This reminds me of exactly what happened at my last company, we should do what worked then.' Manager B says: 'I have a sense of where this is going, and it's not anywhere we've been before. We need a completely new approach.'",
         question: "Which manager is using Ni and which is using Si?",
         options: [
           "Manager A = Ni, Manager B = Si",
@@ -723,8 +723,8 @@ const lesson4: Lesson = {
         scenario: "You're observing someone who seems to have strong 'gut instincts' about people and situations. They're often right. You're trying to determine if they use Ni or are just highly experienced (Si).",
         question: "What is the best way to tell the difference?",
         options: [
-          "Ask them to explain their reasoning — Ni users will reference patterns and trajectories; Si users will reference specific past experiences",
-          "There is no difference — intuition is intuition",
+          "Ask them to explain their reasoning, Ni users will reference patterns and trajectories; Si users will reference specific past experiences",
+          "There is no difference, intuition is intuition",
           "Ni users are always right; Si users are sometimes wrong",
           "Ni users are introverts; Si users are extroverts",
         ],

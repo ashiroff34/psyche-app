@@ -15,18 +15,18 @@ import NextStepBanner from "@/components/NextStepBanner";
 import { Compass as CompassIcon, Users2 } from "lucide-react";
 
 /* ═══════════════════════════════════════════════════════════════════
-   TYPE NUANCE CARD — static deep insights per type
+   TYPE NUANCE CARD, static deep insights per type
    ═══════════════════════════════════════════════════════════════════ */
 const TYPE_NUANCES: Record<number, string> = {
-  1: "Ones are often misread as simply perfectionistic, but the deeper drive is a desperate need to be good in a morally absolute sense. The inner critic isn't external — it is the One's own voice turned inward with relentless intensity. Healthy Ones learn that goodness isn't earned through flawlessness; it is expressed through acceptance of imperfection, both in themselves and the world.",
-  2: "Twos are not merely helpful — they are often running from the terror of being unwanted if they show up with needs of their own. The generosity can be genuine and the manipulation unconscious. The core wound isn't about love being withheld; it's about the belief that love must be earned through service. Growth for Twos means discovering they are allowed to receive.",
-  3: "Threes don't just want success — they want to become the image of success so completely that they lose track of who they actually are underneath. The efficiency and charm are real, but they often function as armor. The deepest fear isn't failure; it's being exposed as worthless without the achievements. Healthy Threes develop an identity that exists independently of performance.",
-  4: "Fours are not simply emotional — they are acutely attuned to the gap between what is and what could be, and they live in that gap. The longing isn't just romantic; it's ontological. They feel something essential is missing from their very being. The irony is that this intense focus on what's absent causes them to overlook the depth they already possess.",
-  5: "Fives aren't cold — they are protecting an inner world that feels easily overwhelmed and depleted by contact. The retreat into knowledge is often a substitute for the aliveness they're afraid to fully inhabit. The core fear isn't about being incompetent; it's about being incapable of surviving the demands of life. Healthy Fives discover that engagement doesn't drain them — it restores them.",
-  6: "Sixes don't simply worry — they are running an ongoing threat-detection system shaped by a foundational distrust of their own inner guidance. The loyalty they offer is a form of outsourcing authority to trusted sources. What looks like doubt is often a deep, unacknowledged competence that the Six refuses to rely on. Growth means learning to trust what they already know.",
-  7: "Sevens aren't just optimistic — they are running from pain with extraordinary creativity and speed. The mental leaping between possibilities isn't purely joyful; it's often an escape from the present moment's limitations. The deepest fear isn't being bored; it's being trapped in suffering with no exit. Healthy Sevens discover that staying with difficulty doesn't destroy them — it deepens them.",
-  8: "Eights don't simply want control — they are guarding a tenderness so fierce they learned early to armour it completely. The aggression and intensity are real, but underneath is often a profound protectiveness toward those they love. The core fear isn't weakness; it's betrayal — being vulnerable and then abandoned. Healthy Eights learn that their softness is their greatest strength.",
-  9: "Nines don't merely avoid conflict — they have learned to dissolve their own will so completely that they sometimes can't locate what they actually want. The peace they create is often real, but it comes at the cost of their own presence. The deepest pattern isn't laziness; it's a habit of self-forgetting so thorough that asserting their own perspective feels like an act of aggression. Growth means showing up as themselves.",
+  1: "Ones are often misread as simply perfectionistic, but the deeper drive is a desperate need to be good in a morally absolute sense. The inner critic isn't external, it is the One's own voice turned inward with relentless intensity. Healthy Ones learn that goodness isn't earned through flawlessness; it is expressed through acceptance of imperfection, both in themselves and the world.",
+  2: "Twos are not merely helpful, they are often running from the terror of being unwanted if they show up with needs of their own. The generosity can be genuine and the manipulation unconscious. The core wound isn't about love being withheld; it's about the belief that love must be earned through service. Growth for Twos means discovering they are allowed to receive.",
+  3: "Threes don't just want success, they want to become the image of success so completely that they lose track of who they actually are underneath. The efficiency and charm are real, but they often function as armor. The deepest fear isn't failure; it's being exposed as worthless without the achievements. Healthy Threes develop an identity that exists independently of performance.",
+  4: "Fours are not simply emotional, they are acutely attuned to the gap between what is and what could be, and they live in that gap. The longing isn't just romantic; it's ontological. They feel something essential is missing from their very being. The irony is that this intense focus on what's absent causes them to overlook the depth they already possess.",
+  5: "Fives aren't cold, they are protecting an inner world that feels easily overwhelmed and depleted by contact. The retreat into knowledge is often a substitute for the aliveness they're afraid to fully inhabit. The core fear isn't about being incompetent; it's about being incapable of surviving the demands of life. Healthy Fives discover that engagement doesn't drain them, it restores them.",
+  6: "Sixes don't simply worry, they are running an ongoing threat-detection system shaped by a foundational distrust of their own inner guidance. The loyalty they offer is a form of outsourcing authority to trusted sources. What looks like doubt is often a deep, unacknowledged competence that the Six refuses to rely on. Growth means learning to trust what they already know.",
+  7: "Sevens aren't just optimistic, they are running from pain with extraordinary creativity and speed. The mental leaping between possibilities isn't purely joyful; it's often an escape from the present moment's limitations. The deepest fear isn't being bored; it's being trapped in suffering with no exit. Healthy Sevens discover that staying with difficulty doesn't destroy them, it deepens them.",
+  8: "Eights don't simply want control, they are guarding a tenderness so fierce they learned early to armour it completely. The aggression and intensity are real, but underneath is often a profound protectiveness toward those they love. The core fear isn't weakness; it's betrayal, being vulnerable and then abandoned. Healthy Eights learn that their softness is their greatest strength.",
+  9: "Nines don't merely avoid conflict, they have learned to dissolve their own will so completely that they sometimes can't locate what they actually want. The peace they create is often real, but it comes at the cost of their own presence. The deepest pattern isn't laziness; it's a habit of self-forgetting so thorough that asserting their own perspective feels like an act of aggression. Growth means showing up as themselves.",
 };
 
 function AiTypeNuanceCard({ typeNumber }: { typeNumber: number }) {
@@ -85,29 +85,29 @@ function ExpandableSection({ title, icon: Icon, children, defaultOpen = false }:
 // ── Myth vs Reality data ─────────────────────────────────────────────────────
 const MYTHS: Record<number, { myth: string; reality: string }[]> = {
   1: [
-    { myth: "Ones are controlling perfectionists who boss people around.", reality: "Ones direct their inner critic inward — they judge themselves far more harshly than others. Their standards are primarily a burden they carry, not a weapon." },
+    { myth: "Ones are controlling perfectionists who boss people around.", reality: "Ones direct their inner critic inward, they judge themselves far more harshly than others. Their standards are primarily a burden they carry, not a weapon." },
     { myth: "Ones are rigid and can't relax.", reality: "Healthy Ones are principled AND joyful. Integration to Seven lets them access spontaneity and genuine delight." },
-    { myth: "Ones always follow the rules.", reality: "Ones follow their own internalized moral code — which sometimes puts them at odds with conventional rules when those rules feel unjust." },
+    { myth: "Ones always follow the rules.", reality: "Ones follow their own internalized moral code, which sometimes puts them at odds with conventional rules when those rules feel unjust." },
   ],
   2: [
-    { myth: "Twos are just nice, selfless people.", reality: "Twos have deep needs for love and approval. Their giving is often unconsciously strategic — a way to feel indispensable and loved." },
+    { myth: "Twos are just nice, selfless people.", reality: "Twos have deep needs for love and approval. Their giving is often unconsciously strategic, a way to feel indispensable and loved." },
     { myth: "Twos are doormats.", reality: "Twos can be fierce advocates and even manipulative when their need to be needed is threatened. They can be quite assertive about being needed." },
     { myth: "Twos don't have needs.", reality: "Twos have enormous emotional needs they often can't admit to themselves. Their growth involves learning to ask for what they need directly." },
   ],
   3: [
-    { myth: "Threes are shallow status-seekers.", reality: "Threes genuinely believe their worth comes from what they achieve. The performing isn't cynical — it's how they try to earn love." },
+    { myth: "Threes are shallow status-seekers.", reality: "Threes genuinely believe their worth comes from what they achieve. The performing isn't cynical, it's how they try to earn love." },
     { myth: "Threes know exactly who they are.", reality: "Threes often have no idea who they are beneath the image. 'Who am I when I'm not performing?' is a genuinely terrifying question for them." },
     { myth: "Threes are confident.", reality: "Threes avoid failure precisely because deep down they fear they have no value without success. The confidence is often a performance." },
   ],
   4: [
-    { myth: "Fours are just dramatic and self-pitying.", reality: "Fours have an exceptional capacity to feel — and to hold emotional complexity that others deny. This depth is a genuine gift, not just drama." },
+    { myth: "Fours are just dramatic and self-pitying.", reality: "Fours have an exceptional capacity to feel, and to hold emotional complexity that others deny. This depth is a genuine gift, not just drama." },
     { myth: "Fours want to be miserable.", reality: "Fours romanticize suffering not because they enjoy it, but because they're more comfortable with intense feeling than with the flat ordinary." },
     { myth: "Fours are always sad.", reality: "Healthy Fours are among the most creatively alive, empathically present, and deeply authentic people you'll meet." },
   ],
   5: [
-    { myth: "Fives are cold and emotionless.", reality: "Fives feel deeply but experience emotions as overwhelming. Their emotional world is private and intense — not absent." },
+    { myth: "Fives are cold and emotionless.", reality: "Fives feel deeply but experience emotions as overwhelming. Their emotional world is private and intense, not absent." },
     { myth: "Fives are antisocial.", reality: "Fives deeply value their few close relationships. They withdraw to protect their energy, not because they dislike people." },
-    { myth: "Fives just want to be left alone.", reality: "Fives want to connect — but on their own terms and timeline. Forced social interaction depletes; chosen connection nourishes." },
+    { myth: "Fives just want to be left alone.", reality: "Fives want to connect, but on their own terms and timeline. Forced social interaction depletes; chosen connection nourishes." },
   ],
   6: [
     { myth: "Sixes are cowardly and anxious.", reality: "Sixes can be extraordinarily courageous precisely because they feel fear and move through it anyway. Many Sixes are counter-phobic and appear fearless." },
@@ -126,7 +126,7 @@ const MYTHS: Record<number, { myth: string; reality: string }[]> = {
   ],
   9: [
     { myth: "Nines are just passive and easy-going.", reality: "Nines have a deep, persistent passive resistance that can be one of the most stubborn forces in the Enneagram. Their compliance conceals enormous hidden agendas." },
-    { myth: "Nines don't have strong opinions.", reality: "Nines do have opinions — they just struggle to prioritize them. When they finally wake up to their own position, they can be immovable." },
+    { myth: "Nines don't have strong opinions.", reality: "Nines do have opinions, they just struggle to prioritize them. When they finally wake up to their own position, they can be immovable." },
     { myth: "Nines are peaceful because they're content.", reality: "Nines have numbed themselves to inner conflict to avoid disruption. The peace is a practiced avoidance, not genuine equanimity." },
   ],
 };
@@ -135,13 +135,13 @@ const MYTHS: Record<number, { myth: string; reality: string }[]> = {
 const TYPE_IN_ACTION: Record<number, { conflict: string; love: string; work: string; stress: string }> = {
   1: { conflict: "Becomes precise and critical; lays out exactly what went wrong. May lecture or repeat their point. Often represses anger and expresses it as icy correctness or biting sarcasm.", love: "Highly devoted but can be critical of the partner. Shows love through acts of service and improvement. Struggles to express warmth spontaneously.", work: "Sets high standards, catches errors others miss, leads by example. Can become resentful when others don't match their effort.", stress: "Becomes anxious and scattered, suddenly acting impulsive or self-indulgent in ways very unlike their usual self (moves to 4, then 7 under extreme stress)." },
   2: { conflict: "Withdraws hurt feelings while continuing to help, then eventually explodes. May guilt-trip or become martyr-like. Rarely names what they actually need.", love: "Highly attentive and caring; intuits their partner's needs. Can become possessive or manipulative if their own love needs go unmet.", work: "Builds strong relationships; becomes the person everyone trusts. Can overextend, struggle to say no, or become resentful of being taken for granted.", stress: "Becomes aggressive and domineering, suddenly asserting needs they've suppressed for too long. Can shift to controlling or demanding (moves to 8)." },
-  3: { conflict: "Becomes more promotional of their position; frames the conflict in terms of outcomes. May dismiss emotional aspects as inefficient. Avoids looking bad.", love: "Highly attentive initially; may be more focused on the relationship's image than its depth. Struggles to be genuinely vulnerable with partners.", work: "Drives results, adapts communication style to each audience, thrives in competitive environments. Can shade truth to maintain image.", stress: "Becomes disengaged, apathetic, and melancholic — suddenly losing motivation and withdrawing from the performing mode (moves to 9)." },
+  3: { conflict: "Becomes more promotional of their position; frames the conflict in terms of outcomes. May dismiss emotional aspects as inefficient. Avoids looking bad.", love: "Highly attentive initially; may be more focused on the relationship's image than its depth. Struggles to be genuinely vulnerable with partners.", work: "Drives results, adapts communication style to each audience, thrives in competitive environments. Can shade truth to maintain image.", stress: "Becomes disengaged, apathetic, and melancholic, suddenly losing motivation and withdrawing from the performing mode (moves to 9)." },
   4: { conflict: "Feels the emotional wound intensely; may withdraw or respond with dramatic language. Focuses on the meaning behind the conflict, not just the facts.", love: "Deeply romantic and intense; idealizes partners then feels devastated by ordinary relationship reality. Needs to feel truly seen and special.", work: "Brings exceptional creativity and originality; can struggle with routine tasks. Needs work that feels meaningful and authentic.", stress: "Becomes hyperactive and scattered, throwing themselves into busyness to escape the pain (moves to 2, or overworks like a 1)." },
   5: { conflict: "Retreats internally; needs time to process before responding. Hates being ambushed with emotional demands. May respond days later with a well-formulated email.", love: "Extremely loyal and devoted within chosen relationships. Needs significant alone time even in close relationships. Shows love through presence and thought.", work: "Thrives in deep focus work; the go-to expert. Struggles with open-office environments, constant meetings, and interpersonal politics.", stress: "Becomes hyperactive and impulsive, suddenly acting out in ways completely out of character, scattered and disorganized (moves to 7)." },
-  6: { conflict: "Tests the relationship; may become aggressive to see if the other person will stay. Looks for proof of loyalty. Can be accusatory or suspicious.", love: "Among the most loyal partners when trust is established. Takes commitment seriously; needs consistent reassurance early on. Extremely warm once safe.", work: "Builds strong team loyalty, anticipates problems, excellent at risk assessment. Can be slow to decide due to worst-case thinking.", stress: "Becomes competitive, arrogant, and aggressive — temporarily acting out the opposite of their usual cooperative style (moves to 3 or 9 under extreme stress)." },
+  6: { conflict: "Tests the relationship; may become aggressive to see if the other person will stay. Looks for proof of loyalty. Can be accusatory or suspicious.", love: "Among the most loyal partners when trust is established. Takes commitment seriously; needs consistent reassurance early on. Extremely warm once safe.", work: "Builds strong team loyalty, anticipates problems, excellent at risk assessment. Can be slow to decide due to worst-case thinking.", stress: "Becomes competitive, arrogant, and aggressive, temporarily acting out the opposite of their usual cooperative style (moves to 3 or 9 under extreme stress)." },
   7: { conflict: "Reframes the conflict as fixable and moves quickly past it. May minimize the other person's hurt. Has a strong aversion to sustained negative feeling.", love: "Highly playful and fun partners; bring joy and adventure. Can struggle with sustained depth, commitment, or sitting with partner's pain.", work: "Generates ideas prolifically, keeps team energy high, makes tedious work fun. Struggles to finish projects, follow through on details.", stress: "Becomes perfectionistic and self-critical, suddenly fixating on what's wrong rather than what's possible (moves to 1)." },
   8: { conflict: "Confronts directly and immediately. Respects others who stand their ground. Tests whether you'll fight back or fold. Forgives quickly once it's out.", love: "Fiercely protective and generous with people they love. Needs to feel trusted, not managed. Reveals tenderness only to the very few they trust.", work: "Takes charge naturally; makes things happen. Can dominate meetings, steamroll others' ideas, or see subtlety as weakness.", stress: "Withdraws, becomes reclusive and secretive, isolating in an uncharacteristic way (moves to 5)." },
-  9: { conflict: "Avoids it as long as possible. Uses passive resistance — agreeing but not following through. Can suddenly explode after prolonged suppression of a position.", love: "Highly accommodating and supportive partner. Can lose their own identity in the relationship. Needs to be encouraged to voice their true preferences.", work: "Excellent mediator and team player. Can struggle with deadlines, taking initiative, or saying no to additional requests.", stress: "Becomes anxious, hypervigilant, and worry-prone — suddenly alert to all the problems they'd been ignoring (moves to 6)." },
+  9: { conflict: "Avoids it as long as possible. Uses passive resistance, agreeing but not following through. Can suddenly explode after prolonged suppression of a position.", love: "Highly accommodating and supportive partner. Can lose their own identity in the relationship. Needs to be encouraged to voice their true preferences.", work: "Excellent mediator and team player. Can struggle with deadlines, taking initiative, or saying no to additional requests.", stress: "Becomes anxious, hypervigilant, and worry-prone, suddenly alert to all the problems they'd been ignoring (moves to 6)." },
 };
 
 // ── Flip Card Component ───────────────────────────────────────────────────────
@@ -285,7 +285,7 @@ function TypeDetail({ type }: { type: EnneagramType }) {
         <ExpandableSection title="Levels of Development" icon={TrendingUp}>
           <div className="space-y-4">
             <p className="text-xs text-slate-400 leading-relaxed mb-2">
-              Riso &amp; Hudson identified 9 levels for each type — from healthiest (Level 1) to most destructive (Level 9). Most people operate between Levels 3–7. These traits show how the type looks at each range.
+              Riso &amp; Hudson identified 9 levels for each type, from healthiest (Level 1) to most destructive (Level 9). Most people operate between Levels 3–7. These traits show how the type looks at each range.
             </p>
             <div>
               <div className="text-xs font-medium text-emerald-600 mb-2 flex items-center gap-1"><TrendingUp className="w-3 h-3" /> Healthy</div>
@@ -383,7 +383,7 @@ function TypeDetail({ type }: { type: EnneagramType }) {
         <ExpandableSection title="Tritypes Involving This Type" icon={Layers}>
           <div className="space-y-3">
             <p className="text-xs text-slate-500 leading-relaxed mb-2">
-              Your tritype is a combination of three types — one from each intelligence center: <strong className="text-slate-600">Head</strong> (5, 6, or 7), <strong className="text-slate-600">Heart</strong> (2, 3, or 4), and <strong className="text-slate-600">Gut</strong> (8, 9, or 1). You lead with your core type but draw on the others in different situations. Below are tritypes involving Type {type.number}.
+              Your tritype is a combination of three types, one from each intelligence center: <strong className="text-slate-600">Head</strong> (5, 6, or 7), <strong className="text-slate-600">Heart</strong> (2, 3, or 4), and <strong className="text-slate-600">Gut</strong> (8, 9, or 1). You lead with your core type but draw on the others in different situations. Below are tritypes involving Type {type.number}.
             </p>
             <div className="grid gap-3">
               {relatedTritypes.slice(0, 12).map((tri) => (
@@ -467,7 +467,7 @@ function TypeDetail({ type }: { type: EnneagramType }) {
           return (
             <ExpandableSection title="Am I Actually This Type?" icon={Eye}>
               <div className="space-y-3">
-                <p className="text-xs text-slate-400 mb-2">Sometimes people misidentify their type because two types can look similar on the surface. Here&apos;s how to tell if you&apos;re actually a different type — and the key question to ask yourself.</p>
+                <p className="text-xs text-slate-400 mb-2">Sometimes people misidentify their type because two types can look similar on the surface. Here&apos;s how to tell if you&apos;re actually a different type, and the key question to ask yourself.</p>
                 {misids.map((m, i) => {
                   const otherType = m.types[0] === type.number ? m.types[1] : m.types[0];
                   return (
@@ -494,7 +494,7 @@ function TypeDetail({ type }: { type: EnneagramType }) {
         <ExpandableSection title="Triadic Groupings" icon={Users}>
           <div className="space-y-4">
             <p className="text-xs text-slate-400 mb-2">
-              The Enneagram groups types in three different ways. Each grouping reveals a pattern you share with certain other types — useful for understanding why you might relate to types beyond your core number. Based on Karen Horney, Riso-Hudson, and Object Relations theory.
+              The Enneagram groups types in three different ways. Each grouping reveals a pattern you share with certain other types, useful for understanding why you might relate to types beyond your core number. Based on Karen Horney, Riso-Hudson, and Object Relations theory.
             </p>
             {(() => {
               const hornevian = hornevianGroups.find(g => g.types.includes(type.number));
@@ -559,7 +559,7 @@ function LearnContent() {
   const [selectedType, setSelectedType] = useState<number | null>(typeParam ? parseInt(typeParam) : null);
   const [learnTab, setLearnTab] = useState<"types" | "instincts" | "stackings" | "tritypes" | "deepsystems">("types");
   const { profile } = useProfile();
-  const myType = profile.enneagramType ?? null; // reactive — updates when type changes
+  const myType = profile.enneagramType ?? null; // reactive, updates when type changes
 
   // Mark "Enneagram Basics" as complete when this page is visited
   useEffect(() => {
@@ -594,7 +594,7 @@ function LearnContent() {
             </div>
             {selectedType && (
               <Link href="/daily" className="inline-flex items-center gap-2 px-4 py-2 bg-orange-50 border border-orange-100 text-orange-600 rounded-xl text-xs font-medium hover:bg-orange-100 transition">
-                Daily Practice — quiz + insight →
+                Daily Practice, quiz + insight →
               </Link>
             )}
           </div>
@@ -635,7 +635,7 @@ function LearnContent() {
               <div className="max-w-2xl mb-8 p-6 rounded-3xl bg-gradient-to-br from-sky-50 to-indigo-50 border border-sky-100">
                 <h3 className="font-serif font-bold text-slate-900 text-lg mb-2">What is the Enneagram?</h3>
                 <p className="text-sm text-slate-600 leading-relaxed mb-4">
-                  The Enneagram is a map of 9 personality types — each driven by a different core motivation and fear. Unlike surface-level tests, it describes <em>why</em> you do what you do, not just what you do. It&apos;s a tool for self-understanding, not a label.
+                  The Enneagram is a map of 9 personality types, each driven by a different core motivation and fear. Unlike surface-level tests, it describes <em>why</em> you do what you do, not just what you do. It&apos;s a tool for self-understanding, not a label.
                 </p>
                 <div className="grid grid-cols-3 gap-3 text-center text-xs text-slate-500">
                   <div className="p-3 bg-white/70 rounded-xl">
@@ -660,7 +660,7 @@ function LearnContent() {
                     <div>How each type develops and heals</div>
                   </div>
                 </div>
-                <p className="text-xs text-slate-400 mt-4">Pick any type below to start — or take the <Link href="/enneagram/assess" className="text-sky-600 font-medium underline underline-offset-2">assessment</Link> to find yours.</p>
+                <p className="text-xs text-slate-400 mt-4">Pick any type below to start, or take the <Link href="/enneagram/assess" className="text-sky-600 font-medium underline underline-offset-2">assessment</Link> to find yours.</p>
               </div>
             )}
             <div className="flex flex-wrap gap-3 mb-10 items-end">
@@ -711,7 +711,7 @@ function LearnContent() {
         {learnTab === "instincts" && (
           <div className="max-w-3xl mx-auto space-y-6">
             <p className="text-sm text-slate-500 leading-relaxed">
-              The three instinctual variants — Self-Preservation (SP), Sexual/One-to-One (SX), and Social (SO) — are biological drives that shape how each Enneagram type expresses itself. Beatrice Chestnut&apos;s research identifies 27 distinct subtypes (3 per type), each with a countertype that looks least like the core type.
+              The three instinctual variants, Self-Preservation (SP), Sexual/One-to-One (SX), and Social (SO), are biological drives that shape how each Enneagram type expresses itself. Beatrice Chestnut&apos;s research identifies 27 distinct subtypes (3 per type), each with a countertype that looks least like the core type.
             </p>
             {instinctualVariants.map((iv) => (
               <div key={iv.code} className="p-6 rounded-2xl bg-white border border-slate-100 shadow-sm">
@@ -934,7 +934,7 @@ function LearnContent() {
           <NextStepBanner
             href="/daily"
             label="Start your daily practice"
-            sublabel="Quiz, insight, and growth challenge — personalized to your type"
+            sublabel="Quiz, insight, and growth challenge, personalized to your type"
             icon={<Flame className="w-5 h-5" />}
             color="#f97316"
             dismissKey="enneagram-learn-types-daily"

@@ -24,7 +24,7 @@ interface BriefCard {
 
 function getCards(moduleId: string, enneagramType?: number): BriefCard[] {
 
-  // ── Warm-Up — teaches exactly what the warmup quiz tests ──────────────────
+  // ── Warm-Up, teaches exactly what the warmup quiz tests ──────────────────
   if (moduleId === "warmup") {
     return [
       {
@@ -41,7 +41,7 @@ function getCards(moduleId: string, enneagramType?: number): BriefCard[] {
       {
         icon: "arrow" as const,
         title: "Growth & Stress Arrows",
-        body: "Each type has two arrows on the Enneagram symbol — one direction you move when growing (integration) and one when stressed (disintegration). These are specific and fixed.",
+        body: "Each type has two arrows on the Enneagram symbol, one direction you move when growing (integration) and one when stressed (disintegration). These are specific and fixed.",
         highlight: "growth and stress arrows",
         learnMore: {
           label: "The full arrow map",
@@ -57,13 +57,13 @@ function getCards(moduleId: string, enneagramType?: number): BriefCard[] {
         learnMore: {
           label: "How subtypes work",
           content:
-            "You have all three instincts, but one dominates. The dominant subtype changes how your type expresses itself — a sp-5 hoards resources and time, an so-5 teaches and shares knowledge in groups, an sx-5 is more intense and focused on one deep connection.\n\nSubtype questions in the quiz describe how a type behaves in specific life situations — watch for those context clues.",
+            "You have all three instincts, but one dominates. The dominant subtype changes how your type expresses itself, a sp-5 hoards resources and time, an so-5 teaches and shares knowledge in groups, an sx-5 is more intense and focused on one deep connection.\n\nSubtype questions in the quiz describe how a type behaves in specific life situations, watch for those context clues.",
         },
       },
     ];
   }
 
-  // ── Type Deep Dive — personalized to the user's actual type ───────────────
+  // ── Type Deep Dive, personalized to the user's actual type ───────────────
   if (moduleId === "type") {
     const t = enneagramType ? enneagramTypes.find((e) => e.number === enneagramType) : null;
 
@@ -84,11 +84,11 @@ function getCards(moduleId: string, enneagramType?: number): BriefCard[] {
         {
           icon: "arrow" as const,
           title: "Your Growth & Stress Arrows",
-          body: `Growing toward health, Type ${t.number} takes on qualities of ${growthTypeName}. Under stress, they shift toward ${stressTypeName}. The quiz will also test ALL types' arrows — so learn the full map below.`,
+          body: `Growing toward health, Type ${t.number} takes on qualities of ${growthTypeName}. Under stress, they shift toward ${stressTypeName}. The quiz will also test ALL types' arrows, so learn the full map below.`,
           highlight: "growth and stress",
           learnMore: {
             label: "Full arrow map (all 9 types)",
-            content: `Your type: ${t.number}→${t.integrationLine} (growth), ${t.number}→${t.disintegrationLine} (stress)\n\nAll types:\nGrowth: 1→7, 2→4, 3→6, 4→1, 5→8, 6→9, 7→5, 8→2, 9→3\nStress: 1→4, 2→8, 3→9, 4→2, 5→7, 6→3, 7→1, 8→5, 9→6\n\nTo find "which type grows toward Type X" — find X on the growth line and trace back. E.g., "which type grows toward 1?" → 4 (because 4→1).`,
+            content: `Your type: ${t.number}→${t.integrationLine} (growth), ${t.number}→${t.disintegrationLine} (stress)\n\nAll types:\nGrowth: 1→7, 2→4, 3→6, 4→1, 5→8, 6→9, 7→5, 8→2, 9→3\nStress: 1→4, 2→8, 3→9, 4→2, 5→7, 6→3, 7→1, 8→5, 9→6\n\nTo find "which type grows toward Type X", find X on the growth line and trace back. E.g., "which type grows toward 1?" → 4 (because 4→1).`,
           },
         },
         {
@@ -104,28 +104,28 @@ function getCards(moduleId: string, enneagramType?: number): BriefCard[] {
       ];
     }
 
-    // Generic fallback — no enneagramType set yet
+    // Generic fallback, no enneagramType set yet
     return [
       {
         icon: "target" as const,
         title: "About the Nine Types",
-        body: "Each Enneagram type is defined by a core fear and core desire — not by behavior, but by what drives the behavior. Two people can do the same thing for completely different reasons.",
+        body: "Each Enneagram type is defined by a core fear and core desire, not by behavior, but by what drives the behavior. Two people can do the same thing for completely different reasons.",
         highlight: "core fear and core desire",
         learnMore: {
           label: "Quick type overview",
           content:
-            "1 — Reformer: fears being corrupt. 2 — Helper: fears being unloved. 3 — Achiever: fears being worthless. 4 — Individualist: fears having no identity. 5 — Investigator: fears being incompetent. 6 — Loyalist: fears losing support. 7 — Enthusiast: fears being trapped. 8 — Challenger: fears being controlled. 9 — Peacemaker: fears conflict and loss of peace.",
+            "1, Reformer: fears being corrupt. 2, Helper: fears being unloved. 3, Achiever: fears being worthless. 4, Individualist: fears having no identity. 5, Investigator: fears being incompetent. 6, Loyalist: fears losing support. 7, Enthusiast: fears being trapped. 8, Challenger: fears being controlled. 9, Peacemaker: fears conflict and loss of peace.",
         },
       },
       {
         icon: "arrow" as const,
         title: "Growth & Stress Arrows",
-        body: "Each type has an integration line (growth) and a disintegration line (stress). The quiz will ask: 'Which type's growth arrow points toward Type X?' — so memorize the direction.",
+        body: "Each type has an integration line (growth) and a disintegration line (stress). The quiz will ask: 'Which type's growth arrow points toward Type X?', so memorize the direction.",
         highlight: "integration and disintegration",
         learnMore: {
           label: "Full arrow map",
           content:
-            "Growth: 1→7, 2→4, 3→6, 4→1, 5→8, 6→9, 7→5, 8→2, 9→3\nStress: 1→4, 2→8, 3→9, 4→2, 5→7, 6→3, 7→1, 8→5, 9→6\n\nTo find 'which type grows toward Type X' — find X in the growth column and look at which type points to it.",
+            "Growth: 1→7, 2→4, 3→6, 4→1, 5→8, 6→9, 7→5, 8→2, 9→3\nStress: 1→4, 2→8, 3→9, 4→2, 5→7, 6→3, 7→1, 8→5, 9→6\n\nTo find 'which type grows toward Type X', find X in the growth column and look at which type points to it.",
         },
       },
       {
@@ -136,13 +136,13 @@ function getCards(moduleId: string, enneagramType?: number): BriefCard[] {
         learnMore: {
           label: "Wings explained",
           content:
-            "Your wing is one of the two types neighboring your core type on the circle. A Type 5 can have a 4-wing (more artistic, withdrawn) or a 6-wing (more anxious, loyal). Wings don't change your core type — they add texture to it. Quiz questions sometimes reference wing behavior.",
+            "Your wing is one of the two types neighboring your core type on the circle. A Type 5 can have a 4-wing (more artistic, withdrawn) or a 6-wing (more anxious, loyal). Wings don't change your core type, they add texture to it. Quiz questions sometimes reference wing behavior.",
         },
       },
     ];
   }
 
-  // ── Cognitive Functions — teaches what the cognitive quiz tests ───────────
+  // ── Cognitive Functions, teaches what the cognitive quiz tests ───────────
   if (moduleId === "cognitive") {
     return [
       {
@@ -153,7 +153,7 @@ function getCards(moduleId: string, enneagramType?: number): BriefCard[] {
         learnMore: {
           label: "What each function does",
           content:
-            "Ne — brainstorms possibilities, connects patterns outward\nNi — synthesizes insights, sees patterns inward\nSe — lives in the present moment, takes in sensory data\nSi — recalls past experiences, values consistency\n\nFe — reads group emotions, prioritizes harmony\nFi — holds personal values, deep individual ethics\nTe — organizes external systems, values efficiency\nTi — builds internal logic frameworks, precision-focused",
+            "Ne, brainstorms possibilities, connects patterns outward\nNi, synthesizes insights, sees patterns inward\nSe, lives in the present moment, takes in sensory data\nSi, recalls past experiences, values consistency\n\nFe, reads group emotions, prioritizes harmony\nFi, holds personal values, deep individual ethics\nTe, organizes external systems, values efficiency\nTi, builds internal logic frameworks, precision-focused",
         },
       },
       {
@@ -164,7 +164,7 @@ function getCards(moduleId: string, enneagramType?: number): BriefCard[] {
         learnMore: {
           label: "Example stacks",
           content:
-            "INTJ: Ni → Te → Fi → Se (Ni-dominant, Se inferior — great long-term vision, struggles with present-moment awareness)\n\nENFP: Ne → Fi → Te → Si (Ne-dominant, Si inferior — generates ideas easily, struggles with follow-through and routine)\n\nThe quiz tests your ability to recognize function behavior in real-life scenarios.",
+            "INTJ: Ni → Te → Fi → Se (Ni-dominant, Se inferior, great long-term vision, struggles with present-moment awareness)\n\nENFP: Ne → Fi → Te → Si (Ne-dominant, Si inferior, generates ideas easily, struggles with follow-through and routine)\n\nThe quiz tests your ability to recognize function behavior in real-life scenarios.",
         },
       },
       {
@@ -175,7 +175,7 @@ function getCards(moduleId: string, enneagramType?: number): BriefCard[] {
         learnMore: {
           label: "Fi vs. Fe example",
           content:
-            "Fi (introverted feeling): 'Does this align with MY values?' — personal ethics, emotional self-sufficiency, hard to read externally.\n\nFe (extraverted feeling): 'What does the GROUP need emotionally?' — reads the room, adjusts tone for harmony, expressive with emotions.\n\nBoth are 'feeling functions' but they operate in opposite directions.",
+            "Fi (introverted feeling): 'Does this align with MY values?', personal ethics, emotional self-sufficiency, hard to read externally.\n\nFe (extraverted feeling): 'What does the GROUP need emotionally?', reads the room, adjusts tone for harmony, expressive with emotions.\n\nBoth are 'feeling functions' but they operate in opposite directions.",
         },
       },
     ];
@@ -191,7 +191,7 @@ function getCards(moduleId: string, enneagramType?: number): BriefCard[] {
       learnMore: {
         label: "How they overlap",
         content:
-          "A Type 5 (fears incompetence) with Ti-dominant will spend hours building a private logical framework no one sees. A Type 5 with Te-dominant will organize knowledge into external systems — writing, teaching, structuring. Same fear, different cognitive strategy. The quiz tests whether you can spot both layers at once.",
+          "A Type 5 (fears incompetence) with Ti-dominant will spend hours building a private logical framework no one sees. A Type 5 with Te-dominant will organize knowledge into external systems, writing, teaching, structuring. Same fear, different cognitive strategy. The quiz tests whether you can spot both layers at once.",
       },
     },
     {
@@ -213,7 +213,7 @@ function getCards(moduleId: string, enneagramType?: number): BriefCard[] {
       learnMore: {
         label: "Quiz strategy",
         content:
-          "Step 1: Ask 'What does this person WANT or FEAR?' → that points to Enneagram type.\nStep 2: Ask 'How are they processing — inward or outward? Feeling or thinking? Past or future?' → that points to the function.\n\nEliminate answers where either layer doesn't match the scenario.",
+          "Step 1: Ask 'What does this person WANT or FEAR?' → that points to Enneagram type.\nStep 2: Ask 'How are they processing, inward or outward? Feeling or thinking? Past or future?' → that points to the function.\n\nEliminate answers where either layer doesn't match the scenario.",
       },
     },
   ];
@@ -224,7 +224,7 @@ function getCards(moduleId: string, enneagramType?: number): BriefCard[] {
 // visually distinct element rather than dumping raw text.
 
 function renderLearnContent(raw: string) {
-  // Pre-process: split inline type lists "1 — Name: desc. 2 — Name: desc." into lines
+  // Pre-process: split inline type lists "1, Name: desc. 2, Name: desc." into lines
   const preprocessed = raw.replace(/\. (\d — [A-Z])/g, ".\n$1");
 
   const paragraphs = preprocessed.split("\n\n");
@@ -443,7 +443,7 @@ function renderLearnContent(raw: string) {
                 );
               }
 
-              // ── Function badge lines: "Ne — description" or "Fi — description" ──
+              // ── Function badge lines: "Ne, description" or "Fi, description" ──
               const funcMatch = line.match(/^([A-Z][a-z]?) [—–] (.+)/);
               if (funcMatch) {
                 const fn = funcMatch[1];
@@ -467,7 +467,7 @@ function renderLearnContent(raw: string) {
                 );
               }
 
-              // ── Function detail: "Fi (introverted feeling): '…' — …" ──
+              // ── Function detail: "Fi (introverted feeling): '…', …" ──
               const funcDetail = line.match(/^([A-Z][a-z]?) \(([^)]+)\): (.+)/);
               if (funcDetail) {
                 const fn = funcDetail[1];
@@ -518,7 +518,7 @@ function renderLearnContent(raw: string) {
                 );
               }
 
-              // ── Single type entry: "5 — Investigator: fears being incompetent." ──
+              // ── Single type entry: "5, Investigator: fears being incompetent." ──
               const typeLineMatch = line.match(/^(\d) — ([A-Z][^:]+): (.+)/);
               if (typeLineMatch) {
                 return (
@@ -626,7 +626,7 @@ export default function LessonBriefOverlay({
 
   const CardIcon = ICON_MAP[card.icon] ?? Layers;
 
-  // Chibi for the header — use the user's type sprite or default
+  // Chibi for the header, use the user's type sprite or default
   const chibiSrc = enneagramType
     ? `/sprites/chibi/${enneagramType}-sp${enneagramType}.png`
     : "/sprites/chibi/5-sp5.png";

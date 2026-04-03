@@ -36,19 +36,19 @@ export const dailyReadings: Reading[] = [
     paragraphs: [
       {
         bold: "The constant inner critic.",
-        text: " Ones don't choose to be perfectionistic — it's not discipline, it's anxiety. Inside every Type 1 runs a voice that constantly evaluates: this could be better, that wasn't right, you should have done it differently. This voice isn't cruel by design — it genuinely believes that if everything were correct and good, the world would be safe.",
+        text: " Ones don't choose to be perfectionistic, it's not discipline, it's anxiety. Inside every Type 1 runs a voice that constantly evaluates: this could be better, that wasn't right, you should have done it differently. This voice isn't cruel by design, it genuinely believes that if everything were correct and good, the world would be safe.",
       },
       {
         bold: "Resentment as unspoken anger.",
-        text: " Ones typically believe that anger is wrong — so they suppress it. But suppressed anger doesn't disappear; it becomes resentment. Ones often carry a simmering frustration that others don't try as hard, don't care as much, or don't hold themselves to the same standards. This can leak out as criticism, sighing, or withdrawal.",
+        text: " Ones typically believe that anger is wrong, so they suppress it. But suppressed anger doesn't disappear; it becomes resentment. Ones often carry a simmering frustration that others don't try as hard, don't care as much, or don't hold themselves to the same standards. This can leak out as criticism, sighing, or withdrawal.",
       },
       {
         bold: "The gap between real and ideal.",
-        text: " Ones live in constant tension between how things ARE and how they SHOULD be. This gap is the source of both their drive and their suffering. When they manage to close that gap — when something is truly done right — it brings a rare, deep satisfaction. But the gap always reopens.",
+        text: " Ones live in constant tension between how things ARE and how they SHOULD be. This gap is the source of both their drive and their suffering. When they manage to close that gap, when something is truly done right, it brings a rare, deep satisfaction. But the gap always reopens.",
       },
       {
         bold: "Growth means learning to rest.",
-        text: " For Ones, growth isn't about becoming MORE disciplined — it's about learning that imperfection is safe. Healthy Ones discover that the present moment, exactly as it is, is enough. They integrate toward Type 7: playful, spontaneous, and able to enjoy life without needing it to be perfect first.",
+        text: " For Ones, growth isn't about becoming MORE disciplined, it's about learning that imperfection is safe. Healthy Ones discover that the present moment, exactly as it is, is enough. They integrate toward Type 7: playful, spontaneous, and able to enjoy life without needing it to be perfect first.",
       },
     ],
     reflection: "When did your inner critic last speak loudest? What was it actually afraid of?",
@@ -66,19 +66,19 @@ export const dailyReadings: Reading[] = [
     paragraphs: [
       {
         bold: "Giving as a survival strategy.",
-        text: " Twos give because it feels good — but also because a deep part of them believes that being needed is the only secure way to be loved. The giving isn't selfless at its core; it's a bid for connection and reassurance. This doesn't make Twos manipulative — it makes them human, operating from a genuine wound.",
+        text: " Twos give because it feels good, but also because a deep part of them believes that being needed is the only secure way to be loved. The giving isn't selfless at its core; it's a bid for connection and reassurance. This doesn't make Twos manipulative, it makes them human, operating from a genuine wound.",
       },
       {
         bold: "The pride that won't ask.",
-        text: " Twos are often unaware of their own needs — and even when they are, asking feels dangerous. What if the answer is no? What if they're seen as needy? So they give in hopes of receiving without having to ask. This leads to resentment when giving isn't reciprocated, and exhaustion from constantly pouring out.",
+        text: " Twos are often unaware of their own needs, and even when they are, asking feels dangerous. What if the answer is no? What if they're seen as needy? So they give in hopes of receiving without having to ask. This leads to resentment when giving isn't reciprocated, and exhaustion from constantly pouring out.",
       },
       {
         bold: "Flattery and image management.",
-        text: " Twos often unconsciously shift their personality depending on who they're with — becoming what each person needs them to be. This adaptability is a gift, but it can leave Twos unsure of who they actually are when no one needs anything from them.",
+        text: " Twos often unconsciously shift their personality depending on who they're with, becoming what each person needs them to be. This adaptability is a gift, but it can leave Twos unsure of who they actually are when no one needs anything from them.",
       },
       {
         bold: "Growth means receiving.",
-        text: " Healthy Twos discover they are lovable without earning it. They learn to acknowledge their own needs, ask directly for help, and give freely without keeping score. They integrate toward Type 4 — connecting with their own depth, individuality, and emotional truth.",
+        text: " Healthy Twos discover they are lovable without earning it. They learn to acknowledge their own needs, ask directly for help, and give freely without keeping score. They integrate toward Type 4, connecting with their own depth, individuality, and emotional truth.",
       },
     ],
     reflection: "Think of a recent situation where you gave something. What were you hoping to receive in return, even unconsciously?",
@@ -96,19 +96,19 @@ export const dailyReadings: Reading[] = [
     paragraphs: [
       {
         bold: "The original wound: being loved for doing, not being.",
-        text: " Threes learned early that love and attention came when they succeeded. Not for who they were, but for what they accomplished. So they became very, very good at accomplishing things — and in the process, lost touch with who they were beneath the achievements.",
+        text: " Threes learned early that love and attention came when they succeeded. Not for who they were, but for what they accomplished. So they became very, very good at accomplishing things, and in the process, lost touch with who they were beneath the achievements.",
       },
       {
         bold: "The vanity trap.",
-        text: " Threes don't just want to succeed — they want to be seen succeeding. Image management is constant. They calibrate their presentation to whatever audience they're with, shifting effortlessly between roles. This adaptability is one of Threes' great strengths, but it comes at a cost: they often don't know which version of themselves is real.",
+        text: " Threes don't just want to succeed, they want to be seen succeeding. Image management is constant. They calibrate their presentation to whatever audience they're with, shifting effortlessly between roles. This adaptability is one of Threes' great strengths, but it comes at a cost: they often don't know which version of themselves is real.",
       },
       {
         bold: "Deceit as self-deception.",
-        text: " The passion of Type 3 isn't lying to others — it's lying to themselves. Threes can become so absorbed in a role or goal that they genuinely believe they feel things they don't, and genuinely don't notice feelings they do have. The busyness serves as a buffer from the emptiness underneath.",
+        text: " The passion of Type 3 isn't lying to others, it's lying to themselves. Threes can become so absorbed in a role or goal that they genuinely believe they feel things they don't, and genuinely don't notice feelings they do have. The busyness serves as a buffer from the emptiness underneath.",
       },
       {
         bold: "Growth means stillness.",
-        text: " Healthy Threes discover that being — not doing — is enough. They integrate toward Type 6: becoming loyal, committed, and genuinely collaborative rather than always competing. They find that real connection requires vulnerability, not performance.",
+        text: " Healthy Threes discover that being, not doing, is enough. They integrate toward Type 6: becoming loyal, committed, and genuinely collaborative rather than always competing. They find that real connection requires vulnerability, not performance.",
       },
     ],
     reflection: "If you couldn't tell anyone about your achievements for a year, how would you feel about yourself?",
@@ -126,11 +126,11 @@ export const dailyReadings: Reading[] = [
     paragraphs: [
       {
         bold: "The sense of being fundamentally different.",
-        text: " Fours have a persistent feeling that something essential is missing in them — some quality that others seem to have naturally. This feeling of deficiency isn't a conclusion they reached logically; it's a background sense of not quite belonging, of watching life through glass while others seem to be fully inside it.",
+        text: " Fours have a persistent feeling that something essential is missing in them, some quality that others seem to have naturally. This feeling of deficiency isn't a conclusion they reached logically; it's a background sense of not quite belonging, of watching life through glass while others seem to be fully inside it.",
       },
       {
         bold: "Envy as a constant companion.",
-        text: " Fours are the type most prone to envy — not jealousy (wanting what someone else has) but envy (feeling that others have what Fours lack by nature). This envy pulls them toward idealization of what's missing and devaluation of what's present. The grass is always greener.",
+        text: " Fours are the type most prone to envy, not jealousy (wanting what someone else has) but envy (feeling that others have what Fours lack by nature). This envy pulls them toward idealization of what's missing and devaluation of what's present. The grass is always greener.",
       },
       {
         bold: "The romance with suffering.",
@@ -156,22 +156,22 @@ export const dailyReadings: Reading[] = [
     paragraphs: [
       {
         bold: "The world as overwhelming.",
-        text: " Fives experience the world as intrusive and depleting. Interactions — even enjoyable ones — cost energy. The response to this is strategic withdrawal: a retreat into the mind where everything can be processed safely, at their own pace, without anyone demanding more than they have to give.",
+        text: " Fives experience the world as intrusive and depleting. Interactions, even enjoyable ones, cost energy. The response to this is strategic withdrawal: a retreat into the mind where everything can be processed safely, at their own pace, without anyone demanding more than they have to give.",
       },
       {
         bold: "Hoarding as safety.",
-        text: " Fives hoard resources: time, energy, knowledge, privacy. They give very little away for free, because they never feel they have enough to spare. This isn't greed — it's fear. Fear that if they give too much, they'll be left with nothing. This creates a paradox: the more they hold back, the more isolated and depleted they actually become.",
+        text: " Fives hoard resources: time, energy, knowledge, privacy. They give very little away for free, because they never feel they have enough to spare. This isn't greed, it's fear. Fear that if they give too much, they'll be left with nothing. This creates a paradox: the more they hold back, the more isolated and depleted they actually become.",
       },
       {
         bold: "Detachment from feelings.",
-        text: " Fives often experience their emotions on a time delay. They don't feel things in real time — they process them later, alone. This can make them seem cold or unaffected, when in reality they're simply storing the experience for later analysis. Sometimes the analysis happens; sometimes feelings get permanently shelved.",
+        text: " Fives often experience their emotions on a time delay. They don't feel things in real time, they process them later, alone. This can make them seem cold or unaffected, when in reality they're simply storing the experience for later analysis. Sometimes the analysis happens; sometimes feelings get permanently shelved.",
       },
       {
         bold: "Growth means engagement.",
-        text: " Healthy Fives discover that engaging with life doesn't deplete them — it energizes them. They integrate toward Type 8: becoming confident, decisive, and willing to step forward into the world. They find that their mind is most alive when it's connected to lived experience, not just theory.",
+        text: " Healthy Fives discover that engaging with life doesn't deplete them, it energizes them. They integrate toward Type 8: becoming confident, decisive, and willing to step forward into the world. They find that their mind is most alive when it's connected to lived experience, not just theory.",
       },
     ],
-    reflection: "What do you most guard yourself from — time demands, emotional demands, physical presence? What would it feel like to be less guarded there?",
+    reflection: "What do you most guard yourself from, time demands, emotional demands, physical presence? What would it feel like to be less guarded there?",
     tokenReward: 25,
     xpReward: 15,
   },
@@ -186,19 +186,19 @@ export const dailyReadings: Reading[] = [
     paragraphs: [
       {
         bold: "The mind that never stops scanning.",
-        text: " Sixes have a hyperactive threat-detection system. Their mind constantly asks: what could go wrong here? Who can I trust? What's the worst case? This isn't pessimism — it's preparation. If they can see every danger in advance, they can be ready. The anxiety is the price of feeling safe.",
+        text: " Sixes have a hyperactive threat-detection system. Their mind constantly asks: what could go wrong here? Who can I trust? What's the worst case? This isn't pessimism, it's preparation. If they can see every danger in advance, they can be ready. The anxiety is the price of feeling safe.",
       },
       {
         bold: "Authority: the push-pull.",
-        text: " Sixes have a complicated relationship with authority. They seek out trustworthy authorities and structures, but then test and question them. They want to believe — but they're terrified of being wrong about who to believe in. This can create a cycle of seeking, doubting, and abandoning guides and institutions.",
+        text: " Sixes have a complicated relationship with authority. They seek out trustworthy authorities and structures, but then test and question them. They want to believe, but they're terrified of being wrong about who to believe in. This can create a cycle of seeking, doubting, and abandoning guides and institutions.",
       },
       {
         bold: "Phobic and counterphobic.",
-        text: " Some Sixes (phobic) move away from threat — they become cautious, deferential, and approval-seeking. Others (counterphobic) move TOWARD threat — becoming defiant, reckless, or aggressive as a way to prove the threat doesn't scare them. Both are responses to the same underlying anxiety.",
+        text: " Some Sixes (phobic) move away from threat, they become cautious, deferential, and approval-seeking. Others (counterphobic) move TOWARD threat, becoming defiant, reckless, or aggressive as a way to prove the threat doesn't scare them. Both are responses to the same underlying anxiety.",
       },
       {
         bold: "Growth means trusting yourself.",
-        text: " Healthy Sixes discover that the guidance they've been seeking externally was within them all along. They integrate toward Type 9: becoming calm, grounded, and able to rest in uncertainty without needing to resolve it. They find that real security isn't the absence of threat — it's confidence in their own ability to respond.",
+        text: " Healthy Sixes discover that the guidance they've been seeking externally was within them all along. They integrate toward Type 9: becoming calm, grounded, and able to rest in uncertainty without needing to resolve it. They find that real security isn't the absence of threat, it's confidence in their own ability to respond.",
       },
     ],
     reflection: "Think of a recent decision you overthought. What were you most afraid of getting wrong?",
@@ -216,19 +216,19 @@ export const dailyReadings: Reading[] = [
     paragraphs: [
       {
         bold: "Anxiety disguised as adventure.",
-        text: " Sevens are one of the anxiety types — but they've found a brilliant way to manage it: keep moving. If you're always planning the next exciting thing, always in motion, always anticipating, there's no space for the pain and deprivation you're fleeing. The constant activity isn't enthusiasm — it's escape velocity.",
+        text: " Sevens are one of the anxiety types, but they've found a brilliant way to manage it: keep moving. If you're always planning the next exciting thing, always in motion, always anticipating, there's no space for the pain and deprivation you're fleeing. The constant activity isn't enthusiasm, it's escape velocity.",
       },
       {
         bold: "The trap of options.",
-        text: " Sevens love possibilities more than actualities. The plan is always more exciting than the execution. Commitment feels like loss — every time they choose one thing, they're giving up the others. So they resist commitment, keep options open, and scatter their energy across too many fronts to go deep in any of them.",
+        text: " Sevens love possibilities more than actualities. The plan is always more exciting than the execution. Commitment feels like loss, every time they choose one thing, they're giving up the others. So they resist commitment, keep options open, and scatter their energy across too many fronts to go deep in any of them.",
       },
       {
         bold: "Reframing pain.",
-        text: " Sevens have an extraordinary ability to reframe any negative experience into a positive one. This is a gift in many situations — but it becomes a liability when pain needs to be felt, not reframed. Grief, loss, and failure all have important information. Sevens often process these on fast-forward.",
+        text: " Sevens have an extraordinary ability to reframe any negative experience into a positive one. This is a gift in many situations, but it becomes a liability when pain needs to be felt, not reframed. Grief, loss, and failure all have important information. Sevens often process these on fast-forward.",
       },
       {
         bold: "Growth means depth.",
-        text: " Healthy Sevens discover that the richest experiences come from going deep, not wide. They integrate toward Type 5: becoming focused, contemplative, and genuinely present. They find that sitting with discomfort doesn't destroy them — it connects them to a fullness that no amount of planning can provide.",
+        text: " Healthy Sevens discover that the richest experiences come from going deep, not wide. They integrate toward Type 5: becoming focused, contemplative, and genuinely present. They find that sitting with discomfort doesn't destroy them, it connects them to a fullness that no amount of planning can provide.",
       },
     ],
     reflection: "What feeling have you been avoiding lately by staying busy or planning ahead?",
@@ -246,19 +246,19 @@ export const dailyReadings: Reading[] = [
     paragraphs: [
       {
         bold: "The original decision: never be weak again.",
-        text: " Eights typically made a decision early in life — often in response to being hurt or betrayed — that vulnerability was dangerous. The solution was to become strong. Hard. Someone no one could push around. The armor that was built in childhood became the personality that runs their adult life.",
+        text: " Eights typically made a decision early in life, often in response to being hurt or betrayed, that vulnerability was dangerous. The solution was to become strong. Hard. Someone no one could push around. The armor that was built in childhood became the personality that runs their adult life.",
       },
       {
         bold: "Control as survival.",
-        text: " Eights need to be in control of their environment because their deepest fear is being controlled by others. This isn't about power for its own sake — it's about safety. If they're in charge, they can't be blindsided. If they set the terms, they can't be exploited. Every situation is assessed through this lens.",
+        text: " Eights need to be in control of their environment because their deepest fear is being controlled by others. This isn't about power for its own sake, it's about safety. If they're in charge, they can't be blindsided. If they set the terms, they can't be exploited. Every situation is assessed through this lens.",
       },
       {
         bold: "The tenderness underneath.",
-        text: " Eights are one of the most genuinely caring types in the Enneagram — but they hide it ferociously. Their tenderness is reserved for a small inner circle of people they've chosen to trust. For everyone else, the armor stays on. This is why Eights can seem brutal to strangers and fiercely protective to close friends.",
+        text: " Eights are one of the most genuinely caring types in the Enneagram, but they hide it ferociously. Their tenderness is reserved for a small inner circle of people they've chosen to trust. For everyone else, the armor stays on. This is why Eights can seem brutal to strangers and fiercely protective to close friends.",
       },
       {
         bold: "Growth means softening.",
-        text: " Healthy Eights discover that true strength includes the courage to be vulnerable. They integrate toward Type 2: becoming warm, nurturing, and willing to need others. They find that the people who love them most aren't drawn to their power — they're drawn to the tenderness they usually protect.",
+        text: " Healthy Eights discover that true strength includes the courage to be vulnerable. They integrate toward Type 2: becoming warm, nurturing, and willing to need others. They find that the people who love them most aren't drawn to their power, they're drawn to the tenderness they usually protect.",
       },
     ],
     reflection: "When did you last let someone see you struggling without trying to manage how it looked?",
@@ -280,15 +280,15 @@ export const dailyReadings: Reading[] = [
       },
       {
         bold: "Merging with others.",
-        text: " Nines have a remarkable ability to take on the perspectives, preferences, and energy of the people around them. This makes them enormously empathetic and easy to be with — but it also means they can lose track of themselves entirely. After time with a strong personality, a Nine may not know where the other person ends and they begin.",
+        text: " Nines have a remarkable ability to take on the perspectives, preferences, and energy of the people around them. This makes them enormously empathetic and easy to be with, but it also means they can lose track of themselves entirely. After time with a strong personality, a Nine may not know where the other person ends and they begin.",
       },
       {
         bold: "Passive resistance.",
-        text: " Nines rarely say no directly — it feels too confrontational. Instead, they use passive strategies: forgetting, delaying, going along but not following through, redirecting attention. This 'passive aggression' is often unconscious — Nines genuinely don't realize they're resisting. But the resistance is real.",
+        text: " Nines rarely say no directly, it feels too confrontational. Instead, they use passive strategies: forgetting, delaying, going along but not following through, redirecting attention. This 'passive aggression' is often unconscious, Nines genuinely don't realize they're resisting. But the resistance is real.",
       },
       {
         bold: "Growth means showing up.",
-        text: " Healthy Nines discover that their presence — their actual opinions, needs, and energy — is a gift to the world, not a burden. They integrate toward Type 3: becoming focused, energized, and able to act on their own behalf. They learn that peace built on self-erasure isn't peace at all.",
+        text: " Healthy Nines discover that their presence, their actual opinions, needs, and energy, is a gift to the world, not a burden. They integrate toward Type 3: becoming focused, energized, and able to act on their own behalf. They learn that peace built on self-erasure isn't peace at all.",
       },
     ],
     reflection: "What's one opinion or preference you've been keeping quiet to avoid disrupting the peace? What would happen if you said it?",
@@ -307,23 +307,23 @@ export const dailyReadings: Reading[] = [
     typeFilter: [],
     paragraphs: [
       {
-        bold: "Not a second type — a flavor.",
-        text: " Your wing is the Enneagram type adjacent to yours that colors how your core type expresses itself. A Type 4 with a 3 wing (4w3) is more ambitious and image-conscious than a 4w5, which tends to be more withdrawn and intellectual. The core motivation stays the same — only the expression changes.",
+        bold: "Not a second type, a flavor.",
+        text: " Your wing is the Enneagram type adjacent to yours that colors how your core type expresses itself. A Type 4 with a 3 wing (4w3) is more ambitious and image-conscious than a 4w5, which tends to be more withdrawn and intellectual. The core motivation stays the same, only the expression changes.",
       },
       {
         bold: "Most people have one dominant wing.",
-        text: " While both adjacent types technically influence you, most people find one wing much more prominent than the other. Some people show both wings depending on context — this is normal. A few rare individuals show almost no wing influence and are sometimes called 'arrow types.'",
+        text: " While both adjacent types technically influence you, most people find one wing much more prominent than the other. Some people show both wings depending on context, this is normal. A few rare individuals show almost no wing influence and are sometimes called 'arrow types.'",
       },
       {
         bold: "Wings can shift across life stages.",
-        text: " It's common to lean into one wing heavily in your 20s, then find the other becoming more prominent in your 40s or 50s. This isn't a type change — it's development. As you grow, you integrate qualities from both adjacent types.",
+        text: " It's common to lean into one wing heavily in your 20s, then find the other becoming more prominent in your 40s or 50s. This isn't a type change, it's development. As you grow, you integrate qualities from both adjacent types.",
       },
       {
         bold: "The key question.",
-        text: " To identify your wing, look at the two types adjacent to yours and ask: which one's BEHAVIORS (not motivations) do I notice more in myself? Not which one you admire or aspire to — which one actually shows up in your everyday patterns.",
+        text: " To identify your wing, look at the two types adjacent to yours and ask: which one's BEHAVIORS (not motivations) do I notice more in myself? Not which one you admire or aspire to, which one actually shows up in your everyday patterns.",
       },
     ],
-    reflection: "Which of your two adjacent types do you see more in your actual behavior — not your ideals, but your patterns?",
+    reflection: "Which of your two adjacent types do you see more in your actual behavior, not your ideals, but your patterns?",
     tokenReward: 25,
     xpReward: 15,
   },
@@ -331,14 +331,14 @@ export const dailyReadings: Reading[] = [
   {
     id: "instincts-explained",
     title: "The Three Instincts: Your Hidden Driver",
-    subtitle: "SP, SO, and SX — and why they matter",
+    subtitle: "SP, SO, and SX, and why they matter",
     estimatedMinutes: 3,
     stage: 2,
     typeFilter: [],
     paragraphs: [
       {
         bold: "Three survival drives, one dominant.",
-        text: " Every human has three biological instincts: Self-Preservation (SP), Social (SO), and Sexual/One-to-One (SX). These aren't personality traits — they're pre-cognitive drives. Your dominant instinct runs beneath your Enneagram type and filters how it expresses itself. Two Type 4s with different instincts can look like completely different people.",
+        text: " Every human has three biological instincts: Self-Preservation (SP), Social (SO), and Sexual/One-to-One (SX). These aren't personality traits, they're pre-cognitive drives. Your dominant instinct runs beneath your Enneagram type and filters how it expresses itself. Two Type 4s with different instincts can look like completely different people.",
       },
       {
         bold: "Self-Preservation (SP): safety and comfort.",
@@ -346,14 +346,14 @@ export const dailyReadings: Reading[] = [
       },
       {
         bold: "Social (SO): belonging and status.",
-        text: " SO-dominant people are focused on their position in groups: where they fit, how they're perceived, and whether they're contributing meaningfully. They're often the most culturally aware subtype — attuned to norms, hierarchies, and collective meaning. This doesn't mean they're extroverted; introverts can be SO-dominant.",
+        text: " SO-dominant people are focused on their position in groups: where they fit, how they're perceived, and whether they're contributing meaningfully. They're often the most culturally aware subtype, attuned to norms, hierarchies, and collective meaning. This doesn't mean they're extroverted; introverts can be SO-dominant.",
       },
       {
         bold: "Sexual / One-to-One (SX): intensity and connection.",
-        text: " SX-dominant people are focused on depth of connection and aliveness. They want intense, merging experiences — whether in relationships, creative work, or ideas. They're drawn to whatever feels most alive. They tend to be charismatic, restless, and somewhat all-or-nothing in their attachments.",
+        text: " SX-dominant people are focused on depth of connection and aliveness. They want intense, merging experiences, whether in relationships, creative work, or ideas. They're drawn to whatever feels most alive. They tend to be charismatic, restless, and somewhat all-or-nothing in their attachments.",
       },
     ],
-    reflection: "Which of the three descriptions — SP, SO, or SX — matches the lens through which you most naturally see the world?",
+    reflection: "Which of the three descriptions, SP, SO, or SX, matches the lens through which you most naturally see the world?",
     tokenReward: 25,
     xpReward: 15,
   },
@@ -363,14 +363,14 @@ export const dailyReadings: Reading[] = [
   {
     id: "stress-growth-lines",
     title: "Stress and Growth: The Lines of the Enneagram",
-    subtitle: "Where you go under pressure — and where you're headed",
+    subtitle: "Where you go under pressure, and where you're headed",
     estimatedMinutes: 3,
     stage: 3,
     typeFilter: [],
     paragraphs: [
       {
         bold: "The Enneagram moves.",
-        text: " Unlike many type systems, the Enneagram isn't static. Each type is connected to two others by lines that show where you GO — psychologically — under stress (disintegration) and in growth (integration). These connections reveal your full range, not just your home base.",
+        text: " Unlike many type systems, the Enneagram isn't static. Each type is connected to two others by lines that show where you GO, psychologically, under stress (disintegration) and in growth (integration). These connections reveal your full range, not just your home base.",
       },
       {
         bold: "Disintegration: under stress.",
@@ -378,11 +378,11 @@ export const dailyReadings: Reading[] = [
       },
       {
         bold: "Integration: in growth.",
-        text: " As you become healthier and more conscious, you begin to naturally take on the HIGHER qualities of another type. A Type 7 integrating toward Type 5 becomes focused, contemplative, and genuinely present. A Type 4 integrating toward Type 1 becomes disciplined, grounded, and purposeful. Integration isn't forced — it emerges as a natural byproduct of inner work.",
+        text: " As you become healthier and more conscious, you begin to naturally take on the HIGHER qualities of another type. A Type 7 integrating toward Type 5 becomes focused, contemplative, and genuinely present. A Type 4 integrating toward Type 1 becomes disciplined, grounded, and purposeful. Integration isn't forced, it emerges as a natural byproduct of inner work.",
       },
       {
         bold: "Both directions are always available.",
-        text: " You're not stuck on one path. At any moment, you can ask yourself: am I moving toward my stress type right now, or toward my growth type? This simple question — practiced over time — is one of the most powerful tools the Enneagram offers.",
+        text: " You're not stuck on one path. At any moment, you can ask yourself: am I moving toward my stress type right now, or toward my growth type? This simple question, practiced over time, is one of the most powerful tools the Enneagram offers.",
       },
     ],
     reflection: "Think of a recent stressful period. Can you see yourself taking on qualities of your stress type? What triggered it?",
@@ -400,11 +400,11 @@ export const dailyReadings: Reading[] = [
     paragraphs: [
       {
         bold: "Two maps of the same territory.",
-        text: " The Enneagram and cognitive functions describe the same person from different angles. The Enneagram tells you WHY you do what you do — your core fear, desire, and motivation. Cognitive functions tell you HOW you process the world — the specific mental tools you use most naturally. Together, they give you a much richer picture.",
+        text: " The Enneagram and cognitive functions describe the same person from different angles. The Enneagram tells you WHY you do what you do, your core fear, desire, and motivation. Cognitive functions tell you HOW you process the world, the specific mental tools you use most naturally. Together, they give you a much richer picture.",
       },
       {
         bold: "Motivation vs. mechanism.",
-        text: " Two people with the same cognitive type (say, INTJ — Ni/Te/Fi/Se) can be very different Enneagram types. One might be a Type 5 (investigating from fear of incompetence), another a Type 1 (systematizing from fear of error), another a Type 3 (strategizing to achieve status). Same cognitive tools, entirely different engines driving them.",
+        text: " Two people with the same cognitive type (say, INTJ, Ni/Te/Fi/Se) can be very different Enneagram types. One might be a Type 5 (investigating from fear of incompetence), another a Type 1 (systematizing from fear of error), another a Type 3 (strategizing to achieve status). Same cognitive tools, entirely different engines driving them.",
       },
       {
         bold: "Why your dominant function shows up differently than you'd expect.",
@@ -430,19 +430,19 @@ export const dailyReadings: Reading[] = [
     paragraphs: [
       {
         bold: "Every type has a full range.",
-        text: " No Enneagram type is inherently good or bad. Every type — including the ones with the worst reputations — can be deeply healthy, deeply unhealthy, or anywhere in between. The question isn't which type you are, but which level you're currently operating at.",
+        text: " No Enneagram type is inherently good or bad. Every type, including the ones with the worst reputations, can be deeply healthy, deeply unhealthy, or anywhere in between. The question isn't which type you are, but which level you're currently operating at.",
       },
       {
         bold: "Healthy levels: your type's gifts.",
-        text: " At healthy levels, every type expresses remarkable strengths. Healthy Eights are genuinely protective and magnanimous. Healthy Fours are deeply creative and emotionally wise. Healthy Twos are genuinely selfless and nurturing. The strengths are real — they just require consciousness and growth to access consistently.",
+        text: " At healthy levels, every type expresses remarkable strengths. Healthy Eights are genuinely protective and magnanimous. Healthy Fours are deeply creative and emotionally wise. Healthy Twos are genuinely selfless and nurturing. The strengths are real, they just require consciousness and growth to access consistently.",
       },
       {
         bold: "Average levels: the autopilot.",
-        text: " Most people operate at average levels most of the time — functioning well enough, but running on automatic. Average behavior is recognizable as your type, but involves more unconscious reaction, more coping strategies, and less genuine choice.",
+        text: " Most people operate at average levels most of the time, functioning well enough, but running on automatic. Average behavior is recognizable as your type, but involves more unconscious reaction, more coping strategies, and less genuine choice.",
       },
       {
         bold: "What moves you between levels?",
-        text: " Levels of development aren't fixed. Stress, sleep deprivation, major life events, and unprocessed pain pull you down. Genuine self-awareness, therapy, meditation, meaningful relationships, and this kind of reflection push you up. The goal isn't to become a different type — it's to become a healthier version of the one you are.",
+        text: " Levels of development aren't fixed. Stress, sleep deprivation, major life events, and unprocessed pain pull you down. Genuine self-awareness, therapy, meditation, meaningful relationships, and this kind of reflection push you up. The goal isn't to become a different type, it's to become a healthier version of the one you are.",
       },
     ],
     reflection: "In which area of your life do you most consistently show up at your type's healthy level? Where do you most often slip into average or stressed patterns?",

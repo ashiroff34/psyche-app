@@ -204,7 +204,7 @@ export function useLessonProgress() {
         currentLesson: undefined,
       }));
 
-      // Earn XP via useGameState — callers should wire this up:
+      // Earn XP via useGameState, callers should wire this up:
       // const { earnXP } = useGameState();
       // earnXP(xpEarned, "lesson");
       // We dispatch a custom event so that any listening game-state hook can pick it up.

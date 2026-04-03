@@ -11,7 +11,7 @@ export interface PsycheProfile {
   tritypeHead?: number;
   tritypeHeart?: number;
   tritypeGut?: number;
-  tritype?: string; // e.g., "514" — ordered: first=dominant, second=2nd, third=3rd
+  tritype?: string; // e.g., "514", ordered: first=dominant, second=2nd, third=3rd
   // Dominance-ordered tritype slots (preferred over center-based slots above)
   tritypeFirst?: number;  // dominant / most used type
   tritypeSecond?: number; // second most used type
@@ -52,7 +52,7 @@ const STORAGE_KEY = "psyche-profile";
 
 // ─── Cross-component sync ────────────────────────────────────────────────────
 // Any write to psyche-profile dispatches this event so ALL mounted
-// useProfile() instances re-read immediately — changing your Enneagram type
+// useProfile() instances re-read immediately, changing your Enneagram type
 // on the profile page instantly updates sprites/colors on every other page.
 const PROFILE_CHANGE_EVENT = "psyche-profile-change";
 
@@ -65,7 +65,7 @@ function broadcastProfileChange(updated: PsycheProfile) {
 }
 
 // Helper used by external code (e.g. results pages) that write directly to
-// localStorage without going through useProfile — call this after the write.
+// localStorage without going through useProfile, call this after the write.
 export function notifyProfileChanged() {
   try {
     const raw = localStorage.getItem(STORAGE_KEY);

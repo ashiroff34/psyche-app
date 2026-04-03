@@ -21,7 +21,7 @@ const lesson1: Lesson = {
       content: {
         type: "concept-intro",
         title: "Meet the Achiever",
-        body: "Type 3s are driven by a deep need to succeed and be admired. They are the chameleons of the Enneagram — adapting their image to whatever their environment values most, sometimes losing touch with who they really are underneath.",
+        body: "Type 3s are driven by a deep need to succeed and be admired. They are the chameleons of the Enneagram, adapting their image to whatever their environment values most, sometimes losing touch with who they really are underneath.",
         highlight: "chameleons",
       },
     },
@@ -31,7 +31,7 @@ const lesson1: Lesson = {
       content: {
         type: "concept-intro",
         title: "Fear, Desire & Motivation",
-        body: "The core fear of Type 3 is being worthless — having no inherent value apart from achievements. Their core desire is to feel valuable and successful. The deepest wound: believing 'I am only worth what I accomplish.'",
+        body: "The core fear of Type 3 is being worthless, having no inherent value apart from achievements. Their core desire is to feel valuable and successful. The deepest wound: believing 'I am only worth what I accomplish.'",
         highlight: "worthless",
       },
     },
@@ -49,7 +49,7 @@ const lesson1: Lesson = {
         ],
         correctIndex: 2,
         explanation:
-          "Threes carry the deep belief that they have no inherent worth — that their value comes entirely from what they achieve. Without accomplishments, they fear they're nothing.",
+          "Threes carry the deep belief that they have no inherent worth, that their value comes entirely from what they achieve. Without accomplishments, they fear they're nothing.",
       },
     },
     {
@@ -83,7 +83,7 @@ const lesson1: Lesson = {
         ],
         correctIndex: 2,
         explanation:
-          "Like Types 2 and 4, Threes are in the Heart triad — their core issue is identity and shame. Threes cope with shame by becoming whatever earns admiration, burying their authentic self under the successful image.",
+          "Like Types 2 and 4, Threes are in the Heart triad, their core issue is identity and shame. Threes cope with shame by becoming whatever earns admiration, burying their authentic self under the successful image.",
       },
     },
     {
@@ -123,7 +123,7 @@ const lesson1: Lesson = {
         options: ["authentic", "creative", "intellectual", "social"],
         correctIndex: 0,
         explanation:
-          "Threes become so good at performing the successful version of themselves that they can lose access to who they genuinely are — their real feelings, desires, and identity.",
+          "Threes become so good at performing the successful version of themselves that they can lose access to who they genuinely are, their real feelings, desires, and identity.",
       },
     },
     {
@@ -142,7 +142,7 @@ const lesson1: Lesson = {
         ],
         correctIndex: 1,
         explanation:
-          "The promotion IS the feeling for a Three — or at least, that's how it's supposed to work. The fact that Jordan can't answer 'Are you happy?' reveals the gap between the successful image and the person underneath it.",
+          "The promotion IS the feeling for a Three, or at least, that's how it's supposed to work. The fact that Jordan can't answer 'Are you happy?' reveals the gap between the successful image and the person underneath it.",
       },
     },
     {
@@ -155,13 +155,13 @@ const lesson1: Lesson = {
         question: "What does Sam's partner's question reveal?",
         options: [
           "Sam is just a good conversationalist",
-          "The chameleon pattern — Sam becomes whatever is valued, but the partner notices the real Sam disappeared",
+          "The chameleon pattern, Sam becomes whatever is valued, but the partner notices the real Sam disappeared",
           "Sam is being dishonest and manipulative",
           "Sam has social anxiety",
         ],
         correctIndex: 1,
         explanation:
-          "This is the Three's chameleon gift — and curse. They're genuine in each interaction (they're not lying), but they're performing a version of themselves tailored to each audience. The partner's question points to the missing center.",
+          "This is the Three's chameleon gift, and curse. They're genuine in each interaction (they're not lying), but they're performing a version of themselves tailored to each audience. The partner's question points to the missing center.",
       },
     },
     {
@@ -180,7 +180,7 @@ const lesson1: Lesson = {
         ],
         correctIndex: 1,
         explanation:
-          "Job loss hits Threes differently because their identity IS their achievements. This isn't just losing a job — it's losing the proof that they have value. The shame of the Heart triad floods in with full force.",
+          "Job loss hits Threes differently because their identity IS their achievements. This isn't just losing a job, it's losing the proof that they have value. The shame of the Heart triad floods in with full force.",
       },
     },
     {
@@ -197,7 +197,7 @@ const lesson1: Lesson = {
         ],
         correctIndex: 1,
         explanation:
-          "Threes want to matter — to be seen as valuable, successful, and worthy of admiration. Everything they do is oriented toward proving their worth through accomplishment.",
+          "Threes want to matter, to be seen as valuable, successful, and worthy of admiration. Everything they do is oriented toward proving their worth through accomplishment.",
       },
     },
   ],
@@ -219,7 +219,7 @@ const lesson2: Lesson = {
       content: {
         type: "concept-intro",
         title: "The Passion: Deceit (Vanity)",
-        body: "Naranjo identified the Three's passion as Deceit or Vanity — not outward lying, but self-deception. Threes become so identified with their successful image that they lose touch with who they really are. They 'become the mask.'",
+        body: "Naranjo identified the Three's passion as Deceit or Vanity, not outward lying, but self-deception. Threes become so identified with their successful image that they lose touch with who they really are. They 'become the mask.'",
         highlight: "self-deception",
       },
     },
@@ -229,7 +229,7 @@ const lesson2: Lesson = {
       content: {
         type: "concept-intro",
         title: "The Virtue: Truthfulness (Authenticity)",
-        body: "The antidote is Truthfulness — radical honesty about who you are beneath the performance. Healthy Threes learn to show up as themselves, even when it's not the most impressive version, and discover they're valued anyway.",
+        body: "The antidote is Truthfulness, radical honesty about who you are beneath the performance. Healthy Threes learn to show up as themselves, even when it's not the most impressive version, and discover they're valued anyway.",
         highlight: "Truthfulness",
       },
     },
@@ -242,7 +242,7 @@ const lesson2: Lesson = {
         options: ["Anger", "Pride", "Deceit/Vanity", "Avarice"],
         correctIndex: 2,
         explanation:
-          "Deceit doesn't mean Threes are liars — it means they deceive themselves. They become so good at projecting success that they lose track of what's real vs. performance.",
+          "Deceit doesn't mean Threes are liars, it means they deceive themselves. They become so good at projecting success that they lose track of what's real vs. performance.",
       },
     },
     {
@@ -252,14 +252,14 @@ const lesson2: Lesson = {
         type: "multiple-choice",
         question: "The Three's 'Deceit' is primarily directed at:",
         options: [
-          "Other people — they lie to get ahead",
-          "Themselves — they lose touch with their authentic self",
-          "Authority figures — they fake competence",
-          "Family — they hide their true career",
+          "Other people, they lie to get ahead",
+          "Themselves, they lose touch with their authentic self",
+          "Authority figures, they fake competence",
+          "Family, they hide their true career",
         ],
         correctIndex: 1,
         explanation:
-          "The deepest deception is internal. Threes aren't trying to con people — they've conned themselves into believing the image IS who they are. When asked 'Who are you really?', they may genuinely not know.",
+          "The deepest deception is internal. Threes aren't trying to con people, they've conned themselves into believing the image IS who they are. When asked 'Who are you really?', they may genuinely not know.",
       },
     },
     {
@@ -271,7 +271,7 @@ const lesson2: Lesson = {
         options: ["Humility", "Serenity", "Truthfulness/Authenticity", "Equanimity"],
         correctIndex: 2,
         explanation:
-          "Truthfulness is the Three's path to freedom. It means showing up as who you really are — messy, uncertain, imperfect — and trusting that you have inherent worth beyond your accomplishments.",
+          "Truthfulness is the Three's path to freedom. It means showing up as who you really are, messy, uncertain, imperfect, and trusting that you have inherent worth beyond your accomplishments.",
       },
     },
     {
@@ -297,11 +297,11 @@ const lesson2: Lesson = {
       content: {
         type: "fill-in-blank",
         sentence:
-          "A healthy Three embodies ___ — showing up as their real self rather than performing.",
+          "A healthy Three embodies ___, showing up as their real self rather than performing.",
         options: ["Serenity", "Truthfulness", "Humility", "Non-Attachment"],
         correctIndex: 1,
         explanation:
-          "When Threes access Truthfulness, they become genuinely inspiring — not because of what they've achieved, but because of who they authentically are. Their natural charisma serves connection instead of image.",
+          "When Threes access Truthfulness, they become genuinely inspiring, not because of what they've achieved, but because of who they authentically are. Their natural charisma serves connection instead of image.",
       },
     },
     {
@@ -328,13 +328,13 @@ const lesson2: Lesson = {
         question: "What's happening for Alex?",
         options: [
           "Alex is having a midlife crisis",
-          "Alex is accessing Truthfulness — being honest about the gap between image and self",
+          "Alex is accessing Truthfulness, being honest about the gap between image and self",
           "Alex is fishing for compliments",
           "Alex is moving to their stress point",
         ],
         correctIndex: 1,
         explanation:
-          "This is a Three practicing radical Truthfulness — admitting uncertainty and vulnerability instead of performing success. That 'vulnerable pause' is the sound of a mask being set down, which takes enormous courage.",
+          "This is a Three practicing radical Truthfulness, admitting uncertainty and vulnerability instead of performing success. That 'vulnerable pause' is the sound of a mask being set down, which takes enormous courage.",
       },
     },
     {
@@ -347,13 +347,13 @@ const lesson2: Lesson = {
         question: "Which aspect of the Three's passion is this?",
         options: [
           "Healthy self-presentation",
-          "The self-deception of Vanity — the image has become more real than the person",
+          "The self-deception of Vanity, the image has become more real than the person",
           "Normal social media behavior",
           "Type 4 melancholy, not Type 3",
         ],
         correctIndex: 1,
         explanation:
-          "Riley has 'become the mask' — the online persona looks successful, but the person behind it feels hollow. The passion of Deceit/Vanity has created a gap between image and reality that Riley can feel but can't bridge.",
+          "Riley has 'become the mask', the online persona looks successful, but the person behind it feels hollow. The passion of Deceit/Vanity has created a gap between image and reality that Riley can feel but can't bridge.",
       },
     },
     {
@@ -362,11 +362,11 @@ const lesson2: Lesson = {
       content: {
         type: "scenario",
         scenario:
-          "A colleague caught exaggerating their sales numbers gets defensive: 'Everyone inflates a little — it's just how the game is played. Besides, I would have hit those numbers next quarter anyway.' They seem to genuinely believe their own spin.",
+          "A colleague caught exaggerating their sales numbers gets defensive: 'Everyone inflates a little, it's just how the game is played. Besides, I would have hit those numbers next quarter anyway.' They seem to genuinely believe their own spin.",
         question: "What unhealthy Three pattern is this?",
         options: [
           "Normal workplace behavior",
-          "Self-deception — they've rationalized dishonesty to protect their image of success",
+          "Self-deception, they've rationalized dishonesty to protect their image of success",
           "Healthy competitive drive",
           "Type 8 power-seeking",
         ],
@@ -383,13 +383,13 @@ const lesson2: Lesson = {
         question: "The phrase 'becoming the mask' refers to:",
         options: [
           "Type 4's emotional depth",
-          "Type 3's self-deception — losing the real self behind the image",
+          "Type 3's self-deception, losing the real self behind the image",
           "Type 9's merging with others",
           "Type 7's avoidance of pain",
         ],
         correctIndex: 1,
         explanation:
-          "This is the Three's signature struggle. They perform success so convincingly that even they forget there's a person underneath. The mask IS the face — until they start doing the work of Truthfulness.",
+          "This is the Three's signature struggle. They perform success so convincingly that even they forget there's a person underneath. The mask IS the face, until they start doing the work of Truthfulness.",
       },
     },
   ],
@@ -411,7 +411,7 @@ const lesson3: Lesson = {
       content: {
         type: "concept-intro",
         title: "The Two Wings of Type 3",
-        body: "A 3w2 (The Charmer) combines ambition with warmth and people-skills — they succeed through personal connection. A 3w4 (The Professional) combines ambition with introspection — they're more serious, artistic, and focused on craft over charm.",
+        body: "A 3w2 (The Charmer) combines ambition with warmth and people-skills, they succeed through personal connection. A 3w4 (The Professional) combines ambition with introspection, they're more serious, artistic, and focused on craft over charm.",
         highlight: "3w2 vs 3w4",
       },
     },
@@ -421,7 +421,7 @@ const lesson3: Lesson = {
       content: {
         type: "concept-intro",
         title: "Stress & Growth Lines",
-        body: "Under stress, Threes move to Type 9 — becoming disengaged, numbed out, and losing their drive. In growth, Threes move to Type 6 — becoming loyal, cooperative, and less focused on personal image.",
+        body: "Under stress, Threes move to Type 9, becoming disengaged, numbed out, and losing their drive. In growth, Threes move to Type 6, becoming loyal, cooperative, and less focused on personal image.",
         highlight: "Stress → 9, Growth → 6",
       },
     },
@@ -463,7 +463,7 @@ const lesson3: Lesson = {
         options: ["Type 9", "Type 6", "Type 1", "Type 4"],
         correctIndex: 1,
         explanation:
-          "Growing Threes access healthy Six energy — they become genuinely loyal, commit to something bigger than their personal brand, and value cooperation over competition.",
+          "Growing Threes access healthy Six energy, they become genuinely loyal, commit to something bigger than their personal brand, and value cooperation over competition.",
       },
     },
     {
@@ -490,7 +490,7 @@ const lesson3: Lesson = {
         options: ["aggressive", "anxious", "disengaged", "scattered"],
         correctIndex: 2,
         explanation:
-          "The move to Nine is startling for Threes and the people around them. The go-getter suddenly can't get off the couch. It's the psyche's emergency brake — when the performance engine overheats, it just shuts down.",
+          "The move to Nine is startling for Threes and the people around them. The go-getter suddenly can't get off the couch. It's the psyche's emergency brake, when the performance engine overheats, it just shuts down.",
       },
     },
     {
@@ -503,7 +503,7 @@ const lesson3: Lesson = {
         options: ["Charmer", "Professional", "Achiever", "Performer"],
         correctIndex: 1,
         explanation:
-          "The 3w4 (Professional) is the more serious, inner-focused version of the Three. They care about craft and substance, not just appearances — think of the surgeon who wants to be the best at their specialty, not just famous.",
+          "The 3w4 (Professional) is the more serious, inner-focused version of the Three. They care about craft and substance, not just appearances, think of the surgeon who wants to be the best at their specialty, not just famous.",
       },
     },
     {
@@ -512,17 +512,17 @@ const lesson3: Lesson = {
       content: {
         type: "scenario",
         scenario:
-          "Quinn, a high-performing sales manager, has been working 70-hour weeks for months. One weekend, Quinn can't get out of bed. They spend three days binge-watching reality TV, ignoring emails, and feeling strangely detached from everything. Their partner is alarmed — this isn't like Quinn at all.",
+          "Quinn, a high-performing sales manager, has been working 70-hour weeks for months. One weekend, Quinn can't get out of bed. They spend three days binge-watching reality TV, ignoring emails, and feeling strangely detached from everything. Their partner is alarmed, this isn't like Quinn at all.",
         question: "What's happening to Quinn?",
         options: [
           "Quinn has clinical depression",
-          "Quinn is moving to their stress point (Type 9) — shutting down after overperformance",
+          "Quinn is moving to their stress point (Type 9), shutting down after overperformance",
           "Quinn is growing into healthy Six energy",
           "Quinn is just tired and needs rest",
         ],
         correctIndex: 1,
         explanation:
-          "This is the Three's stress move to Nine. After pushing too hard for too long, the system crashes. The numbness, disengagement, and inability to mobilize are all Nine territory — the body forcing the Three to stop.",
+          "This is the Three's stress move to Nine. After pushing too hard for too long, the system crashes. The numbness, disengagement, and inability to mobilize are all Nine territory, the body forcing the Three to stop.",
       },
     },
     {
@@ -531,17 +531,17 @@ const lesson3: Lesson = {
       content: {
         type: "scenario",
         scenario:
-          "After years of climbing the corporate ladder, Reese took a step back and joined a nonprofit. Reese says: 'I realized I was building my resume, not building anything that mattered. Now I care more about our mission than my title. I don't need to be the star — I need to be useful.'",
+          "After years of climbing the corporate ladder, Reese took a step back and joined a nonprofit. Reese says: 'I realized I was building my resume, not building anything that mattered. Now I care more about our mission than my title. I don't need to be the star, I need to be useful.'",
         question: "What growth line is Reese accessing?",
         options: [
-          "Stress move to Type 9 — giving up ambition",
-          "Growth to Type 6 — loyalty, commitment to something bigger than self-image",
-          "Wing shift to 3w4 — becoming more artistic",
+          "Stress move to Type 9, giving up ambition",
+          "Growth to Type 6, loyalty, commitment to something bigger than self-image",
+          "Wing shift to 3w4, becoming more artistic",
           "This isn't a Three anymore",
         ],
         correctIndex: 1,
         explanation:
-          "Reese is accessing healthy Six energy — genuine commitment to a cause, team loyalty, and willingness to serve rather than star. The ambition hasn't disappeared; it's been redirected toward something meaningful.",
+          "Reese is accessing healthy Six energy, genuine commitment to a cause, team loyalty, and willingness to serve rather than star. The ambition hasn't disappeared; it's been redirected toward something meaningful.",
       },
     },
     {
@@ -553,14 +553,14 @@ const lesson3: Lesson = {
           "Two Threes run their own businesses. One is a real estate agent who thrives on client relationships, throws lavish open houses, and is known for their magnetic personality. The other is a software architect who stays up late perfecting code, presents at conferences with polished slides, and cares deeply about building elegant systems.",
         question: "How would you distinguish their wings?",
         options: [
-          "First is 3w2 (Charmer — people-oriented), second is 3w4 (Professional — craft-oriented)",
+          "First is 3w2 (Charmer, people-oriented), second is 3w4 (Professional, craft-oriented)",
           "First is 3w4, second is 3w2",
-          "Both are 3w2 — they're both successful",
+          "Both are 3w2, they're both successful",
           "Wings don't explain this difference",
         ],
         correctIndex: 0,
         explanation:
-          "The 3w2 succeeds through people and warmth — they charm their way to the top. The 3w4 succeeds through mastery and substance — they earn respect through depth of skill. Same drive, different fuel.",
+          "The 3w2 succeeds through people and warmth, they charm their way to the top. The 3w4 succeeds through mastery and substance, they earn respect through depth of skill. Same drive, different fuel.",
       },
     },
     {
@@ -656,7 +656,7 @@ const lesson4: Lesson = {
         ],
         correctIndex: 1,
         explanation:
-          "Both are assertive go-getters, but Threes constantly calibrate to how they're perceived. Eights couldn't care less about appearances — they want impact and control, not applause.",
+          "Both are assertive go-getters, but Threes constantly calibrate to how they're perceived. Eights couldn't care less about appearances, they want impact and control, not applause.",
       },
     },
     {
@@ -683,7 +683,7 @@ const lesson4: Lesson = {
         options: ["safety", "admiration", "knowledge", "connection"],
         correctIndex: 1,
         explanation:
-          "Admiration is the Three's fuel. They want to be seen as successful, capable, and impressive. Sevens, on the other hand, just want to have a good time — they don't particularly care who's watching.",
+          "Admiration is the Three's fuel. They want to be seen as successful, capable, and impressive. Sevens, on the other hand, just want to have a good time, they don't particularly care who's watching.",
       },
     },
     {
@@ -727,13 +727,13 @@ const lesson4: Lesson = {
       content: {
         type: "scenario",
         scenario:
-          "Two colleagues both seem driven and successful. Person A tracks their quarterly metrics religiously and adjusts their personal brand based on company values. Person B challenges the CEO in meetings, doesn't care about office politics, and says 'I don't need anyone's approval — I just need results.'",
+          "Two colleagues both seem driven and successful. Person A tracks their quarterly metrics religiously and adjusts their personal brand based on company values. Person B challenges the CEO in meetings, doesn't care about office politics, and says 'I don't need anyone's approval, I just need results.'",
         question: "Which is more likely a Three, and which an Eight?",
         options: [
           "A is Type 3 (image-aware goal pursuit), B is Type 8 (power-driven, unconcerned with image)",
           "A is Type 8, B is Type 3",
-          "Both are Type 3 — just different styles",
-          "Both are Type 8 — just different intensities",
+          "Both are Type 3, just different styles",
+          "Both are Type 8, just different intensities",
         ],
         correctIndex: 0,
         explanation:
@@ -746,12 +746,12 @@ const lesson4: Lesson = {
       content: {
         type: "scenario",
         scenario:
-          "Your friend is energetic, always has exciting plans, and seems to be thriving. You're trying to figure out if they're a Three or a Seven. You ask: 'What's most important to you about this new project?' They answer: 'I love that it's something nobody in our industry has tried — it's going to be an adventure!'",
+          "Your friend is energetic, always has exciting plans, and seems to be thriving. You're trying to figure out if they're a Three or a Seven. You ask: 'What's most important to you about this new project?' They answer: 'I love that it's something nobody in our industry has tried, it's going to be an adventure!'",
         question: "What does this response suggest?",
         options: [
-          "Definitely a Three — they want to be first",
-          "More likely a Seven — the excitement is about novelty and experience, not achievement or recognition",
-          "Could be either — need more information",
+          "Definitely a Three, they want to be first",
+          "More likely a Seven, the excitement is about novelty and experience, not achievement or recognition",
+          "Could be either, need more information",
           "This is actually a Type 4 response",
         ],
         correctIndex: 1,
@@ -765,11 +765,11 @@ const lesson4: Lesson = {
       content: {
         type: "scenario",
         scenario:
-          "You observe someone at a networking event. They shake hands confidently, hand out business cards, and share a polished 30-second pitch. But when someone asks about their weekend, they seem momentarily lost — then quickly redirect to a work accomplishment.",
+          "You observe someone at a networking event. They shake hands confidently, hand out business cards, and share a polished 30-second pitch. But when someone asks about their weekend, they seem momentarily lost, then quickly redirect to a work accomplishment.",
         question: "Which Type 3 pattern is visible here?",
         options: [
           "Healthy confidence and social skills",
-          "The struggle to connect outside of the 'achiever' persona — personal identity is underdeveloped",
+          "The struggle to connect outside of the 'achiever' persona, personal identity is underdeveloped",
           "Normal introversion",
           "Type 8 dominance behavior",
         ],

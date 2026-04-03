@@ -10,7 +10,7 @@ import { RewardAnchors } from "@/components/Rewards";
 import { Toaster } from "sonner";
 
 export const metadata: Metadata = {
-  title: "Thyself — Discover Your Mind",
+  title: "Thyself, Discover Your Mind",
   description:
     "Explore your personality through the Enneagram and Carl Jung's Cognitive Functions. Interactive assessments, deep learning resources, and growth tools.",
   manifest: assetPath("/manifest.json"),
@@ -64,6 +64,7 @@ export default function RootLayout({
             classNames: { toast: "w-full flex justify-center" },
           }}
           gap={8}
+          visibleToasts={2}
         />
         <RewardAnchors />
         <main className="pt-14 pb-20">{children}</main>
