@@ -383,8 +383,8 @@ export function usePetState(enneagramType?: number) {
     if (loaded && petState) {
       checkPetStatus();
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [loaded]);
+  // checkPetStatus is stable (memoized with [update])
+  }, [loaded, checkPetStatus]);
 
   // ── Actions ─────────────────────────────────────────────────────────────────
 

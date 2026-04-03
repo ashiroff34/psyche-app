@@ -82,9 +82,9 @@ export default function QuizFullscreen({
   const router = useRouter();
   const q = questions[currentIdx];
 
-  // Track session start time for elapsed duration display
+  // Track session start time; capture duration once on completion
   const sessionStartRef = useRef(Date.now());
-  const sessionDurationSecs = Math.round((Date.now() - sessionStartRef.current) / 1000);
+  const [sessionDurationSecs, setSessionDurationSecs] = useState(0);
 
   const [tokenDrop, setTokenDrop] = useState<TokenDrop | null | undefined>(undefined);
   const [tokenDropRolled, setTokenDropRolled] = useState(false);
@@ -235,6 +235,16 @@ export default function QuizFullscreen({
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [completed]);
 
+  // ── Roll token drop + capture duration exactly once on completion ─────────
+  useEffect(() => {
+    if (!completed || tokenDropRolled) return;
+    setSessionDurationSecs(Math.round((Date.now() - sessionStartRef.current) / 1000));
+    setTokenDropRolled(true);
+    const drop = rollTokenDrop(sessionsSinceTokenDrop);
+    setTokenDrop(drop ?? null);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [completed]);
+
   // ── Completion screen ──────────────────────────────────────────────────────
   if (completed) {
     const correctCount = answers.filter(Boolean).length;
@@ -243,13 +253,6 @@ export default function QuizFullscreen({
     const isPerfect = correctCount === totalCount;
     const beatPersonalBest = currentStreak > 0 && longestStreak > 0 && currentStreak >= longestStreak;
     const nearBadges: BadgeProgress[] = gameState ? getBadgeProgress(gameState) : [];
-
-    // Roll token drop once when completion screen first renders
-    if (!tokenDropRolled) {
-      setTokenDropRolled(true);
-      const drop = rollTokenDrop(sessionsSinceTokenDrop);
-      setTokenDrop(drop ?? null);
-    }
 
     const streakMilestones = [3, 7, 14, 30, 100];
     const isStreakMilestone = streakMilestones.includes(currentStreak);

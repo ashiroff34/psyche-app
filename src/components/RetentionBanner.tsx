@@ -193,9 +193,9 @@ export default function RetentionBanner() {
         if (!claimed) {
           data = {
             variant: "comeback",
-            message: `Welcome back! You've been gone ${daysSince} day${daysSince !== 1 ? "s" : ""}, claim your comeback bonus (+50 XP).`,
+            message: `Welcome back! You've been gone ${daysSince} day${daysSince !== 1 ? "s" : ""}. A comeback bonus is waiting on your daily page.`,
             href: "/daily",
-            actionLabel: "Claim Bonus",
+            actionLabel: "Go to Daily",
             icon: <Trophy className="w-4 h-4" />,
             gradient: "from-violet-500/10 via-purple-500/10 to-violet-500/5",
             textColor: "text-violet-700",

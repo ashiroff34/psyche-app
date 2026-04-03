@@ -642,9 +642,7 @@ export function useGameState() {
       let bonusMultiplier = 1;
       if (Math.random() < 0.1) bonusMultiplier = 2; // 10% chance of double XP
       if (Math.random() < 0.03) bonusMultiplier = 3; // 3% chance of triple XP
-      // XP Boost shop item: 2x while active
-      const boostActive = state.xpBoostExpiry && new Date(state.xpBoostExpiry).getTime() > Date.now();
-      if (boostActive && bonusMultiplier === 1) bonusMultiplier = 2;
+      // XP Boost shop item: read from updater arg to avoid stale closure
       const finalAmount = Math.floor(amount * bonusMultiplier);
 
       setXpGainAnimation({ amount: finalAmount, source: bonusMultiplier > 1 ? `${source} (${bonusMultiplier}x BONUS!)` : source });
@@ -652,13 +650,16 @@ export function useGameState() {
 
       update((prev) => {
         const today = getToday();
-        const newXP = prev.xp + finalAmount;
+        // XP Boost shop item: read from prev to avoid stale closure
+        const boostActive = prev.xpBoostExpiry && new Date(prev.xpBoostExpiry).getTime() > Date.now();
+        const boostedAmount = (boostActive && bonusMultiplier === 1) ? finalAmount * 2 : finalAmount;
+        const newXP = prev.xp + boostedAmount;
         const oldLevel = prev.level;
         const newLevel = getLevelFromXP(newXP);
         const newLeague = getLeague(newLevel);
 
         // Update daily XP
-        const newDailyXP = (prev.dailyGoalDate === today ? prev.dailyXPEarned : 0) + finalAmount;
+        const newDailyXP = (prev.dailyGoalDate === today ? prev.dailyXPEarned : 0) + boostedAmount;
         const goalTarget = DAILY_GOAL_XP[prev.dailyGoal];
         const dailyGoalMet = newDailyXP >= goalTarget;
 
@@ -680,9 +681,9 @@ export function useGameState() {
         const xpHistory = [...prev.xpHistory];
         const todayEntry = xpHistory.find((e) => e.date === today);
         if (todayEntry) {
-          todayEntry.xp += finalAmount;
+          todayEntry.xp += boostedAmount;
         } else {
-          xpHistory.push({ date: today, xp: finalAmount });
+          xpHistory.push({ date: today, xp: boostedAmount });
         }
         // Keep last 30 days
         while (xpHistory.length > 30) xpHistory.shift();
@@ -1225,14 +1226,8 @@ export function useGameState() {
       }
     } catch {}
 
-    // Perfect score, 5+ correct streak means at least one perfect quiz run
-    if (state.totalCorrect > 0 && state.totalAttempted > 0 && state.totalCorrect === state.totalAttempted) {
-      unlockBadge("perfect-score");
-    }
-    // Also award if they ever hit a quiz streak of 5+ (proxy for a perfect quiz)
-    if (state.quizStreak >= 5) {
-      unlockBadge("perfect-score");
-    }
+    // Perfect score badge is only awarded by recordQuizComplete() on 100% accuracy
+    // — not by streak, which is a separate metric
 
     // Pet parent, pet alive 30+ days (use accountCreated as proxy for pet birth)
     if (state.petAlive && state.accountCreated) {

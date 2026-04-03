@@ -48,7 +48,7 @@ function buildNudges(
       title: "Your pet is starving!",
       body: `Health: ${petHealth}%. Feed them in the Game Hub before it's too late.`,
       cta: "Feed now",
-      href: "/game",
+      href: "/avatar",
       accentClass: "from-rose-400 to-orange-400",
     });
   }
@@ -61,7 +61,7 @@ function buildNudges(
       title: "Your pet didn't make it…",
       body: "Use 100 tokens in the shop to revive them.",
       cta: "Revive pet",
-      href: "/game",
+      href: "/avatar",
       accentClass: "from-slate-400 to-slate-600",
     });
   }
@@ -115,7 +115,7 @@ function buildNudges(
       body: "Your cognitive function stack pairs perfectly with your Enneagram type.",
       cta: "Take cognitive test",
       href: "/cognitive/assess",
-      accentClass: "from-violet-400 to-indigo.500",
+      accentClass: "from-violet-400 to-indigo-500",
     });
   }
 

@@ -66,14 +66,22 @@ function MoreMenu({ pathname }: { pathname: string }) {
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const seen = localStorage.getItem("psyche-explore-seen");
-    if (!seen) setHasSeenExplore(false);
+    try {
+      const seen = localStorage.getItem("psyche-explore-seen");
+      if (!seen) setHasSeenExplore(false);
+    } catch {
+      // private browsing / storage blocked
+    }
   }, []);
 
   const handleOpen = () => {
     setOpen(!open);
     if (!hasSeenExplore) {
-      localStorage.setItem("psyche-explore-seen", "true");
+      try {
+        localStorage.setItem("psyche-explore-seen", "true");
+      } catch {
+        // private browsing / storage blocked
+      }
       setHasSeenExplore(true);
     }
   };

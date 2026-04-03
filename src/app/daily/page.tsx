@@ -1065,22 +1065,28 @@ export default function DailyPage() {
     }
   };
 
-  const shareScore = () => {
+  const shareScore = async () => {
     const correctCount = moduleAnswers.filter(Boolean).length;
     const totalCount = moduleAnswers.length;
     const config = MODULE_CONFIG.find(m => m.id === activeModule);
     const text = `Thyself Daily Practice - ${config?.title}\nScore: ${correctCount}/${totalCount} | Difficulty: Level ${difficulty.level}/10 | Streak: ${correctStreak}\nTrain your self-knowledge at archetype.app`;
-    navigator.clipboard.writeText(text);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+    try {
+      await navigator.clipboard.writeText(text);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      // clipboard permission denied — fail silently
+    }
   };
 
   // ── Computed stats ──
   const totalAnsweredToday = dailyProgress?.questionsAnswered ?? 0;
   const totalCorrectToday = dailyProgress?.correctAnswers ?? 0;
   const accuracyToday = totalAnsweredToday > 0 ? Math.round((totalCorrectToday / totalAnsweredToday) * 100) : 0;
-  const totalAnsweredAllTime = useMemo(() => {
-    if (!loaded || typeof window === "undefined") return 0;
+  // Load all-time total once on mount — not recalculated on every answer
+  const [totalAnsweredAllTime, setTotalAnsweredAllTime] = useState(0);
+  useEffect(() => {
+    if (!loaded || typeof window === "undefined") return;
     let total = 0;
     for (let i = 0; i < 365; i++) {
       const d = new Date();
@@ -1091,8 +1097,8 @@ export default function DailyPage() {
         if (raw) total += (JSON.parse(raw) as DailyProgress).questionsAnswered;
       } catch {}
     }
-    return total;
-  }, [loaded, dailyProgress?.questionsAnswered]);
+    setTotalAnsweredAllTime(total);
+  }, [loaded]);
 
   const today = new Date();
 
@@ -1228,7 +1234,18 @@ export default function DailyPage() {
     setSessionXP(prev => prev + node.xp);
   };
 
-  if (!loaded) return null;
+  if (!loaded) return (
+    <div className="min-h-screen flex flex-col items-center justify-center" style={{ background: "#0f0a1e" }}>
+      <div className="flex flex-col items-center gap-4">
+        <div className="w-12 h-12 rounded-2xl animate-pulse" style={{ background: "rgba(124,58,237,0.25)" }} />
+        <div className="flex gap-1.5">
+          {[0, 1, 2].map(i => (
+            <div key={i} className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ background: "rgba(167,139,250,0.5)", animationDelay: `${i * 0.15}s` }} />
+          ))}
+        </div>
+      </div>
+    </div>
+  );
 
   // ═══════════════════════════════════════════════════════════════════════
   // QUIZ RENDERER (shared between warmup and modules)
