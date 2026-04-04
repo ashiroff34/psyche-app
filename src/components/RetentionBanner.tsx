@@ -42,7 +42,7 @@ interface BannerData {
 // ─── Helpers ─────────────────────────────────────────────────────────────────
 
 function getDateKey() {
-  return new Date().toISOString().split("T")[0];
+  return new Intl.DateTimeFormat("en-CA").format(new Date());
 }
 
 function daysBetween(isoA: string, isoB: string): number {

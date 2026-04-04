@@ -226,7 +226,7 @@ export const PET_ACTIONS = {
 // ─── Helper ──────────────────────────────────────────────────────────────────
 
 function getToday(): string {
-  return new Date().toISOString().split("T")[0];
+  return new Intl.DateTimeFormat("en-CA").format(new Date());
 }
 
 function daysBetween(dateA: string, dateB: string): number {

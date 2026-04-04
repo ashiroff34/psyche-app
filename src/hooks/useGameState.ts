@@ -471,7 +471,8 @@ export function getCurrentWeeklyChallenge(): { challenge: WeeklyChallengeTemplat
 // ─── Default State ───────────────────────────────────────────────────────────
 
 function getToday(): string {
-  return new Date().toISOString().split("T")[0];
+  // Use local calendar date so streaks don't reset early for non-UTC users
+  return new Intl.DateTimeFormat("en-CA").format(new Date());
 }
 
 function createDefaultState(): GameState {

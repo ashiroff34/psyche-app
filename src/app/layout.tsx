@@ -53,6 +53,11 @@ export default function RootLayout({
             __html: `try{if(localStorage.getItem("psyche-light-mode")==="true")document.documentElement.classList.add("light")}catch(e){}`,
           }}
         />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `if("serviceWorker" in navigator){navigator.serviceWorker.register("/sw.js").catch(function(){})}`,
+          }}
+        />
       </head>
       <body className="min-h-screen">
         <Navigation />

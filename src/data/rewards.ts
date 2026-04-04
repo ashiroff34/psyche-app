@@ -11,7 +11,7 @@ export type RewardKey = keyof typeof REWARDS;
 
 /** Get today's date as YYYY-MM-DD string */
 export function getTodayKey(): string {
-  return new Date().toISOString().split("T")[0];
+  return new Intl.DateTimeFormat("en-CA").format(new Date());
 }
 
 /** Check if two date strings are consecutive days */

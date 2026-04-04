@@ -1430,6 +1430,75 @@ function CognitiveReframeTool() {
 // SECTION 4: Pattern Tracker
 // ============================================================
 
+interface DailyReflectionEntry {
+  id: string;
+  date: string;
+  nodeId: string;
+  nodeLabel: string;
+  prompt: string;
+  text: string;
+}
+
+function DailyReflections() {
+  const [entries, setEntries] = useState<DailyReflectionEntry[]>([]);
+  const [expanded, setExpanded] = useState<string | null>(null);
+
+  useEffect(() => {
+    try {
+      const raw = localStorage.getItem("psyche-reflections");
+      if (raw) setEntries(JSON.parse(raw));
+    } catch {}
+  }, []);
+
+  if (entries.length === 0) return null;
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 12 }}
+      animate={{ opacity: 1, y: 0 }}
+      className="p-6 rounded-3xl backdrop-blur-xl shadow-lg mb-6"
+      style={{ background: "rgba(124,58,237,0.08)", border: "1px solid rgba(124,58,237,0.2)" }}
+    >
+      <div className="flex items-center gap-2 mb-4">
+        <MessageSquare className="w-4 h-4" style={{ color: "#a78bfa" }} />
+        <h3 className="font-serif font-bold text-lg text-white">Daily Reflections</h3>
+        <span className="text-xs px-2 py-0.5 rounded-full ml-auto" style={{ background: "rgba(124,58,237,0.2)", color: "#c4b5fd" }}>
+          {entries.length}
+        </span>
+      </div>
+      <div className="space-y-3">
+        {entries.slice(0, 10).map((entry) => (
+          <div
+            key={entry.id}
+            className="rounded-2xl overflow-hidden cursor-pointer"
+            style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)" }}
+            onClick={() => setExpanded(expanded === entry.id ? null : entry.id)}
+          >
+            <div className="flex items-center justify-between px-4 py-3">
+              <div>
+                <p className="text-sm font-medium text-white">{entry.nodeLabel}</p>
+                <p className="text-xs" style={{ color: "rgba(255,255,255,0.4)" }}>{entry.date}</p>
+              </div>
+              <ChevronDown
+                className="w-4 h-4 transition-transform"
+                style={{ color: "rgba(255,255,255,0.3)", transform: expanded === entry.id ? "rotate(180deg)" : "rotate(0deg)" }}
+              />
+            </div>
+            {expanded === entry.id && (
+              <div className="px-4 pb-4 space-y-2">
+                {entry.prompt && (
+                  <p className="text-xs italic" style={{ color: "rgba(255,255,255,0.35)" }}>{entry.prompt}</p>
+                )}
+                <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.75)" }}>{entry.text}</p>
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
+    </motion.div>
+  );
+}
+
 function PatternTracker() {
   const [logs, setLogs] = useState<PatternLog[]>([]);
   const [selectedFunction, setSelectedFunction] = useState("");
@@ -1503,6 +1572,9 @@ function PatternTracker() {
 
   return (
     <div className="space-y-8">
+      {/* Daily reflections from the path */}
+      <DailyReflections />
+
       {/* Header + Add */}
       <motion.div
         initial={{ opacity: 1, y: 0 }}

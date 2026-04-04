@@ -30,6 +30,7 @@ import DailyReading from "@/components/daily/DailyReading";
 import { getDailyReading } from "@/data/dailyReadings";
 import { typeQuizQuestions } from "@/data/type-quizzes";
 import { introQuestions } from "@/data/intro-questions";
+import { rateCard, getCardPriority, type FSRSCard } from "@/lib/fsrs";
 
 /* ═══════════════════════════════════════════════════════════════════════════
    UTILITY: Seeded PRNG (deterministic shuffle per day)
@@ -64,7 +65,7 @@ function getDayOfYear(): number {
 }
 
 function getDateKey(): string {
-  return new Date().toISOString().split("T")[0];
+  return new Intl.DateTimeFormat("en-CA").format(new Date());
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
@@ -462,6 +463,7 @@ interface QStat {
   seen: number;       // total times shown
   correct: number;    // total correct answers
   lastSeen: string;   // ISO date
+  fsrs?: FSRSCard;    // FSRS v6 card state (optional for backwards compat)
 }
 
 function loadQStats(): Record<string, QStat> {
@@ -476,37 +478,36 @@ function saveQStat(id: string, correct: boolean) {
   try {
     const stats = loadQStats();
     const prev = stats[id] ?? { seen: 0, correct: 0, lastSeen: "" };
+    // Update legacy counters + FSRS card in one write
+    const updatedFSRS = rateCard(prev.fsrs ?? null, correct);
     stats[id] = {
       seen: prev.seen + 1,
       correct: prev.correct + (correct ? 1 : 0),
-      lastSeen: new Date().toISOString().split("T")[0],
+      lastSeen: new Intl.DateTimeFormat("en-CA").format(new Date()),
+      fsrs: updatedFSRS,
     };
     localStorage.setItem(SR_KEY, JSON.stringify(stats));
   } catch {}
 }
 
 /**
- * Pick `n` questions from `pool` using spaced-repetition weights.
- * - Never seen: weight 3
- * - Seen and mostly wrong (accuracy < 50%): weight 4
- * - Seen and mixed (50–79%): weight 2
- * - Mastered (≥80% and seen ≥3 times): weight 1
- * Within same weight, older questions (by lastSeen) come first.
+ * Pick `n` questions from `pool` using FSRS v6 spaced repetition.
+ * Questions with FSRS due dates in the past (or never seen) are highest priority.
+ * Within the same FSRS priority, accuracy and recency serve as tiebreakers.
  */
 function srSelectQuestions(pool: Question[], n: number, stats: Record<string, QStat>): Question[] {
   if (pool.length <= n) return pool;
   const weighted = pool.map(q => {
     const s = stats[q.id];
-    if (!s || s.seen === 0) return { q, weight: 3, lastSeen: "" };
-    const acc = s.correct / s.seen;
-    if (acc < 0.5) return { q, weight: 4, lastSeen: s.lastSeen };
-    if (acc < 0.8) return { q, weight: 2, lastSeen: s.lastSeen };
-    return { q, weight: s.seen >= 3 ? 1 : 2, lastSeen: s.lastSeen };
+    // FSRS priority: 0=new, 1=overdue, 2+=days until due
+    const priority = getCardPriority(s?.fsrs ?? null);
+    return { q, priority, lastSeen: s?.lastSeen ?? "" };
   });
 
-  // Sort: higher weight first, then older lastSeen first (empty string = never seen = prioritise)
+  // Sort: lower priority number = higher urgency (due sooner / never seen)
   weighted.sort((a, b) => {
-    if (b.weight !== a.weight) return b.weight - a.weight;
+    if (a.priority !== b.priority) return a.priority - b.priority;
+    // Tiebreak: older lastSeen first (less recent = more overdue)
     if (a.lastSeen === b.lastSeen) return 0;
     if (!a.lastSeen) return -1;
     if (!b.lastSeen) return 1;
@@ -568,6 +569,9 @@ export default function DailyPage() {
   // Daily goal completion celebration
   const [showDailyGoalCelebration, setShowDailyGoalCelebration] = useState(false);
   const dailyGoalCelebratedRef = useRef(false);
+
+  // Weekly challenge claim celebration
+  const [showWeeklyCelebration, setShowWeeklyCelebration] = useState(false);
 
   // Pet level-up celebration
   const [petLevelUpCelebration, setPetLevelUpCelebration] = useState<{ name: string; level: number; petType: number } | null>(null);
@@ -1225,13 +1229,31 @@ export default function DailyPage() {
   };
 
   // ── Complete a reflection/challenge node ──
-  const completeNonQuizNode = (node: PathNodeConfig) => {
+  const completeNonQuizNode = (node: PathNodeConfig, text?: string) => {
     const existing = dailyProgress?.nonQuizCompleted ?? [];
     if (existing.includes(node.id)) return;
     saveProgress({ nonQuizCompleted: [...existing, node.id] });
     gameEarnXP(node.xp, "reflection");
     addXP(node.xp);
     setSessionXP(prev => prev + node.xp);
+    // Persist reflection text to journal
+    if (text?.trim()) {
+      try {
+        const journalKey = "psyche-reflections";
+        const existing = JSON.parse(localStorage.getItem(journalKey) || "[]") as Array<{
+          id: string; date: string; nodeId: string; nodeLabel: string; prompt: string; text: string;
+        }>;
+        existing.unshift({
+          id: `${node.id}-${Date.now()}`,
+          date: new Intl.DateTimeFormat("en-CA").format(new Date()),
+          nodeId: node.id,
+          nodeLabel: node.label,
+          prompt: node.prompt ?? "",
+          text: text.trim(),
+        });
+        localStorage.setItem(journalKey, JSON.stringify(existing.slice(0, 200)));
+      } catch {}
+    }
   };
 
   if (!loaded) return (
@@ -1438,7 +1460,7 @@ export default function DailyPage() {
           instinct={profile.instinctualStacking}
           name={profile.displayName}
           weeklyChallenge={weeklyChallenge}
-          onClaimWeeklyReward={claimWeeklyReward}
+          onClaimWeeklyReward={() => { claimWeeklyReward(); setShowWeeklyCelebration(true); }}
         />
         <NodeBottomSheet
           node={bottomSheetNode}
@@ -1778,6 +1800,63 @@ export default function DailyPage() {
               <div className="font-bold text-lg">Daily Goal Complete!</div>
               <div className="text-amber-100 text-sm mt-1">+15 tokens earned!</div>
             </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Weekly Challenge Celebration */}
+      <AnimatePresence>
+        {showWeeklyCelebration && (
+          <motion.div
+            key="weekly-celebration"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[80] flex flex-col items-center justify-center px-6"
+            style={{ background: "rgba(10,5,25,0.92)", backdropFilter: "blur(12px)" }}
+            onClick={() => setShowWeeklyCelebration(false)}
+          >
+            <motion.div
+              initial={{ scale: 0.7, y: 30 }}
+              animate={{ scale: 1, y: 0 }}
+              transition={{ type: "spring", stiffness: 280, damping: 22 }}
+              className="flex flex-col items-center text-center max-w-sm"
+              onClick={e => e.stopPropagation()}
+            >
+              <motion.div
+                animate={{ rotate: [0, -8, 8, -5, 5, 0], scale: [1, 1.15, 1] }}
+                transition={{ duration: 0.7, delay: 0.2 }}
+                className="text-6xl mb-4"
+              >
+                {weeklyChallenge?.emoji ?? "🏆"}
+              </motion.div>
+              <h2 className="text-2xl font-bold text-white mb-2">Challenge Complete!</h2>
+              <p className="font-semibold mb-1" style={{ color: "#a78bfa" }}>
+                {weeklyChallenge?.name}
+              </p>
+              <p className="text-sm mb-6" style={{ color: "rgba(255,255,255,0.6)" }}>
+                You crushed this week&apos;s challenge.
+              </p>
+              <div className="flex gap-4 mb-8">
+                <div className="px-5 py-3 rounded-2xl text-center" style={{ background: "rgba(124,58,237,0.2)", border: "1px solid rgba(124,58,237,0.3)" }}>
+                  <p className="text-xl font-bold text-white">+{weeklyChallenge?.xpReward ?? 0}</p>
+                  <p className="text-xs" style={{ color: "rgba(255,255,255,0.5)" }}>XP</p>
+                </div>
+                <div className="px-5 py-3 rounded-2xl text-center" style={{ background: "rgba(251,191,36,0.15)", border: "1px solid rgba(251,191,36,0.25)" }}>
+                  <p className="text-xl font-bold" style={{ color: "#fbbf24" }}>+{weeklyChallenge?.tokenReward ?? 0}</p>
+                  <p className="text-xs" style={{ color: "rgba(255,255,255,0.5)" }}>Tokens</p>
+                </div>
+              </div>
+              <motion.button
+                whileHover={{ scale: 1.04 }}
+                whileTap={{ scale: 0.97 }}
+                onClick={() => setShowWeeklyCelebration(false)}
+                className="w-full py-3.5 rounded-2xl text-white font-semibold text-base"
+                style={{ background: "linear-gradient(135deg, #7c3aed, #4f46e5)", boxShadow: "0 8px 24px rgba(124,58,237,0.4)" }}
+              >
+                Keep Going 🔥
+              </motion.button>
+            </motion.div>
           </motion.div>
         )}
       </AnimatePresence>

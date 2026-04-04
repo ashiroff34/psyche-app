@@ -144,10 +144,11 @@ export function useProfile() {
   // Track daily visit & streak
   const trackVisit = useCallback(() => {
     setProfile((prev) => {
-      const today = new Date().toISOString().split("T")[0];
+      const today = new Intl.DateTimeFormat("en-CA").format(new Date());
       if (prev.lastVisitDate === today) return prev; // already tracked today
 
-      const yesterday = new Date(Date.now() - 86400000).toISOString().split("T")[0];
+      const yd = new Date(); yd.setDate(yd.getDate() - 1);
+      const yesterday = new Intl.DateTimeFormat("en-CA").format(yd);
       const isConsecutive = prev.lastVisitDate === yesterday;
       const newStreak = isConsecutive ? (prev.streakCount ?? 0) + 1 : 1;
       const updated = {

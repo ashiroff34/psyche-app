@@ -1737,6 +1737,35 @@ export default function ProfilePage() {
           </div>
         )}
 
+        {/* View Full Report CTA */}
+        {hasProfile && !isEditing && profile.enneagramType && (
+          <Link
+            href="/report"
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+              padding: "18px 22px",
+              borderRadius: 16,
+              background: "linear-gradient(135deg, rgba(124,58,237,0.18) 0%, rgba(79,70,229,0.12) 100%)",
+              border: "1px solid rgba(124,58,237,0.3)",
+              textDecoration: "none",
+              marginTop: 16,
+            }}
+          >
+            <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
+              <div style={{ width: 40, height: 40, borderRadius: 12, background: "rgba(124,58,237,0.2)", border: "1px solid rgba(124,58,237,0.35)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                <Star className="w-5 h-5" style={{ color: "#a78bfa" }} />
+              </div>
+              <div>
+                <p style={{ fontSize: 15, fontWeight: 700, color: "white", marginBottom: 2 }}>Your Type Report</p>
+                <p style={{ fontSize: 12, color: "rgba(255,255,255,0.5)" }}>Full psychology breakdown — arrows, subtypes, insights</p>
+              </div>
+            </div>
+            <ArrowRight className="w-4 h-4" style={{ color: "rgba(167,139,250,0.8)", flexShrink: 0 }} />
+          </Link>
+        )}
+
         {/* Next Step guidance */}
         {hasProfile && !isEditing && (
           <NextStepBanner
