@@ -46,6 +46,19 @@ interface AssessmentCard {
 const assessments: AssessmentCard[] = [
   // ENNEAGRAM
   {
+    id: "quick",
+    tab: "enneagram",
+    icon: Zap,
+    title: "Quick Type Finder",
+    subtitle: "8 questions · Based on original theorists",
+    description: "The fastest accurate path to your type. Uses Oscar Ichazo's triadic centers (gut/heart/head) and Naranjo's core fixations to narrow your type in about 3 minutes.",
+    timeEstimate: "~3 min",
+    tags: ["8 Questions", "Ichazo · Naranjo · R&H"],
+    gradient: "from-violet-500 to-indigo-600",
+    href: "/assessments/quick",
+    recommended: true,
+  },
+  {
     id: "self-identify",
     tab: "enneagram",
     icon: BookOpen,
@@ -56,7 +69,6 @@ const assessments: AssessmentCard[] = [
     tags: ["Expert recommended"],
     gradient: "from-amber-400 to-orange-500",
     href: "/assessments/essential-enneagram",
-    recommended: true,
   },
   {
     id: "deep",

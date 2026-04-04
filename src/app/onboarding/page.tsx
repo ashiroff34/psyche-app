@@ -196,7 +196,7 @@ function StepQuickSetup({
         style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.09)", color: "rgba(255,255,255,0.5)" }}
       >
         <HelpCircle className="w-4 h-4" />
-        Not sure of my type — help me find it (~5 min)
+        Not sure of my type — help me find it (~3 min)
       </button>
     </div>
   );
@@ -328,7 +328,7 @@ export default function OnboardingPage() {
 
   const handleNotSure = () => {
     markComplete(null);
-    router.push("/assessments/essential-enneagram");
+    router.push("/assessments/quick");
   };
 
   const renderStep = () => {
