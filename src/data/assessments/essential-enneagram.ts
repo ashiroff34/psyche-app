@@ -53,98 +53,112 @@ export const narrowingQuestions: NarrowingQuestion[] = [
     types: [1, 6],
     question: 'When you notice something is wrong in a situation, what is your first inner response?',
     options: [
-      { text: 'I feel an immediate impulse to correct it and bring things back to the right standard.', scores: {  } },
+      { text: 'I feel an immediate impulse to correct it and bring things back to the right standard.', scores: { '1': 2 } },
+      { text: 'I worry about the implications, scan for danger, and look for who is responsible.', scores: { '6': 2 } },
     ],
   },
   {
     types: [2, 9],
     question: 'When a friend is going through a hard time, how do you typically respond?',
     options: [
-      { text: 'I step in actively -- I call them, bring them something, and make sure they know I am there.', scores: {  } },
+      { text: 'I step in actively — I call them, bring them something, and make sure they know I am there.', scores: { '2': 2 } },
+      { text: 'I am present and supportive but follow their lead, letting them set the pace.', scores: { '9': 2 } },
     ],
   },
   {
     types: [3, 7],
     question: 'What drives your busy, high-energy lifestyle more?',
     options: [
-      { text: 'The desire to accomplish meaningful goals and be recognized for my results.', scores: {  } },
+      { text: 'The desire to accomplish meaningful goals and be recognized for my results.', scores: { '3': 2 } },
+      { text: 'The thrill of possibilities and keeping life stimulating and full of options.', scores: { '7': 2 } },
     ],
   },
   {
     types: [4, 6],
     question: 'When you feel anxious or unsettled, where does your attention go?',
     options: [
-      { text: 'Inward -- I examine my emotions, search for what feels missing, and try to understand myself more deeply.', scores: {  } },
+      { text: 'Inward — I examine my emotions, search for what feels missing, and try to understand myself more deeply.', scores: { '4': 2 } },
+      { text: 'Outward — I look for reassurance, analyze threats, or try to stay alert to what could go wrong.', scores: { '6': 2 } },
     ],
   },
   {
     types: [5, 9],
     question: 'When you withdraw from social interaction, what is usually happening inside?',
     options: [
-      { text: 'My mind is highly active -- I am analyzing, researching, or deeply focused on something I find fascinating.', scores: {  } },
+      { text: 'My mind is highly active — I am analyzing, researching, or deeply focused on something I find fascinating.', scores: { '5': 2 } },
+      { text: 'I feel a comfortable inner stillness; I am just recovering and letting my mind go quiet.', scores: { '9': 2 } },
     ],
   },
   {
     types: [2, 6],
     question: 'What is the main reason you put so much effort into being there for others?',
     options: [
-      { text: 'I genuinely need to feel loved and appreciated, and helping others is how I earn that closeness.', scores: {  } },
+      { text: 'I genuinely need to feel loved and appreciated, and helping others is how I earn that closeness.', scores: { '2': 2 } },
+      { text: 'I want to be reliable and trustworthy — knowing people can count on me feels safe.', scores: { '6': 2 } },
     ],
   },
   {
     types: [4, 9],
     question: 'How would you describe your relationship with your own emotions?',
     options: [
-      { text: 'My emotions are vivid and central to my identity -- I would rather feel pain than feel nothing at all.', scores: {  } },
+      { text: 'My emotions are vivid and central to my identity — I would rather feel pain than feel nothing at all.', scores: { '4': 2 } },
+      { text: 'I often feel a gentle numbness; my emotions are there but I can tune them out to keep the peace.', scores: { '9': 2 } },
     ],
   },
   {
     types: [1, 3],
     question: 'When you complete a project, what matters most to you about the result?',
     options: [
-      { text: 'That it was done correctly and meets a high ethical or quality standard, regardless of recognition.', scores: {  } },
+      { text: 'That it was done correctly and meets a high ethical or quality standard, regardless of recognition.', scores: { '1': 2 } },
+      { text: 'That it achieved impressive results and others can see the quality of my work.', scores: { '3': 2 } },
     ],
   },
   {
     types: [3, 8],
     question: 'In a group setting, what role do you naturally gravitate toward?',
     options: [
-      { text: 'The achiever who sets the pace, rallies the team, and makes sure we hit our targets.', scores: {  } },
+      { text: 'The achiever who sets the pace, rallies the team, and makes sure we hit our targets.', scores: { '3': 2 } },
+      { text: 'The one who takes charge directly, removes obstacles, and refuses to be pushed around.', scores: { '8': 2 } },
     ],
   },
   {
     types: [1, 5],
     question: 'When you have strong opinions, how do you typically handle them?',
     options: [
-      { text: 'I feel compelled to share them because I believe things should be done the right way.', scores: {  } },
+      { text: 'I feel compelled to share them because I believe things should be done the right way.', scores: { '1': 2 } },
+      { text: 'I hold them privately, preferring to think them through fully before speaking.', scores: { '5': 2 } },
     ],
   },
   {
     types: [6, 9],
     question: 'When a big decision looms, what slows you down the most?',
     options: [
-      { text: 'I keep imagining what could go wrong and question whether I have enough information to commit.', scores: {  } },
+      { text: 'I keep imagining what could go wrong and question whether I have enough information to commit.', scores: { '6': 2 } },
+      { text: 'I feel overwhelmed by the options and naturally drift toward whatever requires the least disruption.', scores: { '9': 2 } },
     ],
   },
   {
     types: [7, 9],
     question: 'When life gets stressful, what is your go-to coping strategy?',
     options: [
-      { text: 'I plan something exciting, pivot to a new project, or reframe the situation so it feels more positive.', scores: {  } },
+      { text: 'I plan something exciting, pivot to a new project, or reframe the situation so it feels more positive.', scores: { '7': 2 } },
+      { text: 'I withdraw, slow down, zone out, or fall back into a comfortable routine.', scores: { '9': 2 } },
     ],
   },
   {
     types: [2, 4],
     question: 'When you feel unappreciated, what rises to the surface first?',
     options: [
-      { text: 'I feel hurt that my giving was not returned and I become more insistent about being needed.', scores: {  } },
+      { text: 'I feel hurt that my giving was not returned and I become more insistent about being needed.', scores: { '2': 2 } },
+      { text: 'I feel a deep sadness and a sense of not being truly seen for who I really am.', scores: { '4': 2 } },
     ],
   },
   {
     types: [1, 8],
     question: 'When you feel angry, how does it typically come out?',
     options: [
-      { text: 'I try to contain it and channel it into measured, justified criticism -- losing control feels wrong.', scores: {  } },
+      { text: 'I try to contain it and channel it into measured, justified criticism — losing control feels wrong.', scores: { '1': 2 } },
+      { text: 'It comes out directly and intensely — I confront the issue head-on without holding back.', scores: { '8': 2 } },
     ],
   },
 ];
