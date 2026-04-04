@@ -717,7 +717,7 @@ export default function LessonBriefOverlay({
       </div>
 
       {/* ── Card area ─────────────────────────────────────────────────────── */}
-      <div className="flex-1 px-5 pt-5 overflow-hidden">
+      <div className="flex-1 px-5 pt-5 pb-4 overflow-y-auto">
         <AnimatePresence mode="wait" custom={direction}>
           <motion.div
             key={cardIdx}
@@ -726,7 +726,7 @@ export default function LessonBriefOverlay({
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: direction * -36 }}
             transition={{ duration: 0.2, ease: "easeOut" }}
-            className="h-full flex flex-col"
+            className="flex flex-col"
           >
             {/* Card */}
             <div

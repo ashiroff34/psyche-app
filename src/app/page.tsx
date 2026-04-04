@@ -337,8 +337,8 @@ function AssessPromptScreen({ profile }: { profile: Record<string, any> }) {
 function OnboardingResumeScreen({ profile }: { profile: Record<string, any> }) {
   const name = profile.displayName;
   const rawStep = profile.onboardingStep ?? 1;
-  const totalSteps = 7;
-  const step = Math.min(rawStep, totalSteps);
+  const totalSteps = 6;
+  const step = Math.min(rawStep + 1, totalSteps);
 
   return (
     <div className="min-h-screen flex items-center justify-center px-4" style={{ background: "#0f0a1e" }}>

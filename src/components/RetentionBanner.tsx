@@ -129,7 +129,7 @@ export default function RetentionBanner() {
 
     const now = new Date();
     const hour = now.getHours();
-    const yesterday = new Date(Date.now() - 86400000).toISOString().split("T")[0];
+    const yesterday = new Intl.DateTimeFormat("en-CA").format(new Date(Date.now() - 86400000));
 
     let data: BannerData | null = null;
 

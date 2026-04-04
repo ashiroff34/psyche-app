@@ -647,6 +647,7 @@ export default function OnboardingPage() {
   const markComplete = (displayNameVal?: string, emailVal?: string) => {
     try {
       localStorage.setItem("psyche-onboarding-complete", "true");
+      localStorage.setItem("psyche-tutorial-complete", "true");
       const raw = localStorage.getItem("psyche-profile");
       const p = raw ? JSON.parse(raw) : {};
       const updates: Record<string, string> = {};
