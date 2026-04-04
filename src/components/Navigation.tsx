@@ -342,7 +342,9 @@ export default function Navigation() {
                 </button>
               )}
               <Link href="/" className="flex items-center gap-2 group">
-                <img src={assetPath("/thyself-logo.svg")} alt="Thyself" className="w-8 h-8 rounded-xl shadow-lg" style={{ boxShadow: "0 4px 12px rgba(124,58,237,0.4)" }} />
+                <div className="rounded-xl overflow-hidden shadow-lg flex-shrink-0" style={{ width: 32, height: 32, boxShadow: "0 4px 12px rgba(124,58,237,0.4)" }}>
+                  <OuroborosLogo size={32} />
+                </div>
                 <span className="text-lg font-serif font-semibold tracking-tight" style={{ color: "rgba(255,255,255,0.92)" }}>
                   Thyself
                 </span>
