@@ -276,8 +276,8 @@ function HeroScreen() {
       <footer className="py-10" style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}>
         <div className="max-w-4xl mx-auto px-4 text-center">
           <div className="flex items-center justify-center gap-2 mb-3">
-            <div className="w-6 h-6 rounded-lg bg-gradient-to-br from-violet-500 to-indigo-600 flex items-center justify-center">
-              <OuroborosLogo size={14} />
+            <div className="w-6 h-6 rounded-lg overflow-hidden">
+              <OuroborosLogo size={24} />
             </div>
             <span className="font-serif font-semibold" style={{ color: "rgba(255,255,255,0.7)" }}>Thyself</span>
           </div>
@@ -298,8 +298,8 @@ function AssessPromptScreen({ profile }: { profile: Record<string, any> }) {
     <div className="min-h-screen flex items-center justify-center px-4" style={{ background: "#0f0a1e" }}>
       <div className="w-full max-w-md">
         <div className="rounded-3xl p-8 text-center" style={{ background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.09)" }}>
-          <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-violet-500 to-indigo-600 flex items-center justify-center mx-auto mb-6 shadow-lg" style={{ boxShadow: "0 8px 32px rgba(139,92,246,0.35)" }}>
-            <OuroborosLogo size={32} />
+          <div className="w-16 h-16 rounded-2xl overflow-hidden mx-auto mb-6 shadow-lg" style={{ boxShadow: "0 8px 32px rgba(139,92,246,0.35)" }}>
+            <OuroborosLogo size={64} />
           </div>
           <h2 className="text-2xl font-serif font-bold mb-2" style={{ color: "rgba(255,255,255,0.93)" }}>
             Ready to discover your type{name ? `, ${name}` : ""}?
@@ -344,8 +344,8 @@ function OnboardingResumeScreen({ profile }: { profile: Record<string, any> }) {
     <div className="min-h-screen flex items-center justify-center px-4" style={{ background: "#0f0a1e" }}>
       <div className="w-full max-w-md">
         <div className="rounded-3xl p-8 text-center" style={{ background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.09)" }}>
-          <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-violet-500 to-indigo-600 flex items-center justify-center mx-auto mb-6 shadow-lg" style={{ boxShadow: "0 8px 32px rgba(139,92,246,0.35)" }}>
-            <OuroborosLogo size={32} />
+          <div className="w-16 h-16 rounded-2xl overflow-hidden mx-auto mb-6 shadow-lg" style={{ boxShadow: "0 8px 32px rgba(139,92,246,0.35)" }}>
+            <OuroborosLogo size={64} />
           </div>
 
           <h2 className="text-2xl font-serif font-bold mb-2" style={{ color: "rgba(255,255,255,0.93)" }}>

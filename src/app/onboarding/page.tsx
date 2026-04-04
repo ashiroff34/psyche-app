@@ -30,8 +30,8 @@ const TOTAL_STEPS = 6;
 function StepWelcome() {
   return (
     <div className="flex flex-col items-center text-center px-4">
-      <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-3xl bg-gradient-to-br from-violet-500 to-indigo-600 flex items-center justify-center mb-8 shadow-xl" style={{ boxShadow: "0 12px 40px rgba(124,58,237,0.5)" }}>
-        <OuroborosLogo size={48} />
+      <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-3xl overflow-hidden mb-8 shadow-xl flex-shrink-0" style={{ boxShadow: "0 12px 40px rgba(124,58,237,0.5)" }}>
+        <OuroborosLogo size={96} />
       </div>
 
       <h1 className="text-4xl sm:text-5xl font-serif font-bold mb-4" style={{ color: "rgba(255,255,255,0.95)" }}>
