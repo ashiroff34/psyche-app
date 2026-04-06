@@ -4,8 +4,8 @@
   "description": "Know thyself through the Enneagram and Jungian Cognitive Functions",
   "start_url": ".",
   "display": "standalone",
-  "background_color": "#f0f9ff",
-  "theme_color": "#0ea5e9",
+  "background_color": "#08031a",
+  "theme_color": "#7c3aed",
   "orientation": "portrait",
   "categories": ["education", "health", "lifestyle"],
   "icons": [
