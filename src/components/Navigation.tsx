@@ -34,7 +34,7 @@ import SearchComponent from "@/components/Search";
 
 const bottomTabs = [
   { href: "/", label: "Home", icon: Home },
-  { href: "/daily", label: "Learn", icon: Flame },
+  { href: "/daily", label: "Daily", icon: Flame },
   { href: "/avatar", label: "Pet", icon: Cat },
   { href: "/store", label: "Store", icon: Coins },
   { href: "/profile", label: "Profile", icon: UserCircle },
@@ -51,7 +51,7 @@ type MoreGroup = { label: string; items: MoreItem[] };
 
 const ALL_MORE_GROUPS: MoreGroup[] = [
   {
-    label: "Learn",
+    label: "Study",
     items: [
       { href: "/lessons", label: "Curriculum Map", icon: BookOpen },
       { href: "/game", label: "Progress", icon: Trophy },
@@ -59,7 +59,7 @@ const ALL_MORE_GROUPS: MoreGroup[] = [
     ],
   },
   {
-    label: "Assess",
+    label: "Discover",
     items: [
       { href: "/assessments", label: "Type Assessments", icon: Zap },
       { href: "/compare", label: "Compare Types", icon: ArrowLeftRight, unlocksDay: 7 },

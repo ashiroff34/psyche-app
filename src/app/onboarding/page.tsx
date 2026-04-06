@@ -611,133 +611,7 @@ function StepAllSet({
   );
 }
 
-// ── (Legacy intent fork types — kept for localStorage compatibility) ───────────
-
-type Intent = "discover" | "learn" | "practice";
-
-const intentOptions: {
-  id: Intent;
-  emoji: string;
-  label: string;
-  description: string;
-}[] = [
-  {
-    id: "discover",
-    emoji: "→",
-    label: "Discover my type",
-    description: "I want to find out which Enneagram type I am",
-  },
-  {
-    id: "learn",
-    emoji: "",
-    label: "Learn the full system",
-    description: "I want to understand all 9 types deeply",
-  },
-  {
-    id: "practice",
-    emoji: "~",
-    label: "Daily growth practice",
-    description: "I want to use this for ongoing self-development",
-  },
-];
-
-function StepIntent({
-  onNext,
-  onBack,
-}: {
-  onNext: (intent: Intent) => void;
-  onBack: () => void;
-}) {
-  const [selected, setSelected] = useState<Intent | null>(null);
-
-  return (
-    <div className="flex flex-col items-center px-4 max-w-md mx-auto w-full">
-      <button
-        onClick={onBack}
-        className="self-start flex items-center gap-1 text-sm mb-6 transition-colors"
-        style={{ color: "rgba(255,255,255,0.35)" }}
-      >
-        <ArrowLeft className="w-4 h-4" /> Back
-      </button>
-
-      <h2
-        className="text-3xl font-serif font-bold mb-2 text-center"
-        style={{ color: "rgba(255,255,255,0.93)" }}
-      >
-        What brings you here?
-      </h2>
-      <p className="text-sm text-center mb-8" style={{ color: "rgba(255,255,255,0.4)" }}>
-        This shapes your first experience.
-      </p>
-
-      <div className="w-full space-y-3 mb-8">
-        {intentOptions.map((opt) => {
-          const isSelected = selected === opt.id;
-          return (
-            <button
-              key={opt.id}
-              onClick={() => setSelected(opt.id)}
-              className="w-full text-left px-5 py-4 rounded-2xl transition-all active:scale-[0.98]"
-              style={{
-                background: isSelected
-                  ? "rgba(124,58,237,0.18)"
-                  : "rgba(255,255,255,0.05)",
-                border: isSelected
-                  ? "1px solid rgba(167,139,250,0.45)"
-                  : "1px solid rgba(255,255,255,0.09)",
-              }}
-            >
-              <div className="flex items-center gap-4">
-                <span className="text-2xl">{opt.emoji}</span>
-                <div className="flex-1 min-w-0">
-                  <p
-                    className="text-base font-semibold leading-snug"
-                    style={{
-                      color: isSelected ? "rgba(167,139,250,1)" : "rgba(255,255,255,0.85)",
-                    }}
-                  >
-                    {opt.label}
-                  </p>
-                  <p
-                    className="text-sm mt-0.5 leading-snug"
-                    style={{ color: "rgba(255,255,255,0.45)" }}
-                  >
-                    {opt.description}
-                  </p>
-                </div>
-                <div
-                  className="w-5 h-5 rounded-full border-2 shrink-0 flex items-center justify-center"
-                  style={{
-                    borderColor: isSelected ? "#a78bfa" : "rgba(255,255,255,0.2)",
-                    background: isSelected ? "#a78bfa" : "transparent",
-                  }}
-                >
-                  {isSelected && (
-                    <div className="w-2 h-2 rounded-full" style={{ background: "#fff" }} />
-                  )}
-                </div>
-              </div>
-            </button>
-          );
-        })}
-      </div>
-
-      <button
-        onClick={() => { if (selected) onNext(selected); }}
-        disabled={!selected}
-        className="w-full py-3.5 rounded-2xl text-sm font-bold text-white transition-all hover:-translate-y-0.5 active:scale-[0.98] disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:translate-y-0"
-        style={{
-          background: "linear-gradient(135deg, #7c3aed, #4f46e5)",
-          boxShadow: selected ? "0 8px 24px rgba(124,58,237,0.45)" : "none",
-        }}
-      >
-        Continue
-      </button>
-    </div>
-  );
-}
-
-// ── Step 2: Email Gate ────────────────────────────────────────────────────────
+// ── Step 5: Email Gate ────────────────────────────────────────────────────────
 
 function StepEmailGate({
   result,
@@ -1016,7 +890,6 @@ function OnboardingPageInner() {
   const [acceptedTerms, setAcceptedTerms] = useState(false);
   // 0=welcome, 1=name, 2=preview, 3=assessment, 4=type reveal, 5=subtype, 6=email gate, 7=all set, 8=manual picker
   const [step, setStep] = useState(0);
-  const [intent] = useState<Intent>("discover");
   const [displayName, setDisplayName] = useState("");
   const [selectedSubtype, setSelectedSubtype] = useState<string | null>(null);
   const [assessmentResult, setAssessmentResult] = useState<{
@@ -1078,25 +951,6 @@ function OnboardingPageInner() {
     // stay on step 3 — the reveal will re-render with new type
   };
 
-  const getPostOnboardingRoute = (
-    result: { type: number; confidence: number; runnerUp: number },
-    chosenIntent: Intent
-  ): string => {
-    if (chosenIntent === "learn") return "/lessons";
-    if (chosenIntent === "practice") return "/daily";
-    // discover (default) → results page
-    const params = new URLSearchParams({
-      type: String(result.type),
-      confidence: String(Math.min(result.confidence, 22)),
-      assessmentLength: "quick",
-      showTwo: result.runnerUp !== result.type ? "true" : "false",
-      secondType: String(result.runnerUp),
-      instinct: "SP",
-      instinctScores: JSON.stringify([]),
-    });
-    return `/enneagram/results?${params.toString()}`;
-  };
-
   const saveAndContinue = (email: string, name: string) => {
     if (!assessmentResult) return;
     try {
@@ -1113,7 +967,7 @@ function OnboardingPageInner() {
       localStorage.setItem("psyche-profile", JSON.stringify(updated));
       localStorage.setItem("psyche-onboarding-complete", "true");
       localStorage.setItem("psyche-tutorial-complete", "true");
-      localStorage.setItem("thyself_intent", intent);
+      localStorage.setItem("thyself_intent", "discover");
       notifyProfileChanged();
       // Award onboarding completion bonus
       try {
@@ -1173,7 +1027,7 @@ function OnboardingPageInner() {
       localStorage.setItem("psyche-profile", JSON.stringify(updated));
       localStorage.setItem("psyche-onboarding-complete", "true");
       localStorage.setItem("psyche-tutorial-complete", "true");
-      localStorage.setItem("thyself_intent", intent);
+      localStorage.setItem("thyself_intent", "discover");
       notifyProfileChanged();
       // Award onboarding completion bonus
       try {

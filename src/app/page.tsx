@@ -126,15 +126,45 @@ function EnterScreen() {
         ))}
       </div>
 
-      {/* Logo */}
+      {/* Ouroboros hero */}
       <motion.div
-        initial={{ opacity: 0, scale: 0.85 }}
+        initial={{ opacity: 0, scale: 0.75 }}
         animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.65 }}
-        className="w-14 h-14 rounded-2xl overflow-hidden mb-7 relative z-10 flex-shrink-0"
-        style={{ boxShadow: "0 0 48px rgba(124,58,237,0.55)" }}
+        transition={{ duration: 1.0, ease: "easeOut" }}
+        className="relative z-10 flex-shrink-0 mb-8"
+        style={{ width: 210, height: 210 }}
       >
-        <OuroborosLogo size={56} />
+        {/* Outer glow ring */}
+        <motion.div
+          animate={{ opacity: [0.45, 0.8, 0.45] }}
+          transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut" }}
+          style={{
+            position: "absolute", inset: -24,
+            borderRadius: "50%",
+            background: "radial-gradient(circle, rgba(124,58,237,0.38) 0%, transparent 65%)",
+            pointerEvents: "none",
+          }}
+        />
+        {/* Slowly rotating snake */}
+        <motion.div
+          animate={{ rotate: 360 }}
+          transition={{ duration: 44, repeat: Infinity, ease: "linear" }}
+          style={{ width: 210, height: 210 }}
+        >
+          {/* Subtle scale breathe */}
+          <motion.img
+            src="/thyself-logo.svg"
+            alt="Ouroboros"
+            animate={{ scale: [1, 1.045, 1] }}
+            transition={{ duration: 4.2, repeat: Infinity, ease: "easeInOut" }}
+            style={{
+              width: "100%", height: "100%",
+              borderRadius: "22%",
+              boxShadow: "0 0 72px rgba(124,58,237,0.52), 0 0 28px rgba(167,139,250,0.28)",
+              display: "block",
+            }}
+          />
+        </motion.div>
       </motion.div>
 
       {/* Headline */}
@@ -142,8 +172,8 @@ function EnterScreen() {
         initial={{ opacity: 0, y: 18 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.7, delay: 0.15 }}
-        className="relative z-10 font-serif font-bold text-center tracking-tight mb-5"
-        style={{ fontSize: "clamp(44px, 12vw, 72px)", lineHeight: 1.05, color: "rgba(255,255,255,0.96)" }}
+        className="relative z-10 font-serif font-bold text-center tracking-tight mb-4"
+        style={{ fontSize: "clamp(38px, 11vw, 64px)", lineHeight: 1.05, color: "rgba(255,255,255,0.96)" }}
       >
         Know{" "}
         <span style={{
