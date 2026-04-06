@@ -8,6 +8,8 @@ import { notifyProfileChanged } from "@/hooks/useProfile";
 import OuroborosLogo from "@/components/OuroborosLogo";
 import QuickTypeAssessment from "@/components/assessments/QuickTypeAssessment";
 import { enneagramTypes } from "@/data/enneagram";
+import dynamic from "next/dynamic";
+const Confetti = dynamic(() => import("react-confetti"), { ssr: false });
 
 function isValidEmail(e: string) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e);
@@ -225,6 +227,13 @@ function TypeRevealScreen({
   // Mastery progress (endowed — always show a small positive number)
   const masteryPercent = Math.max(4, Math.min(12, Math.round(result.confidence * 0.08 + 2)));
 
+  // Confetti burst on reveal
+  const [confetti, setConfetti] = useState(true);
+  useEffect(() => {
+    const t = setTimeout(() => setConfetti(false), 4000);
+    return () => clearTimeout(t);
+  }, []);
+
   // Auto-advance after 2.5 s if user doesn't tap
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   useEffect(() => {
@@ -249,6 +258,17 @@ function TypeRevealScreen({
       className="min-h-screen flex flex-col items-center justify-center px-6 relative overflow-hidden"
       style={{ background: "#0a0514" }}
     >
+      {/* Confetti burst */}
+      {confetti && (
+        <Confetti
+          recycle={false}
+          numberOfPieces={240}
+          gravity={0.18}
+          colors={[typeColor, "#a78bfa", "#818cf8", "#ffffff", "#f0abfc"]}
+          style={{ position: "fixed", top: 0, left: 0, zIndex: 50, pointerEvents: "none" }}
+        />
+      )}
+
       {/* Ambient glow in the type's color */}
       <div
         className="fixed inset-0 -z-10 pointer-events-none"

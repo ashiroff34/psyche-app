@@ -8,6 +8,7 @@ import TutorialProvider from "@/components/TutorialProvider";
 import { assetPath } from "@/lib/assetPath";
 import { RewardAnchors } from "@/components/Rewards";
 import { Toaster } from "sonner";
+import ServiceWorkerRegistrar from "@/components/ServiceWorkerRegistrar";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://psyche-app-two.vercel.app"),
@@ -78,17 +79,7 @@ export default function RootLayout({
             __html: `try{if(localStorage.getItem("psyche-light-mode")==="true")document.documentElement.classList.add("light")}catch(e){}`,
           }}
         />
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `if("serviceWorker"in navigator){
-  navigator.serviceWorker.register("/sw.js").catch(function(){});
-  var _reloading=false;
-  navigator.serviceWorker.addEventListener("controllerchange",function(){
-    if(!_reloading){_reloading=true;window.location.reload();}
-  });
-}`,
-          }}
-        />
+        <ServiceWorkerRegistrar />
       </head>
       <body className="min-h-screen noise-overlay">
         <Navigation />

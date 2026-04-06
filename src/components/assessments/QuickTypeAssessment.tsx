@@ -1,7 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useMotionValue, useTransform, animate } from "framer-motion";
+import { useDrag } from "@use-gesture/react";
 import { Check, ChevronDown, BookOpen } from "lucide-react";
 
 // ─── Theory ──────────────────────────────────────────────────────────────────
@@ -388,6 +389,142 @@ const typeTaglines: Record<number, string> = {
   9: "The peacemaker who merges with the world to keep the peace within.",
 };
 
+// ─── Swipeable option card ────────────────────────────────────────────────────
+
+function SwipeOption({
+  opt,
+  i,
+  selectedOption,
+  expandedLearn,
+  onSelect,
+  onToggleLearn,
+}: {
+  opt: Option;
+  i: number;
+  selectedOption: number | null;
+  expandedLearn: number | null;
+  onSelect: (i: number) => void;
+  onToggleLearn: (e: React.MouseEvent, i: number) => void;
+}) {
+  const x = useMotionValue(0);
+  const rotate = useTransform(x, [-100, 0, 100], [-4, 0, 4]);
+  const selectGlow = useTransform(x, [0, 70], [0, 1]);
+
+  const isSelected = selectedOption === i;
+  const isLearnOpen = expandedLearn === i;
+  const isDimmed = selectedOption !== null && !isSelected;
+  const disabled = selectedOption !== null;
+
+  const bind = useDrag(
+    ({ movement: [mx], last }) => {
+      if (disabled) return;
+      x.set(mx);
+      if (last) {
+        if (mx > 65) {
+          onSelect(i);
+        }
+        animate(x, 0, { type: "spring", stiffness: 450, damping: 28 });
+      }
+    },
+    { axis: "x", enabled: !disabled }
+  );
+
+  return (
+    <motion.div
+      {...(bind() as object)}
+      animate={{ opacity: isDimmed ? 0.35 : 1 }}
+      style={{
+        x,
+        rotate,
+        touchAction: "pan-y",
+        borderRadius: "16px",
+        overflow: "hidden",
+        border: isSelected
+          ? "2px solid rgba(139,92,246,0.7)"
+          : "2px solid rgba(255,255,255,0.08)",
+        background: isSelected
+          ? "rgba(139,92,246,0.12)"
+          : "rgba(255,255,255,0.04)",
+        cursor: disabled ? "default" : "grab",
+      }}
+    >
+      {/* Swipe-right glow hint */}
+      <motion.div
+        style={{
+          position: "absolute", inset: 0, borderRadius: 14, pointerEvents: "none",
+          background: "rgba(139,92,246,0.18)",
+          opacity: selectGlow,
+        }}
+      />
+
+      {/* Tap-to-select row */}
+      <button
+        onClick={() => !disabled && onSelect(i)}
+        className="w-full text-left px-4 pt-4 pb-3 relative"
+        style={{ userSelect: "none" }}
+      >
+        <div className="flex items-start gap-3">
+          <div
+            className={`w-5 h-5 rounded-full border-2 flex items-center justify-center shrink-0 mt-0.5 transition-all ${
+              isSelected ? "border-violet-400 bg-violet-500" : ""
+            }`}
+            style={!isSelected ? { borderColor: "rgba(255,255,255,0.25)" } : {}}
+          >
+            {isSelected && <Check className="w-3 h-3 text-white" />}
+          </div>
+          <div className="flex-1 min-w-0">
+            <p className="text-sm font-semibold leading-snug" style={{ color: "rgba(255,255,255,0.88)" }}>
+              {opt.text}
+            </p>
+            {opt.detail && (
+              <p className="text-xs mt-0.5" style={{ color: "rgba(255,255,255,0.38)" }}>
+                {opt.detail}
+              </p>
+            )}
+          </div>
+        </div>
+      </button>
+
+      {/* Expand toggle */}
+      <button
+        onClick={(e) => onToggleLearn(e, i)}
+        className="w-full flex items-center gap-1.5 px-4 pb-3 relative"
+        style={{ color: "rgba(139,92,246,0.6)" }}
+      >
+        <BookOpen className="w-3 h-3 shrink-0" />
+        <span className="text-xs font-medium">{isLearnOpen ? "Collapse" : "Expand"}</span>
+        <motion.div
+          animate={{ rotate: isLearnOpen ? 180 : 0 }}
+          transition={{ duration: 0.2 }}
+          className="ml-auto"
+        >
+          <ChevronDown className="w-3.5 h-3.5" />
+        </motion.div>
+      </button>
+
+      {/* Expandable theory */}
+      <AnimatePresence>
+        {isLearnOpen && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.22 }}
+            className="overflow-hidden"
+          >
+            <div className="px-4 pb-4 pt-1 text-xs leading-relaxed space-y-2"
+              style={{ color: "rgba(255,255,255,0.52)", borderTop: "1px solid rgba(255,255,255,0.06)" }}>
+              {opt.learn.split("\n\n").map((para, pi) => (
+                <p key={pi}>{para}</p>
+              ))}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </motion.div>
+  );
+}
+
 // ─── Component ───────────────────────────────────────────────────────────────
 
 export default function QuickTypeAssessment({
@@ -546,90 +683,19 @@ export default function QuickTypeAssessment({
             )}
           </div>
 
-          {/* Options */}
+          {/* Options — swipeable */}
           <div className="space-y-3">
-            {currentQ.options.map((opt, i) => {
-              const isSelected = selectedOption === i;
-              const isLearnOpen = expandedLearn === i;
-              const isDimmed = selectedOption !== null && !isSelected;
-
-              return (
-                <motion.div
-                  key={i}
-                  animate={{ opacity: isDimmed ? 0.35 : 1 }}
-                  className="rounded-2xl overflow-hidden transition-all"
-                  style={{
-                    border: isSelected
-                      ? "2px solid rgba(139,92,246,0.7)"
-                      : "2px solid rgba(255,255,255,0.08)",
-                    background: isSelected
-                      ? "rgba(139,92,246,0.12)"
-                      : "rgba(255,255,255,0.04)",
-                  }}
-                >
-                  {/* Tap-to-select row */}
-                  <button
-                    onClick={() => handleSelect(i)}
-                    className="w-full text-left px-4 pt-4 pb-3"
-                  >
-                    <div className="flex items-start gap-3">
-                      <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center shrink-0 mt-0.5 transition-all ${
-                        isSelected ? "border-violet-400 bg-violet-500" : ""
-                      }`}
-                        style={!isSelected ? { borderColor: "rgba(255,255,255,0.25)" } : {}}>
-                        {isSelected && <Check className="w-3 h-3 text-white" />}
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <p className="text-sm font-semibold leading-snug" style={{ color: "rgba(255,255,255,0.88)" }}>
-                          {opt.text}
-                        </p>
-                        {opt.detail && (
-                          <p className="text-xs mt-0.5" style={{ color: "rgba(255,255,255,0.38)" }}>
-                            {opt.detail}
-                          </p>
-                        )}
-                      </div>
-                    </div>
-                  </button>
-
-                  {/* Expand toggle */}
-                  <button
-                    onClick={(e) => toggleLearn(e, i)}
-                    className="w-full flex items-center gap-1.5 px-4 pb-3"
-                    style={{ color: "rgba(139,92,246,0.6)" }}
-                  >
-                    <BookOpen className="w-3 h-3 shrink-0" />
-                    <span className="text-xs font-medium">{isLearnOpen ? "Collapse" : "Expand"}</span>
-                    <motion.div
-                      animate={{ rotate: isLearnOpen ? 180 : 0 }}
-                      transition={{ duration: 0.2 }}
-                      className="ml-auto"
-                    >
-                      <ChevronDown className="w-3.5 h-3.5" />
-                    </motion.div>
-                  </button>
-
-                  {/* Expandable theory */}
-                  <AnimatePresence>
-                    {isLearnOpen && (
-                      <motion.div
-                        initial={{ height: 0, opacity: 0 }}
-                        animate={{ height: "auto", opacity: 1 }}
-                        exit={{ height: 0, opacity: 0 }}
-                        transition={{ duration: 0.22 }}
-                        className="overflow-hidden"
-                      >
-                        <div className="px-4 pb-4 pt-1 border-t" style={{ borderColor: "rgba(255,255,255,0.06)" }}>
-                          <p className="text-xs leading-relaxed" style={{ color: "rgba(255,255,255,0.5)" }}>
-                            {opt.learn}
-                          </p>
-                        </div>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-                </motion.div>
-              );
-            })}
+            {currentQ.options.map((opt, i) => (
+              <SwipeOption
+                key={i}
+                opt={opt}
+                i={i}
+                selectedOption={selectedOption}
+                expandedLearn={expandedLearn}
+                onSelect={handleSelect}
+                onToggleLearn={toggleLearn}
+              />
+            ))}
           </div>
         </motion.div>
       </AnimatePresence>
