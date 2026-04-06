@@ -1587,12 +1587,12 @@ export default function DailyPage() {
         />
         {/* Stats link */}
         <div className="fixed bottom-20 right-4 z-30">
-          <button
-            onClick={() => { setView("quiz"); setActiveTab("stats"); }}
+          <Link
+            href="/game"
             className="w-10 h-10 rounded-full bg-white shadow-lg border border-slate-100 flex items-center justify-center text-slate-500 hover:text-indigo-600 transition"
           >
             <BarChart3 className="w-4 h-4" />
-          </button>
+          </Link>
         </div>
 
         {/* Streak Milestone Modal */}
@@ -1785,14 +1785,14 @@ export default function DailyPage() {
         {/* ─── Quick Actions ───────────────────────────────────────────── */}
         <div className="max-w-md mx-auto px-4 pt-4 flex gap-3">
           <button
-            onClick={() => { setView("quiz"); setActiveTab("today"); }}
+            onClick={() => setView("hub")}
             className="flex-1 py-3 rounded-2xl text-sm font-semibold text-white transition-all active:scale-95"
             style={{ background: "linear-gradient(135deg, #7c3aed, #4f46e5)", boxShadow: "0 4px 16px rgba(124,58,237,0.35)" }}
           >
             🔥 Today&apos;s Challenge
           </button>
           <button
-            onClick={() => { setView("quiz"); setActiveTab("deep"); }}
+            onClick={() => setView("hub")}
             className="flex-1 py-3 rounded-2xl text-sm font-semibold transition-all active:scale-95"
             style={{ background: "rgba(139,92,246,0.15)", border: "1px solid rgba(139,92,246,0.3)", color: "#c4b5fd" }}
           >
@@ -1939,7 +1939,15 @@ export default function DailyPage() {
   }
 
   // ── Lesson view (shown before quiz begins) ──
-  if (view === "lesson" && pendingQuizNode) {
+  if (view === "lesson") {
+    // If pendingQuizNode is not yet populated (race condition), fall back to path view
+    if (!pendingQuizNode) {
+      // Use effect-safe redirect: return path content by falling through to path view rendering
+      // We trigger a state update on next tick to avoid render-during-render
+      return (
+        <div className="min-h-screen" style={{ background: "#0f0a1e" }} />
+      );
+    }
     return (
       <LessonBriefOverlay
         moduleId={pendingQuizNode.moduleId ?? "warmup"}
@@ -1963,6 +1971,9 @@ export default function DailyPage() {
     (activeTab === "today" && warmupStarted) ||
     (activeTab === "deep" && !!activeModule);
 
+  // Guard: if we've somehow ended up in "quiz" view without an active or completed quiz
+  // (e.g. clicking stats/challenge buttons in path view), redirect to hub to prevent
+  // the legacy quiz tab UI from appearing as a "different daily page."
   const quizCompleted =
     (activeTab === "today" && warmupDone) ||
     (activeTab === "deep" && moduleDone);

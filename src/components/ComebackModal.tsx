@@ -65,7 +65,7 @@ export default function ComebackModal() {
     if (!lastVisitDate || lastVisitDate === today) return;
 
     const daysSince = daysBetween(lastVisitDate, today);
-    if (daysSince < 3) return;
+    if (daysSince < 1) return;
 
     const petType = typeof petState?.type === "number" ? petState.type : null;
 
@@ -98,28 +98,36 @@ export default function ComebackModal() {
 
   const handleClaim = () => {
     const today = getDateKey();
+    const daysSince = data?.daysSince ?? 0;
 
-    // Add 50 XP, 1 streak freeze, and 2x token bonus to psyche-game-state (authoritative source)
-    try {
-      const raw = localStorage.getItem("psyche-game-state");
-      const gameState = raw ? JSON.parse(raw) : {};
-      gameState.xp = (gameState.xp ?? 0) + 50;
-      gameState.totalXPEarned = (gameState.totalXPEarned ?? 0) + 50;
-      gameState.streakFreezes = (gameState.streakFreezes ?? 0) + 1;
-      localStorage.setItem("psyche-game-state", JSON.stringify(gameState));
-    } catch {}
+    // Gentle (1-3 days): no token bonus. Moderate (4-13): +25. Win-back (14+): +50.
+    const tokenBonus = daysSince >= 14 ? 50 : daysSince >= 4 ? 25 : 0;
 
-    // Add 2x token bonus for comeback
-    try {
-      const gsRaw = localStorage.getItem("psyche-game-state");
-      const gs = gsRaw ? JSON.parse(gsRaw) : {};
-      const current = (gs.tokens as number) ?? 0;
-      localStorage.setItem("psyche-game-state", JSON.stringify({
-        ...gs,
-        tokens: current + 25,
-        totalTokensEarned: ((gs.totalTokensEarned as number) ?? 0) + 25,
-      }));
-    } catch {}
+    // Add XP and streak freeze for 4+ day comebacks
+    if (daysSince >= 4) {
+      try {
+        const raw = localStorage.getItem("psyche-game-state");
+        const gameState = raw ? JSON.parse(raw) : {};
+        gameState.xp = (gameState.xp ?? 0) + 50;
+        gameState.totalXPEarned = (gameState.totalXPEarned ?? 0) + 50;
+        gameState.streakFreezes = (gameState.streakFreezes ?? 0) + 1;
+        localStorage.setItem("psyche-game-state", JSON.stringify(gameState));
+      } catch {}
+    }
+
+    // Add token bonus if applicable
+    if (tokenBonus > 0) {
+      try {
+        const gsRaw = localStorage.getItem("psyche-game-state");
+        const gs = gsRaw ? JSON.parse(gsRaw) : {};
+        const current = (gs.tokens as number) ?? 0;
+        localStorage.setItem("psyche-game-state", JSON.stringify({
+          ...gs,
+          tokens: current + tokenBonus,
+          totalTokensEarned: ((gs.totalTokensEarned as number) ?? 0) + tokenBonus,
+        }));
+      } catch {}
+    }
 
     // Mark claimed
     sessionStorage.setItem("comeback-claimed-date", today);
@@ -133,6 +141,12 @@ export default function ComebackModal() {
   };
 
   if (!data) return null;
+
+  const { daysSince } = data;
+
+  // Segment: gentle (1-3), moderate (4-13), win-back (14+)
+  const segment: "gentle" | "moderate" | "winback" =
+    daysSince >= 14 ? "winback" : daysSince >= 4 ? "moderate" : "gentle";
 
   const petHealthColor =
     data.petHealth === null
@@ -149,6 +163,40 @@ export default function ComebackModal() {
       : data.petHunger < 30
       ? "bg-orange-400"
       : "bg-sky-400";
+
+  // Heading / subtext / CTA copy per segment
+  const headingText =
+    segment === "winback"
+      ? "Your growth path is waiting."
+      : data.petName !== "Your pet"
+      ? `${data.petName} missed you.`
+      : data.userType
+      ? `We missed you, ${data.userType}.`
+      : "We missed you.";
+
+  const subtextEl =
+    segment === "gentle" ? (
+      <p className="text-sm" style={{ color: "rgba(255,255,255,0.5)" }}>
+        You were away for {daysSince === 1 ? "1 day" : `${daysSince} days`} — let&apos;s pick up where you left off.
+      </p>
+    ) : segment === "winback" ? (
+      <p className="text-sm" style={{ color: "rgba(255,255,255,0.5)" }}>
+        You&apos;ve been away {daysSince} days.{data.userType ? ` ${data.userType}s` : " People"} who return after a break often have the deepest breakthroughs.
+      </p>
+    ) : (
+      <p className="text-sm" style={{ color: "rgba(255,255,255,0.5)" }}>
+        {daysSince === 1
+          ? "You were away for 1 day — come back strong."
+          : `You were away for ${daysSince} days — don't let it slip further.`}
+      </p>
+    );
+
+  const ctaLabel =
+    segment === "gentle"
+      ? "Continue →"
+      : segment === "winback"
+      ? "Return to your journey →"
+      : null; // moderate uses icon+text button
 
   return (
     <AnimatePresence>
@@ -175,7 +223,7 @@ export default function ComebackModal() {
           >
             <div className="pointer-events-auto w-full max-w-sm rounded-3xl overflow-hidden" style={{ background: "rgba(18,12,36,0.98)", border: "1px solid rgba(139,92,246,0.25)", boxShadow: "0 24px 60px rgba(0,0,0,0.6)" }}>
               {/* Header gradient strip */}
-              <div className="h-1.5 bg-gradient-to-r from-violet-400 via-indigo-500 to-sky-400" />
+              <div className={`h-1.5 ${segment === "gentle" ? "bg-gradient-to-r from-slate-500 via-indigo-500 to-slate-500" : segment === "winback" ? "bg-gradient-to-r from-purple-400 via-violet-500 to-indigo-400" : "bg-gradient-to-r from-violet-400 via-indigo-500 to-sky-400"}`} />
 
               <div className="p-7 relative">
                 {/* Close button */}
@@ -191,58 +239,59 @@ export default function ComebackModal() {
                 {/* Heading */}
                 <div className="text-center mb-5">
                   <h2 className="text-2xl font-serif font-bold mb-0.5" style={{ color: "rgba(255,255,255,0.95)" }}>
-                    {data.petName !== "Your pet"
-                      ? `${data.petName} missed you.`
-                      : data.userType
-                      ? `We missed you, ${data.userType}.`
-                      : "We missed you."}
+                    {headingText}
                   </h2>
-                  <p className="text-sm" style={{ color: "rgba(255,255,255,0.5)" }}>
-                    {data.daysSince === 1
-                      ? "You were away for 1 day — come back strong."
-                      : `You were away for ${data.daysSince} days — don't let it slip further.`}
-                  </p>
-                  {/* Urgency line */}
-                  {data.petHealth !== null && data.petHealth < 80 ? (
-                    <p className="text-xs mt-2 font-medium" style={{ color: "#fb923c" }}>
-                      Your pet&apos;s health dropped while you were away
-                    </p>
-                  ) : (data.petHealth === null || data.petHealth >= 80) && data.daysSince > 0 ? (
-                    <p className="text-xs mt-2 font-medium" style={{ color: "#f87171" }}>
-                      Your streak reset — start a new one today
-                    </p>
-                  ) : null}
+                  {subtextEl}
+                  {/* Urgency line — only for moderate/winback */}
+                  {segment !== "gentle" && (
+                    data.petHealth !== null && data.petHealth < 80 ? (
+                      <p className="text-xs mt-2 font-medium" style={{ color: "#fb923c" }}>
+                        Your pet&apos;s health dropped while you were away
+                      </p>
+                    ) : (data.petHealth === null || data.petHealth >= 80) && daysSince > 0 ? (
+                      <p className="text-xs mt-2 font-medium" style={{ color: "#f87171" }}>
+                        Your streak reset — start a new one today
+                      </p>
+                    ) : null
+                  )}
                 </div>
 
-                {/* Comeback bonus card */}
-                <div className="p-4 rounded-2xl mb-4" style={{ background: "rgba(139,92,246,0.12)", border: "1px solid rgba(139,92,246,0.2)" }}>
-                  <p className="text-xs font-semibold tracking-wide mb-3 uppercase" style={{ color: "#a78bfa" }}>
-                    Comeback Bonus
-                  </p>
-                  <div className="space-y-2">
-                    <div className="flex items-center gap-2.5">
-                      <div className="w-8 h-8 rounded-xl flex items-center justify-center" style={{ background: "rgba(251,191,36,0.15)" }}>
-                        <Zap className="w-4 h-4" style={{ color: "#fbbf24" }} />
+                {/* Comeback bonus card — only for moderate (4-13) and win-back (14+) */}
+                {segment !== "gentle" && (
+                  <div className="p-4 rounded-2xl mb-4" style={{ background: "rgba(139,92,246,0.12)", border: "1px solid rgba(139,92,246,0.2)" }}>
+                    <p className="text-xs font-semibold tracking-wide mb-3 uppercase" style={{ color: "#a78bfa" }}>
+                      Comeback Bonus
+                    </p>
+                    <div className="space-y-2">
+                      <div className="flex items-center gap-2.5">
+                        <div className="w-8 h-8 rounded-xl flex items-center justify-center" style={{ background: "rgba(251,191,36,0.15)" }}>
+                          <Zap className="w-4 h-4" style={{ color: "#fbbf24" }} />
+                        </div>
+                        <span className="text-sm font-medium" style={{ color: "rgba(255,255,255,0.82)" }}>+50 XP</span>
                       </div>
-                      <span className="text-sm font-medium" style={{ color: "rgba(255,255,255,0.82)" }}>+50 XP</span>
-                    </div>
-                    <div className="flex items-center gap-2.5">
-                      <div className="w-8 h-8 rounded-xl flex items-center justify-center" style={{ background: "rgba(56,189,248,0.15)" }}>
-                        <Snowflake className="w-4 h-4" style={{ color: "#38bdf8" }} />
+                      <div className="flex items-center gap-2.5">
+                        <div className="w-8 h-8 rounded-xl flex items-center justify-center" style={{ background: "rgba(56,189,248,0.15)" }}>
+                          <Snowflake className="w-4 h-4" style={{ color: "#38bdf8" }} />
+                        </div>
+                        <span className="text-sm font-medium" style={{ color: "rgba(255,255,255,0.82)" }}>+1 Streak Freeze</span>
                       </div>
-                      <span className="text-sm font-medium" style={{ color: "rgba(255,255,255,0.82)" }}>+1 Streak Freeze</span>
-                    </div>
-                    <div className="flex items-center gap-2.5">
-                      <div className="w-8 h-8 rounded-xl flex items-center justify-center" style={{ background: "rgba(52,211,153,0.15)" }}>
-                        <Coins className="w-4 h-4" style={{ color: "#34d399" }} />
+                      <div className="flex items-center gap-2.5">
+                        <div className="w-8 h-8 rounded-xl flex items-center justify-center" style={{ background: "rgba(52,211,153,0.15)" }}>
+                          <Coins className="w-4 h-4" style={{ color: "#34d399" }} />
+                        </div>
+                        <span className="text-sm font-medium" style={{ color: "rgba(255,255,255,0.82)" }}>
+                          {segment === "winback"
+                            ? <>+50 tokens <span className="text-xs" style={{ color: "rgba(255,255,255,0.45)" }}>win-back bonus</span></>
+                            : <>2× tokens today <span className="text-xs" style={{ color: "rgba(255,255,255,0.45)" }}>+25 bonus</span></>
+                          }
+                        </span>
                       </div>
-                      <span className="text-sm font-medium" style={{ color: "rgba(255,255,255,0.82)" }}>2× tokens today <span className="text-xs" style={{ color: "rgba(255,255,255,0.45)" }}>+25 bonus</span></span>
                     </div>
                   </div>
-                </div>
+                )}
 
-                {/* Pet status (if pet exists) */}
-                {data.petName !== "Your pet" || data.petHealth !== null ? (
+                {/* Pet status (if pet exists) — show for moderate and winback */}
+                {segment !== "gentle" && (data.petName !== "Your pet" || data.petHealth !== null) ? (
                   <div className="p-4 rounded-2xl mb-5" style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.08)" }}>
                     <div className="flex items-center gap-3 mb-3">
                       <PetSprite type={data.petType} size={60} />
@@ -288,9 +337,9 @@ export default function ComebackModal() {
                       </div>
                     )}
                   </div>
-                ) : null}
+                ) : segment !== "gentle" ? null : null}
 
-                {/* Claim button */}
+                {/* Claim / Continue button */}
                 <motion.button
                   onClick={handleClaim}
                   disabled={claimed}
@@ -298,15 +347,21 @@ export default function ComebackModal() {
                   className="w-full py-3.5 rounded-2xl text-sm font-semibold flex items-center justify-center gap-2 transition-all text-white"
                   style={claimed
                     ? { background: "rgba(52,211,153,0.15)", color: "#34d399", cursor: "default" }
+                    : segment === "gentle"
+                    ? { background: "rgba(99,102,241,0.35)", border: "1px solid rgba(99,102,241,0.4)" }
                     : { background: "linear-gradient(135deg, #7c3aed, #4f46e5)", boxShadow: "0 8px 24px rgba(124,58,237,0.4)" }
                   }
                 >
                   {claimed ? (
                     <>Bonus Claimed!</>
+                  ) : segment === "gentle" ? (
+                    <>{ctaLabel}</>
+                  ) : segment === "winback" ? (
+                    <>{ctaLabel}</>
                   ) : (
                     <>
                       <Trophy className="w-4 h-4" />
-                      Claim Bonus &amp; Continue
+                      Claim your 25 tokens →
                     </>
                   )}
                 </motion.button>

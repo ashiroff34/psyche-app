@@ -140,6 +140,157 @@ const PREMIUM_ITEMS = [
 
 // ─── Component ───────────────────────────────────────────────────────────────
 
+// ─── Growth Path Data ─────────────────────────────────────────────────────────
+
+const TYPE_FEARS: Record<number, string> = {
+  1: "Exploring your fear of being flawed or wrong",
+  2: "Exploring your fear of being unwanted or unloved",
+  3: "Exploring your fear of failure and worthlessness",
+  4: "Exploring your fear of being ordinary or without identity",
+  5: "Exploring your fear of incompetence and uselessness",
+  6: "Exploring your fear of uncertainty and being without support",
+  7: "Exploring your fear of pain, deprivation, and limitation",
+  8: "Exploring your fear of being controlled or betrayed",
+  9: "Exploring your fear of conflict and disconnection",
+};
+
+const TYPE_INTEGRATION: Record<number, string> = {
+  1: "Practicing Type 7's joy and spontaneity without losing discernment",
+  2: "Practicing Type 4's self-awareness and emotional depth",
+  3: "Practicing Type 6's loyalty and collaborative commitment",
+  4: "Practicing Type 1's discernment and principled action",
+  5: "Practicing Type 8's decisive action and embodied presence",
+  6: "Practicing Type 9's grounded acceptance and inner trust",
+  7: "Practicing Type 5's depth, focus, and contemplative presence",
+  8: "Practicing Type 2's vulnerability and genuine care for others",
+  9: "Practicing Type 3's purposeful engagement and self-expression",
+};
+
+// ─── Growth Path Section ──────────────────────────────────────────────────────
+
+function GrowthPathSection({ tokenBalance }: { tokenBalance: number | null }) {
+  const [enneagramType, setEnneagramType] = useState<number | null>(null);
+
+  useEffect(() => {
+    try {
+      const raw = localStorage.getItem("psyche-profile");
+      if (raw) {
+        const p = JSON.parse(raw);
+        if (typeof p.enneagramType === "number") setEnneagramType(p.enneagramType);
+      }
+    } catch {}
+  }, []);
+
+  const typeLabel = enneagramType ? `Type ${enneagramType}` : null;
+  const week13Desc = enneagramType ? (TYPE_FEARS[enneagramType] ?? "Understanding your core fear") : "Understanding your core fear";
+  const week46Desc = enneagramType ? (TYPE_INTEGRATION[enneagramType] ?? "Growth direction practice") : "Growth direction practice";
+  const hasEnoughTokens = tokenBalance !== null && tokenBalance >= 500;
+
+  return (
+    <motion.section {...fadeUp} transition={{ delay: 0.07 }} className="mb-10">
+      <div className="rounded-3xl overflow-hidden" style={{ background: "rgba(18,10,40,0.97)", border: "1px solid rgba(139,92,246,0.25)", boxShadow: "0 8px 32px rgba(0,0,0,0.4)" }}>
+        {/* Header */}
+        <div className="px-6 py-5" style={{ background: "linear-gradient(135deg, rgba(109,40,217,0.45) 0%, rgba(79,70,229,0.35) 100%)", borderBottom: "1px solid rgba(139,92,246,0.2)" }}>
+          <div className="flex items-center gap-3">
+            <div className="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0" style={{ background: "rgba(139,92,246,0.3)", border: "1px solid rgba(139,92,246,0.4)" }}>
+              <Lock className="w-4 h-4" style={{ color: "#c4b5fd" }} />
+            </div>
+            <div>
+              <h2 className="text-lg font-serif font-bold" style={{ color: "rgba(255,255,255,0.95)" }}>
+                Your 90-Day{typeLabel ? ` ${typeLabel}` : ""} Growth Path
+              </h2>
+              <p className="text-xs mt-0.5" style={{ color: "rgba(255,255,255,0.45)" }}>
+                A structured journey tailored to your type
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* Rows */}
+        <div className="divide-y" style={{ borderColor: "rgba(255,255,255,0.06)" }}>
+          {/* Row 1 — unlocked */}
+          <div className="flex items-start gap-3 px-6 py-4">
+            <div className="w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5" style={{ background: "rgba(52,211,153,0.15)", border: "1px solid rgba(52,211,153,0.3)" }}>
+              <Check className="w-3.5 h-3.5" style={{ color: "#34d399" }} />
+            </div>
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-wider mb-0.5" style={{ color: "rgba(255,255,255,0.35)" }}>Week 1–3 · Foundation</p>
+              <p className="text-sm font-medium" style={{ color: "rgba(255,255,255,0.82)" }}>{week13Desc}</p>
+            </div>
+          </div>
+
+          {/* Row 2 — unlocked */}
+          <div className="flex items-start gap-3 px-6 py-4">
+            <div className="w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5" style={{ background: "rgba(52,211,153,0.15)", border: "1px solid rgba(52,211,153,0.3)" }}>
+              <Check className="w-3.5 h-3.5" style={{ color: "#34d399" }} />
+            </div>
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-wider mb-0.5" style={{ color: "rgba(255,255,255,0.35)" }}>Week 4–6 · Integration</p>
+              <p className="text-sm font-medium" style={{ color: "rgba(255,255,255,0.82)" }}>{week46Desc}</p>
+            </div>
+          </div>
+
+          {/* Row 3 — locked/blurred */}
+          <div className="flex items-start gap-3 px-6 py-4 relative overflow-hidden">
+            <div className="absolute inset-0" style={{ backdropFilter: "blur(3px)", background: "rgba(10,5,25,0.45)" }} />
+            <div className="relative w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5" style={{ background: "rgba(139,92,246,0.15)", border: "1px solid rgba(139,92,246,0.25)" }}>
+              <Lock className="w-3.5 h-3.5" style={{ color: "#a78bfa" }} />
+            </div>
+            <div className="relative">
+              <p className="text-xs font-semibold uppercase tracking-wider mb-0.5" style={{ color: "rgba(255,255,255,0.35)" }}>Week 7–12 · Shadow Work</p>
+              <p className="text-sm font-medium" style={{ color: "rgba(255,255,255,0.5)" }}>Disintegration awareness &amp; pattern interruption</p>
+            </div>
+          </div>
+
+          {/* Row 4 — locked/blurred */}
+          <div className="flex items-start gap-3 px-6 py-4 relative overflow-hidden">
+            <div className="absolute inset-0" style={{ backdropFilter: "blur(3px)", background: "rgba(10,5,25,0.55)" }} />
+            <div className="relative w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5" style={{ background: "rgba(139,92,246,0.15)", border: "1px solid rgba(139,92,246,0.25)" }}>
+              <Lock className="w-3.5 h-3.5" style={{ color: "#a78bfa" }} />
+            </div>
+            <div className="relative">
+              <p className="text-xs font-semibold uppercase tracking-wider mb-0.5" style={{ color: "rgba(255,255,255,0.35)" }}>Advanced · Subtypes &amp; Relationships</p>
+              <p className="text-sm font-medium" style={{ color: "rgba(255,255,255,0.5)" }}>Advanced subtypes deep-dive &amp; relationship patterns</p>
+            </div>
+          </div>
+        </div>
+
+        {/* CTA */}
+        <div className="px-6 py-5" style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}>
+          {hasEnoughTokens ? (
+            <button
+              className="w-full py-3.5 rounded-2xl text-sm font-bold text-white flex items-center justify-center gap-2 transition-all active:scale-[0.98]"
+              style={{ background: "linear-gradient(135deg, #7c3aed, #4f46e5)", boxShadow: "0 8px 24px rgba(124,58,237,0.4)" }}
+            >
+              <Sparkles className="w-4 h-4" />
+              Claim Your Growth Path →
+            </button>
+          ) : (
+            <div>
+              <button
+                disabled
+                className="w-full py-3.5 rounded-2xl text-sm font-bold flex items-center justify-center gap-2 mb-2"
+                style={{ background: "rgba(139,92,246,0.15)", color: "rgba(255,255,255,0.45)", border: "1px solid rgba(139,92,246,0.2)", cursor: "default" }}
+              >
+                <Lock className="w-4 h-4" />
+                Unlock Full Path — 500 tokens
+              </button>
+              <p className="text-center text-xs" style={{ color: "rgba(255,255,255,0.35)" }}>
+                Your balance: <span style={{ color: "#fbbf24", fontWeight: 600 }}>{tokenBalance ?? 0} tokens</span>
+                {tokenBalance !== null && tokenBalance < 500 && (
+                  <> · {500 - tokenBalance} more needed</>
+                )}
+              </p>
+            </div>
+          )}
+        </div>
+      </div>
+    </motion.section>
+  );
+}
+
+// ─── Main Component ───────────────────────────────────────────────────────────
+
 export default function StorePage() {
   const [billingCycle, setBillingCycle] = useState<"monthly" | "annual">("annual");
   const [purchaseToast, setPurchaseToast] = useState<string | null>(null);
@@ -199,6 +350,9 @@ export default function StorePage() {
             Get tokens to unlock pets, outfits, and streak freezes. Or go Pro for the ultimate Thyself experience.
           </p>
         </motion.div>
+
+        {/* ── Growth Path Locked Preview ──────────────────────────────────────── */}
+        <GrowthPathSection tokenBalance={tokenBalance} />
 
         {/* ── Token Balance Bar ────────────────────────────────────────────────── */}
         {tokenBalance !== null && (

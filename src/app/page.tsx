@@ -518,9 +518,23 @@ const itemVariants = {
   show: { opacity: 1, y: 0, transition: { duration: 0.4, ease: "easeOut" as const } },
 };
 
+// Type-specific insight quotes for the dashboard greeting card
+const dashboardTypeQuotes: Record<number, { quote: string; label: string }> = {
+  1: { quote: "Perfection is not attainable, but if we chase it we can catch excellence.", label: "Type 1 · The Reformer" },
+  2: { quote: "You cannot pour from an empty cup. Taking care of yourself is part of taking care of others.", label: "Type 2 · The Helper" },
+  3: { quote: "Authenticity is the daily practice of letting go of who we think we should be.", label: "Type 3 · The Achiever" },
+  4: { quote: "What makes you different makes you beautiful — and infinitely valuable.", label: "Type 4 · The Individualist" },
+  5: { quote: "Knowledge is not enough. The integrated mind turns insight into embodied action.", label: "Type 5 · The Investigator" },
+  6: { quote: "Courage is not the absence of fear. It is taking the next step despite it.", label: "Type 6 · The Loyalist" },
+  7: { quote: "The present moment always will have been. Slow down — depth is its own adventure.", label: "Type 7 · The Enthusiast" },
+  8: { quote: "True strength includes the courage to be vulnerable with those you trust.", label: "Type 8 · The Challenger" },
+  9: { quote: "Your voice matters. The world needs what only you, fully present, can offer.", label: "Type 9 · The Peacemaker" },
+};
+
 function DashboardScreen({
   profile,
   gameState,
+  dailyProgress,
 }: {
   profile: Record<string, any>;
   gameState: Record<string, any>;
@@ -534,6 +548,23 @@ function DashboardScreen({
   const xp = gameState.xp ?? profile.xp ?? 0;
   const hearts = gameState.hearts ?? gameState.maxHearts ?? 5;
   const insight = getTodayInsight();
+
+  // Greeting text
+  const greeting = getGreeting();
+  const greetingLabel = name
+    ? `${greeting}, ${name}`
+    : enneagramType
+    ? `${greeting}, Type ${enneagramType}`
+    : greeting;
+
+  // Daily progress percentage
+  const questionsAnswered: number = dailyProgress?.questionsAnswered ?? 0;
+  const dailyGoal = 10; // default goal
+  const dailyPct = Math.min(100, Math.round((questionsAnswered / dailyGoal) * 100));
+  const hasDailyProgress = questionsAnswered > 0;
+
+  // Type quote
+  const typeQuote = enneagramType ? dashboardTypeQuotes[enneagramType as number] : null;
 
   const [petState, setPetState] = useState<Record<string, any> | null>(null);
   useEffect(() => {
@@ -581,12 +612,41 @@ function DashboardScreen({
         animate="show"
         className="max-w-lg mx-auto px-5 pt-10 pb-28"
       >
-        {/* ── Greeting + Streak ────────────────────────────────── */}
-        <motion.div variants={itemVariants} className="mb-8">
+        {/* ── Greeting + Type Quote ────────────────────────────── */}
+        <motion.div variants={itemVariants} className="mb-6">
           <h1 className="text-2xl sm:text-3xl font-serif font-bold mb-1" style={{ color: "rgba(255,255,255,0.93)" }}>
-            {name ? `Hey, ${name}` : "Hey there"}
+            {greetingLabel}
           </h1>
-          <p className="text-sm" style={{ color: "rgba(255,255,255,0.4)" }}>Here&apos;s your day at a glance.</p>
+          <p className="text-sm mb-4" style={{ color: "rgba(255,255,255,0.4)" }}>Here&apos;s your day at a glance.</p>
+          {typeQuote && (
+            <div className="rounded-2xl p-4" style={{ background: "rgba(139,92,246,0.08)", border: "1px solid rgba(139,92,246,0.18)" }}>
+              <p className="text-sm italic leading-relaxed mb-1.5" style={{ color: "rgba(255,255,255,0.75)" }}>
+                &ldquo;{typeQuote.quote}&rdquo;
+              </p>
+              <p className="text-xs font-medium" style={{ color: "rgba(167,139,250,0.7)" }}>{typeQuote.label}</p>
+            </div>
+          )}
+        </motion.div>
+
+        {/* ── Continue Where You Left Off ──────────────────────── */}
+        <motion.div variants={itemVariants} className="mb-6">
+          <Link
+            href="/daily"
+            className="group flex flex-col w-full px-5 py-4 rounded-2xl transition-all"
+            style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.09)" }}
+          >
+            <div className="flex items-center justify-between">
+              <span className="text-sm font-semibold" style={{ color: "rgba(255,255,255,0.88)" }}>
+                Continue where you left off →
+              </span>
+              <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" style={{ color: "rgba(167,139,250,0.7)" }} />
+            </div>
+            {hasDailyProgress && (
+              <p className="text-xs mt-1" style={{ color: "rgba(255,255,255,0.45)" }}>
+                You&apos;re {dailyPct}% done with today&apos;s practice
+              </p>
+            )}
+          </Link>
         </motion.div>
 
         {/* ── Streak Hero ──────────────────────────────────────── */}
