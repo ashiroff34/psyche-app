@@ -63,6 +63,20 @@ const GROWTH_THEMES: Record<number, { theme: string; shortDesc: string; integrat
   9: { theme: "Presence", shortDesc: "Your perspective matters. Practice saying what you want.", integrationNote: "Integrate toward Type 3 → develop your own goals and act on them" },
 };
 
+// ─── Type-specific save messages ─────────────────────────────────────────────
+
+const TYPE_GROWTH_MESSAGES: Record<number, string> = {
+  1: "Type 1s grow by releasing the inner critic. This reflection matters.",
+  2: "Type 2s grow by acknowledging their own needs. You're doing that now.",
+  3: "Type 3s grow by valuing being over doing. This moment counts.",
+  4: "Type 4s grow when the inner world is expressed, not just felt.",
+  5: "Type 5s grow by engaging, not just observing. Well done.",
+  6: "Type 6s grow by trusting themselves. This reflection builds that muscle.",
+  7: "Type 7s grow by staying present with what is. You just did.",
+  8: "Type 8s grow by allowing vulnerability. This is that.",
+  9: "Type 9s grow by showing up for themselves first. You did today.",
+};
+
 // ─── Component ────────────────────────────────────────────────────────────────
 
 export default function GrowthPage() {
@@ -247,15 +261,22 @@ export default function GrowthPage() {
               )}
 
               {/* Pet companion */}
-              <div className="mt-4 rounded-2xl p-3 flex items-center gap-3" style={{ background: "rgba(139,92,246,0.1)", border: "1px solid rgba(139,92,246,0.2)" }}>
+              <div className="mt-4 rounded-2xl p-3 flex items-start gap-3" style={{ background: "rgba(139,92,246,0.1)", border: "1px solid rgba(139,92,246,0.2)" }}>
                 <PetCompanion type={activeType ?? 4} size={48} />
-                <p className="text-sm text-violet-300 leading-snug">
-                  {saved
-                    ? "Your companion feels your growth!"
-                    : reflectionText.trim()
-                    ? "Keep going, your companion is listening..."
-                    : "Your companion waits patiently..."}
-                </p>
+                <div>
+                  <p className="text-sm text-violet-300 leading-snug">
+                    {saved
+                      ? "Your companion feels your growth!"
+                      : reflectionText.trim()
+                      ? "Keep going, your companion is listening..."
+                      : "Your companion waits patiently..."}
+                  </p>
+                  {saved && activeType && typeof activeType === "number" && TYPE_GROWTH_MESSAGES[activeType] && (
+                    <p className="text-xs mt-1.5 italic leading-snug" style={{ color: "rgba(196,181,253,0.7)" }}>
+                      {TYPE_GROWTH_MESSAGES[activeType]}
+                    </p>
+                  )}
+                </div>
               </div>
             </div>
 
@@ -296,10 +317,14 @@ export default function GrowthPage() {
             </div>
           </>
         ) : (
-          <div className="text-center py-12">
-            <p className="text-sm mb-4" style={{ color: "rgba(255,255,255,0.35)" }}>Select a type above to see growth prompts.</p>
-            <Link href="/enneagram/assess" className="inline-flex items-center gap-2 text-sm font-medium text-violet-400 hover:text-violet-300">
-              Take assessment to find your type <ArrowRight className="w-4 h-4" />
+          <div className="text-center py-12 px-6">
+            <div className="text-4xl mb-4">🌱</div>
+            <h3 className="text-lg font-serif font-semibold mb-2" style={{ color: "rgba(255,255,255,0.88)" }}>Your growth path starts with knowing your type</h3>
+            <p className="text-sm mb-6 max-w-xs mx-auto" style={{ color: "rgba(255,255,255,0.45)" }}>
+              Each Enneagram type has a unique path to growth — specific fears to face, virtues to cultivate, and integration lines to explore.
+            </p>
+            <Link href="/assessments/quick" className="inline-flex items-center gap-2 px-6 py-3 rounded-2xl font-semibold text-white text-sm transition-all hover:-translate-y-0.5" style={{ background: "linear-gradient(135deg, #7c3aed, #4f46e5)", boxShadow: "0 8px 24px rgba(124,58,237,0.4)" }}>
+              Discover my type in 3 minutes →
             </Link>
           </div>
         )}

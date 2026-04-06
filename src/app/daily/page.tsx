@@ -1409,8 +1409,10 @@ export default function DailyPage() {
             <div key={i} className={`h-1.5 flex-1 rounded-full transition-all duration-300 ${
               i < currentIdx ? (answers[i] ? "bg-emerald-400" : "bg-rose-300")
               : i === currentIdx ? "bg-indigo-400"
-              : "bg-slate-100"
-            }`} />
+              : ""
+            }`}
+            style={i > currentIdx ? { background: "rgba(255,255,255,0.12)" } : undefined}
+            />
           ))}
         </div>
 
@@ -1418,8 +1420,8 @@ export default function DailyPage() {
         <div className="flex items-center justify-between mb-3">
           <div className="flex items-center gap-2">
             <span className={`text-[10px] font-mono uppercase tracking-wider ${diffColor}`}>{diffLabel}</span>
-            <span className="text-[10px] text-slate-300">|</span>
-            <span className="text-[10px] text-slate-400">{currentIdx + 1} of {questions.length}</span>
+            <span className="text-[10px]" style={{ color: "rgba(255,255,255,0.3)" }}>|</span>
+            <span className="text-[10px]" style={{ color: "rgba(255,255,255,0.6)" }}>{currentIdx + 1} of {questions.length}</span>
           </div>
           {correctStreak > 0 && <StreakFlame count={correctStreak} />}
         </div>
@@ -1457,16 +1459,18 @@ export default function DailyPage() {
                         ? "border-emerald-400 bg-emerald-50 text-emerald-800 shadow-sm shadow-emerald-100"
                         : isThisSelected
                         ? "border-rose-400 bg-rose-50 text-rose-800"
-                        : "border-slate-100 bg-slate-50/50 text-slate-300"
+                        : "border-slate-100 bg-slate-50/50"
                     }`}
+                    style={revealed && !isThisCorrect && !isThisSelected ? { color: "rgba(100,116,139,0.7)" } : undefined}
                   >
                     <div className="flex items-center gap-3">
                       <span className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-medium shrink-0 ${
                         !revealed ? "bg-slate-100 text-slate-500"
                         : isThisCorrect ? "bg-emerald-400 text-white"
                         : isThisSelected ? "bg-rose-400 text-white"
-                        : "bg-slate-100 text-slate-300"
-                      }`}>
+                        : "bg-slate-100"
+                      }`}
+                      style={revealed && !isThisCorrect && !isThisSelected ? { color: "rgba(100,116,139,0.6)" } : undefined}>
                         {revealed && isThisCorrect ? <CheckCircle className="w-4 h-4" /> :
                          revealed && isThisSelected ? <XCircle className="w-4 h-4" /> :
                          String.fromCharCode(65 + i)}
@@ -2799,7 +2803,8 @@ export default function DailyPage() {
                       <div className="flex gap-2">
                         <button
                           onClick={shareScore}
-                          className="flex-1 py-3 bg-slate-100 text-slate-600 rounded-xl text-sm font-medium hover:bg-slate-200 transition flex items-center justify-center gap-2"
+                          className="flex-1 py-3 rounded-xl text-sm font-medium transition flex items-center justify-center gap-2"
+                          style={{ background: "rgba(255,255,255,0.08)", color: "rgba(255,255,255,0.7)" }}
                         >
                           {copied ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
                           {copied ? "Copied!" : "Share Score"}

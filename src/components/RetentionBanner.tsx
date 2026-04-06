@@ -86,22 +86,22 @@ export default function RetentionBanner() {
 
     try {
       const raw = localStorage.getItem("psyche-profile");
-      if (raw) profile = JSON.parse(raw);
+      if (raw) { const parsed = JSON.parse(raw); profile = parsed ?? {}; }
     } catch {}
 
     try {
       const raw = localStorage.getItem("psyche-game-state");
-      if (raw) gameState = JSON.parse(raw);
+      if (raw) { const parsed = JSON.parse(raw); gameState = parsed ?? {}; }
     } catch {}
 
     try {
       const raw = localStorage.getItem("psyche-pet-state");
-      if (raw) petState = JSON.parse(raw);
+      if (raw) { const parsed = JSON.parse(raw); petState = parsed ?? null; }
     } catch {}
 
     try {
       const raw = localStorage.getItem(`psyche-daily-${today}`);
-      if (raw) dailyProgress = JSON.parse(raw);
+      if (raw) { const parsed = JSON.parse(raw); dailyProgress = parsed ?? null; }
     } catch {}
 
     const petName = (petState?.name as string) || "Your pet";
@@ -154,8 +154,8 @@ export default function RetentionBanner() {
         href: "/avatar",
         actionLabel: "Revive",
         icon: <Skull className="w-4 h-4" />,
-        gradient: "from-slate-500/10 via-slate-400/10 to-slate-500/5",
-        textColor: "text-slate-700",
+        gradient: "from-red-500/15 via-rose-500/10 to-red-500/8",
+        textColor: "text-red-400",
         buttonClass: "bg-slate-600 hover:bg-slate-700 text-white",
       };
     }
@@ -167,8 +167,8 @@ export default function RetentionBanner() {
         href: "/avatar",
         actionLabel: "Feed Pet",
         icon: <Heart className="w-4 h-4" />,
-        gradient: "from-orange-500/10 via-amber-500/10 to-orange-500/5",
-        textColor: "text-orange-700",
+        gradient: "from-orange-500/15 via-amber-500/10 to-orange-500/8",
+        textColor: "text-orange-400",
         buttonClass: "bg-orange-500 hover:bg-orange-600 text-white",
       };
     }

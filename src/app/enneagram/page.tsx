@@ -92,9 +92,14 @@ function TypeCard({ type, isMyType, isAdvanced, masteryPoints }: { type: typeof 
             )}
           </div>
           <div className="min-w-0">
-            <h3 className="font-serif font-semibold mb-1" style={{ color: "rgba(255,255,255,0.88)" }}>
-              {type.name}
-            </h3>
+            <div className="flex items-center gap-2 flex-wrap mb-1">
+              <h3 className="font-serif font-semibold" style={{ color: "rgba(255,255,255,0.88)" }}>
+                {type.name}
+              </h3>
+              {isMyType && (
+                <span className="text-[10px] font-bold px-2 py-0.5 rounded-full" style={{ background: "rgba(139,92,246,0.25)", color: "#c4b5fd", border: "1px solid rgba(139,92,246,0.4)" }}>Your type</span>
+              )}
+            </div>
             <p className="text-xs mb-2" style={{ color: "rgba(255,255,255,0.35)" }}>{type.alias}</p>
             <p className="text-sm leading-relaxed line-clamp-2" style={{ color: "rgba(255,255,255,0.5)" }}>
               {type.brief}
@@ -118,6 +123,11 @@ function TypeCard({ type, isMyType, isAdvanced, masteryPoints }: { type: typeof 
                 </span>
               )}
             </div>
+            {isMyType && masteryPoints > 0 && (
+              <p className="text-[10px] mt-2" style={{ color: "rgba(255,255,255,0.3)" }}>
+                {Math.min(100, Math.round((masteryPoints / 500) * 100))}% explored
+              </p>
+            )}
           </div>
         </div>
         <div className="flex items-center gap-1 text-xs font-medium text-sky-500 mt-4 group-hover:gap-2 transition-all">
@@ -125,6 +135,18 @@ function TypeCard({ type, isMyType, isAdvanced, masteryPoints }: { type: typeof 
           <ArrowRight className="w-3 h-3" />
         </div>
       </Link>
+
+      {isMyType && type.integrationLine && (
+        <div className="px-6 pb-4 pt-1">
+          <Link
+            href={`/enneagram/learn?type=${type.integrationLine}`}
+            className="inline-flex items-center gap-1 text-xs font-medium transition-all hover:gap-2"
+            style={{ color: "#34d399" }}
+          >
+            View integration line (Type {type.integrationLine}) →
+          </Link>
+        </div>
+      )}
 
       {/* Inline expand button */}
       {type.fullDescription && (

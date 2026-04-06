@@ -387,6 +387,18 @@ function ResultsInner() {
                       norms, both are considered valid candidates, read both descriptions and decide which resonates
                       more deeply at the level of motivation, not behavior.
                     </p>
+                    <div className="flex gap-3 mt-4">
+                      <Link href={`/enneagram/learn?type=${typeData.number}`}
+                        className="flex-1 py-2.5 rounded-xl text-center text-sm font-semibold transition-all hover:-translate-y-0.5"
+                        style={{ background: "rgba(139,92,246,0.15)", border: "1px solid rgba(139,92,246,0.3)", color: "#a78bfa" }}>
+                        Explore Type {typeData.number} →
+                      </Link>
+                      <Link href={`/enneagram/learn?type=${secondTypeData.number}`}
+                        className="flex-1 py-2.5 rounded-xl text-center text-sm font-semibold transition-all hover:-translate-y-0.5"
+                        style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.1)", color: "rgba(255,255,255,0.7)" }}>
+                        Explore Type {secondTypeData.number} →
+                      </Link>
+                    </div>
                   </div>
                 )}
 

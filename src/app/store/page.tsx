@@ -120,11 +120,9 @@ const PRO_FEATURES = [
 ];
 
 const FREE_EARN = [
-  { icon: Flame, label: "Complete daily goal", tokens: 15, color: "from-orange-400 to-red-500" },
-  { icon: Trophy, label: "Level up (level × 5)", tokens: 5, color: "from-amber-400 to-yellow-500", isBonus: true },
-  { icon: Flame, label: "7-day streak bonus", tokens: 25, color: "from-orange-500 to-amber-600", isBonus: true },
-  { icon: Star, label: "Unlock a badge", tokens: 10, color: "from-violet-400 to-purple-500" },
-  { icon: Crown, label: "Starting bonus", tokens: 50, color: "from-amber-500 to-yellow-600", isBonus: true },
+  { icon: Flame, label: "Daily practice", tokens: 15, color: "from-orange-400 to-red-500" },
+  { icon: Trophy, label: "7-day streak bonus", tokens: 25, color: "from-orange-500 to-amber-600", isBonus: true },
+  { icon: Crown, label: "Level up reward", tokens: 5, color: "from-amber-400 to-yellow-500", isBonus: true },
 ];
 
 const PREMIUM_ITEMS = [
@@ -232,7 +230,7 @@ function GrowthPathSection({ tokenBalance }: { tokenBalance: number | null }) {
 
           {/* Row 3 — locked/blurred */}
           <div className="flex items-start gap-3 px-6 py-4 relative overflow-hidden">
-            <div className="absolute inset-0" style={{ backdropFilter: "blur(3px)", background: "rgba(10,5,25,0.45)" }} />
+            <div className="absolute inset-0" style={{ backdropFilter: "blur(2px)", background: "rgba(10,5,25,0.35)" }} />
             <div className="relative w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5" style={{ background: "rgba(139,92,246,0.15)", border: "1px solid rgba(139,92,246,0.25)" }}>
               <Lock className="w-3.5 h-3.5" style={{ color: "#a78bfa" }} />
             </div>
@@ -244,7 +242,7 @@ function GrowthPathSection({ tokenBalance }: { tokenBalance: number | null }) {
 
           {/* Row 4 — locked/blurred */}
           <div className="flex items-start gap-3 px-6 py-4 relative overflow-hidden">
-            <div className="absolute inset-0" style={{ backdropFilter: "blur(3px)", background: "rgba(10,5,25,0.55)" }} />
+            <div className="absolute inset-0" style={{ backdropFilter: "blur(2px)", background: "rgba(10,5,25,0.45)" }} />
             <div className="relative w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5" style={{ background: "rgba(139,92,246,0.15)", border: "1px solid rgba(139,92,246,0.25)" }}>
               <Lock className="w-3.5 h-3.5" style={{ color: "#a78bfa" }} />
             </div>
@@ -594,28 +592,28 @@ export default function StorePage() {
             variants={stagger}
             initial="initial"
             animate="animate"
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4"
+            className="flex gap-4"
           >
             {FREE_EARN.map((item) => (
               <motion.div
                 key={item.label}
                 variants={cardItem}
                 whileHover={{ y: -4 }}
-                className="relative rounded-3xl p-5 transition-all"
+                className="relative flex-1 rounded-3xl p-4 transition-all"
                 style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.09)" }}
               >
-                <div className={`w-10 h-10 rounded-xl bg-gradient-to-br ${item.color} flex items-center justify-center mb-3`}>
-                  <item.icon className="w-5 h-5 text-white" />
+                <div className={`w-9 h-9 rounded-xl bg-gradient-to-br ${item.color} flex items-center justify-center mb-3`}>
+                  <item.icon className="w-4 h-4 text-white" />
                 </div>
 
-                <p className="text-sm font-medium mb-2 leading-snug" style={{ color: "rgba(255,255,255,0.78)" }}>{item.label}</p>
+                <p className="text-xs font-medium mb-2 leading-snug" style={{ color: "rgba(255,255,255,0.78)" }}>{item.label}</p>
 
-                <div className="flex items-center gap-1.5">
-                  <Coins className="w-4 h-4" style={{ color: "#fbbf24" }} />
-                  <span className="text-lg font-extrabold" style={{ background: "linear-gradient(135deg, #fbbf24, #f97316)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>
+                <div className="flex items-center gap-1">
+                  <Coins className="w-3.5 h-3.5" style={{ color: "#fbbf24" }} />
+                  <span className="text-base font-extrabold" style={{ background: "linear-gradient(135deg, #fbbf24, #f97316)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>
                     +{item.tokens}
                   </span>
-                  <span className="text-xs font-medium" style={{ color: "rgba(255,255,255,0.35)" }}>
+                  <span className="text-[10px] font-medium" style={{ color: "rgba(255,255,255,0.35)" }}>
                     {item.isBonus ? "bonus" : "tokens"}
                   </span>
                 </div>
