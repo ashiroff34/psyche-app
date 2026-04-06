@@ -518,7 +518,7 @@ export default function SettingsPage() {
               {nameEdited && (
                 <button
                   onClick={saveName}
-                  className="px-3 py-2 rounded-xl bg-violet-500 text-white text-sm font-medium hover:bg-violet-600 transition-colors"
+                  className="px-3 py-2 rounded-xl text-white text-sm font-medium transition-all hover:-translate-y-0.5 active:scale-95" style={{ background: "linear-gradient(135deg, #7c3aed, #4f46e5)", boxShadow: "0 4px 14px rgba(124,58,237,0.4)" }}
                 >
                   <Check className="w-4 h-4" />
                 </button>
@@ -551,7 +551,7 @@ export default function SettingsPage() {
               {emailEdited && (
                 <button
                   onClick={saveEmail}
-                  className="px-3 py-2 rounded-xl bg-violet-500 text-white text-sm font-medium hover:bg-violet-600 transition-colors"
+                  className="px-3 py-2 rounded-xl text-white text-sm font-medium transition-all hover:-translate-y-0.5 active:scale-95" style={{ background: "linear-gradient(135deg, #7c3aed, #4f46e5)", boxShadow: "0 4px 14px rgba(124,58,237,0.4)" }}
                 >
                   <Check className="w-4 h-4" />
                 </button>
