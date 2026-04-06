@@ -592,6 +592,7 @@ export default function DailyPage() {
 
   // ── Streak repair prompt ──
   const [streakRepairPrompt, setStreakRepairPrompt] = useState(false);
+  const [streakDeclined, setStreakDeclined] = useState(false);
   const [streakMilestoneShown, setStreakMilestoneShown] = useState<number | null>(null);
   useEffect(() => {
     if (!loaded) return;
@@ -2121,19 +2122,27 @@ export default function DailyPage() {
                     : "rgba(255,255,255,0.08)",
                   boxShadow: (gameStateRaw.tokens ?? 0) >= 1 ? "0 4px 20px rgba(124,58,237,0.4)" : "none",
                   color: (gameStateRaw.tokens ?? 0) >= 1 ? "#fff" : "rgba(255,255,255,0.3)",
+                  border: (gameStateRaw.tokens ?? 0) >= 1 ? "none" : "1px solid rgba(255,255,255,0.15)",
                 }}
               >
                 {(gameStateRaw.tokens ?? 0) >= 1
                   ? `⚡ Unlock with 1 Token (${gameStateRaw.tokens ?? 0} left)`
-                  : "Not enough tokens"}
+                  : <span style={{ color: "rgba(255,255,255,0.5)" }}>Not enough tokens</span>}
               </button>
-              <button
-                onClick={() => setUnitLimitGate(null)}
-                className="w-full py-2.5 rounded-2xl text-sm font-medium"
-                style={{ color: "rgba(255,255,255,0.4)" }}
-              >
-                Come back tomorrow
-              </button>
+              {streakDeclined ? (
+                <p className="text-sm text-center py-2" style={{ color: "rgba(255,255,255,0.5)" }}>Got it — no streak repair for today.</p>
+              ) : (
+                <button
+                  onClick={() => {
+                    setStreakDeclined(true);
+                    setTimeout(() => { setStreakDeclined(false); setUnitLimitGate(null); }, 2000);
+                  }}
+                  className="w-full py-2.5 rounded-2xl text-sm font-medium"
+                  style={{ color: "rgba(255,255,255,0.4)" }}
+                >
+                  Come back tomorrow
+                </button>
+              )}
             </motion.div>
           </motion.div>
         )}
@@ -2196,19 +2205,27 @@ export default function DailyPage() {
                     : "rgba(255,255,255,0.08)",
                   boxShadow: (gameStateRaw.tokens ?? 0) >= 3 ? "0 4px 20px rgba(239,68,68,0.4)" : "none",
                   color: (gameStateRaw.tokens ?? 0) >= 3 ? "#fff" : "rgba(255,255,255,0.3)",
+                  border: (gameStateRaw.tokens ?? 0) >= 3 ? "none" : "1px solid rgba(255,255,255,0.15)",
                 }}
               >
                 {(gameStateRaw.tokens ?? 0) >= 3
                   ? `🔥 Repair Streak — 3 Tokens (${gameStateRaw.tokens ?? 0} left)`
-                  : `Not enough tokens (need 3, have ${gameStateRaw.tokens ?? 0})`}
+                  : <span style={{ color: "rgba(255,255,255,0.5)" }}>{`Not enough tokens (need 3, have ${gameStateRaw.tokens ?? 0})`}</span>}
               </button>
-              <button
-                onClick={() => setStreakRepairPrompt(false)}
-                className="w-full py-2.5 rounded-2xl text-sm font-medium"
-                style={{ color: "rgba(255,255,255,0.4)" }}
-              >
-                Start fresh
-              </button>
+              {streakDeclined ? (
+                <p className="text-sm text-center py-2" style={{ color: "rgba(255,255,255,0.5)" }}>Got it — no streak repair for today.</p>
+              ) : (
+                <button
+                  onClick={() => {
+                    setStreakDeclined(true);
+                    setTimeout(() => { setStreakDeclined(false); setStreakRepairPrompt(false); }, 2000);
+                  }}
+                  className="w-full py-2.5 rounded-2xl text-sm font-medium"
+                  style={{ color: "rgba(255,255,255,0.4)" }}
+                >
+                  Start fresh
+                </button>
+              )}
             </motion.div>
           </motion.div>
         )}

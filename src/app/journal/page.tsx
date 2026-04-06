@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
+import { toast } from "sonner";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   FlaskConical,
@@ -1961,6 +1962,7 @@ function EnneagramJournal() {
         ...gs,
         xp: current + 10,
       }));
+      toast("✦ +10 XP earned for journaling!");
     } catch {}
     setText("");
     setSelectedTypes([]);
@@ -2269,6 +2271,7 @@ function EnneagramJournal() {
                         style={{
                           background: `${ENNEAGRAM_TYPE_COLORS[t]}22`,
                           color: ENNEAGRAM_TYPE_COLORS[t],
+                          border: "1px solid rgba(255,255,255,0.2)",
                         }}
                       >
                         T{t}

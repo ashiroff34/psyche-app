@@ -91,14 +91,14 @@ function XPBar({
   return (
     <div className="w-full">
       <div className="flex items-center justify-between text-xs mb-1.5">
-        <span className="font-mono text-slate-500">
+        <span className="font-mono" style={{ color: "rgba(255,255,255,0.5)" }}>
           Level {level}
         </span>
-        <span className="font-mono text-slate-400">
+        <span className="font-mono" style={{ color: "rgba(255,255,255,0.4)" }}>
           {xpInLevel.toLocaleString()} / {xpForNextLevel.toLocaleString()} XP
         </span>
       </div>
-      <div className="h-3 bg-slate-100 rounded-full overflow-hidden relative">
+      <div className="h-3 rounded-full overflow-hidden relative" style={{ background: "rgba(255,255,255,0.1)" }}>
         <motion.div
           className="h-full bg-gradient-to-r from-sky-400 to-indigo-500 rounded-full"
           initial={{ width: 0 }}
@@ -134,7 +134,7 @@ function CircularProgress({
           cy={size / 2}
           r={radius}
           fill="none"
-          stroke="#e2e8f0"
+          stroke="rgba(255,255,255,0.1)"
           strokeWidth={strokeWidth}
         />
         <motion.circle
@@ -168,21 +168,21 @@ function StatPill({
   icon: Icon,
   value,
   label,
-  color = "text-slate-600",
-  bgColor = "bg-slate-50",
+  iconStyle,
+  valueStyle,
 }: {
-  icon: React.ComponentType<{ className?: string }>;
+  icon: React.ComponentType<{ className?: string; style?: React.CSSProperties }>;
   value: string | number;
   label: string;
-  color?: string;
-  bgColor?: string;
+  iconStyle?: React.CSSProperties;
+  valueStyle?: React.CSSProperties;
 }) {
   return (
-    <div className={`flex items-center gap-2.5 px-4 py-2.5 rounded-2xl ${bgColor} border border-slate-100`}>
-      <Icon className={`w-4 h-4 ${color}`} />
+    <div style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.1)" }} className="flex items-center gap-2.5 px-4 py-2.5 rounded-2xl">
+      <Icon className="w-4 h-4" style={iconStyle} />
       <div>
-        <div className={`text-sm font-mono font-semibold ${color}`}>{value}</div>
-        <div className="text-[10px] text-slate-400 uppercase tracking-wider">{label}</div>
+        <div className="text-sm font-mono font-semibold" style={valueStyle}>{value}</div>
+        <div className="text-[10px] uppercase tracking-wider" style={{ color: "rgba(255,255,255,0.35)" }}>{label}</div>
       </div>
     </div>
   );
@@ -310,9 +310,9 @@ function DailyGoalSection({
   ];
 
   return (
-    <motion.div {...fadeUp} transition={{ delay: 0.1 }} className="p-6 rounded-3xl bg-white border border-slate-100 shadow-sm">
+    <motion.div {...fadeUp} transition={{ delay: 0.1 }} className="p-6 rounded-3xl" style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.1)" }}>
       <div className="flex items-center justify-between mb-4">
-        <h3 className="text-lg font-serif font-semibold text-slate-800">Daily Goal</h3>
+        <h3 className="text-lg font-serif font-semibold" style={{ color: "rgba(255,255,255,0.9)" }}>Daily Goal</h3>
         <button
           onClick={() => setShowGoalPicker(!showGoalPicker)}
           className="text-xs text-sky-500 hover:text-sky-600 font-medium flex items-center gap-1 transition-colors"
@@ -328,7 +328,7 @@ function DailyGoalSection({
               <div className="text-2xl">&#x2705;</div>
             ) : (
               <>
-                <div className="text-lg font-mono font-bold text-slate-700">
+                <div className="text-lg font-mono font-bold" style={{ color: "rgba(255,255,255,0.9)" }}>
                   {Math.min(Math.round(progress * 100), 100)}%
                 </div>
                 <div className="text-[9px] text-slate-400 uppercase tracking-wider">complete</div>
@@ -338,21 +338,21 @@ function DailyGoalSection({
         </CircularProgress>
 
         <div className="flex-1">
-          <div className="text-sm text-slate-500 mb-1">
-            <span className="font-mono font-semibold text-slate-700">{state.dailyXPEarned}</span>
+          <div className="text-sm mb-1" style={{ color: "rgba(255,255,255,0.5)" }}>
+            <span className="font-mono font-semibold" style={{ color: "rgba(255,255,255,0.85)" }}>{state.dailyXPEarned}</span>
             {" / "}
             <span className="font-mono">{goalTarget}</span> XP today
           </div>
-          <div className="text-xs text-slate-400 mb-3">
+          <div className="text-xs mb-3" style={{ color: "rgba(255,255,255,0.35)" }}>
             {state.dailyGoalMet
               ? "Goal complete! Keep going for bonus XP."
               : `${goalTarget - state.dailyXPEarned} XP to go`}
           </div>
           <div className="flex items-center gap-2 text-xs">
             <Target className="w-3.5 h-3.5 text-orange-400" />
-            <span className="text-slate-500">
+            <span style={{ color: "rgba(255,255,255,0.5)" }}>
               {DAILY_GOAL_MINUTES[state.dailyGoal as DailyGoal]} min/day &middot;{" "}
-              <span className="capitalize font-medium text-slate-600">{state.dailyGoal}</span> mode
+              <span className="capitalize font-medium" style={{ color: "rgba(255,255,255,0.7)" }}>{state.dailyGoal}</span> mode
             </span>
           </div>
           {state.dailyGoalMet && (
@@ -376,7 +376,7 @@ function DailyGoalSection({
             exit={{ height: 0, opacity: 0 }}
             className="overflow-hidden"
           >
-            <div className="grid grid-cols-2 gap-2 mt-4 pt-4 border-t border-slate-100">
+            <div className="grid grid-cols-2 gap-2 mt-4 pt-4" style={{ borderTop: "1px solid rgba(255,255,255,0.08)" }}>
               {goals.map((g) => (
                 <button
                   key={g.key}
@@ -384,14 +384,14 @@ function DailyGoalSection({
                     onChangeGoal(g.key);
                     setShowGoalPicker(false);
                   }}
-                  className={`p-3 rounded-xl text-left transition-all ${
-                    state.dailyGoal === g.key
-                      ? "bg-sky-50 border-2 border-sky-300 shadow-sm"
-                      : "bg-slate-50 border-2 border-transparent hover:border-slate-200"
-                  }`}
+                  className="p-3 rounded-xl text-left transition-all"
+                  style={state.dailyGoal === g.key
+                    ? { background: "rgba(99,102,241,0.2)", border: "2px solid rgba(99,102,241,0.5)" }
+                    : { background: "rgba(255,255,255,0.05)", border: "2px solid transparent" }
+                  }
                 >
-                  <div className="text-sm font-medium text-slate-700">{g.label}</div>
-                  <div className="text-[10px] text-slate-400">
+                  <div className="text-sm font-medium" style={{ color: "rgba(255,255,255,0.85)" }}>{g.label}</div>
+                  <div className="text-[10px]" style={{ color: "rgba(255,255,255,0.4)" }}>
                     {g.minutes} min &middot; {g.xp} XP
                   </div>
                 </button>
@@ -415,25 +415,25 @@ function PetWidget({ state, petName, petType, onFeed, onTreat, onRevive }: {
   const mood = getPetMood(state.petHealth, state.petHappiness, state.petAlive);
 
   return (
-    <motion.div {...fadeUp} transition={{ delay: 0.15 }} className="p-6 rounded-3xl bg-white border border-slate-100 shadow-sm">
-      <h3 className="text-lg font-serif font-semibold text-slate-800 mb-4">Your Companion</h3>
+    <motion.div {...fadeUp} transition={{ delay: 0.15 }} className="p-6 rounded-3xl" style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.1)" }}>
+      <h3 className="text-lg font-serif font-semibold mb-4" style={{ color: "rgba(255,255,255,0.9)" }}>Your Companion</h3>
 
       <div className="text-center mb-4">
         <div className="flex justify-center mb-2">
           <PetSprite type={petType} size={80} />
         </div>
-        <div className="text-sm font-medium text-slate-700">{petName}</div>
-        <div className="text-xs text-slate-400 italic mt-0.5">{mood}</div>
+        <div className="text-sm font-medium" style={{ color: "rgba(255,255,255,0.85)" }}>{petName}</div>
+        <div className="text-xs italic mt-0.5" style={{ color: "rgba(255,255,255,0.4)" }}>{mood}</div>
       </div>
 
       {/* Health & Happiness bars */}
       <div className="space-y-2.5 mb-4">
         <div>
-          <div className="flex items-center justify-between text-[10px] text-slate-400 uppercase tracking-wider mb-1">
+          <div className="flex items-center justify-between text-[10px] uppercase tracking-wider mb-1" style={{ color: "rgba(255,255,255,0.4)" }}>
             <span className="flex items-center gap-1"><Heart className="w-3 h-3 text-rose-400" /> Health</span>
-            <span className="font-mono text-slate-500">{state.petHealth}%</span>
+            <span className="font-mono" style={{ color: "rgba(255,255,255,0.5)" }}>{state.petHealth}%</span>
           </div>
-          <div className="h-2 bg-slate-100 rounded-full overflow-hidden">
+          <div className="h-2 rounded-full overflow-hidden" style={{ background: "rgba(255,255,255,0.1)" }}>
             <motion.div
               className={`h-full rounded-full ${
                 state.petHealth > 60 ? "bg-emerald-400" : state.petHealth > 30 ? "bg-amber-400" : "bg-rose-400"
@@ -444,11 +444,11 @@ function PetWidget({ state, petName, petType, onFeed, onTreat, onRevive }: {
           </div>
         </div>
         <div>
-          <div className="flex items-center justify-between text-[10px] text-slate-400 uppercase tracking-wider mb-1">
+          <div className="flex items-center justify-between text-[10px] uppercase tracking-wider mb-1" style={{ color: "rgba(255,255,255,0.4)" }}>
             <span className="flex items-center gap-1"><Star className="w-3 h-3 text-amber-400" /> Happiness</span>
-            <span className="font-mono text-slate-500">{state.petHappiness}%</span>
+            <span className="font-mono" style={{ color: "rgba(255,255,255,0.5)" }}>{state.petHappiness}%</span>
           </div>
-          <div className="h-2 bg-slate-100 rounded-full overflow-hidden">
+          <div className="h-2 rounded-full overflow-hidden" style={{ background: "rgba(255,255,255,0.1)" }}>
             <motion.div
               className={`h-full rounded-full ${
                 state.petHappiness > 60 ? "bg-sky-400" : state.petHappiness > 30 ? "bg-amber-400" : "bg-slate-400"
@@ -494,9 +494,9 @@ function BadgeGrid({ badges }: { badges: Badge[] }) {
   const [hoveredBadge, setHoveredBadge] = useState<string | null>(null);
 
   return (
-    <motion.div {...fadeUp} transition={{ delay: 0.2 }} className="p-6 rounded-3xl bg-white border border-slate-100 shadow-sm">
+    <motion.div {...fadeUp} transition={{ delay: 0.2 }} className="p-6 rounded-3xl" style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.1)" }}>
       <div className="flex items-center justify-between mb-4">
-        <h3 className="text-lg font-serif font-semibold text-slate-800">Achievements</h3>
+        <h3 className="text-lg font-serif font-semibold" style={{ color: "rgba(255,255,255,0.9)" }}>Achievements</h3>
         <span className="text-xs font-mono text-slate-400">
           {badges.length} / {BADGE_DEFINITIONS.length}
         </span>
@@ -518,8 +518,8 @@ function BadgeGrid({ badges }: { badges: Badge[] }) {
                 whileHover={{ scale: 1.15 }}
                 className={`w-full aspect-square rounded-xl flex items-center justify-center text-xl cursor-pointer transition-all ${
                   earned
-                    ? "bg-gradient-to-br from-amber-50 to-orange-50 border-2 border-amber-200 shadow-sm"
-                    : "bg-slate-50 border-2 border-slate-100 grayscale opacity-40"
+                    ? "bg-gradient-to-br from-amber-500/20 to-orange-500/20 border-2 border-amber-400/50 shadow-sm"
+                    : "border-2 border-white/10 grayscale opacity-40"
                 }`}
               >
                 {earned ? (
@@ -596,11 +596,11 @@ function SkillTree({
           role={unlocked ? "button" : undefined}
           tabIndex={unlocked ? 0 : undefined}
           onKeyDown={(e) => unlocked && e.key === "Enter" && router.push(topic.href)}
-          className={`relative flex items-center gap-4 p-4 rounded-2xl transition-all ${
-            unlocked
-              ? "bg-white border border-slate-100 shadow-sm hover:shadow-md cursor-pointer hover:border-sky-200 active:scale-[0.98]"
-              : "bg-slate-50/50 border border-slate-100 opacity-60 cursor-not-allowed"
-          }`}
+          className="relative flex items-center gap-4 p-4 rounded-2xl transition-all"
+          style={unlocked
+            ? { background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.12)", cursor: "pointer" }
+            : { background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.06)", opacity: 0.6, cursor: "not-allowed" }
+          }
         >
           {/* Node circle */}
           <div
@@ -623,7 +623,7 @@ function SkillTree({
 
           <div className="flex-1 min-w-0">
             <div className="flex items-center gap-2">
-              <span className="text-sm font-medium text-slate-700 truncate">{topic.name}</span>
+              <span className="text-sm font-medium truncate" style={{ color: "rgba(255,255,255,0.85)" }}>{topic.name}</span>
               <span className="text-[10px] font-mono text-amber-500 flex items-center gap-0.5">
                 <Zap className="w-2.5 h-2.5" /> {topic.xpReward}
               </span>
@@ -632,7 +632,7 @@ function SkillTree({
 
             {/* Progress bar */}
             {unlocked && progress > 0 && progress < 100 && (
-              <div className="h-1.5 bg-slate-100 rounded-full mt-2 overflow-hidden">
+              <div className="h-1.5 rounded-full mt-2 overflow-hidden" style={{ background: "rgba(255,255,255,0.1)" }}>
                 <motion.div
                   className="h-full bg-gradient-to-r from-sky-400 to-indigo-400 rounded-full"
                   initial={{ width: 0 }}
@@ -662,8 +662,8 @@ function SkillTree({
   };
 
   return (
-    <motion.div {...fadeUp} transition={{ delay: 0.25 }} className="p-6 rounded-3xl bg-white border border-slate-100 shadow-sm">
-      <h3 className="text-lg font-serif font-semibold text-slate-800 mb-6">Learning Path</h3>
+    <motion.div {...fadeUp} transition={{ delay: 0.25 }} className="p-6 rounded-3xl" style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.1)" }}>
+      <h3 className="text-lg font-serif font-semibold mb-6" style={{ color: "rgba(255,255,255,0.9)" }}>Learning Path</h3>
 
       <div className="grid md:grid-cols-2 gap-8">
         {/* Enneagram Path */}
@@ -672,7 +672,7 @@ function SkillTree({
             <div className="w-7 h-7 rounded-lg bg-sky-50 flex items-center justify-center">
               <Compass className="w-4 h-4 text-sky-500" />
             </div>
-            <span className="text-sm font-semibold text-slate-600">Enneagram Track</span>
+            <span className="text-sm font-semibold" style={{ color: "rgba(255,255,255,0.7)" }}>Enneagram Track</span>
           </div>
           <div className="space-y-3">
             {enneagramPath.map((topic, i) => (
@@ -687,7 +687,7 @@ function SkillTree({
             <div className="w-7 h-7 rounded-lg bg-indigo-50 flex items-center justify-center">
               <Brain className="w-4 h-4 text-indigo-500" />
             </div>
-            <span className="text-sm font-semibold text-slate-600">Cognitive Track</span>
+            <span className="text-sm font-semibold" style={{ color: "rgba(255,255,255,0.7)" }}>Cognitive Track</span>
           </div>
           <div className="space-y-3">
             {cognitivePath.map((topic, i) => (
@@ -698,12 +698,12 @@ function SkillTree({
       </div>
 
       {/* Standalone - History */}
-      <div className="mt-6 pt-6 border-t border-slate-100">
+      <div className="mt-6 pt-6" style={{ borderTop: "1px solid rgba(255,255,255,0.08)" }}>
         <div className="flex items-center gap-2 mb-4">
-          <div className="w-7 h-7 rounded-lg bg-violet-50 flex items-center justify-center">
-            <BookOpen className="w-4 h-4 text-violet-500" />
+          <div className="w-7 h-7 rounded-lg flex items-center justify-center" style={{ background: "rgba(139,92,246,0.2)" }}>
+            <BookOpen className="w-4 h-4 text-violet-400" />
           </div>
-          <span className="text-sm font-semibold text-slate-600">Bonus Track</span>
+          <span className="text-sm font-semibold" style={{ color: "rgba(255,255,255,0.7)" }}>Bonus Track</span>
         </div>
         <div className="space-y-3">
           {standalone.map((topic, i) => (
@@ -725,9 +725,9 @@ function TokenShop({ tokens, onPurchase }: { tokens: number; onPurchase: (id: st
   };
 
   return (
-    <motion.div {...fadeUp} transition={{ delay: 0.3 }} className="p-6 rounded-3xl bg-white border border-slate-100 shadow-sm">
+    <motion.div {...fadeUp} transition={{ delay: 0.3 }} className="p-6 rounded-3xl" style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.1)" }}>
       <div className="flex items-center justify-between mb-4">
-        <h3 className="text-lg font-serif font-semibold text-slate-800 flex items-center gap-2">
+        <h3 className="text-lg font-serif font-semibold flex items-center gap-2" style={{ color: "rgba(255,255,255,0.9)" }}>
           <ShoppingBag className="w-5 h-5 text-amber-500" /> Token Shop
         </h3>
         <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-amber-50 border border-amber-200">
@@ -745,23 +745,23 @@ function TokenShop({ tokens, onPurchase }: { tokens: number; onPurchase: (id: st
             <motion.div
               key={item.id}
               whileHover={item.available ? { scale: 1.02 } : {}}
-              className={`relative p-4 rounded-2xl border transition-all ${
-                !item.available
-                  ? "bg-slate-50/50 border-slate-100 opacity-60"
-                  : canAfford
-                  ? "bg-white border-slate-100 hover:border-amber-200 hover:shadow-md cursor-pointer"
-                  : "bg-slate-50 border-slate-100 opacity-70"
-              }`}
+              className="relative p-4 rounded-2xl border transition-all"
+              style={!item.available
+                ? { background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.06)", opacity: 0.6 }
+                : canAfford
+                ? { background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.12)", cursor: "pointer" }
+                : { background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.08)", opacity: 0.7 }
+              }
             >
               {!item.available && (
-                <div className="absolute top-2 right-2 px-2 py-0.5 rounded-full bg-slate-200 text-[9px] font-medium text-slate-500 uppercase tracking-wider">
+                <div className="absolute top-2 right-2 px-2 py-0.5 rounded-full text-[9px] font-medium uppercase tracking-wider" style={{ background: "rgba(255,255,255,0.1)", color: "rgba(255,255,255,0.5)" }}>
                   Coming Soon
                 </div>
               )}
 
               <div className="text-2xl mb-2">{item.icon}</div>
-              <div className="text-sm font-medium text-slate-700">{item.name}</div>
-              <div className="text-[11px] text-slate-400 mt-0.5 mb-3">{item.description}</div>
+              <div className="text-sm font-medium" style={{ color: "rgba(255,255,255,0.85)" }}>{item.name}</div>
+              <div className="text-[11px] mt-0.5 mb-3" style={{ color: "rgba(255,255,255,0.4)" }}>{item.description}</div>
 
               {item.available && (
                 <button
@@ -794,7 +794,7 @@ function TokenShop({ tokens, onPurchase }: { tokens: number; onPurchase: (id: st
   );
 }
 
-function TypeMasterySection({ typeMastery }: { typeMastery: Record<string, number> }) {
+function TypeMasterySection({ typeMastery, userEnneagramType }: { typeMastery: Record<string, number>; userEnneagramType?: number }) {
   const MASTERY_COLORS: Record<string, string> = {
     Novice: "#64748b",
     Apprentice: "#0ea5e9",
@@ -805,11 +805,11 @@ function TypeMasterySection({ typeMastery }: { typeMastery: Record<string, numbe
   };
 
   return (
-    <motion.div {...fadeUp} transition={{ delay: 0.32 }} className="p-6 rounded-3xl bg-white border border-slate-100 shadow-sm">
-      <h3 className="text-lg font-serif font-semibold text-slate-800 mb-1 flex items-center gap-2">
-        <Star className="w-5 h-5 text-violet-500" /> Type Mastery
+    <motion.div {...fadeUp} transition={{ delay: 0.32 }} className="p-6 rounded-3xl" style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.1)" }}>
+      <h3 className="text-lg font-serif font-semibold mb-1 flex items-center gap-2" style={{ color: "rgba(255,255,255,0.9)" }}>
+        <Star className="w-5 h-5 text-violet-400" /> Type Mastery
       </h3>
-      <p className="text-xs text-slate-400 mb-5">Complete type-specific lessons to earn mastery points for each of the 9 types.</p>
+      <p className="text-xs mb-5" style={{ color: "rgba(255,255,255,0.35)" }}>Complete type-specific lessons to earn mastery points for each of the 9 types.</p>
 
       <div className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-5 gap-3">
         {enneagramTypes.map((type) => {
@@ -817,16 +817,24 @@ function TypeMasterySection({ typeMastery }: { typeMastery: Record<string, numbe
           const started = points > 0;
           const label = getMasteryLevel(points);
           const labelColor = MASTERY_COLORS[label] ?? "#64748b";
+          const isUserType = userEnneagramType === type.number;
 
           return (
             <div
               key={type.number}
-              className={`relative flex flex-col items-center p-3 rounded-2xl border transition-all ${
-                started
-                  ? "bg-white border-slate-100 shadow-sm"
-                  : "bg-slate-50/70 border-slate-100 opacity-50"
-              }`}
+              className="relative flex flex-col items-center p-3 rounded-2xl transition-all"
+              style={isUserType
+                ? { background: "rgba(139,92,246,0.15)", border: "2px solid rgba(139,92,246,0.6)", boxShadow: "0 0 12px rgba(139,92,246,0.3)" }
+                : started
+                ? { background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.12)" }
+                : { background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.06)", opacity: 0.5 }
+              }
             >
+              {isUserType && (
+                <div className="absolute -top-2 left-1/2 -translate-x-1/2 px-1.5 py-0.5 rounded-full text-[8px] font-bold uppercase tracking-wider" style={{ background: "rgba(139,92,246,0.8)", color: "#fff", whiteSpace: "nowrap" }}>
+                  Your type
+                </div>
+              )}
               {/* Type Number Badge */}
               <div
                 className="w-10 h-10 rounded-xl flex items-center justify-center text-white text-base font-serif font-bold mb-2"
@@ -836,12 +844,12 @@ function TypeMasterySection({ typeMastery }: { typeMastery: Record<string, numbe
               </div>
 
               {/* Type name (short) */}
-              <div className="text-[10px] text-slate-500 text-center font-medium leading-tight mb-1.5">
+              <div className="text-[10px] text-center font-medium leading-tight mb-1.5" style={{ color: "rgba(255,255,255,0.55)" }}>
                 {type.name.replace("The ", "")}
               </div>
 
               {/* Progress bar */}
-              <div className="w-full h-1.5 bg-slate-100 rounded-full overflow-hidden mb-1.5">
+              <div className="w-full h-1.5 rounded-full overflow-hidden mb-1.5" style={{ background: "rgba(255,255,255,0.1)" }}>
                 <motion.div
                   className="h-full rounded-full"
                   style={{ backgroundColor: started ? type.color : "#cbd5e1" }}
@@ -872,9 +880,9 @@ function LeaderboardSection({ state }: { state: any }) {
   );
 
   return (
-    <motion.div {...fadeUp} transition={{ delay: 0.35 }} className="p-6 rounded-3xl bg-white border border-slate-100 shadow-sm">
+    <motion.div {...fadeUp} transition={{ delay: 0.35 }} className="p-6 rounded-3xl" style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.1)" }}>
       <div className="flex items-center justify-between mb-4">
-        <h3 className="text-lg font-serif font-semibold text-slate-800 flex items-center gap-2">
+        <h3 className="text-lg font-serif font-semibold flex items-center gap-2" style={{ color: "rgba(255,255,255,0.9)" }}>
           <Trophy className="w-5 h-5 text-amber-500" /> Leaderboard
         </h3>
         <span className="text-[10px] text-slate-400 uppercase tracking-wider font-mono">
@@ -894,9 +902,10 @@ function LeaderboardSection({ state }: { state: any }) {
         // Pick signal based on day of year so it changes daily but feels deterministic
         const idx = new Date().getDay() % signals.length;
         return (
-          <div className="mx-4 mb-3 px-4 py-2.5 rounded-xl flex items-center gap-2"
+          <div className="mx-4 mb-3 px-4 py-2.5 rounded-xl"
             style={{ background: "rgba(139,92,246,0.1)", border: "1px solid rgba(139,92,246,0.2)" }}>
             <span className="text-sm">{signals[idx]}</span>
+            <p className="text-[10px] mt-0.5" style={{ color: "rgba(255,255,255,0.25)" }}>Updates daily</p>
           </div>
         );
       })()}
@@ -910,11 +919,11 @@ function LeaderboardSection({ state }: { state: any }) {
               initial={{ opacity: 1, x: 0 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.03 * i }}
-              className={`flex items-center gap-3 px-3 py-2 rounded-xl transition-all ${
-                entry.isPlayer
-                  ? "bg-sky-50 border border-sky-200 shadow-sm"
-                  : "hover:bg-slate-50"
-              }`}
+              className="flex items-center gap-3 px-3 py-2 rounded-xl transition-all"
+              style={entry.isPlayer
+                ? { background: "rgba(56,189,248,0.1)", border: "1px solid rgba(56,189,248,0.25)" }
+                : undefined
+              }
             >
               {/* Rank */}
               <div className={`w-6 text-center text-xs font-mono font-bold ${
@@ -924,9 +933,7 @@ function LeaderboardSection({ state }: { state: any }) {
               </div>
 
               {/* Name */}
-              <div className={`flex-1 text-sm truncate ${
-                entry.isPlayer ? "font-semibold text-sky-700" : "text-slate-600"
-              }`}>
+              <div className="flex-1 text-sm truncate" style={{ fontWeight: entry.isPlayer ? 600 : 400, color: entry.isPlayer ? "#38bdf8" : "rgba(255,255,255,0.65)" }}>
                 {entry.name}
               </div>
 
@@ -954,24 +961,24 @@ function StatsSection({ state }: { state: any }) {
       : 0;
 
   return (
-    <motion.div {...fadeUp} transition={{ delay: 0.4 }} className="p-6 rounded-3xl bg-white border border-slate-100 shadow-sm">
-      <h3 className="text-lg font-serif font-semibold text-slate-800 mb-4 flex items-center gap-2">
+    <motion.div {...fadeUp} transition={{ delay: 0.4 }} className="p-6 rounded-3xl" style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.1)" }}>
+      <h3 className="text-lg font-serif font-semibold mb-4 flex items-center gap-2" style={{ color: "rgba(255,255,255,0.9)" }}>
         <TrendingUp className="w-5 h-5 text-sky-500" /> Your Stats
       </h3>
 
       <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-        <StatPill icon={Zap} value={state.totalXPEarned.toLocaleString()} label="Lifetime XP" color="text-sky-600" bgColor="bg-sky-50" />
-        <StatPill icon={Flame} value={state.longestStreak} label="Best Streak" color="text-orange-600" bgColor="bg-orange-50" />
-        <StatPill icon={Target} value={`${accuracy}%`} label="Accuracy" color="text-emerald-600" bgColor="bg-emerald-50" />
-        <StatPill icon={BookOpen} value={state.totalAttempted} label="Questions" color="text-indigo-600" bgColor="bg-indigo-50" />
-        <StatPill icon={Trophy} value={state.badges.length} label="Badges" color="text-amber-600" bgColor="bg-amber-50" />
-        <StatPill icon={Gem} value={state.totalTokensEarned} label="Tokens Earned" color="text-violet-600" bgColor="bg-violet-50" />
+        <StatPill icon={Zap} value={state.totalXPEarned.toLocaleString()} label="Lifetime XP" iconStyle={{ color: "#38bdf8" }} valueStyle={{ color: "#38bdf8" }} />
+        <StatPill icon={Flame} value={state.longestStreak} label="Best Streak" iconStyle={{ color: "#fb923c" }} valueStyle={{ color: "#fb923c" }} />
+        <StatPill icon={Target} value={`${accuracy}%`} label="Accuracy" iconStyle={{ color: "#34d399" }} valueStyle={{ color: "#34d399" }} />
+        <StatPill icon={BookOpen} value={state.totalAttempted} label="Questions" iconStyle={{ color: "#818cf8" }} valueStyle={{ color: "#818cf8" }} />
+        <StatPill icon={Trophy} value={state.badges.length} label="Badges" iconStyle={{ color: "#fbbf24" }} valueStyle={{ color: "#fbbf24" }} />
+        <StatPill icon={Gem} value={state.totalTokensEarned} label="Tokens Earned" iconStyle={{ color: "#a78bfa" }} valueStyle={{ color: "#a78bfa" }} />
       </div>
 
       {/* XP History mini chart */}
       {state.xpHistory.length > 1 && (
-        <div className="mt-4 pt-4 border-t border-slate-100">
-          <div className="text-[10px] text-slate-400 uppercase tracking-wider mb-2">Recent XP Activity</div>
+        <div className="mt-4 pt-4" style={{ borderTop: "1px solid rgba(255,255,255,0.08)" }}>
+          <div className="text-[10px] uppercase tracking-wider mb-2" style={{ color: "rgba(255,255,255,0.35)" }}>Recent XP Activity</div>
           <div className="flex items-end gap-1 h-16">
             {state.xpHistory.slice(-14).map((entry: { date: string; xp: number }, i: number) => {
               const maxXP = Math.max(...state.xpHistory.slice(-14).map((e: { xp: number }) => e.xp), 1);
@@ -988,6 +995,7 @@ function StatsSection({ state }: { state: any }) {
               );
             })}
           </div>
+          <p style={{ color: "rgba(255,255,255,0.3)", fontSize: "10px", marginTop: "6px" }}>Last 14 days of XP activity</p>
         </div>
       )}
     </motion.div>
@@ -1168,10 +1176,10 @@ export default function GamePage() {
             <Trophy className="w-4 h-4" />
             Game Hub
           </div>
-          <h1 className="text-3xl sm:text-4xl font-serif font-bold text-slate-900 tracking-tight">
+          <h1 className="text-3xl sm:text-4xl font-serif font-bold tracking-tight" style={{ color: "rgba(255,255,255,0.95)" }}>
             Your <span className="text-gradient">Journey</span>
           </h1>
-          <p className="text-slate-500 mt-2">
+          <p className="mt-2" style={{ color: "rgba(255,255,255,0.5)" }}>
             Level up your self-knowledge. Earn XP, maintain your streak, and unlock achievements.
           </p>
         </motion.div>
@@ -1208,7 +1216,7 @@ export default function GamePage() {
 
         {/* Type Mastery - Full width */}
         <div className="mb-6">
-          <TypeMasterySection typeMastery={state.typeMastery ?? {}} />
+          <TypeMasterySection typeMastery={state.typeMastery ?? {}} userEnneagramType={profileEnneagram} />
         </div>
 
         {/* Learning Path - Full width */}

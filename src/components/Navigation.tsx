@@ -25,6 +25,7 @@ import {
   Moon,
   Bug,
   Settings,
+  Lock,
 } from "lucide-react";
 import OuroborosLogo from "@/components/OuroborosLogo";
 import SearchComponent from "@/components/Search";
@@ -137,12 +138,12 @@ function MoreMenu({ pathname }: { pathname: string }) {
       <button
         onClick={handleOpen}
         className="relative flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-sm font-medium transition-all"
-        style={{ color: "rgba(255,255,255,0.55)" }}
+        style={{ color: "rgba(255,255,255,0.8)" }}
       >
         <Compass className="w-4 h-4" />
         <span className="hidden sm:inline">Explore</span>
         {!hasSeenExplore && (
-          <span className="absolute -top-0.5 -right-0.5 w-2 h-2 rounded-full bg-indigo-500 animate-pulse" />
+          <span className="absolute -top-0.5 -right-0.5 w-2 h-2 rounded-full bg-indigo-500 animate-pulse" title="New feature available" />
         )}
       </button>
 
@@ -305,6 +306,7 @@ export default function Navigation() {
   const [storeNotifVisible, setStoreNotifVisible] = useState(false);
   const [storeUnlocked, setStoreUnlocked] = useState(false);
   const [accountDays, setAccountDays] = useState(999);
+  const [storeLockToast, setStoreLockToast] = useState(false);
 
   // Show pulsing Store dot only when user has >= 50 tokens and hasn't visited yet
   // Also gate Store tab visibility until user has earned their first tokens (Day 2+)
@@ -364,8 +366,14 @@ export default function Navigation() {
     router.back();
   };
 
-  const handleNavClick = (_e: React.MouseEvent, href: string) => {
+  const handleNavClick = (e: React.MouseEvent, href: string) => {
     if (href === "/store") {
+      if (!storeUnlocked) {
+        e.preventDefault();
+        setStoreLockToast(true);
+        setTimeout(() => setStoreLockToast(false), 2500);
+        return;
+      }
       try { localStorage.setItem("psyche-store-visited", "true"); } catch {}
       setStoreNotifVisible(false);
     }
@@ -419,35 +427,42 @@ export default function Navigation() {
       {/* ── Bottom Tab Bar (Duolingo-style) ──────────────────────────────── */}
       {!hideChrome && (
         <div className="fixed bottom-0 left-0 right-0 z-50 backdrop-blur-xl safe-area-bottom" style={{ background: "rgba(15,10,30,0.96)", borderTop: "1px solid rgba(139,92,246,0.12)" }}>
-          <div className="max-w-lg mx-auto flex items-center justify-around px-2 py-1">
-            {bottomTabs.filter(tab => tab.href !== "/store" || storeUnlocked).map((tab) => {
+          <div className="max-w-lg mx-auto flex items-center justify-around px-2 py-1 relative">
+            {bottomTabs.map((tab) => {
               const isActive =
                 tab.href === "/"
                   ? pathname === "/"
                   : pathname === tab.href || pathname.startsWith(tab.href);
               const Icon = tab.icon;
               const isStore = tab.href === "/store";
+              const isStoreLocked = isStore && !storeUnlocked;
 
               return (
                 <Link
                   key={tab.href}
-                  href={tab.href}
+                  href={isStoreLocked ? "#" : tab.href}
                   onClick={(e) => handleNavClick(e, tab.href)}
                   className="relative flex flex-col items-center gap-0.5 px-3 py-2 rounded-xl min-w-[56px] transition-all"
-                  style={{ color: isActive ? "#a78bfa" : "rgba(255,255,255,0.35)" }}
+                  style={{ color: isStoreLocked ? "rgba(255,255,255,0.2)" : isActive ? "#a78bfa" : "rgba(255,255,255,0.35)", opacity: isStoreLocked ? 0.4 : 1 }}
                 >
                   {/* Highlight dot for active tab */}
-                  {isActive && (
+                  {isActive && !isStoreLocked && (
                     <motion.div
                       layoutId="bottom-tab-indicator"
                       className="absolute -top-1 w-5 h-1 rounded-full bg-gradient-to-r from-violet-400 to-indigo-400"
                       transition={{ type: "spring", stiffness: 400, damping: 30 }}
                     />
                   )}
-                  <div className={`relative ${isStore ? "p-1 rounded-lg bg-gradient-to-br from-amber-100 to-orange-100" : ""}`}>
-                    <Icon className={`w-5 h-5 ${isStore && !isActive ? "text-amber-600" : ""}`} />
+                  <div className={`relative ${isStore && !isStoreLocked ? "p-1 rounded-lg bg-gradient-to-br from-amber-100 to-orange-100" : ""}`}>
+                    <Icon className={`w-5 h-5 ${isStore && !isActive && !isStoreLocked ? "text-amber-600" : ""}`} />
+                    {/* Lock overlay for locked store */}
+                    {isStoreLocked && (
+                      <div className="absolute -top-1 -right-1 w-3.5 h-3.5 rounded-full flex items-center justify-center" style={{ background: "rgba(30,20,60,0.9)", border: "1px solid rgba(255,255,255,0.2)" }}>
+                        <Lock className="w-2 h-2" style={{ color: "rgba(255,255,255,0.6)" }} />
+                      </div>
+                    )}
                     {/* Store gets a subtle glow — only when tokens ≥ 50 and never visited */}
-                    {isStore && !isActive && storeNotifVisible && (
+                    {isStore && !isActive && storeNotifVisible && !isStoreLocked && (
                       <div className="absolute -top-0.5 -right-0.5 w-2 h-2 rounded-full bg-amber-400 animate-pulse" />
                     )}
                   </div>
@@ -457,6 +472,20 @@ export default function Navigation() {
                 </Link>
               );
             })}
+            {/* Store lock toast */}
+            <AnimatePresence>
+              {storeLockToast && (
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 10 }}
+                  className="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 px-4 py-2 rounded-xl text-xs font-medium text-white whitespace-nowrap"
+                  style={{ background: "rgba(22,12,48,0.97)", border: "1px solid rgba(139,92,246,0.3)", boxShadow: "0 4px 16px rgba(0,0,0,0.4)" }}
+                >
+                  Complete a lesson to unlock the Store
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
         </div>
       )}

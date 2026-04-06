@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Trophy, Heart, X, Zap, Snowflake, Coins } from "lucide-react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 import PetSprite from "@/components/PetSprite";
 import { acquireNotificationLock, releaseNotificationLock } from "@/lib/notificationLock";
 
@@ -300,7 +301,12 @@ export default function ComebackModal() {
                           {data.petName} missed you!
                         </p>
                         {!data.petAlive && (
-                          <p className="text-xs font-medium" style={{ color: "#f87171" }}>Needs revival</p>
+                          <div>
+                            <p className="text-xs font-medium" style={{ color: "#f87171" }}>Needs revival</p>
+                            <Link href="/avatar" onClick={handleClose} className="text-xs font-semibold" style={{ color: "#fb7185" }}>
+                              Go revive →
+                            </Link>
+                          </div>
                         )}
                       </div>
                     </div>
