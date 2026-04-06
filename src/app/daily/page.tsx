@@ -123,7 +123,6 @@ interface DailyProgress {
   correctAnswers: number;
   xpEarned: number;
   modulesCompleted: string[];
-  warmupDone: boolean;
   streakCorrect: number;
   bestStreak: number;
   timeSpentMinutes: number;
@@ -645,14 +644,6 @@ export default function DailyPage() {
   // ── Legacy tab (kept for stats tab) ──
   const [activeTab, setActiveTab] = useState<"today" | "deep" | "stats">("today");
 
-  // Warmup quiz state
-  const [warmupStarted, setWarmupStarted] = useState(false);
-  const [warmupQ, setWarmupQ] = useState(0);
-  const [warmupSelected, setWarmupSelected] = useState<number | null>(null);
-  const [warmupShowExp, setWarmupShowExp] = useState(false);
-  const [warmupAnswers, setWarmupAnswers] = useState<boolean[]>([]);
-  const [warmupDone, setWarmupDone] = useState(false);
-
   // Deep learning module state
   const [activeModule, setActiveModule] = useState<string | null>(null);
   const [moduleQ, setModuleQ] = useState(0);
@@ -767,7 +758,6 @@ export default function DailyPage() {
       if (raw) {
         const parsed = JSON.parse(raw) as DailyProgress;
         setDailyProgress(parsed);
-        if (parsed.warmupDone) setWarmupDone(true);
         setCorrectStreak(parsed.streakCorrect);
       }
     } catch {}
@@ -816,7 +806,6 @@ export default function DailyPage() {
         correctAnswers: prev?.correctAnswers ?? 0,
         xpEarned: prev?.xpEarned ?? 0,
         modulesCompleted: prev?.modulesCompleted ?? [],
-        warmupDone: prev?.warmupDone ?? false,
         streakCorrect: prev?.streakCorrect ?? 0,
         bestStreak: prev?.bestStreak ?? 0,
         timeSpentMinutes: prev?.timeSpentMinutes ?? 0,
@@ -835,10 +824,9 @@ export default function DailyPage() {
   }, []);
 
   // ── Check if completing a node finishes an entire unit ──
-  const checkUnitCompletionRef = useRef<(completedModuleId: string, newModulesCompleted: string[], newNonQuizCompleted: string[], newWarmupDone: boolean) => void>(() => {});
-  checkUnitCompletionRef.current = (completedModuleId: string, newModulesCompleted: string[], newNonQuizCompleted: string[], newWarmupDone: boolean) => {
+  const checkUnitCompletionRef = useRef<(completedModuleId: string, newModulesCompleted: string[], newNonQuizCompleted: string[]) => void>(() => {});
+  checkUnitCompletionRef.current = (completedModuleId: string, newModulesCompleted: string[], newNonQuizCompleted: string[]) => {
     const isNodeDone = (id: string, moduleId: string | null) => {
-      if (moduleId === "warmup") return newWarmupDone;
       if (moduleId) return newModulesCompleted.includes(moduleId);
       return newNonQuizCompleted.includes(id);
     };
@@ -856,9 +844,6 @@ export default function DailyPage() {
       break; // Found the unit containing this module; no need to check others
     }
   };
-
-  // ── Check if first quiz of day (2x XP bonus) ──
-  const isFirstQuizToday = !dailyProgress || dailyProgress.questionsAnswered === 0;
 
   // ── Profile data ──
   const enneagramType = profile.enneagramType ?? 5;
@@ -977,28 +962,6 @@ export default function DailyPage() {
     return shuffleWithSeed(selected, seed + moduleId.charCodeAt(0)).slice(0, count);
   }, [difficulty.level, seed, profile.enneagramType]);
 
-  // Warmup questions, intro foundations for new users, then progressively harder
-  const warmupQuestions = useMemo(() => {
-    const hasStats = Object.keys(qStats).length > 0;
-    // New users (level 1-2): prioritize tier 0-1 intro questions so they learn the systems
-    if (difficulty.level <= 2) {
-      const introPool = QUESTION_BANK.filter(q => q.tier <= 1);
-      if (introPool.length > 0) {
-        if (hasStats) return srSelectQuestions(introPool, 5, qStats);
-        return shuffleWithSeed(introPool, seed).slice(0, 5);
-      }
-    }
-    // Level 3-5: mix intro + recall (tier 0-2)
-    // Level 6+: recall + application (tier 2-3)
-    const warmupMaxTier: 0 | 1 | 2 | 3 = difficulty.level <= 2 ? 1 : difficulty.level <= 5 ? 2 : 3;
-    const pool = QUESTION_BANK.filter(q => q.tier <= warmupMaxTier);
-    const source = pool.length > 0 ? pool : QUESTION_BANK;
-    if (hasStats || source.some(q => qStats[q.id])) {
-      return srSelectQuestions(source, 5, qStats);
-    }
-    return shuffleWithSeed(source, seed).slice(0, 5);
-  }, [seed, difficulty.level, qStats]);
-
   // Active module questions
   const moduleQuestions = useMemo(() => {
     if (!activeModule) return [];
@@ -1012,71 +975,7 @@ export default function DailyPage() {
     if (!correct) return 0;
     let xp = baseXP;
     if (currentStreak >= 3) xp += 5; // streak bonus
-    if (isFirstQuizToday) xp *= 2; // daily bonus
     return xp;
-  };
-
-  // ── Warmup handlers ──
-  const handleWarmupAnswer = (idx: number) => {
-    if (warmupSelected !== null) return;
-    setWarmupSelected(idx);
-    setWarmupShowExp(true);
-    const correct = idx === warmupQuestions[warmupQ].ans;
-    setWarmupAnswers(prev => [...prev, correct]);
-    // Record for spaced repetition
-    saveQStat(warmupQuestions[warmupQ].id, correct);
-    if (correct) trackWeeklyEvent("quiz_correct");
-
-    const newStreak = correct ? correctStreak + 1 : 0;
-    setCorrectStreak(newStreak);
-
-    const xpGained = correct ? (isFirstQuizToday ? 20 : 10) + (newStreak >= 3 ? 5 : 0) : 0;
-    if (xpGained > 0) {
-      gameEarnXP(xpGained, "daily-quiz");
-      addXP(xpGained);
-      setSessionXP(prev => prev + xpGained);
-    }
-    if (!correct) loseHeart();
-
-    if (correct) confettiBurst();
-
-    saveProgress({
-      questionsAnswered: (dailyProgress?.questionsAnswered ?? 0) + 1,
-      correctAnswers: (dailyProgress?.correctAnswers ?? 0) + (correct ? 1 : 0),
-      xpEarned: (dailyProgress?.xpEarned ?? 0) + xpGained,
-      streakCorrect: newStreak,
-      bestStreak: Math.max(dailyProgress?.bestStreak ?? 0, newStreak),
-    });
-  };
-
-  const nextWarmupQuestion = () => {
-    if (warmupQ + 1 >= warmupQuestions.length) {
-      setWarmupDone(true);
-      bumpSessionCount();
-      saveProgress({ warmupDone: true });
-      trackWeeklyEvent("module_complete");
-
-      // Perfect section bonus
-      const allCorrect = warmupAnswers.length === warmupQuestions.length && warmupAnswers.every(Boolean);
-      if (allCorrect) {
-        gameEarnXP(25, "perfect-score-bonus");
-        addXP(25);
-        setSessionXP(prev => prev + 25);
-        bigConfetti();
-      }
-
-      // Check if this completes an entire unit
-      checkUnitCompletionRef.current(
-        "warmup",
-        dailyProgress?.modulesCompleted ?? [],
-        dailyProgress?.nonQuizCompleted ?? [],
-        true, // warmup is now done
-      );
-    } else {
-      setWarmupQ(q => q + 1);
-      setWarmupSelected(null);
-      setWarmupShowExp(false);
-    }
   };
 
   // ── Module handlers ──
@@ -1172,7 +1071,6 @@ export default function DailyPage() {
         activeModule!,
         newModulesCompleted,
         dailyProgress?.nonQuizCompleted ?? [],
-        dailyProgress?.warmupDone ?? false,
       );
     } else {
       setModuleQ(q => q + 1);
@@ -1240,17 +1138,14 @@ export default function DailyPage() {
   };
 
   const buildEnneagramUnits = (): PathUnit[] => {
-    const wDone = dailyProgress?.warmupDone ?? false;
     const mDone = dailyProgress?.modulesCompleted ?? [];
     const nqDone = dailyProgress?.nonQuizCompleted ?? [];
     const isNodeDone = (id: string, moduleId: string | null) => {
-      if (moduleId === "warmup") return wDone;
       if (moduleId) return mDone.includes(moduleId);
       return nqDone.includes(id); // reflection/challenge
     };
 
     const allRaw: Omit<PathNodeConfig, "status">[] = [
-      { id: "warmup",         moduleId: "warmup",    nodeType: "quiz",       label: "Warm-Up",            sublabel: "5 quick questions",              xp: 50,  questionCount: 5,  unitName: "unit1", gradFrom: "#10b981", gradTo: "#6366f1" },
       { id: "type",           moduleId: "type",      nodeType: "quiz",       label: "Type Deep Dive",     sublabel: "Your Enneagram type",             xp: 100, questionCount: 20, unitName: "unit1", gradFrom: "#6366f1", gradTo: "#8b5cf6" },
       { id: "e-reflection-1", moduleId: null,        nodeType: "reflection", label: "Reflection",         sublabel: "Journal your type experience",    xp: 40,  questionCount: 0,  unitName: "unit1", gradFrom: "#8b5cf6", gradTo: "#a78bfa",
         prompt: "How did your Enneagram type show up in your thoughts and behaviors today? What patterns did you notice, and what might they be telling you about your core motivations?" },
@@ -1270,17 +1165,14 @@ export default function DailyPage() {
   };
 
   const buildJungianUnits = (): PathUnit[] => {
-    const wDone = dailyProgress?.warmupDone ?? false;
     const mDone = dailyProgress?.modulesCompleted ?? [];
     const nqDone = dailyProgress?.nonQuizCompleted ?? [];
     const isNodeDone = (id: string, moduleId: string | null) => {
-      if (moduleId === "warmup") return wDone;
       if (moduleId) return mDone.includes(moduleId);
       return nqDone.includes(id);
     };
 
     const allRaw: Omit<PathNodeConfig, "status">[] = [
-      { id: "j-warmup",       moduleId: "warmup",    nodeType: "quiz",       label: "Warm-Up",            sublabel: "5 quick questions",              xp: 50,  questionCount: 5,  unitName: "unit1", gradFrom: "#3b82f6", gradTo: "#6366f1" },
       { id: "j-cognitive",    moduleId: "cognitive", nodeType: "quiz",       label: "Cognitive Functions",sublabel: "Your Jung function stack",        xp: 75,  questionCount: 15, unitName: "unit1", gradFrom: "#6366f1", gradTo: "#8b5cf6" },
       { id: "j-reflection-1", moduleId: null,        nodeType: "reflection", label: "Reflection",         sublabel: "Journal your function stack",     xp: 40,  questionCount: 0,  unitName: "unit1", gradFrom: "#8b5cf6", gradTo: "#a78bfa",
         prompt: "How did your dominant cognitive function influence the way you processed information or made decisions today? Notice any tension between your dominant and inferior functions." },
@@ -1304,25 +1196,12 @@ export default function DailyPage() {
   const allPathNodes = currentUnits.flatMap(u => u.nodes);
   const miniPathNodes = allPathNodes.slice(0, 5);
   const nextNode = allPathNodes.find(n => n.status !== "completed") ?? null;
-  // First non-warmup, non-completed node, used for "Keep Going" after warmup
-  const postWarmupNode = allPathNodes.find(n => n.moduleId !== "warmup" && n.status !== "completed") ?? null;
   const completedTodayCount = allPathNodes.filter(n => n.status === "completed").length;
 
   // ── Actually begin the quiz for a node (after lesson is done/skipped) ──
   const beginQuizForNode = (node: PathNodeConfig) => {
     setQuizSourceNode(node);
-    if (node.moduleId === "warmup") {
-      // Reset local warmup state so "Practice Again" works correctly
-      setWarmupDone(false);
-      setWarmupStarted(true);
-      setWarmupQ(0);
-      setWarmupSelected(null);
-      setWarmupShowExp(false);
-      setWarmupAnswers([]);
-      setSessionXP(0);
-      setView("quiz");
-      setActiveTab("today");
-    } else if (node.moduleId) {
+    if (node.moduleId) {
       setModuleDone(false);
       setSessionXP(0);
       startModule(node.moduleId);
@@ -1382,7 +1261,7 @@ export default function DailyPage() {
   );
 
   // ═══════════════════════════════════════════════════════════════════════
-  // QUIZ RENDERER (shared between warmup and modules)
+  // QUIZ RENDERER
   // ═══════════════════════════════════════════════════════════════════════
   const renderQuiz = (
     questions: Question[],
@@ -1566,7 +1445,6 @@ export default function DailyPage() {
           streakFreezes={streakFreezes}
           longestStreak={gameStateRaw.longestStreak}
           questionsAnsweredToday={dailyProgress?.questionsAnswered ?? 0}
-          warmupDoneToday={dailyProgress?.warmupDone ?? false}
           dailyXPEarned={gameStateRaw.dailyXPEarned}
           readingDoneToday={gameStateRaw.dailyReadingDate === new Date().toISOString().split("T")[0]}
           onStartReading={() => setView("reading")}
@@ -1586,8 +1464,7 @@ export default function DailyPage() {
           isCompleted={(id) => {
             const nq = dailyProgress?.nonQuizCompleted ?? [];
             const m = dailyProgress?.modulesCompleted ?? [];
-            const w = dailyProgress?.warmupDone ?? false;
-            return nq.includes(id) || m.includes(id) || (id === "warmup" && w);
+            return nq.includes(id) || m.includes(id);
           }}
         />
         {/* Stats link */}
@@ -1632,11 +1509,10 @@ export default function DailyPage() {
           onBack={() => setView("hub")}
           onComplete={(tokens, xp) => {
             completeReading(todayReading.id, tokens, xp);
-            // Full Day bonus: all 4 quests done
+            // Full Day bonus: all quests done
             const qDone = (dailyProgress?.questionsAnswered ?? 0) >= 5;
-            const wDone = dailyProgress?.warmupDone ?? false;
             const xpDone = (gameStateRaw.dailyXPEarned ?? 0) >= 50;
-            if (qDone && wDone && xpDone) {
+            if (qDone && xpDone) {
               completeReading("full-day-bonus", 20, 0);
             }
           }}
@@ -1955,7 +1831,7 @@ export default function DailyPage() {
     }
     return (
       <LessonBriefOverlay
-        moduleId={pendingQuizNode.moduleId ?? "warmup"}
+        moduleId={pendingQuizNode.moduleId ?? ""}
         moduleName={pendingQuizNode.label}
         enneagramType={enneagramType}
         onBeginQuiz={() => {
@@ -1972,27 +1848,21 @@ export default function DailyPage() {
 
   // ── Quiz view (fullscreen overlay + fallback content) ──
   // Keep overlay visible after completion so the results screen shows
-  const quizIsActive =
-    (activeTab === "today" && warmupStarted) ||
-    (activeTab === "deep" && !!activeModule);
+  const quizIsActive = !!activeModule;
 
   // Guard: if we've somehow ended up in "quiz" view without an active or completed quiz
   // (e.g. clicking stats/challenge buttons in path view), redirect to hub to prevent
   // the legacy quiz tab UI from appearing as a "different daily page."
-  const quizCompleted =
-    (activeTab === "today" && warmupDone) ||
-    (activeTab === "deep" && moduleDone);
+  const quizCompleted = moduleDone;
 
-  const activeQuestions = activeTab === "today" ? warmupQuestions : moduleQuestions;
-  const activeIdx = activeTab === "today" ? warmupQ : moduleQ;
-  const activeSelected = activeTab === "today" ? warmupSelected : moduleSelected;
-  const activeShowExp = activeTab === "today" ? warmupShowExp : moduleShowExp;
-  const activeAnswers = activeTab === "today" ? warmupAnswers : moduleAnswers;
-  const activeOnAnswer = activeTab === "today" ? handleWarmupAnswer : handleModuleAnswer;
-  const activeOnNext = activeTab === "today" ? nextWarmupQuestion : nextModuleQuestion;
-  const activeModuleName = activeTab === "today"
-    ? "Quick Warm-Up"
-    : MODULE_CONFIG.find(m => m.id === activeModule)?.title ?? "Deep Learning";
+  const activeQuestions = moduleQuestions;
+  const activeIdx = moduleQ;
+  const activeSelected = moduleSelected;
+  const activeShowExp = moduleShowExp;
+  const activeAnswers = moduleAnswers;
+  const activeOnAnswer = handleModuleAnswer;
+  const activeOnNext = nextModuleQuestion;
+  const activeModuleName = MODULE_CONFIG.find(m => m.id === activeModule)?.title ?? "Deep Learning";
 
   return (
     <div className="min-h-screen pb-20">
@@ -2322,12 +2192,6 @@ export default function DailyPage() {
                 setModuleQ(0);
                 setModuleSelected(null);
                 setModuleShowExp(false);
-                setWarmupStarted(false);
-                setWarmupDone(false);
-                setWarmupQ(0);
-                setWarmupSelected(null);
-                setWarmupShowExp(false);
-                setWarmupAnswers([]);
                 setSessionXP(0);
               }}
               moduleName={activeModuleName}
@@ -2345,18 +2209,11 @@ export default function DailyPage() {
               gameState={gameStateRaw}
               sessionsSinceTokenDrop={gameStateRaw.sessionsSinceTokenDrop ?? 0}
               onTokenDropClaimed={(amount) => recordTokenDrop(amount)}
-              nextNode={postWarmupNode}
+              nextNode={nextNode}
               onKeepGoing={() => {
-                if (!postWarmupNode) return;
-                // Reset quiz state then start the next node directly
-                setWarmupStarted(false);
-                setWarmupDone(false);
-                setWarmupQ(0);
-                setWarmupSelected(null);
-                setWarmupShowExp(false);
-                setWarmupAnswers([]);
+                if (!nextNode) return;
                 setSessionXP(0);
-                startNode(postWarmupNode);
+                startNode(nextNode);
               }}
             />
           </motion.div>
@@ -2370,7 +2227,6 @@ export default function DailyPage() {
             setActiveModule(null);
             setModuleDone(false);
             setModuleAnswers([]);
-            setWarmupStarted(false);
           }}
           className="flex items-center gap-1.5 text-sm text-slate-400 hover:text-slate-600 transition mb-6"
         >
@@ -2569,71 +2425,6 @@ export default function DailyPage() {
                 </div>
               </motion.div>
             )}
-
-            {/* Warmup Quiz */}
-            <motion.div initial={{ opacity: 1, y: 0 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.15 }}>
-              <div className="p-6 rounded-3xl" style={{ background: "rgba(14,165,233,0.07)", border: "1px solid rgba(14,165,233,0.18)" }}>
-                <div className="flex items-center gap-2.5 mb-5">
-                  <div className="w-9 h-9 rounded-xl flex items-center justify-center" style={{ background: "rgba(14,165,233,0.15)" }}>
-                    <Brain className="w-4 h-4" style={{ color: "#38bdf8" }} />
-                  </div>
-                  <div>
-                    <div className="text-sm font-semibold" style={{ color: "rgba(255,255,255,0.9)" }}>Quick Warm-Up</div>
-                    <div className="text-xs" style={{ color: "rgba(255,255,255,0.4)" }}>5 questions to start your day {isFirstQuizToday && "· 2× XP bonus!"}</div>
-                  </div>
-                  {isFirstQuizToday && (
-                    <span className="ml-auto px-2 py-0.5 text-[10px] font-bold rounded-full" style={{ background: "rgba(245,158,11,0.18)", color: "#fbbf24", border: "1px solid rgba(245,158,11,0.3)" }}>
-                      2× XP
-                    </span>
-                  )}
-                </div>
-
-                {!warmupStarted && !warmupDone && (
-                  <div className="text-center py-4">
-                    <p className="text-sm mb-4" style={{ color: "rgba(255,255,255,0.5)" }}>Test your knowledge across Enneagram, cognitive functions, and psychology.</p>
-                    <button
-                      onClick={() => setWarmupStarted(true)}
-                      className="px-6 py-3.5 text-white rounded-xl font-medium text-sm transition-all hover:-translate-y-0.5"
-                      style={{ background: "linear-gradient(135deg, #0ea5e9, #6366f1)", boxShadow: "0 4px 16px rgba(99,102,241,0.3)" }}
-                    >
-                      Start Warm-Up
-                    </button>
-                  </div>
-                )}
-
-                {warmupStarted && !warmupDone && renderQuiz(
-                  warmupQuestions, warmupQ, warmupSelected, warmupShowExp,
-                  warmupAnswers, handleWarmupAnswer, nextWarmupQuestion, warmupDone
-                )}
-
-                {warmupDone && (
-                  <motion.div initial={{ opacity: 1, scale: 1 }} animate={{ opacity: 1, scale: 1 }} className="text-center py-4">
-                    <Trophy className="w-10 h-10 text-amber-500 mx-auto mb-2" />
-                    <p className="font-semibold text-lg mb-1" style={{ color: "rgba(255,255,255,0.92)" }}>Warm-Up Complete!</p>
-                    <p className="text-sm mb-1" style={{ color: "rgba(255,255,255,0.55)" }}>
-                      {warmupAnswers.filter(Boolean).length} / {warmupAnswers.length} correct
-                    </p>
-                    <p className="text-xs" style={{ color: "rgba(255,255,255,0.38)" }}>Ready for the deep learning modules?</p>
-                  </motion.div>
-                )}
-              </div>
-            </motion.div>
-
-            {/* Continue to Deep Learning */}
-            <motion.div initial={{ opacity: 1, y: 0 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
-              <button
-                onClick={() => setActiveTab("deep")}
-                className="w-full p-5 rounded-2xl bg-gradient-to-r from-indigo-500 to-violet-500 text-white shadow-lg shadow-indigo-200/50 hover:shadow-xl hover:shadow-indigo-300/50 transition-all group"
-              >
-                <div className="flex items-center justify-between">
-                  <div className="text-left">
-                    <p className="font-semibold text-lg">Continue Learning</p>
-                    <p className="text-indigo-100 text-sm mt-0.5">4 deep modules -- up to 1 hour of practice</p>
-                  </div>
-                  <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                </div>
-              </button>
-            </motion.div>
 
             {/* Quick nav */}
             <motion.div initial={{ opacity: 1, y: 0 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.25 }}>

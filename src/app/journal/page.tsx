@@ -1150,25 +1150,13 @@ function CognitiveReframeTool() {
   const [situation, setSituation] = useState("");
   const [activeLens, setActiveLens] = useState(0);
   const [isExploring, setIsExploring] = useState(false);
-  const [isGenerating, setIsGenerating] = useState(false);
-  const [aiResponse, setAiResponse] = useState("");
-  const [aiLoading, setAiLoading] = useState(false);
 
   const typeData = mbtiTypes.find((t) => t.code === selectedType);
 
-  const handleExplore = async () => {
+  const handleExplore = () => {
     if (!situation.trim() || !typeData) return;
-    setIsGenerating(true);
     setActiveLens(0);
-    setAiResponse("");
-    setAiLoading(true);
-
-    // Static reframe, no AI needed
-    setAiResponse("");
-    setAiLoading(false);
-
     setIsExploring(true);
-    setIsGenerating(false);
   };
 
   return (
@@ -1224,54 +1212,14 @@ function CognitiveReframeTool() {
             disabled={!situation.trim() || !selectedType}
             className="w-full py-3 rounded-2xl bg-gradient-to-r from-indigo-500 to-sky-500 text-white text-sm font-semibold disabled:opacity-40 hover:shadow-lg hover:shadow-indigo-200/50 transition-all flex items-center justify-center gap-2"
           >
-            {isGenerating ? (
-              <>
-                <motion.div
-                  animate={{ rotate: 360 }}
-                  transition={{ repeat: Infinity, duration: 1, ease: "linear" }}
-                  className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full"
-                />
-                Analyzing through your cognitive stack...
-              </>
-            ) : (
-              <>
-                <Brain className="w-4 h-4" />
-                Reframe Through All 4 Lenses
-              </>
-            )}
+            <Brain className="w-4 h-4" />
+            Reframe Through All 4 Lenses
           </motion.button>
         </div>
       </motion.div>
 
       {isExploring && typeData && (
           <div className="space-y-4">
-            {/* AI-powered response (when available) */}
-            {(aiResponse || aiLoading) && (
-              <div className="p-6 rounded-3xl bg-indigo-500/10 border border-indigo-500/20">
-                <div className="flex items-center gap-2 mb-3">
-                  <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-indigo-500 to-violet-500 flex items-center justify-center">
-                    <Brain className="w-3.5 h-3.5 text-white" />
-                  </div>
-                  <span className="text-sm font-semibold text-indigo-300">Reframe</span>
-                </div>
-                {aiResponse ? (
-                  <div className="text-sm text-white/80 leading-relaxed whitespace-pre-wrap font-serif">
-                    {aiResponse}
-                    {aiLoading && <span className="inline-block w-0.5 h-4 bg-indigo-400 ml-0.5 animate-pulse" />}
-                  </div>
-                ) : (
-                  <div className="space-y-2 animate-pulse">
-                    <div className="h-3 bg-indigo-500/20 rounded-full w-full" />
-                    <div className="h-3 bg-indigo-500/20 rounded-full w-11/12" />
-                    <div className="h-3 bg-indigo-500/20 rounded-full w-4/5" />
-                  </div>
-                )}
-              </div>
-            )}
-
-            {/* Static fallback lens tabs (shown when AI unavailable) */}
-            {!aiResponse && !aiLoading && (
-              <>
             {/* Lens Tabs */}
             <div className="flex gap-2 overflow-x-auto pb-1">
               {typeData.stack.map((fnCode, i) => {
@@ -1452,8 +1400,6 @@ function CognitiveReframeTool() {
                 })()}
               </motion.div>
             </AnimatePresence>
-              </>
-            )}
           </div>
         )}
     </div>

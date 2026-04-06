@@ -65,15 +65,6 @@ const fadeUp = {
   transition: { duration: 0.3 },
 };
 
-const stagger = {
-  animate: { transition: { staggerChildren: 0.04 } },
-};
-
-const scaleIn = {
-  initial: { opacity: 1, scale: 1 },
-  animate: { opacity: 1, scale: 1 },
-  transition: { type: "spring", stiffness: 200, damping: 20 },
-};
 
 // ─── Sub-Components ──────────────────────────────────────────────────────────
 
