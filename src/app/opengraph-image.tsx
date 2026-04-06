@@ -12,489 +12,239 @@ export default async function Image() {
         style={{
           width: '1200px',
           height: '630px',
-          background: '#0f0a1e',
+          background: 'linear-gradient(135deg, #0a0618 0%, #0f0a1e 40%, #120d28 100%)',
           display: 'flex',
           position: 'relative',
           overflow: 'hidden',
-          fontFamily: 'Georgia, "Times New Roman", serif',
+          fontFamily: '"Helvetica Neue", Arial, sans-serif',
         }}
       >
-        {/* Background radial blob — top right purple */}
-        <div
-          style={{
-            position: 'absolute',
-            top: '-120px',
-            right: '-80px',
-            width: '600px',
-            height: '600px',
-            borderRadius: '50%',
-            background:
-              'radial-gradient(circle, rgba(124,58,237,0.45) 0%, rgba(124,58,237,0.15) 50%, transparent 75%)',
-            display: 'flex',
-          }}
-        />
+        {/* Left panel dark overlay */}
+        <div style={{
+          position: 'absolute',
+          left: 0, top: 0, bottom: 0,
+          width: '580px',
+          background: 'rgba(8,4,20,0.5)',
+          borderRight: '1px solid rgba(139,92,246,0.10)',
+          display: 'flex',
+        }} />
 
-        {/* Background radial blob — bottom left indigo */}
-        <div
-          style={{
-            position: 'absolute',
-            bottom: '-150px',
-            left: '-100px',
-            width: '550px',
-            height: '550px',
-            borderRadius: '50%',
-            background:
-              'radial-gradient(circle, rgba(79,70,229,0.35) 0%, rgba(79,70,229,0.12) 50%, transparent 75%)',
-            display: 'flex',
-          }}
-        />
+        {/* Ambient glow top-left */}
+        <div style={{
+          position: 'absolute',
+          top: '-160px', left: '-80px',
+          width: '560px', height: '560px',
+          borderRadius: '50%',
+          background: 'radial-gradient(circle, rgba(109,40,217,0.32) 0%, transparent 70%)',
+          display: 'flex',
+        }} />
 
-        {/* Subtle mid glow — center */}
-        <div
-          style={{
-            position: 'absolute',
-            top: '50%',
-            left: '50%',
-            transform: 'translate(-50%, -50%)',
-            width: '800px',
-            height: '400px',
-            borderRadius: '50%',
-            background:
-              'radial-gradient(ellipse, rgba(109,40,217,0.08) 0%, transparent 70%)',
-            display: 'flex',
-          }}
-        />
+        {/* Ambient glow bottom-right */}
+        <div style={{
+          position: 'absolute',
+          bottom: '-140px', right: '-60px',
+          width: '500px', height: '500px',
+          borderRadius: '50%',
+          background: 'radial-gradient(circle, rgba(217,70,239,0.18) 0%, transparent 65%)',
+          display: 'flex',
+        }} />
 
-        {/* Dot grid texture overlay */}
-        <div
-          style={{
-            position: 'absolute',
-            inset: 0,
-            backgroundImage:
-              'radial-gradient(circle, rgba(167,139,250,0.12) 1px, transparent 1px)',
-            backgroundSize: '28px 28px',
-            display: 'flex',
-          }}
-        />
-
-        {/* Ouroboros circle — decorative ring left side */}
-        <div
-          style={{
-            position: 'absolute',
-            left: '-80px',
-            top: '50%',
-            transform: 'translateY(-50%)',
-            width: '320px',
-            height: '320px',
+        {/* Enneagram visual — right half */}
+        {/* Outer ring */}
+        <div style={{
+          position: 'absolute',
+          right: '55px',
+          top: '50%',
+          marginTop: '-230px',
+          width: '460px', height: '460px',
+          borderRadius: '50%',
+          border: '1.5px solid rgba(139,92,246,0.20)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}>
+          {/* Middle ring */}
+          <div style={{
+            width: '340px', height: '340px',
             borderRadius: '50%',
-            border: '2px solid rgba(139,92,246,0.18)',
+            border: '1px solid rgba(167,139,250,0.13)',
             display: 'flex',
-          }}
-        />
-        <div
-          style={{
-            position: 'absolute',
-            left: '-60px',
-            top: '50%',
-            transform: 'translateY(-50%)',
-            width: '280px',
-            height: '280px',
-            borderRadius: '50%',
-            border: '1px solid rgba(167,139,250,0.10)',
-            display: 'flex',
-          }}
-        />
-        <div
-          style={{
-            position: 'absolute',
-            left: '-40px',
-            top: '50%',
-            transform: 'translateY(-50%)',
-            width: '240px',
-            height: '240px',
-            borderRadius: '50%',
-            border: '1px solid rgba(124,58,237,0.22)',
-            display: 'flex',
-          }}
-        />
-
-        {/* Decorative ring — right side watermark */}
-        <div
-          style={{
-            position: 'absolute',
-            right: '-100px',
-            bottom: '-80px',
-            width: '380px',
-            height: '380px',
-            borderRadius: '50%',
-            border: '1.5px solid rgba(139,92,246,0.10)',
-            display: 'flex',
-          }}
-        />
-        <div
-          style={{
-            position: 'absolute',
-            right: '-70px',
-            bottom: '-50px',
-            width: '300px',
-            height: '300px',
-            borderRadius: '50%',
-            border: '1px solid rgba(167,139,250,0.08)',
-            display: 'flex',
-          }}
-        />
-
-        {/* Horizontal separator lines — top and bottom */}
-        <div
-          style={{
-            position: 'absolute',
-            top: '0',
-            left: '0',
-            right: '0',
-            height: '3px',
-            background:
-              'linear-gradient(90deg, transparent, rgba(124,58,237,0.7) 30%, rgba(167,139,250,0.9) 50%, rgba(124,58,237,0.7) 70%, transparent)',
-            display: 'flex',
-          }}
-        />
-        <div
-          style={{
-            position: 'absolute',
-            bottom: '0',
-            left: '0',
-            right: '0',
-            height: '2px',
-            background:
-              'linear-gradient(90deg, transparent, rgba(79,70,229,0.5) 30%, rgba(124,58,237,0.7) 50%, rgba(79,70,229,0.5) 70%, transparent)',
-            display: 'flex',
-          }}
-        />
-
-        {/* Main content — centered column */}
-        <div
-          style={{
-            position: 'absolute',
-            inset: 0,
-            display: 'flex',
-            flexDirection: 'column',
             alignItems: 'center',
             justifyContent: 'center',
-            gap: '0px',
-            padding: '60px 100px',
-          }}
-        >
-          {/* Badge pill */}
-          <div
-            style={{
+          }}>
+            {/* Inner ring + glow */}
+            <div style={{
+              width: '210px', height: '210px',
+              borderRadius: '50%',
+              border: '1px solid rgba(139,92,246,0.28)',
+              background: 'radial-gradient(circle, rgba(109,40,217,0.16) 0%, transparent 70%)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              padding: '8px 22px',
-              borderRadius: '100px',
-              background: 'rgba(139,92,246,0.15)',
-              border: '1px solid rgba(167,139,250,0.4)',
-              marginBottom: '28px',
-            }}
-          >
-            <span
-              style={{
-                color: 'rgba(196,181,253,0.95)',
-                fontSize: '14px',
-                letterSpacing: '0.18em',
-                fontFamily: '"Helvetica Neue", Arial, sans-serif',
-                fontWeight: 500,
-              }}
-            >
-              ✦ KNOW THYSELF
-            </span>
-          </div>
-
-          {/* Main title */}
-          <div
-            style={{
-              display: 'flex',
-              alignItems: 'baseline',
-              gap: '0px',
-              marginBottom: '20px',
-            }}
-          >
-            <span
-              style={{
-                fontSize: '108px',
-                fontWeight: 700,
-                color: '#ffffff',
-                letterSpacing: '-2px',
-                lineHeight: 1,
-                fontFamily: 'Georgia, "Times New Roman", serif',
-                textShadow: '0 0 60px rgba(167,139,250,0.3)',
-              }}
-            >
-              Thyself
-            </span>
-          </div>
-
-          {/* Subtitle */}
-          <div
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '12px',
-              marginBottom: '32px',
-            }}
-          >
-            <span
-              style={{
-                color: 'rgba(196,181,253,0.55)',
-                fontSize: '13px',
-                fontFamily: '"Helvetica Neue", Arial, sans-serif',
-                letterSpacing: '0.08em',
-              }}
-            >
-              ◆
-            </span>
-            <span
-              style={{
-                color: 'rgba(209,213,219,0.75)',
-                fontSize: '26px',
-                letterSpacing: '0.04em',
-                fontFamily: '"Helvetica Neue", Arial, sans-serif',
-                fontWeight: 300,
-              }}
-            >
-              The Enneagram
-            </span>
-            <span
-              style={{
-                color: 'rgba(196,181,253,0.4)',
-                fontSize: '13px',
-                fontFamily: '"Helvetica Neue", Arial, sans-serif',
-              }}
-            >
-              ·
-            </span>
-            <span
-              style={{
-                color: 'rgba(209,213,219,0.75)',
-                fontSize: '26px',
-                letterSpacing: '0.04em',
-                fontFamily: '"Helvetica Neue", Arial, sans-serif',
-                fontWeight: 300,
-              }}
-            >
-              Cognitive Functions
-            </span>
-            <span
-              style={{
-                color: 'rgba(196,181,253,0.4)',
-                fontSize: '13px',
-                fontFamily: '"Helvetica Neue", Arial, sans-serif',
-              }}
-            >
-              ·
-            </span>
-            <span
-              style={{
-                color: 'rgba(209,213,219,0.75)',
-                fontSize: '26px',
-                letterSpacing: '0.04em',
-                fontFamily: '"Helvetica Neue", Arial, sans-serif',
-                fontWeight: 300,
-              }}
-            >
-              Deep Psychology
-            </span>
-            <span
-              style={{
-                color: 'rgba(196,181,253,0.55)',
-                fontSize: '13px',
-                fontFamily: '"Helvetica Neue", Arial, sans-serif',
-                letterSpacing: '0.08em',
-              }}
-            >
-              ◆
-            </span>
-          </div>
-
-          {/* Divider line */}
-          <div
-            style={{
-              width: '480px',
-              height: '1px',
-              background:
-                'linear-gradient(90deg, transparent, rgba(139,92,246,0.5) 30%, rgba(167,139,250,0.7) 50%, rgba(139,92,246,0.5) 70%, transparent)',
-              marginBottom: '32px',
-              display: 'flex',
-            }}
-          />
-
-          {/* Stat pills row */}
-          <div
-            style={{
-              display: 'flex',
-              flexDirection: 'row',
-              gap: '16px',
-              alignItems: 'center',
-            }}
-          >
-            {/* 9 Types */}
-            <div
-              style={{
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                padding: '14px 28px',
-                borderRadius: '14px',
-                background: 'rgba(15,10,30,0.7)',
-                border: '1px solid rgba(139,92,246,0.35)',
-                backdropFilter: 'blur(10px)',
-                gap: '4px',
-              }}
-            >
-              <span
-                style={{
-                  color: '#ffffff',
-                  fontSize: '32px',
-                  fontWeight: 700,
-                  fontFamily: 'Georgia, "Times New Roman", serif',
-                  lineHeight: 1,
-                }}
-              >
-                9
-              </span>
-              <span
-                style={{
-                  color: 'rgba(196,181,253,0.7)',
-                  fontSize: '13px',
-                  letterSpacing: '0.1em',
-                  fontFamily: '"Helvetica Neue", Arial, sans-serif',
-                  fontWeight: 500,
-                }}
-              >
-                TYPES
-              </span>
-            </div>
-
-            {/* Separator dot */}
-            <div
-              style={{
-                width: '4px',
-                height: '4px',
+            }}>
+              {/* Core orb */}
+              <div style={{
+                width: '66px', height: '66px',
                 borderRadius: '50%',
-                background: 'rgba(139,92,246,0.4)',
+                background: 'radial-gradient(circle, rgba(196,181,253,0.95) 0%, rgba(109,40,217,0.7) 55%, transparent 100%)',
+                boxShadow: '0 0 28px rgba(139,92,246,0.9), 0 0 56px rgba(109,40,217,0.5)',
                 display: 'flex',
-              }}
-            />
-
-            {/* 27 Subtypes */}
-            <div
-              style={{
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                padding: '14px 28px',
-                borderRadius: '14px',
-                background: 'rgba(15,10,30,0.7)',
-                border: '1px solid rgba(139,92,246,0.35)',
-                backdropFilter: 'blur(10px)',
-                gap: '4px',
-              }}
-            >
-              <span
-                style={{
-                  color: '#ffffff',
-                  fontSize: '32px',
-                  fontWeight: 700,
-                  fontFamily: 'Georgia, "Times New Roman", serif',
-                  lineHeight: 1,
-                }}
-              >
-                27
-              </span>
-              <span
-                style={{
-                  color: 'rgba(196,181,253,0.7)',
-                  fontSize: '13px',
-                  letterSpacing: '0.1em',
-                  fontFamily: '"Helvetica Neue", Arial, sans-serif',
-                  fontWeight: 500,
-                }}
-              >
-                SUBTYPES
-              </span>
-            </div>
-
-            {/* Separator dot */}
-            <div
-              style={{
-                width: '4px',
-                height: '4px',
-                borderRadius: '50%',
-                background: 'rgba(139,92,246,0.4)',
-                display: 'flex',
-              }}
-            />
-
-            {/* 5 Assessments */}
-            <div
-              style={{
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                padding: '14px 28px',
-                borderRadius: '14px',
-                background: 'rgba(15,10,30,0.7)',
-                border: '1px solid rgba(139,92,246,0.35)',
-                backdropFilter: 'blur(10px)',
-                gap: '4px',
-              }}
-            >
-              <span
-                style={{
-                  color: '#ffffff',
-                  fontSize: '32px',
-                  fontWeight: 700,
-                  fontFamily: 'Georgia, "Times New Roman", serif',
-                  lineHeight: 1,
-                }}
-              >
-                5
-              </span>
-              <span
-                style={{
-                  color: 'rgba(196,181,253,0.7)',
-                  fontSize: '13px',
-                  letterSpacing: '0.1em',
-                  fontFamily: '"Helvetica Neue", Arial, sans-serif',
-                  fontWeight: 500,
-                }}
-              >
-                ASSESSMENTS
-              </span>
+              }} />
             </div>
           </div>
         </div>
 
-        {/* Bottom-right URL watermark */}
-        <div
-          style={{
-            position: 'absolute',
-            bottom: '22px',
-            right: '36px',
+        {/* 9 type dots around outer ring */}
+        {[0,1,2,3,4,5,6,7,8].map((i) => {
+          const angle = (i * 40 - 90) * (Math.PI / 180);
+          const r = 230;
+          const cx = 1200 - 55 - 230 + r * Math.cos(angle);
+          const cy = 315 + r * Math.sin(angle);
+          const colors = ['#a78bfa','#f472b6','#fb923c','#facc15','#34d399','#22d3ee','#818cf8','#e879f9','#f87171'];
+          return (
+            <div key={i} style={{
+              position: 'absolute',
+              left: `${cx - 9}px`,
+              top: `${cy - 9}px`,
+              width: '18px', height: '18px',
+              borderRadius: '50%',
+              background: colors[i],
+              boxShadow: `0 0 14px ${colors[i]}99`,
+              display: 'flex',
+            }} />
+          );
+        })}
+
+        {/* Top gradient line */}
+        <div style={{
+          position: 'absolute',
+          top: 0, left: 0, right: 0,
+          height: '3px',
+          background: 'linear-gradient(90deg, transparent, rgba(124,58,237,0.85) 25%, rgba(167,139,250,1) 50%, rgba(217,70,239,0.85) 75%, transparent)',
+          display: 'flex',
+        }} />
+
+        {/* Left content */}
+        <div style={{
+          position: 'absolute',
+          left: 0, top: 0, bottom: 0,
+          width: '600px',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          padding: '56px 64px',
+        }}>
+          {/* Label */}
+          <div style={{
             display: 'flex',
             alignItems: 'center',
-            gap: '6px',
-          }}
-        >
-          <span
-            style={{
-              color: 'rgba(139,92,246,0.5)',
+            gap: '10px',
+            marginBottom: '26px',
+          }}>
+            <div style={{
+              width: '24px', height: '24px',
+              borderRadius: '50%',
+              background: 'radial-gradient(circle, #c4b5fd 0%, #7c3aed 100%)',
+              boxShadow: '0 0 16px rgba(139,92,246,0.7)',
+              display: 'flex',
+            }} />
+            <span style={{
+              color: 'rgba(196,181,253,0.75)',
               fontSize: '12px',
-              fontFamily: '"Helvetica Neue", Arial, sans-serif',
-              letterSpacing: '0.12em',
-            }}
-          >
-            psyche-app-two.vercel.app
+              fontWeight: 600,
+              letterSpacing: '0.22em',
+              textTransform: 'uppercase',
+            }}>
+              Psychology · Growth · Self-Knowledge
+            </span>
+          </div>
+
+          {/* Title */}
+          <span style={{
+            fontSize: '100px',
+            fontWeight: 800,
+            color: '#ffffff',
+            letterSpacing: '-4px',
+            lineHeight: 0.9,
+            fontFamily: 'Georgia, "Times New Roman", serif',
+            marginBottom: '22px',
+            textShadow: '0 0 80px rgba(167,139,250,0.25)',
+            display: 'flex',
+          }}>
+            Thyself
           </span>
+
+          {/* Tagline */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '5px', marginBottom: '38px' }}>
+            <span style={{
+              fontSize: '24px',
+              fontWeight: 300,
+              color: 'rgba(229,231,235,0.88)',
+              letterSpacing: '0.01em',
+            }}>
+              Know yourself deeply.
+            </span>
+            <span style={{
+              fontSize: '15px',
+              color: 'rgba(167,139,250,0.6)',
+              letterSpacing: '0.03em',
+            }}>
+              Enneagram · Cognitive Functions · Deep Psychology
+            </span>
+          </div>
+
+          {/* Stats */}
+          <div style={{ display: 'flex', gap: '10px' }}>
+            {[
+              { n: '9', label: 'Types' },
+              { n: '27', label: 'Subtypes' },
+              { n: '100+', label: 'Lessons' },
+            ].map((s) => (
+              <div key={s.n} style={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                padding: '13px 22px',
+                borderRadius: '14px',
+                background: 'rgba(139,92,246,0.10)',
+                border: '1px solid rgba(139,92,246,0.25)',
+                gap: '3px',
+              }}>
+                <span style={{
+                  color: '#ffffff',
+                  fontSize: '30px',
+                  fontWeight: 700,
+                  lineHeight: 1,
+                  fontFamily: 'Georgia, serif',
+                }}>
+                  {s.n}
+                </span>
+                <span style={{
+                  color: 'rgba(196,181,253,0.6)',
+                  fontSize: '10px',
+                  fontWeight: 600,
+                  letterSpacing: '0.12em',
+                  textTransform: 'uppercase',
+                }}>
+                  {s.label}
+                </span>
+              </div>
+            ))}
+          </div>
+
+          {/* URL watermark */}
+          <div style={{
+            marginTop: 'auto',
+            paddingTop: '28px',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '8px',
+          }}>
+            <div style={{ width: '18px', height: '1px', background: 'rgba(139,92,246,0.35)', display: 'flex' }} />
+            <span style={{ color: 'rgba(139,92,246,0.45)', fontSize: '11px', letterSpacing: '0.12em' }}>
+              thyself.app
+            </span>
+          </div>
         </div>
       </div>
     ),

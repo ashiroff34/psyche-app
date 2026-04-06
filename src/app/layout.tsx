@@ -31,12 +31,21 @@ export const metadata: Metadata = {
     url: "https://psyche-app-two.vercel.app",
     siteName: "Thyself",
     type: "website",
+    images: [
+      {
+        url: "https://psyche-app-two.vercel.app/opengraph-image",
+        width: 1200,
+        height: 630,
+        alt: "Thyself — Know Your Enneagram Type",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Thyself — Know Your Enneagram Type",
     description:
       "Discover your Enneagram type through 5 assessment paths. Deep psychology, 27 subtypes, cognitive functions.",
+    images: ["https://psyche-app-two.vercel.app/opengraph-image"],
   },
 };
 
