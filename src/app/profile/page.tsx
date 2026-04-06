@@ -105,6 +105,7 @@ function buildTypeDNA(
 function TypeDNASection({ profile }: { profile: import("@/hooks/useProfile").PsycheProfile }) {
   const bars = buildTypeDNA(profile);
   const hasScores = !!(profile.enneagramScores && profile.enneagramScores.length > 0);
+  const userType = profile.enneagramType ?? null;
   return (
     <div className="mt-6 p-6 rounded-2xl shadow-sm" style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.09)" }}>
       <div className="flex items-center justify-between mb-4">
@@ -121,17 +122,24 @@ function TypeDNASection({ profile }: { profile: import("@/hooks/useProfile").Psy
         )}
       </div>
       <div className="space-y-2">
-        {bars.map(bar => (
+        {bars.map(bar => {
+          const isUserType = userType === bar.num;
+          return (
           <div key={bar.num} className="flex items-center gap-3">
             <div
               className="w-6 h-6 rounded-lg shrink-0 flex items-center justify-center text-white text-[10px] font-bold"
-              style={{ backgroundColor: bar.color }}
+              style={{
+                backgroundColor: bar.color,
+                ...(isUserType ? { boxShadow: `0 0 0 2px rgba(167,139,250,0.7), 0 0 8px rgba(167,139,250,0.4)` } : {}),
+              }}
             >
               {bar.num}
             </div>
             <div className="flex-1 min-w-0">
               <div className="flex items-center justify-between mb-1">
-                <span className="text-[11px] font-medium text-white/60 truncate">{bar.name}</span>
+                <span className="text-[11px] font-medium truncate" style={{ color: isUserType ? "rgba(196,181,253,0.9)" : "rgba(255,255,255,0.6)" }}>
+                  {bar.name}{isUserType ? " ★" : ""}
+                </span>
                 {bar.label && (
                   <span className="text-[10px] text-white/35 ml-2 shrink-0">{bar.label}</span>
                 )}
@@ -147,7 +155,8 @@ function TypeDNASection({ profile }: { profile: import("@/hooks/useProfile").Psy
               </div>
             </div>
           </div>
-        ))}
+          );
+        })}
       </div>
     </div>
   );
@@ -532,11 +541,11 @@ function TritypePicker({
   // Which slots are active, colors spelled out in full for Tailwind JIT
   const slots = [
     { label: "1st", sublabel: "Dominant / Core", value: first, onSelect: onFirst,
-      headerBg: "bg-violet-50/50", dotBg: "bg-violet-500", labelText: "text-violet-700" },
+      dotBg: "bg-violet-500" },
     { label: "2nd", sublabel: "Second most used", value: second, onSelect: onSecond,
-      headerBg: "bg-purple-50/50", dotBg: "bg-purple-500", labelText: "text-purple-700" },
+      dotBg: "bg-purple-500" },
     { label: "3rd", sublabel: "Third most used", value: third, onSelect: onThird,
-      headerBg: "bg-fuchsia-50/50", dotBg: "bg-fuchsia-500", labelText: "text-fuchsia-700" },
+      dotBg: "bg-fuchsia-500" },
   ];
 
   return (
@@ -1489,7 +1498,7 @@ export default function ProfilePage() {
               {isEditing ? (
                 <>
                   <Check className="w-4 h-4" />
-                  Done
+                  Close editor
                 </>
               ) : (
                 <>

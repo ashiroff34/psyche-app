@@ -27,7 +27,7 @@ import {
   AlertTriangle,
   Info,
 } from "lucide-react";
-import { useProfile } from "@/hooks/useProfile";
+import { useProfile, notifyProfileChanged } from "@/hooks/useProfile";
 
 // ── Collapsible Section ──────────────────────────────────────────────────────
 
@@ -256,6 +256,7 @@ export default function SettingsPage() {
   const [emailError, setEmailError] = useState("");
   const [nameEdited, setNameEdited] = useState(false);
   const [emailEdited, setEmailEdited] = useState(false);
+  const [showManualTypePicker, setShowManualTypePicker] = useState(false);
 
   // Notification prefs
   const [notifPrefs, setNotifPrefs] = useState<NotificationPrefs>({
@@ -581,6 +582,52 @@ export default function SettingsPage() {
               >
                 {profile.enneagramType ? "Change" : "Take Assessment"}
               </Link>
+            </div>
+            {/* Manual type override */}
+            <div>
+              <button
+                onClick={() => setShowManualTypePicker(v => !v)}
+                className="text-xs mt-1 px-2 py-1 rounded-lg transition-colors"
+                style={{ color: "rgba(255,255,255,0.35)", background: "transparent" }}
+              >
+                {showManualTypePicker ? "▲ Hide" : "▾ Change type manually"}
+              </button>
+              <AnimatePresence>
+                {showManualTypePicker && (
+                  <motion.div
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{ height: "auto", opacity: 1 }}
+                    exit={{ height: 0, opacity: 0 }}
+                    className="overflow-hidden"
+                  >
+                    <div className="pt-2 pb-1">
+                      <p className="text-[11px] mb-2" style={{ color: "rgba(255,255,255,0.3)" }}>
+                        Advanced: manually set your Enneagram type. Retaking the assessment is the recommended way.
+                      </p>
+                      <div className="grid grid-cols-3 gap-2">
+                        {[1,2,3,4,5,6,7,8,9].map(t => (
+                          <button
+                            key={t}
+                            onClick={() => {
+                              updateProfile({ enneagramType: t });
+                              notifyProfileChanged();
+                              setShowManualTypePicker(false);
+                            }}
+                            className="py-2 rounded-xl text-sm font-bold transition-all hover:-translate-y-0.5"
+                            style={{
+                              background: profile.enneagramType === t ? "rgba(139,92,246,0.3)" : "rgba(139,92,246,0.1)",
+                              border: `1px solid ${profile.enneagramType === t ? "rgba(139,92,246,0.6)" : "rgba(139,92,246,0.2)"}`,
+                              color: profile.enneagramType === t ? "#c4b5fd" : "#a78bfa",
+                            }}
+                          >
+                            {t}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </div>
             <div className="flex items-center justify-between py-2 px-3 rounded-xl" style={{ background: "rgba(255,255,255,0.06)" }}>
               <div className="flex items-center gap-2">

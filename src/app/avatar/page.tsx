@@ -111,7 +111,7 @@ function StatBar({ label, value, max, color, icon }: { label: string; value: num
       <div className="flex-1">
         <div className="flex justify-between text-xs mb-1">
           <span className="text-slate-300 font-medium">{label}</span>
-          <span className="text-slate-400">{value}/{max}</span>
+          <span style={{ color: "rgba(255,255,255,0.5)" }}>{value}/{max}</span>
         </div>
         <div className="h-3 bg-slate-700/50 rounded-full overflow-hidden">
           <motion.div
@@ -137,8 +137,9 @@ function EquipmentSlot({ slot, equippedItemId, icon, label, onUnequip, onBrowse 
         className={`w-14 h-14 rounded-xl border-2 flex items-center justify-center text-2xl transition-all group relative ${
           item
             ? "border-indigo-400/60 bg-indigo-900/40 shadow-lg shadow-indigo-500/20 hover:border-rose-400/60 hover:bg-rose-900/30 cursor-pointer"
-            : "border-slate-600/40 bg-slate-800/30 hover:border-amber-400/50 hover:bg-amber-900/20 cursor-pointer"
+            : "hover:border-amber-400/50 hover:bg-amber-900/20 cursor-pointer"
         }`}
+        style={!item ? { background: "rgba(255,255,255,0.05)", borderColor: "rgba(255,255,255,0.1)" } : {}}
         title={item ? `Remove ${item.name}` : `Browse ${label}`}
       >
         {item ? (
@@ -152,10 +153,10 @@ function EquipmentSlot({ slot, equippedItemId, icon, label, onUnequip, onBrowse 
             <X className="w-4 h-4 text-rose-400 absolute opacity-0 group-hover:opacity-100 transition-opacity" />
           </>
         ) : (
-          <span className="text-slate-500">{icon}</span>
+          <span style={{ color: "rgba(255,255,255,0.4)" }}>{icon}</span>
         )}
       </button>
-      <span className="text-[10px] text-slate-400 font-medium">{item ? item.name : label}</span>
+      <span className="text-[10px] font-medium" style={{ color: "rgba(255,255,255,0.5)" }}>{item ? item.name : label}</span>
     </div>
   );
 }
@@ -184,9 +185,10 @@ function ShopItemCard({
         equipped
           ? "border-indigo-400/60 bg-indigo-950/60 shadow-lg shadow-indigo-500/10"
           : owned
-          ? "border-emerald-500/30 bg-slate-800/60"
-          : "border-slate-700/40 bg-slate-800/40 hover:border-slate-600/60"
+          ? "border-emerald-500/30"
+          : "hover:border-slate-600/60"
       }`}
+      style={!equipped && !owned ? { background: "rgba(255,255,255,0.05)", borderColor: "rgba(255,255,255,0.1)" } : owned && !equipped ? { background: "rgba(255,255,255,0.05)" } : {}}
       whileHover={{ scale: 1.02 }}
       whileTap={{ scale: 0.98 }}
     >
@@ -204,7 +206,7 @@ function ShopItemCard({
 
       {/* Info */}
       <h4 className="text-sm font-semibold text-white truncate">{item.name}</h4>
-      <p className="text-[11px] text-slate-400 mt-0.5 line-clamp-2 min-h-[28px]">{item.description}</p>
+      <p className="text-[11px] mt-0.5 line-clamp-2 min-h-[28px]" style={{ color: "rgba(255,255,255,0.5)" }}>{item.description}</p>
 
       {/* Action */}
       <div className="mt-3">
@@ -226,8 +228,9 @@ function ShopItemCard({
             className={`w-full flex items-center justify-center gap-1.5 text-xs font-semibold rounded-lg py-2 transition-colors ${
               canAfford
                 ? "text-amber-300 bg-amber-500/20 hover:bg-amber-500/30"
-                : "text-slate-500 bg-slate-700/30 cursor-not-allowed"
+                : "cursor-not-allowed"
             }`}
+            style={!canAfford ? { color: "rgba(255,255,255,0.4)", background: "rgba(255,255,255,0.05)" } : {}}
           >
             <Coins className="w-3.5 h-3.5" />
             {item.cost}
@@ -403,7 +406,7 @@ export default function AvatarPage() {
               <Coins className="w-4 h-4 text-amber-400" />
               <span className="text-sm font-bold text-amber-300">{gameState.tokens}</span>
             </div>
-            <span className="text-xs text-slate-500 hidden sm:inline">tokens</span>
+            <span className="text-xs hidden sm:inline" style={{ color: "rgba(255,255,255,0.4)" }}>tokens</span>
           </div>
           <Link
             href="/game"
@@ -424,7 +427,7 @@ export default function AvatarPage() {
         {/* Page Title */}
         <div>
           <h1 className="text-2xl font-serif font-bold text-white mb-1">Your Avatar & Pet</h1>
-          <p className="text-sm text-slate-400">Customize your chibi, care for your pet, and collect outfits.</p>
+          <p className="text-sm" style={{ color: "rgba(255,255,255,0.5)" }}>Customize your chibi, care for your pet, and collect outfits.</p>
         </div>
 
         {/* ── Earn Tokens Banner ──────────────────────────────────────────────── */}
@@ -443,7 +446,7 @@ export default function AvatarPage() {
               { icon: <Zap className="w-3.5 h-3.5" />, label: "7-Day Streak", reward: "+25" },
               { icon: <BookOpen className="w-3.5 h-3.5" />, label: "Badge", reward: "+10" },
             ].map((item) => (
-              <div key={item.label} className="flex items-center gap-2 bg-slate-800/40 rounded-lg px-2.5 py-2">
+              <div key={item.label} className="flex items-center gap-2 rounded-lg px-2.5 py-2" style={{ background: "rgba(255,255,255,0.05)" }}>
                 <span className="text-indigo-400">{item.icon}</span>
                 <div>
                   <div className="text-[11px] text-slate-300 font-medium">{item.label}</div>
@@ -1016,11 +1019,12 @@ export default function AvatarPage() {
               <button
                 key={cat.key}
                 onClick={() => setActiveShopCategory(cat.key)}
-                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-all ${
+                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-all border ${
                   activeShopCategory === cat.key
-                    ? "bg-indigo-500/30 text-indigo-200 border border-indigo-500/40"
-                    : "bg-slate-800/40 text-slate-400 border border-slate-700/30 hover:text-slate-300"
+                    ? "bg-indigo-500/30 text-indigo-200 border-indigo-500/40"
+                    : "hover:text-slate-300"
                 }`}
+                style={activeShopCategory !== cat.key ? { background: "rgba(255,255,255,0.05)", color: "rgba(255,255,255,0.5)", borderColor: "rgba(255,255,255,0.1)" } : {}}
               >
                 {cat.icon} {cat.label}
               </button>
@@ -1071,8 +1075,9 @@ export default function AvatarPage() {
           </motion.div>
 
           {shopItems.length === 0 && (
-            <div className="text-center py-12 text-slate-500 text-sm">
-              No items in this category yet.
+            <div className="text-center py-12">
+              <p className="text-sm mb-2" style={{ color: "rgba(255,255,255,0.4)" }}>New items coming to this category soon</p>
+              <p className="text-xs" style={{ color: "rgba(255,255,255,0.25)" }}>Check back after your next lesson</p>
             </div>
           )}
         </motion.section>

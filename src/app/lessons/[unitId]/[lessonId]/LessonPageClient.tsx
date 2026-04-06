@@ -2,6 +2,7 @@
 
 import { use, useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { motion } from "framer-motion";
 import { getLesson, personalizeExercises } from "@/data/lessons";
 import { useLessonProgress } from "@/hooks/useLessonProgress";
 import { useProfile } from "@/hooks/useProfile";
@@ -23,6 +24,7 @@ export default function LessonPageClient({
 
   const [preparedLesson, setPreparedLesson] = useState<Lesson | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [completionShown, setCompletionShown] = useState(false);
 
   // Load and personalize lesson
   useEffect(() => {
@@ -52,6 +54,14 @@ export default function LessonPageClient({
 
   // ── Handlers ───────────────────────────────────────────────────────────────
 
+  // Redirect after showing completion screen
+  useEffect(() => {
+    if (completionShown) {
+      const t = setTimeout(() => router.push("/daily"), 2500);
+      return () => clearTimeout(t);
+    }
+  }, [completionShown, router]);
+
   const handleComplete = (score: number, xpEarned: number, perfect: boolean) => {
     completeLesson(lessonId, score, xpEarned, perfect);
     earnXP(xpEarned, "lesson");
@@ -64,7 +74,7 @@ export default function LessonPageClient({
       game.updateTypeMastery(typeNum, masteryGain);
     }
 
-    router.push("/daily");
+    setCompletionShown(true);
   };
 
   const handleExit = () => {
@@ -72,6 +82,18 @@ export default function LessonPageClient({
   };
 
   // ── Render ─────────────────────────────────────────────────────────────────
+
+  if (completionShown) {
+    return (
+      <div className="fixed inset-0 flex flex-col items-center justify-center z-50" style={{ background: "#0f0a1e" }}>
+        <motion.div initial={{ scale: 0.8, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ duration: 0.4 }}>
+          <div className="text-6xl mb-6 text-center">✦</div>
+          <h2 className="text-2xl font-serif font-bold text-center mb-2" style={{ color: "rgba(255,255,255,0.95)" }}>Lesson Complete</h2>
+          <p className="text-sm text-center" style={{ color: "rgba(255,255,255,0.5)" }}>Continuing to your practice...</p>
+        </motion.div>
+      </div>
+    );
+  }
 
   if (error) {
     return (
@@ -91,7 +113,7 @@ export default function LessonPageClient({
   if (!preparedLesson) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <div className="w-8 h-8 border-2 border-violet-300 border-t-violet-600 rounded-full animate-spin" />
+        <div className="w-8 h-8 border-2 border-violet-800 border-t-violet-400 rounded-full animate-spin" />
       </div>
     );
   }

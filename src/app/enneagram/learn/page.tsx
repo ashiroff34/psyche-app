@@ -636,13 +636,24 @@ function LearnContent() {
         </div>
         {/* Hint when no type selected */}
         {learnTab === "types" && !selectedType && (
-          <div className="flex items-start gap-3 p-4 rounded-2xl mb-6 max-w-xl" style={{ background: "rgba(14,165,233,0.08)", border: "1px solid rgba(14,165,233,0.18)" }}>
-            <Info className="w-4 h-4 text-sky-400 mt-0.5 flex-shrink-0" />
-            <p className="text-sm" style={{ color: "rgba(186,230,253,0.9)" }}>
-              Not sure where to start? Pick any type that sounds familiar, or{" "}
-              <Link href="/enneagram/assess" className="font-semibold underline underline-offset-2">take the assessment</Link>{" "}
-              to discover your type.
-            </p>
+          <div className="flex flex-col gap-3 p-4 rounded-2xl mb-6 max-w-xl" style={{ background: "rgba(14,165,233,0.08)", border: "1px solid rgba(14,165,233,0.18)" }}>
+            <div className="flex items-start gap-3">
+              <Info className="w-4 h-4 text-sky-400 mt-0.5 flex-shrink-0" />
+              <p className="text-sm" style={{ color: "rgba(186,230,253,0.9)" }}>
+                Not sure where to start? Pick any type that sounds familiar, or{" "}
+                <Link href="/enneagram/assess" className="font-semibold underline underline-offset-2">take the assessment</Link>{" "}
+                to discover your type.
+              </p>
+            </div>
+            <div className="flex gap-2 flex-wrap justify-center mt-1">
+              {[1,2,3,4,5,6,7,8,9].map(t => (
+                <button key={t} onClick={() => setSelectedType(t)}
+                  className="w-9 h-9 rounded-xl font-bold text-sm transition-all hover:-translate-y-0.5"
+                  style={{ background: "rgba(139,92,246,0.15)", border: "1px solid rgba(139,92,246,0.3)", color: "#a78bfa" }}>
+                  {t}
+                </button>
+              ))}
+            </div>
           </div>
         )}
 
