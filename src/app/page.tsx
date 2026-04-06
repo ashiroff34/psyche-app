@@ -87,133 +87,222 @@ function useHomeState() {
 
 // ── State A: Enter Experience (new users) ────────────────────────────────────
 
+const ORBIT_TYPES = [
+  { n: 1, color: "#ef4444", name: "Reformer" },
+  { n: 2, color: "#22c55e", name: "Helper" },
+  { n: 3, color: "#f59e0b", name: "Achiever" },
+  { n: 4, color: "#a855f7", name: "Individualist" },
+  { n: 5, color: "#3b82f6", name: "Investigator" },
+  { n: 6, color: "#94a3b8", name: "Loyalist" },
+  { n: 7, color: "#f97316", name: "Enthusiast" },
+  { n: 8, color: "#dc2626", name: "Challenger" },
+  { n: 9, color: "#10b981", name: "Peacemaker" },
+];
+
 function EnterScreen() {
   const router = useRouter();
+  const [mouse, setMouse] = useState({ x: -9999, y: -9999 });
+
+  useEffect(() => {
+    const handler = (e: MouseEvent) => setMouse({ x: e.clientX, y: e.clientY });
+    window.addEventListener("mousemove", handler);
+    return () => window.removeEventListener("mousemove", handler);
+  }, []);
 
   return (
     <div
-      className="fixed inset-0 flex flex-col items-center justify-center overflow-hidden px-6"
+      className="fixed inset-0 flex flex-col items-center justify-center overflow-hidden"
       style={{ background: "#08031a" }}
     >
-      {/* Ambient glows */}
-      <div style={{
-        position: "absolute", top: "-15%", left: "50%", transform: "translateX(-50%)",
-        width: "700px", height: "700px", borderRadius: "50%",
-        background: "radial-gradient(circle, rgba(109,40,217,0.2) 0%, transparent 65%)",
-        pointerEvents: "none",
-      }} />
-      <div style={{
-        position: "absolute", bottom: "-10%", right: "5%",
-        width: "400px", height: "400px", borderRadius: "50%",
-        background: "radial-gradient(circle, rgba(79,70,229,0.12) 0%, transparent 65%)",
-        pointerEvents: "none",
+      {/* ── Layer 1: Dot grid with radial fade ── */}
+      <div
+        aria-hidden
+        style={{
+          position: "absolute", inset: 0, pointerEvents: "none",
+          backgroundImage: "radial-gradient(circle, rgba(139,92,246,0.2) 1px, transparent 1px)",
+          backgroundSize: "34px 34px",
+          WebkitMaskImage: "radial-gradient(ellipse 85% 65% at 50% 38%, black 25%, transparent 80%)",
+          maskImage: "radial-gradient(ellipse 85% 65% at 50% 38%, black 25%, transparent 80%)",
+        }}
+      />
+
+      {/* ── Layer 2: Drifting aurora blobs ── */}
+      <motion.div aria-hidden
+        animate={{ x: [0, 55, -20, 0], y: [0, -35, 15, 0] }}
+        transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
+        style={{
+          position: "absolute", top: "-18%", left: "18%",
+          width: 650, height: 650, borderRadius: "50%", filter: "blur(50px)", pointerEvents: "none",
+          background: "radial-gradient(circle, rgba(124,58,237,0.24) 0%, transparent 60%)",
+        }}
+      />
+      <motion.div aria-hidden
+        animate={{ x: [0, -45, 30, 0], y: [0, 40, -20, 0] }}
+        transition={{ duration: 26, repeat: Infinity, ease: "easeInOut" }}
+        style={{
+          position: "absolute", bottom: "-8%", right: "8%",
+          width: 500, height: 500, borderRadius: "50%", filter: "blur(45px)", pointerEvents: "none",
+          background: "radial-gradient(circle, rgba(79,70,229,0.2) 0%, transparent 60%)",
+        }}
+      />
+      <motion.div aria-hidden
+        animate={{ x: [0, 30, -40, 0], y: [0, -30, 20, 0] }}
+        transition={{ duration: 32, repeat: Infinity, ease: "easeInOut" }}
+        style={{
+          position: "absolute", top: "35%", right: "2%",
+          width: 320, height: 320, borderRadius: "50%", filter: "blur(40px)", pointerEvents: "none",
+          background: "radial-gradient(circle, rgba(168,85,247,0.16) 0%, transparent 60%)",
+        }}
+      />
+
+      {/* ── Layer 3: Cursor spotlight ── */}
+      <div aria-hidden style={{
+        position: "absolute", inset: 0, pointerEvents: "none", zIndex: 4,
+        background: `radial-gradient(480px circle at ${mouse.x}px ${mouse.y}px, rgba(124,58,237,0.13), transparent 70%)`,
       }} />
 
-      {/* Animated concentric rings */}
-      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-        {[440, 320, 210].map((size, i) => (
+      {/* ── Layer 4: Concentric pulse rings (centered on snake) ── */}
+      <div
+        aria-hidden
+        className="absolute pointer-events-none"
+        style={{
+          top: "50%", left: "50%",
+          transform: "translate(-50%, calc(-50% - 80px))",
+        }}
+      >
+        {[380, 270, 175].map((size, i) => (
           <motion.div
             key={size}
             style={{
               position: "absolute",
+              top: "50%", left: "50%",
               width: size, height: size,
+              marginLeft: -size / 2, marginTop: -size / 2,
               borderRadius: "50%",
-              border: `1px solid rgba(139,92,246,${0.04 + i * 0.04})`,
+              border: `1px solid rgba(139,92,246,${0.04 + i * 0.035})`,
             }}
-            animate={{ scale: [1, 1.035, 1], opacity: [0.5, 0.85, 0.5] }}
-            transition={{ duration: 4 + i * 1.2, repeat: Infinity, delay: i * 0.9, ease: "easeInOut" }}
+            animate={{ scale: [1, 1.04, 1], opacity: [0.45, 0.8, 0.45] }}
+            transition={{ duration: 4.5 + i * 1.4, repeat: Infinity, delay: i * 1.1, ease: "easeInOut" }}
           />
         ))}
       </div>
 
-      {/* Ouroboros hero */}
+      {/* ── CENTER: Ouroboros snake + orbiting chibis ── */}
       <motion.div
-        initial={{ opacity: 0, scale: 0.75 }}
+        initial={{ opacity: 0, scale: 0.7 }}
         animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 1.0, ease: "easeOut" }}
-        className="relative z-10 flex-shrink-0 mb-8"
-        style={{ width: 210, height: 210 }}
+        transition={{ duration: 1.1, ease: [0.22, 1, 0.36, 1] }}
+        className="relative flex-shrink-0"
+        style={{ width: 210, height: 210, marginBottom: 28, zIndex: 10 }}
       >
-        {/* Outer glow ring */}
+        {/* Deep glow behind snake */}
         <motion.div
-          animate={{ opacity: [0.45, 0.8, 0.45] }}
-          transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut" }}
+          animate={{ opacity: [0.4, 0.75, 0.4], scale: [1, 1.08, 1] }}
+          transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
           style={{
-            position: "absolute", inset: -24,
-            borderRadius: "50%",
-            background: "radial-gradient(circle, rgba(124,58,237,0.38) 0%, transparent 65%)",
-            pointerEvents: "none",
+            position: "absolute", inset: -36, borderRadius: "50%", pointerEvents: "none",
+            background: "radial-gradient(circle, rgba(124,58,237,0.42) 0%, transparent 65%)",
           }}
         />
-        {/* Slowly rotating snake */}
+
+        {/* Counter-clockwise rotating snake */}
         <motion.div
-          animate={{ rotate: 360 }}
-          transition={{ duration: 44, repeat: Infinity, ease: "linear" }}
+          animate={{ rotate: -360 }}
+          transition={{ duration: 46, repeat: Infinity, ease: "linear" }}
           style={{ width: 210, height: 210 }}
         >
-          {/* Subtle scale breathe */}
           <motion.img
             src="/thyself-logo.svg"
             alt="Ouroboros"
-            animate={{ scale: [1, 1.045, 1] }}
-            transition={{ duration: 4.2, repeat: Infinity, ease: "easeInOut" }}
+            animate={{ scale: [1, 1.04, 1] }}
+            transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut" }}
             style={{
-              width: "100%", height: "100%",
-              borderRadius: "22%",
-              boxShadow: "0 0 72px rgba(124,58,237,0.52), 0 0 28px rgba(167,139,250,0.28)",
-              display: "block",
+              width: "100%", height: "100%", borderRadius: "22%", display: "block",
+              boxShadow: "0 0 80px rgba(124,58,237,0.55), 0 0 32px rgba(167,139,250,0.3)",
             }}
           />
         </motion.div>
+
+        {/* Orbiting chibi ring — outer container rotates, each chibi counter-rotates to stay upright */}
+        <motion.div
+          animate={{ rotate: 360 }}
+          transition={{ duration: 78, repeat: Infinity, ease: "linear" }}
+          style={{ position: "absolute", top: "50%", left: "50%", width: 0, height: 0, zIndex: 20 }}
+        >
+          {ORBIT_TYPES.map((t, i) => {
+            const angle = (i / 9) * 2 * Math.PI - Math.PI / 2; // start top
+            const rx = 142, ry = 86;
+            const x = Math.round(rx * Math.cos(angle));
+            const y = Math.round(ry * Math.sin(angle));
+            return (
+              <motion.div
+                key={t.n}
+                animate={{ rotate: -360 }}
+                transition={{ duration: 78, repeat: Infinity, ease: "linear" }}
+                style={{ position: "absolute", x, y, translateX: "-50%", translateY: "-50%" }}
+              >
+                {/* Idle float per chibi (staggered) */}
+                <motion.div
+                  animate={{ y: [0, -5, 0] }}
+                  transition={{ duration: 2.8 + i * 0.22, repeat: Infinity, ease: "easeInOut", delay: i * 0.38 }}
+                >
+                  <img
+                    src={`/sprites/chibi/${t.n}-sp${t.n}.png`}
+                    alt={`Type ${t.n}`}
+                    style={{
+                      width: 58, height: 58,
+                      objectFit: "contain",
+                      filter: `drop-shadow(0 0 10px ${t.color}90)`,
+                    }}
+                  />
+                </motion.div>
+              </motion.div>
+            );
+          })}
+        </motion.div>
       </motion.div>
 
-      {/* Headline */}
+      {/* ── Headline ── */}
       <motion.h1
-        initial={{ opacity: 0, y: 18 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.7, delay: 0.15 }}
-        className="relative z-10 font-serif font-bold text-center tracking-tight mb-4"
-        style={{ fontSize: "clamp(38px, 11vw, 64px)", lineHeight: 1.05, color: "rgba(255,255,255,0.96)" }}
+        initial={{ opacity: 0, y: 20, filter: "blur(6px)" }}
+        animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+        transition={{ duration: 0.75, delay: 0.25, ease: [0.22, 1, 0.36, 1] }}
+        className="relative font-serif font-bold text-center tracking-tight mb-4"
+        style={{ fontSize: "clamp(38px, 11vw, 62px)", lineHeight: 1.05, color: "rgba(255,255,255,0.96)", zIndex: 10 }}
       >
         Know{" "}
-        <span style={{
-          background: "linear-gradient(135deg, #c4b5fd 0%, #a78bfa 45%, #818cf8 100%)",
-          WebkitBackgroundClip: "text",
-          WebkitTextFillColor: "transparent",
-          backgroundClip: "text",
-        }}>
-          thyself.
-        </span>
+        <span className="shimmer-text">thyself.</span>
       </motion.h1>
 
-      {/* What the Enneagram is — the key missing piece */}
+      {/* ── Enneagram explainer ── */}
       <motion.p
-        initial={{ opacity: 0, y: 10 }}
+        initial={{ opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.7, delay: 0.3 }}
-        className="relative z-10 text-center leading-relaxed mb-6"
-        style={{ color: "rgba(255,255,255,0.55)", fontSize: "clamp(14px, 3.5vw, 17px)", maxWidth: "360px" }}
+        transition={{ duration: 0.7, delay: 0.4 }}
+        className="relative text-center leading-relaxed mb-5"
+        style={{ color: "rgba(255,255,255,0.52)", fontSize: "clamp(13px, 3.4vw, 16px)", maxWidth: "340px", zIndex: 10 }}
       >
-        The Enneagram is an archetypal system mapping{" "}
-        <span style={{ color: "rgba(255,255,255,0.82)", fontWeight: 500 }}>9 distinct personality types</span>
-        {" "}— each defined by a core desire, a core fear, and a pattern of attention that shapes everything you do.
+        The Enneagram maps{" "}
+        <span style={{ color: "rgba(255,255,255,0.82)", fontWeight: 500 }}>9 archetypal personalities</span>
+        {" "}— each driven by a core desire, a core fear, and a distinct pattern of attention.
       </motion.p>
 
-      {/* Proof pills */}
+      {/* ── Proof pills ── */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ duration: 0.6, delay: 0.45 }}
-        className="relative z-10 flex items-center gap-2 flex-wrap justify-center mb-8"
+        transition={{ duration: 0.6, delay: 0.52 }}
+        className="relative flex items-center gap-2 flex-wrap justify-center mb-7"
+        style={{ zIndex: 10 }}
       >
-        {["9 archetypes", "27 subtypes", "Naranjo · Riso-Hudson · Chestnut"].map((pill) => (
+        {["9 archetypes", "27 subtypes", "Naranjo · Riso-Hudson"].map((pill) => (
           <span
             key={pill}
             className="px-3 py-1 rounded-full text-xs font-medium"
             style={{
               background: "rgba(139,92,246,0.1)",
-              border: "1px solid rgba(139,92,246,0.22)",
-              color: "rgba(167,139,250,0.75)",
+              border: "1px solid rgba(139,92,246,0.24)",
+              color: "rgba(167,139,250,0.72)",
             }}
           >
             {pill}
@@ -221,20 +310,20 @@ function EnterScreen() {
         ))}
       </motion.div>
 
-      {/* CTAs */}
+      {/* ── CTAs ── */}
       <motion.div
-        initial={{ opacity: 0, y: 16 }}
+        initial={{ opacity: 0, y: 18 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.65, delay: 0.58 }}
-        className="relative z-10 flex flex-col items-center gap-4 w-full"
-        style={{ maxWidth: "340px" }}
+        transition={{ duration: 0.65, delay: 0.64 }}
+        className="relative flex flex-col items-center gap-4 w-full px-6"
+        style={{ maxWidth: "340px", zIndex: 10 }}
       >
         <button
           onClick={() => router.push("/onboarding?fromEnter=true")}
           className="w-full py-4 rounded-2xl font-bold text-white text-base transition-all hover:-translate-y-0.5 active:scale-[0.98] flex items-center justify-center gap-2"
           style={{
             background: "linear-gradient(135deg, #7c3aed, #4f46e5)",
-            boxShadow: "0 8px 36px rgba(124,58,237,0.6)",
+            boxShadow: "0 8px 40px rgba(124,58,237,0.65)",
           }}
         >
           Discover my type
@@ -243,8 +332,8 @@ function EnterScreen() {
 
         <button
           onClick={() => router.push("/onboarding?manual=true")}
-          className="text-sm transition-colors hover:opacity-70"
-          style={{ color: "rgba(167,139,250,0.4)" }}
+          className="text-sm transition-opacity hover:opacity-60"
+          style={{ color: "rgba(167,139,250,0.38)" }}
         >
           I already know my type →
         </button>

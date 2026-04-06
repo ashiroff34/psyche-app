@@ -84,7 +84,7 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className="min-h-screen">
+      <body className="min-h-screen noise-overlay">
         <Navigation />
         <ComebackModal />
         <Toaster
