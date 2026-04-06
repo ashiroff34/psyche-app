@@ -777,9 +777,18 @@ function ProfileCard({ profile }: { profile: PsycheProfile }) {
               />
             </motion.div>
           ) : (
-            <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-sky-400 to-indigo-500 flex items-center justify-center shadow-lg shadow-indigo-200/50">
-              <Sparkles className="w-5 h-5 text-white" />
-            </div>
+            <Link
+              href="/onboarding?fromEnter=true"
+              className="flex flex-col items-center justify-center rounded-2xl transition-all hover:scale-[1.02] active:scale-[0.98]"
+              style={{ background: "rgba(124,58,237,0.1)", border: "2px dashed rgba(167,139,250,0.3)", width: 160, height: 160, gap: "0.5rem" }}
+            >
+              <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: "rgba(124,58,237,0.18)" }}>
+                <Sparkles className="w-5 h-5" style={{ color: "#a78bfa" }} />
+              </div>
+              <p className="text-[11px] font-semibold text-center leading-tight px-3" style={{ color: "rgba(167,139,250,0.7)" }}>
+                Discover your subtype to unlock
+              </p>
+            </Link>
           )}
           <div>
             <h2 className="text-2xl sm:text-3xl font-serif font-bold text-white/93 tracking-tight">

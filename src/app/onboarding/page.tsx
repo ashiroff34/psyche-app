@@ -426,7 +426,99 @@ function StepTypePreview({ onNext, onBack }: { onNext: () => void; onBack: () =>
   );
 }
 
-// ── Step 6: All Set ───────────────────────────────────────────────────────────
+// ── Step 5: Subtype unlock ────────────────────────────────────────────────────
+
+const SUBTYPE_OPTIONS = [
+  { code: "sp/sx", label: "sp / sx", desc: "Build security first, then seek depth — private and selective" },
+  { code: "sp/so", label: "sp / so", desc: "Practical and community-minded — steady, reliable, a builder" },
+  { code: "sx/sp", label: "sx / sp", desc: "Intense but grounded — magnetic, self-contained, passionate" },
+  { code: "sx/so", label: "sx / so", desc: "Charismatic and connected — bring intensity into group settings" },
+  { code: "so/sp", label: "so / sp", desc: "Social architect — responsible, institutional, purpose-driven" },
+  { code: "so/sx", label: "so / sx", desc: "Passionate connector — charismatic presence, seek deep belonging" },
+];
+
+function StepSubtype({
+  enneagramType,
+  typeColor,
+  onNext,
+  onSkip,
+}: {
+  enneagramType: number;
+  typeColor: string;
+  onNext: (stacking: string) => void;
+  onSkip: () => void;
+}) {
+  const [selected, setSelected] = useState<string | null>(null);
+
+  return (
+    <div className="flex flex-col items-center px-6 max-w-sm mx-auto w-full">
+      <div className="text-center mb-7">
+        <div
+          className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold mb-5"
+          style={{ background: `${typeColor}18`, border: `1px solid ${typeColor}35`, color: typeColor }}
+        >
+          Type {enneagramType} — Subtype
+        </div>
+        <h2 className="text-2xl font-serif font-bold mb-2" style={{ color: "rgba(255,255,255,0.93)" }}>
+          Unlock your avatar
+        </h2>
+        <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.4)" }}>
+          Your instinctual subtype shapes how your type shows up in the world — and unlocks your personalized chibi.
+        </p>
+      </div>
+
+      <div className="w-full space-y-2 mb-6">
+        {SUBTYPE_OPTIONS.map(({ code, label, desc }) => {
+          const isSelected = selected === code;
+          return (
+            <button
+              key={code}
+              onClick={() => setSelected(code)}
+              className="w-full text-left px-4 py-3.5 rounded-2xl transition-all active:scale-[0.98]"
+              style={{
+                background: isSelected ? "rgba(124,58,237,0.18)" : "rgba(255,255,255,0.05)",
+                border: isSelected ? "1px solid rgba(167,139,250,0.45)" : "1px solid rgba(255,255,255,0.09)",
+              }}
+            >
+              <div className="flex items-center gap-3">
+                <span
+                  className="text-xs font-bold font-mono shrink-0"
+                  style={{ color: isSelected ? "#c4b5fd" : "rgba(255,255,255,0.5)", minWidth: "3.5rem" }}
+                >
+                  {label}
+                </span>
+                <span className="text-xs leading-snug" style={{ color: isSelected ? "rgba(255,255,255,0.78)" : "rgba(255,255,255,0.38)" }}>
+                  {desc}
+                </span>
+              </div>
+            </button>
+          );
+        })}
+      </div>
+
+      <button
+        onClick={() => { if (selected) onNext(selected); }}
+        disabled={!selected}
+        className="w-full py-3.5 rounded-2xl text-sm font-bold text-white transition-all hover:-translate-y-0.5 active:scale-[0.98] disabled:opacity-35 mb-3"
+        style={{
+          background: selected ? "linear-gradient(135deg, #7c3aed, #4f46e5)" : "rgba(255,255,255,0.08)",
+          boxShadow: selected ? "0 8px 24px rgba(124,58,237,0.45)" : "none",
+        }}
+      >
+        Unlock my avatar →
+      </button>
+      <button
+        onClick={onSkip}
+        className="text-xs py-2 transition-colors"
+        style={{ color: "rgba(255,255,255,0.22)" }}
+      >
+        Skip for now
+      </button>
+    </div>
+  );
+}
+
+// ── Step 7: All Set ───────────────────────────────────────────────────────────
 
 function StepAllSet({
   result,
@@ -919,10 +1011,11 @@ function OnboardingPageInner() {
   const isManual = searchParams.get("manual") === "true";
 
   const [acceptedTerms, setAcceptedTerms] = useState(false);
-  // 0=welcome, 1=name, 2=preview, 3=assessment, 4=type reveal, 5=email gate, 6=all set, 7=manual picker
+  // 0=welcome, 1=name, 2=preview, 3=assessment, 4=type reveal, 5=subtype, 6=email gate, 7=all set, 8=manual picker
   const [step, setStep] = useState(0);
   const [intent] = useState<Intent>("discover");
   const [displayName, setDisplayName] = useState("");
+  const [selectedSubtype, setSelectedSubtype] = useState<string | null>(null);
   const [assessmentResult, setAssessmentResult] = useState<{
     type: number;
     confidence: number;
@@ -937,7 +1030,7 @@ function OnboardingPageInner() {
         // Jump to type preview (→ assessment) if coming from enter experience
         if (fromEnter) setStep(2);
         // Jump to manual picker if user already knows their type
-        else if (isManual) setStep(7);
+        else if (isManual) setStep(8);
       }
       if (localStorage.getItem("psyche-onboarding-complete") === "true") router.replace("/");
     } catch {}
@@ -1032,7 +1125,7 @@ function OnboardingPageInner() {
       } catch {}
     } catch {}
 
-    setStep(6); // all set → daily
+    setStep(7); // all set → daily
   };
 
   const saveManual = (name: string, type: number) => {
@@ -1091,7 +1184,7 @@ function OnboardingPageInner() {
         }));
       } catch {}
     } catch {}
-    setStep(6); // all set → daily
+    setStep(7); // all set → daily
   };
 
   return (
@@ -1204,8 +1297,35 @@ function OnboardingPageInner() {
           </motion.div>
         )}
 
-        {/* Step 5: Email gate */}
+        {/* Step 5: Subtype unlock */}
         {step === 5 && assessmentResult && (
+          <motion.div
+            key="subtype"
+            initial={{ opacity: 0, x: 40 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -40 }}
+            transition={{ duration: 0.22 }}
+            className="min-h-screen flex items-center justify-center px-4 py-16"
+          >
+            <StepSubtype
+              enneagramType={assessmentResult.type}
+              typeColor={enneagramTypes.find(t => t.number === assessmentResult.type)?.color ?? "#a78bfa"}
+              onNext={(stacking) => {
+                setSelectedSubtype(stacking);
+                try {
+                  const raw = localStorage.getItem("psyche-profile");
+                  const p = raw ? JSON.parse(raw) : {};
+                  localStorage.setItem("psyche-profile", JSON.stringify({ ...p, instinctualStacking: stacking }));
+                } catch {}
+                setStep(6);
+              }}
+              onSkip={() => setStep(6)}
+            />
+          </motion.div>
+        )}
+
+        {/* Step 6: Email gate */}
+        {step === 6 && assessmentResult && (
           <motion.div
             key="email-gate"
             initial={{ opacity: 0, x: 40 }}
@@ -1225,8 +1345,8 @@ function OnboardingPageInner() {
           </motion.div>
         )}
 
-        {/* Step 6: All Set */}
-        {step === 6 && assessmentResult && (
+        {/* Step 7: All Set */}
+        {step === 7 && assessmentResult && (
           <motion.div
             key="all-set"
             initial={{ opacity: 0 }}
@@ -1242,8 +1362,8 @@ function OnboardingPageInner() {
           </motion.div>
         )}
 
-        {/* Step 7: Manual type picker (for users who already know their type) */}
-        {step === 7 && (
+        {/* Step 8: Manual type picker (for users who already know their type) */}
+        {step === 8 && (
           <motion.div
             key="manual"
             initial={{ opacity: 0, y: 20 }}
