@@ -439,11 +439,11 @@ function ResultsInner() {
               <div className="px-4 py-2 rounded-xl text-xs" style={{ background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.1)", color: "rgba(255,255,255,0.55)" }}>
                 <span className="font-medium text-indigo-400">Wing:</span> {typeData.wings.right}
               </div>
-              <div className="px-4 py-2 rounded-xl text-xs" style={{ background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.1)", color: "rgba(255,255,255,0.55)" }}>
-                <span className="font-medium text-emerald-400">Growth →</span> Type {typeData.integrationLine}
+              <div className="px-4 py-2 rounded-xl text-xs" style={{ background: "rgba(91,143,208,0.12)", border: "1px solid rgba(91,143,208,0.3)", color: "rgba(255,255,255,0.55)" }}>
+                <span className="font-medium" style={{ color: "#5B8FD0" }}>Growth →</span> Type {typeData.integrationLine}
               </div>
-              <div className="px-4 py-2 rounded-xl text-xs" style={{ background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.1)", color: "rgba(255,255,255,0.55)" }}>
-                <span className="font-medium text-rose-400">Stress →</span> Type {typeData.disintegrationLine}
+              <div className="px-4 py-2 rounded-xl text-xs" style={{ background: "rgba(201,146,26,0.12)", border: "1px solid rgba(201,146,26,0.3)", color: "rgba(255,255,255,0.55)" }}>
+                <span className="font-medium" style={{ color: "#C9921A" }}>Stress →</span> Type {typeData.disintegrationLine}
               </div>
             </div>
           </div>
@@ -577,27 +577,27 @@ function ResultsInner() {
 
               {/* Integration / Disintegration Lines */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div className="p-5 rounded-2xl" style={{ background: "rgba(34,197,94,0.08)", border: "1px solid rgba(34,197,94,0.2)" }}>
+                <div className="p-5 rounded-2xl" style={{ background: "rgba(91,143,208,0.08)", border: "1px solid rgba(91,143,208,0.25)" }}>
                   <div className="flex items-center gap-2 mb-3">
-                    <TrendingUp className="w-4 h-4 text-emerald-500" />
-                    <span className="text-xs font-semibold text-emerald-600 uppercase tracking-wide">Integration (Growth)</span>
+                    <TrendingUp className="w-4 h-4" style={{ color: "#5B8FD0" }} />
+                    <span className="text-xs font-semibold uppercase tracking-wide" style={{ color: "#5B8FD0" }}>Integration (Growth)</span>
                   </div>
                   <div className="flex items-center gap-2 mb-2">
-                    <span className="text-2xl font-bold text-emerald-700">{typeData.integrationLine}</span>
-                    <span className="text-sm text-emerald-700">{intLine?.name}</span>
+                    <span className="text-2xl font-bold" style={{ color: "#5B8FD0" }}>{typeData.integrationLine}</span>
+                    <span className="text-sm" style={{ color: "#5B8FD0" }}>{intLine?.name}</span>
                   </div>
                   <p className="text-xs leading-relaxed" style={{ color: "rgba(255,255,255,0.55)" }}>
                     In growth, Type {typeNum} takes on the healthy qualities of Type {typeData.integrationLine}: {intLine?.healthyTraits.slice(0, 3).join(", ")}.
                   </p>
                 </div>
-                <div className="p-5 rounded-2xl" style={{ background: "rgba(239,68,68,0.08)", border: "1px solid rgba(239,68,68,0.2)" }}>
+                <div className="p-5 rounded-2xl" style={{ background: "rgba(201,146,26,0.08)", border: "1px solid rgba(201,146,26,0.25)" }}>
                   <div className="flex items-center gap-2 mb-3">
-                    <TrendingDown className="w-4 h-4 text-rose-500" />
-                    <span className="text-xs font-semibold text-rose-600 uppercase tracking-wide">Disintegration (Stress)</span>
+                    <TrendingDown className="w-4 h-4" style={{ color: "#C9921A" }} />
+                    <span className="text-xs font-semibold uppercase tracking-wide" style={{ color: "#C9921A" }}>Disintegration (Stress)</span>
                   </div>
                   <div className="flex items-center gap-2 mb-2">
-                    <span className="text-2xl font-bold text-rose-700">{typeData.disintegrationLine}</span>
-                    <span className="text-sm text-rose-700">{disLine?.name}</span>
+                    <span className="text-2xl font-bold" style={{ color: "#C9921A" }}>{typeData.disintegrationLine}</span>
+                    <span className="text-sm" style={{ color: "#C9921A" }}>{disLine?.name}</span>
                   </div>
                   <p className="text-xs leading-relaxed" style={{ color: "rgba(255,255,255,0.55)" }}>
                     Under stress, Type {typeNum} takes on the average/unhealthy qualities of Type {typeData.disintegrationLine}: {disLine?.averageTraits.slice(0, 3).join(", ")}.
@@ -891,7 +891,7 @@ function ResultsInner() {
                   onClick={() => setGrowthMode("integration")}
                   className="flex-1 py-2.5 rounded-lg text-sm font-medium transition-all"
                   style={growthMode === "integration"
-                    ? { background: "rgb(34,197,94)", color: "white" }
+                    ? { background: "#5B8FD0", color: "white" }
                     : { color: "rgba(255,255,255,0.4)" }
                   }
                 >
@@ -901,7 +901,7 @@ function ResultsInner() {
                   onClick={() => setGrowthMode("disintegration")}
                   className="flex-1 py-2.5 rounded-lg text-sm font-medium transition-all"
                   style={growthMode === "disintegration"
-                    ? { background: "rgb(239,68,68)", color: "white" }
+                    ? { background: "#C9921A", color: "white" }
                     : { color: "rgba(255,255,255,0.4)" }
                   }
                 >
@@ -912,26 +912,26 @@ function ResultsInner() {
               <AnimatePresence mode="wait">
                 {growthMode === "integration" ? (
                   <motion.div key="int" initial={{ opacity: 1, x: 0 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 10 }} className="space-y-4">
-                    <div className="p-6 rounded-2xl" style={{ background: "rgba(34,197,94,0.08)", border: "1px solid rgba(34,197,94,0.2)" }}>
+                    <div className="p-6 rounded-2xl" style={{ background: "rgba(91,143,208,0.08)", border: "1px solid rgba(91,143,208,0.25)" }}>
                       <div className="flex items-center gap-2 mb-3">
-                        <TrendingUp className="w-5 h-5 text-emerald-500" />
+                        <TrendingUp className="w-5 h-5" style={{ color: "#5B8FD0" }} />
                         <h3 className="font-semibold" style={{ color: "rgba(255,255,255,0.88)" }}>Growing Toward Type {typeData.integrationLine}</h3>
                       </div>
                       <p className="text-sm leading-relaxed mb-4" style={{ color: "rgba(255,255,255,0.55)" }}>
-                        In genuine growth, Type {typeNum} begins to embody the healthy qualities of Type {typeData.integrationLine}: {intLine?.healthyTraits.join(", ")}. This isn't mimicry, it's the natural expansion that happens when you're no longer run by your type's core fear.
+                        In genuine growth, Type {typeNum} begins to embody the healthy qualities of Type {typeData.integrationLine}: {intLine?.healthyTraits.join(", ")}. This isn&apos;t mimicry, it&apos;s the natural expansion that happens when you&apos;re no longer run by your type&apos;s core fear.
                       </p>
                       <div className="flex flex-wrap gap-2">
                         {intLine?.healthyTraits.map((t) => (
-                          <span key={t} className="px-3 py-1 rounded-full bg-emerald-100 text-emerald-700 text-xs font-medium">{t}</span>
+                          <span key={t} className="px-3 py-1 rounded-full text-xs font-medium" style={{ background: "rgba(91,143,208,0.15)", color: "#5B8FD0" }}>{t}</span>
                         ))}
                       </div>
                     </div>
                   </motion.div>
                 ) : (
                   <motion.div key="dis" initial={{ opacity: 1, x: 0 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -10 }} className="space-y-4">
-                    <div className="p-6 rounded-2xl" style={{ background: "rgba(239,68,68,0.08)", border: "1px solid rgba(239,68,68,0.2)" }}>
+                    <div className="p-6 rounded-2xl" style={{ background: "rgba(201,146,26,0.08)", border: "1px solid rgba(201,146,26,0.25)" }}>
                       <div className="flex items-center gap-2 mb-3">
-                        <TrendingDown className="w-5 h-5 text-rose-500" />
+                        <TrendingDown className="w-5 h-5" style={{ color: "#C9921A" }} />
                         <h3 className="font-semibold" style={{ color: "rgba(255,255,255,0.88)" }}>Stress Pattern: Toward Type {typeData.disintegrationLine}</h3>
                       </div>
                       <p className="text-sm leading-relaxed mb-4" style={{ color: "rgba(255,255,255,0.55)" }}>
@@ -939,7 +939,7 @@ function ResultsInner() {
                       </p>
                       <div className="flex flex-wrap gap-2">
                         {disLine?.averageTraits.map((t) => (
-                          <span key={t} className="px-3 py-1 rounded-full bg-rose-100 text-rose-700 text-xs font-medium">{t}</span>
+                          <span key={t} className="px-3 py-1 rounded-full text-xs font-medium" style={{ background: "rgba(201,146,26,0.15)", color: "#C9921A" }}>{t}</span>
                         ))}
                       </div>
                     </div>

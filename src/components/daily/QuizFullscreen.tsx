@@ -172,6 +172,7 @@ export default function QuizFullscreen({
   const [celebrationText, setCelebrationText] = useState<string | null>(null);
   const [showSparkle, setShowSparkle] = useState(false);
   const [showPerfectFlash, setShowPerfectFlash] = useState(false);
+  const [showCaudaPavonis, setShowCaudaPavonis] = useState(false);
 
   // ── Running score counter + XP flash ───────────────────────────────────────
   const [xpFlash, setXpFlash] = useState(false);
@@ -261,6 +262,8 @@ export default function QuizFullscreen({
           setShowStreakBurst(true);
           setTimeout(() => setShowStreakBurst(false), 3000);
         }
+        setShowCaudaPavonis(true);
+        setTimeout(() => setShowCaudaPavonis(false), 800);
       }
     }, interval);
 
@@ -409,6 +412,22 @@ export default function QuizFullscreen({
                 </motion.p>
               </div>
             </motion.div>
+          )}
+        </AnimatePresence>
+
+        {/* Cauda Pavonis iridescent shimmer */}
+        <AnimatePresence>
+          {showCaudaPavonis && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: [0, 0.7, 0] }}
+              transition={{ duration: 0.8, ease: "easeInOut" }}
+              className="fixed inset-0 z-[75] pointer-events-none"
+              style={{
+                background: "linear-gradient(135deg, rgba(139,92,246,0.3) 0%, rgba(217,70,239,0.25) 15%, rgba(59,130,246,0.2) 30%, rgba(16,185,129,0.2) 45%, rgba(245,158,11,0.25) 60%, rgba(239,68,68,0.2) 75%, rgba(139,92,246,0.3) 100%)",
+                mixBlendMode: "screen",
+              }}
+            />
           )}
         </AnimatePresence>
 

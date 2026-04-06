@@ -1450,7 +1450,7 @@ export default function DailyPage() {
   // ── Hub view ──
   if (view === "hub") {
     return (
-      <div className="min-h-screen">
+      <div className="min-h-screen net-weave">
         {/* Confetti handled by react-rewards anchors in layout */}
         <FirstVisitTooltip
           storageKey="psyche-visited-daily"

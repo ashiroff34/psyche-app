@@ -92,7 +92,7 @@ export const enneagramTypes: EnneagramType[] = [
       "How can I show myself the same compassion I show others?",
       "What brings me genuine joy when I let go of the need to improve it?"
     ],
-    color: "#E74C3C",
+    color: "#B85C38",
     icon: "",
     horneyGroup: 'compliant',
     harmonicGroup: 'competency',
@@ -196,7 +196,7 @@ Growth for Ones lies in learning serenity — the capacity to accept what is wit
       "How do I feel when someone doesn't need my help?",
       "What would self-love look like for me today?"
     ],
-    color: "#27AE60",
+    color: "#C4607A",
     icon: "",
     horneyGroup: 'compliant',
     harmonicGroup: 'positive_outlook',
@@ -300,7 +300,7 @@ Growth for Twos lies in humility — the recognition that they are not actually 
       "What would I do differently if I knew nobody would judge me?",
       "How can I show up authentically in my relationships today?"
     ],
-    color: "#F39C12",
+    color: "#C9921A",
     icon: "",
     horneyGroup: 'aggressive',
     harmonicGroup: 'competency',
@@ -404,7 +404,7 @@ Growth for Threes lies in authenticity — learning to feel from the inside out 
       "What would my life look like if I stopped searching for what's missing?",
       "How can I use my sensitivity as a strength rather than a burden?"
     ],
-    color: "#8E44AD",
+    color: "#7B5AAD",
     icon: "",
     horneyGroup: 'withdrawn',
     harmonicGroup: 'reactive',
@@ -508,7 +508,7 @@ Growth for Fours lies in equanimity — learning to be present to whatever feeli
       "How can I be more present in my body today?",
       "What's one way I could engage with the world that excites me?"
     ],
-    color: "#3498DB",
+    color: "#3D6B9C",
     icon: "",
     horneyGroup: 'withdrawn',
     harmonicGroup: 'competency',
@@ -612,7 +612,7 @@ Growth for Fives lies in non-attachment — discovering that sharing, giving, an
       "How can I distinguish between healthy caution and anxiety?",
       "What support system am I grateful for, and how can I lean into self-trust?"
     ],
-    color: "#2C3E50",
+    color: "#7A8FA6",
     icon: "",
     horneyGroup: 'compliant',
     harmonicGroup: 'reactive',
@@ -716,7 +716,7 @@ Growth for Sixes lies in developing genuine courage — the capacity to trust th
       "What do I already have that I haven't fully appreciated?",
       "When was the last time I felt truly present and satisfied in a moment?"
     ],
-    color: "#E67E22",
+    color: "#5B8FD0",
     icon: "",
     horneyGroup: 'aggressive',
     harmonicGroup: 'positive_outlook',
@@ -820,7 +820,7 @@ Growth for Sevens lies in sobriety — learning to be present with one thing ful
       "What would gentleness look like in my current situation?",
       "Am I controlling because I'm strong, or because I'm afraid?"
     ],
-    color: "#C0392B",
+    color: "#9B2C2C",
     icon: "",
     horneyGroup: 'aggressive',
     harmonicGroup: 'reactive',
@@ -924,7 +924,7 @@ Growth for Eights lies in innocence — a quality of open-hearted engagement wit
       "What goal have I been putting off that matters to me?",
       "How can I show up more fully and energetically today?"
     ],
-    color: "#1ABC9C",
+    color: "#8B7355",
     icon: "",
     horneyGroup: 'withdrawn',
     harmonicGroup: 'positive_outlook',

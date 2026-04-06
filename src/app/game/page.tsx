@@ -786,13 +786,13 @@ function TokenShop({ tokens, onPurchase }: { tokens: number; onPurchase: (id: st
 }
 
 function TypeMasterySection({ typeMastery, userEnneagramType }: { typeMastery: Record<string, number>; userEnneagramType?: number }) {
-  const MASTERY_COLORS: Record<string, string> = {
-    Novice: "#64748b",
-    Apprentice: "#0ea5e9",
-    Familiar: "#10b981",
-    Proficient: "#f59e0b",
-    Advanced: "#8b5cf6",
-    Master: "#f97316",
+  const MASTERY_STYLES: Record<string, { background: string; color: string; boxShadow?: string }> = {
+    Novice:      { background: "rgba(30, 20, 50, 0.9)",    color: "#C0C0C0" },
+    Apprentice:  { background: "rgba(200, 200, 220, 0.12)", color: "rgba(255,255,255,0.85)" },
+    Familiar:    { background: "rgba(201, 146, 26, 0.15)", color: "#C9921A" },
+    Proficient:  { background: "rgba(201, 146, 26, 0.22)", color: "#D4A017" },
+    Advanced:    { background: "rgba(155, 44, 44, 0.18)",  color: "#E05555" },
+    Master:      { background: "rgba(155, 44, 44, 0.28)",  color: "#FF6B6B", boxShadow: "0 0 20px rgba(155,44,44,0.4)" },
   };
 
   return (
@@ -807,7 +807,7 @@ function TypeMasterySection({ typeMastery, userEnneagramType }: { typeMastery: R
           const points = typeMastery?.[String(type.number)] ?? 0;
           const started = points > 0;
           const label = getMasteryLevel(points);
-          const labelColor = MASTERY_COLORS[label] ?? "#64748b";
+          const masteryStyle = MASTERY_STYLES[label] ?? { background: "rgba(30, 20, 50, 0.9)", color: "#C0C0C0" };
           const isUserType = userEnneagramType === type.number;
 
           return (
@@ -817,7 +817,7 @@ function TypeMasterySection({ typeMastery, userEnneagramType }: { typeMastery: R
               style={isUserType
                 ? { background: "rgba(139,92,246,0.15)", border: "2px solid rgba(139,92,246,0.6)", boxShadow: "0 0 12px rgba(139,92,246,0.3)" }
                 : started
-                ? { background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.12)" }
+                ? { background: masteryStyle.background, border: "1px solid rgba(255,255,255,0.12)", boxShadow: masteryStyle.boxShadow }
                 : { background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.06)", opacity: 0.5 }
               }
             >
@@ -853,7 +853,7 @@ function TypeMasterySection({ typeMastery, userEnneagramType }: { typeMastery: R
               {/* Mastery label */}
               <span
                 className="text-[9px] font-semibold uppercase tracking-wider"
-                style={{ color: started ? labelColor : "#94a3b8" }}
+                style={{ color: started ? masteryStyle.color : "#94a3b8" }}
               >
                 {label}
               </span>

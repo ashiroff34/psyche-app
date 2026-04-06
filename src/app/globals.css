@@ -276,6 +276,43 @@ a[class*="rounded"] {
   background-size: 22px 22px;
 }
 
+/* ===== Omphalos Net-Weave Texture ===== */
+.net-weave {
+  background-image:
+    repeating-linear-gradient(
+      45deg,
+      rgba(139, 92, 246, 0.06) 0px,
+      rgba(139, 92, 246, 0.06) 1px,
+      transparent 1px,
+      transparent 12px
+    ),
+    repeating-linear-gradient(
+      -45deg,
+      rgba(139, 92, 246, 0.06) 0px,
+      rgba(139, 92, 246, 0.06) 1px,
+      transparent 1px,
+      transparent 12px
+    );
+}
+
+.net-weave-subtle {
+  background-image:
+    repeating-linear-gradient(
+      45deg,
+      rgba(139, 92, 246, 0.03) 0px,
+      rgba(139, 92, 246, 0.03) 1px,
+      transparent 1px,
+      transparent 12px
+    ),
+    repeating-linear-gradient(
+      -45deg,
+      rgba(139, 92, 246, 0.03) 0px,
+      rgba(139, 92, 246, 0.03) 1px,
+      transparent 1px,
+      transparent 12px
+    );
+}
+
 /* ===== Page Transitions ===== */
 @keyframes page-in {
   from { opacity: 0; transform: translateY(8px); }

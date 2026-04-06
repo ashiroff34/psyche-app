@@ -55,6 +55,12 @@ function BeginnerIntro() {
   );
 }
 
+function getCenterTint(typeNum: number): string {
+  if ([1, 8, 9].includes(typeNum)) return "rgba(184, 92, 56, 0.05)";
+  if ([2, 3, 4].includes(typeNum)) return "rgba(196, 96, 122, 0.05)";
+  return "rgba(61, 107, 156, 0.05)"; // 5, 6, 7
+}
+
 function TypeCard({ type, isMyType, isAdvanced, masteryPoints }: { type: typeof enneagramTypes[number]; isMyType: boolean; isAdvanced: boolean; masteryPoints: number }) {
   const [expanded, setExpanded] = useState(false);
   // Extract 2-3 sentences from fullDescription for the preview
@@ -67,8 +73,8 @@ function TypeCard({ type, isMyType, isAdvanced, masteryPoints }: { type: typeof 
     <div
       className="rounded-2xl transition-all"
       style={isMyType
-        ? { background: `${type.color}12`, border: `2px solid ${type.color}50`, boxShadow: `0 4px 20px ${type.color}20` }
-        : { background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)" }}
+        ? { background: `linear-gradient(135deg, ${getCenterTint(type.number)}, ${getCenterTint(type.number)}), ${type.color}12`, border: `2px solid ${type.color}50`, boxShadow: `0 4px 20px ${type.color}20` }
+        : { background: `linear-gradient(135deg, ${getCenterTint(type.number)}, rgba(255,255,255,0.04))`, border: "1px solid rgba(255,255,255,0.08)" }}
     >
       <Link
         href={`/enneagram/learn?type=${type.number}`}
@@ -206,6 +212,44 @@ export default function EnneagramPage() {
     <div className="min-h-screen" style={{ background: "#0f0a1e" }}>
       {/* Hero */}
       <section className="relative overflow-hidden py-20">
+        <div className="absolute inset-0 pointer-events-none overflow-hidden" style={{ zIndex: 0, opacity: 0.06 }}>
+          <svg viewBox="0 0 400 400" className="absolute" style={{ width: '420px', height: '420px', top: '-60px', right: '-60px' }}>
+            <g fill="none" stroke="rgba(167,139,250,1)" strokeWidth="0.8">
+              {/* Outer ring */}
+              <circle cx="200" cy="200" r="190" strokeWidth="0.5" />
+              <circle cx="200" cy="200" r="140" strokeWidth="0.4" />
+              <circle cx="200" cy="200" r="90" strokeWidth="0.4" />
+              {/* 9-star: connect every point skipping 4 */}
+              {[0,1,2,3,4,5,6,7,8].map((i) => {
+                const a1 = ((i * 40) - 90) * Math.PI / 180;
+                const a2 = (((i + 4) % 9) * 40 - 90) * Math.PI / 180;
+                return (
+                  <line key={i}
+                    x1={200 + 190 * Math.cos(a1)} y1={200 + 190 * Math.sin(a1)}
+                    x2={200 + 190 * Math.cos(a2)} y2={200 + 190 * Math.sin(a2)}
+                    strokeWidth="0.7"
+                  />
+                );
+              })}
+              {/* Spokes from center */}
+              {[0,1,2,3,4,5,6,7,8].map((i) => {
+                const a = ((i * 40) - 90) * Math.PI / 180;
+                return (
+                  <line key={`s${i}`}
+                    x1={200} y1={200}
+                    x2={200 + 90 * Math.cos(a)} y2={200 + 90 * Math.sin(a)}
+                    strokeWidth="0.4"
+                  />
+                );
+              })}
+              {/* 9 dots on outer ring */}
+              {[0,1,2,3,4,5,6,7,8].map((i) => {
+                const a = ((i * 40) - 90) * Math.PI / 180;
+                return <circle key={`d${i}`} cx={200 + 190 * Math.cos(a)} cy={200 + 190 * Math.sin(a)} r="3" fill="rgba(167,139,250,1)" stroke="none" />;
+              })}
+            </g>
+          </svg>
+        </div>
         <div className="absolute inset-0 -z-10 pointer-events-none">
           <div className="absolute top-10 right-20 w-80 h-80 rounded-full blur-3xl" style={{ background: "radial-gradient(circle, rgba(99,102,241,0.15) 0%, transparent 70%)" }} />
           <div className="absolute bottom-10 left-10 w-64 h-64 rounded-full blur-3xl" style={{ background: "radial-gradient(circle, rgba(139,92,246,0.12) 0%, transparent 70%)" }} />
