@@ -67,22 +67,22 @@ export default function SourcesPage() {
     <div className="min-h-screen py-16">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div initial={{ opacity: 1, y: 0 }} animate={{ opacity: 1, y: 0 }}>
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-sky-50 border border-sky-100 text-sky-600 text-xs font-medium mb-4">
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-sky-500/30 text-sky-400 text-xs font-medium mb-4" style={{ background: "rgba(14,165,233,0.1)" }}>
             <BookOpen className="w-3 h-3" /> Research & Sources
           </div>
-          <h1 className="text-3xl sm:text-4xl font-serif font-bold text-slate-900 mb-3">Sources & Further Reading</h1>
-          <p className="text-slate-500 max-w-2xl mb-10">Every framework in Thyself is grounded in published clinical and academic research. Here are the primary sources that inform our content.</p>
+          <h1 className="text-3xl sm:text-4xl font-serif font-bold mb-3" style={{ color: "rgba(255,255,255,0.95)" }}>Sources & Further Reading</h1>
+          <p className="max-w-2xl mb-10" style={{ color: "rgba(255,255,255,0.6)" }}>Every framework in Thyself is grounded in published clinical and academic research. Here are the primary sources that inform our content.</p>
         </motion.div>
 
         {/* Important Disclaimer */}
-        <motion.div initial={{ opacity: 1, y: 0 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} className="p-6 rounded-3xl bg-amber-50/50 border border-amber-200/50 mb-10">
+        <motion.div initial={{ opacity: 1, y: 0 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} className="p-6 rounded-3xl mb-10" style={{ background: "rgba(245,158,11,0.08)", border: "1px solid rgba(245,158,11,0.25)" }}>
           <div className="flex items-start gap-4">
-            <div className="w-10 h-10 rounded-xl bg-amber-100 flex items-center justify-center shrink-0">
-              <AlertTriangle className="w-5 h-5 text-amber-600" />
+            <div className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0" style={{ background: "rgba(245,158,11,0.2)" }}>
+              <AlertTriangle className="w-5 h-5 text-amber-400" />
             </div>
             <div>
-              <h3 className="font-serif font-semibold text-slate-800 mb-2">A Note on Scientific Validity</h3>
-              <div className="space-y-3 text-sm text-slate-600 leading-relaxed">
+              <h3 className="font-serif font-semibold mb-2" style={{ color: "rgba(255,255,255,0.9)" }}>A Note on Scientific Validity</h3>
+              <div className="space-y-3 text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.7)" }}>
                 <p>
                   <strong>On Cognitive Functions:</strong> The type system used here is based on <strong>Carl Jung&apos;s original cognitive function theory</strong> from Psychological Types (1921), not the commercial MBTI instrument or the 16Personalities website. The four-letter type codes (INTJ, ENFP, etc.) are used as convenient shorthand for <em>cognitive function stacks</em>, not as fixed personality labels.
                 </p>
@@ -101,28 +101,28 @@ export default function SourcesPage() {
         </motion.div>
 
         {/* What Makes This Different */}
-        <motion.div initial={{ opacity: 1, y: 0 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.15 }} className="p-6 rounded-3xl bg-indigo-50/50 border border-indigo-100/50 mb-10">
+        <motion.div initial={{ opacity: 1, y: 0 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.15 }} className="p-6 rounded-3xl mb-10" style={{ background: "rgba(99,102,241,0.08)", border: "1px solid rgba(99,102,241,0.2)" }}>
           <div className="flex items-start gap-4">
-            <div className="w-10 h-10 rounded-xl bg-indigo-100 flex items-center justify-center shrink-0">
-              <Lightbulb className="w-5 h-5 text-indigo-600" />
+            <div className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0" style={{ background: "rgba(99,102,241,0.2)" }}>
+              <Lightbulb className="w-5 h-5 text-indigo-400" />
             </div>
             <div>
-              <h3 className="font-serif font-semibold text-slate-800 mb-2">Jung&apos;s Typology vs. MBTI&reg; vs. 16Personalities</h3>
+              <h3 className="font-serif font-semibold mb-2" style={{ color: "rgba(255,255,255,0.9)" }}>Jung&apos;s Typology vs. MBTI&reg; vs. 16Personalities</h3>
               <div className="grid sm:grid-cols-3 gap-4 mt-4">
-                <div className="p-4 rounded-2xl bg-white border border-slate-100">
-                  <div className="text-xs font-mono text-emerald-600 mb-1">WHAT WE USE</div>
-                  <h4 className="font-semibold text-slate-800 text-sm mb-2">Jung&apos;s Cognitive Functions</h4>
-                  <p className="text-xs text-slate-500 leading-relaxed">8 mental processes (Ni, Ne, Si, Se, Ti, Te, Fi, Fe) describing how you perceive and judge. Based on Psychological Types (1921) and expanded by Beebe, Nardi, and Berens.</p>
+                <div className="p-4 rounded-2xl" style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.1)" }}>
+                  <div className="text-xs font-mono text-emerald-400 mb-1">WHAT WE USE</div>
+                  <h4 className="font-semibold text-sm mb-2" style={{ color: "rgba(255,255,255,0.9)" }}>Jung&apos;s Cognitive Functions</h4>
+                  <p className="text-xs leading-relaxed" style={{ color: "rgba(255,255,255,0.55)" }}>8 mental processes (Ni, Ne, Si, Se, Ti, Te, Fi, Fe) describing how you perceive and judge. Based on Psychological Types (1921) and expanded by Beebe, Nardi, and Berens.</p>
                 </div>
-                <div className="p-4 rounded-2xl bg-white border border-slate-100">
-                  <div className="text-xs font-mono text-amber-600 mb-1">NOT THE SAME</div>
-                  <h4 className="font-semibold text-slate-800 text-sm mb-2">Myers-Briggs (MBTI)</h4>
-                  <p className="text-xs text-slate-500 leading-relaxed">A commercial instrument by Isabel Myers and Katharine Briggs. Uses dichotomies (E/I, S/N, T/F, J/P) which don&apos;t fully capture function dynamics. Has mixed empirical support.</p>
+                <div className="p-4 rounded-2xl" style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.1)" }}>
+                  <div className="text-xs font-mono text-amber-400 mb-1">NOT THE SAME</div>
+                  <h4 className="font-semibold text-sm mb-2" style={{ color: "rgba(255,255,255,0.9)" }}>Myers-Briggs (MBTI)</h4>
+                  <p className="text-xs leading-relaxed" style={{ color: "rgba(255,255,255,0.55)" }}>A commercial instrument by Isabel Myers and Katharine Briggs. Uses dichotomies (E/I, S/N, T/F, J/P) which don&apos;t fully capture function dynamics. Has mixed empirical support.</p>
                 </div>
-                <div className="p-4 rounded-2xl bg-white border border-slate-100">
-                  <div className="text-xs font-mono text-red-600 mb-1">PSEUDOSCIENCE</div>
-                  <h4 className="font-semibold text-slate-800 text-sm mb-2">16Personalities</h4>
-                  <p className="text-xs text-slate-500 leading-relaxed">A popular website that uses Big Five traits repackaged with type labels. Not based on cognitive functions at all. Results correlate with Big Five, not Jung&apos;s typology.</p>
+                <div className="p-4 rounded-2xl" style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.1)" }}>
+                  <div className="text-xs font-mono text-red-400 mb-1">PSEUDOSCIENCE</div>
+                  <h4 className="font-semibold text-sm mb-2" style={{ color: "rgba(255,255,255,0.9)" }}>16Personalities</h4>
+                  <p className="text-xs leading-relaxed" style={{ color: "rgba(255,255,255,0.55)" }}>A popular website that uses Big Five traits repackaged with type labels. Not based on cognitive functions at all. Results correlate with Big Five, not Jung&apos;s typology.</p>
                 </div>
               </div>
             </div>
@@ -131,20 +131,20 @@ export default function SourcesPage() {
 
         {/* Primary Sources */}
         <motion.div initial={{ opacity: 1, y: 0 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
-          <h2 className="text-2xl font-serif font-bold text-slate-900 mb-6 flex items-center gap-2">
-            <GraduationCap className="w-6 h-6 text-sky-600" /> Primary Sources
+          <h2 className="text-2xl font-serif font-bold mb-6 flex items-center gap-2" style={{ color: "rgba(255,255,255,0.95)" }}>
+            <GraduationCap className="w-6 h-6 text-sky-400" /> Primary Sources
           </h2>
           <div className="space-y-4 mb-12">
             {primarySources.map((source, i) => (
-              <motion.div key={i} initial={{ opacity: 1, y: 0 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.25 + i * 0.05 }} className="p-6 rounded-2xl bg-white border border-slate-100 shadow-sm">
+              <motion.div key={i} initial={{ opacity: 1, y: 0 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.25 + i * 0.05 }} className="p-6 rounded-2xl" style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.1)" }}>
                 <div className="flex items-start justify-between gap-4">
                   <div>
-                    <span className="px-2 py-0.5 text-[10px] rounded-lg bg-sky-50 text-sky-600 font-medium">{source.category}</span>
-                    <h3 className="font-serif font-semibold text-slate-800 mt-2">
-                      {source.title} <span className="text-slate-400 font-normal">({source.year})</span>
+                    <span className="px-2 py-0.5 text-[10px] rounded-lg text-sky-400 font-medium" style={{ background: "rgba(14,165,233,0.15)" }}>{source.category}</span>
+                    <h3 className="font-serif font-semibold mt-2" style={{ color: "rgba(255,255,255,0.9)" }}>
+                      {source.title} <span className="font-normal" style={{ color: "rgba(255,255,255,0.4)" }}>({source.year})</span>
                     </h3>
-                    <p className="text-sm text-slate-500 mt-0.5">{source.author}</p>
-                    <p className="text-sm text-slate-600 mt-3 leading-relaxed">{source.description}</p>
+                    <p className="text-sm mt-0.5" style={{ color: "rgba(255,255,255,0.5)" }}>{source.author}</p>
+                    <p className="text-sm mt-3 leading-relaxed" style={{ color: "rgba(255,255,255,0.7)" }}>{source.description}</p>
                   </div>
                 </div>
               </motion.div>
@@ -154,13 +154,13 @@ export default function SourcesPage() {
 
         {/* Additional Sources */}
         <motion.div initial={{ opacity: 1, y: 0 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5 }}>
-          <h2 className="text-2xl font-serif font-bold text-slate-900 mb-6">Additional Reading</h2>
+          <h2 className="text-2xl font-serif font-bold mb-6" style={{ color: "rgba(255,255,255,0.95)" }}>Additional Reading</h2>
           <div className="grid sm:grid-cols-2 gap-3 mb-12">
             {additionalSources.map((source, i) => (
-              <div key={i} className="p-4 rounded-xl bg-white border border-slate-100 hover:border-sky-200 transition">
-                <span className="px-2 py-0.5 text-[10px] rounded bg-slate-50 text-slate-500 font-medium">{source.category}</span>
-                <h4 className="font-medium text-slate-800 text-sm mt-1.5">{source.title}</h4>
-                <p className="text-xs text-slate-400 mt-0.5">{source.author} ({source.year})</p>
+              <div key={i} className="p-4 rounded-xl transition" style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)" }}>
+                <span className="px-2 py-0.5 text-[10px] rounded font-medium" style={{ background: "rgba(255,255,255,0.08)", color: "rgba(255,255,255,0.5)" }}>{source.category}</span>
+                <h4 className="font-medium text-sm mt-1.5" style={{ color: "rgba(255,255,255,0.85)" }}>{source.title}</h4>
+                <p className="text-xs mt-0.5" style={{ color: "rgba(255,255,255,0.4)" }}>{source.author} ({source.year})</p>
               </div>
             ))}
           </div>
@@ -168,7 +168,7 @@ export default function SourcesPage() {
 
         {/* Online Resources */}
         <motion.div initial={{ opacity: 1, y: 0 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.6 }}>
-          <h2 className="text-2xl font-serif font-bold text-slate-900 mb-6">Trusted Online Resources</h2>
+          <h2 className="text-2xl font-serif font-bold mb-6" style={{ color: "rgba(255,255,255,0.95)" }}>Trusted Online Resources</h2>
           <div className="space-y-3 mb-12">
             {[
               { name: "Personality Database (PDB)", desc: "Community-driven database of personality typings using cognitive functions and Enneagram, with detailed analysis and discussion." },
@@ -176,11 +176,11 @@ export default function SourcesPage() {
               { name: "The Chestnut Paes Enneagram Academy", desc: "Beatrice Chestnut's educational platform for deep subtype work and clinical Enneagram." },
               { name: "Cognitive Type", desc: "Research project combining brain imaging with Jungian function theory to identify neurological correlates of cognitive functions." },
             ].map((resource, i) => (
-              <div key={i} className="p-4 rounded-xl bg-white border border-slate-100">
-                <h4 className="font-medium text-slate-800 text-sm flex items-center gap-1.5">
-                  {resource.name} <ExternalLink className="w-3 h-3 text-slate-300" />
+              <div key={i} className="p-4 rounded-xl" style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)" }}>
+                <h4 className="font-medium text-sm flex items-center gap-1.5" style={{ color: "rgba(255,255,255,0.85)" }}>
+                  {resource.name} <ExternalLink className="w-3 h-3" style={{ color: "rgba(255,255,255,0.3)" }} />
                 </h4>
-                <p className="text-xs text-slate-500 mt-1 leading-relaxed">{resource.desc}</p>
+                <p className="text-xs mt-1 leading-relaxed" style={{ color: "rgba(255,255,255,0.5)" }}>{resource.desc}</p>
               </div>
             ))}
           </div>

@@ -3,18 +3,33 @@
 // 4 lessons × 12 exercises each
 // ─────────────────────────────────────────────────────────────────────────────
 
-import type { Lesson } from "@/types/lessons";
+import type { Lesson, ExerciseContent, SocraticPromptContent, InterleavingExerciseContent } from "@/types/lessons";
+import type { DiscriminationContent } from "@/components/lessons/exercises/DiscriminationExercise";
 
 // ── Lesson 1: Core Motivation, Fear & Desire ────────────────────────────────
 
 const lesson1: Lesson = {
   id: "u8-l1",
+  scaffoldStep: 2 as const,
   unitId: "type-6",
   order: 1,
   title: "The Loyalist's Core",
   subtitle: "Who is Type 6? Motivation, fear, and desire",
   xpReward: 20,
   exercises: [
+    {
+      id: "u8-l1-e0",
+      difficulty: 1,
+      content: {
+        type: "socratic-prompt",
+        question: "Think about what it would feel like to genuinely not know if the people in your life would show up for you when it mattered. How would that change how you moved through the world day to day?",
+        reflection: "Sit with that uncertainty. What would you do to protect yourself? What would you start to look for in people?",
+        revealLabel: "See the insight",
+        conceptTitle: "The Question That Never Resolves",
+        conceptBody: "Sixes live in chronic uncertainty about whether they can trust — their environment, other people, and especially themselves. This isn't paranoia; it's a learned vigilance from early experiences where the ground shifted. The Six compensates by seeking certainty in structures, authorities, and systems — anything that promises to be reliably there.",
+        highlight: "learned vigilance",
+      } as SocraticPromptContent,
+    },
     {
       id: "u8-l1-e1",
       difficulty: 1,
@@ -211,6 +226,7 @@ const lesson1: Lesson = {
 
 const lesson2: Lesson = {
   id: "u8-l2",
+  scaffoldStep: 2 as const,
   unitId: "type-6",
   order: 2,
   title: "Fear, Courage & Health",
@@ -407,6 +423,7 @@ const lesson2: Lesson = {
 
 const lesson3: Lesson = {
   id: "u8-l3",
+  scaffoldStep: 4 as const,
   unitId: "type-6",
   order: 3,
   title: "Wings & Lines",
@@ -590,6 +607,7 @@ const lesson3: Lesson = {
 
 const lesson4: Lesson = {
   id: "u8-l4",
+  scaffoldStep: 1 as const,
   unitId: "type-6",
   order: 4,
   title: "Recognizing the Loyalist",
@@ -786,7 +804,105 @@ const lesson4: Lesson = {
           "The most reliable Six signal is habitual worst-case thinking. Before any commitment, a Six mentally rehearses what could go wrong, and prepares accordingly.",
       },
     },
+    {
+      id: "u8-l4-e13",
+      difficulty: 3,
+      content: {
+        type: "interleaving",
+        title: "Types 6, 1 & 5 — Identify the motivation",
+        typeNumbers: [6, 1, 5],
+        items: [
+          {
+            statement: "Fact-checks an authority's claim — not from intellectual curiosity, but from an undercurrent of vigilance about whether this person should actually be trusted.",
+            correctType: 6,
+            explanation: "The Six's questioning is threat-detection. They scan authorities for hidden agendas or signs of untrustworthiness.",
+          },
+          {
+            statement: "Researches a topic exhaustively before forming an opinion — needing to understand it fully from the inside before feeling qualified to say anything.",
+            correctType: 5,
+            explanation: "The Five builds knowledge as a resource and protective buffer. Competence before engagement.",
+          },
+          {
+            statement: "Corrects a colleague's minor word choice in a meeting — not to embarrass them, but because using the wrong term feels like a violation of accuracy.",
+            correctType: 1,
+            explanation: "The One corrects from principle. Inaccuracy itself is the problem.",
+          },
+        ],
+      } as InterleavingExerciseContent,
+    },
   ],
 };
 
-export const unit08Lessons: Lesson[] = [lesson1, lesson2, lesson3, lesson4];
+// ── Lesson 5: Near-Neighbor Discrimination — Type 6 vs Type 1 ─────────────
+
+const lesson5: Lesson = {
+  id: "u8-l5",
+  scaffoldStep: 3 as const,
+  unitId: "type-6",
+  order: 5,
+  title: "Type 6 vs Type 1",
+  subtitle: "Two rule-oriented types with different motivations",
+  xpReward: 25,
+  exercises: [
+    {
+      id: "u8-l5-e1",
+      difficulty: 1,
+      content: {
+        type: "concept-intro",
+        title: "Why 6 and 1 Are Confused",
+        body: "Types 6 and 1 both follow rules carefully and can appear equally responsible. The key difference: Type 6 follows rules to reduce anxiety about what might happen if they don't. Type 1 follows rules because they reflect what is internally right and good.",
+        highlight: "anxiety reduction vs. internal moral standard",
+      },
+    },
+    {
+      id: "u8-l5-e2",
+      difficulty: 2,
+      content: ({
+        type: "discrimination",
+        typeA: 6,
+        typeB: 1,
+        prompt: "Each statement below belongs to either Type 6 (The Loyalist) or Type 1 (The Reformer). Tap the correct type for each.",
+        items: [
+          {
+            text: "Checks the rules before acting, not because they personally believe in every rule, but because uncertainty about the correct procedure creates anxiety.",
+            answer: "A",
+            explanation: "Type 6 uses rules as an external anchor against anxiety. They need to know what is expected so they feel safe.",
+          },
+          {
+            text: "Holds themselves to the same ethical standard they hold others to — often their own harshest judge.",
+            answer: "B",
+            explanation: "Type 1's inner critic applies most intensely to themselves. Their standards are self-referential, not just socially derived.",
+          },
+          {
+            text: "Questions whether authorities and institutions can be trusted — looks for evidence of hidden motives or unreliability before committing.",
+            answer: "A",
+            explanation: "Type 6's vigilance is fundamentally about trustworthiness. Questioning authority is how they evaluate safety.",
+          },
+          {
+            text: "Experiences resentment when others fail to uphold ethical standards — feels it as a moral offense, not a personal betrayal.",
+            answer: "B",
+            explanation: "Type 1's resentment is moral, not relational. The standard was violated — that is the problem, independent of who violated it.",
+          },
+        ],
+      } as DiscriminationContent) as unknown as ExerciseContent,
+    },
+    {
+      id: "u8-l5-e3",
+      difficulty: 3,
+      content: {
+        type: "multiple-choice",
+        question: "A Type 6 and a Type 1 both follow company procedures carefully. What most distinguishes their inner experience?",
+        options: [
+          "The Type 6 is more concerned with praise, the Type 1 with accuracy",
+          "The Type 6 follows procedures to manage anxiety; the Type 1 follows them because they reflect what is right",
+          "The Type 1 is more anxious about consequences; the Type 6 is more moralistic",
+          "There is no meaningful difference — both are equally rule-oriented for the same reasons",
+        ],
+        correctIndex: 1,
+        explanation: "Same behavior, different engines. Type 6: rule-following reduces anxiety about what happens if rules are broken. Type 1: rule-following expresses their internal standard of goodness.",
+      },
+    },
+  ],
+};
+
+export const unit08Lessons: Lesson[] = [lesson1, lesson2, lesson3, lesson4, lesson5];

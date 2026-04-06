@@ -35,6 +35,10 @@ export interface GameState {
   streakFreezes: number;
   streakFreezeUsedDate: string | null;
 
+  // Growth Streak (journal / growth practice days)
+  growthStreakCount: number;
+  lastGrowthDate: string;
+
   // Tokens (in-app currency)
   tokens: number;
 
@@ -89,6 +93,9 @@ export interface GameState {
 
   // XP Boost (2x for 1 hour)
   xpBoostExpiry: string | null; // ISO timestamp when boost expires
+
+  // Per-type mastery (0–100 points per Enneagram type 1–9)
+  typeMastery: Record<string, number>;
 
   // Weekly challenge tracking
   weeklyStats: {
@@ -191,6 +198,33 @@ export function getLeague(level: number): League {
   if (level >= 20) return "gold";
   if (level >= 10) return "silver";
   return "bronze";
+}
+
+// ─── Type Mastery ────────────────────────────────────────────────────────────
+
+export type MasteryLevel = "Novice" | "Apprentice" | "Familiar" | "Proficient" | "Advanced" | "Master";
+
+export function getMasteryLevel(points: number): MasteryLevel {
+  if (points >= 100) return "Master";
+  if (points >= 80) return "Advanced";
+  if (points >= 60) return "Proficient";
+  if (points >= 40) return "Familiar";
+  if (points >= 20) return "Apprentice";
+  return "Novice";
+}
+
+/** Standalone helper — call from any page to increment a type's mastery without importing the full hook */
+export function incrementTypeMastery(typeNum: string | number, points = 10) {
+  if (typeof window === "undefined") return;
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    const state = raw ? JSON.parse(raw) : {};
+    const existing: Record<string, number> = state.typeMastery ?? {};
+    const key = String(typeNum);
+    const newVal = Math.min(100, (existing[key] ?? 0) + points);
+    state.typeMastery = { ...existing, [key]: newVal };
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+  } catch {}
 }
 
 export const LEAGUE_COLORS: Record<League, { bg: string; text: string; border: string; gradient: string }> = {
@@ -485,6 +519,8 @@ function createDefaultState(): GameState {
     lastActivityDate: "",
     streakFreezes: 0,
     streakFreezeUsedDate: null,
+    growthStreakCount: 0,
+    lastGrowthDate: "",
     tokens: 50, // starter tokens
     dailyGoal: "regular",
     dailyXPEarned: 0,
@@ -514,6 +550,7 @@ function createDefaultState(): GameState {
     accountCreated: getToday(),
     sessionsSinceTokenDrop: 0,
     xpBoostExpiry: null,
+    typeMastery: {},
     weeklyStats: { weekKey: "", daysGoalMet: 0, quizCorrect: 0, modulesCompleted: 0, rewardClaimed: false },
   };
 }
@@ -1035,6 +1072,20 @@ export function useGameState() {
     [update]
   );
 
+  const updateTypeMastery = useCallback(
+    (typeNum: string | number, points: number) => {
+      const key = String(typeNum);
+      update((prev) => ({
+        ...prev,
+        typeMastery: {
+          ...prev.typeMastery,
+          [key]: Math.min(100, (prev.typeMastery?.[key] ?? 0) + points),
+        },
+      }));
+    },
+    [update]
+  );
+
   const isTopicUnlocked = useCallback(
     (topicId: string): boolean => {
       const topic = TOPIC_TREE.find((t) => t.id === topicId);
@@ -1079,6 +1130,29 @@ export function useGameState() {
     },
     [update]
   );
+
+  // ── Growth Streak ──────────────────────────────────────────────────────────
+
+  const incrementGrowthStreak = useCallback(() => {
+    update((prev) => {
+      const today = getToday();
+      if (prev.lastGrowthDate === today) return prev; // already counted today
+      const yesterday = new Date(Date.now() - 86400000).toISOString().split("T")[0];
+      let newGrowthStreak: number;
+      if (prev.lastGrowthDate === yesterday) {
+        newGrowthStreak = prev.growthStreakCount + 1;
+      } else if (!prev.lastGrowthDate) {
+        newGrowthStreak = 1;
+      } else {
+        newGrowthStreak = 1; // gap — reset
+      }
+      return {
+        ...prev,
+        growthStreakCount: newGrowthStreak,
+        lastGrowthDate: today,
+      };
+    });
+  }, [update]);
 
   // ── Hearts System ──────────────────────────────────────────────────────────
   // 1 heart refills every 10 minutes. Timer advances from the original start
@@ -1271,6 +1345,7 @@ export function useGameState() {
 
     // Streaks
     checkStreak,
+    incrementGrowthStreak,
 
     // Pet
     feedPet,
@@ -1291,6 +1366,9 @@ export function useGameState() {
     // Topics
     updateTopicProgress,
     isTopicUnlocked,
+
+    // Type Mastery
+    updateTypeMastery,
 
     // Daily Goal
     setDailyGoal,

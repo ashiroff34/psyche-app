@@ -3,18 +3,32 @@
 // 4 lessons × 12 exercises each
 // ─────────────────────────────────────────────────────────────────────────────
 
-import type { Lesson } from "@/types/lessons";
+import type { Lesson, SocraticPromptContent, InterleavingExerciseContent } from "@/types/lessons";
 
 // ── Lesson 1: Core Motivation, Fear & Desire ──────────────────────────────
 
 const lesson1: Lesson = {
   id: "u4-l1",
+  scaffoldStep: 2 as const,
   unitId: "type-2",
   order: 1,
   title: "The Need to Be Needed",
   subtitle: "Core motivation, fear, and desire of Type 2",
   xpReward: 20,
   exercises: [
+    {
+      id: "u4-l1-e0",
+      difficulty: 1,
+      content: {
+        type: "socratic-prompt",
+        question: "Think of someone who always seems to know what others need before they ask. What do you think drives that? Is it pure generosity — or could there be something else underneath?",
+        reflection: "Think about what it would actually feel like to live that way — always attuned to others. What would that person need in return?",
+        revealLabel: "See the insight",
+        conceptTitle: "The Hidden Equation",
+        conceptBody: "For the Two, giving is not optional — it's how they stay safe. At the deepest level, Twos believe that being needed is the only reliable guarantee of being loved. What looks like selflessness is actually a sophisticated survival strategy: if I make myself indispensable, I cannot be abandoned.",
+        highlight: "indispensable",
+      } as SocraticPromptContent,
+    },
     {
       id: "u4-l1-e1",
       difficulty: 1,
@@ -208,6 +222,7 @@ const lesson1: Lesson = {
 
 const lesson2: Lesson = {
   id: "u4-l2",
+  scaffoldStep: 2 as const,
   unitId: "type-2",
   order: 2,
   title: "Pride to Humility",
@@ -411,6 +426,7 @@ const lesson2: Lesson = {
 
 const lesson3: Lesson = {
   id: "u4-l3",
+  scaffoldStep: 4 as const,
   unitId: "type-2",
   order: 3,
   title: "How Twos Shift",
@@ -600,6 +616,7 @@ const lesson3: Lesson = {
 
 const lesson4: Lesson = {
   id: "u4-l4",
+  scaffoldStep: 1 as const,
   unitId: "type-2",
   order: 4,
   title: "Spotting the Two",
@@ -815,6 +832,32 @@ const lesson4: Lesson = {
         explanation:
           "This is true for the whole Enneagram, but especially for Type 2. Many types can be warm and helpful, what matters is WHY. Twos help to be loved. That's the signature.",
       },
+    },
+    {
+      id: "u4-l4-e13",
+      difficulty: 3,
+      content: {
+        type: "interleaving",
+        title: "Types 2, 3 & 9 — Identify the motivation",
+        typeNumbers: [2, 3, 9],
+        items: [
+          {
+            statement: "Anticipates what their friend needs before being asked, then quietly provides it — driven by the felt need to be seen as indispensable.",
+            correctType: 2,
+            explanation: "The Two gives to secure their place in the relationship. Being needed feels like being safe from abandonment.",
+          },
+          {
+            statement: "Goes along with the group's plan even though it's not what they wanted — keeping the peace feels more important than asserting themselves.",
+            correctType: 9,
+            explanation: "The Nine merges with others' agendas to avoid conflict and maintain harmony, not to earn love.",
+          },
+          {
+            statement: "Takes on extra responsibility at work not to be helpful, but because succeeding at a visible project will earn them recognition.",
+            correctType: 3,
+            explanation: "The Three performs and achieves to be seen as successful, not to make others feel cared for.",
+          },
+        ],
+      } as InterleavingExerciseContent,
     },
   ],
 };

@@ -92,7 +92,7 @@ const staggerChildren = {
   show: { transition: { staggerChildren: 0.12 } },
 };
 const fadeUp = {
-  hidden: { opacity: 0, y: 20 },
+  hidden: { opacity: 1, y: 0 },
   show: { opacity: 1, y: 0, transition: { duration: 0.5 } },
 };
 
@@ -201,9 +201,8 @@ function HeroScreen() {
 
           <motion.div
             variants={staggerChildren}
-            initial="hidden"
-            whileInView="show"
-            viewport={{ once: true, amount: 0 }}
+            initial="show"
+            animate="show"
             className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4"
           >
             {[
@@ -472,7 +471,7 @@ function DashboardScreen({
   };
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen" style={{ background: "#0f0a1e" }}>
       <motion.div
         variants={containerVariants}
         initial="hidden"
@@ -481,10 +480,10 @@ function DashboardScreen({
       >
         {/* ── Greeting + Streak ────────────────────────────────── */}
         <motion.div variants={itemVariants} className="mb-8">
-          <h1 className="text-2xl sm:text-3xl font-serif font-bold text-slate-900 mb-1">
+          <h1 className="text-2xl sm:text-3xl font-serif font-bold mb-1" style={{ color: "rgba(255,255,255,0.93)" }}>
             {name ? `Hey, ${name}` : "Hey there"}
           </h1>
-          <p className="text-sm text-slate-400">Here&apos;s your day at a glance.</p>
+          <p className="text-sm" style={{ color: "rgba(255,255,255,0.4)" }}>Here&apos;s your day at a glance.</p>
         </motion.div>
 
         {/* ── Streak Hero ──────────────────────────────────────── */}
@@ -494,12 +493,12 @@ function DashboardScreen({
               <Flame className="w-10 h-10 text-white" />
             </div>
             {streak > 0 && (
-              <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 px-3 py-0.5 rounded-full bg-white border border-orange-200 shadow-sm">
-                <span className="text-sm font-bold text-orange-600">{streak}</span>
+              <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 px-3 py-0.5 rounded-full shadow-sm" style={{ background: "rgba(255,255,255,0.1)", border: "1px solid rgba(249,115,22,0.4)" }}>
+                <span className="text-sm font-bold text-orange-400">{streak}</span>
               </div>
             )}
           </div>
-          <p className="mt-5 text-lg font-semibold text-slate-800">
+          <p className="mt-5 text-lg font-semibold" style={{ color: "rgba(255,255,255,0.88)" }}>
             {streak === 0
               ? "Start your streak today"
               : streak === 1
@@ -507,7 +506,7 @@ function DashboardScreen({
               : `${streak} day streak`}
           </p>
           {streak >= 7 && (
-            <p className="text-xs text-orange-500 font-medium mt-0.5">You&apos;re on fire!</p>
+            <p className="text-xs text-orange-400 font-medium mt-0.5">You&apos;re on fire!</p>
           )}
         </motion.div>
 
@@ -527,56 +526,58 @@ function DashboardScreen({
           {petState ? (
             <Link
               href="/avatar"
-              className="group flex items-center gap-4 p-4 bg-white rounded-2xl border border-slate-100 hover:border-slate-200 hover:shadow-md transition-all"
+              className="group flex items-center gap-4 p-4 rounded-2xl transition-all"
+              style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.09)" }}
             >
               <div className="w-16 h-16 flex-shrink-0">
                 <PetCompanion type={enneagramType ?? 4} size={64} />
               </div>
               <div className="flex-1 min-w-0">
-                <p className="text-sm font-semibold text-slate-800 mb-0.5">
+                <p className="text-sm font-semibold mb-0.5" style={{ color: "rgba(255,255,255,0.88)" }}>
                   {petState.name || "Your Companion"}
                 </p>
                 {!petState.isAlive ? (
-                  <p className="text-xs font-medium text-red-500">Needs revival!</p>
+                  <p className="text-xs font-medium text-red-400">Needs revival!</p>
                 ) : (
                   <p className={`text-xs font-medium ${petStatusColor[petStatus!]}`}>
                     {petStatus}
                   </p>
                 )}
-                <div className="mt-2 w-full h-1.5 bg-slate-100 rounded-full overflow-hidden">
+                <div className="mt-2 w-full h-1.5 rounded-full overflow-hidden" style={{ background: "rgba(255,255,255,0.08)" }}>
                   <div
                     className={`h-full rounded-full transition-all ${petHealthBarColor[petStatus!]}`}
                     style={{ width: `${Math.max(0, Math.min(100, petState.health ?? 0))}%` }}
                   />
                 </div>
               </div>
-              <ArrowRight className="w-4 h-4 text-slate-300 group-hover:text-slate-500 flex-shrink-0 group-hover:translate-x-0.5 transition-all" />
+              <ArrowRight className="w-4 h-4 flex-shrink-0 group-hover:translate-x-0.5 transition-all" style={{ color: "rgba(255,255,255,0.3)" }} />
             </Link>
           ) : (
             <Link
               href="/avatar"
-              className="group flex items-center justify-center gap-3 w-full px-6 py-4 bg-white rounded-2xl border border-slate-100 hover:border-slate-200 hover:shadow-md transition-all"
+              className="group flex items-center justify-center gap-3 w-full px-6 py-4 rounded-2xl transition-all"
+              style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.09)" }}
             >
-              <Cat className="w-5 h-5 text-slate-400 group-hover:text-slate-600 transition-colors" />
-              <span className="text-sm font-semibold text-slate-600 group-hover:text-slate-800 transition-colors">
+              <Cat className="w-5 h-5 transition-colors" style={{ color: "rgba(255,255,255,0.4)" }} />
+              <span className="text-sm font-semibold transition-colors" style={{ color: "rgba(255,255,255,0.65)" }}>
                 Meet your companion
               </span>
-              <ArrowRight className="w-4 h-4 text-slate-300 group-hover:text-slate-500 group-hover:translate-x-0.5 transition-all" />
+              <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-all" style={{ color: "rgba(255,255,255,0.3)" }} />
             </Link>
           )}
         </motion.div>
 
         {/* ── Daily Insight ────────────────────────────────────── */}
         <motion.div variants={itemVariants} className="mb-8">
-          <div className="rounded-2xl border border-slate-100 bg-slate-50/50 p-5">
-            <p className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-3">Today&apos;s Insight</p>
-            <blockquote className="text-base font-serif text-slate-700 leading-relaxed mb-2">
+          <div className="rounded-2xl p-5" style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)" }}>
+            <p className="text-xs font-semibold uppercase tracking-wider mb-3" style={{ color: "rgba(255,255,255,0.4)" }}>Today&apos;s Insight</p>
+            <blockquote className="text-base font-serif leading-relaxed mb-2" style={{ color: "rgba(255,255,255,0.82)" }}>
               &ldquo;{insight.quote}&rdquo;
             </blockquote>
-            <p className="text-xs font-medium text-slate-500 mb-3">
+            <p className="text-xs font-medium mb-3" style={{ color: "rgba(255,255,255,0.45)" }}>
              , {insight.author}
             </p>
-            <p className="text-sm text-slate-500 leading-relaxed">
+            <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.55)" }}>
               {insight.reflection}
             </p>
           </div>
@@ -585,59 +586,62 @@ function DashboardScreen({
         {/* ── Quick Stats Row ──────────────────────────────────── */}
         <motion.div variants={itemVariants} className="mb-8">
           <div className="grid grid-cols-4 gap-3">
-            <div className="flex flex-col items-center gap-1.5 py-3 px-2 rounded-2xl bg-indigo-50/70 border border-indigo-100/50">
-              <Zap className="w-5 h-5 text-indigo-500" />
-              <span className="text-sm font-bold text-slate-700">{xp}</span>
-              <span className="text-[10px] text-slate-400 font-medium">XP</span>
+            <div className="flex flex-col items-center gap-1.5 py-3 px-2 rounded-2xl" style={{ background: "rgba(99,102,241,0.12)", border: "1px solid rgba(99,102,241,0.2)" }}>
+              <Zap className="w-5 h-5 text-indigo-400" />
+              <span className="text-sm font-bold" style={{ color: "rgba(255,255,255,0.85)" }}>{xp}</span>
+              <span className="text-[10px] font-medium" style={{ color: "rgba(255,255,255,0.4)" }}>XP</span>
             </div>
-            <div className="flex flex-col items-center gap-1.5 py-3 px-2 rounded-2xl bg-orange-50/70 border border-orange-100/50">
-              <Flame className="w-5 h-5 text-orange-500" />
-              <span className="text-sm font-bold text-slate-700">{streak}</span>
-              <span className="text-[10px] text-slate-400 font-medium">Streak</span>
+            <div className="flex flex-col items-center gap-1.5 py-3 px-2 rounded-2xl" style={{ background: "rgba(249,115,22,0.12)", border: "1px solid rgba(249,115,22,0.2)" }}>
+              <Flame className="w-5 h-5 text-orange-400" />
+              <span className="text-sm font-bold" style={{ color: "rgba(255,255,255,0.85)" }}>{streak}</span>
+              <span className="text-[10px] font-medium" style={{ color: "rgba(255,255,255,0.4)" }}>Streak</span>
             </div>
-            <div className="flex flex-col items-center gap-1.5 py-3 px-2 rounded-2xl bg-rose-50/70 border border-rose-100/50">
-              <Heart className="w-5 h-5 text-rose-500" />
-              <span className="text-sm font-bold text-slate-700">{hearts}</span>
-              <span className="text-[10px] text-slate-400 font-medium">Hearts</span>
+            <div className="flex flex-col items-center gap-1.5 py-3 px-2 rounded-2xl" style={{ background: "rgba(239,68,68,0.12)", border: "1px solid rgba(239,68,68,0.2)" }}>
+              <Heart className="w-5 h-5 text-rose-400" />
+              <span className="text-sm font-bold" style={{ color: "rgba(255,255,255,0.85)" }}>{hearts}</span>
+              <span className="text-[10px] font-medium" style={{ color: "rgba(255,255,255,0.4)" }}>Hearts</span>
             </div>
-            <div className="flex flex-col items-center gap-1.5 py-3 px-2 rounded-2xl bg-amber-50/70 border border-amber-100/50">
-              <Coins className="w-4 h-4 text-amber-500" />
-              <span className="text-sm font-bold text-slate-700">{tokens}</span>
-              <span className="text-[10px] text-slate-400 font-medium">Tokens</span>
+            <div className="flex flex-col items-center gap-1.5 py-3 px-2 rounded-2xl" style={{ background: "rgba(245,158,11,0.12)", border: "1px solid rgba(245,158,11,0.2)" }}>
+              <Coins className="w-4 h-4 text-amber-400" />
+              <span className="text-sm font-bold" style={{ color: "rgba(255,255,255,0.85)" }}>{tokens}</span>
+              <span className="text-[10px] font-medium" style={{ color: "rgba(255,255,255,0.4)" }}>Tokens</span>
             </div>
           </div>
         </motion.div>
 
         {/* ── Quick Actions ────────────────────────────────────── */}
         <motion.div variants={itemVariants} className="mb-8">
-          <h2 className="text-sm font-semibold text-slate-700 mb-3">Quick Actions</h2>
+          <h2 className="text-sm font-semibold mb-3" style={{ color: "rgba(255,255,255,0.6)" }}>Quick Actions</h2>
           <div className="grid grid-cols-3 gap-3">
             <Link
               href="/sprint"
-              className="group flex flex-col items-center gap-2.5 p-4 bg-white rounded-2xl border border-slate-100 hover:border-violet-200 hover:shadow-md transition-all"
+              className="group flex flex-col items-center gap-2.5 p-4 rounded-2xl transition-all"
+              style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.08)" }}
             >
-              <div className="w-11 h-11 rounded-xl bg-violet-50 flex items-center justify-center group-hover:bg-violet-100 transition-colors">
-                <Swords className="w-5 h-5 text-violet-600" />
+              <div className="w-11 h-11 rounded-xl flex items-center justify-center" style={{ background: "rgba(139,92,246,0.15)" }}>
+                <Swords className="w-5 h-5 text-violet-400" />
               </div>
-              <span className="text-xs font-semibold text-slate-700">Practice</span>
+              <span className="text-xs font-semibold" style={{ color: "rgba(255,255,255,0.75)" }}>Practice</span>
             </Link>
             <Link
               href="/read"
-              className="group flex flex-col items-center gap-2.5 p-4 bg-white rounded-2xl border border-slate-100 hover:border-sky-200 hover:shadow-md transition-all"
+              className="group flex flex-col items-center gap-2.5 p-4 rounded-2xl transition-all"
+              style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.08)" }}
             >
-              <div className="w-11 h-11 rounded-xl bg-sky-50 flex items-center justify-center group-hover:bg-sky-100 transition-colors">
-                <BookOpen className="w-5 h-5 text-sky-600" />
+              <div className="w-11 h-11 rounded-xl flex items-center justify-center" style={{ background: "rgba(14,165,233,0.15)" }}>
+                <BookOpen className="w-5 h-5 text-sky-400" />
               </div>
-              <span className="text-xs font-semibold text-slate-700">Read</span>
+              <span className="text-xs font-semibold" style={{ color: "rgba(255,255,255,0.75)" }}>Read</span>
             </Link>
             <Link
               href="/compare"
-              className="group flex flex-col items-center gap-2.5 p-4 bg-white rounded-2xl border border-slate-100 hover:border-pink-200 hover:shadow-md transition-all"
+              className="group flex flex-col items-center gap-2.5 p-4 rounded-2xl transition-all"
+              style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.08)" }}
             >
-              <div className="w-11 h-11 rounded-xl bg-pink-50 flex items-center justify-center group-hover:bg-pink-100 transition-colors">
-                <Brain className="w-5 h-5 text-pink-600" />
+              <div className="w-11 h-11 rounded-xl flex items-center justify-center" style={{ background: "rgba(236,72,153,0.15)" }}>
+                <Brain className="w-5 h-5 text-pink-400" />
               </div>
-              <span className="text-xs font-semibold text-slate-700">Compare</span>
+              <span className="text-xs font-semibold" style={{ color: "rgba(255,255,255,0.75)" }}>Compare</span>
             </Link>
           </div>
         </motion.div>
@@ -647,7 +651,8 @@ function DashboardScreen({
           <motion.div variants={itemVariants}>
             <Link
               href="/profile"
-              className="group flex items-center gap-4 p-4 bg-white rounded-2xl border border-slate-100 hover:border-slate-200 hover:shadow-md transition-all"
+              className="group flex items-center gap-4 p-4 rounded-2xl transition-all"
+              style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.09)" }}
             >
               {enneagramType ? (
                 <div className="w-12 h-12 flex-shrink-0">
@@ -659,13 +664,13 @@ function DashboardScreen({
                   />
                 </div>
               ) : (
-                <div className="w-12 h-12 rounded-xl bg-slate-100 flex items-center justify-center flex-shrink-0">
-                  <UserCircle className="w-6 h-6 text-slate-400" />
+                <div className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0" style={{ background: "rgba(255,255,255,0.08)" }}>
+                  <UserCircle className="w-6 h-6" style={{ color: "rgba(255,255,255,0.4)" }} />
                 </div>
               )}
               <div className="flex-1 min-w-0">
-                <p className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-0.5">Your Type</p>
-                <p className="text-sm font-semibold text-slate-800">
+                <p className="text-xs font-semibold uppercase tracking-wider mb-0.5" style={{ color: "rgba(255,255,255,0.4)" }}>Your Type</p>
+                <p className="text-sm font-semibold" style={{ color: "rgba(255,255,255,0.88)" }}>
                   {[
                     enneagramType ? `Type ${enneagramType}` : null,
                     cognitiveType,
@@ -675,7 +680,7 @@ function DashboardScreen({
                     .join(" · ")}
                 </p>
               </div>
-              <ArrowRight className="w-4 h-4 text-slate-300 group-hover:text-slate-500 flex-shrink-0 group-hover:translate-x-0.5 transition-all" />
+              <ArrowRight className="w-4 h-4 flex-shrink-0 group-hover:translate-x-0.5 transition-all" style={{ color: "rgba(255,255,255,0.3)" }} />
             </Link>
           </motion.div>
         )}
@@ -709,11 +714,11 @@ export default function HomePage() {
 
   if (state === "loading") {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-sky-50 to-indigo-50">
+      <div className="min-h-screen flex items-center justify-center" style={{ background: "#0f0a1e" }}>
         <motion.div
           animate={{ opacity: [0.4, 1, 0.4] }}
           transition={{ duration: 1.5, repeat: Infinity }}
-          className="w-10 h-10 rounded-2xl bg-gradient-to-br from-sky-400 to-indigo-500 flex items-center justify-center"
+          className="w-10 h-10 rounded-2xl bg-gradient-to-br from-violet-500 to-indigo-500 flex items-center justify-center"
         >
           <Sparkles className="w-5 h-5 text-white" />
         </motion.div>

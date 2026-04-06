@@ -142,12 +142,12 @@ export default function PathView({ units, onNodeTap, activeTab, onTabChange }: P
   return (
     <div
       className="pb-10 min-h-screen"
-      style={{ background: "linear-gradient(160deg,#faf5ff 0%,#fdf4ff 50%,#fff1f2 100%)" }}
+      style={{ background: "#0f0a1e" }}
     >
       {/* Sticky tab header */}
       <div
         className="sticky top-0 z-10 pt-2 pb-3 border-b border-violet-100 mb-2"
-        style={{ background: "rgba(250,245,255,0.95)", backdropFilter: "blur(12px)" }}
+        style={{ background: "rgba(15,10,30,0.95)", backdropFilter: "blur(12px)" }}
       >
         <div className="flex gap-1 p-1 bg-violet-50 rounded-xl">
           {(["enneagram", "jungian"] as const).map((tab) => (

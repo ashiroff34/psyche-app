@@ -38,12 +38,14 @@ import {
   functionLoops,
   gripExperiences,
 } from "@/data/deep-cognitive";
+import Link from "next/link";
+import { useGameState } from "@/hooks/useGameState";
 
 // ============================================================
 // Types
 // ============================================================
 
-type TabId = "shadow" | "dynamics" | "reframe" | "patterns";
+type TabId = "shadow" | "dynamics" | "reframe" | "patterns" | "journal";
 
 interface PatternLog {
   id: string;
@@ -52,6 +54,32 @@ interface PatternLog {
   timestamp: string;
   date: string;
 }
+
+// Enneagram Journal types
+type TopicTag = "growth" | "stress" | "relationships" | "shadow";
+
+interface EnneagramJournalEntry {
+  id: string;
+  text: string;
+  typeTags: number[];
+  topicTags: TopicTag[];
+  timestamp: string;
+  date: string;
+}
+
+const TOPIC_LABELS: Record<TopicTag, string> = {
+  growth: "Growth",
+  stress: "Stress",
+  relationships: "Relationships",
+  shadow: "Shadow",
+};
+
+const TOPIC_COLORS: Record<TopicTag, string> = {
+  growth: "#22c55e",
+  stress: "#ef4444",
+  relationships: "#3b82f6",
+  shadow: "#a78bfa",
+};
 
 interface ShadowEntry {
   ego: string;
@@ -78,6 +106,11 @@ const tabs: { id: TabId; label: string; icon: React.ReactNode }[] = [
     id: "patterns",
     label: "Patterns",
     icon: <BarChart3 className="w-4 h-4" />,
+  },
+  {
+    id: "journal",
+    label: "Journal",
+    icon: <MessageSquare className="w-4 h-4" />,
   },
 ];
 
@@ -1838,6 +1871,441 @@ function PatternTracker() {
 }
 
 // ============================================================
+// Enneagram Journal
+// ============================================================
+
+const ENNEAGRAM_TYPE_COLORS: Record<number, string> = {
+  1: "#e67e22",
+  2: "#e74c3c",
+  3: "#f39c12",
+  4: "#8e44ad",
+  5: "#2980b9",
+  6: "#27ae60",
+  7: "#16a085",
+  8: "#c0392b",
+  9: "#7f8c8d",
+};
+
+function loadJournalEntries(): EnneagramJournalEntry[] {
+  if (typeof window === "undefined") return [];
+  try {
+    const raw = localStorage.getItem("psyche-enneagram-journal");
+    return raw ? JSON.parse(raw) : [];
+  } catch {
+    return [];
+  }
+}
+
+function saveJournalEntries(entries: EnneagramJournalEntry[]) {
+  if (typeof window === "undefined") return;
+  try {
+    localStorage.setItem("psyche-enneagram-journal", JSON.stringify(entries));
+  } catch {}
+}
+
+function EnneagramJournal() {
+  const [entries, setEntries] = useState<EnneagramJournalEntry[]>([]);
+  const [text, setText] = useState("");
+  const [selectedTypes, setSelectedTypes] = useState<number[]>([]);
+  const [selectedTopics, setSelectedTopics] = useState<TopicTag[]>([]);
+  const [showEditor, setShowEditor] = useState(false);
+  const [patternsOpen, setPatternsOpen] = useState(true);
+  const [expandedEntry, setExpandedEntry] = useState<string | null>(null);
+  const [userType, setUserType] = useState<number | null>(null);
+  const { incrementGrowthStreak } = useGameState();
+
+  useEffect(() => {
+    setEntries(loadJournalEntries());
+    try {
+      const raw = localStorage.getItem("psyche-profile");
+      if (raw) {
+        const p = JSON.parse(raw);
+        if (p.enneagramType) setUserType(Number(p.enneagramType));
+      }
+    } catch {}
+  }, []);
+
+  const toggleType = (t: number) => {
+    setSelectedTypes((prev) =>
+      prev.includes(t) ? prev.filter((x) => x !== t) : [...prev, t]
+    );
+  };
+
+  const toggleTopic = (topic: TopicTag) => {
+    setSelectedTopics((prev) =>
+      prev.includes(topic) ? prev.filter((x) => x !== topic) : [...prev, topic]
+    );
+  };
+
+  const saveEntry = useCallback(() => {
+    if (!text.trim()) return;
+    const now = new Date();
+    const entry: EnneagramJournalEntry = {
+      id: Date.now().toString(),
+      text: text.trim(),
+      typeTags: selectedTypes,
+      topicTags: selectedTopics,
+      timestamp: now.toISOString(),
+      date: now.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" }),
+    };
+    const updated = [entry, ...entries];
+    setEntries(updated);
+    saveJournalEntries(updated);
+    incrementGrowthStreak();
+    setText("");
+    setSelectedTypes([]);
+    setSelectedTopics([]);
+    setShowEditor(false);
+  }, [text, selectedTypes, selectedTopics, entries, incrementGrowthStreak]);
+
+  // Build pattern data
+  const typeCounts: Record<number, number> = {};
+  const topicCounts: Record<string, number> = {};
+  entries.forEach((e) => {
+    e.typeTags.forEach((t) => {
+      typeCounts[t] = (typeCounts[t] || 0) + 1;
+    });
+    e.topicTags.forEach((topic) => {
+      topicCounts[topic] = (topicCounts[topic] || 0) + 1;
+    });
+  });
+
+  const topTypes = Object.entries(typeCounts)
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 3);
+  const topTopics = Object.entries(topicCounts)
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 3);
+
+  const dominantTopic = topTopics[0]?.[0] as TopicTag | undefined;
+
+  const topicSectionMap: Record<TopicTag, string> = {
+    stress: "Growth Path",
+    growth: "Growth Path",
+    relationships: "Relationships",
+    shadow: "Overview",
+  };
+
+  const suggestion =
+    dominantTopic && topicCounts[dominantTopic] >= 2 && userType
+      ? {
+          text: `You've journaled about ${TOPIC_LABELS[dominantTopic].toLowerCase()} ${topicCounts[dominantTopic]} times.`,
+          link: `/enneagram/${userType}`,
+          linkLabel: `See the ${topicSectionMap[dominantTopic]} section for Type ${userType}`,
+        }
+      : null;
+
+  return (
+    <div className="space-y-6">
+      {/* Patterns Section */}
+      {entries.length > 0 && (
+        <motion.div
+          initial={{ opacity: 1, y: 0 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="rounded-3xl overflow-hidden"
+          style={{ background: "rgba(167,139,250,0.08)", border: "1px solid rgba(167,139,250,0.2)" }}
+        >
+          <button
+            onClick={() => setPatternsOpen((v) => !v)}
+            className="w-full flex items-center justify-between px-5 py-4"
+          >
+            <div className="flex items-center gap-2">
+              <Sparkles className="w-4 h-4" style={{ color: "#a78bfa" }} />
+              <span className="font-serif font-bold text-white text-sm">Your Patterns</span>
+            </div>
+            <ChevronDown
+              className="w-4 h-4 transition-transform duration-200"
+              style={{
+                color: "rgba(255,255,255,0.4)",
+                transform: patternsOpen ? "rotate(180deg)" : "rotate(0deg)",
+              }}
+            />
+          </button>
+          <AnimatePresence initial={false}>
+            {patternsOpen && (
+              <motion.div
+                initial={{ height: 0, opacity: 0 }}
+                animate={{ height: "auto", opacity: 1 }}
+                exit={{ height: 0, opacity: 0 }}
+                transition={{ duration: 0.2 }}
+                className="overflow-hidden"
+              >
+                <div className="px-5 pb-5 space-y-4">
+                  {topTypes.length > 0 && (
+                    <div>
+                      <p className="text-xs font-semibold uppercase tracking-wider mb-2" style={{ color: "rgba(255,255,255,0.35)" }}>
+                        Types you reflect on most
+                      </p>
+                      <div className="flex flex-wrap gap-2">
+                        {topTypes.map(([type, count]) => (
+                          <Link
+                            key={type}
+                            href={`/enneagram/${type}`}
+                            className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold transition-opacity hover:opacity-80"
+                            style={{
+                              background: `${ENNEAGRAM_TYPE_COLORS[Number(type)]}22`,
+                              border: `1px solid ${ENNEAGRAM_TYPE_COLORS[Number(type)]}44`,
+                              color: ENNEAGRAM_TYPE_COLORS[Number(type)],
+                            }}
+                          >
+                            Type {type}
+                            <span
+                              className="px-1.5 py-0.5 rounded-full text-[10px] font-bold"
+                              style={{ background: `${ENNEAGRAM_TYPE_COLORS[Number(type)]}33` }}
+                            >
+                              {count}×
+                            </span>
+                          </Link>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                  {topTopics.length > 0 && (
+                    <div>
+                      <p className="text-xs font-semibold uppercase tracking-wider mb-2" style={{ color: "rgba(255,255,255,0.35)" }}>
+                        Topics that come up most
+                      </p>
+                      <div className="flex flex-wrap gap-2">
+                        {topTopics.map(([topic, count]) => (
+                          <span
+                            key={topic}
+                            className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold"
+                            style={{
+                              background: `${TOPIC_COLORS[topic as TopicTag]}18`,
+                              border: `1px solid ${TOPIC_COLORS[topic as TopicTag]}35`,
+                              color: TOPIC_COLORS[topic as TopicTag],
+                            }}
+                          >
+                            {TOPIC_LABELS[topic as TopicTag]}
+                            <span className="opacity-70">{count}×</span>
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                  {suggestion && (
+                    <div
+                      className="rounded-xl p-3"
+                      style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.09)" }}
+                    >
+                      <p className="text-xs leading-relaxed mb-2" style={{ color: "rgba(255,255,255,0.65)" }}>
+                        {suggestion.text}{" "}
+                      </p>
+                      <Link
+                        href={suggestion.link}
+                        className="text-xs font-semibold underline underline-offset-2 transition-opacity hover:opacity-80"
+                        style={{ color: "#a78bfa" }}
+                      >
+                        {suggestion.linkLabel} →
+                      </Link>
+                    </div>
+                  )}
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </motion.div>
+      )}
+
+      {/* Editor */}
+      {!showEditor ? (
+        <motion.button
+          whileHover={{ scale: 1.01 }}
+          whileTap={{ scale: 0.99 }}
+          onClick={() => setShowEditor(true)}
+          className="w-full flex items-center gap-3 px-5 py-4 rounded-2xl text-left transition-all"
+          style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.09)" }}
+        >
+          <div className="w-9 h-9 rounded-xl bg-gradient-to-r from-violet-500 to-indigo-500 flex items-center justify-center shrink-0">
+            <Plus className="w-4 h-4 text-white" />
+          </div>
+          <div>
+            <p className="text-sm font-semibold text-white">New entry</p>
+            <p className="text-xs" style={{ color: "rgba(255,255,255,0.4)" }}>Write and tag a reflection</p>
+          </div>
+        </motion.button>
+      ) : (
+        <motion.div
+          initial={{ opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="rounded-3xl p-5 space-y-4"
+          style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.12)" }}
+        >
+          <div className="flex items-center justify-between">
+            <p className="text-sm font-semibold text-white">New Reflection</p>
+            <button onClick={() => setShowEditor(false)} style={{ color: "rgba(255,255,255,0.4)" }}>
+              <X className="w-4 h-4" />
+            </button>
+          </div>
+
+          <textarea
+            value={text}
+            onChange={(e) => setText(e.target.value)}
+            placeholder="What are you noticing about yourself today?"
+            rows={5}
+            className="w-full rounded-xl px-4 py-3 text-sm resize-none focus:outline-none"
+            style={{
+              background: "rgba(255,255,255,0.04)",
+              border: "1px solid rgba(255,255,255,0.1)",
+              color: "rgba(255,255,255,0.85)",
+            }}
+          />
+
+          {/* Type tag pills */}
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-wider mb-2" style={{ color: "rgba(255,255,255,0.35)" }}>
+              Tag a type (optional)
+            </p>
+            <div className="flex flex-wrap gap-1.5">
+              {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((t) => {
+                const active = selectedTypes.includes(t);
+                return (
+                  <button
+                    key={t}
+                    onClick={() => toggleType(t)}
+                    className="w-8 h-8 rounded-xl text-xs font-bold transition-all"
+                    style={{
+                      background: active
+                        ? ENNEAGRAM_TYPE_COLORS[t]
+                        : `${ENNEAGRAM_TYPE_COLORS[t]}18`,
+                      color: active ? "#fff" : ENNEAGRAM_TYPE_COLORS[t],
+                      border: `1px solid ${ENNEAGRAM_TYPE_COLORS[t]}44`,
+                    }}
+                  >
+                    {t}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* Topic tag pills */}
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-wider mb-2" style={{ color: "rgba(255,255,255,0.35)" }}>
+              Tag a topic (optional)
+            </p>
+            <div className="flex flex-wrap gap-2">
+              {(Object.keys(TOPIC_LABELS) as TopicTag[]).map((topic) => {
+                const active = selectedTopics.includes(topic);
+                return (
+                  <button
+                    key={topic}
+                    onClick={() => toggleTopic(topic)}
+                    className="px-3 py-1.5 rounded-full text-xs font-semibold transition-all"
+                    style={{
+                      background: active ? `${TOPIC_COLORS[topic]}30` : `${TOPIC_COLORS[topic]}10`,
+                      color: TOPIC_COLORS[topic],
+                      border: active
+                        ? `1px solid ${TOPIC_COLORS[topic]}60`
+                        : `1px solid ${TOPIC_COLORS[topic]}25`,
+                    }}
+                  >
+                    {TOPIC_LABELS[topic]}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+
+          <button
+            onClick={saveEntry}
+            disabled={!text.trim()}
+            className="w-full py-3 rounded-xl text-sm font-bold text-white transition-all disabled:opacity-40 disabled:cursor-not-allowed"
+            style={{
+              background: "linear-gradient(135deg, #7c3aed, #4f46e5)",
+              boxShadow: text.trim() ? "0 4px 16px rgba(124,58,237,0.35)" : "none",
+            }}
+          >
+            Save Entry
+          </button>
+        </motion.div>
+      )}
+
+      {/* Entries list */}
+      {entries.length === 0 && !showEditor && (
+        <p className="text-sm text-center py-8" style={{ color: "rgba(255,255,255,0.3)" }}>
+          No entries yet. Write your first reflection above.
+        </p>
+      )}
+
+      {entries.length > 0 && (
+        <div className="space-y-2">
+          <p className="text-xs font-semibold uppercase tracking-wider" style={{ color: "rgba(255,255,255,0.3)" }}>
+            {entries.length} {entries.length === 1 ? "entry" : "entries"}
+          </p>
+          {entries.map((entry) => (
+            <div
+              key={entry.id}
+              className="rounded-2xl overflow-hidden cursor-pointer"
+              style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)" }}
+              onClick={() => setExpandedEntry(expandedEntry === entry.id ? null : entry.id)}
+            >
+              <div className="flex items-center justify-between px-4 py-3">
+                <div className="flex-1 min-w-0">
+                  <p
+                    className="text-sm text-white/80 truncate leading-snug"
+                    style={{ fontFamily: "'Georgia', serif" }}
+                  >
+                    {entry.text.slice(0, 80)}{entry.text.length > 80 ? "…" : ""}
+                  </p>
+                  <div className="flex items-center gap-2 mt-1.5 flex-wrap">
+                    <span className="text-xs" style={{ color: "rgba(255,255,255,0.3)" }}>
+                      {entry.date}
+                    </span>
+                    {entry.typeTags.map((t) => (
+                      <span
+                        key={t}
+                        className="text-[10px] px-1.5 py-0.5 rounded-md font-bold"
+                        style={{
+                          background: `${ENNEAGRAM_TYPE_COLORS[t]}22`,
+                          color: ENNEAGRAM_TYPE_COLORS[t],
+                        }}
+                      >
+                        T{t}
+                      </span>
+                    ))}
+                    {entry.topicTags.map((topic) => (
+                      <span
+                        key={topic}
+                        className="text-[10px] px-1.5 py-0.5 rounded-md font-semibold"
+                        style={{
+                          background: `${TOPIC_COLORS[topic]}18`,
+                          color: TOPIC_COLORS[topic],
+                        }}
+                      >
+                        {TOPIC_LABELS[topic]}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+                <ChevronDown
+                  className="w-4 h-4 ml-3 shrink-0 transition-transform"
+                  style={{
+                    color: "rgba(255,255,255,0.3)",
+                    transform: expandedEntry === entry.id ? "rotate(180deg)" : "rotate(0deg)",
+                  }}
+                />
+              </div>
+              {expandedEntry === entry.id && (
+                <div className="px-4 pb-4">
+                  <div className="h-px mb-3" style={{ background: "rgba(255,255,255,0.07)" }} />
+                  <p
+                    className="text-sm leading-relaxed"
+                    style={{ color: "rgba(255,255,255,0.72)", fontFamily: "'Georgia', serif", lineHeight: "1.7" }}
+                  >
+                    {entry.text}
+                  </p>
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
+// ============================================================
 // Main Page
 // ============================================================
 
@@ -1933,6 +2401,7 @@ export default function InnerWorkLabPage() {
             {activeTab === "dynamics" && <TypeDynamicsSimulator />}
             {activeTab === "reframe" && <CognitiveReframeTool />}
             {activeTab === "patterns" && <PatternTracker />}
+            {activeTab === "journal" && <EnneagramJournal />}
           </motion.div>
         </AnimatePresence>
 

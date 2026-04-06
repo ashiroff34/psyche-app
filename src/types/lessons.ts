@@ -11,7 +11,10 @@ export type ExerciseType =
   | "matching-pairs"     // Tap to match pairs
   | "fill-in-blank"      // Sentence with blank + word bank
   | "scenario"           // Situational question with longer context
-  | "sorting";           // Order/categorize items
+  | "sorting"            // Order/categorize items
+  | "free-recall"        // Feynman technique: type your own explanation
+  | "socratic-prompt"    // Reflection question before a concept reveal
+  | "interleaving";      // Mixed-type discrimination practice
 
 // ── Discriminated Union for Exercise Content ────────────────────────────────
 
@@ -60,13 +63,45 @@ export interface SortingContent {
   items: Array<{ text: string; categoryIndex: number }>;  // Items to sort
 }
 
+export interface FreeRecallContent {
+  type: "free-recall";
+  prompt: string;           // e.g. "In your own words, describe what drives a Type 5"
+  keyTerms: string[];       // terms that count as a "good" answer if mentioned
+  minWords: number;         // minimum word count (e.g. 15)
+  modelAnswer: string;      // shown after submission — the ideal answer
+}
+
+export interface SocraticPromptContent {
+  type: "socratic-prompt";
+  question: string;         // The question asked before the concept
+  reflection: string;       // Brief "think about it" framing
+  revealLabel: string;      // Button label: "See the insight" / "Reveal answer"
+  conceptTitle: string;     // Shown after reveal
+  conceptBody: string;      // The actual teaching content revealed
+  highlight?: string;
+}
+
+export interface InterleavingExerciseContent {
+  type: "interleaving";
+  title: string;
+  typeNumbers: number[];    // The types being mixed (e.g. [1, 4, 6])
+  items: Array<{
+    statement: string;
+    correctType: number;
+    explanation: string;
+  }>;
+}
+
 export type ExerciseContent =
   | ConceptIntroContent
   | MultipleChoiceContent
   | MatchingPairsContent
   | FillInBlankContent
   | ScenarioContent
-  | SortingContent;
+  | SortingContent
+  | FreeRecallContent
+  | SocraticPromptContent
+  | InterleavingExerciseContent;
 
 // ── Exercise & Lesson Structures ────────────────────────────────────────────
 
@@ -75,6 +110,14 @@ export interface Exercise {
   difficulty: 1 | 2 | 3;  // 1=recognition, 2=guided production, 3=free recall
   content: ExerciseContent;
 }
+
+export type ScaffoldStep = 1 | 2 | 3 | 4;
+export const SCAFFOLD_LABELS: Record<ScaffoldStep, { label: string; color: string }> = {
+  1: { label: "Portrait",    color: "#6366f1" }, // indigo — external view
+  2: { label: "Core",        color: "#a855f7" }, // purple — internal structure
+  3: { label: "Distinguish", color: "#f59e0b" }, // amber — discrimination
+  4: { label: "Apply",       color: "#22c55e" }, // green — growth/application
+};
 
 export interface Lesson {
   id: string;
@@ -86,6 +129,7 @@ export interface Lesson {
   xpReward: number;
   personalized?: boolean;
   personalizeFor?: "enneagramType" | "cognitiveType";
+  scaffoldStep?: ScaffoldStep;
 }
 
 export interface Unit {

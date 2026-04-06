@@ -127,7 +127,7 @@ export default function PathIteration1({ units, onNodeTap }: Props) {
   const currentIdx = allNodes.findIndex((n) => n.status === "current");
 
   return (
-    <div className="pb-20 min-h-screen overflow-hidden" style={{ background: "#ffffff" }}>
+    <div className="pb-20 min-h-screen overflow-hidden" style={{ background: "#0f0a1e" }}>
       {/* Nodes */}
       <div className="relative pt-8 px-6">
         {allNodes.map((node, idx) => {

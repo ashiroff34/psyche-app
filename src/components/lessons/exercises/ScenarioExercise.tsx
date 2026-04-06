@@ -1,22 +1,32 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { CheckCircle, XCircle, ArrowRight } from "lucide-react";
 import type { ScenarioContent } from "@/types/lessons";
+import { stableShuffleOptions } from "@/lib/shuffleOptions";
 
 interface Props {
   content: ScenarioContent;
   onAnswer: (correct: boolean) => void;
+  exerciseId?: string;
 }
 
 const OPTION_LETTERS = ["A", "B", "C", "D"];
 
-export default function ScenarioExercise({ content, onAnswer }: Props) {
+export default function ScenarioExercise({ content, onAnswer, exerciseId }: Props) {
   const { scenario, question, options, correctIndex, explanation } = content;
+
+  // Stable shuffle so options don't jump on re-renders, but correct answer position is randomized
+  const { shuffled: shuffledOptions, newCorrectIndex } = useMemo(
+    () => stableShuffleOptions(options, correctIndex, exerciseId ?? question),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [exerciseId, question]
+  );
+
   const [selected, setSelected] = useState<number | null>(null);
   const revealed = selected !== null;
-  const isCorrect = selected === correctIndex;
+  const isCorrect = selected === newCorrectIndex;
 
   const handleSelect = (idx: number) => {
     if (revealed) return;
@@ -57,9 +67,9 @@ export default function ScenarioExercise({ content, onAnswer }: Props) {
 
         {/* Options — same pattern as MultipleChoice */}
         <div className="space-y-3">
-          {options.map((opt, i) => {
+          {shuffledOptions.map((opt, i) => {
             const isThisSelected = i === selected;
-            const isThisCorrect = i === correctIndex;
+            const isThisCorrect = i === newCorrectIndex;
 
             let borderColor = "border-slate-200 dark:border-slate-700";
             let bgColor = "bg-white dark:bg-slate-800";

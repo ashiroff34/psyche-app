@@ -1,10 +1,11 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowLeftRight, Sparkles, Users, Zap, TrendingUp, Heart, Share2, Copy, Check, Info } from "lucide-react";
+import { ArrowLeftRight, Sparkles, Users, Zap, TrendingUp, Heart, Share2, Copy, Check, Info, ChevronRight } from "lucide-react";
 import { enneagramTypes } from "@/data/enneagram";
 import NextStepBanner from "@/components/NextStepBanner";
+import { relationshipDynamics } from "@/data/relationshipDynamics";
 
 // ─── Type Groupings ────────────────────────────────────────────────────────────
 const HARMONIC_GROUPS: Record<string, number[]> = {
@@ -1061,6 +1062,17 @@ export default function ComparePage() {
   const [typeA, setTypeA] = useState<number | null>(null);
   const [typeB, setTypeB] = useState<number | null>(null);
   const [copied, setCopied] = useState(false);
+  const [userEnneagramType, setUserEnneagramType] = useState<number | null>(null);
+
+  useEffect(() => {
+    try {
+      const raw = localStorage.getItem("psyche-profile");
+      if (raw) {
+        const profile = JSON.parse(raw);
+        if (profile.enneagramType) setUserEnneagramType(Number(profile.enneagramType));
+      }
+    } catch {}
+  }, []);
 
   const bothSelected = typeA !== null && typeB !== null;
   const pairContent = bothSelected ? getPairContent(typeA!, typeB!) : null;
@@ -1099,6 +1111,98 @@ export default function ComparePage() {
             Select two Enneagram types to explore how they relate, in love, friendship, and work.
           </p>
         </motion.div>
+
+        {/* Personalized Relationship Patterns — shown only if user has a type */}
+        {userEnneagramType && (() => {
+          const userTypeData = enneagramTypes.find(t => t.number === userEnneagramType);
+          if (!userTypeData) return null;
+
+          const integrationTypeNum = userTypeData.integrationLine;
+          const disintegrationTypeNum = userTypeData.disintegrationLine;
+          // Determine wing type: use right wing (number + 1, wrapping 9→1)
+          const wingTypeNum = userEnneagramType === 9 ? 1 : userEnneagramType + 1;
+
+          const pairs = [
+            {
+              label: "Integration (Growth Line)",
+              typeNums: [userEnneagramType, integrationTypeNum] as [number, number],
+              note: `Where you go in growth — Type ${integrationTypeNum}'s qualities as growth edge`,
+            },
+            {
+              label: "Disintegration (Stress Line)",
+              typeNums: [userEnneagramType, disintegrationTypeNum] as [number, number],
+              note: `Where you go under stress — Type ${disintegrationTypeNum}'s patterns activated`,
+            },
+            {
+              label: "Wing Connection",
+              typeNums: [userEnneagramType, wingTypeNum] as [number, number],
+              note: `Your adjacent wing — influences your core type's expression`,
+            },
+          ];
+
+          return (
+            <motion.div
+              initial={{ opacity: 1, y: 0 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="mb-10"
+            >
+              <div className="flex items-center justify-between mb-4">
+                <div>
+                  <h2 className="text-lg font-serif font-bold" style={{ color: "rgba(255,255,255,0.93)" }}>
+                    Your Relationship Patterns
+                  </h2>
+                  <p className="text-xs mt-0.5" style={{ color: "rgba(255,255,255,0.35)" }}>
+                    Type {userEnneagramType} · {userTypeData.name} — key dynamics for your type
+                  </p>
+                </div>
+              </div>
+
+              <div className="grid sm:grid-cols-3 gap-3 mb-4">
+                {pairs.map(({ label, typeNums, note }) => {
+                  const [a, b] = typeNums;
+                  const typeAData = enneagramTypes.find(t => t.number === a);
+                  const typeBData = enneagramTypes.find(t => t.number === b);
+                  const pairContent = getPairContent(a, b);
+                  return (
+                    <button
+                      key={label}
+                      onClick={() => { setTypeA(a); setTypeB(b); }}
+                      className="text-left p-4 rounded-2xl transition-all hover:scale-[1.02]"
+                      style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.09)" }}
+                    >
+                      <div className="flex items-center gap-2 mb-2.5">
+                        <div
+                          className="w-6 h-6 rounded-lg flex items-center justify-center text-white text-[11px] font-bold"
+                          style={{ backgroundColor: typeAData?.color ?? "#666" }}
+                        >
+                          {a}
+                        </div>
+                        <span className="text-[10px]" style={{ color: "rgba(255,255,255,0.25)" }}>+</span>
+                        <div
+                          className="w-6 h-6 rounded-lg flex items-center justify-center text-white text-[11px] font-bold"
+                          style={{ backgroundColor: typeBData?.color ?? "#666" }}
+                        >
+                          {b}
+                        </div>
+                        <ChevronRight className="w-3 h-3 ml-auto shrink-0" style={{ color: "rgba(255,255,255,0.2)" }} />
+                      </div>
+                      <p className="text-[10px] font-semibold uppercase tracking-wider mb-1" style={{ color: "rgba(139,92,246,0.7)" }}>
+                        {label}
+                      </p>
+                      <p className="text-xs leading-snug" style={{ color: "rgba(255,255,255,0.5)" }}>
+                        {pairContent?.summary?.slice(0, 80) ?? note}{pairContent?.summary && pairContent.summary.length > 80 ? "…" : ""}
+                      </p>
+                    </button>
+                  );
+                })}
+              </div>
+
+              <p className="text-[10px] italic text-center" style={{ color: "rgba(255,255,255,0.2)" }}>
+                Tap a card to explore the full pairing below, or use the selectors to compare any two types.
+              </p>
+            </motion.div>
+          );
+        })()}
 
         {/* Type Selectors */}
         <div className="flex flex-col sm:flex-row items-stretch sm:items-start gap-4 mb-10">

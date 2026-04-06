@@ -220,7 +220,7 @@ export default function TutorialOverlay({ onClose }: { onClose: () => void }) {
 
       {/* Bottom sheet */}
       <motion.div
-        className="fixed bottom-0 inset-x-0 z-[9999] bg-white rounded-t-3xl shadow-2xl overflow-hidden flex flex-col"
+        className="fixed bottom-0 inset-x-0 z-[9999] rounded-t-3xl shadow-2xl overflow-hidden flex flex-col" style={{ background: "rgba(20,15,40,0.98)", border: "1px solid rgba(255,255,255,0.1)" }}
         initial={{ y: "100%" }}
         animate={{ y: 0 }}
         exit={{ y: "100%" }}
@@ -239,10 +239,10 @@ export default function TutorialOverlay({ onClose }: { onClose: () => void }) {
             <div className="w-7 h-7 rounded-xl bg-gradient-to-br from-sky-400 to-indigo-500 flex items-center justify-center">
               <OuroborosLogo size={13} />
             </div>
-            <span className="text-sm font-bold text-slate-800">App Tour</span>
-            <span className="text-xs text-slate-400">{idx + 1} / {SLIDES.length}</span>
+            <span className="text-sm font-bold" style={{ color: "rgba(255,255,255,0.9)" }}>App Tour</span>
+            <span className="text-xs" style={{ color: "rgba(255,255,255,0.4)" }}>{idx + 1} / {SLIDES.length}</span>
           </div>
-          <button onClick={onClose} aria-label="Close tour" className="p-2.5 rounded-xl text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition-all">
+          <button onClick={onClose} aria-label="Close tour" className="p-2.5 rounded-xl transition-all" style={{ color: "rgba(255,255,255,0.4)" }}>
             <X className="w-4 h-4" />
           </button>
         </div>
@@ -261,8 +261,8 @@ export default function TutorialOverlay({ onClose }: { onClose: () => void }) {
             {/* Phone mockup or chibi for no-screenshot slides */}
             {slide.screenshot ? (
               <div
-                className="relative rounded-[18px] overflow-hidden border-[4px] border-slate-800 shadow-2xl bg-white mx-auto mb-4"
-                style={{ width: 160, height: 215 }}
+                className="relative rounded-[18px] overflow-hidden border-[4px] border-slate-800 shadow-2xl mx-auto mb-4"
+                style={{ background: "#0f0a1e", width: 160, height: 215 }}
               >
                 {/* Notch */}
                 <div className="absolute top-0 left-1/2 -translate-x-1/2 w-12 h-3 bg-slate-800 rounded-b-xl z-10" />
@@ -292,17 +292,17 @@ export default function TutorialOverlay({ onClose }: { onClose: () => void }) {
 
             {/* Chibi + title row */}
             <div className="flex items-center gap-3 w-full mb-1">
-              <div className="w-9 h-9 rounded-full bg-white border-2 border-indigo-100 shadow-sm flex items-center justify-center overflow-hidden flex-shrink-0">
+              <div className="w-9 h-9 rounded-full border-2 shadow-sm flex items-center justify-center overflow-hidden flex-shrink-0" style={{ background: "rgba(139,92,246,0.2)", borderColor: "rgba(139,92,246,0.4)" }}>
                 <Image src={slide.chibi} alt={slide.title} width={26} height={26} className="object-contain" unoptimized />
               </div>
-              <p className="text-[15px] font-bold text-slate-900 leading-tight flex-1">{slide.title}</p>
+              <p className="text-[15px] font-bold leading-tight flex-1" style={{ color: "rgba(255,255,255,0.95)" }}>{slide.title}</p>
             </div>
 
             {/* Expandable details */}
             <div className="w-full">
               <button
                 onClick={() => setExpanded(e => !e)}
-                className="flex items-center gap-1.5 text-xs font-semibold text-indigo-500 py-1.5 hover:text-indigo-700 transition-colors"
+                className="flex items-center gap-1.5 text-xs font-semibold py-1.5 transition-colors" style={{ color: "rgba(129,140,248,0.9)" }}
               >
                 <motion.span animate={{ rotate: expanded ? 90 : 0 }} transition={{ duration: 0.2 }}>
                   <ChevronRight className="w-3.5 h-3.5" />
@@ -320,11 +320,11 @@ export default function TutorialOverlay({ onClose }: { onClose: () => void }) {
                     className="overflow-hidden"
                   >
                     <div className="pb-2 space-y-2">
-                      <p className="text-[13px] text-slate-500 leading-relaxed">{slide.what}</p>
+                      <p className="text-[13px] leading-relaxed" style={{ color: "rgba(255,255,255,0.55)" }}>{slide.what}</p>
                       {slide.howToGet && (
-                        <div className="flex items-start gap-1.5 bg-indigo-50 rounded-xl px-3 py-2">
+                        <div className="flex items-start gap-1.5 rounded-xl px-3 py-2" style={{ background: "rgba(99,102,241,0.12)", border: "1px solid rgba(99,102,241,0.2)" }}>
                           <Hand className="w-3.5 h-3.5 text-indigo-400 mt-0.5 flex-shrink-0" />
-                          <p className="text-[12px] text-indigo-600 leading-snug">{slide.howToGet}</p>
+                          <p className="text-[12px] leading-snug" style={{ color: "rgba(129,140,248,0.9)" }}>{slide.howToGet}</p>
                         </div>
                       )}
                     </div>
@@ -339,7 +339,7 @@ export default function TutorialOverlay({ onClose }: { onClose: () => void }) {
         <div className="flex justify-center gap-1.5 pt-2 pb-2 flex-shrink-0">
           {SLIDES.map((_, i) => (
             <div key={i} className={`rounded-full transition-all duration-300 ${
-              i === idx ? "w-5 h-1.5 bg-indigo-500" : i < idx ? "w-1.5 h-1.5 bg-indigo-300" : "w-1.5 h-1.5 bg-slate-200"
+              i === idx ? "w-5 h-1.5 bg-indigo-500" : i < idx ? "w-1.5 h-1.5 bg-indigo-400" : "w-1.5 h-1.5 bg-white/20"
             }`} />
           ))}
         </div>
@@ -347,17 +347,17 @@ export default function TutorialOverlay({ onClose }: { onClose: () => void }) {
         {/* Action buttons */}
         <div className="flex items-center justify-between px-5 pb-8 pt-1 flex-shrink-0">
           {!isFirst ? (
-            <button onClick={prev} className="flex items-center gap-1 px-4 py-2 rounded-xl text-sm font-medium text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition-all active:scale-95">
+            <button onClick={prev} className="flex items-center gap-1 px-4 py-2 rounded-xl text-sm font-medium transition-all active:scale-95" style={{ color: "rgba(255,255,255,0.5)" }}>
               <ChevronLeft className="w-4 h-4" /> Back
             </button>
           ) : (
-            <button onClick={onClose} className="px-4 py-2 rounded-xl text-sm font-medium text-slate-300 hover:text-slate-500 transition-all">
+            <button onClick={onClose} className="px-4 py-2 rounded-xl text-sm font-medium transition-all" style={{ color: "rgba(255,255,255,0.4)" }}>
               Skip
             </button>
           )}
           <button
             onClick={next}
-            className="flex items-center gap-2 px-6 py-2.5 rounded-2xl text-sm font-bold text-white bg-gradient-to-r from-sky-500 to-indigo-600 shadow-lg shadow-indigo-200/50 hover:shadow-xl transition-all active:scale-95"
+            className="flex items-center gap-2 px-6 py-2.5 rounded-2xl text-sm font-bold text-white bg-gradient-to-r from-sky-500 to-indigo-600 shadow-lg hover:shadow-xl transition-all active:scale-95"
           >
             {isLast ? <><Sparkles className="w-4 h-4" /> Let's go!</> : <>Next <ChevronRight className="w-4 h-4" /></>}
           </button>
@@ -378,7 +378,7 @@ export default function TutorialOverlay({ onClose }: { onClose: () => void }) {
 
 export function TutorialReplayButton({ onClick }: { onClick: () => void }) {
   return (
-    <button onClick={onClick} className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm text-slate-600 hover:bg-slate-50 transition-all">
+    <button onClick={onClick} className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm transition-all" style={{ color: "rgba(255,255,255,0.6)" }}>
       <RotateCcw className="w-4 h-4" /> Replay Tutorial
     </button>
   );

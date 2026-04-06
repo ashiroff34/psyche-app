@@ -76,17 +76,17 @@ export default function LikertAssessment({
     <div className="max-w-2xl mx-auto py-8 px-4">
       {/* Progress */}
       <div className="mb-6">
-        <div className="flex items-center justify-between text-xs text-slate-400 mb-2">
+        <div className="flex items-center justify-between text-xs mb-2" style={{ color: "rgba(255,255,255,0.4)" }}>
           <span>{title}</span>
           <div className="flex items-center gap-3">
-            <span className="inline-flex items-center gap-1 text-sky-600 font-medium">
+            <span className="inline-flex items-center gap-1 text-sky-400 font-medium">
               <Clock className="w-3 h-3" />
               ~{minsRemaining} min left
             </span>
             <span>{currentIdx + 1} of {items.length}</span>
           </div>
         </div>
-        <div className="h-1.5 bg-slate-100 rounded-full overflow-hidden">
+        <div className="h-1.5 rounded-full overflow-hidden" style={{ background: "rgba(255,255,255,0.1)" }}>
           <motion.div
             className={`h-full bg-gradient-to-r ${gradientFrom} ${gradientTo} rounded-full`}
             animate={{ width: `${progress}%` }}
@@ -103,13 +103,13 @@ export default function LikertAssessment({
           exit={{ opacity: 0, x: -20 }}
           transition={{ duration: 0.2 }}
         >
-          <div className="p-6 rounded-2xl bg-white border border-slate-100 mb-6">
-            <p className="text-slate-700 leading-relaxed text-center text-lg font-serif">
+          <div className="p-6 rounded-2xl mb-6" style={{ background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.1)" }}>
+            <p className="leading-relaxed text-center text-lg font-serif" style={{ color: "rgba(255,255,255,0.9)" }}>
               &ldquo;{item.text}&rdquo;
             </p>
           </div>
 
-          <p className="text-sm text-slate-400 text-center mb-4">How much does this describe you?</p>
+          <p className="text-sm text-center mb-4" style={{ color: "rgba(255,255,255,0.4)" }}>How much does this describe you?</p>
 
           <div className="flex justify-center gap-2 sm:gap-3">
             {scaleLabels.map((label, idx) => {
@@ -118,10 +118,11 @@ export default function LikertAssessment({
                 <button
                   key={val}
                   onClick={() => rate(val)}
-                  className="flex flex-col items-center gap-1.5 p-3 rounded-xl border-2 border-slate-100 hover:border-sky-300 hover:bg-sky-50/30 transition-all active:scale-95 min-w-[60px] sm:min-w-[75px]"
+                  className="flex flex-col items-center gap-1.5 p-3 rounded-xl border-2 transition-all active:scale-95 min-w-[60px] sm:min-w-[75px] hover:border-sky-400/50"
+                  style={{ borderColor: "rgba(255,255,255,0.15)", background: "rgba(255,255,255,0.04)" }}
                 >
-                  <div className="text-lg font-bold text-slate-700">{val}</div>
-                  <div className="text-[9px] sm:text-[10px] text-slate-400 leading-tight text-center">{label}</div>
+                  <div className="text-lg font-bold" style={{ color: "rgba(255,255,255,0.85)" }}>{val}</div>
+                  <div className="text-[9px] sm:text-[10px] leading-tight text-center" style={{ color: "rgba(255,255,255,0.4)" }}>{label}</div>
                 </button>
               );
             })}

@@ -46,10 +46,12 @@ import {
   getLeague,
   generateLeaderboard,
   getPetMood,
+  getMasteryLevel,
   type DailyGoal,
   type Badge,
   type League,
 } from "@/hooks/useGameState";
+import { enneagramTypes } from "@/data/enneagram";
 import PetSprite from "@/components/PetSprite";
 import { usePetState } from "@/hooks/usePetState";
 import { useRewards } from "@/components/Rewards";
@@ -226,6 +228,15 @@ function HeaderSection({
             <Share2 className="w-3.5 h-3.5" />
           </button>
         </div>
+
+        {/* Growth Streak */}
+        {(state.growthStreakCount ?? 0) > 0 && (
+          <div className="flex items-center gap-2 px-4 py-2 rounded-2xl bg-emerald-50 border border-emerald-200">
+            <span className="text-sm">🌱</span>
+            <span className="text-sm font-mono font-semibold text-emerald-600">{state.growthStreakCount}</span>
+            <span className="text-[10px] text-emerald-500 uppercase tracking-wider">growth streak</span>
+          </div>
+        )}
 
         {/* Tokens */}
         <div className="flex items-center gap-2 px-4 py-2 rounded-2xl bg-amber-50 border border-amber-200">
@@ -780,6 +791,78 @@ function TokenShop({ tokens, onPurchase }: { tokens: number; onPurchase: (id: st
   );
 }
 
+function TypeMasterySection({ typeMastery }: { typeMastery: Record<string, number> }) {
+  const MASTERY_COLORS: Record<string, string> = {
+    Novice: "#64748b",
+    Apprentice: "#0ea5e9",
+    Familiar: "#10b981",
+    Proficient: "#f59e0b",
+    Advanced: "#8b5cf6",
+    Master: "#f97316",
+  };
+
+  return (
+    <motion.div {...fadeUp} transition={{ delay: 0.32 }} className="p-6 rounded-3xl bg-white border border-slate-100 shadow-sm">
+      <h3 className="text-lg font-serif font-semibold text-slate-800 mb-1 flex items-center gap-2">
+        <Star className="w-5 h-5 text-violet-500" /> Type Mastery
+      </h3>
+      <p className="text-xs text-slate-400 mb-5">Complete type-specific lessons to earn mastery points for each of the 9 types.</p>
+
+      <div className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-5 gap-3">
+        {enneagramTypes.map((type) => {
+          const points = typeMastery?.[String(type.number)] ?? 0;
+          const started = points > 0;
+          const label = getMasteryLevel(points);
+          const labelColor = MASTERY_COLORS[label] ?? "#64748b";
+
+          return (
+            <div
+              key={type.number}
+              className={`relative flex flex-col items-center p-3 rounded-2xl border transition-all ${
+                started
+                  ? "bg-white border-slate-100 shadow-sm"
+                  : "bg-slate-50/70 border-slate-100 opacity-50"
+              }`}
+            >
+              {/* Type Number Badge */}
+              <div
+                className="w-10 h-10 rounded-xl flex items-center justify-center text-white text-base font-serif font-bold mb-2"
+                style={{ backgroundColor: started ? type.color : "#cbd5e1" }}
+              >
+                {type.number}
+              </div>
+
+              {/* Type name (short) */}
+              <div className="text-[10px] text-slate-500 text-center font-medium leading-tight mb-1.5">
+                {type.name.replace("The ", "")}
+              </div>
+
+              {/* Progress bar */}
+              <div className="w-full h-1.5 bg-slate-100 rounded-full overflow-hidden mb-1.5">
+                <motion.div
+                  className="h-full rounded-full"
+                  style={{ backgroundColor: started ? type.color : "#cbd5e1" }}
+                  initial={{ width: 0 }}
+                  animate={{ width: `${points}%` }}
+                  transition={{ duration: 0.8, ease: "easeOut" }}
+                />
+              </div>
+
+              {/* Mastery label */}
+              <span
+                className="text-[9px] font-semibold uppercase tracking-wider"
+                style={{ color: started ? labelColor : "#94a3b8" }}
+              >
+                {label}
+              </span>
+            </div>
+          );
+        })}
+      </div>
+    </motion.div>
+  );
+}
+
 function LeaderboardSection({ state }: { state: any }) {
   const [leaderboard] = useState(() =>
     generateLeaderboard(state.xp, state.level)
@@ -1099,6 +1182,11 @@ export default function GamePage() {
             <BadgeGrid badges={state.badges} />
             <StatsSection state={state} />
           </div>
+        </div>
+
+        {/* Type Mastery - Full width */}
+        <div className="mb-6">
+          <TypeMasterySection typeMastery={state.typeMastery ?? {}} />
         </div>
 
         {/* Learning Path - Full width */}

@@ -50,6 +50,7 @@ import {
   functionLoops,
   gripExperiences,
 } from "@/data/deep-cognitive";
+import { keirseyTemperaments, getTemperamentDataForType } from "@/data/keirseyTemperaments";
 
 // ============================================================
 // DATA MAPS & HELPERS
@@ -1386,9 +1387,18 @@ function Tab16Types() {
                   <h2 className="text-2xl font-serif font-bold" style={{ color: "rgba(255,255,255,0.93)" }}>{type.name}</h2>
                   <p className="text-sm mb-3" style={{ color: "rgba(255,255,255,0.35)" }}>{type.brief}</p>
                   <div className="flex flex-wrap gap-2">
-                    <Pill color={type.color}>
-                      {interactionStyles[type.code]?.temperament || "Unknown"}
-                    </Pill>
+                    {(() => {
+                      const kTemp = getTemperamentDataForType(type.code);
+                      return kTemp ? (
+                        <Pill color={kTemp.color}>
+                          Temperament: {kTemp.id} {kTemp.name}
+                        </Pill>
+                      ) : (
+                        <Pill color={type.color}>
+                          {interactionStyles[type.code]?.temperament || "Unknown"}
+                        </Pill>
+                      );
+                    })()}
                     <Pill color={type.color}>
                       {interactionStyles[type.code]?.style || "Unknown"}
                     </Pill>
@@ -1641,6 +1651,161 @@ function Tab16Types() {
 }
 
 // ============================================================
+// TAB: KEIRSEY TEMPERAMENTS
+// ============================================================
+
+function TabKeirsey() {
+  const [expanded, setExpanded] = useState<string | null>(null);
+  const { profile } = useProfile();
+  const userCode = profile.cognitiveType ?? profile.mbtiType;
+  const userTemperament = userCode ? getTemperamentDataForType(userCode) : null;
+
+  return (
+    <div>
+      {/* Intro */}
+      <div className="p-5 rounded-2xl mb-6" style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)" }}>
+        <h3 className="text-base font-serif font-bold mb-2" style={{ color: "rgba(255,255,255,0.93)" }}>
+          Keirsey&apos;s Four Temperaments
+        </h3>
+        <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.55)" }}>
+          David Keirsey reorganized Jung&apos;s 16 types into four temperaments based on patterns of need,
+          value, and self-image that remain stable across a person&apos;s entire life. Where MBTI focuses on
+          cognitive preferences, Keirsey focused on behavioral patterns and core drives. His two foundational
+          books — <em>Please Understand Me</em> (1978) and <em>Please Understand Me II</em> (1998) — are among
+          the most widely read works in personality psychology.
+        </p>
+        {userTemperament && (
+          <div className="mt-3 px-3 py-2 rounded-xl inline-flex items-center gap-2 text-xs font-semibold"
+            style={{ background: userTemperament.bg, border: `1px solid ${userTemperament.border}`, color: userTemperament.color }}>
+            Your temperament: {userTemperament.id} {userTemperament.name}
+          </div>
+        )}
+      </div>
+
+      {/* Temperament Cards */}
+      <div className="space-y-4">
+        {keirseyTemperaments.map((temp) => {
+          const isOpen = expanded === temp.id;
+          const isMyTemp = userTemperament?.id === temp.id;
+          return (
+            <div
+              key={temp.id}
+              className="rounded-2xl overflow-hidden transition-all"
+              style={isMyTemp
+                ? { background: temp.bg, border: `1.5px solid ${temp.border}` }
+                : { background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)" }}
+            >
+              {/* Header */}
+              <button
+                onClick={() => setExpanded(isOpen ? null : temp.id)}
+                className="w-full p-5 flex items-center justify-between transition-colors text-left"
+              >
+                <div className="flex items-center gap-4">
+                  <div className="w-12 h-12 rounded-xl flex items-center justify-center text-sm font-bold flex-shrink-0"
+                    style={{ background: temp.bg, color: temp.color, border: `1px solid ${temp.border}` }}>
+                    {temp.id}
+                  </div>
+                  <div>
+                    <div className="flex items-center gap-2 flex-wrap">
+                      <span className="text-base font-serif font-semibold" style={{ color: "rgba(255,255,255,0.93)" }}>
+                        {temp.name}
+                      </span>
+                      <span className="text-xs px-2 py-0.5 rounded-full font-medium"
+                        style={{ background: temp.bg, color: temp.color }}>
+                        {temp.subtitle}
+                      </span>
+                      {isMyTemp && (
+                        <span className="text-[10px] px-2 py-0.5 rounded-full font-bold text-white"
+                          style={{ backgroundColor: temp.color }}>
+                          Your Temperament
+                        </span>
+                      )}
+                    </div>
+                    <div className="flex flex-wrap gap-1.5 mt-1.5">
+                      {temp.types.map((t) => (
+                        <span key={t} className="text-xs font-mono px-1.5 py-0.5 rounded font-medium"
+                          style={{ background: "rgba(255,255,255,0.06)", color: "rgba(255,255,255,0.5)" }}>
+                          {t}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+                <motion.div animate={{ rotate: isOpen ? 90 : 0 }} transition={{ duration: 0.2 }}>
+                  <ChevronRight className="w-4 h-4 flex-shrink-0" style={{ color: "rgba(255,255,255,0.35)" }} />
+                </motion.div>
+              </button>
+
+              {/* Expanded Content */}
+              <AnimatePresence>
+                {isOpen && (
+                  <motion.div
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{ height: "auto", opacity: 1 }}
+                    exit={{ height: 0, opacity: 0 }}
+                    transition={{ duration: 0.3, ease: "easeInOut" }}
+                    className="overflow-hidden"
+                  >
+                    <div className="px-5 pb-5 space-y-4" style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}>
+                      {/* Core needs */}
+                      <div className="grid grid-cols-3 gap-3 mt-4">
+                        <div className="p-3 rounded-xl" style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.07)" }}>
+                          <p className="text-[10px] font-semibold uppercase tracking-wider mb-1" style={{ color: "rgba(255,255,255,0.35)" }}>
+                            Core Need
+                          </p>
+                          <p className="text-xs" style={{ color: temp.color }}>{temp.coreNeed}</p>
+                        </div>
+                        <div className="p-3 rounded-xl" style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.07)" }}>
+                          <p className="text-[10px] font-semibold uppercase tracking-wider mb-1" style={{ color: "rgba(255,255,255,0.35)" }}>
+                            Core Value
+                          </p>
+                          <p className="text-xs" style={{ color: temp.color }}>{temp.coreValue}</p>
+                        </div>
+                        <div className="p-3 rounded-xl" style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.07)" }}>
+                          <p className="text-[10px] font-semibold uppercase tracking-wider mb-1" style={{ color: "rgba(255,255,255,0.35)" }}>
+                            Self-Image
+                          </p>
+                          <p className="text-xs" style={{ color: temp.color }}>{temp.coreFeeling}</p>
+                        </div>
+                      </div>
+
+                      {/* Full description */}
+                      <div className="p-4 rounded-xl" style={{ background: "rgba(255,255,255,0.03)" }}>
+                        <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.65)" }}>
+                          {temp.description}
+                        </p>
+                      </div>
+
+                      {/* Enneagram correlations */}
+                      <div className="p-4 rounded-xl" style={{ background: "rgba(139,92,246,0.06)", border: "1px solid rgba(139,92,246,0.15)" }}>
+                        <p className="text-xs font-semibold mb-2" style={{ color: "#a78bfa" }}>
+                          Enneagram Correlations
+                        </p>
+                        <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.6)" }}>
+                          {temp.enneagramCorrelations}
+                        </p>
+                      </div>
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+          );
+        })}
+      </div>
+
+      {/* Attribution */}
+      <div className="mt-6 p-4 rounded-xl" style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.06)" }}>
+        <p className="text-xs leading-relaxed" style={{ color: "rgba(255,255,255,0.35)" }}>
+          Based on David Keirsey&apos;s <em>Please Understand Me</em> (1978) and <em>Please Understand Me II</em> (1998).
+          Temperament correlations with Enneagram are observational patterns, not empirical findings.
+        </p>
+      </div>
+    </div>
+  );
+}
+
+// ============================================================
 // MAIN PAGE COMPONENT
 // ============================================================
 
@@ -1650,6 +1815,7 @@ const tabs = [
   { id: "shadow" as const, label: "The Shadow", icon: <Ghost className="w-4 h-4" /> },
   { id: "loops" as const, label: "Loops & Grips", icon: <RefreshCw className="w-4 h-4" /> },
   { id: "types" as const, label: "16 Types", icon: <Users className="w-4 h-4" /> },
+  { id: "keirsey" as const, label: "Temperaments", icon: <GraduationCap className="w-4 h-4" /> },
 ];
 
 type TabId = (typeof tabs)[number]["id"];
@@ -1743,6 +1909,7 @@ function CognitiveLearnContent() {
             {activeTab === "shadow" && <TabShadow />}
             {activeTab === "loops" && <TabLoopsGrips />}
             {activeTab === "types" && <Tab16Types />}
+            {activeTab === "keirsey" && <TabKeirsey />}
         </div>
 
         {/* Next Step Banner */}

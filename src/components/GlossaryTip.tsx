@@ -114,20 +114,20 @@ export default function GlossaryTip({ term, children, inline = false }: Glossary
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: 60 }}
               transition={{ type: "spring", stiffness: 340, damping: 30 }}
-              className="fixed bottom-0 left-0 right-0 z-[90] max-w-lg mx-auto bg-white rounded-t-3xl shadow-2xl p-6 pb-10"
+              className="fixed bottom-0 left-0 right-0 z-[90] max-w-lg mx-auto rounded-t-3xl shadow-2xl p-6 pb-10" style={{ background: "rgba(20,15,40,0.98)", border: "1px solid rgba(255,255,255,0.1)" }}
             >
               <div className="flex items-start justify-between mb-3">
                 <div className="flex items-center gap-2">
-                  <div className="w-8 h-8 rounded-xl bg-indigo-100 flex items-center justify-center">
-                    <HelpCircle className="w-4 h-4 text-indigo-600" />
+                  <div className="w-8 h-8 rounded-xl flex items-center justify-center" style={{ background: "rgba(99,102,241,0.2)" }}>
+                    <HelpCircle className="w-4 h-4 text-indigo-400" />
                   </div>
-                  <h3 className="text-base font-semibold text-slate-800">{entry.title}</h3>
+                  <h3 className="text-base font-semibold" style={{ color: "rgba(255,255,255,0.9)" }}>{entry.title}</h3>
                 </div>
-                <button onClick={() => setOpen(false)} className="text-slate-400 hover:text-slate-600 transition-colors">
+                <button onClick={() => setOpen(false)} className="transition-colors" style={{ color: "rgba(255,255,255,0.4)" }}>
                   <X className="w-5 h-5" />
                 </button>
               </div>
-              <p className="text-sm text-slate-600 leading-relaxed">{entry.body}</p>
+              <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.65)" }}>{entry.body}</p>
             </motion.div>
           </>
         )}

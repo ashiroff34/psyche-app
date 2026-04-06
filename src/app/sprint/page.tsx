@@ -1,12 +1,13 @@
 "use client";
 
-import { useState, useEffect, useCallback, useRef } from "react";
+import { useState, useEffect, useCallback, useRef, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { Timer, Zap, CheckCircle, XCircle, Trophy, ArrowRight, Flame, Star } from "lucide-react";
 import { useGameState } from "@/hooks/useGameState";
 import { typeQuizQuestions } from "@/data/type-quizzes";
 import PetCompanion from "@/components/PetCompanion";
+import { stableShuffleOptions } from "@/lib/shuffleOptions";
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
@@ -66,6 +67,21 @@ export default function SprintPage() {
   }, []);
 
   const currentQ = questions[qIndex];
+
+  // Stable shuffle of current question's options per question ID
+  const { shuffledSprintOpts, shuffledSprintAnswer } = useMemo(() => {
+    if (!currentQ) return { shuffledSprintOpts: [] as { letter: string; text: string }[], shuffledSprintAnswer: "" };
+    const correctIdx = currentQ.options.findIndex(o => o.letter === currentQ.answer);
+    const { shuffled } = stableShuffleOptions(currentQ.options, correctIdx, String(currentQ.id));
+    const LETTERS = ["A", "B", "C", "D"];
+    const newAnswerIdx = shuffled.findIndex(o => o.letter === currentQ.answer);
+    return {
+      shuffledSprintOpts: shuffled,
+      shuffledSprintAnswer: LETTERS[newAnswerIdx] ?? currentQ.answer,
+    };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentQ?.id]);
+
   const correct = answers.filter((a) => a.correct).length;
   const wrong = answers.filter((a) => !a.correct).length;
   const accuracy = answers.length > 0 ? Math.round((correct / answers.length) * 100) : 0;
@@ -113,7 +129,7 @@ export default function SprintPage() {
     setSelected(letter);
     setPhase("answered");
 
-    const isCorrect = letter === currentQ.answer;
+    const isCorrect = letter === shuffledSprintAnswer;
     const newStreak = isCorrect ? streak + 1 : 0;
     const newBest = Math.max(bestStreak, newStreak);
 
@@ -363,34 +379,40 @@ export default function SprintPage() {
           </h2>
 
           {/* Answer options */}
-          <div className="space-y-3">
-            {currentQ.options.map((opt) => {
-              const isSelected = selected === opt.letter;
-              const isCorrectAnswer = opt.letter === currentQ.answer;
-              const showResult = selected !== null;
+          {(() => {
+            const SPRINT_LETTERS = ["A", "B", "C", "D"];
+            return (
+              <div className="space-y-3">
+                {shuffledSprintOpts.map((opt, idx) => {
+                  const visualLetter = SPRINT_LETTERS[idx];
+                  const isSelected = selected === visualLetter;
+                  const isCorrectAnswer = visualLetter === shuffledSprintAnswer;
+                  const showResult = selected !== null;
 
-              let style = "bg-white border-slate-200 text-slate-700";
-              if (showResult && isCorrectAnswer) style = "bg-emerald-50 border-emerald-400 text-emerald-700";
-              else if (showResult && isSelected && !isCorrectAnswer) style = "bg-rose-50 border-rose-400 text-rose-700";
+                  let style = "bg-white border-slate-200 text-slate-700";
+                  if (showResult && isCorrectAnswer) style = "bg-emerald-50 border-emerald-400 text-emerald-700";
+                  else if (showResult && isSelected && !isCorrectAnswer) style = "bg-rose-50 border-rose-400 text-rose-700";
 
-              return (
-                <motion.button
-                  key={opt.letter}
-                  whileTap={{ scale: selected === null ? 0.98 : 1 }}
-                  onClick={() => handleAnswer(opt.letter)}
-                  disabled={selected !== null}
-                  className={`w-full flex items-center gap-3 p-4 rounded-2xl border-2 text-left transition-all ${style} ${selected === null ? "hover:border-violet-300 hover:bg-violet-50 cursor-pointer" : "cursor-default"}`}
-                >
-                  <span className="w-7 h-7 rounded-xl bg-slate-100 flex items-center justify-center text-xs font-bold shrink-0 text-slate-500">
-                    {opt.letter}
-                  </span>
-                  <span className="text-sm font-medium leading-snug">{opt.text}</span>
-                  {showResult && isCorrectAnswer && <CheckCircle className="w-4 h-4 text-emerald-500 ml-auto shrink-0" />}
-                  {showResult && isSelected && !isCorrectAnswer && <XCircle className="w-4 h-4 text-rose-500 ml-auto shrink-0" />}
-                </motion.button>
-              );
-            })}
-          </div>
+                  return (
+                    <motion.button
+                      key={opt.letter}
+                      whileTap={{ scale: selected === null ? 0.98 : 1 }}
+                      onClick={() => handleAnswer(visualLetter)}
+                      disabled={selected !== null}
+                      className={`w-full flex items-center gap-3 p-4 rounded-2xl border-2 text-left transition-all ${style} ${selected === null ? "hover:border-violet-300 hover:bg-violet-50 cursor-pointer" : "cursor-default"}`}
+                    >
+                      <span className="w-7 h-7 rounded-xl bg-slate-100 flex items-center justify-center text-xs font-bold shrink-0 text-slate-500">
+                        {visualLetter}
+                      </span>
+                      <span className="text-sm font-medium leading-snug">{opt.text}</span>
+                      {showResult && isCorrectAnswer && <CheckCircle className="w-4 h-4 text-emerald-500 ml-auto shrink-0" />}
+                      {showResult && isSelected && !isCorrectAnswer && <XCircle className="w-4 h-4 text-rose-500 ml-auto shrink-0" />}
+                    </motion.button>
+                  );
+                })}
+              </div>
+            );
+          })()}
 
           {/* XP pop */}
           <AnimatePresence>

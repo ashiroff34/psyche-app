@@ -75,6 +75,30 @@ html.light h1, html.light h2, html.light h3, html.light h4 {
 [class*="text-gray-400"] {
   color: rgba(255,255,255,0.35) !important;
 }
+[class*="text-slate-300"],
+[class*="text-gray-300"] {
+  color: rgba(255,255,255,0.3) !important;
+}
+[class*="text-slate-200"],
+[class*="text-gray-200"] {
+  color: rgba(255,255,255,0.25) !important;
+}
+[class*="bg-slate-300"],
+[class*="bg-gray-300"] {
+  background-color: rgba(255,255,255,0.15) !important;
+}
+[class*="bg-slate-400"],
+[class*="bg-slate-500"],
+[class*="bg-gray-400"],
+[class*="bg-gray-500"] {
+  background-color: rgba(255,255,255,0.2) !important;
+}
+[class*="bg-slate-700"],
+[class*="bg-slate-800"],
+[class*="bg-gray-700"],
+[class*="bg-gray-800"] {
+  background-color: rgba(15,10,30,0.9) !important;
+}
 [class*="border-slate-50"],
 [class*="border-slate-100"],
 [class*="border-slate-200"],
@@ -85,6 +109,64 @@ html.light h1, html.light h2, html.light h3, html.light h4 {
 [class*="divide-slate-100"],
 [class*="divide-slate-200"] {
   border-color: rgba(255,255,255,0.09) !important;
+}
+
+/* ===== Light-tinted color overrides for dark mode ===== */
+[class*="bg-sky-50"],
+[class*="bg-sky-100"] {
+  background-color: rgba(14,165,233,0.12) !important;
+}
+[class*="bg-indigo-50"],
+[class*="bg-indigo-100"] {
+  background-color: rgba(99,102,241,0.12) !important;
+}
+[class*="bg-purple-50"],
+[class*="bg-purple-100"] {
+  background-color: rgba(168,85,247,0.12) !important;
+}
+[class*="bg-violet-50"],
+[class*="bg-violet-100"] {
+  background-color: rgba(139,92,246,0.12) !important;
+}
+[class*="bg-amber-50"],
+[class*="bg-amber-100"] {
+  background-color: rgba(245,158,11,0.12) !important;
+}
+[class*="bg-emerald-50"],
+[class*="bg-emerald-100"] {
+  background-color: rgba(16,185,129,0.12) !important;
+}
+[class*="bg-rose-50"],
+[class*="bg-rose-100"] {
+  background-color: rgba(244,63,94,0.12) !important;
+}
+[class*="text-sky-600"],
+[class*="text-sky-700"] {
+  color: rgba(56,189,248,0.9) !important;
+}
+[class*="text-indigo-600"],
+[class*="text-indigo-700"] {
+  color: rgba(129,140,248,0.9) !important;
+}
+[class*="text-violet-600"],
+[class*="text-violet-700"] {
+  color: rgba(167,139,250,0.9) !important;
+}
+[class*="text-amber-700"],
+[class*="text-amber-600"] {
+  color: rgba(251,191,36,0.9) !important;
+}
+[class*="border-sky-100"],
+[class*="border-sky-200"] {
+  border-color: rgba(14,165,233,0.2) !important;
+}
+[class*="border-indigo-100"],
+[class*="border-indigo-200"] {
+  border-color: rgba(99,102,241,0.2) !important;
+}
+[class*="border-amber-100"],
+[class*="border-amber-200"] {
+  border-color: rgba(245,158,11,0.2) !important;
 }
 
 /* ===== Glass Effect (top nav) ===== */

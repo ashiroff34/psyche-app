@@ -38,23 +38,24 @@ function AiTypeNuanceCard({ typeNumber }: { typeNumber: number }) {
     <motion.div
       initial={{ opacity: 1, y: 0 }}
       animate={{ opacity: 1, y: 0 }}
-      className="relative overflow-hidden rounded-2xl border border-indigo-200/70 bg-gradient-to-br from-indigo-50/80 via-violet-50/60 to-sky-50/80 p-6"
+      className="relative overflow-hidden rounded-2xl p-6"
+      style={{ background: "rgba(99,102,241,0.08)", border: "1px solid rgba(99,102,241,0.2)" }}
     >
       <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-indigo-400/10 to-violet-400/10 pointer-events-none" />
-      <div className="absolute top-0 right-0 w-40 h-40 bg-gradient-to-bl from-indigo-100/40 to-transparent rounded-bl-full pointer-events-none" />
+      <div className="absolute top-0 right-0 w-40 h-40 bg-gradient-to-bl from-indigo-900/30 to-transparent rounded-bl-full pointer-events-none" />
 
       <div className="relative">
         <div className="flex items-center gap-3 mb-4">
-          <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-indigo-500 to-violet-500 flex items-center justify-center shadow-sm shadow-indigo-200/50">
+          <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-indigo-500 to-violet-500 flex items-center justify-center shadow-sm shadow-indigo-900/50">
             <Sparkles className="w-4 h-4 text-white" />
           </div>
           <div>
-            <div className="text-sm font-semibold text-indigo-700">Deep Nuance: Type {typeNumber}</div>
-            <div className="text-[10px] text-indigo-400">What most people miss about this type</div>
+            <div className="text-sm font-semibold" style={{ color: "rgba(167,139,250,0.9)" }}>Deep Nuance: Type {typeNumber}</div>
+            <div className="text-[10px]" style={{ color: "rgba(167,139,250,0.6)" }}>What most people miss about this type</div>
           </div>
         </div>
 
-        <p className="text-slate-700 leading-relaxed text-sm font-serif">{insight}</p>
+        <p className="leading-relaxed text-sm font-serif" style={{ color: "rgba(255,255,255,0.75)" }}>{insight}</p>
       </div>
     </motion.div>
   );
@@ -63,13 +64,13 @@ function AiTypeNuanceCard({ typeNumber }: { typeNumber: number }) {
 function ExpandableSection({ title, icon: Icon, children, defaultOpen = false }: { title: string; icon: any; children: React.ReactNode; defaultOpen?: boolean }) {
   const [open, setOpen] = useState(defaultOpen);
   return (
-    <div className="rounded-2xl bg-white border border-slate-100 overflow-hidden">
-      <button onClick={() => setOpen(!open)} className="w-full flex items-center justify-between p-5 text-left hover:bg-slate-50/50 transition">
+    <div className="rounded-2xl overflow-hidden" style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)" }}>
+      <button onClick={() => setOpen(!open)} className="w-full flex items-center justify-between p-5 text-left transition">
         <div className="flex items-center gap-3">
           <Icon className="w-4 h-4 text-sky-500" />
-          <span className="font-medium text-slate-800">{title}</span>
+          <span className="font-medium" style={{ color: "rgba(255,255,255,0.85)" }}>{title}</span>
         </div>
-        {open ? <ChevronUp className="w-4 h-4 text-slate-400" /> : <ChevronDown className="w-4 h-4 text-slate-400" />}
+        {open ? <ChevronUp className="w-4 h-4" style={{ color: "rgba(255,255,255,0.3)" }} /> : <ChevronDown className="w-4 h-4" style={{ color: "rgba(255,255,255,0.3)" }} />}
       </button>
       <AnimatePresence>
         {open && (
@@ -153,25 +154,25 @@ function FlipCard({ myth, reality, color }: { myth: string; reality: string; col
       onClick={() => setFlipped(!flipped)}
     >
       {!flipped ? (
-        <div className="rounded-2xl bg-rose-50 border border-rose-100 p-4">
+        <div className="rounded-2xl p-4" style={{ background: "rgba(239,68,68,0.1)", border: "1px solid rgba(239,68,68,0.2)" }}>
           <div className="flex items-center gap-2 mb-2">
-            <div className="w-5 h-5 rounded-full bg-rose-200 flex items-center justify-center flex-shrink-0">
-              <span className="text-rose-600 text-[10px] font-bold">X</span>
+            <div className="w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0" style={{ background: "rgba(239,68,68,0.2)" }}>
+              <span className="text-[10px] font-bold" style={{ color: "#f87171" }}>X</span>
             </div>
-            <span className="text-[10px] font-bold text-rose-500 uppercase tracking-wider">Myth</span>
+            <span className="text-[10px] font-bold uppercase tracking-wider" style={{ color: "#f87171" }}>Myth</span>
           </div>
-          <p className="text-sm text-rose-800 leading-relaxed font-medium">{myth}</p>
-          <div className="text-[10px] text-rose-400 mt-3">Tap to reveal reality</div>
+          <p className="text-sm leading-relaxed font-medium" style={{ color: "rgba(255,255,255,0.75)" }}>{myth}</p>
+          <div className="text-[10px] mt-3" style={{ color: "rgba(248,113,113,0.6)" }}>Tap to reveal reality</div>
         </div>
       ) : (
-        <div className="rounded-2xl border p-4" style={{ backgroundColor: `${color}10`, borderColor: `${color}30` }}>
+        <div className="rounded-2xl border p-4" style={{ backgroundColor: `${color}18`, borderColor: `${color}35` }}>
           <div className="flex items-center gap-2 mb-2">
             <div className="w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0" style={{ backgroundColor: `${color}30` }}>
               <span className="text-[10px] font-bold" style={{ color }}>OK</span>
             </div>
             <span className="text-[10px] font-bold uppercase tracking-wider" style={{ color }}>Reality</span>
           </div>
-          <p className="text-sm leading-relaxed font-medium text-slate-800">{reality}</p>
+          <p className="text-sm leading-relaxed font-medium" style={{ color: "rgba(255,255,255,0.82)" }}>{reality}</p>
           <div className="text-[10px] mt-3" style={{ color: `${color}80` }}>Tap to see myth</div>
         </div>
       )}
@@ -184,7 +185,7 @@ function MythRealitySection({ typeNumber, typeColor }: { typeNumber: number; typ
   if (!myths.length) return null;
   return (
     <ExpandableSection title="Myth vs Reality" icon={Eye}>
-      <p className="text-xs text-slate-400 mb-4">Tap each card to reveal what's actually true.</p>
+      <p className="text-xs mb-4" style={{ color: "rgba(255,255,255,0.4)" }}>Tap each card to reveal what&apos;s actually true.</p>
       <div className="grid sm:grid-cols-3 gap-3">
         {myths.map((item, i) => (
           <FlipCard key={i} myth={item.myth} reality={item.reality} color={typeColor} />
@@ -198,18 +199,18 @@ function TypeInAction({ typeNumber, typeColor }: { typeNumber: number; typeColor
   const data = TYPE_IN_ACTION[typeNumber];
   if (!data) return null;
   const scenarios = [
-    { label: "In Conflict", content: data.conflict, color: "bg-rose-50 border-rose-100", labelColor: "text-rose-600" },
-    { label: "In Love", content: data.love, color: "bg-pink-50 border-pink-100", labelColor: "text-pink-600" },
-    { label: "At Work", content: data.work, color: "bg-sky-50 border-sky-100", labelColor: "text-sky-600" },
-    { label: "Under Stress", content: data.stress, color: "bg-amber-50 border-amber-100", labelColor: "text-amber-600" },
+    { label: "In Conflict", content: data.conflict, style: { background: "rgba(239,68,68,0.08)", border: "1px solid rgba(239,68,68,0.18)" }, labelColor: "#f87171" },
+    { label: "In Love", content: data.love, style: { background: "rgba(236,72,153,0.08)", border: "1px solid rgba(236,72,153,0.18)" }, labelColor: "#f472b6" },
+    { label: "At Work", content: data.work, style: { background: "rgba(14,165,233,0.08)", border: "1px solid rgba(14,165,233,0.18)" }, labelColor: "#38bdf8" },
+    { label: "Under Stress", content: data.stress, style: { background: "rgba(245,158,11,0.08)", border: "1px solid rgba(245,158,11,0.18)" }, labelColor: "#fbbf24" },
   ];
   return (
     <ExpandableSection title="Type in Action" icon={Zap}>
       <div className="grid sm:grid-cols-2 gap-3">
         {scenarios.map((s) => (
-          <div key={s.label} className={`rounded-2xl border p-4 ${s.color}`}>
-            <div className={`text-[10px] font-bold uppercase tracking-wider mb-2 ${s.labelColor}`}>{s.label}</div>
-            <p className="text-sm text-slate-700 leading-relaxed">{s.content}</p>
+          <div key={s.label} className="rounded-2xl p-4" style={s.style}>
+            <div className="text-[10px] font-bold uppercase tracking-wider mb-2" style={{ color: s.labelColor }}>{s.label}</div>
+            <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.72)" }}>{s.content}</p>
           </div>
         ))}
       </div>
@@ -225,26 +226,26 @@ function TypeDetail({ type }: { type: EnneagramType }) {
     <div className="max-w-3xl mx-auto page-enter">
 
       {/* Sources citation banner */}
-      <div className="flex items-start gap-3 p-4 rounded-2xl bg-violet-50/60 border border-violet-100 mb-5">
-        <BookOpen className="w-4 h-4 text-violet-500 mt-0.5 flex-shrink-0" />
-        <div className="text-xs text-violet-800 leading-relaxed font-mono">
+      <div className="flex items-start gap-3 p-4 rounded-2xl mb-5" style={{ background: "rgba(139,92,246,0.1)", border: "1px solid rgba(139,92,246,0.2)" }}>
+        <BookOpen className="w-4 h-4 text-violet-400 mt-0.5 flex-shrink-0" />
+        <div className="text-xs leading-relaxed font-mono" style={{ color: "rgba(196,181,253,0.85)" }}>
           Sources: Naranjo, <em>Character &amp; Neurosis</em> (1994) · Ichazo protoanalysis · Chestnut, <em>The Complete Enneagram</em> (2013) · Riso-Hudson, <em>Wisdom of the Enneagram</em> (1999) · Horney, <em>Our Inner Conflicts</em> (1945)
         </div>
       </div>
 
       {/* Header */}
-      <div className="p-8 rounded-3xl bg-white border border-slate-100 shadow-sm mb-6">
+      <div className="p-8 rounded-3xl mb-6" style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.09)" }}>
         <div className="flex items-start gap-5">
           <div className="w-16 h-16 rounded-2xl flex items-center justify-center text-white text-2xl font-serif font-bold shrink-0" style={{ backgroundColor: type.color }}>
             {type.number}
           </div>
           <div>
-            <h2 className="text-2xl font-serif font-bold text-slate-900">{type.name}</h2>
-            <p className="text-sm text-slate-400 mb-3">{type.alias}</p>
-            <p className="text-slate-600 leading-relaxed text-sm">{type.description}</p>
+            <h2 className="text-2xl font-serif font-bold" style={{ color: "rgba(255,255,255,0.93)" }}>{type.name}</h2>
+            <p className="text-sm mb-3" style={{ color: "rgba(255,255,255,0.4)" }}>{type.alias}</p>
+            <p className="leading-relaxed text-sm" style={{ color: "rgba(255,255,255,0.65)" }}>{type.description}</p>
             <div className="flex flex-wrap gap-2 mt-4">
               {type.keyTraits.map((trait) => (
-                <span key={trait} className="px-3 py-1 text-xs rounded-lg font-medium" style={{ backgroundColor: `${type.color}15`, color: type.color }}>{trait}</span>
+                <span key={trait} className="px-3 py-1 text-xs rounded-lg font-medium" style={{ backgroundColor: `${type.color}20`, color: type.color }}>{trait}</span>
               ))}
             </div>
           </div>
@@ -253,13 +254,13 @@ function TypeDetail({ type }: { type: EnneagramType }) {
 
       {/* Wings */}
       <div className="grid grid-cols-2 gap-4 mb-6">
-        <div className="p-4 rounded-2xl bg-white border border-slate-100">
-          <div className="text-xs text-slate-400 mb-1">Left Wing</div>
-          <div className="text-sm font-medium text-slate-700">{type.wings.left}</div>
+        <div className="p-4 rounded-2xl" style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)" }}>
+          <div className="text-xs mb-1" style={{ color: "rgba(255,255,255,0.4)" }}>Left Wing</div>
+          <div className="text-sm font-medium" style={{ color: "rgba(255,255,255,0.75)" }}>{type.wings.left}</div>
         </div>
-        <div className="p-4 rounded-2xl bg-white border border-slate-100">
-          <div className="text-xs text-slate-400 mb-1">Right Wing</div>
-          <div className="text-sm font-medium text-slate-700">{type.wings.right}</div>
+        <div className="p-4 rounded-2xl" style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)" }}>
+          <div className="text-xs mb-1" style={{ color: "rgba(255,255,255,0.4)" }}>Right Wing</div>
+          <div className="text-sm font-medium" style={{ color: "rgba(255,255,255,0.75)" }}>{type.wings.right}</div>
         </div>
       </div>
 
@@ -267,42 +268,42 @@ function TypeDetail({ type }: { type: EnneagramType }) {
       <div className="space-y-3">
         <ExpandableSection title="Core Motivation & Fears" icon={Heart} defaultOpen>
           <div className="space-y-4">
-            <div className="p-4 rounded-xl bg-emerald-50 border border-emerald-100">
-              <div className="text-xs font-medium text-emerald-600 mb-1">Core Desire</div>
-              <p className="text-sm text-slate-700">{type.coreDesire}</p>
+            <div className="p-4 rounded-xl" style={{ background: "rgba(34,197,94,0.08)", border: "1px solid rgba(34,197,94,0.18)" }}>
+              <div className="text-xs font-medium text-emerald-400 mb-1">Core Desire</div>
+              <p className="text-sm" style={{ color: "rgba(255,255,255,0.72)" }}>{type.coreDesire}</p>
             </div>
-            <div className="p-4 rounded-xl bg-rose-50 border border-rose-100">
-              <div className="text-xs font-medium text-rose-600 mb-1">Core Fear</div>
-              <p className="text-sm text-slate-700">{type.coreFear}</p>
+            <div className="p-4 rounded-xl" style={{ background: "rgba(239,68,68,0.08)", border: "1px solid rgba(239,68,68,0.18)" }}>
+              <div className="text-xs font-medium text-rose-400 mb-1">Core Fear</div>
+              <p className="text-sm" style={{ color: "rgba(255,255,255,0.72)" }}>{type.coreFear}</p>
             </div>
-            <div className="p-4 rounded-xl bg-sky-50 border border-sky-100">
-              <div className="text-xs font-medium text-sky-600 mb-1">Core Motivation</div>
-              <p className="text-sm text-slate-700">{type.coreMotivation}</p>
+            <div className="p-4 rounded-xl" style={{ background: "rgba(14,165,233,0.08)", border: "1px solid rgba(14,165,233,0.18)" }}>
+              <div className="text-xs font-medium text-sky-400 mb-1">Core Motivation</div>
+              <p className="text-sm" style={{ color: "rgba(255,255,255,0.72)" }}>{type.coreMotivation}</p>
             </div>
           </div>
         </ExpandableSection>
 
         <ExpandableSection title="Levels of Development" icon={TrendingUp}>
           <div className="space-y-4">
-            <p className="text-xs text-slate-400 leading-relaxed mb-2">
+            <p className="text-xs leading-relaxed mb-2" style={{ color: "rgba(255,255,255,0.4)" }}>
               Riso &amp; Hudson identified 9 levels for each type, from healthiest (Level 1) to most destructive (Level 9). Most people operate between Levels 3–7. These traits show how the type looks at each range.
             </p>
             <div>
-              <div className="text-xs font-medium text-emerald-600 mb-2 flex items-center gap-1"><TrendingUp className="w-3 h-3" /> Healthy</div>
+              <div className="text-xs font-medium text-emerald-400 mb-2 flex items-center gap-1"><TrendingUp className="w-3 h-3" /> Healthy</div>
               <div className="flex flex-wrap gap-2">
-                {type.healthyTraits.map((t) => <span key={t} className="px-3 py-1 text-xs rounded-lg bg-emerald-50 text-emerald-700 border border-emerald-100">{t}</span>)}
+                {type.healthyTraits.map((t) => <span key={t} className="px-3 py-1 text-xs rounded-lg font-medium" style={{ background: "rgba(34,197,94,0.15)", color: "#4ade80", border: "1px solid rgba(34,197,94,0.2)" }}>{t}</span>)}
               </div>
             </div>
             <div>
-              <div className="text-xs font-medium text-amber-600 mb-2 flex items-center gap-1"><AlertTriangle className="w-3 h-3" /> Average</div>
+              <div className="text-xs font-medium text-amber-400 mb-2 flex items-center gap-1"><AlertTriangle className="w-3 h-3" /> Average</div>
               <div className="flex flex-wrap gap-2">
-                {type.averageTraits.map((t) => <span key={t} className="px-3 py-1 text-xs rounded-lg bg-amber-50 text-amber-700 border border-amber-100">{t}</span>)}
+                {type.averageTraits.map((t) => <span key={t} className="px-3 py-1 text-xs rounded-lg font-medium" style={{ background: "rgba(245,158,11,0.15)", color: "#fbbf24", border: "1px solid rgba(245,158,11,0.2)" }}>{t}</span>)}
               </div>
             </div>
             <div>
-              <div className="text-xs font-medium text-rose-600 mb-2 flex items-center gap-1"><TrendingDown className="w-3 h-3" /> Unhealthy</div>
+              <div className="text-xs font-medium text-rose-400 mb-2 flex items-center gap-1"><TrendingDown className="w-3 h-3" /> Unhealthy</div>
               <div className="flex flex-wrap gap-2">
-                {type.unhealthyTraits.map((t) => <span key={t} className="px-3 py-1 text-xs rounded-lg bg-rose-50 text-rose-700 border border-rose-100">{t}</span>)}
+                {type.unhealthyTraits.map((t) => <span key={t} className="px-3 py-1 text-xs rounded-lg font-medium" style={{ background: "rgba(239,68,68,0.15)", color: "#f87171", border: "1px solid rgba(239,68,68,0.2)" }}>{t}</span>)}
               </div>
             </div>
           </div>
@@ -311,39 +312,39 @@ function TypeDetail({ type }: { type: EnneagramType }) {
         {/* SUBTYPES — Beatrice Chestnut's framework */}
         <ExpandableSection title="Instinctual Subtypes" icon={Flame}>
           <div className="space-y-4">
-            <p className="text-xs text-slate-500 leading-relaxed mb-2">
-              Every type has three versions depending on your dominant survival drive. <strong className="text-slate-700">Self-Preservation (SP)</strong> = focused on safety, resources, and the body. <strong className="text-slate-700">Social (SO)</strong> = focused on belonging and group dynamics. <strong className="text-slate-700">Sexual/One-to-One (SX)</strong> = focused on intensity and deep connection. One of these colors your whole type. Based on Beatrice Chestnut&apos;s <em>The Complete Enneagram</em> and Naranjo&apos;s framework. The <span className="text-violet-600 font-medium">countertype</span> is the subtype that looks least like the core type.
+            <p className="text-xs leading-relaxed mb-2" style={{ color: "rgba(255,255,255,0.55)" }}>
+              Every type has three versions depending on your dominant survival drive. <strong style={{ color: "rgba(255,255,255,0.82)" }}>Self-Preservation (SP)</strong> = focused on safety, resources, and the body. <strong style={{ color: "rgba(255,255,255,0.82)" }}>Social (SO)</strong> = focused on belonging and group dynamics. <strong style={{ color: "rgba(255,255,255,0.82)" }}>Sexual/One-to-One (SX)</strong> = focused on intensity and deep connection. One of these colors your whole type. Based on Beatrice Chestnut&apos;s <em>The Complete Enneagram</em> and Naranjo&apos;s framework. The <span className="font-medium" style={{ color: "#a78bfa" }}>countertype</span> is the subtype that looks least like the core type.
             </p>
             {typeSubtypes.map((sub) => (
-              <div key={sub.instinct} className={`p-5 rounded-xl border ${sub.isCountertype ? "border-violet-200 bg-violet-50/30" : "border-slate-100 bg-white"}`}>
+              <div key={sub.instinct} className="p-5 rounded-xl" style={sub.isCountertype ? { background: "rgba(139,92,246,0.1)", border: "1px solid rgba(139,92,246,0.2)" } : { background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)" }}>
                 <div className="flex items-center gap-2 mb-2">
-                  <span className={`px-2 py-0.5 text-xs font-mono font-bold rounded ${
-                    sub.instinct === "sp" ? "bg-emerald-100 text-emerald-700" :
-                    sub.instinct === "sx" ? "bg-rose-100 text-rose-700" :
-                    "bg-sky-100 text-sky-700"
-                  }`}>{sub.instinct.toUpperCase()}</span>
-                  <span className="font-serif font-semibold text-slate-800 text-sm">{sub.name}</span>
+                  <span className="px-2 py-0.5 text-xs font-mono font-bold rounded" style={
+                    sub.instinct === "sp" ? { background: "rgba(34,197,94,0.15)", color: "#4ade80" } :
+                    sub.instinct === "sx" ? { background: "rgba(239,68,68,0.15)", color: "#f87171" } :
+                    { background: "rgba(14,165,233,0.15)", color: "#38bdf8" }
+                  }>{sub.instinct.toUpperCase()}</span>
+                  <span className="font-serif font-semibold text-sm" style={{ color: "rgba(255,255,255,0.85)" }}>{sub.name}</span>
                   {sub.isCountertype && (
-                    <span className="px-2 py-0.5 text-[10px] font-medium rounded bg-violet-100 text-violet-700">COUNTERTYPE</span>
+                    <span className="px-2 py-0.5 text-[10px] font-medium rounded" style={{ background: "rgba(139,92,246,0.15)", color: "#a78bfa" }}>COUNTERTYPE</span>
                   )}
                 </div>
-                <p className="text-xs text-slate-400 mb-2">Chestnut: &ldquo;{sub.chestnutName}&rdquo;</p>
-                <p className="text-sm text-slate-600 leading-relaxed mb-3">{sub.description}</p>
+                <p className="text-xs mb-2" style={{ color: "rgba(255,255,255,0.4)" }}>Chestnut: &ldquo;{sub.chestnutName}&rdquo;</p>
+                <p className="text-sm leading-relaxed mb-3" style={{ color: "rgba(255,255,255,0.65)" }}>{sub.description}</p>
                 <div className="space-y-1.5 mb-3">
                   {sub.keyPatterns.map((p, i) => (
-                    <div key={i} className="flex items-start gap-2 text-xs text-slate-500">
-                      <div className="w-1.5 h-1.5 rounded-full bg-slate-300 mt-1.5 shrink-0" />
+                    <div key={i} className="flex items-start gap-2 text-xs" style={{ color: "rgba(255,255,255,0.5)" }}>
+                      <div className="w-1.5 h-1.5 rounded-full mt-1.5 shrink-0" style={{ background: "rgba(255,255,255,0.25)" }} />
                       {p}
                     </div>
                   ))}
                 </div>
-                <div className="p-3 rounded-lg bg-slate-50 mb-2">
-                  <div className="text-[10px] font-medium text-slate-400 uppercase tracking-wider mb-1">How this differs</div>
-                  <p className="text-xs text-slate-600">{sub.howTheyDiffer}</p>
+                <div className="p-3 rounded-lg mb-2" style={{ background: "rgba(255,255,255,0.06)" }}>
+                  <div className="text-[10px] font-medium uppercase tracking-wider mb-1" style={{ color: "rgba(255,255,255,0.4)" }}>How this differs</div>
+                  <p className="text-xs" style={{ color: "rgba(255,255,255,0.6)" }}>{sub.howTheyDiffer}</p>
                 </div>
-                <div className="p-3 rounded-lg bg-emerald-50/50">
-                  <div className="text-[10px] font-medium text-emerald-600 uppercase tracking-wider mb-1">Growth Path</div>
-                  <p className="text-xs text-slate-600">{sub.growthPath}</p>
+                <div className="p-3 rounded-lg" style={{ background: "rgba(34,197,94,0.08)" }}>
+                  <div className="text-[10px] font-medium text-emerald-400 uppercase tracking-wider mb-1">Growth Path</div>
+                  <p className="text-xs" style={{ color: "rgba(255,255,255,0.6)" }}>{sub.growthPath}</p>
                 </div>
               </div>
             ))}
@@ -353,26 +354,26 @@ function TypeDetail({ type }: { type: EnneagramType }) {
         {/* Growth Path */}
         <ExpandableSection title="Integration & Growth" icon={Lightbulb}>
           <div className="space-y-4">
-            <p className="text-xs text-slate-400 leading-relaxed mb-2">
-              When you&apos;re growing, you take on the positive qualities of another type (your <strong className="text-slate-600">integration line</strong>). Under stress, you take on the unhealthy qualities of a different type (your <strong className="text-slate-600">disintegration line</strong>). These are automatic shifts, not choices.
+            <p className="text-xs leading-relaxed mb-2" style={{ color: "rgba(255,255,255,0.4)" }}>
+              When you&apos;re growing, you take on the positive qualities of another type (your <strong style={{ color: "rgba(255,255,255,0.7)" }}>integration line</strong>). Under stress, you take on the unhealthy qualities of a different type (your <strong style={{ color: "rgba(255,255,255,0.7)" }}>disintegration line</strong>). These are automatic shifts, not choices.
             </p>
             <div className="grid grid-cols-2 gap-3 mb-4">
-              <div className="p-3 rounded-xl bg-emerald-50 border border-emerald-100 text-center">
-                <div className="text-xs text-emerald-600 mb-1">Integration (Growth)</div>
-                <div className="font-serif font-semibold text-slate-800">→ Type {type.integrationLine}</div>
-                <div className="text-xs text-slate-500 mt-0.5">{enneagramTypes.find(t => t.number === type.integrationLine)?.name}</div>
+              <div className="p-3 rounded-xl text-center" style={{ background: "rgba(34,197,94,0.08)", border: "1px solid rgba(34,197,94,0.18)" }}>
+                <div className="text-xs text-emerald-400 mb-1">Integration (Growth)</div>
+                <div className="font-serif font-semibold" style={{ color: "rgba(255,255,255,0.85)" }}>→ Type {type.integrationLine}</div>
+                <div className="text-xs mt-0.5" style={{ color: "rgba(255,255,255,0.45)" }}>{enneagramTypes.find(t => t.number === type.integrationLine)?.name}</div>
               </div>
-              <div className="p-3 rounded-xl bg-rose-50 border border-rose-100 text-center">
-                <div className="text-xs text-rose-600 mb-1">Disintegration (Stress)</div>
-                <div className="font-serif font-semibold text-slate-800">→ Type {type.disintegrationLine}</div>
-                <div className="text-xs text-slate-500 mt-0.5">{enneagramTypes.find(t => t.number === type.disintegrationLine)?.name}</div>
+              <div className="p-3 rounded-xl text-center" style={{ background: "rgba(239,68,68,0.08)", border: "1px solid rgba(239,68,68,0.18)" }}>
+                <div className="text-xs text-rose-400 mb-1">Disintegration (Stress)</div>
+                <div className="font-serif font-semibold" style={{ color: "rgba(255,255,255,0.85)" }}>→ Type {type.disintegrationLine}</div>
+                <div className="text-xs mt-0.5" style={{ color: "rgba(255,255,255,0.45)" }}>{enneagramTypes.find(t => t.number === type.disintegrationLine)?.name}</div>
               </div>
             </div>
             <div className="space-y-2">
               {type.growthTips.map((tip, i) => (
-                <div key={i} className="flex gap-3 p-3 rounded-xl bg-slate-50">
-                  <div className="w-5 h-5 rounded-full bg-sky-100 text-sky-600 flex items-center justify-center text-xs font-medium shrink-0 mt-0.5">{i + 1}</div>
-                  <p className="text-sm text-slate-600">{tip}</p>
+                <div key={i} className="flex gap-3 p-3 rounded-xl" style={{ background: "rgba(255,255,255,0.05)" }}>
+                  <div className="w-5 h-5 rounded-full flex items-center justify-center text-xs font-medium shrink-0 mt-0.5" style={{ background: "rgba(14,165,233,0.2)", color: "#38bdf8" }}>{i + 1}</div>
+                  <p className="text-sm" style={{ color: "rgba(255,255,255,0.65)" }}>{tip}</p>
                 </div>
               ))}
             </div>
@@ -382,28 +383,28 @@ function TypeDetail({ type }: { type: EnneagramType }) {
         {/* Tritypes */}
         <ExpandableSection title="Tritypes Involving This Type" icon={Layers}>
           <div className="space-y-3">
-            <p className="text-xs text-slate-500 leading-relaxed mb-2">
-              Your tritype is a combination of three types, one from each intelligence center: <strong className="text-slate-600">Head</strong> (5, 6, or 7), <strong className="text-slate-600">Heart</strong> (2, 3, or 4), and <strong className="text-slate-600">Gut</strong> (8, 9, or 1). You lead with your core type but draw on the others in different situations. Below are tritypes involving Type {type.number}.
+            <p className="text-xs leading-relaxed mb-2" style={{ color: "rgba(255,255,255,0.55)" }}>
+              Your tritype is a combination of three types, one from each intelligence center: <strong style={{ color: "rgba(255,255,255,0.75)" }}>Head</strong> (5, 6, or 7), <strong style={{ color: "rgba(255,255,255,0.75)" }}>Heart</strong> (2, 3, or 4), and <strong style={{ color: "rgba(255,255,255,0.75)" }}>Gut</strong> (8, 9, or 1). You lead with your core type but draw on the others in different situations. Below are tritypes involving Type {type.number}.
             </p>
             <div className="grid gap-3">
               {relatedTritypes.slice(0, 12).map((tri) => (
-                <div key={tri.code} className="p-4 rounded-xl bg-slate-50 border border-slate-100">
+                <div key={tri.code} className="p-4 rounded-xl" style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)" }}>
                   <div className="flex items-center gap-2 mb-1.5">
-                    <span className="font-mono font-bold text-sky-600 text-sm">{tri.code}</span>
-                    <span className="font-serif font-semibold text-slate-800 text-sm">{tri.archetype}</span>
+                    <span className="font-mono font-bold text-sm" style={{ color: "#38bdf8" }}>{tri.code}</span>
+                    <span className="font-serif font-semibold text-sm" style={{ color: "rgba(255,255,255,0.85)" }}>{tri.archetype}</span>
                   </div>
-                  <p className="text-xs text-slate-600 leading-relaxed mb-2">{tri.description}</p>
+                  <p className="text-xs leading-relaxed mb-2" style={{ color: "rgba(255,255,255,0.6)" }}>{tri.description}</p>
                   <div className="grid grid-cols-2 gap-2">
                     <div>
-                      <div className="text-[10px] font-medium text-emerald-600 mb-1">Strengths</div>
+                      <div className="text-[10px] font-medium text-emerald-400 mb-1">Strengths</div>
                       {tri.strengths.map((s, i) => (
-                        <div key={i} className="text-[11px] text-slate-500 flex items-start gap-1"><span className="text-emerald-400 mt-0.5">+</span> {s}</div>
+                        <div key={i} className="text-[11px] flex items-start gap-1" style={{ color: "rgba(255,255,255,0.5)" }}><span className="text-emerald-400 mt-0.5">+</span> {s}</div>
                       ))}
                     </div>
                     <div>
-                      <div className="text-[10px] font-medium text-amber-600 mb-1">Challenges</div>
+                      <div className="text-[10px] font-medium text-amber-400 mb-1">Challenges</div>
                       {tri.challenges.map((c, i) => (
-                        <div key={i} className="text-[11px] text-slate-500 flex items-start gap-1"><span className="text-amber-400 mt-0.5">-</span> {c}</div>
+                        <div key={i} className="text-[11px] flex items-start gap-1" style={{ color: "rgba(255,255,255,0.5)" }}><span className="text-amber-400 mt-0.5">-</span> {c}</div>
                       ))}
                     </div>
                   </div>
@@ -420,39 +421,39 @@ function TypeDetail({ type }: { type: EnneagramType }) {
           return (
             <ExpandableSection title="Deep Psychology (Naranjo/Ichazo)" icon={Brain}>
               <div className="space-y-4">
-                <p className="text-xs text-slate-400 leading-relaxed mb-2">From Claudio Naranjo&apos;s <em>Character and Neurosis</em> and Oscar Ichazo&apos;s protoanalysis. These are the deep structural patterns beneath the surface behaviors.</p>
+                <p className="text-xs leading-relaxed mb-2" style={{ color: "rgba(255,255,255,0.4)" }}>From Claudio Naranjo&apos;s <em>Character and Neurosis</em> and Oscar Ichazo&apos;s protoanalysis. These are the deep structural patterns beneath the surface behaviors.</p>
                 <div className="grid sm:grid-cols-2 gap-3">
-                  <div className="p-4 rounded-xl bg-rose-50 border border-rose-100">
-                    <div className="text-xs font-medium text-rose-600 mb-1">Passion (Vice)</div>
-                    <div className="text-sm font-semibold text-slate-800 mb-1">{naranjo.passion}</div>
-                    <p className="text-xs text-slate-600 leading-relaxed">{naranjo.passionDescription}</p>
+                  <div className="p-4 rounded-xl" style={{ background: "rgba(239,68,68,0.08)", border: "1px solid rgba(239,68,68,0.18)" }}>
+                    <div className="text-xs font-medium text-rose-400 mb-1">Passion (Vice)</div>
+                    <div className="text-sm font-semibold mb-1" style={{ color: "rgba(255,255,255,0.85)" }}>{naranjo.passion}</div>
+                    <p className="text-xs leading-relaxed" style={{ color: "rgba(255,255,255,0.6)" }}>{naranjo.passionDescription}</p>
                   </div>
-                  <div className="p-4 rounded-xl bg-amber-50 border border-amber-100">
-                    <div className="text-xs font-medium text-amber-600 mb-1">Fixation (Cognitive Distortion)</div>
-                    <div className="text-sm font-semibold text-slate-800 mb-1">{naranjo.fixation}</div>
-                    <p className="text-xs text-slate-600 leading-relaxed">{naranjo.fixationDescription}</p>
+                  <div className="p-4 rounded-xl" style={{ background: "rgba(245,158,11,0.08)", border: "1px solid rgba(245,158,11,0.18)" }}>
+                    <div className="text-xs font-medium text-amber-400 mb-1">Fixation (Cognitive Distortion)</div>
+                    <div className="text-sm font-semibold mb-1" style={{ color: "rgba(255,255,255,0.85)" }}>{naranjo.fixation}</div>
+                    <p className="text-xs leading-relaxed" style={{ color: "rgba(255,255,255,0.6)" }}>{naranjo.fixationDescription}</p>
                   </div>
-                  <div className="p-4 rounded-xl bg-emerald-50 border border-emerald-100">
-                    <div className="text-xs font-medium text-emerald-600 mb-1">Virtue (Transformation)</div>
-                    <div className="text-sm font-semibold text-slate-800 mb-1">{naranjo.virtue}</div>
-                    <p className="text-xs text-slate-600 leading-relaxed">{naranjo.virtueDescription}</p>
+                  <div className="p-4 rounded-xl" style={{ background: "rgba(34,197,94,0.08)", border: "1px solid rgba(34,197,94,0.18)" }}>
+                    <div className="text-xs font-medium text-emerald-400 mb-1">Virtue (Transformation)</div>
+                    <div className="text-sm font-semibold mb-1" style={{ color: "rgba(255,255,255,0.85)" }}>{naranjo.virtue}</div>
+                    <p className="text-xs leading-relaxed" style={{ color: "rgba(255,255,255,0.6)" }}>{naranjo.virtueDescription}</p>
                   </div>
-                  <div className="p-4 rounded-xl bg-sky-50 border border-sky-100">
-                    <div className="text-xs font-medium text-sky-600 mb-1">Holy Idea (Ichazo)</div>
-                    <div className="text-sm font-semibold text-slate-800 mb-1">{naranjo.holyIdea}</div>
-                    <p className="text-xs text-slate-600 leading-relaxed">{naranjo.holyIdeaDescription}</p>
+                  <div className="p-4 rounded-xl" style={{ background: "rgba(14,165,233,0.08)", border: "1px solid rgba(14,165,233,0.18)" }}>
+                    <div className="text-xs font-medium text-sky-400 mb-1">Holy Idea (Ichazo)</div>
+                    <div className="text-sm font-semibold mb-1" style={{ color: "rgba(255,255,255,0.85)" }}>{naranjo.holyIdea}</div>
+                    <p className="text-xs leading-relaxed" style={{ color: "rgba(255,255,255,0.6)" }}>{naranjo.holyIdeaDescription}</p>
                   </div>
                 </div>
                 <div className="grid sm:grid-cols-2 gap-3">
-                  <div className="p-4 rounded-xl bg-violet-50 border border-violet-100">
-                    <div className="text-xs font-medium text-violet-600 mb-1">Trap</div>
-                    <div className="text-sm font-semibold text-slate-800 mb-1">{naranjo.trap}</div>
-                    <p className="text-xs text-slate-600 leading-relaxed">{naranjo.trapDescription}</p>
+                  <div className="p-4 rounded-xl" style={{ background: "rgba(139,92,246,0.08)", border: "1px solid rgba(139,92,246,0.18)" }}>
+                    <div className="text-xs font-medium text-violet-400 mb-1">Trap</div>
+                    <div className="text-sm font-semibold mb-1" style={{ color: "rgba(255,255,255,0.85)" }}>{naranjo.trap}</div>
+                    <p className="text-xs leading-relaxed" style={{ color: "rgba(255,255,255,0.6)" }}>{naranjo.trapDescription}</p>
                   </div>
-                  <div className="p-4 rounded-xl bg-slate-50 border border-slate-200">
-                    <div className="text-xs font-medium text-slate-600 mb-1">Defense Mechanism</div>
-                    <div className="text-sm font-semibold text-slate-800 mb-1">{naranjo.defenseM}</div>
-                    <p className="text-xs text-slate-600 leading-relaxed">{naranjo.defenseMDescription}</p>
+                  <div className="p-4 rounded-xl" style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.1)" }}>
+                    <div className="text-xs font-medium mb-1" style={{ color: "rgba(255,255,255,0.5)" }}>Defense Mechanism</div>
+                    <div className="text-sm font-semibold mb-1" style={{ color: "rgba(255,255,255,0.85)" }}>{naranjo.defenseM}</div>
+                    <p className="text-xs leading-relaxed" style={{ color: "rgba(255,255,255,0.6)" }}>{naranjo.defenseMDescription}</p>
                   </div>
                 </div>
               </div>
@@ -467,20 +468,20 @@ function TypeDetail({ type }: { type: EnneagramType }) {
           return (
             <ExpandableSection title="Am I Actually This Type?" icon={Eye}>
               <div className="space-y-3">
-                <p className="text-xs text-slate-400 mb-2">Sometimes people misidentify their type because two types can look similar on the surface. Here&apos;s how to tell if you&apos;re actually a different type, and the key question to ask yourself.</p>
+                <p className="text-xs mb-2" style={{ color: "rgba(255,255,255,0.4)" }}>Sometimes people misidentify their type because two types can look similar on the surface. Here&apos;s how to tell if you&apos;re actually a different type, and the key question to ask yourself.</p>
                 {misids.map((m, i) => {
                   const otherType = m.types[0] === type.number ? m.types[1] : m.types[0];
                   return (
-                    <div key={i} className="p-4 rounded-xl bg-white border border-slate-100">
+                    <div key={i} className="p-4 rounded-xl" style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)" }}>
                       <div className="flex items-center gap-2 mb-2">
-                        <span className="text-sm font-semibold text-slate-800">Type {type.number} vs Type {otherType}</span>
-                        <span className="text-xs text-slate-400">({enneagramTypes[otherType - 1]?.name})</span>
+                        <span className="text-sm font-semibold" style={{ color: "rgba(255,255,255,0.85)" }}>Type {type.number} vs Type {otherType}</span>
+                        <span className="text-xs" style={{ color: "rgba(255,255,255,0.4)" }}>({enneagramTypes[otherType - 1]?.name})</span>
                       </div>
-                      <div className="text-xs text-slate-500 mb-2"><strong className="text-slate-600">Why confused:</strong> {m.whyConfused}</div>
-                      <div className="text-xs text-slate-500 mb-2"><strong className="text-slate-600">Key difference:</strong> {m.keyDifference}</div>
-                      <div className="p-3 rounded-lg bg-sky-50/50 border border-sky-100/50">
-                        <div className="text-[10px] font-medium text-sky-600 mb-1">Ask Yourself</div>
-                        <p className="text-xs text-slate-700 italic">{m.testQuestion}</p>
+                      <div className="text-xs mb-2" style={{ color: "rgba(255,255,255,0.55)" }}><strong style={{ color: "rgba(255,255,255,0.72)" }}>Why confused:</strong> {m.whyConfused}</div>
+                      <div className="text-xs mb-2" style={{ color: "rgba(255,255,255,0.55)" }}><strong style={{ color: "rgba(255,255,255,0.72)" }}>Key difference:</strong> {m.keyDifference}</div>
+                      <div className="p-3 rounded-lg" style={{ background: "rgba(14,165,233,0.08)", border: "1px solid rgba(14,165,233,0.15)" }}>
+                        <div className="text-[10px] font-medium text-sky-400 mb-1">Ask Yourself</div>
+                        <p className="text-xs italic" style={{ color: "rgba(255,255,255,0.72)" }}>{m.testQuestion}</p>
                       </div>
                     </div>
                   );
@@ -493,7 +494,7 @@ function TypeDetail({ type }: { type: EnneagramType }) {
         {/* Triadic Groups */}
         <ExpandableSection title="Triadic Groupings" icon={Users}>
           <div className="space-y-4">
-            <p className="text-xs text-slate-400 mb-2">
+            <p className="text-xs mb-2" style={{ color: "rgba(255,255,255,0.4)" }}>
               The Enneagram groups types in three different ways. Each grouping reveals a pattern you share with certain other types, useful for understanding why you might relate to types beyond your core number. Based on Karen Horney, Riso-Hudson, and Object Relations theory.
             </p>
             {(() => {
@@ -503,24 +504,24 @@ function TypeDetail({ type }: { type: EnneagramType }) {
               return (
                 <div className="space-y-3">
                   {hornevian && (
-                    <div className="p-4 rounded-xl bg-indigo-50/50 border border-indigo-100">
-                      <div className="text-xs font-medium text-indigo-600 mb-1">Hornevian: {hornevian.name}</div>
-                      <div className="text-xs text-slate-500 mb-1">Types {hornevian.types.join(", ")} · Strategy: {hornevian.strategy}</div>
-                      <p className="text-xs text-slate-600 leading-relaxed">{hornevian.description}</p>
+                    <div className="p-4 rounded-xl" style={{ background: "rgba(99,102,241,0.08)", border: "1px solid rgba(99,102,241,0.18)" }}>
+                      <div className="text-xs font-medium mb-1" style={{ color: "#a5b4fc" }}>Hornevian: {hornevian.name}</div>
+                      <div className="text-xs mb-1" style={{ color: "rgba(255,255,255,0.45)" }}>Types {hornevian.types.join(", ")} · Strategy: {hornevian.strategy}</div>
+                      <p className="text-xs leading-relaxed" style={{ color: "rgba(255,255,255,0.6)" }}>{hornevian.description}</p>
                     </div>
                   )}
                   {harmonic && (
-                    <div className="p-4 rounded-xl bg-emerald-50/50 border border-emerald-100">
-                      <div className="text-xs font-medium text-emerald-600 mb-1">Harmonic: {harmonic.name}</div>
-                      <div className="text-xs text-slate-500 mb-1">Types {harmonic.types.join(", ")} · Response: {harmonic.response}</div>
-                      <p className="text-xs text-slate-600 leading-relaxed">{harmonic.description}</p>
+                    <div className="p-4 rounded-xl" style={{ background: "rgba(34,197,94,0.07)", border: "1px solid rgba(34,197,94,0.15)" }}>
+                      <div className="text-xs font-medium text-emerald-400 mb-1">Harmonic: {harmonic.name}</div>
+                      <div className="text-xs mb-1" style={{ color: "rgba(255,255,255,0.45)" }}>Types {harmonic.types.join(", ")} · Response: {harmonic.response}</div>
+                      <p className="text-xs leading-relaxed" style={{ color: "rgba(255,255,255,0.6)" }}>{harmonic.description}</p>
                     </div>
                   )}
                   {objRel && (
-                    <div className="p-4 rounded-xl bg-violet-50/50 border border-violet-100">
-                      <div className="text-xs font-medium text-violet-600 mb-1">Object Relations: {objRel.name}</div>
-                      <div className="text-xs text-slate-500 mb-1">Types {objRel.types.join(", ")} · {objRel.relationship}</div>
-                      <p className="text-xs text-slate-600 leading-relaxed">{objRel.psychodynamics}</p>
+                    <div className="p-4 rounded-xl" style={{ background: "rgba(139,92,246,0.08)", border: "1px solid rgba(139,92,246,0.18)" }}>
+                      <div className="text-xs font-medium text-violet-400 mb-1">Object Relations: {objRel.name}</div>
+                      <div className="text-xs mb-1" style={{ color: "rgba(255,255,255,0.45)" }}>Types {objRel.types.join(", ")} · {objRel.relationship}</div>
+                      <p className="text-xs leading-relaxed" style={{ color: "rgba(255,255,255,0.6)" }}>{objRel.psychodynamics}</p>
                     </div>
                   )}
                 </div>
@@ -533,12 +534,26 @@ function TypeDetail({ type }: { type: EnneagramType }) {
         <ExpandableSection title="Journal Prompts" icon={Feather}>
           <div className="space-y-3">
             {type.journalPrompts.map((prompt, i) => (
-              <div key={i} className="p-4 rounded-xl bg-sky-50/50 border border-sky-100/50">
-                <p className="text-sm text-slate-700 italic">&ldquo;{prompt}&rdquo;</p>
+              <div key={i} className="p-4 rounded-xl" style={{ background: "rgba(14,165,233,0.07)", border: "1px solid rgba(14,165,233,0.15)" }}>
+                <p className="text-sm italic" style={{ color: "rgba(255,255,255,0.75)" }}>&ldquo;{prompt}&rdquo;</p>
               </div>
             ))}
           </div>
         </ExpandableSection>
+
+        {/* Deep Psychology Dropdown Sections — from enneagram.ts dropdownSections */}
+        {type.dropdownSections && type.dropdownSections.length > 0 && (
+          <>
+            <div className="text-xs font-mono uppercase tracking-wider mb-1 mt-2" style={{ color: "rgba(167,139,250,0.6)" }}>
+              Deep Psychology
+            </div>
+            {type.dropdownSections.map((section, i) => (
+              <ExpandableSection key={i} title={section.title} icon={BookOpen}>
+                <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.65)" }}>{section.content}</p>
+              </ExpandableSection>
+            ))}
+          </>
+        )}
 
         {/* Myth vs Reality Flip Cards */}
         <MythRealitySection typeNumber={type.number} typeColor={type.color} />
@@ -584,16 +599,16 @@ function LearnContent() {
   }, [typeParam]);
 
   return (
-    <div className="min-h-screen py-12">
+    <div className="min-h-screen py-12" style={{ background: "#0f0a1e" }}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="mb-8">
           <div className="flex items-center justify-between flex-wrap gap-4">
             <div>
-              <h1 className="text-3xl font-serif font-bold text-slate-900 mb-2">Learn the Enneagram</h1>
-              <p className="text-slate-500">Explore types, subtypes, instinctual stackings, tritypes, and deep psychology.</p>
+              <h1 className="text-3xl font-serif font-bold mb-2" style={{ color: "rgba(255,255,255,0.93)" }}>Learn the Enneagram</h1>
+              <p style={{ color: "rgba(255,255,255,0.5)" }}>Explore types, subtypes, instinctual stackings, tritypes, and deep psychology.</p>
             </div>
             {selectedType && (
-              <Link href="/daily" className="inline-flex items-center gap-2 px-4 py-2 bg-orange-50 border border-orange-100 text-orange-600 rounded-xl text-xs font-medium hover:bg-orange-100 transition">
+              <Link href="/daily" className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-medium transition" style={{ background: "rgba(249,115,22,0.12)", border: "1px solid rgba(249,115,22,0.2)", color: "#fb923c" }}>
                 Daily Practice, quiz + insight →
               </Link>
             )}
@@ -601,7 +616,7 @@ function LearnContent() {
         </div>
 
         {/* Top-level tabs — same for everyone */}
-        <div className="flex gap-1 p-1 bg-slate-100 rounded-xl w-fit mb-8 flex-wrap">
+        <div className="flex gap-1 p-1 rounded-xl w-fit mb-8 flex-wrap" style={{ background: "rgba(255,255,255,0.06)" }}>
           {[
             { key: "types" as const, label: "9 Types" },
             { key: "instincts" as const, label: "Instinctual Variants" },
@@ -610,16 +625,20 @@ function LearnContent() {
             { key: "deepsystems" as const, label: "Deep Systems" },
           ].map((tab) => (
             <button key={tab.key} onClick={() => setLearnTab(tab.key)}
-              className={`px-4 py-2 rounded-lg text-sm font-medium transition ${learnTab === tab.key ? "bg-white text-slate-800 shadow-sm" : "text-slate-500 hover:text-slate-700"}`}>
+              className="px-4 py-2 rounded-lg text-sm font-medium transition"
+              style={learnTab === tab.key
+                ? { background: "rgba(255,255,255,0.12)", color: "rgba(255,255,255,0.92)" }
+                : { color: "rgba(255,255,255,0.45)" }
+              }>
               {tab.label}
             </button>
           ))}
         </div>
         {/* Hint when no type selected */}
         {learnTab === "types" && !selectedType && (
-          <div className="flex items-start gap-3 p-4 rounded-2xl bg-sky-50 border border-sky-100 mb-6 max-w-xl">
-            <Info className="w-4 h-4 text-sky-500 mt-0.5 flex-shrink-0" />
-            <p className="text-sm text-sky-800">
+          <div className="flex items-start gap-3 p-4 rounded-2xl mb-6 max-w-xl" style={{ background: "rgba(14,165,233,0.08)", border: "1px solid rgba(14,165,233,0.18)" }}>
+            <Info className="w-4 h-4 text-sky-400 mt-0.5 flex-shrink-0" />
+            <p className="text-sm" style={{ color: "rgba(186,230,253,0.9)" }}>
               Not sure where to start? Pick any type that sounds familiar, or{" "}
               <Link href="/enneagram/assess" className="font-semibold underline underline-offset-2">take the assessment</Link>{" "}
               to discover your type.
@@ -632,35 +651,35 @@ function LearnContent() {
           <>
             {/* What is the Enneagram explainer — shown when no type selected */}
             {!selectedType && (
-              <div className="max-w-2xl mb-8 p-6 rounded-3xl bg-gradient-to-br from-sky-50 to-indigo-50 border border-sky-100">
-                <h3 className="font-serif font-bold text-slate-900 text-lg mb-2">What is the Enneagram?</h3>
-                <p className="text-sm text-slate-600 leading-relaxed mb-4">
+              <div className="max-w-2xl mb-8 p-6 rounded-3xl" style={{ background: "rgba(14,165,233,0.06)", border: "1px solid rgba(14,165,233,0.14)" }}>
+                <h3 className="font-serif font-bold text-lg mb-2" style={{ color: "rgba(255,255,255,0.93)" }}>What is the Enneagram?</h3>
+                <p className="text-sm leading-relaxed mb-4" style={{ color: "rgba(255,255,255,0.65)" }}>
                   The Enneagram is a map of 9 personality types, each driven by a different core motivation and fear. Unlike surface-level tests, it describes <em>why</em> you do what you do, not just what you do. It&apos;s a tool for self-understanding, not a label.
                 </p>
-                <div className="grid grid-cols-3 gap-3 text-center text-xs text-slate-500">
-                  <div className="p-3 bg-white/70 rounded-xl">
-                    <div className="w-7 h-7 rounded-lg bg-sky-100 flex items-center justify-center mx-auto mb-1.5">
-                      <Lightbulb className="w-3.5 h-3.5 text-sky-600" />
+                <div className="grid grid-cols-3 gap-3 text-center text-xs" style={{ color: "rgba(255,255,255,0.5)" }}>
+                  <div className="p-3 rounded-xl" style={{ background: "rgba(255,255,255,0.06)" }}>
+                    <div className="w-7 h-7 rounded-lg flex items-center justify-center mx-auto mb-1.5" style={{ background: "rgba(14,165,233,0.15)" }}>
+                      <Lightbulb className="w-3.5 h-3.5 text-sky-400" />
                     </div>
-                    <div className="font-medium text-slate-700">Core Motivation</div>
+                    <div className="font-medium" style={{ color: "rgba(255,255,255,0.8)" }}>Core Motivation</div>
                     <div>The deep &ldquo;why&rdquo; behind your actions</div>
                   </div>
-                  <div className="p-3 bg-white/70 rounded-xl">
-                    <div className="w-7 h-7 rounded-lg bg-rose-100 flex items-center justify-center mx-auto mb-1.5">
-                      <Shield className="w-3.5 h-3.5 text-rose-600" />
+                  <div className="p-3 rounded-xl" style={{ background: "rgba(255,255,255,0.06)" }}>
+                    <div className="w-7 h-7 rounded-lg flex items-center justify-center mx-auto mb-1.5" style={{ background: "rgba(239,68,68,0.15)" }}>
+                      <Shield className="w-3.5 h-3.5 text-rose-400" />
                     </div>
-                    <div className="font-medium text-slate-700">Core Fear</div>
+                    <div className="font-medium" style={{ color: "rgba(255,255,255,0.8)" }}>Core Fear</div>
                     <div>What you&apos;re unconsciously trying to avoid</div>
                   </div>
-                  <div className="p-3 bg-white/70 rounded-xl">
-                    <div className="w-7 h-7 rounded-lg bg-emerald-100 flex items-center justify-center mx-auto mb-1.5">
-                      <TrendingUp className="w-3.5 h-3.5 text-emerald-600" />
+                  <div className="p-3 rounded-xl" style={{ background: "rgba(255,255,255,0.06)" }}>
+                    <div className="w-7 h-7 rounded-lg flex items-center justify-center mx-auto mb-1.5" style={{ background: "rgba(34,197,94,0.15)" }}>
+                      <TrendingUp className="w-3.5 h-3.5 text-emerald-400" />
                     </div>
-                    <div className="font-medium text-slate-700">Growth Path</div>
+                    <div className="font-medium" style={{ color: "rgba(255,255,255,0.8)" }}>Growth Path</div>
                     <div>How each type develops and heals</div>
                   </div>
                 </div>
-                <p className="text-xs text-slate-400 mt-4">Pick any type below to start, or take the <Link href="/enneagram/assess" className="text-sky-600 font-medium underline underline-offset-2">assessment</Link> to find yours.</p>
+                <p className="text-xs mt-4" style={{ color: "rgba(255,255,255,0.4)" }}>Pick any type below to start, or take the <Link href="/enneagram/assess" className="font-medium underline underline-offset-2" style={{ color: "#38bdf8" }}>assessment</Link> to find yours.</p>
               </div>
             )}
             <div className="flex flex-wrap gap-3 mb-10 items-end">
@@ -675,16 +694,16 @@ function LearnContent() {
                         isSelected
                           ? "text-white shadow-lg scale-105"
                           : isMyType
-                          ? "bg-white text-slate-700 border-2 shadow-sm hover:scale-105"
-                          : "bg-white text-slate-600 border border-slate-200 hover:border-sky-200 hover:bg-sky-50/50"
+                          ? "border-2 shadow-sm hover:scale-105"
+                          : "border hover:border-sky-500/40"
                       }`}
-                      style={
-                        isSelected
-                          ? { backgroundColor: type.color }
-                          : isMyType
-                          ? { borderColor: type.color, boxShadow: `0 0 0 1px ${type.color}22, 0 2px 8px ${type.color}22` }
-                          : undefined
-                      }
+                    style={
+                      isSelected
+                        ? { backgroundColor: type.color }
+                        : isMyType
+                        ? { background: "rgba(255,255,255,0.08)", color: "rgba(255,255,255,0.85)", borderColor: type.color, boxShadow: `0 0 0 1px ${type.color}22, 0 2px 8px ${type.color}22` }
+                        : { background: "rgba(255,255,255,0.05)", color: "rgba(255,255,255,0.65)", borderColor: "rgba(255,255,255,0.1)" }
+                    }
                     >
                       <span className="text-xs">{type.icon}</span>
                       {type.number}. {type.name.split("The ")[1]}
@@ -702,7 +721,7 @@ function LearnContent() {
               })}
             </div>
             {selectedType ? (
-              (() => { const t = enneagramTypes.find((et) => et.number === selectedType); return t ? <TypeDetail key={selectedType} type={t} /> : <p className="text-sm text-slate-400">Type not found.</p>; })()
+              (() => { const t = enneagramTypes.find((et) => et.number === selectedType); return t ? <TypeDetail key={selectedType} type={t} /> : <p className="text-sm" style={{ color: "rgba(255,255,255,0.4)" }}>Type not found.</p>; })()
             ) : null}
           </>
         )}
@@ -710,45 +729,45 @@ function LearnContent() {
         {/* Instinctual Variants Tab */}
         {learnTab === "instincts" && (
           <div className="max-w-3xl mx-auto space-y-6">
-            <p className="text-sm text-slate-500 leading-relaxed">
+            <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.55)" }}>
               The three instinctual variants, Self-Preservation (SP), Sexual/One-to-One (SX), and Social (SO), are biological drives that shape how each Enneagram type expresses itself. Beatrice Chestnut&apos;s research identifies 27 distinct subtypes (3 per type), each with a countertype that looks least like the core type.
             </p>
             {instinctualVariants.map((iv) => (
-              <div key={iv.code} className="p-6 rounded-2xl bg-white border border-slate-100 shadow-sm">
+              <div key={iv.code} className="p-6 rounded-2xl" style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)" }}>
                 <div className="flex items-center gap-3 mb-3">
-                  <span className={`px-3 py-1 text-sm font-mono font-bold rounded-lg ${
-                    iv.code === "sp" ? "bg-emerald-100 text-emerald-700" :
-                    iv.code === "sx" ? "bg-rose-100 text-rose-700" :
-                    "bg-sky-100 text-sky-700"
-                  }`}>{iv.code.toUpperCase()}</span>
-                  <h3 className="font-serif font-semibold text-lg text-slate-800">{iv.fullName}</h3>
+                  <span className="px-3 py-1 text-sm font-mono font-bold rounded-lg" style={
+                    iv.code === "sp" ? { background: "rgba(34,197,94,0.15)", color: "#4ade80" } :
+                    iv.code === "sx" ? { background: "rgba(239,68,68,0.15)", color: "#f87171" } :
+                    { background: "rgba(14,165,233,0.15)", color: "#38bdf8" }
+                  }>{iv.code.toUpperCase()}</span>
+                  <h3 className="font-serif font-semibold text-lg" style={{ color: "rgba(255,255,255,0.88)" }}>{iv.fullName}</h3>
                 </div>
-                <p className="text-sm text-slate-600 leading-relaxed mb-4">{iv.description}</p>
-                <div className="p-3 rounded-xl bg-slate-50 mb-4">
-                  <div className="text-xs font-medium text-slate-700 mb-1">Core Drive</div>
-                  <p className="text-sm text-slate-600">{iv.coreDrive}</p>
+                <p className="text-sm leading-relaxed mb-4" style={{ color: "rgba(255,255,255,0.65)" }}>{iv.description}</p>
+                <div className="p-3 rounded-xl mb-4" style={{ background: "rgba(255,255,255,0.06)" }}>
+                  <div className="text-xs font-medium mb-1" style={{ color: "rgba(255,255,255,0.7)" }}>Core Drive</div>
+                  <p className="text-sm" style={{ color: "rgba(255,255,255,0.6)" }}>{iv.coreDrive}</p>
                 </div>
                 <div className="mb-4">
-                  <div className="text-xs font-medium text-slate-500 mb-2">Focus Areas</div>
+                  <div className="text-xs font-medium mb-2" style={{ color: "rgba(255,255,255,0.45)" }}>Focus Areas</div>
                   <div className="space-y-1.5">
                     {iv.focus.map((f, i) => (
-                      <div key={i} className="flex items-start gap-2 text-sm text-slate-600">
-                        <div className="w-1.5 h-1.5 rounded-full bg-sky-300 mt-2 shrink-0" />{f}
+                      <div key={i} className="flex items-start gap-2 text-sm" style={{ color: "rgba(255,255,255,0.65)" }}>
+                        <div className="w-1.5 h-1.5 rounded-full bg-sky-400/60 mt-2 shrink-0" />{f}
                       </div>
                     ))}
                   </div>
                 </div>
                 <div className="grid grid-cols-2 gap-3">
-                  <div className="p-3 rounded-xl bg-emerald-50/50">
-                    <div className="text-xs font-medium text-emerald-600 mb-2">Strengths</div>
+                  <div className="p-3 rounded-xl" style={{ background: "rgba(34,197,94,0.07)" }}>
+                    <div className="text-xs font-medium text-emerald-400 mb-2">Strengths</div>
                     <div className="space-y-1">
-                      {iv.strengths.map((s) => <div key={s} className="text-xs text-slate-600">{s}</div>)}
+                      {iv.strengths.map((s) => <div key={s} className="text-xs" style={{ color: "rgba(255,255,255,0.6)" }}>{s}</div>)}
                     </div>
                   </div>
-                  <div className="p-3 rounded-xl bg-amber-50/50">
-                    <div className="text-xs font-medium text-amber-600 mb-2">Blind Spots</div>
+                  <div className="p-3 rounded-xl" style={{ background: "rgba(245,158,11,0.07)" }}>
+                    <div className="text-xs font-medium text-amber-400 mb-2">Blind Spots</div>
                     <div className="space-y-1">
-                      {iv.blindSpots.map((b) => <div key={b} className="text-xs text-slate-600">{b}</div>)}
+                      {iv.blindSpots.map((b) => <div key={b} className="text-xs" style={{ color: "rgba(255,255,255,0.6)" }}>{b}</div>)}
                     </div>
                   </div>
                 </div>
@@ -760,34 +779,34 @@ function LearnContent() {
         {/* Stackings Tab */}
         {learnTab === "stackings" && (
           <div className="max-w-3xl mx-auto space-y-6">
-            <p className="text-sm text-slate-500 leading-relaxed">
+            <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.55)" }}>
               Your instinctual stacking is the order of priority of your three instincts. Your dominant instinct shapes your primary focus, your secondary supports it, and your blind spot is the instinct you neglect most. There are six possible stackings.
             </p>
             {instinctualStackings.map((stack) => (
-              <div key={stack.code} className="p-6 rounded-2xl bg-white border border-slate-100 shadow-sm">
+              <div key={stack.code} className="p-6 rounded-2xl" style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)" }}>
                 <div className="flex items-center gap-3 mb-3">
-                  <span className="font-mono font-bold text-lg text-sky-600">{stack.code}</span>
-                  <h3 className="font-serif font-semibold text-slate-800">{stack.name}</h3>
+                  <span className="font-mono font-bold text-lg" style={{ color: "#38bdf8" }}>{stack.code}</span>
+                  <h3 className="font-serif font-semibold" style={{ color: "rgba(255,255,255,0.88)" }}>{stack.name}</h3>
                 </div>
-                <p className="text-sm text-slate-600 leading-relaxed mb-4">{stack.description}</p>
+                <p className="text-sm leading-relaxed mb-4" style={{ color: "rgba(255,255,255,0.65)" }}>{stack.description}</p>
                 <div className="grid grid-cols-3 gap-2 mb-4">
-                  <div className="p-3 rounded-xl bg-emerald-50 text-center">
-                    <div className="text-[10px] text-emerald-600 font-medium">Dominant</div>
-                    <div className="text-sm font-medium text-slate-700">{stack.dominant}</div>
+                  <div className="p-3 rounded-xl text-center" style={{ background: "rgba(34,197,94,0.08)" }}>
+                    <div className="text-[10px] text-emerald-400 font-medium">Dominant</div>
+                    <div className="text-sm font-medium" style={{ color: "rgba(255,255,255,0.78)" }}>{stack.dominant}</div>
                   </div>
-                  <div className="p-3 rounded-xl bg-sky-50 text-center">
-                    <div className="text-[10px] text-sky-600 font-medium">Secondary</div>
-                    <div className="text-sm font-medium text-slate-700">{stack.secondary}</div>
+                  <div className="p-3 rounded-xl text-center" style={{ background: "rgba(14,165,233,0.08)" }}>
+                    <div className="text-[10px] text-sky-400 font-medium">Secondary</div>
+                    <div className="text-sm font-medium" style={{ color: "rgba(255,255,255,0.78)" }}>{stack.secondary}</div>
                   </div>
-                  <div className="p-3 rounded-xl bg-slate-50 text-center">
-                    <div className="text-[10px] text-slate-400 font-medium">Blind Spot</div>
-                    <div className="text-sm font-medium text-slate-400">{stack.blind}</div>
+                  <div className="p-3 rounded-xl text-center" style={{ background: "rgba(255,255,255,0.05)" }}>
+                    <div className="text-[10px] font-medium" style={{ color: "rgba(255,255,255,0.35)" }}>Blind Spot</div>
+                    <div className="text-sm font-medium" style={{ color: "rgba(255,255,255,0.4)" }}>{stack.blind}</div>
                   </div>
                 </div>
                 <div className="space-y-1.5">
                   {stack.characteristics.map((c, i) => (
-                    <div key={i} className="flex items-start gap-2 text-sm text-slate-600">
-                      <div className="w-1.5 h-1.5 rounded-full bg-sky-300 mt-2 shrink-0" />{c}
+                    <div key={i} className="flex items-start gap-2 text-sm" style={{ color: "rgba(255,255,255,0.65)" }}>
+                      <div className="w-1.5 h-1.5 rounded-full bg-sky-400/60 mt-2 shrink-0" />{c}
                     </div>
                   ))}
                 </div>
@@ -799,45 +818,45 @@ function LearnContent() {
         {/* Tritypes Tab */}
         {learnTab === "tritypes" && (
           <div className="max-w-3xl mx-auto space-y-6">
-            <p className="text-sm text-slate-500 leading-relaxed">
+            <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.55)" }}>
               Katherine Fauvre&apos;s Tritype theory proposes that each person uses one type from each of the three centers of intelligence. Your tritype (e.g., 531) shows your dominant strategy in Head (5/6/7), Heart (2/3/4), and Gut (8/9/1). Combined with your instinctual stacking, this creates a highly specific personality profile (e.g., sx/so 531 INTJ).
             </p>
 
             {/* Centers */}
             <div className="grid gap-4">
               {tritypeCenters.map((center) => (
-                <div key={center.name} className="p-5 rounded-2xl bg-white border border-slate-100">
-                  <h3 className="font-serif font-semibold text-slate-800 mb-2">{center.name}</h3>
-                  <p className="text-sm text-slate-600 leading-relaxed mb-3">{center.description}</p>
-                  <div className="p-3 rounded-xl bg-sky-50/50">
-                    <div className="text-xs font-medium text-sky-600 mb-1">Key Question</div>
-                    <p className="text-sm text-slate-700 italic">{center.question}</p>
+                <div key={center.name} className="p-5 rounded-2xl" style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)" }}>
+                  <h3 className="font-serif font-semibold mb-2" style={{ color: "rgba(255,255,255,0.88)" }}>{center.name}</h3>
+                  <p className="text-sm leading-relaxed mb-3" style={{ color: "rgba(255,255,255,0.65)" }}>{center.description}</p>
+                  <div className="p-3 rounded-xl" style={{ background: "rgba(14,165,233,0.08)" }}>
+                    <div className="text-xs font-medium text-sky-400 mb-1">Key Question</div>
+                    <p className="text-sm italic" style={{ color: "rgba(255,255,255,0.72)" }}>{center.question}</p>
                   </div>
                 </div>
               ))}
             </div>
 
             {/* All Tritypes */}
-            <h3 className="font-serif font-semibold text-lg text-slate-800 mt-8">All Tritype Thyselfs</h3>
+            <h3 className="font-serif font-semibold text-lg mt-8" style={{ color: "rgba(255,255,255,0.88)" }}>All Tritype Thyselfs</h3>
             <div className="grid gap-3">
               {tritypes.map((tri) => (
-                <div key={tri.code} className="p-4 rounded-xl bg-white border border-slate-100 hover:border-sky-200 transition">
+                <div key={tri.code} className="p-4 rounded-xl transition" style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)" }}>
                   <div className="flex items-center gap-2 mb-1.5">
-                    <span className="font-mono font-bold text-sky-600">{tri.code}</span>
-                    <span className="font-serif font-semibold text-slate-800 text-sm">{tri.archetype}</span>
+                    <span className="font-mono font-bold" style={{ color: "#38bdf8" }}>{tri.code}</span>
+                    <span className="font-serif font-semibold text-sm" style={{ color: "rgba(255,255,255,0.85)" }}>{tri.archetype}</span>
                   </div>
-                  <p className="text-xs text-slate-600 leading-relaxed mb-2">{tri.description}</p>
+                  <p className="text-xs leading-relaxed mb-2" style={{ color: "rgba(255,255,255,0.6)" }}>{tri.description}</p>
                   <div className="grid grid-cols-2 gap-2">
                     <div>
-                      <div className="text-[10px] font-medium text-emerald-600 mb-1">Strengths</div>
+                      <div className="text-[10px] font-medium text-emerald-400 mb-1">Strengths</div>
                       {tri.strengths.map((s, i) => (
-                        <div key={i} className="text-[11px] text-slate-500">+ {s}</div>
+                        <div key={i} className="text-[11px]" style={{ color: "rgba(255,255,255,0.5)" }}>+ {s}</div>
                       ))}
                     </div>
                     <div>
-                      <div className="text-[10px] font-medium text-amber-600 mb-1">Challenges</div>
+                      <div className="text-[10px] font-medium text-amber-400 mb-1">Challenges</div>
                       {tri.challenges.map((c, i) => (
-                        <div key={i} className="text-[11px] text-slate-500">- {c}</div>
+                        <div key={i} className="text-[11px]" style={{ color: "rgba(255,255,255,0.5)" }}>- {c}</div>
                       ))}
                     </div>
                   </div>
@@ -850,77 +869,238 @@ function LearnContent() {
         {/* Deep Systems Tab */}
         {learnTab === "deepsystems" && (
           <div className="max-w-3xl mx-auto space-y-8">
-            <p className="text-sm text-slate-500 leading-relaxed">
+            <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.55)" }}>
               Beyond the 9 types, the Enneagram contains several meta-systems that reveal deeper patterns. These groupings come from Karen Horney&apos;s psychoanalytic framework, Don Riso &amp; Russ Hudson&apos;s research, and object relations theory.
             </p>
 
             {/* Centers of Intelligence */}
             <div>
-              <h3 className="font-serif font-semibold text-lg text-slate-800 mb-4">Centers of Intelligence</h3>
+              <h3 className="font-serif font-semibold text-lg mb-4" style={{ color: "rgba(255,255,255,0.88)" }}>Centers of Intelligence</h3>
               <div className="space-y-4">
                 {centersOfIntelligence.map((center) => (
-                  <div key={center.name} className="p-5 rounded-2xl bg-white border border-slate-100">
+                  <div key={center.name} className="p-5 rounded-2xl" style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)" }}>
                     <div className="flex items-center gap-2 mb-2">
-                      <h4 className="font-serif font-semibold text-slate-800">{center.name}</h4>
-                      <span className="px-2 py-0.5 text-xs rounded bg-rose-50 text-rose-600 font-medium">Core: {center.coreEmotion}</span>
+                      <h4 className="font-serif font-semibold" style={{ color: "rgba(255,255,255,0.88)" }}>{center.name}</h4>
+                      <span className="px-2 py-0.5 text-xs rounded font-medium" style={{ background: "rgba(239,68,68,0.12)", color: "#f87171" }}>Core: {center.coreEmotion}</span>
                     </div>
-                    <p className="text-sm text-slate-600 leading-relaxed mb-3">{center.description}</p>
+                    <p className="text-sm leading-relaxed mb-3" style={{ color: "rgba(255,255,255,0.65)" }}>{center.description}</p>
                     <div className="grid grid-cols-3 gap-2 text-xs">
-                      <div className="p-2 rounded-lg bg-slate-50"><span className="text-slate-400">Core type:</span> <span className="text-slate-600 font-medium">{center.dominantType}</span></div>
-                      <div className="p-2 rounded-lg bg-emerald-50/50"><span className="text-emerald-500">Over-expressed:</span> <span className="text-slate-600 font-medium">{center.overExpressed}</span></div>
-                      <div className="p-2 rounded-lg bg-amber-50/50"><span className="text-amber-500">Under-expressed:</span> <span className="text-slate-600 font-medium">{center.underExpressed}</span></div>
+                      <div className="p-2 rounded-lg" style={{ background: "rgba(255,255,255,0.05)" }}><span style={{ color: "rgba(255,255,255,0.4)" }}>Core type:</span> <span className="font-medium" style={{ color: "rgba(255,255,255,0.72)" }}>{center.dominantType}</span></div>
+                      <div className="p-2 rounded-lg" style={{ background: "rgba(34,197,94,0.07)" }}><span className="text-emerald-400">Over-expressed:</span> <span className="font-medium" style={{ color: "rgba(255,255,255,0.72)" }}>{center.overExpressed}</span></div>
+                      <div className="p-2 rounded-lg" style={{ background: "rgba(245,158,11,0.07)" }}><span className="text-amber-400">Under-expressed:</span> <span className="font-medium" style={{ color: "rgba(255,255,255,0.72)" }}>{center.underExpressed}</span></div>
                     </div>
                   </div>
                 ))}
               </div>
             </div>
 
-            {/* Hornevian Groups */}
+            {/* The Horney Triads — expanded teaching section */}
             <div>
-              <h3 className="font-serif font-semibold text-lg text-slate-800 mb-4">Hornevian Groups (Karen Horney)</h3>
-              <p className="text-xs text-slate-400 mb-4">How each type responds to getting their needs met, based on Karen Horney&apos;s three fundamental strategies.</p>
-              <div className="space-y-4">
-                {hornevianGroups.map((group) => (
-                  <div key={group.name} className="p-5 rounded-2xl bg-white border border-slate-100">
-                    <h4 className="font-serif font-semibold text-slate-800 mb-1">{group.name}</h4>
-                    <div className="text-xs text-sky-500 mb-2">Types {group.types.join(", ")} · {group.strategy}</div>
-                    <p className="text-sm text-slate-600 leading-relaxed mb-3">{group.description}</p>
-                    <div className="p-3 rounded-xl bg-slate-50">
-                      <p className="text-xs text-slate-500 italic">{group.horneyDescription}</p>
+              <div className="flex items-center gap-3 mb-2">
+                <h3 className="font-serif font-semibold text-lg" style={{ color: "rgba(255,255,255,0.88)" }}>The Horney Triads</h3>
+                <span className="px-2 py-0.5 text-[10px] font-medium rounded-full" style={{ background: "rgba(99,102,241,0.15)", color: "#a5b4fc" }}>Karen Horney · Riso-Hudson</span>
+              </div>
+              <p className="text-sm leading-relaxed mb-6" style={{ color: "rgba(255,255,255,0.55)" }}>
+                Karen Horney (1945) identified three fundamental strategies for managing anxiety and getting needs met in a world that feels threatening. Don Riso and Russ Hudson adapted these into the Enneagram as the Hornevian groups — revealing the social strategy layer beneath each type&apos;s surface behavior. These groupings cut across the three intelligence centers, showing that even within the same center, types can have radically different orientations to the world.
+              </p>
+              <div className="space-y-5 mb-8">
+                {/* Moving Toward (Compliant) */}
+                <div className="rounded-2xl overflow-hidden" style={{ border: "1px solid rgba(16,185,129,0.2)" }}>
+                  <div className="px-5 py-4" style={{ background: "rgba(16,185,129,0.08)" }}>
+                    <div className="flex items-center gap-3 flex-wrap">
+                      <h4 className="font-serif font-semibold" style={{ color: "rgba(255,255,255,0.92)" }}>Moving Toward (Compliant)</h4>
+                      <div className="flex gap-1.5">
+                        {[1, 2, 6].map((n) => (
+                          <span key={n} className="w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold text-white" style={{ backgroundColor: [, "#E74C3C", "#27AE60", , , , "#2C3E50"][n] }}>{n}</span>
+                        ))}
+                      </div>
                     </div>
+                    <p className="text-xs mt-1" style={{ color: "#6ee7b7" }}>Types 1, 2, 6 · Strategy: earn safety through duty, service, and compliance</p>
                   </div>
-                ))}
+                  <div className="px-5 py-4" style={{ background: "rgba(255,255,255,0.03)" }}>
+                    <p className="text-sm leading-relaxed mb-3" style={{ color: "rgba(255,255,255,0.67)" }}>
+                      Horney&apos;s &ldquo;moving toward&rdquo; strategy describes people who manage anxiety by orienting toward others — making themselves dutiful, indispensable, or perfectly aligned with authority. In the Enneagram, this corresponds to Types 1, 2, and 6, which Riso and Hudson call the Compliant group. These types are superego-driven: they&apos;ve internalized external standards, expectations, or demands so completely that they experience them as their own moral code, sense of responsibility, or commitment to loyalty.
+                    </p>
+                    <p className="text-sm leading-relaxed mb-3" style={{ color: "rgba(255,255,255,0.67)" }}>
+                      Ones earn safety by being right and morally above reproach — the perfect compliance with one&apos;s own inner standard. Twos earn safety by being needed — making others so dependent on their care that abandonment becomes impossible. Sixes earn safety through loyalty to trusted authority — outsourcing their own guidance to something or someone they can depend on. All three types have a difficult relationship with genuine autonomy: asserting their own will, beyond what&apos;s expected of them, feels transgressive or dangerous.
+                    </p>
+                    <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.67)" }}>
+                      The shadow of this group is resentment — the cost of perpetual compliance. When the compliance stops working, or when the authority figure fails them, Compliant types are often blindsided by the force of their own suppressed anger. Growth for this group means developing genuine autonomy: learning to identify and act from their own inner authority rather than from duty, need to be needed, or fear of being unsupported.
+                    </p>
+                  </div>
+                </div>
+
+                {/* Moving Against (Aggressive) */}
+                <div className="rounded-2xl overflow-hidden" style={{ border: "1px solid rgba(239,68,68,0.2)" }}>
+                  <div className="px-5 py-4" style={{ background: "rgba(239,68,68,0.08)" }}>
+                    <div className="flex items-center gap-3 flex-wrap">
+                      <h4 className="font-serif font-semibold" style={{ color: "rgba(255,255,255,0.92)" }}>Moving Against (Aggressive)</h4>
+                      <div className="flex gap-1.5">
+                        {[3, 7, 8].map((n) => (
+                          <span key={n} className="w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold text-white" style={{ backgroundColor: [, , , "#F39C12", , , , "#E67E22", "#C0392B"][n] }}>{n}</span>
+                        ))}
+                      </div>
+                    </div>
+                    <p className="text-xs mt-1" style={{ color: "#fca5a5" }}>Types 3, 7, 8 · Strategy: get needs met by expanding and going after what you want</p>
+                  </div>
+                  <div className="px-5 py-4" style={{ background: "rgba(255,255,255,0.03)" }}>
+                    <p className="text-sm leading-relaxed mb-3" style={{ color: "rgba(255,255,255,0.67)" }}>
+                      Horney&apos;s &ldquo;moving against&rdquo; strategy describes people who manage anxiety by becoming more forceful, dominant, and expansive than the threats around them. Riso and Hudson identify this as the Assertive group: Types 3, 7, and 8. These are ego-expansive types — they grow themselves to fill space, to outpace or outmaneuver whatever feels threatening. Where Compliant types try to become smaller and more acceptable, Assertive types try to become larger and more powerful.
+                    </p>
+                    <p className="text-sm leading-relaxed mb-3" style={{ color: "rgba(255,255,255,0.67)" }}>
+                      Threes assert through achievement and image — by becoming the most successful, most polished version of themselves, they ensure they can&apos;t be overlooked or dismissed. Sevens assert through constant forward momentum — by staying ahead of pain, boredom, and limitation, they maintain the sense that they are in control of their experience. Eights assert through force and confrontation — by being the most powerful entity in the room, they ensure no one can betray or control them.
+                    </p>
+                    <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.67)" }}>
+                      The shadow of this group is vulnerability — the cost of perpetual expansion. These types have the most difficulty with genuine receptivity: being helped, being moved, sitting with difficulty without making it into something. They tend to resist acknowledging that they need others. Growth means developing genuine openness: the capacity to receive rather than always pursue, and to be affected rather than always affecting.
+                    </p>
+                  </div>
+                </div>
+
+                {/* Moving Away (Withdrawn) */}
+                <div className="rounded-2xl overflow-hidden" style={{ border: "1px solid rgba(99,102,241,0.2)" }}>
+                  <div className="px-5 py-4" style={{ background: "rgba(99,102,241,0.08)" }}>
+                    <div className="flex items-center gap-3 flex-wrap">
+                      <h4 className="font-serif font-semibold" style={{ color: "rgba(255,255,255,0.92)" }}>Moving Away (Withdrawn)</h4>
+                      <div className="flex gap-1.5">
+                        {[4, 5, 9].map((n) => (
+                          <span key={n} className="w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold text-white" style={{ backgroundColor: [, , , , "#8E44AD", "#3498DB", , , , "#1ABC9C"][n] }}>{n}</span>
+                        ))}
+                      </div>
+                    </div>
+                    <p className="text-xs mt-1" style={{ color: "#a5b4fc" }}>Types 4, 5, 9 · Strategy: manage needs by retreating inward and meeting them there</p>
+                  </div>
+                  <div className="px-5 py-4" style={{ background: "rgba(255,255,255,0.03)" }}>
+                    <p className="text-sm leading-relaxed mb-3" style={{ color: "rgba(255,255,255,0.67)" }}>
+                      Horney&apos;s &ldquo;moving away&rdquo; strategy describes people who manage anxiety by reducing engagement with the external world and retreating into a rich inner life. Riso and Hudson call this the Withdrawn group: Types 4, 5, and 9. Where Compliant types reach toward others and Assertive types expand outward, Withdrawn types pull inward — not out of weakness, but as a fundamentally different architecture for managing the world&apos;s demands.
+                    </p>
+                    <p className="text-sm leading-relaxed mb-3" style={{ color: "rgba(255,255,255,0.67)" }}>
+                      Fours withdraw into emotion and imagination, constructing a rich private world of feeling and longing that substitutes for the connection they find elusive in reality. Fives withdraw into intellect, building elaborate internal systems of understanding as a substitute for — and protection against — the depleting demands of engagement. Nines withdraw through self-erasure and numbing, merging into the environment rather than asserting a distinct self that could be in conflict with it.
+                    </p>
+                    <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.67)" }}>
+                      The shadow of this group is disengagement — the cost of perpetual retreat. These types struggle most with decisive, sustained engagement with external reality: taking action, asserting their perspective, and maintaining presence even when it&apos;s difficult. Growth means developing the capacity to remain in contact with the world without being overwhelmed by it — discovering that presence doesn&apos;t have to mean dissolution.
+                    </p>
+                  </div>
+                </div>
+
+                {/* Citation */}
+                <div className="p-3 rounded-xl" style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.07)" }}>
+                  <p className="text-[10px] font-mono" style={{ color: "rgba(255,255,255,0.3)" }}>
+                    Sources: Horney, <em>Our Inner Conflicts</em> (1945) · Riso &amp; Hudson, <em>Personality Types</em> (1987); <em>Wisdom of the Enneagram</em> (1999)
+                  </p>
+                </div>
               </div>
             </div>
 
-            {/* Harmonic Groups */}
+            {/* Harmonic Groups — expanded */}
             <div>
-              <h3 className="font-serif font-semibold text-lg text-slate-800 mb-4">Harmonic Groups (Riso-Hudson)</h3>
-              <p className="text-xs text-slate-400 mb-4">How each type handles conflict and difficulty.</p>
-              <div className="space-y-4">
-                {harmonicGroups.map((group) => (
-                  <div key={group.name} className="p-5 rounded-2xl bg-white border border-slate-100">
-                    <h4 className="font-serif font-semibold text-slate-800 mb-1">{group.name}</h4>
-                    <div className="text-xs text-sky-500 mb-2">Types {group.types.join(", ")} · {group.response}</div>
-                    <p className="text-sm text-slate-600 leading-relaxed">{group.description}</p>
+              <div className="flex items-center gap-3 mb-2">
+                <h3 className="font-serif font-semibold text-lg" style={{ color: "rgba(255,255,255,0.88)" }}>Harmonic Groups</h3>
+                <span className="px-2 py-0.5 text-[10px] font-medium rounded-full" style={{ background: "rgba(245,158,11,0.15)", color: "#fcd34d" }}>Riso-Hudson</span>
+              </div>
+              <p className="text-sm leading-relaxed mb-6" style={{ color: "rgba(255,255,255,0.55)" }}>
+                Where the Horney Triads describe how types pursue their needs in the world, the Harmonic Groups describe how types handle frustration, conflict, and disappointment — the inevitable moments when the world doesn&apos;t give them what they want. Riso and Hudson identified three fundamentally different responses to this experience, each representing a kind of emotional strategy for surviving difficulty.
+              </p>
+              <div className="space-y-5 mb-8">
+                {/* Positive Outlook */}
+                <div className="rounded-2xl overflow-hidden" style={{ border: "1px solid rgba(245,158,11,0.2)" }}>
+                  <div className="px-5 py-4" style={{ background: "rgba(245,158,11,0.08)" }}>
+                    <div className="flex items-center gap-3 flex-wrap">
+                      <h4 className="font-serif font-semibold" style={{ color: "rgba(255,255,255,0.92)" }}>Positive Outlook</h4>
+                      <div className="flex gap-1.5">
+                        {[2, 7, 9].map((n) => (
+                          <span key={n} className="w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold text-white" style={{ backgroundColor: [, , "#27AE60", , , , , "#E67E22", , "#1ABC9C"][n] }}>{n}</span>
+                        ))}
+                      </div>
+                    </div>
+                    <p className="text-xs mt-1" style={{ color: "#fcd34d" }}>Types 2, 7, 9 · Handle difficulty by reframing or suppressing the negative</p>
                   </div>
-                ))}
+                  <div className="px-5 py-4" style={{ background: "rgba(255,255,255,0.03)" }}>
+                    <p className="text-sm leading-relaxed mb-3" style={{ color: "rgba(255,255,255,0.67)" }}>
+                      Types 2, 7, and 9 manage conflict and disappointment by maintaining — or restoring — a positive emotional atmosphere. This isn&apos;t simple optimism; it&apos;s a defensive strategy. Each of these types has learned that dwelling in negativity is dangerous: for Twos, expressing their own pain threatens the relationships they depend on; for Sevens, staying with pain risks being trapped in a deprivation they can&apos;t escape; for Nines, any conflict or negativity threatens the peace they&apos;ve carefully cultivated.
+                    </p>
+                    <p className="text-sm leading-relaxed mb-3" style={{ color: "rgba(255,255,255,0.67)" }}>
+                      As a result, these types suppress, minimize, or reframe their own negative experience. Twos focus on others&apos; needs, keeping their own pain out of awareness. Sevens reframe everything: &ldquo;This difficult situation is actually full of possibility.&rdquo; Nines smooth things over, going along to avoid disruption. The effect in relationships is often experienced by others as a kind of unavailability: the Positive Outlook type is present, warm, and engaged — but not fully contact-able in their pain.
+                    </p>
+                    <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.67)" }}>
+                      Shadow work for this group involves learning to stay with negative emotion without immediately transforming it: to feel the disappointment fully, to let the grief land, to allow the conflict to exist without rushing toward resolution. This is genuinely difficult, because these types have built elaborate and sophisticated defenses against exactly this experience.
+                    </p>
+                  </div>
+                </div>
+
+                {/* Competency */}
+                <div className="rounded-2xl overflow-hidden" style={{ border: "1px solid rgba(14,165,233,0.2)" }}>
+                  <div className="px-5 py-4" style={{ background: "rgba(14,165,233,0.08)" }}>
+                    <div className="flex items-center gap-3 flex-wrap">
+                      <h4 className="font-serif font-semibold" style={{ color: "rgba(255,255,255,0.92)" }}>Competency</h4>
+                      <div className="flex gap-1.5">
+                        {[1, 3, 5].map((n) => (
+                          <span key={n} className="w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold text-white" style={{ backgroundColor: [, "#E74C3C", , "#F39C12", , "#3498DB"][n] }}>{n}</span>
+                        ))}
+                      </div>
+                    </div>
+                    <p className="text-xs mt-1" style={{ color: "#7dd3fc" }}>Types 1, 3, 5 · Handle difficulty by setting feelings aside and finding solutions</p>
+                  </div>
+                  <div className="px-5 py-4" style={{ background: "rgba(255,255,255,0.03)" }}>
+                    <p className="text-sm leading-relaxed mb-3" style={{ color: "rgba(255,255,255,0.67)" }}>
+                      Types 1, 3, and 5 manage conflict and disappointment by setting feelings aside and solving the problem. These are the types who, when something goes wrong, immediately shift into rational problem-solving mode — identifying what needs to be fixed, what standard needs to be met, what more efficient path forward exists. Emotion is treated as noise that interferes with the signal. The Competency group believes, at a structural level, that feelings are obstacles to functioning rather than information about it.
+                    </p>
+                    <p className="text-sm leading-relaxed mb-3" style={{ color: "rgba(255,255,255,0.67)" }}>
+                      Ones apply standards: the correct response to difficulty is to do the right thing, even if it&apos;s hard. Threes perform: they shift into efficient, outcome-oriented mode, adjusting and adapting to succeed. Fives analyze: they step back, process the situation intellectually, and arrive at the objectively correct response — often days later, via email. Each strategy keeps the person functional while bypassing genuine emotional contact with the difficulty.
+                    </p>
+                    <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.67)" }}>
+                      Shadow work for this group involves allowing themselves to feel incompetent, messy, and emotionally affected. These types often don&apos;t know how to be comforted — they&apos;d rather have their problem solved or their competence confirmed. Learning to receive emotional support, rather than analysis or solutions, is often their central relational challenge.
+                    </p>
+                  </div>
+                </div>
+
+                {/* Reactive */}
+                <div className="rounded-2xl overflow-hidden" style={{ border: "1px solid rgba(236,72,153,0.2)" }}>
+                  <div className="px-5 py-4" style={{ background: "rgba(236,72,153,0.08)" }}>
+                    <div className="flex items-center gap-3 flex-wrap">
+                      <h4 className="font-serif font-semibold" style={{ color: "rgba(255,255,255,0.92)" }}>Reactive (Emotional Realness)</h4>
+                      <div className="flex gap-1.5">
+                        {[4, 6, 8].map((n) => (
+                          <span key={n} className="w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold text-white" style={{ backgroundColor: [, , , , "#8E44AD", , "#2C3E50", , "#C0392B"][n] }}>{n}</span>
+                        ))}
+                      </div>
+                    </div>
+                    <p className="text-xs mt-1" style={{ color: "#f9a8d4" }}>Types 4, 6, 8 · Handle difficulty by having a strong emotional reaction that needs to be witnessed</p>
+                  </div>
+                  <div className="px-5 py-4" style={{ background: "rgba(255,255,255,0.03)" }}>
+                    <p className="text-sm leading-relaxed mb-3" style={{ color: "rgba(255,255,255,0.67)" }}>
+                      Types 4, 6, and 8 manage conflict and disappointment by having a strong emotional reaction — and needing others to engage with that reaction. Where Positive Outlook types suppress their feelings and Competency types bypass them, Reactive types lead with them. They are not interested in managing their emotional state for the sake of social comfort; they are interested in authentic engagement with what is actually happening, including what it feels like. This gives these types an emotional directness that can be arresting or overwhelming, depending on your own type.
+                    </p>
+                    <p className="text-sm leading-relaxed mb-3" style={{ color: "rgba(255,255,255,0.67)" }}>
+                      Fours express hurt and need empathy: &ldquo;This has wounded me, and I need you to understand that.&rdquo; Sixes express anxiety and need reassurance: &ldquo;I&apos;m scared this will go wrong, and I need you to help me think it through.&rdquo; Eights express anger and need direct engagement: &ldquo;This is wrong, and I need you to either stand your ground or acknowledge it.&rdquo; In each case, the emotional reality must be seen and responded to before the person can move forward.
+                    </p>
+                    <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.67)" }}>
+                      Shadow work for this group involves self-soothing rather than requiring external emotional processing — developing the capacity to regulate their own emotional experience without needing others to bear witness first. This doesn&apos;t mean suppressing; it means building enough inner resources that the emotional reality can be metabolized internally, not only through relationship.
+                    </p>
+                  </div>
+                </div>
+
+                {/* Citation */}
+                <div className="p-3 rounded-xl" style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.07)" }}>
+                  <p className="text-[10px] font-mono" style={{ color: "rgba(255,255,255,0.3)" }}>
+                    Sources: Riso &amp; Hudson, <em>Personality Types</em> (1987); <em>Wisdom of the Enneagram</em> (1999)
+                  </p>
+                </div>
               </div>
             </div>
 
             {/* Object Relations */}
             <div>
-              <h3 className="font-serif font-semibold text-lg text-slate-800 mb-4">Object Relations Groups</h3>
-              <p className="text-xs text-slate-400 mb-4">How each type relates to their primary attachment figures, based on object relations theory and Riso-Hudson&apos;s research.</p>
+              <h3 className="font-serif font-semibold text-lg mb-4" style={{ color: "rgba(255,255,255,0.88)" }}>Object Relations Groups</h3>
+              <p className="text-xs mb-4" style={{ color: "rgba(255,255,255,0.4)" }}>How each type relates to their primary attachment figures, based on object relations theory and Riso-Hudson&apos;s research.</p>
               <div className="space-y-4">
                 {objectRelationsGroups.map((group) => (
-                  <div key={group.name} className="p-5 rounded-2xl bg-white border border-slate-100">
-                    <h4 className="font-serif font-semibold text-slate-800 mb-1">{group.name}</h4>
-                    <div className="text-xs text-sky-500 mb-2">Types {group.types.join(", ")} · {group.relationship}</div>
-                    <p className="text-sm text-slate-600 leading-relaxed mb-3">{group.description}</p>
-                    <div className="p-3 rounded-xl bg-violet-50/30 border border-violet-100/50">
-                      <div className="text-[10px] font-medium text-violet-600 mb-1">Psychodynamics</div>
-                      <p className="text-xs text-slate-600">{group.psychodynamics}</p>
+                  <div key={group.name} className="p-5 rounded-2xl" style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)" }}>
+                    <h4 className="font-serif font-semibold mb-1" style={{ color: "rgba(255,255,255,0.88)" }}>{group.name}</h4>
+                    <div className="text-xs text-sky-400 mb-2">Types {group.types.join(", ")} · {group.relationship}</div>
+                    <p className="text-sm leading-relaxed mb-3" style={{ color: "rgba(255,255,255,0.65)" }}>{group.description}</p>
+                    <div className="p-3 rounded-xl" style={{ background: "rgba(139,92,246,0.08)", border: "1px solid rgba(139,92,246,0.15)" }}>
+                      <div className="text-[10px] font-medium text-violet-400 mb-1">Psychodynamics</div>
+                      <p className="text-xs" style={{ color: "rgba(255,255,255,0.6)" }}>{group.psychodynamics}</p>
                     </div>
                   </div>
                 ))}
@@ -967,7 +1147,7 @@ function LearnContent() {
 
 export default function EnneagramLearnPage() {
   return (
-    <Suspense fallback={<div className="min-h-screen flex items-center justify-center"><div className="text-slate-400">Loading...</div></div>}>
+    <Suspense fallback={<div className="min-h-screen flex items-center justify-center" style={{ background: "#0f0a1e" }}><div style={{ color: "rgba(255,255,255,0.4)" }}>Loading...</div></div>}>
       <LearnContent />
     </Suspense>
   );

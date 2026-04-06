@@ -7,7 +7,7 @@ import { useProfile } from "@/hooks/useProfile";
 
 export default function QuickAssessmentPage() {
   const router = useRouter();
-  const { updateProfile, addXP } = useProfile();
+  const { addXP, recordAssessment } = useProfile();
 
   return (
     <div className="min-h-screen pb-32">
@@ -35,12 +35,12 @@ export default function QuickAssessmentPage() {
 
       <QuickTypeAssessment
         onComplete={(result) => {
-          updateProfile({ enneagramType: result.type });
+          recordAssessment("quick", result.confidence, result.type);
           addXP(50, "quick-assessment-complete");
           const params = new URLSearchParams({
             type: String(result.type),
             scores: JSON.stringify([]),
-            confidence: String(result.confidence),
+            confidence: String(Math.min(result.confidence, 22)),
             assessmentLength: "quick",
             showTwo: result.runnerUp !== result.type ? "true" : "false",
             secondType: String(result.runnerUp),

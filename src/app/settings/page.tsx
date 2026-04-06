@@ -124,6 +124,7 @@ interface NotificationPrefs {
   dailyReminders: boolean;
   reminderTime: "morning" | "afternoon" | "evening";
   weeklySummary: boolean;
+  muteAll?: boolean;
 }
 
 const TIME_OPTIONS: { value: NotificationPrefs["reminderTime"]; label: string; desc: string }[] = [
@@ -467,7 +468,7 @@ export default function SettingsPage() {
               {nameEdited && (
                 <button
                   onClick={saveName}
-                  className="px-3 py-2 rounded-xl bg-sky-500 text-white text-sm font-medium hover:bg-sky-600 transition-colors"
+                  className="px-3 py-2 rounded-xl bg-violet-500 text-white text-sm font-medium hover:bg-violet-600 transition-colors"
                 >
                   <Check className="w-4 h-4" />
                 </button>
@@ -500,7 +501,7 @@ export default function SettingsPage() {
               {emailEdited && (
                 <button
                   onClick={saveEmail}
-                  className="px-3 py-2 rounded-xl bg-sky-500 text-white text-sm font-medium hover:bg-sky-600 transition-colors"
+                  className="px-3 py-2 rounded-xl bg-violet-500 text-white text-sm font-medium hover:bg-violet-600 transition-colors"
                 >
                   <Check className="w-4 h-4" />
                 </button>
@@ -553,6 +554,13 @@ export default function SettingsPage() {
 
         {/* ── Section 2: Notifications ────────────────────────────────────── */}
         <ExpandableSection title="Notifications" icon={Bell}>
+          <Toggle
+            checked={!notifPrefs.muteAll}
+            onChange={(val) => updateNotifPrefs({ muteAll: !val })}
+            label="In-app alerts"
+            description="Streak warnings, pet alerts, and daily nudges. Turn off to silence all banners."
+          />
+
           <Toggle
             checked={notifPrefs.dailyReminders}
             onChange={(val) => updateNotifPrefs({ dailyReminders: val })}

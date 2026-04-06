@@ -10,9 +10,10 @@ import { RewardAnchors } from "@/components/Rewards";
 import { Toaster } from "sonner";
 
 export const metadata: Metadata = {
-  title: "Thyself, Discover Your Mind",
+  metadataBase: new URL("https://psyche-app-two.vercel.app"),
+  title: "Thyself — Know Your Enneagram Type",
   description:
-    "Explore your personality through the Enneagram and Carl Jung's Cognitive Functions. Interactive assessments, deep learning resources, and growth tools.",
+    "Discover your Enneagram type through scientifically-grounded assessments. Explore 9 types, 27 subtypes, cognitive functions, and deep psychology rooted in Ichazo, Naranjo, and Riso-Hudson.",
   manifest: assetPath("/manifest.json"),
   appleWebApp: {
     capable: true,
@@ -22,6 +23,20 @@ export const metadata: Metadata = {
   other: {
     "mobile-web-app-capable": "yes",
     "apple-mobile-web-app-capable": "yes",
+  },
+  openGraph: {
+    title: "Thyself — Know Your Enneagram Type",
+    description:
+      "Discover your Enneagram type. 9 types, 27 subtypes, 5 assessment paths. Grounded in Ichazo, Naranjo & Riso-Hudson.",
+    url: "https://psyche-app-two.vercel.app",
+    siteName: "Thyself",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Thyself — Know Your Enneagram Type",
+    description:
+      "Discover your Enneagram type through 5 assessment paths. Deep psychology, 27 subtypes, cognitive functions.",
   },
 };
 

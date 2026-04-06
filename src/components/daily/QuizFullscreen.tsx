@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useMemo } from "react";
 import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, CheckCircle, XCircle, Heart, Zap, Trophy, ArrowRight, Star, BookOpen, Timer } from "lucide-react";
@@ -11,6 +11,7 @@ import { getBadgeProgress, type GameState, type BadgeProgress } from "@/hooks/us
 import TokenDropOverlay, { rollTokenDrop, type TokenDrop } from "@/components/daily/TokenDropOverlay";
 import { useRewards } from "@/components/Rewards";
 import type { PathNodeConfig } from "@/components/daily/NodeBottomSheet";
+import { stableShuffleOptions } from "@/lib/shuffleOptions";
 
 interface Question {
   id: string;
@@ -81,6 +82,33 @@ export default function QuizFullscreen({
 }: Props) {
   const router = useRouter();
   const q = questions[currentIdx];
+
+  // Stable shuffle of options per question — correct answer position is randomized
+  // but stable across re-renders. We build a shuffledToOriginal map so the parent's
+  // correctness check (which uses original indices) still works.
+  const { shuffledOpts, shuffledAns, shuffledToOriginal } = useMemo(() => {
+    if (!q) return { shuffledOpts: [] as string[], shuffledAns: 0, shuffledToOriginal: [] as number[] };
+    const arr = [...q.opts];
+    const indexMap = arr.map((_, i) => i);
+    // Derive hash from question id for stable seeding
+    let hash = 0;
+    for (let k = 0; k < q.id.length; k++) {
+      hash = ((hash << 5) - hash) + q.id.charCodeAt(k);
+      hash |= 0;
+    }
+    const seededRandom = () => {
+      hash = (hash * 1664525 + 1013904223) & 0xffffffff;
+      return (hash >>> 0) / 0xffffffff;
+    };
+    for (let i = arr.length - 1; i > 0; i--) {
+      const j = Math.floor(seededRandom() * (i + 1));
+      [arr[i], arr[j]] = [arr[j], arr[i]];
+      [indexMap[i], indexMap[j]] = [indexMap[j], indexMap[i]];
+    }
+    const newCorrectIndex = indexMap.indexOf(q.ans);
+    return { shuffledOpts: arr, shuffledAns: newCorrectIndex, shuffledToOriginal: indexMap };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [q?.id]);
 
   // Track session start time; capture duration once on completion
   const sessionStartRef = useRef(Date.now());
@@ -573,19 +601,19 @@ export default function QuizFullscreen({
           )}
 
           <p className="text-sm mb-6 max-w-xs leading-relaxed" style={{ color: "rgba(255,255,255,0.5)" }}>
-            Hearts refill 1 every 10 minutes. Or pass the time exploring the reading library, your hearts keep refilling while you read!
+            Hearts refill 1 every 10 minutes. You can browse your curriculum path while you wait — hearts refill in the background!
           </p>
 
           <div className="flex flex-col gap-3 w-full">
             {/* Go Read CTA */}
             <motion.button
               whileTap={{ scale: 0.97 }}
-              onClick={() => { onQuit(); router.push("/read"); }}
+              onClick={() => { onQuit(); router.push("/daily"); }}
               className="w-full py-4 rounded-2xl font-bold text-white text-base flex items-center justify-center gap-2"
               style={{ background: "linear-gradient(135deg, #6366f1, #8b5cf6)", boxShadow: "0 4px 20px rgba(99,102,241,0.3)" }}
             >
               <BookOpen className="w-5 h-5" />
-              Read &amp; Explore Types
+              Back to Learn
             </motion.button>
 
             {/* Buy with tokens */}
@@ -758,9 +786,11 @@ export default function QuizFullscreen({
 
         {/* Answer options */}
         <div className="space-y-3">
-          {q.opts.map((opt, i) => {
-            const isThisSelected = i === selected;
-            const isThisCorrect = i === q.ans;
+          {shuffledOpts.map((opt, i) => {
+            // selected is the original index (passed back from parent); convert to visual position
+            const visualSelected = selected !== null ? shuffledToOriginal.indexOf(selected) : null;
+            const isThisSelected = i === visualSelected;
+            const isThisCorrect = i === shuffledAns;
             const revealed = selected !== null;
 
             let optStyle: React.CSSProperties = { background: "rgba(255,255,255,0.05)", borderColor: "rgba(255,255,255,0.1)", color: "rgba(255,255,255,0.82)" };
@@ -783,7 +813,7 @@ export default function QuizFullscreen({
               <motion.button
                 key={i}
                 whileTap={!revealed ? { scale: 0.98 } : {}}
-                onClick={() => !revealed && onAnswer(i)}
+                onClick={() => !revealed && onAnswer(shuffledToOriginal[i] ?? i)}
                 disabled={revealed}
                 className="w-full flex items-center gap-4 p-4 rounded-2xl border-2 text-left transition-all"
                 style={optStyle}

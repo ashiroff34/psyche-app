@@ -148,11 +148,11 @@ export default function PathIteration3({ units, onNodeTap, streak = 0 }: Props) 
   const positions = [0.22, 0.5, 0.78, 0.5];
 
   return (
-    <div className="min-h-screen pb-24 relative" style={{ background: "#ffffff" }}>
+    <div className="min-h-screen pb-24 relative" style={{ background: "#0f0a1e" }}>
       {/* Floating streak counter */}
       {streak > 0 && (
         <div className="sticky top-2 z-20 flex justify-end px-4">
-          <div className="flex items-center gap-1 px-3 py-1.5 rounded-full bg-white shadow-md border border-orange-100">
+          <div className="flex items-center gap-1 px-3 py-1.5 rounded-full shadow-md" style={{ background: "rgba(249,115,22,0.15)", border: "1px solid rgba(249,115,22,0.3)" }}>
             <Flame className="w-4 h-4 text-orange-500 fill-orange-500" />
             <span className="text-sm font-black text-orange-500">{streak}</span>
           </div>
@@ -236,9 +236,9 @@ export default function PathIteration3({ units, onNodeTap, streak = 0 }: Props) 
                     transition={{ type: "spring", bounce: 0.5, delay: 0.2 }}
                   >
                     {/* Speech bubble */}
-                    <div className="relative bg-white rounded-xl px-2 py-1 shadow-md border border-gray-100 mb-1">
-                      <span className="text-[10px] font-bold text-slate-600">Let&apos;s go!</span>
-                      <div className="absolute -bottom-1 right-3 w-2 h-2 bg-white border-r border-b border-gray-100 rotate-45" />
+                    <div className="relative rounded-xl px-2 py-1 shadow-md mb-1" style={{ background: "rgba(255,255,255,0.12)", border: "1px solid rgba(255,255,255,0.2)" }}>
+                      <span className="text-[10px] font-bold" style={{ color: "rgba(255,255,255,0.9)" }}>Let&apos;s go!</span>
+                      <div className="absolute -bottom-1 right-3 w-2 h-2 rotate-45" style={{ background: "rgba(255,255,255,0.12)", borderRight: "1px solid rgba(255,255,255,0.2)", borderBottom: "1px solid rgba(255,255,255,0.2)" }} />
                     </div>
                     <ChibiSprite type={4} instinct="sp" size={44} state="happy" />
                   </motion.div>

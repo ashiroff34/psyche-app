@@ -26,6 +26,9 @@ import {
 import { enneagramTypes } from "@/data/enneagram";
 import { subtypes } from "@/data/subtypes";
 import { useProfile } from "@/hooks/useProfile";
+import { typeVignettes } from "@/data/vignettes";
+import TypeVignetteSection from "@/components/TypeVignette";
+import { relationshipDynamics } from "@/data/relationshipDynamics";
 
 // ─── Famous examples data per type ───────────────────────────────────────────
 const famousExamples: Record<
@@ -764,7 +767,7 @@ function DnaCard({
   );
 }
 
-// ─── Component: Level row ──────────────────────────────────────────────────────
+// ─── Component: Level row (structured) ────────────────────────────────────────
 function LevelRow({
   level,
   color,
@@ -792,6 +795,66 @@ function LevelRow({
         <p className="text-sm mt-0.5" style={{ color: "rgba(255,255,255,0.5)" }}>{desc}</p>
       </div>
     </motion.div>
+  );
+}
+
+// ─── Component: Structured Level Card ─────────────────────────────────────────
+function StructuredLevelCard({
+  item,
+  color,
+  bgColor,
+  borderColor,
+}: {
+  item: { level: number; title: string; description: string };
+  color: string;
+  bgColor: string;
+  borderColor: string;
+}) {
+  const [open, setOpen] = useState(false);
+  return (
+    <button
+      onClick={() => setOpen(!open)}
+      className="w-full text-left"
+    >
+      <div
+        className="rounded-xl px-4 py-3 transition-all"
+        style={{ background: bgColor, border: `1px solid ${borderColor}` }}
+      >
+        <div className="flex items-center gap-3">
+          <div
+            className="w-7 h-7 rounded-lg flex items-center justify-center shrink-0 text-xs font-bold"
+            style={{ backgroundColor: color, color: "#fff" }}
+          >
+            {item.level}
+          </div>
+          <p className="flex-1 text-sm font-semibold" style={{ color: "rgba(255,255,255,0.85)" }}>
+            {item.title}
+          </p>
+          <ChevronRight
+            className="w-4 h-4 shrink-0 transition-transform"
+            style={{
+              color: "rgba(255,255,255,0.3)",
+              transform: open ? "rotate(90deg)" : "rotate(0deg)",
+            }}
+          />
+        </div>
+        <AnimatePresence>
+          {open && (
+            <motion.div
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: "auto", opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              className="overflow-hidden"
+            >
+              <p className="text-sm leading-relaxed mt-3 pl-10" style={{ color: "rgba(255,255,255,0.55)" }}>
+                {item.description}
+              </p>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
+    </button>
   );
 }
 
@@ -917,7 +980,10 @@ export default function TypeDeepDivePage() {
     "Relationships",
     "Growth Path",
     "Famous Examples",
+    "Portraits",
   ];
+
+  const vignette = typeVignettes.find((v) => v.typeNumber === typeNum);
 
   return (
     <div className="min-h-screen" style={{ background: "#0f0a1e" }}>
@@ -1047,7 +1113,7 @@ export default function TypeDeepDivePage() {
               transition={{ duration: 0.25 }}
             >
               {/* In a nutshell */}
-              <div className="p-6 rounded-2xl shadow-sm mb-6" style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.09)" }}>
+              <div className="p-6 rounded-2xl shadow-sm mb-4" style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.09)" }}>
                 <p className="text-xs font-semibold uppercase tracking-wide mb-3" style={{ color: "rgba(255,255,255,0.35)" }}>
                   In a Nutshell
                 </p>
@@ -1055,6 +1121,58 @@ export default function TypeDeepDivePage() {
                   {typeData.description}
                 </p>
               </div>
+
+              {/* Horney + Harmonic Group Badges */}
+              {(typeData.horneyGroup || typeData.harmonicGroup) && (
+                <div className="flex flex-wrap gap-2 mb-6">
+                  {typeData.horneyGroup && (
+                    <span
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold"
+                      style={{
+                        background: typeData.horneyGroup === 'compliant'
+                          ? "rgba(16,185,129,0.12)" : typeData.horneyGroup === 'aggressive'
+                          ? "rgba(239,68,68,0.12)" : "rgba(99,102,241,0.12)",
+                        border: typeData.horneyGroup === 'compliant'
+                          ? "1px solid rgba(16,185,129,0.25)" : typeData.horneyGroup === 'aggressive'
+                          ? "1px solid rgba(239,68,68,0.25)" : "1px solid rgba(99,102,241,0.25)",
+                        color: typeData.horneyGroup === 'compliant'
+                          ? "#6ee7b7" : typeData.horneyGroup === 'aggressive'
+                          ? "#fca5a5" : "#a5b4fc",
+                      }}
+                    >
+                      Horney:{" "}
+                      {typeData.horneyGroup === 'compliant'
+                        ? "Moving Toward"
+                        : typeData.horneyGroup === 'aggressive'
+                        ? "Moving Against"
+                        : "Moving Away"}
+                    </span>
+                  )}
+                  {typeData.harmonicGroup && (
+                    <span
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold"
+                      style={{
+                        background: typeData.harmonicGroup === 'positive_outlook'
+                          ? "rgba(245,158,11,0.12)" : typeData.harmonicGroup === 'competency'
+                          ? "rgba(14,165,233,0.12)" : "rgba(236,72,153,0.12)",
+                        border: typeData.harmonicGroup === 'positive_outlook'
+                          ? "1px solid rgba(245,158,11,0.25)" : typeData.harmonicGroup === 'competency'
+                          ? "1px solid rgba(14,165,233,0.25)" : "1px solid rgba(236,72,153,0.25)",
+                        color: typeData.harmonicGroup === 'positive_outlook'
+                          ? "#fcd34d" : typeData.harmonicGroup === 'competency'
+                          ? "#7dd3fc" : "#f9a8d4",
+                      }}
+                    >
+                      Harmonic:{" "}
+                      {typeData.harmonicGroup === 'positive_outlook'
+                        ? "Positive Outlook"
+                        : typeData.harmonicGroup === 'competency'
+                        ? "Competency"
+                        : "Reactive"}
+                    </span>
+                  )}
+                </div>
+              )}
 
               {/* DNA Cards */}
               <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
@@ -1096,55 +1214,217 @@ export default function TypeDeepDivePage() {
                 />
               </div>
 
-              {/* Levels of Development */}
-              <div className="mb-8">
-                <h2 className="text-xl font-serif font-bold mb-4" style={{ color: "rgba(255,255,255,0.93)" }}>
-                  Levels of Development
-                </h2>
-                <div className="grid md:grid-cols-3 gap-4">
-                  {/* Healthy */}
-                  <div className="p-5 rounded-2xl shadow-sm" style={{ background: "rgba(16,185,129,0.06)", border: "1px solid rgba(16,185,129,0.15)" }}>
-                    <div className="flex items-center gap-2 mb-4">
-                      <div className="w-3 h-3 rounded-full bg-emerald-500" />
-                      <p className="text-sm font-semibold text-emerald-400">
-                        Healthy (Levels 1–3)
-                      </p>
-                    </div>
-                    <div className="space-y-4">
-                      {levels.healthy.map((l, i) => (
-                        <LevelRow key={i} level={l} color="#10b981" index={i} />
-                      ))}
-                    </div>
-                  </div>
-                  {/* Average */}
-                  <div className="p-5 rounded-2xl shadow-sm" style={{ background: "rgba(245,158,11,0.06)", border: "1px solid rgba(245,158,11,0.15)" }}>
-                    <div className="flex items-center gap-2 mb-4">
-                      <div className="w-3 h-3 rounded-full bg-amber-500" />
-                      <p className="text-sm font-semibold text-amber-400">
-                        Average (Levels 4–6)
-                      </p>
-                    </div>
-                    <div className="space-y-4">
-                      {levels.average.map((l, i) => (
-                        <LevelRow key={i} level={l} color="#f59e0b" index={i} />
-                      ))}
-                    </div>
-                  </div>
-                  {/* Unhealthy */}
-                  <div className="p-5 rounded-2xl shadow-sm" style={{ background: "rgba(239,68,68,0.06)", border: "1px solid rgba(239,68,68,0.15)" }}>
-                    <div className="flex items-center gap-2 mb-4">
-                      <div className="w-3 h-3 rounded-full bg-red-500" />
-                      <p className="text-sm font-semibold text-red-400">
-                        Unhealthy (Levels 7–9)
-                      </p>
-                    </div>
-                    <div className="space-y-4">
-                      {levels.unhealthy.map((l, i) => (
-                        <LevelRow key={i} level={l} color="#ef4444" index={i} />
-                      ))}
-                    </div>
+              {/* Wing Deep-Dive */}
+              {typeData.wingDescriptions && (
+                <div className="mb-8">
+                  <h2 className="text-xl font-serif font-bold mb-4" style={{ color: "rgba(255,255,255,0.93)" }}>
+                    Wing Deep-Dive
+                  </h2>
+                  <div className="grid md:grid-cols-2 gap-4">
+                    {[typeData.wingDescriptions.left, typeData.wingDescriptions.right].map((wing) => (
+                      <div key={wing.name} className="p-5 rounded-2xl shadow-sm" style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.09)" }}>
+                        <p className="text-xs font-bold uppercase tracking-wider mb-3" style={{ color: accent }}>{wing.name}</p>
+                        <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.65)" }}>{wing.description}</p>
+                      </div>
+                    ))}
                   </div>
                 </div>
+              )}
+
+              {/* Common Relationship Dynamics */}
+              {(() => {
+                const dynamics = relationshipDynamics[typeData.number];
+                if (!dynamics) return null;
+                return (
+                  <div className="mb-8">
+                    <h2 className="text-xl font-serif font-bold mb-1" style={{ color: "rgba(255,255,255,0.93)" }}>
+                      Common Relationship Dynamics
+                    </h2>
+                    <p className="text-xs mb-4" style={{ color: "rgba(255,255,255,0.35)" }}>
+                      Pattern recognition, not prediction. Context and individual health always matter more.
+                    </p>
+                    <div className="space-y-3">
+                      {dynamics.struggles.length > 0 && (
+                        <div>
+                          <p className="text-xs font-semibold uppercase tracking-wider mb-2" style={{ color: "rgba(239,68,68,0.7)" }}>
+                            Common challenges
+                          </p>
+                          <div className="space-y-2">
+                            {dynamics.struggles.map((item) => {
+                              const otherType = enneagramTypes.find(t => t.number === item.withType);
+                              return (
+                                <div
+                                  key={item.withType}
+                                  className="flex gap-3 p-3.5 rounded-xl"
+                                  style={{ background: "rgba(239,68,68,0.06)", border: "1px solid rgba(239,68,68,0.12)" }}
+                                >
+                                  <div
+                                    className="w-7 h-7 rounded-lg flex items-center justify-center text-white text-xs font-bold shrink-0 mt-0.5"
+                                    style={{ backgroundColor: otherType?.color ?? "#666" }}
+                                  >
+                                    {item.withType}
+                                  </div>
+                                  <div>
+                                    <p className="text-xs font-semibold mb-0.5" style={{ color: "rgba(255,255,255,0.7)" }}>
+                                      with {otherType?.name ?? `Type ${item.withType}`}
+                                    </p>
+                                    <p className="text-xs leading-relaxed" style={{ color: "rgba(255,255,255,0.45)" }}>
+                                      {item.why}
+                                    </p>
+                                  </div>
+                                </div>
+                              );
+                            })}
+                          </div>
+                        </div>
+                      )}
+                      {dynamics.thrives.length > 0 && (
+                        <div>
+                          <p className="text-xs font-semibold uppercase tracking-wider mb-2 mt-4" style={{ color: "rgba(16,185,129,0.7)" }}>
+                            Natural affinities
+                          </p>
+                          <div className="space-y-2">
+                            {dynamics.thrives.map((item) => {
+                              const otherType = enneagramTypes.find(t => t.number === item.withType);
+                              return (
+                                <div
+                                  key={item.withType}
+                                  className="flex gap-3 p-3.5 rounded-xl"
+                                  style={{ background: "rgba(16,185,129,0.06)", border: "1px solid rgba(16,185,129,0.12)" }}
+                                >
+                                  <div
+                                    className="w-7 h-7 rounded-lg flex items-center justify-center text-white text-xs font-bold shrink-0 mt-0.5"
+                                    style={{ backgroundColor: otherType?.color ?? "#666" }}
+                                  >
+                                    {item.withType}
+                                  </div>
+                                  <div>
+                                    <p className="text-xs font-semibold mb-0.5" style={{ color: "rgba(255,255,255,0.7)" }}>
+                                      with {otherType?.name ?? `Type ${item.withType}`}
+                                    </p>
+                                    <p className="text-xs leading-relaxed" style={{ color: "rgba(255,255,255,0.45)" }}>
+                                      {item.why}
+                                    </p>
+                                  </div>
+                                </div>
+                              );
+                            })}
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                );
+              })()}
+
+              {/* Levels of Development */}
+              <div className="mb-8">
+                <div className="flex items-center gap-3 mb-4">
+                  <h2 className="text-xl font-serif font-bold" style={{ color: "rgba(255,255,255,0.93)" }}>
+                    Levels of Development
+                  </h2>
+                  <span className="text-xs px-2 py-0.5 rounded-full font-medium" style={{ background: "rgba(255,255,255,0.08)", color: "rgba(255,255,255,0.4)" }}>
+                    Riso-Hudson
+                  </span>
+                </div>
+                {typeData.levels ? (
+                  <div className="space-y-3">
+                    {/* Healthy band */}
+                    <div className="rounded-2xl overflow-hidden" style={{ border: "1px solid rgba(16,185,129,0.2)" }}>
+                      <div className="flex items-center gap-2 px-4 py-3" style={{ background: "rgba(16,185,129,0.08)" }}>
+                        <div className="w-2.5 h-2.5 rounded-full bg-emerald-500 shrink-0" />
+                        <p className="text-sm font-semibold text-emerald-400">Healthy — Levels 1–3</p>
+                        <p className="text-xs ml-auto" style={{ color: "rgba(255,255,255,0.3)" }}>Tap to expand</p>
+                      </div>
+                      <div className="px-3 pb-3 pt-1 space-y-1.5" style={{ background: "rgba(16,185,129,0.03)" }}>
+                        {typeData.levels.healthy.map((item) => (
+                          <StructuredLevelCard
+                            key={item.level}
+                            item={item}
+                            color="#10b981"
+                            bgColor="rgba(16,185,129,0.07)"
+                            borderColor="rgba(16,185,129,0.15)"
+                          />
+                        ))}
+                      </div>
+                    </div>
+                    {/* Average band */}
+                    <div className="rounded-2xl overflow-hidden" style={{ border: "1px solid rgba(245,158,11,0.2)" }}>
+                      <div className="flex items-center gap-2 px-4 py-3" style={{ background: "rgba(245,158,11,0.08)" }}>
+                        <div className="w-2.5 h-2.5 rounded-full bg-amber-500 shrink-0" />
+                        <p className="text-sm font-semibold text-amber-400">Average — Levels 4–6</p>
+                      </div>
+                      <div className="px-3 pb-3 pt-1 space-y-1.5" style={{ background: "rgba(245,158,11,0.03)" }}>
+                        {typeData.levels.average.map((item) => (
+                          <StructuredLevelCard
+                            key={item.level}
+                            item={item}
+                            color="#f59e0b"
+                            bgColor="rgba(245,158,11,0.07)"
+                            borderColor="rgba(245,158,11,0.15)"
+                          />
+                        ))}
+                      </div>
+                    </div>
+                    {/* Unhealthy band */}
+                    <div className="rounded-2xl overflow-hidden" style={{ border: "1px solid rgba(239,68,68,0.2)" }}>
+                      <div className="flex items-center gap-2 px-4 py-3" style={{ background: "rgba(239,68,68,0.08)" }}>
+                        <div className="w-2.5 h-2.5 rounded-full bg-red-500 shrink-0" />
+                        <p className="text-sm font-semibold text-red-400">Unhealthy — Levels 7–9</p>
+                      </div>
+                      <div className="px-3 pb-3 pt-1 space-y-1.5" style={{ background: "rgba(239,68,68,0.03)" }}>
+                        {typeData.levels.unhealthy.map((item) => (
+                          <StructuredLevelCard
+                            key={item.level}
+                            item={item}
+                            color="#ef4444"
+                            bgColor="rgba(239,68,68,0.07)"
+                            borderColor="rgba(239,68,68,0.15)"
+                          />
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                ) : (
+                  <div className="grid md:grid-cols-3 gap-4">
+                    {/* Healthy */}
+                    <div className="p-5 rounded-2xl shadow-sm" style={{ background: "rgba(16,185,129,0.06)", border: "1px solid rgba(16,185,129,0.15)" }}>
+                      <div className="flex items-center gap-2 mb-4">
+                        <div className="w-3 h-3 rounded-full bg-emerald-500" />
+                        <p className="text-sm font-semibold text-emerald-400">Healthy (Levels 1–3)</p>
+                      </div>
+                      <div className="space-y-4">
+                        {levels.healthy.map((l, i) => (
+                          <LevelRow key={i} level={l} color="#10b981" index={i} />
+                        ))}
+                      </div>
+                    </div>
+                    {/* Average */}
+                    <div className="p-5 rounded-2xl shadow-sm" style={{ background: "rgba(245,158,11,0.06)", border: "1px solid rgba(245,158,11,0.15)" }}>
+                      <div className="flex items-center gap-2 mb-4">
+                        <div className="w-3 h-3 rounded-full bg-amber-500" />
+                        <p className="text-sm font-semibold text-amber-400">Average (Levels 4–6)</p>
+                      </div>
+                      <div className="space-y-4">
+                        {levels.average.map((l, i) => (
+                          <LevelRow key={i} level={l} color="#f59e0b" index={i} />
+                        ))}
+                      </div>
+                    </div>
+                    {/* Unhealthy */}
+                    <div className="p-5 rounded-2xl shadow-sm" style={{ background: "rgba(239,68,68,0.06)", border: "1px solid rgba(239,68,68,0.15)" }}>
+                      <div className="flex items-center gap-2 mb-4">
+                        <div className="w-3 h-3 rounded-full bg-red-500" />
+                        <p className="text-sm font-semibold text-red-400">Unhealthy (Levels 7–9)</p>
+                      </div>
+                      <div className="space-y-4">
+                        {levels.unhealthy.map((l, i) => (
+                          <LevelRow key={i} level={l} color="#ef4444" index={i} />
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                )}
               </div>
 
               {/* Key Traits Cloud */}
@@ -1651,6 +1931,32 @@ export default function TypeDeepDivePage() {
                   Note: Enneagram typings of public figures are interpretive and based on widely documented analyses. No typing is definitive without first-person confirmation.
                 </p>
               </div>
+            </motion.div>
+          )}
+
+          {activeTab === 5 && (
+            <motion.div
+              key="portraits"
+              initial={{ opacity: 1, y: 0 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -8 }}
+              transition={{ duration: 0.25 }}
+            >
+              <div className="mb-6">
+                <h2 className="text-2xl font-serif font-bold mb-2" style={{ color: "rgba(255,255,255,0.93)" }}>
+                  Portraits
+                </h2>
+                <p className="text-sm" style={{ color: "rgba(255,255,255,0.45)" }}>
+                  Narrative snapshots showing Type {typeData.number} psychology in everyday life.
+                </p>
+              </div>
+              {vignette ? (
+                <TypeVignetteSection vignette={vignette} />
+              ) : (
+                <p className="text-sm" style={{ color: "rgba(255,255,255,0.4)" }}>
+                  Portraits not available for this type yet.
+                </p>
+              )}
             </motion.div>
           )}
         </AnimatePresence>

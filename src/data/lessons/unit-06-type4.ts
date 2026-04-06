@@ -3,12 +3,14 @@
 // 4 lessons × 12 exercises each
 // ─────────────────────────────────────────────────────────────────────────────
 
-import type { Lesson } from "@/types/lessons";
+import type { Lesson, ExerciseContent, FreeRecallContent, InterleavingExerciseContent } from "@/types/lessons";
+import type { DiscriminationContent } from "@/components/lessons/exercises/DiscriminationExercise";
 
 // ── Lesson 1: Core Motivation, Fear & Desire ──────────────────────────────
 
 const lesson1: Lesson = {
   id: "u6-l1",
+  scaffoldStep: 2 as const,
   unitId: "type-4",
   order: 1,
   title: "The Search for Self",
@@ -207,6 +209,7 @@ const lesson1: Lesson = {
 
 const lesson2: Lesson = {
   id: "u6-l2",
+  scaffoldStep: 2 as const,
   unitId: "type-4",
   order: 2,
   title: "Envy to Equanimity",
@@ -392,6 +395,17 @@ const lesson2: Lesson = {
           "Equanimity isn't numbness or forced positivity, it's the genuine ability to be at peace with what is. For Fours, it means discovering that wholeness was always available in the present moment.",
       },
     },
+    {
+      id: "u6-l2-e13",
+      difficulty: 3,
+      content: {
+        type: "free-recall",
+        prompt: "In your own words, explain what Type 4s mean when they say they feel 'different' from others. What's the psychological reality beneath that?",
+        keyTerms: ["identity", "envy", "missing", "longing", "defective", "ordinary", "authentic"],
+        minWords: 15,
+        modelAnswer: "When Fours say they feel different, they're describing something more profound than just having unusual tastes. At the core is a sense that something essential is missing in them — that others possess a fundamental wholeness or belonging that the Four lacks. This feeling of being defective or incomplete drives the Four to seek an authentic, intensely personal identity that compensates. The irony is that envy fuels this: Fours constantly notice what others have that they don't. The longing for what's absent becomes central to how they understand themselves, and ordinary contentment can feel like giving up on who they truly are.",
+      } as FreeRecallContent,
+    },
   ],
 };
 
@@ -399,6 +413,7 @@ const lesson2: Lesson = {
 
 const lesson3: Lesson = {
   id: "u6-l3",
+  scaffoldStep: 4 as const,
   unitId: "type-4",
   order: 3,
   title: "How Fours Shift",
@@ -587,6 +602,7 @@ const lesson3: Lesson = {
 
 const lesson4: Lesson = {
   id: "u6-l4",
+  scaffoldStep: 1 as const,
   unitId: "type-4",
   order: 4,
   title: "Spotting the Four",
@@ -800,7 +816,105 @@ const lesson4: Lesson = {
           "Fours naturally pull conversations toward depth, meaning, and emotional honesty. Small talk feels like a waste to them, they want to know how you really feel, what you really think, who you really are.",
       },
     },
+    {
+      id: "u6-l4-e13",
+      difficulty: 3,
+      content: {
+        type: "interleaving",
+        title: "Types 4, 2 & 9 — Identify the motivation",
+        typeNumbers: [4, 2, 9],
+        items: [
+          {
+            statement: "Withdraws into melancholy after a social gathering, convinced that everyone else belongs somewhere they don't — drawn toward the feeling itself as proof of their uniqueness.",
+            correctType: 4,
+            explanation: "The Four romanticizes their separateness. Longing and feeling different become a source of identity.",
+          },
+          {
+            statement: "Suppresses their frustration about a decision that affected them, redirecting energy into helping the person who made the decision feel better.",
+            correctType: 2,
+            explanation: "The Two turns away from their own needs and toward caretaking — keeping the relationship intact is the priority.",
+          },
+          {
+            statement: "Lets go of their preferred outcome in a group decision because the conflict of asserting it feels worse than not getting what they wanted.",
+            correctType: 9,
+            explanation: "The Nine erases their own desire to maintain peace. The discomfort of conflict outweighs the loss.",
+          },
+        ],
+      } as InterleavingExerciseContent,
+    },
   ],
 };
 
-export const type4Lessons: Lesson[] = [lesson1, lesson2, lesson3, lesson4];
+// ── Lesson 5: Near-Neighbor Discrimination — Type 4 vs Type 6 ─────────────
+
+const lesson5: Lesson = {
+  id: "u6-l5",
+  scaffoldStep: 3 as const,
+  unitId: "type-4",
+  order: 5,
+  title: "Type 4 vs Type 6",
+  subtitle: "Telling apart two emotionally intense types",
+  xpReward: 25,
+  exercises: [
+    {
+      id: "u6-l5-e1",
+      difficulty: 1,
+      content: {
+        type: "concept-intro",
+        title: "Why 4 and 6 Are Confused",
+        body: "Types 4 and 6 both experience high emotional intensity and can present as anxious or troubled. The difference: Type 4's anxiety is existential — a feeling of being fundamentally deficient or different. Type 6's anxiety is threat-based — a scanning for what might go wrong externally.",
+        highlight: "existential deficiency vs. external threat",
+      },
+    },
+    {
+      id: "u6-l5-e2",
+      difficulty: 2,
+      content: ({
+        type: "discrimination",
+        typeA: 4,
+        typeB: 6,
+        prompt: "Each statement below belongs to either Type 4 (The Individualist) or Type 6 (The Loyalist). Tap the correct type for each.",
+        items: [
+          {
+            text: "Feels that something fundamental is missing or wrong with them at the core — not that things will go badly, but that they themselves are inherently lacking.",
+            answer: "A",
+            explanation: "Type 4's wound is at the identity level — an existential ache about who they are, not a situational threat assessment.",
+          },
+          {
+            text: "Runs worst-case scenarios in their mind before undertaking anything new — imagining obstacles feels like preparation, not pessimism.",
+            answer: "B",
+            explanation: "Type 6's anticipatory scanning is a safety strategy. Thinking through what could go wrong feels protective.",
+          },
+          {
+            text: "Feels misunderstood even by close relationships — suspects that no one can fully grasp the depth or uniqueness of their inner experience.",
+            answer: "A",
+            explanation: "Type 4's sense of being uniquely different means connection always feels partial. No one quite gets it.",
+          },
+          {
+            text: "Tests loyalty before extending full trust — creates ambiguous situations to see how someone responds before committing.",
+            answer: "B",
+            explanation: "Type 6's testing behavior is about detecting whether people are reliable. Loyalty and authority are the key questions.",
+          },
+        ],
+      } as DiscriminationContent) as unknown as ExerciseContent,
+    },
+    {
+      id: "u6-l5-e3",
+      difficulty: 3,
+      content: {
+        type: "multiple-choice",
+        question: "Which inner experience is most characteristic of Type 4 (not Type 6)?",
+        options: [
+          "A persistent scan for what might go wrong in a situation",
+          "Loyalty-testing to find out who can really be trusted",
+          "A sense that something essential is fundamentally missing in oneself",
+          "Anxiety about breaking rules or failing to meet expectations",
+        ],
+        correctIndex: 2,
+        explanation: "Type 4's core experience is an existential ache — the sense that they are somehow missing what others naturally have. Type 6 experiences threat from outside, not deficiency from within.",
+      },
+    },
+  ],
+};
+
+export const type4Lessons: Lesson[] = [lesson1, lesson2, lesson3, lesson4, lesson5];

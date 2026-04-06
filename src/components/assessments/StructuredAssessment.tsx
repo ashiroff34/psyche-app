@@ -64,11 +64,11 @@ export default function StructuredAssessment({
     <div className="max-w-2xl mx-auto py-8 px-4">
       {/* Progress */}
       <div className="mb-6">
-        <div className="flex items-center justify-between text-xs text-slate-400 mb-2">
+        <div className="flex items-center justify-between text-xs mb-2" style={{ color: "rgba(255,255,255,0.4)" }}>
           <span>Section {sectionIdx + 1}: {section.theme}</span>
           <span>{sectionIdx + 1} of {sections.length}</span>
         </div>
-        <div className="h-1.5 bg-slate-100 rounded-full overflow-hidden">
+        <div className="h-1.5 rounded-full overflow-hidden" style={{ background: "rgba(255,255,255,0.1)" }}>
           <motion.div
             className="h-full bg-gradient-to-r from-violet-400 to-purple-500 rounded-full"
             animate={{ width: `${progress}%` }}
@@ -84,8 +84,8 @@ export default function StructuredAssessment({
           exit={{ opacity: 0, x: -20 }}
         >
           <div className="mb-6">
-            <h2 className="text-xl font-serif font-semibold text-slate-800 mb-1">{section.theme}</h2>
-            <p className="text-sm text-slate-500">{section.description}</p>
+            <h2 className="text-xl font-serif font-semibold mb-1" style={{ color: "rgba(255,255,255,0.9)" }}>{section.theme}</h2>
+            <p className="text-sm" style={{ color: "rgba(255,255,255,0.5)" }}>{section.description}</p>
           </div>
 
           <div className="space-y-3">
@@ -94,11 +94,13 @@ export default function StructuredAssessment({
               return (
                 <div
                   key={stmt.type}
-                  className={`p-4 rounded-2xl border-2 transition-all ${
-                    rating !== undefined ? "border-violet-200 bg-violet-50/30" : "border-slate-100 bg-white"
-                  }`}
+                  className="p-4 rounded-2xl border-2 transition-all"
+                  style={{
+                    background: rating !== undefined ? "rgba(139,92,246,0.1)" : "rgba(255,255,255,0.04)",
+                    borderColor: rating !== undefined ? "rgba(139,92,246,0.4)" : "rgba(255,255,255,0.1)",
+                  }}
                 >
-                  <p className="text-sm text-slate-700 leading-relaxed mb-3">{stmt.text}</p>
+                  <p className="text-sm leading-relaxed mb-3" style={{ color: "rgba(255,255,255,0.8)" }}>{stmt.text}</p>
                   <div className="flex gap-2">
                     {[1, 2, 3, 4, 5].map((val) => (
                       <button
@@ -107,8 +109,9 @@ export default function StructuredAssessment({
                         className={`flex-1 py-2 rounded-lg text-xs font-medium transition-all ${
                           rating === val
                             ? "bg-violet-500 text-white"
-                            : "bg-slate-50 text-slate-500 hover:bg-violet-50 hover:text-violet-600"
+                            : "hover:bg-violet-500/20 hover:text-violet-300"
                         }`}
+                        style={rating !== val ? { background: "rgba(255,255,255,0.06)", color: "rgba(255,255,255,0.5)" } : {}}
                       >
                         {val}
                       </button>
@@ -123,7 +126,8 @@ export default function StructuredAssessment({
             <button
               onClick={() => sectionIdx > 0 && setSectionIdx(sectionIdx - 1)}
               disabled={sectionIdx === 0}
-              className="flex items-center gap-2 px-5 py-3 rounded-xl text-sm font-medium text-slate-500 hover:bg-slate-50 disabled:opacity-30 transition"
+              className="flex items-center gap-2 px-5 py-3 rounded-xl text-sm font-medium disabled:opacity-30 transition hover:opacity-80"
+              style={{ color: "rgba(255,255,255,0.5)" }}
             >
               <ArrowLeft className="w-4 h-4" /> Back
             </button>

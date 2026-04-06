@@ -72,7 +72,7 @@ export default function KeepGoingCard({
       {/* Next node card */}
       <div
         className="w-full rounded-2xl overflow-hidden border border-violet-100"
-        style={{ background: "linear-gradient(135deg, #faf5ff 0%, #fdf4ff 100%)" }}
+        style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.1)" }}
       >
         {/* Token bonus banner */}
         <div

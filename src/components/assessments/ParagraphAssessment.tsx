@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowRight, ArrowLeft } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 
 interface TypeParagraph {
   typeNumber: number;
@@ -75,10 +75,10 @@ export default function ParagraphAssessment({
     return (
       <div className="max-w-3xl mx-auto py-8 px-4">
         <div className="text-center mb-8">
-          <h2 className="text-xl font-serif font-bold text-slate-900 mb-2">
+          <h2 className="text-xl font-serif font-bold mb-2" style={{ color: "rgba(255,255,255,0.95)" }}>
             Which descriptions fit you best?
           </h2>
-          <p className="text-sm text-slate-500 max-w-lg mx-auto">
+          <p className="text-sm max-w-lg mx-auto" style={{ color: "rgba(255,255,255,0.5)" }}>
             Read each paragraph carefully. Select up to 3 that resonate most deeply with your lifelong patterns, especially the parts about motivation and fear.
           </p>
         </div>
@@ -96,21 +96,26 @@ export default function ParagraphAssessment({
                 onClick={() => toggleParagraph(p.typeNumber)}
                 className={`w-full text-left p-6 rounded-2xl border-2 transition-all ${
                   isSelected
-                    ? "border-sky-400 bg-sky-50/50"
+                    ? "border-sky-400/60"
                     : selectedParagraphs.length >= 3
-                    ? "border-slate-100 bg-white opacity-50"
-                    : "border-slate-100 bg-white hover:border-sky-200"
+                    ? "opacity-50"
+                    : "hover:border-sky-400/40"
                 }`}
+                style={{
+                  background: isSelected ? "rgba(14,165,233,0.1)" : "rgba(255,255,255,0.04)",
+                  borderColor: isSelected ? "rgba(56,189,248,0.6)" : "rgba(255,255,255,0.1)",
+                }}
               >
                 <div className="flex items-start gap-4">
                   <div
                     className={`w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold shrink-0 ${
-                      isSelected ? "bg-sky-500 text-white" : "bg-slate-100 text-slate-400"
+                      isSelected ? "bg-sky-500 text-white" : ""
                     }`}
+                    style={!isSelected ? { background: "rgba(255,255,255,0.1)", color: "rgba(255,255,255,0.4)" } : {}}
                   >
                     {isSelected ? rank : String.fromCharCode(65 + i)}
                   </div>
-                  <p className="text-sm text-slate-600 leading-relaxed">{p.paragraph}</p>
+                  <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.75)" }}>{p.paragraph}</p>
                 </div>
               </motion.button>
             );
@@ -159,11 +164,11 @@ export default function ParagraphAssessment({
     return (
       <div className="max-w-2xl mx-auto py-8 px-4">
         <div className="mb-6">
-          <div className="flex items-center justify-between text-xs text-slate-400 mb-2">
+          <div className="flex items-center justify-between text-xs mb-2" style={{ color: "rgba(255,255,255,0.4)" }}>
             <span>Narrowing down</span>
             <span>{narrowIdx + 1} of {relevantNarrowing.length}</span>
           </div>
-          <div className="h-1.5 bg-slate-100 rounded-full overflow-hidden">
+          <div className="h-1.5 rounded-full overflow-hidden" style={{ background: "rgba(255,255,255,0.1)" }}>
             <motion.div
               className="h-full bg-gradient-to-r from-sky-400 to-indigo-500 rounded-full"
               animate={{ width: `${((narrowIdx + 1) / relevantNarrowing.length) * 100}%` }}
@@ -178,15 +183,16 @@ export default function ParagraphAssessment({
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: -20 }}
           >
-            <h2 className="text-lg font-serif font-semibold text-slate-800 mb-6">{q.question}</h2>
+            <h2 className="text-lg font-serif font-semibold mb-6" style={{ color: "rgba(255,255,255,0.9)" }}>{q.question}</h2>
             <div className="space-y-3">
               {q.options.map((opt, idx) => (
                 <button
                   key={idx}
                   onClick={() => answerNarrowing(opt)}
-                  className="w-full text-left p-5 rounded-2xl border-2 border-slate-100 bg-white hover:border-sky-300 hover:bg-sky-50/30 transition-all active:scale-[0.98]"
+                  className="w-full text-left p-5 rounded-2xl border-2 transition-all active:scale-[0.98] hover:border-sky-400/40"
+                  style={{ background: "rgba(255,255,255,0.04)", borderColor: "rgba(255,255,255,0.1)" }}
                 >
-                  <p className="text-sm text-slate-700 leading-relaxed">{opt.text}</p>
+                  <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.75)" }}>{opt.text}</p>
                 </button>
               ))}
             </div>

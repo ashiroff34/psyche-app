@@ -644,18 +644,18 @@ function ResultsContent() {
   ] as const;
 
   return (
-    <div className="min-h-screen py-12 bg-slate-50">
+    <div className="min-h-screen py-12" style={{ background: "#0f0a1e" }}>
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
 
         {/* ── Hero ── */}
         <motion.div initial={{ opacity: 1, y: 0 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}
           className="text-center mb-10">
-          <p className="text-xs font-medium uppercase tracking-widest text-slate-400 mb-4">Your Cognitive Profile</p>
+          <p className="text-xs font-medium uppercase tracking-widest mb-4" style={{ color: "rgba(255,255,255,0.5)" }}>Your Cognitive Profile</p>
           <div className="font-mono text-7xl font-bold mb-3 tracking-tight" style={{ color: bestType.color }}>
             {bestType.code}
           </div>
-          <h1 className="text-2xl font-serif font-bold text-slate-800 mb-2">{bestType.name}</h1>
-          <p className="text-slate-500 text-sm mb-5 max-w-md mx-auto">{bestType.brief}</p>
+          <h1 className="text-2xl font-serif font-bold mb-2" style={{ color: "rgba(255,255,255,0.95)" }}>{bestType.name}</h1>
+          <p className="text-sm mb-5 max-w-md mx-auto" style={{ color: "rgba(255,255,255,0.6)" }}>{bestType.brief}</p>
 
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium mb-5"
             style={{ backgroundColor: `${dominantFunc?.color}18`, color: dominantFunc?.color, border: `1px solid ${dominantFunc?.color}30` }}>
@@ -668,20 +668,20 @@ function ResultsContent() {
           <div className="flex items-center justify-center gap-3 flex-wrap mb-8">
             <div className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border text-xs font-medium ${
               confidence >= 65
-                ? "bg-emerald-50 border-emerald-100 text-emerald-600"
+                ? "border-emerald-500/30 text-emerald-400"
                 : confidence >= 40
-                ? "bg-amber-50 border-amber-100 text-amber-600"
-                : "bg-rose-50 border-rose-100 text-rose-500"
-            }`}>
+                ? "border-amber-500/30 text-amber-400"
+                : "border-rose-500/30 text-rose-400"
+            }`} style={{ background: "rgba(255,255,255,0.05)" }}>
               <span className="w-1.5 h-1.5 rounded-full bg-current inline-block" />
               {confidence >= 65 ? "Clear preference" : confidence >= 40 ? "Moderate preference" : "Unclear preference"} · {confidence}%
             </div>
             {consistencyScore < 100 && (
               <div className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border text-xs font-medium ${
                 consistencyScore >= 75
-                  ? "bg-sky-50 border-sky-100 text-sky-600"
-                  : "bg-amber-50 border-amber-100 text-amber-600"
-              }`}>
+                  ? "border-sky-500/30 text-sky-400"
+                  : "border-amber-500/30 text-amber-400"
+              }`} style={{ background: "rgba(255,255,255,0.05)" }}>
                 <span className="w-1.5 h-1.5 rounded-full bg-current inline-block" />
                 Consistency: {consistencyScore}%
                 {inconsistentAxes.length > 0 && ` · ${inconsistentAxes.join(", ")} inconsistent`}
@@ -691,9 +691,9 @@ function ResultsContent() {
 
           {/* Low confidence guidance */}
           {confidence < 45 && (
-            <div className="max-w-md mx-auto mb-6 p-4 rounded-2xl bg-amber-50 border border-amber-100 text-left">
-              <p className="text-xs font-mono text-amber-600 uppercase tracking-wider mb-1">Low preference clarity</p>
-              <p className="text-sm text-amber-700 leading-relaxed">
+            <div className="max-w-md mx-auto mb-6 p-4 rounded-2xl border border-amber-500/30 text-left" style={{ background: "rgba(245,158,11,0.1)" }}>
+              <p className="text-xs font-mono text-amber-400 uppercase tracking-wider mb-1">Low preference clarity</p>
+              <p className="text-sm text-amber-300 leading-relaxed">
                 Your results show a weaker preference on one or more axes. This is common, some people are genuinely
                 close to the middle of an axis. Consider the full 8-function stack below rather than focusing only on
                 the type label. Taking the full assessment may produce a clearer result.
@@ -703,9 +703,9 @@ function ResultsContent() {
 
           {/* Consistency warning */}
           {consistencyScore < 75 && (
-            <div className="max-w-md mx-auto mb-6 p-4 rounded-2xl bg-rose-50 border border-rose-100 text-left">
-              <p className="text-xs font-mono text-rose-500 uppercase tracking-wider mb-1">Response inconsistency detected</p>
-              <p className="text-sm text-rose-700 leading-relaxed">
+            <div className="max-w-md mx-auto mb-6 p-4 rounded-2xl border border-rose-500/30 text-left" style={{ background: "rgba(239,68,68,0.1)" }}>
+              <p className="text-xs font-mono text-rose-400 uppercase tracking-wider mb-1">Response inconsistency detected</p>
+              <p className="text-sm text-rose-300 leading-relaxed">
                 Some of your answers to similar questions were inconsistent. This can happen when questions are ambiguous
                 or when your preference is genuinely in the middle. Treat your results as directional rather than definitive.
               </p>
@@ -715,7 +715,7 @@ function ResultsContent() {
           {/* Full 8-function stack — per Nardi methodology: show all functions, not just type label */}
           {normalizedScores.length > 0 && (
             <div className="max-w-lg mx-auto space-y-2.5">
-              <p className="text-xs font-mono text-slate-400 uppercase tracking-wider mb-4 text-center">
+              <p className="text-xs font-mono uppercase tracking-wider mb-4 text-center" style={{ color: "rgba(255,255,255,0.4)" }}>
                 Full 8-Function Stack
               </p>
               {normalizedScores.map((score, i) => {
@@ -724,22 +724,22 @@ function ResultsContent() {
                 return (
                   <div key={score.key} className="flex items-center gap-3">
                     <div className="w-8 font-mono text-xs font-bold text-right" style={{ color: func?.color ?? "#94a3b8" }}>{score.key}</div>
-                    <div className="flex-1 h-2.5 bg-white rounded-full overflow-hidden shadow-inner border border-slate-100">
+                    <div className="flex-1 h-2.5 rounded-full overflow-hidden" style={{ background: "rgba(255,255,255,0.08)", border: "1px solid rgba(255,255,255,0.1)" }}>
                       <motion.div initial={{ width: 0 }} animate={{ width: `${score.percentage}%` }}
                         transition={{ delay: 0.3 + i * 0.08, duration: 0.6, ease: "easeOut" }}
                         className="h-full rounded-full"
                         style={{ backgroundColor: isConsciousStack ? (func?.color || "#94a3b8") : `${func?.color || "#94a3b8"}60` }} />
                     </div>
-                    <div className="w-8 text-right text-xs text-slate-400 font-mono">{score.percentage}%</div>
+                    <div className="w-8 text-right text-xs font-mono" style={{ color: "rgba(255,255,255,0.4)" }}>{score.percentage}%</div>
                     {isConsciousStack && (
-                      <div className="w-16 text-left text-[10px] text-slate-400 font-mono hidden sm:block">
+                      <div className="w-16 text-left text-[10px] font-mono hidden sm:block" style={{ color: "rgba(255,255,255,0.4)" }}>
                         {["dom", "aux", "tert", "inf"][bestType.stack.slice(0, 4).indexOf(score.key)]}
                       </div>
                     )}
                   </div>
                 );
               })}
-              <p className="text-xs text-slate-400 text-center mt-3 leading-relaxed">
+              <p className="text-xs text-center mt-3 leading-relaxed" style={{ color: "rgba(255,255,255,0.4)" }}>
                 Solid bars = conscious stack (Dom/Aux/Tert/Inf) · Faded = shadow functions
               </p>
             </div>
@@ -748,13 +748,13 @@ function ResultsContent() {
 
         {/* ── Tab Navigation ── */}
         <motion.div initial={{ opacity: 1, y: 0 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}
-          className="flex gap-1 bg-white border border-slate-100 rounded-2xl p-1.5 mb-8 shadow-sm">
+          className="flex gap-1 rounded-2xl p-1.5 mb-8" style={{ background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.1)" }}>
           {tabs.map(tab => (
             <button key={tab.id} onClick={() => setActiveTab(tab.id)}
               className={`flex-1 py-2.5 px-3 rounded-xl text-sm font-medium transition-all duration-200 ${
-                activeTab === tab.id ? "text-white shadow-sm" : "text-slate-500 hover:text-slate-700 hover:bg-slate-50"
+                activeTab === tab.id ? "text-white shadow-sm" : "hover:text-white/80"
               }`}
-              style={activeTab === tab.id ? { backgroundColor: bestType.color } : {}}>
+              style={activeTab === tab.id ? { backgroundColor: bestType.color } : { color: "rgba(255,255,255,0.5)" }}>
               {tab.label}
             </button>
           ))}
@@ -766,7 +766,7 @@ function ResultsContent() {
           {/* ── TAB 1: FUNCTIONS ── */}
           {activeTab === "functions" && (
             <motion.div key="functions" initial={{ opacity: 1, y: 0 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} transition={{ duration: 0.25 }}>
-              <h2 className="font-serif font-bold text-slate-800 text-lg mb-4">Your Conscious Stack</h2>
+              <h2 className="font-serif font-bold text-lg mb-4" style={{ color: "rgba(255,255,255,0.9)" }}>Your Conscious Stack</h2>
               <div className="space-y-4 mb-10">
                 {bestType.stack.map((fCode, i) => {
                   const func = cognitiveFunctions.find(f => f.code === fCode);
@@ -774,7 +774,7 @@ function ResultsContent() {
                   const isExpanded = expandedCards[cardId];
                   return (
                     <motion.div key={fCode} initial={{ opacity: 1, x: 0 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: i * 0.07 }}
-                      className="bg-white border border-slate-100 rounded-2xl overflow-hidden shadow-sm">
+                      className="rounded-2xl overflow-hidden" style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.1)" }}>
                       <div className="p-6">
                         <div className="flex items-start gap-4">
                           <div className="flex-shrink-0 w-14 h-14 rounded-xl flex items-center justify-center font-mono font-bold text-xl text-white shadow-sm"
@@ -787,17 +787,17 @@ function ResultsContent() {
                                 style={{ backgroundColor: `${func?.color}15`, color: func?.color }}>
                                 {positionLabels[i]}
                               </span>
-                              <span className="text-xs text-slate-400">Position {i + 1}</span>
+                              <span className="text-xs" style={{ color: "rgba(255,255,255,0.4)" }}>Position {i + 1}</span>
                             </div>
-                            <h3 className="font-serif font-semibold text-slate-800 text-base">{func?.name}</h3>
-                            <p className="text-xs text-slate-400 mb-2">{func?.alias}</p>
-                            <p className="text-sm text-slate-600 leading-relaxed">{typeFuncDescriptions[i]}</p>
+                            <h3 className="font-serif font-semibold text-base" style={{ color: "rgba(255,255,255,0.9)" }}>{func?.name}</h3>
+                            <p className="text-xs mb-2" style={{ color: "rgba(255,255,255,0.4)" }}>{func?.alias}</p>
+                            <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.7)" }}>{typeFuncDescriptions[i]}</p>
                           </div>
                         </div>
                       </div>
                       <button onClick={() => toggleCard(cardId)}
-                        className="w-full px-6 py-3 flex items-center justify-between border-t border-slate-50 text-xs font-medium hover:bg-slate-50 transition-colors"
-                        style={{ color: func?.color }}>
+                        className="w-full px-6 py-3 flex items-center justify-between text-xs font-medium transition-colors hover:opacity-80"
+                        style={{ color: func?.color, borderTop: "1px solid rgba(255,255,255,0.06)" }}>
                         <span>What this looks like in you</span>
                         {isExpanded ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
                       </button>
@@ -807,7 +807,7 @@ function ResultsContent() {
                             <div className="px-6 pb-5 pt-2" style={{ borderTop: `1px solid ${func?.color}15` }}>
                               <ul className="space-y-2">
                                 {(func?.characteristics || []).slice(0, 4).map((c, ci) => (
-                                  <li key={ci} className="flex items-start gap-2 text-sm text-slate-600">
+                                  <li key={ci} className="flex items-start gap-2 text-sm" style={{ color: "rgba(255,255,255,0.7)" }}>
                                     <span className="mt-1.5 w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ backgroundColor: func?.color }} />
                                     {c}
                                   </li>
@@ -822,7 +822,7 @@ function ResultsContent() {
                 })}
               </div>
 
-              <h2 className="font-serif font-bold text-slate-800 text-lg mb-4">Your Function Axes</h2>
+              <h2 className="font-serif font-bold text-lg mb-4" style={{ color: "rgba(255,255,255,0.9)" }}>Your Function Axes</h2>
               <div className="grid sm:grid-cols-2 gap-4">
                 {axes.map(({ pair, label }) => {
                   const preferred = bestType.fullStack?.find(f => pair.includes(f));
@@ -830,21 +830,21 @@ function ResultsContent() {
                   const prefFunc = cognitiveFunctions.find(f => f.code === preferred);
                   const otherFunc = cognitiveFunctions.find(f => f.code === notPreferred);
                   return (
-                    <div key={label} className="bg-white border border-slate-100 rounded-2xl p-5 shadow-sm">
-                      <p className="text-xs text-slate-400 mb-3">{label}</p>
+                    <div key={label} className="rounded-2xl p-5" style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.1)" }}>
+                      <p className="text-xs mb-3" style={{ color: "rgba(255,255,255,0.4)" }}>{label}</p>
                       <div className="flex items-center gap-3">
                         <div className="flex-1 text-center p-3 rounded-xl"
                           style={{ backgroundColor: `${prefFunc?.color}15`, border: `1.5px solid ${prefFunc?.color}40` }}>
                           <div className="font-mono font-bold text-lg" style={{ color: prefFunc?.color }}>{preferred}</div>
-                          <div className="text-xs text-slate-500 mt-0.5">Preferred</div>
+                          <div className="text-xs mt-0.5" style={{ color: "rgba(255,255,255,0.5)" }}>Preferred</div>
                         </div>
-                        <span className="text-slate-300 font-light text-lg">&#8596;</span>
-                        <div className="flex-1 text-center p-3 rounded-xl bg-slate-50 border border-slate-100">
-                          <div className="font-mono font-bold text-lg text-slate-400">{notPreferred}</div>
-                          <div className="text-xs text-slate-400 mt-0.5">Less developed</div>
+                        <span className="font-light text-lg" style={{ color: "rgba(255,255,255,0.3)" }}>&#8596;</span>
+                        <div className="flex-1 text-center p-3 rounded-xl" style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)" }}>
+                          <div className="font-mono font-bold text-lg" style={{ color: "rgba(255,255,255,0.4)" }}>{notPreferred}</div>
+                          <div className="text-xs mt-0.5" style={{ color: "rgba(255,255,255,0.4)" }}>Less developed</div>
                         </div>
                       </div>
-                      {otherFunc && <p className="text-xs text-slate-400 mt-2 leading-relaxed">{otherFunc.brief}</p>}
+                      {otherFunc && <p className="text-xs mt-2 leading-relaxed" style={{ color: "rgba(255,255,255,0.4)" }}>{otherFunc.brief}</p>}
                     </div>
                   );
                 })}
@@ -856,15 +856,15 @@ function ResultsContent() {
           {activeTab === "shadow" && (
             <motion.div key="shadow" initial={{ opacity: 1, y: 0 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} transition={{ duration: 0.25 }}>
               <div className="mb-6">
-                <h2 className="font-serif font-bold text-slate-800 text-lg mb-2">The 8-Function Model (John Beebe)</h2>
-                <p className="text-sm text-slate-500 leading-relaxed">Jungian analyst John Beebe mapped all 8 cognitive functions to archetypal positions. The first 4 are conscious; the last 4 are shadow functions that emerge in stress, projection, and growth. Each position carries its own archetypal energy and psychological significance.</p>
+                <h2 className="font-serif font-bold text-lg mb-2" style={{ color: "rgba(255,255,255,0.9)" }}>The 8-Function Model (John Beebe)</h2>
+                <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.6)" }}>Jungian analyst John Beebe mapped all 8 cognitive functions to archetypal positions. The first 4 are conscious; the last 4 are shadow functions that emerge in stress, projection, and growth. Each position carries its own archetypal energy and psychological significance.</p>
               </div>
 
               <div className="grid sm:grid-cols-2 gap-4 mb-6">
                 <div>
                   <div className="flex items-center gap-2 mb-3">
                     <div className="w-2 h-2 rounded-full" style={{ backgroundColor: bestType.color }} />
-                    <h3 className="text-sm font-semibold text-slate-700">Conscious Functions</h3>
+                    <h3 className="text-sm font-semibold" style={{ color: "rgba(255,255,255,0.8)" }}>Conscious Functions</h3>
                   </div>
                   <div className="space-y-3">
                     {typeBeebe.slice(0, 4).map((item, i) => {
@@ -872,7 +872,7 @@ function ResultsContent() {
                       const cardId = `beebe-${i}`;
                       const isExpanded = expandedCards[cardId];
                       return (
-                        <div key={i} className="bg-white border border-slate-100 rounded-xl overflow-hidden shadow-sm">
+                        <div key={i} className="rounded-xl overflow-hidden" style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.1)" }}>
                           <div className="p-4">
                             <div className="flex items-center gap-3 mb-2">
                               <div className="w-10 h-10 rounded-lg flex items-center justify-center font-mono font-bold text-sm text-white"
@@ -880,22 +880,22 @@ function ResultsContent() {
                                 {item.function}
                               </div>
                               <div>
-                                <div className="font-medium text-slate-800 text-sm">{item.archetype}</div>
-                                <div className="text-xs text-slate-400">Position {i + 1} &middot; {func?.name}</div>
+                                <div className="font-medium text-sm" style={{ color: "rgba(255,255,255,0.9)" }}>{item.archetype}</div>
+                                <div className="text-xs" style={{ color: "rgba(255,255,255,0.4)" }}>Position {i + 1} &middot; {func?.name}</div>
                               </div>
                             </div>
-                            <p className="text-xs text-slate-600 leading-relaxed">{item.description}</p>
+                            <p className="text-xs leading-relaxed" style={{ color: "rgba(255,255,255,0.6)" }}>{item.description}</p>
                           </div>
                           <button onClick={() => toggleCard(cardId)}
-                            className="w-full px-4 py-2 flex items-center justify-between border-t border-slate-50 text-xs hover:bg-slate-50 transition-colors"
-                            style={{ color: func?.color }}>
+                            className="w-full px-4 py-2 flex items-center justify-between text-xs hover:opacity-80 transition-colors"
+                            style={{ color: func?.color, borderTop: "1px solid rgba(255,255,255,0.06)" }}>
                             <span>Thyself details</span>
                             {isExpanded ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
                           </button>
                           <AnimatePresence>
                             {isExpanded && (
                               <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }} exit={{ height: 0, opacity: 0 }}>
-                                <div className="px-4 pb-3 pt-2 text-xs text-slate-500 leading-relaxed border-t border-slate-50">
+                                <div className="px-4 pb-3 pt-2 text-xs leading-relaxed" style={{ color: "rgba(255,255,255,0.5)", borderTop: "1px solid rgba(255,255,255,0.06)" }}>
                                   {i === 0 && <p>The Hero function is your ego&apos;s primary tool, the function through which you assert yourself in the world. Overdeveloping this function without developing the others creates imbalance.</p>}
                                   {i === 1 && <p>The Good Parent is supportive, reliable, and nurturing. This function serves and supports the Hero, providing the ground from which your dominant function can operate safely.</p>}
                                   {i === 2 && <p>The Divine Child is eternal, playful, and potentially naive. This function has both a gifted and a shadow side, when developed, it brings creativity; when immature, it can be unreliable.</p>}
@@ -912,8 +912,8 @@ function ResultsContent() {
 
                 <div>
                   <div className="flex items-center gap-2 mb-3">
-                    <div className="w-2 h-2 rounded-full bg-slate-400" />
-                    <h3 className="text-sm font-semibold text-slate-700">Shadow Functions</h3>
+                    <div className="w-2 h-2 rounded-full" style={{ background: "rgba(255,255,255,0.4)" }} />
+                    <h3 className="text-sm font-semibold" style={{ color: "rgba(255,255,255,0.8)" }}>Shadow Functions</h3>
                   </div>
                   <div className="space-y-3">
                     {typeBeebe.slice(4, 8).map((item, i) => {
@@ -922,7 +922,7 @@ function ResultsContent() {
                       const isExpanded = expandedCards[cardId];
                       const shadowColors = ["#64748b", "#475569", "#334155", "#1e293b"];
                       return (
-                        <div key={i} className="bg-white border border-slate-100 rounded-xl overflow-hidden shadow-sm">
+                        <div key={i} className="rounded-xl overflow-hidden" style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)" }}>
                           <div className="p-4">
                             <div className="flex items-center gap-3 mb-2">
                               <div className="w-10 h-10 rounded-lg flex items-center justify-center font-mono font-bold text-sm text-white"
@@ -930,25 +930,26 @@ function ResultsContent() {
                                 {item.function}
                               </div>
                               <div>
-                                <div className="font-medium text-slate-700 text-sm">{item.archetype}</div>
-                                <div className="text-xs text-slate-400">Position {i + 5} &middot; {func?.name}</div>
+                                <div className="font-medium text-sm" style={{ color: "rgba(255,255,255,0.7)" }}>{item.archetype}</div>
+                                <div className="text-xs" style={{ color: "rgba(255,255,255,0.4)" }}>Position {i + 5} &middot; {func?.name}</div>
                               </div>
                             </div>
-                            <p className="text-xs text-slate-500 leading-relaxed">{item.description}</p>
+                            <p className="text-xs leading-relaxed" style={{ color: "rgba(255,255,255,0.5)" }}>{item.description}</p>
                           </div>
                           <button onClick={() => toggleCard(cardId)}
-                            className="w-full px-4 py-2 flex items-center justify-between border-t border-slate-50 text-xs text-slate-400 hover:bg-slate-50 transition-colors">
+                            className="w-full px-4 py-2 flex items-center justify-between text-xs hover:opacity-80 transition-colors"
+                            style={{ color: "rgba(255,255,255,0.4)", borderTop: "1px solid rgba(255,255,255,0.06)" }}>
                             <span>Thyself details</span>
                             {isExpanded ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
                           </button>
                           <AnimatePresence>
                             {isExpanded && (
                               <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }} exit={{ height: 0, opacity: 0 }}>
-                                <div className="px-4 pb-3 pt-2 text-xs text-slate-500 leading-relaxed border-t border-slate-50">
-                                  {i === 0 && <p><span className="font-medium text-slate-600">The Opposing / Nemesis:</span> This function resists and opposes your Hero. Where you feel most defensively triggered, your Nemesis is usually operating. Learning to recognize it creates remarkable freedom.</p>}
-                                  {i === 1 && <p><span className="font-medium text-slate-600">The Critical Parent / Senex:</span> This function operates as a harsh inner critic. It judges you and others by impossibly high standards in its domain. Developing awareness of this voice is a key psychological task.</p>}
-                                  {i === 2 && <p><span className="font-medium text-slate-600">The Trickster:</span> This function operates in an uncontrolled, double-binding way. It can be both playful and deceptive, leading you to act in ways that undermine your own intentions without awareness.</p>}
-                                  {i === 3 && <p><span className="font-medium text-slate-600">The Demon / Daimon:</span> The deepest shadow function, capable of great destruction or, when integrated, profound creative power. This is the function Jung associated with the deepest levels of the unconscious.</p>}
+                                <div className="px-4 pb-3 pt-2 text-xs leading-relaxed" style={{ color: "rgba(255,255,255,0.5)", borderTop: "1px solid rgba(255,255,255,0.06)" }}>
+                                  {i === 0 && <p><span className="font-medium" style={{ color: "rgba(255,255,255,0.7)" }}>The Opposing / Nemesis:</span> This function resists and opposes your Hero. Where you feel most defensively triggered, your Nemesis is usually operating. Learning to recognize it creates remarkable freedom.</p>}
+                                  {i === 1 && <p><span className="font-medium" style={{ color: "rgba(255,255,255,0.7)" }}>The Critical Parent / Senex:</span> This function operates as a harsh inner critic. It judges you and others by impossibly high standards in its domain. Developing awareness of this voice is a key psychological task.</p>}
+                                  {i === 2 && <p><span className="font-medium" style={{ color: "rgba(255,255,255,0.7)" }}>The Trickster:</span> This function operates in an uncontrolled, double-binding way. It can be both playful and deceptive, leading you to act in ways that undermine your own intentions without awareness.</p>}
+                                  {i === 3 && <p><span className="font-medium" style={{ color: "rgba(255,255,255,0.7)" }}>The Demon / Daimon:</span> The deepest shadow function, capable of great destruction or, when integrated, profound creative power. This is the function Jung associated with the deepest levels of the unconscious.</p>}
                                 </div>
                               </motion.div>
                             )}
@@ -960,20 +961,20 @@ function ResultsContent() {
                 </div>
               </div>
 
-              <div className="bg-white border border-slate-100 rounded-2xl p-5 shadow-sm">
-                <h3 className="font-serif font-semibold text-slate-800 mb-4 text-sm">Your Complete 8-Function Stack</h3>
+              <div className="rounded-2xl p-5" style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.1)" }}>
+                <h3 className="font-serif font-semibold mb-4 text-sm" style={{ color: "rgba(255,255,255,0.9)" }}>Your Complete 8-Function Stack</h3>
                 <div className="grid grid-cols-8 gap-1.5">
                   {typeBeebe.map((item, i) => {
                     const func = cognitiveFunctions.find(f => f.code === item.function);
                     const isConscious = i < 4;
                     return (
                       <div key={i} className="text-center">
-                        <div className="text-xs text-slate-400 mb-1">{i + 1}</div>
+                        <div className="text-xs mb-1" style={{ color: "rgba(255,255,255,0.4)" }}>{i + 1}</div>
                         <div className={`w-full aspect-square rounded-lg flex items-center justify-center font-mono font-bold text-xs text-white ${!isConscious ? "opacity-50" : ""}`}
                           style={{ backgroundColor: isConscious ? (func?.color || bestType.color) : "#94a3b8" }}>
                           {item.function}
                         </div>
-                        <div className="text-xs text-slate-400 mt-1 leading-tight">{archetypeNames[i].split("/")[0]}</div>
+                        <div className="text-xs mt-1 leading-tight" style={{ color: "rgba(255,255,255,0.4)" }}>{archetypeNames[i].split("/")[0]}</div>
                       </div>
                     );
                   })}
@@ -986,10 +987,10 @@ function ResultsContent() {
           {activeTab === "loops" && (
             <motion.div key="loops" initial={{ opacity: 1, y: 0 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} transition={{ duration: 0.25 }}>
               <div className="mb-8">
-                <h2 className="font-serif font-bold text-slate-800 text-lg mb-2">The Loop</h2>
-                <p className="text-sm text-slate-500 leading-relaxed mb-5">A loop occurs when the dominant function bypasses the auxiliary and connects directly to the tertiary, creating a self-reinforcing closed system. Without the balancing influence of the auxiliary, the loop feels coherent but is actually a form of psychological avoidance.</p>
+                <h2 className="font-serif font-bold text-lg mb-2" style={{ color: "rgba(255,255,255,0.9)" }}>The Loop</h2>
+                <p className="text-sm leading-relaxed mb-5" style={{ color: "rgba(255,255,255,0.6)" }}>A loop occurs when the dominant function bypasses the auxiliary and connects directly to the tertiary, creating a self-reinforcing closed system. Without the balancing influence of the auxiliary, the loop feels coherent but is actually a form of psychological avoidance.</p>
 
-                <div className="bg-white border border-slate-100 rounded-2xl p-6 shadow-sm mb-4">
+                <div className="rounded-2xl p-6 mb-4" style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.1)" }}>
                   <div className="flex items-center gap-3 mb-5 flex-wrap">
                     {typeLoop.functions.map((fCode, i) => {
                       const func = cognitiveFunctions.find(f => f.code === fCode);
@@ -1004,35 +1005,35 @@ function ResultsContent() {
                           </div>
                           {i === 0 && (
                             <div className="flex flex-col items-center">
-                              <span className="text-slate-300 text-lg">&#8596;</span>
-                              <span className="text-xs text-slate-400">loop</span>
+                              <span className="text-lg" style={{ color: "rgba(255,255,255,0.3)" }}>&#8596;</span>
+                              <span className="text-xs" style={{ color: "rgba(255,255,255,0.4)" }}>loop</span>
                             </div>
                           )}
                         </div>
                       );
                     })}
-                    <div className="flex-1 min-w-32 p-3 rounded-xl bg-slate-50 border border-slate-100">
-                      <div className="text-xs font-medium text-slate-500 mb-1">Bypasses</div>
+                    <div className="flex-1 min-w-32 p-3 rounded-xl" style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)" }}>
+                      <div className="text-xs font-medium mb-1" style={{ color: "rgba(255,255,255,0.5)" }}>Bypasses</div>
                       {(() => {
                         const bypassFunc = cognitiveFunctions.find(f => f.code === typeLoop.bypasses);
                         return (
                           <div className="flex items-center gap-2">
-                            <span className="font-mono font-bold text-slate-400 text-base">{typeLoop.bypasses}</span>
-                            <span className="text-xs text-slate-400">{bypassFunc?.name}</span>
+                            <span className="font-mono font-bold text-base" style={{ color: "rgba(255,255,255,0.4)" }}>{typeLoop.bypasses}</span>
+                            <span className="text-xs" style={{ color: "rgba(255,255,255,0.4)" }}>{bypassFunc?.name}</span>
                           </div>
                         );
                       })()}
                     </div>
                   </div>
 
-                  <p className="text-sm text-slate-600 leading-relaxed mb-5">{typeLoop.behavior}</p>
+                  <p className="text-sm leading-relaxed mb-5" style={{ color: "rgba(255,255,255,0.7)" }}>{typeLoop.behavior}</p>
 
                   <div className="grid sm:grid-cols-2 gap-5">
                     <div>
-                      <h4 className="text-xs font-semibold text-slate-700 uppercase tracking-wide mb-3">Warning Signs</h4>
+                      <h4 className="text-xs font-semibold uppercase tracking-wide mb-3" style={{ color: "rgba(255,255,255,0.7)" }}>Warning Signs</h4>
                       <ul className="space-y-2">
                         {typeLoop.warnings.map((w, i) => (
-                          <li key={i} className="flex items-start gap-2 text-sm text-slate-600">
+                          <li key={i} className="flex items-start gap-2 text-sm" style={{ color: "rgba(255,255,255,0.7)" }}>
                             <span className="mt-1.5 w-1.5 h-1.5 rounded-full flex-shrink-0 bg-amber-400" />
                             {w}
                           </li>
@@ -1040,23 +1041,23 @@ function ResultsContent() {
                       </ul>
                     </div>
                     <div>
-                      <h4 className="text-xs font-semibold text-slate-700 uppercase tracking-wide mb-3">How to Break Out</h4>
-                      <p className="text-sm text-slate-600 leading-relaxed">{typeLoop.breakOut}</p>
+                      <h4 className="text-xs font-semibold uppercase tracking-wide mb-3" style={{ color: "rgba(255,255,255,0.7)" }}>How to Break Out</h4>
+                      <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.7)" }}>{typeLoop.breakOut}</p>
                     </div>
                   </div>
                 </div>
 
-                <div className="bg-white border border-slate-100 rounded-2xl p-5 shadow-sm">
-                  <h4 className="font-medium text-slate-700 text-sm mb-2">The {bestType.code} Loop in Depth</h4>
-                  <p className="text-sm text-slate-500 leading-relaxed">{bestType.loopPattern.description}</p>
+                <div className="rounded-2xl p-5" style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.1)" }}>
+                  <h4 className="font-medium text-sm mb-2" style={{ color: "rgba(255,255,255,0.8)" }}>The {bestType.code} Loop in Depth</h4>
+                  <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.6)" }}>{bestType.loopPattern.description}</p>
                 </div>
               </div>
 
               <div>
-                <h2 className="font-serif font-bold text-slate-800 text-lg mb-2">The Grip</h2>
-                <p className="text-sm text-slate-500 leading-relaxed mb-5">The grip occurs when the inferior function (position 4) temporarily hijacks the personality under extreme or prolonged stress. It produces behavior that is completely out of character, the least developed part of the psyche suddenly takes over. Understanding your grip experience is one of the most practically valuable things in psychological typology.</p>
+                <h2 className="font-serif font-bold text-lg mb-2" style={{ color: "rgba(255,255,255,0.9)" }}>The Grip</h2>
+                <p className="text-sm leading-relaxed mb-5" style={{ color: "rgba(255,255,255,0.6)" }}>The grip occurs when the inferior function (position 4) temporarily hijacks the personality under extreme or prolonged stress. It produces behavior that is completely out of character, the least developed part of the psyche suddenly takes over. Understanding your grip experience is one of the most practically valuable things in psychological typology.</p>
 
-                <div className="bg-white border border-slate-100 rounded-2xl p-6 shadow-sm mb-4">
+                <div className="rounded-2xl p-6 mb-4" style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.1)" }}>
                   {(() => {
                     const infFunc = cognitiveFunctions.find(f => f.code === inferiorFunc);
                     return (
@@ -1066,9 +1067,9 @@ function ResultsContent() {
                           {inferiorFunc}
                         </div>
                         <div>
-                          <div className="text-xs font-medium text-slate-400 mb-0.5">Inferior Function (Position 4)</div>
-                          <div className="font-serif font-semibold text-slate-800">{infFunc?.name}</div>
-                          <div className="text-xs text-slate-400">{infFunc?.alias}</div>
+                          <div className="text-xs font-medium mb-0.5" style={{ color: "rgba(255,255,255,0.4)" }}>Inferior Function (Position 4)</div>
+                          <div className="font-serif font-semibold" style={{ color: "rgba(255,255,255,0.9)" }}>{infFunc?.name}</div>
+                          <div className="text-xs" style={{ color: "rgba(255,255,255,0.4)" }}>{infFunc?.alias}</div>
                         </div>
                       </div>
                     );
@@ -1076,10 +1077,10 @@ function ResultsContent() {
 
                   <div className="grid sm:grid-cols-3 gap-5">
                     <div>
-                      <h4 className="text-xs font-semibold text-slate-700 uppercase tracking-wide mb-3">Triggers</h4>
+                      <h4 className="text-xs font-semibold uppercase tracking-wide mb-3" style={{ color: "rgba(255,255,255,0.7)" }}>Triggers</h4>
                       <ul className="space-y-2">
                         {typeGrip.triggers.map((t, i) => (
-                          <li key={i} className="flex items-start gap-2 text-sm text-slate-600">
+                          <li key={i} className="flex items-start gap-2 text-sm" style={{ color: "rgba(255,255,255,0.7)" }}>
                             <span className="mt-1.5 w-1.5 h-1.5 rounded-full flex-shrink-0 bg-red-400" />
                             {t}
                           </li>
@@ -1087,10 +1088,10 @@ function ResultsContent() {
                       </ul>
                     </div>
                     <div>
-                      <h4 className="text-xs font-semibold text-slate-700 uppercase tracking-wide mb-3">Symptoms</h4>
+                      <h4 className="text-xs font-semibold uppercase tracking-wide mb-3" style={{ color: "rgba(255,255,255,0.7)" }}>Symptoms</h4>
                       <ul className="space-y-2">
                         {typeGrip.symptoms.map((s, i) => (
-                          <li key={i} className="flex items-start gap-2 text-sm text-slate-600">
+                          <li key={i} className="flex items-start gap-2 text-sm" style={{ color: "rgba(255,255,255,0.7)" }}>
                             <span className="mt-1.5 w-1.5 h-1.5 rounded-full flex-shrink-0 bg-orange-400" />
                             {s}
                           </li>
@@ -1098,15 +1099,15 @@ function ResultsContent() {
                       </ul>
                     </div>
                     <div>
-                      <h4 className="text-xs font-semibold text-slate-700 uppercase tracking-wide mb-3">Recovery</h4>
-                      <p className="text-sm text-slate-600 leading-relaxed">{typeGrip.recovery}</p>
+                      <h4 className="text-xs font-semibold uppercase tracking-wide mb-3" style={{ color: "rgba(255,255,255,0.7)" }}>Recovery</h4>
+                      <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.7)" }}>{typeGrip.recovery}</p>
                     </div>
                   </div>
                 </div>
 
-                <div className="bg-white border border-slate-100 rounded-2xl p-5 shadow-sm">
-                  <h4 className="font-medium text-slate-700 text-sm mb-2">The {bestType.code} Grip in Depth</h4>
-                  <p className="text-sm text-slate-500 leading-relaxed">{bestType.gripDescription}</p>
+                <div className="rounded-2xl p-5" style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.1)" }}>
+                  <h4 className="font-medium text-sm mb-2" style={{ color: "rgba(255,255,255,0.8)" }}>The {bestType.code} Grip in Depth</h4>
+                  <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.6)" }}>{bestType.gripDescription}</p>
                 </div>
               </div>
             </motion.div>
@@ -1118,21 +1119,21 @@ function ResultsContent() {
 
               {inferiorDev && (
                 <div className="mb-8">
-                  <h2 className="font-serif font-bold text-slate-800 text-lg mb-2">Inferior Function Development</h2>
-                  <p className="text-sm text-slate-500 leading-relaxed mb-5">Jung taught that individuation, the lifelong journey toward psychological wholeness, centers on developing a conscious relationship with the inferior function. It is your greatest weakness and, ultimately, your greatest source of growth.</p>
+                  <h2 className="font-serif font-bold text-lg mb-2" style={{ color: "rgba(255,255,255,0.9)" }}>Inferior Function Development</h2>
+                  <p className="text-sm leading-relaxed mb-5" style={{ color: "rgba(255,255,255,0.6)" }}>Jung taught that individuation, the lifelong journey toward psychological wholeness, centers on developing a conscious relationship with the inferior function. It is your greatest weakness and, ultimately, your greatest source of growth.</p>
 
                   {(() => {
                     const infFunc = cognitiveFunctions.find(f => f.code === inferiorFunc);
                     return (
-                      <div className="flex items-center gap-4 p-5 bg-white border border-slate-100 rounded-2xl shadow-sm mb-5">
+                      <div className="flex items-center gap-4 p-5 rounded-2xl mb-5" style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.1)" }}>
                         <div className="w-16 h-16 rounded-2xl flex items-center justify-center font-mono font-bold text-2xl text-white shadow-sm flex-shrink-0"
                           style={{ backgroundColor: infFunc?.color || bestType.color }}>
                           {inferiorFunc}
                         </div>
                         <div>
-                          <div className="text-xs text-slate-400 mb-0.5">Your Inferior Function</div>
-                          <div className="font-serif font-bold text-slate-800 text-lg">{infFunc?.name}</div>
-                          <div className="text-sm text-slate-500">{infFunc?.alias} &middot; {inferiorDev.function}</div>
+                          <div className="text-xs mb-0.5" style={{ color: "rgba(255,255,255,0.4)" }}>Your Inferior Function</div>
+                          <div className="font-serif font-bold text-lg" style={{ color: "rgba(255,255,255,0.9)" }}>{infFunc?.name}</div>
+                          <div className="text-sm" style={{ color: "rgba(255,255,255,0.6)" }}>{infFunc?.alias} &middot; {inferiorDev.function}</div>
                         </div>
                       </div>
                     );
@@ -1140,21 +1141,21 @@ function ResultsContent() {
 
                   <div className="grid sm:grid-cols-3 gap-4 mb-5">
                     {[inferiorDev.stage1, inferiorDev.stage2, inferiorDev.stage3].map((stage, i) => (
-                      <div key={i} className="bg-white border border-slate-100 rounded-2xl p-5 shadow-sm">
+                      <div key={i} className="rounded-2xl p-5" style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.1)" }}>
                         <div className="flex items-center gap-2 mb-3">
                           <div className="w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold text-white"
                             style={{ backgroundColor: i === 0 ? "#ef4444" : i === 1 ? "#f59e0b" : "#22c55e" }}>
                             {i + 1}
                           </div>
-                          <span className="text-xs font-semibold text-slate-600 uppercase tracking-wide">{stage.name}</span>
+                          <span className="text-xs font-semibold uppercase tracking-wide" style={{ color: "rgba(255,255,255,0.7)" }}>{stage.name}</span>
                         </div>
-                        <p className="text-sm text-slate-500 leading-relaxed">{stage.description}</p>
+                        <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.6)" }}>{stage.description}</p>
                       </div>
                     ))}
                   </div>
 
-                  <div className="bg-white border border-slate-100 rounded-2xl p-6 shadow-sm">
-                    <h3 className="font-serif font-semibold text-slate-800 mb-4">5 Practices for Developing Your Inferior</h3>
+                  <div className="rounded-2xl p-6" style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.1)" }}>
+                    <h3 className="font-serif font-semibold mb-4" style={{ color: "rgba(255,255,255,0.9)" }}>5 Practices for Developing Your Inferior</h3>
                     <div className="space-y-3">
                       {inferiorDev.practices.map((p, i) => (
                         <div key={i} className="flex items-start gap-3">
@@ -1162,7 +1163,7 @@ function ResultsContent() {
                             style={{ backgroundColor: bestType.color }}>
                             {i + 1}
                           </div>
-                          <p className="text-sm text-slate-600 leading-relaxed">{p}</p>
+                          <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.7)" }}>{p}</p>
                         </div>
                       ))}
                     </div>
@@ -1171,30 +1172,30 @@ function ResultsContent() {
               )}
 
               <div className="mb-8">
-                <h2 className="font-serif font-bold text-slate-800 text-lg mb-4">Your Integration Path</h2>
+                <h2 className="font-serif font-bold text-lg mb-4" style={{ color: "rgba(255,255,255,0.9)" }}>Your Integration Path</h2>
                 <div className="grid sm:grid-cols-2 gap-4 mb-4">
-                  <div className="bg-white border border-slate-100 rounded-2xl p-5 shadow-sm">
-                    <h4 className="font-medium text-slate-700 text-sm mb-3 flex items-center gap-2">
+                  <div className="rounded-2xl p-5" style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.1)" }}>
+                    <h4 className="font-medium text-sm mb-3 flex items-center gap-2" style={{ color: "rgba(255,255,255,0.8)" }}>
                       <span className="w-2 h-2 rounded-full" style={{ backgroundColor: bestType.color }} />
                       Natural Strengths
                     </h4>
                     <ul className="space-y-2">
                       {bestType.strengths.map((s, i) => (
-                        <li key={i} className="flex items-start gap-2 text-sm text-slate-600">
+                        <li key={i} className="flex items-start gap-2 text-sm" style={{ color: "rgba(255,255,255,0.7)" }}>
                           <span className="mt-1.5 w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ backgroundColor: bestType.color }} />
                           {s}
                         </li>
                       ))}
                     </ul>
                   </div>
-                  <div className="bg-white border border-slate-100 rounded-2xl p-5 shadow-sm">
-                    <h4 className="font-medium text-slate-700 text-sm mb-3 flex items-center gap-2">
+                  <div className="rounded-2xl p-5" style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.1)" }}>
+                    <h4 className="font-medium text-sm mb-3 flex items-center gap-2" style={{ color: "rgba(255,255,255,0.8)" }}>
                       <span className="w-2 h-2 rounded-full bg-amber-400" />
                       Growth Areas
                     </h4>
                     <ul className="space-y-2">
                       {bestType.growthAreas.map((g, i) => (
-                        <li key={i} className="flex items-start gap-2 text-sm text-slate-600">
+                        <li key={i} className="flex items-start gap-2 text-sm" style={{ color: "rgba(255,255,255,0.7)" }}>
                           <span className="mt-1.5 w-1.5 h-1.5 rounded-full flex-shrink-0 bg-amber-400" />
                           {g}
                         </li>
@@ -1203,44 +1204,44 @@ function ResultsContent() {
                   </div>
                 </div>
 
-                <div className="bg-white border border-slate-100 rounded-2xl p-5 shadow-sm">
-                  <h4 className="font-medium text-slate-700 text-sm mb-2">How Your Mind Works</h4>
-                  <p className="text-sm text-slate-500 leading-relaxed">{bestType.cognitiveWiring}</p>
+                <div className="rounded-2xl p-5" style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.1)" }}>
+                  <h4 className="font-medium text-sm mb-2" style={{ color: "rgba(255,255,255,0.8)" }}>How Your Mind Works</h4>
+                  <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.6)" }}>{bestType.cognitiveWiring}</p>
                 </div>
               </div>
 
               <div className="mb-8">
-                <h2 className="font-serif font-bold text-slate-800 text-lg mb-4">Reflective Prompts</h2>
+                <h2 className="font-serif font-bold text-lg mb-4" style={{ color: "rgba(255,255,255,0.9)" }}>Reflective Prompts</h2>
                 <div className="space-y-3">
                   {bestType.journalPrompts.map((prompt, i) => (
-                    <div key={i} className="bg-white border border-slate-100 rounded-2xl p-5 shadow-sm flex items-start gap-4">
+                    <div key={i} className="rounded-2xl p-5 flex items-start gap-4" style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.1)" }}>
                       <div className="w-8 h-8 rounded-xl flex items-center justify-center flex-shrink-0"
                         style={{ backgroundColor: `${bestType.color}15` }}>
                         <Feather className="w-4 h-4" style={{ color: bestType.color }} />
                       </div>
-                      <p className="text-sm text-slate-600 leading-relaxed pt-0.5 italic">&ldquo;{prompt}&rdquo;</p>
+                      <p className="text-sm leading-relaxed pt-0.5 italic" style={{ color: "rgba(255,255,255,0.7)" }}>&ldquo;{prompt}&rdquo;</p>
                     </div>
                   ))}
                 </div>
               </div>
 
               <div className="mb-8">
-                <h2 className="font-serif font-bold text-slate-800 text-lg mb-4">Temperament &amp; Interaction Style</h2>
+                <h2 className="font-serif font-bold text-lg mb-4" style={{ color: "rgba(255,255,255,0.9)" }}>Temperament &amp; Interaction Style</h2>
                 <div className="grid sm:grid-cols-2 gap-4">
-                  <div className="bg-white border border-slate-100 rounded-2xl p-5 shadow-sm">
-                    <div className="text-xs font-medium text-slate-400 uppercase tracking-wide mb-1">Temperament</div>
-                    <div className="font-serif font-bold text-slate-800 text-lg mb-2">{bestType.temperament}</div>
-                    <p className="text-sm text-slate-500 leading-relaxed">
+                  <div className="rounded-2xl p-5" style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.1)" }}>
+                    <div className="text-xs font-medium uppercase tracking-wide mb-1" style={{ color: "rgba(255,255,255,0.4)" }}>Temperament</div>
+                    <div className="font-serif font-bold text-lg mb-2" style={{ color: "rgba(255,255,255,0.9)" }}>{bestType.temperament}</div>
+                    <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.6)" }}>
                       {bestType.temperament.includes("NT") && "The NT Rational temperament is driven by the pursuit of knowledge, competence, and strategic mastery. Rationals are natural theorists and systems-thinkers who feel most alive when solving complex problems."}
                       {bestType.temperament.includes("NF") && "The NF Idealist temperament is oriented toward meaning, authenticity, and human potential. Idealists are drawn to understanding people deeply and helping them grow into their fullest selves."}
                       {bestType.temperament.includes("SJ") && "The SJ Guardian temperament is driven by responsibility, reliability, and preserving what works. Guardians are the stabilizing force in any community, dependable, thorough, and deeply committed to serving others."}
                       {bestType.temperament.includes("SP") && "The SP Artisan temperament is oriented toward freedom, action, and immediate engagement with life. Artisans are at their best when they can respond spontaneously to what is happening right now."}
                     </p>
                   </div>
-                  <div className="bg-white border border-slate-100 rounded-2xl p-5 shadow-sm">
-                    <div className="text-xs font-medium text-slate-400 uppercase tracking-wide mb-1">Interaction Style</div>
-                    <div className="font-serif font-bold text-slate-800 text-lg mb-2">{bestType.interactionStyle}</div>
-                    <p className="text-sm text-slate-500 leading-relaxed">
+                  <div className="rounded-2xl p-5" style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.1)" }}>
+                    <div className="text-xs font-medium uppercase tracking-wide mb-1" style={{ color: "rgba(255,255,255,0.4)" }}>Interaction Style</div>
+                    <div className="font-serif font-bold text-lg mb-2" style={{ color: "rgba(255,255,255,0.9)" }}>{bestType.interactionStyle}</div>
+                    <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.6)" }}>
                       {bestType.interactionStyle === "Chart the Course" && "You prefer to have a clear goal and plan in mind before engaging. You work best when you can direct your energy toward a defined outcome, and you tend to lead from behind, setting direction rather than pushing from the front."}
                       {bestType.interactionStyle === "Behind the Scenes" && "You prefer to work carefully and thoroughly, often influencing situations through thoughtful preparation rather than direct assertion. You tend to process deeply before acting and prefer quality of engagement over speed."}
                       {bestType.interactionStyle === "In Charge" && "You naturally move into leadership and direction when a situation requires it. You are comfortable making decisions, taking responsibility, and keeping things moving efficiently toward a goal."}
@@ -1251,22 +1252,22 @@ function ResultsContent() {
               </div>
 
               <div>
-                <h2 className="font-serif font-bold text-slate-800 text-lg mb-4">Continue Exploring</h2>
+                <h2 className="font-serif font-bold text-lg mb-4" style={{ color: "rgba(255,255,255,0.9)" }}>Continue Exploring</h2>
                 <div className="grid sm:grid-cols-3 gap-4">
-                  <Link href={`/cognitive/learn?type=${bestType.code}`} className="p-5 rounded-2xl bg-white border border-slate-100 card-hover group">
+                  <Link href={`/cognitive/learn?type=${bestType.code}`} className="p-5 rounded-2xl card-hover group" style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.1)" }}>
                     <BookOpen className="w-5 h-5 mb-3" style={{ color: bestType.color }} />
-                    <h4 className="font-medium text-slate-800 text-sm mb-1">Deep Dive</h4>
-                    <p className="text-xs text-slate-400">Learn everything about {bestType.code}</p>
+                    <h4 className="font-medium text-sm mb-1" style={{ color: "rgba(255,255,255,0.9)" }}>Deep Dive</h4>
+                    <p className="text-xs" style={{ color: "rgba(255,255,255,0.4)" }}>Learn everything about {bestType.code}</p>
                   </Link>
-                  <Link href="/compare" className="p-5 rounded-2xl bg-white border border-slate-100 card-hover group">
-                    <GitCompare className="w-5 h-5 text-violet-500 mb-3" />
-                    <h4 className="font-medium text-slate-800 text-sm mb-1">Compare Types</h4>
-                    <p className="text-xs text-slate-400">See how you relate to other types</p>
+                  <Link href="/compare" className="p-5 rounded-2xl card-hover group" style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.1)" }}>
+                    <GitCompare className="w-5 h-5 text-violet-400 mb-3" />
+                    <h4 className="font-medium text-sm mb-1" style={{ color: "rgba(255,255,255,0.9)" }}>Compare Types</h4>
+                    <p className="text-xs" style={{ color: "rgba(255,255,255,0.4)" }}>See how you relate to other types</p>
                   </Link>
-                  <Link href="/journal" className="p-5 rounded-2xl bg-white border border-slate-100 card-hover group">
-                    <Feather className="w-5 h-5 text-emerald-500 mb-3" />
-                    <h4 className="font-medium text-slate-800 text-sm mb-1">Inner Work</h4>
-                    <p className="text-xs text-slate-400">Personalized prompts for your type</p>
+                  <Link href="/journal" className="p-5 rounded-2xl card-hover group" style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.1)" }}>
+                    <Feather className="w-5 h-5 text-emerald-400 mb-3" />
+                    <h4 className="font-medium text-sm mb-1" style={{ color: "rgba(255,255,255,0.9)" }}>Inner Work</h4>
+                    <p className="text-xs" style={{ color: "rgba(255,255,255,0.4)" }}>Personalized prompts for your type</p>
                   </Link>
                 </div>
               </div>
@@ -1294,7 +1295,7 @@ export default function CognitiveResultsPage() {
   return (
     <Suspense fallback={
       <div className="min-h-screen flex items-center justify-center">
-        <div className="text-slate-400 text-sm">Loading results...</div>
+        <div className="text-sm" style={{ color: "rgba(255,255,255,0.4)" }}>Loading results...</div>
       </div>
     }>
       <ResultsContent />

@@ -1,20 +1,30 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { CheckCircle, XCircle, ArrowRight } from "lucide-react";
 import type { FillInBlankContent } from "@/types/lessons";
+import { stableShuffleOptions } from "@/lib/shuffleOptions";
 
 interface Props {
   content: FillInBlankContent;
   onAnswer: (correct: boolean) => void;
+  exerciseId?: string;
 }
 
-export default function FillInBlankExercise({ content, onAnswer }: Props) {
+export default function FillInBlankExercise({ content, onAnswer, exerciseId }: Props) {
   const { sentence, options, correctIndex, explanation } = content;
+
+  // Stable shuffle so chips don't jump on re-renders, but correct answer position is randomized
+  const { shuffled: shuffledOptions, newCorrectIndex } = useMemo(
+    () => stableShuffleOptions(options, correctIndex, exerciseId ?? sentence),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [exerciseId, sentence]
+  );
+
   const [selected, setSelected] = useState<number | null>(null);
   const revealed = selected !== null;
-  const isCorrect = selected === correctIndex;
+  const isCorrect = selected === newCorrectIndex;
 
   const handleChipTap = (idx: number) => {
     if (revealed) return;
@@ -40,7 +50,7 @@ export default function FillInBlankExercise({ content, onAnswer }: Props) {
                     : "border-violet-300 dark:border-violet-600 bg-violet-50 dark:bg-violet-900/20 text-violet-400 dark:text-violet-500"
                 }`}
               >
-                {selected !== null ? options[selected] : "\u00A0\u00A0\u00A0"}
+                {selected !== null ? shuffledOptions[selected] : "\u00A0\u00A0\u00A0"}
               </span>
             )}
           </span>
@@ -79,9 +89,9 @@ export default function FillInBlankExercise({ content, onAnswer }: Props) {
 
         {/* Word chips */}
         <div className="flex flex-wrap justify-center gap-3">
-          {options.map((opt, i) => {
+          {shuffledOptions.map((opt, i) => {
             const isThisSelected = i === selected;
-            const isThisCorrect = i === correctIndex;
+            const isThisCorrect = i === newCorrectIndex;
 
             let chipStyle =
               "border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-200";

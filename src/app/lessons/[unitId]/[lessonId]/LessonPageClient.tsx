@@ -18,7 +18,8 @@ export default function LessonPageClient({
   const router = useRouter();
   const { completeLesson, startLesson, loaded: progressLoaded } = useLessonProgress();
   const { profile, loaded: profileLoaded } = useProfile();
-  const { earnXP } = useGameState();
+  const game = useGameState();
+  const { earnXP } = game;
 
   const [preparedLesson, setPreparedLesson] = useState<Lesson | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -54,11 +55,20 @@ export default function LessonPageClient({
   const handleComplete = (score: number, xpEarned: number, perfect: boolean) => {
     completeLesson(lessonId, score, xpEarned, perfect);
     earnXP(xpEarned, "lesson");
-    router.push("/lessons");
+
+    // Increment type mastery when completing a type-specific lesson unit
+    const typeMatch = unitId.match(/^type-(\d)$/);
+    if (typeMatch) {
+      const typeNum = typeMatch[1];
+      const masteryGain = perfect ? 15 : 10;
+      game.updateTypeMastery(typeNum, masteryGain);
+    }
+
+    router.push("/daily");
   };
 
   const handleExit = () => {
-    router.push("/lessons");
+    router.push("/daily");
   };
 
   // ── Render ─────────────────────────────────────────────────────────────────

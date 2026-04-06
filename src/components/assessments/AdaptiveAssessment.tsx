@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowRight } from "lucide-react";
 
 interface AdaptiveRound {
   id: string;
@@ -66,17 +65,17 @@ export default function AdaptiveAssessment({
     <div className="max-w-2xl mx-auto py-8 px-4">
       {/* Progress */}
       <div className="mb-6">
-        <div className="flex items-center justify-between text-xs text-slate-400 mb-2">
+        <div className="flex items-center justify-between text-xs mb-2" style={{ color: "rgba(255,255,255,0.4)" }}>
           <span>{round.title}</span>
           <span>{Math.round(progress)}%</span>
         </div>
-        <div className="h-1.5 bg-slate-100 rounded-full overflow-hidden">
+        <div className="h-1.5 rounded-full overflow-hidden" style={{ background: "rgba(255,255,255,0.1)" }}>
           <motion.div
             className="h-full bg-gradient-to-r from-teal-400 to-cyan-500 rounded-full"
             animate={{ width: `${progress}%` }}
           />
         </div>
-        <p className="text-[10px] text-slate-300 mt-1">{round.description}</p>
+        <p className="text-[10px] mt-1" style={{ color: "rgba(255,255,255,0.3)" }}>{round.description}</p>
       </div>
 
       <AnimatePresence mode="wait">
@@ -87,7 +86,7 @@ export default function AdaptiveAssessment({
           exit={{ opacity: 0, x: -20 }}
           transition={{ duration: 0.2 }}
         >
-          <h2 className="text-lg font-serif font-semibold text-slate-800 mb-6">
+          <h2 className="text-lg font-serif font-semibold mb-6" style={{ color: "rgba(255,255,255,0.9)" }}>
             {question.text}
           </h2>
 
@@ -96,9 +95,10 @@ export default function AdaptiveAssessment({
               <button
                 key={idx}
                 onClick={() => selectOption(option)}
-                className="w-full text-left p-5 rounded-2xl border-2 border-slate-100 bg-white hover:border-teal-300 hover:bg-teal-50/30 transition-all active:scale-[0.98]"
+                className="w-full text-left p-5 rounded-2xl border-2 transition-all active:scale-[0.98] hover:border-teal-400/40"
+                style={{ background: "rgba(255,255,255,0.04)", borderColor: "rgba(255,255,255,0.1)" }}
               >
-                <p className="text-sm text-slate-700 leading-relaxed">{option.text}</p>
+                <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.75)" }}>{option.text}</p>
               </button>
             ))}
           </div>

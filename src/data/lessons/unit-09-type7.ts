@@ -3,18 +3,32 @@
 // 4 lessons × 12 exercises each
 // ─────────────────────────────────────────────────────────────────────────────
 
-import type { Lesson } from "@/types/lessons";
+import type { Lesson, SocraticPromptContent, InterleavingExerciseContent } from "@/types/lessons";
 
 // ── Lesson 1: Core Motivation, Fear & Desire ────────────────────────────────
 
 const lesson1: Lesson = {
   id: "u9-l1",
+  scaffoldStep: 2 as const,
   unitId: "type-7",
   order: 1,
   title: "The Enthusiast's Core",
   subtitle: "Who is Type 7? Motivation, fear, and desire",
   xpReward: 20,
   exercises: [
+    {
+      id: "u9-l1-e0",
+      difficulty: 1,
+      content: {
+        type: "socratic-prompt",
+        question: "Think about someone who always has five plans in motion, always moving to the next thing. What do you think they might be avoiding? What would happen if they had to just... stop?",
+        reflection: "Imagine the stillness. What might come up if there were no next thing to plan, no escape hatch, no open future to run toward?",
+        revealLabel: "See the insight",
+        conceptTitle: "The Open Future as Defense",
+        conceptBody: "Sevens keep the future full of possibility as a defense against the present — specifically against pain, limitation, and the felt sense of deprivation. The constant forward motion isn't enthusiasm for life (though it looks like that) — it's anxiety managed through options. If there's always something better coming, you never have to fully feel what's here.",
+        highlight: "anxiety managed through options",
+      } as SocraticPromptContent,
+    },
     {
       id: "u9-l1-e1",
       difficulty: 1,
@@ -210,6 +224,7 @@ const lesson1: Lesson = {
 
 const lesson2: Lesson = {
   id: "u9-l2",
+  scaffoldStep: 2 as const,
   unitId: "type-7",
   order: 2,
   title: "Gluttony, Sobriety & Health",
@@ -410,6 +425,7 @@ const lesson2: Lesson = {
 
 const lesson3: Lesson = {
   id: "u9-l3",
+  scaffoldStep: 4 as const,
   unitId: "type-7",
   order: 3,
   title: "Wings & Lines",
@@ -597,6 +613,7 @@ const lesson3: Lesson = {
 
 const lesson4: Lesson = {
   id: "u9-l4",
+  scaffoldStep: 1 as const,
   unitId: "type-7",
   order: 4,
   title: "Recognizing the Enthusiast",
@@ -792,6 +809,32 @@ const lesson4: Lesson = {
         explanation:
           "The most reliable Seven signal is the reframe reflex: when something painful happens, they immediately find the silver lining. This keeps them moving forward, and away from pain.",
       },
+    },
+    {
+      id: "u9-l4-e13",
+      difficulty: 3,
+      content: {
+        type: "interleaving",
+        title: "Types 7, 3 & 2 — Identify the motivation",
+        typeNumbers: [7, 3, 2],
+        items: [
+          {
+            statement: "Reframes a difficult situation almost immediately into what can be learned from it — not to process it, but to escape the weight of the feeling.",
+            correctType: 7,
+            explanation: "The Seven uses positive reframing as a flight from pain. The move to 'silver lining' is anxiety management.",
+          },
+          {
+            statement: "Offers help to a struggling colleague because seeing them struggle makes them feel needed — and being needed feels like a guarantee of connection.",
+            correctType: 2,
+            explanation: "The Two is moved by the prospect of being indispensable, not just by generosity.",
+          },
+          {
+            statement: "Announces a new project before it's finished — motivated more by wanting to be seen as innovative and ahead of the curve than by the project itself.",
+            correctType: 3,
+            explanation: "The Three performs for admiration. The announcement is about image, not just enthusiasm.",
+          },
+        ],
+      } as InterleavingExerciseContent,
     },
   ],
 };

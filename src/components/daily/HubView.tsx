@@ -2,7 +2,51 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Flame, Zap, Heart, ArrowRight, Sparkles, BookOpen, CheckCircle, Target, Star, Clock, Lock, ChevronRight, Coins } from "lucide-react";
+import Link from "next/link";
+import { Flame, Zap, Heart, ArrowRight, Sparkles, BookOpen, CheckCircle, Target, Star, Clock, Lock, ChevronRight, Coins, Brain } from "lucide-react";
+
+// ─── Type-match preview cards (subset for daily challenge) ────────────────────
+const DAILY_CHALLENGE_CARDS = [
+  { id: 1, tag: "Inner Dialogue", prompt: '"I keep noticing the typo on that sign. I know it shouldn\'t bother me. But it does. It really does."', type: 1 },
+  { id: 2, tag: "Behavior", prompt: "Before their host could even stand up, they had already cleared three dishes from the table and asked if anyone needed water.", type: 2 },
+  { id: 3, tag: "Inner Dialogue", prompt: '"Rest feels wasteful. I get anxious if I\'m not moving toward something."', type: 3 },
+  { id: 4, tag: "Inner Dialogue", prompt: '"Everyone else seems to just... fit. I\'ve never quite felt like I belonged anywhere."', type: 4 },
+  { id: 5, tag: "Behavior", prompt: "They spent two hours researching the restaurant before the dinner, not to impress, but because they genuinely needed to know.", type: 5 },
+  { id: 6, tag: "Inner Dialogue", prompt: '"I know it\'s fine. But what if it\'s not? I need to think through all the ways it could go wrong."', type: 6 },
+  { id: 7, tag: "Behavior", prompt: "They booked a trip to Portugal, signed up for a pottery class, and outlined a new business idea, all in the same afternoon.", type: 7 },
+  { id: 8, tag: "Inner Dialogue", prompt: '"I\'d rather have someone fight me directly than smile while plotting something behind my back."', type: 8 },
+  { id: 9, tag: "Behavior", prompt: "They sat through the entire two-hour meeting without saying what they actually thought, because the moment never felt quite right.", type: 9 },
+  { id: 10, tag: "Quote", prompt: '"I don\'t really need much. I just want to know the people I love are okay."', type: 2 },
+  { id: 11, tag: "Growth Edge", prompt: '"Learning to say \'good enough\' was the hardest thing I\'ve ever done. My whole body resisted it."', type: 1 },
+  { id: 12, tag: "Quote", prompt: '"I\'ve hit every goal I set. And yet there\'s always one more. It never actually feels like enough."', type: 3 },
+  { id: 13, tag: "Quote", prompt: '"I don\'t want to be fixed. I want to be understood."', type: 4 },
+  { id: 14, tag: "Quote", prompt: '"I know a tremendous amount about a small number of things, and I\'m okay with that."', type: 5 },
+  { id: 15, tag: "Quote", prompt: '"I don\'t fully trust my own judgment. That\'s why I need people I can check with."', type: 6 },
+  { id: 16, tag: "Quote", prompt: '"The worst feeling isn\'t sadness. It\'s boredom. Or being trapped."', type: 7 },
+  { id: 17, tag: "Quote", prompt: '"Vulnerability isn\'t weakness. I know that intellectually. Getting my body to believe it is another matter."', type: 8 },
+  { id: 18, tag: "Inner Dialogue", prompt: '"When you ask me what I want, I genuinely don\'t know. I know what I don\'t want. But for myself? It\'s blank."', type: 9 },
+];
+
+function getDateKey(): string {
+  return new Intl.DateTimeFormat("en-CA").format(new Date());
+}
+
+function getDailyCards() {
+  const dayOfYear = (() => {
+    const now = new Date();
+    const start = new Date(now.getFullYear(), 0, 0);
+    return Math.floor((now.getTime() - start.getTime()) / 86400000);
+  })();
+  const idx1 = dayOfYear % DAILY_CHALLENGE_CARDS.length;
+  const idx2 = (dayOfYear + 1) % DAILY_CHALLENGE_CARDS.length;
+  return [DAILY_CHALLENGE_CARDS[idx1], DAILY_CHALLENGE_CARDS[idx2]];
+}
+
+const TYPE_NAMES: Record<number, string> = {
+  1: "Type 1", 2: "Type 2", 3: "Type 3",
+  4: "Type 4", 5: "Type 5", 6: "Type 6",
+  7: "Type 7", 8: "Type 8", 9: "Type 9",
+};
 import WeeklyChallengeCard from "./WeeklyChallengeCard";
 import PetSprite from "@/components/PetSprite";
 import ChibiSprite from "@/components/ChibiSprite";
@@ -174,7 +218,7 @@ export default function HubView({
     <div
       className="min-h-screen"
       style={{
-        background: "linear-gradient(160deg, #faf5ff 0%, #fdf4ff 50%, #fff1f2 100%)",
+        background: "#0f0a1e",
       }}
     >
       <div className="max-w-2xl mx-auto px-4 pt-10 pb-32">
@@ -301,12 +345,12 @@ export default function HubView({
             >
               <div
                 className="px-4 py-3 flex items-start gap-3"
-                style={{ background: "linear-gradient(135deg, #fef3c7 0%, #fde68a 100%)", border: "1px solid #fbbf24" }}
+                style={{ background: "rgba(245,158,11,0.15)", border: "1px solid rgba(245,158,11,0.3)" }}
               >
                 <div className="text-2xl shrink-0 mt-0.5">🪙</div>
                 <div className="flex-1">
-                  <p className="text-sm font-bold text-amber-900">You earned tokens!</p>
-                  <p className="text-xs text-amber-700 mt-0.5 leading-relaxed">
+                  <p className="text-sm font-bold" style={{ color: "#fbbf24" }}>You earned tokens!</p>
+                  <p className="text-xs mt-0.5 leading-relaxed" style={{ color: "rgba(251,191,36,0.8)" }}>
                     Tokens are your in-app currency. Spend them in the{" "}
                     <span className="font-semibold">Store</span> on streak freezes, pet accessories, and more.
                   </p>
@@ -586,7 +630,7 @@ export default function HubView({
                               height: node.status === "current" ? 44 : 40,
                               background: node.status === "completed"
                                 ? "linear-gradient(to bottom, #8b5cf6, #ec4899)"
-                                : "#e2e8f0",
+                                : "rgba(255,255,255,0.12)",
                               opacity: node.status === "completed" ? 0.6 : 1,
                             }}
                           />
@@ -787,6 +831,116 @@ export default function HubView({
             onClaim={onClaimWeeklyReward ?? (() => {})}
           />
         )}
+
+        {/* ── Daily Type Challenge ── */}
+        {(() => {
+          const dateKey = getDateKey();
+          const storageKey = `psyche-type-challenge-done-${dateKey}`;
+          // eslint-disable-next-line react-hooks/rules-of-hooks
+          const [challengeDone, setChallengeDone] = useState(false);
+          // eslint-disable-next-line react-hooks/rules-of-hooks
+          useEffect(() => {
+            try {
+              setChallengeDone(!!localStorage.getItem(storageKey));
+            } catch {}
+          // eslint-disable-next-line react-hooks/exhaustive-deps
+          }, []);
+
+          const dailyCards = getDailyCards();
+
+          return (
+            <motion.div
+              initial={{ opacity: 1, y: 0 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.38 }}
+              className="mb-6"
+            >
+              <div
+                className={`rounded-2xl border overflow-hidden transition-all ${
+                  challengeDone ? "border-emerald-200" : "border-violet-200/60 shadow-sm"
+                }`}
+                style={challengeDone ? { background: "#f0fdf4" } : { background: "rgba(139,92,246,0.06)", backdropFilter: "blur(8px)" }}
+              >
+                {/* Header */}
+                <div
+                  className="flex items-center gap-3 px-4 py-3 border-b"
+                  style={challengeDone ? { borderColor: "#bbf7d0" } : { borderColor: "rgba(139,92,246,0.12)" }}
+                >
+                  <div
+                    className="w-8 h-8 rounded-xl flex items-center justify-center shrink-0"
+                    style={challengeDone
+                      ? { background: "#dcfce7" }
+                      : { background: "linear-gradient(135deg, #8b5cf6, #d946ef)" }}
+                  >
+                    {challengeDone
+                      ? <CheckCircle className="w-4 h-4 text-emerald-500" />
+                      : <Brain className="w-4 h-4 text-white" />
+                    }
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <p className={`text-[10px] font-bold uppercase tracking-wide ${challengeDone ? "text-emerald-600" : "text-violet-600"}`}>
+                      Today&apos;s Type Challenge ✦
+                    </p>
+                    <p className={`text-sm font-medium ${challengeDone ? "text-emerald-700" : "text-slate-700"}`}>
+                      {challengeDone ? "Challenge complete!" : "Can you identify the type?"}
+                    </p>
+                  </div>
+                  <Link
+                    href="/type-match"
+                    className="flex items-center gap-1 text-xs font-semibold shrink-0"
+                    style={{ color: challengeDone ? "#059669" : "#8b5cf6" }}
+                    onClick={() => {
+                      try {
+                        localStorage.setItem(storageKey, "1");
+                        setChallengeDone(true);
+                      } catch {}
+                    }}
+                  >
+                    {challengeDone ? "Play again" : "Play full game"}
+                    <ArrowRight className="w-3 h-3" />
+                  </Link>
+                </div>
+
+                {/* Cards preview */}
+                {!challengeDone && (
+                  <div className="p-3 space-y-2">
+                    {dailyCards.map((card) => (
+                      <Link
+                        key={card.id}
+                        href="/type-match"
+                        className="block"
+                        onClick={() => {
+                          try {
+                            localStorage.setItem(storageKey, "1");
+                            setChallengeDone(true);
+                          } catch {}
+                        }}
+                      >
+                        <div
+                          className="rounded-xl p-3 border transition-all hover:scale-[1.01]"
+                          style={{ background: "rgba(255,255,255,0.7)", borderColor: "rgba(139,92,246,0.15)" }}
+                        >
+                          <span
+                            className="inline-block text-[9px] font-bold uppercase tracking-wide px-2 py-0.5 rounded-full mb-1.5"
+                            style={{ background: "rgba(139,92,246,0.1)", color: "#8b5cf6" }}
+                          >
+                            {card.tag}
+                          </span>
+                          <p className="text-[13px] text-slate-700 leading-snug font-serif italic line-clamp-2">
+                            {card.prompt}
+                          </p>
+                          <p className="text-[10px] text-violet-500 font-semibold mt-1.5">
+                            Tap to guess the type →
+                          </p>
+                        </div>
+                      </Link>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </motion.div>
+          );
+        })()}
 
         {/* ── Today's Reading card ── */}
         {onStartReading && (

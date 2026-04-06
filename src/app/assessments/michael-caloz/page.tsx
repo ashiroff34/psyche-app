@@ -17,7 +17,7 @@ export default function MichaelCalozPage() {
     return (
       <div className="min-h-screen">
         <div className="max-w-2xl mx-auto px-4 pt-6">
-          <button onClick={() => router.back()} className="flex items-center gap-1 text-sm text-slate-400 hover:text-slate-600 transition mb-4">
+          <button onClick={() => router.back()} className="flex items-center gap-1 text-sm transition mb-4" style={{ color: "rgba(255,255,255,0.5)" }}>
             <ArrowLeft className="w-4 h-4" /> Back
           </button>
         </div>
@@ -32,8 +32,8 @@ export default function MichaelCalozPage() {
         <button onClick={() => router.back()} className="flex items-center gap-1 text-sm text-slate-400 hover:text-slate-600 transition mb-4">
           <ArrowLeft className="w-4 h-4" /> Back
         </button>
-        <h1 className="text-2xl font-serif font-bold text-slate-900 mb-1">Structured Type Assessment</h1>
-        <p className="text-sm text-slate-400 mb-2">Rate statements organized by theme, motivation, fear, self-image, relationships, and more.</p>
+        <h1 className="text-2xl font-serif font-bold mb-1" style={{ color: "rgba(255,255,255,0.95)" }}>Structured Type Assessment</h1>
+        <p className="text-sm mb-2" style={{ color: "rgba(255,255,255,0.5)" }}>Rate statements organized by theme, motivation, fear, self-image, relationships, and more.</p>
       </div>
       <StructuredAssessment
         sections={calozSections}

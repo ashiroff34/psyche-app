@@ -72,7 +72,7 @@ export default function GameIntro() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 80, scale: 0.95 }}
             transition={{ type: "spring", stiffness: 320, damping: 28 }}
-            className="fixed bottom-0 left-0 right-0 z-[80] max-w-lg mx-auto bg-white rounded-t-3xl shadow-2xl pb-10 overflow-hidden"
+            className="fixed bottom-0 left-0 right-0 z-[80] max-w-lg mx-auto rounded-t-3xl shadow-2xl pb-10 overflow-hidden" style={{ background: "rgba(20,15,40,0.98)", border: "1px solid rgba(255,255,255,0.1)" }}
           >
             {/* Top gradient accent */}
             <div className={`h-1.5 w-full bg-gradient-to-r ${slides[step].iconBg}`} />
@@ -83,7 +83,7 @@ export default function GameIntro() {
                 <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${slides[step].iconBg} flex items-center justify-center shadow-lg`}>
                   {slides[step].icon}
                 </div>
-                <button onClick={dismiss} className="text-slate-300 hover:text-slate-500 transition-colors mt-1">
+                <button onClick={dismiss} className="transition-colors mt-1" style={{ color: "rgba(255,255,255,0.4)" }}>
                   <X className="w-5 h-5" />
                 </button>
               </div>
@@ -93,7 +93,7 @@ export default function GameIntro() {
                 {slides.map((_, i) => (
                   <div
                     key={i}
-                    className={`h-1 rounded-full transition-all duration-300 ${i === step ? "w-6 bg-indigo-500" : "w-2 bg-slate-200"}`}
+                    className={`h-1 rounded-full transition-all duration-300 ${i === step ? "w-6 bg-indigo-500" : "w-2 bg-white/20"}`}
                   />
                 ))}
               </div>
@@ -106,8 +106,8 @@ export default function GameIntro() {
                   exit={{ opacity: 0, x: -20 }}
                   transition={{ duration: 0.2 }}
                 >
-                  <h2 className="text-xl font-bold text-slate-900 mb-2">{slides[step].title}</h2>
-                  <p className="text-sm text-slate-600 leading-relaxed">{slides[step].body}</p>
+                  <h2 className="text-xl font-bold mb-2" style={{ color: "rgba(255,255,255,0.95)" }}>{slides[step].title}</h2>
+                  <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.65)" }}>{slides[step].body}</p>
                 </motion.div>
               </AnimatePresence>
 

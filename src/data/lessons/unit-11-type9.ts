@@ -3,12 +3,13 @@
 // 4 lessons × 12 exercises each
 // ─────────────────────────────────────────────────────────────────────────────
 
-import type { Lesson } from "@/types/lessons";
+import type { Lesson, FreeRecallContent, InterleavingExerciseContent } from "@/types/lessons";
 
 // ── Lesson 1: Core Motivation, Fear & Desire ────────────────────────────────
 
 const lesson1: Lesson = {
   id: "u11-l1",
+  scaffoldStep: 2 as const,
   unitId: "type-9",
   order: 1,
   title: "The Peacemaker's Core",
@@ -210,6 +211,7 @@ const lesson1: Lesson = {
 
 const lesson2: Lesson = {
   id: "u11-l2",
+  scaffoldStep: 2 as const,
   unitId: "type-9",
   order: 2,
   title: "Sloth, Right Action & Health",
@@ -408,6 +410,17 @@ const lesson2: Lesson = {
           "This is the most important thing to understand about Nine's Sloth: it's not about work ethic. A Nine can be exhausted from helping everyone else while being completely asleep to their own needs.",
       },
     },
+    {
+      id: "u11-l2-e13",
+      difficulty: 3,
+      content: {
+        type: "free-recall",
+        prompt: "In your own words, describe the Type 9's relationship to their own desires and will. What happens to it and why?",
+        keyTerms: ["merge", "conflict", "harmony", "forgetting", "sloth", "agenda", "self-erasure"],
+        minWords: 15,
+        modelAnswer: "Type 9s have a complicated and often tragic relationship with their own will. At the core is a belief that expressing their desires and preferences will cause conflict and disrupt the harmony they desperately need to maintain. So instead of asserting themselves, they gradually merge with their environment — adopting the agendas, preferences, and priorities of others. The Nine's own desires don't disappear; they go underground. The passion of Sloth isn't laziness — it's a kind of psychic self-erasure where the Nine falls asleep to themselves. Over time they can genuinely lose track of what they want, having spent so long forgetting it in favor of keeping the peace.",
+      } as FreeRecallContent,
+    },
   ],
 };
 
@@ -415,6 +428,7 @@ const lesson2: Lesson = {
 
 const lesson3: Lesson = {
   id: "u11-l3",
+  scaffoldStep: 4 as const,
   unitId: "type-9",
   order: 3,
   title: "Wings & Lines",
@@ -602,6 +616,7 @@ const lesson3: Lesson = {
 
 const lesson4: Lesson = {
   id: "u11-l4",
+  scaffoldStep: 1 as const,
   unitId: "type-9",
   order: 4,
   title: "Recognizing the Peacemaker",
@@ -797,6 +812,32 @@ const lesson4: Lesson = {
         explanation:
           "The most reliable Nine signal is the consistent inability (or unwillingness) to state their own preference. 'I'm fine with whatever you want' is the Nine's catchphrase, and they usually believe it themselves.",
       },
+    },
+    {
+      id: "u11-l4-e13",
+      difficulty: 3,
+      content: {
+        type: "interleaving",
+        title: "Types 9, 2 & 5 — Identify the motivation",
+        typeNumbers: [9, 2, 5],
+        items: [
+          {
+            statement: "Agrees with both sides of a disagreement in the same conversation — not from dishonesty, but from a genuine merging with whoever they're currently talking to.",
+            correctType: 9,
+            explanation: "The Nine loses their own perspective in the presence of others. Merging is not manipulation, it's the dissolution of self.",
+          },
+          {
+            statement: "Spends the evening reading rather than joining friends — because the social engagement would require more output than they currently have to give.",
+            correctType: 5,
+            explanation: "The Five is protecting their limited felt resources. Solitude is conservation, not avoidance.",
+          },
+          {
+            statement: "Sends a check-in text to a friend going through difficulty — primarily because knowing they're needed gives them a sense of secure connection.",
+            correctType: 2,
+            explanation: "The Two's attentiveness is tied to their need to be needed and loved in return.",
+          },
+        ],
+      } as InterleavingExerciseContent,
     },
   ],
 };

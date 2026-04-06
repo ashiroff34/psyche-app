@@ -16,46 +16,56 @@ import {
   ArrowLeftRight,
   BookOpen,
   Flame,
-  Gamepad2,
   Clock,
   Coins,
   Cat,
   ChevronLeft,
-  MoreHorizontal,
   Trophy,
   Zap,
   Moon,
-  RotateCcw,
   Bug,
   Settings,
 } from "lucide-react";
 import OuroborosLogo from "@/components/OuroborosLogo";
+import SearchComponent from "@/components/Search";
 
 // ── Bottom Tab Bar (5 main tabs, Duolingo-style) ──────────────────────────
 
 const bottomTabs = [
   { href: "/", label: "Home", icon: Home },
-  { href: "/daily", label: "Daily", icon: Flame },
+  { href: "/daily", label: "Learn", icon: Flame },
   { href: "/avatar", label: "Pet", icon: Cat },
   { href: "/store", label: "Store", icon: Coins },
   { href: "/profile", label: "Profile", icon: UserCircle },
 ];
 
-// ── "More" items (accessible from top bar) ─────────────────────────────────
+// ── "More" items — grouped into 3 sections ─────────────────────────────────
 
-const moreItems = [
-  { href: "/lessons", label: "Lessons", icon: BookOpen },
-  { href: "/game", label: "Progress & Badges", icon: Trophy },
-  { href: "/enneagram", label: "Enneagram", icon: Compass },
-  { href: "/cognitive", label: "Cognitive Functions", icon: Brain },
-  { href: "/assessments", label: "Type Assessments", icon: Zap },
-  { href: "/enneagram/learn", label: "Learn Enneagram", icon: BookOpen },
-  { href: "/cognitive/learn", label: "Learn Cognitive", icon: Brain },
-  { href: "/journal", label: "Inner Work", icon: Beaker },
-  { href: "/compare", label: "Compare Types", icon: BookOpen },
-  { href: "/correlations", label: "Correlations", icon: ArrowLeftRight },
-  { href: "/history", label: "History & Origins", icon: Clock },
-  { href: "/dashboard", label: "Dashboard", icon: Gamepad2 },
+const moreGroups = [
+  {
+    label: "Learn",
+    items: [
+      { href: "/lessons", label: "Curriculum Map", icon: BookOpen },
+      { href: "/game", label: "Progress", icon: Trophy },
+      { href: "/journal", label: "Inner Work", icon: Beaker },
+    ],
+  },
+  {
+    label: "Assess",
+    items: [
+      { href: "/assessments", label: "Type Assessments", icon: Zap },
+      { href: "/compare", label: "Compare Types", icon: ArrowLeftRight },
+    ],
+  },
+  {
+    label: "Explore",
+    items: [
+      { href: "/enneagram", label: "Enneagram", icon: Compass },
+      { href: "/cognitive", label: "Cognitive Functions", icon: Brain },
+      { href: "/correlations", label: "Correlations", icon: ArrowLeftRight },
+      { href: "/history", label: "History & Origins", icon: Clock },
+    ],
+  },
 ];
 
 // ── More Menu (slide-up sheet on mobile, dropdown on desktop) ───────────────
@@ -120,27 +130,31 @@ function MoreMenu({ pathname }: { pathname: string }) {
             className="absolute right-0 top-full mt-2 w-64 rounded-2xl overflow-hidden z-50"
             style={{ background: "rgba(22,12,48,0.97)", border: "1px solid rgba(139,92,246,0.18)", boxShadow: "0 16px 48px rgba(0,0,0,0.6), 0 0 0 1px rgba(139,92,246,0.1)", backdropFilter: "blur(24px)" }}
           >
-            <div className="p-2 max-h-[60vh] overflow-y-auto">
-              <p className="text-[10px] font-bold uppercase tracking-wider px-3 py-2" style={{ color: "rgba(167,139,250,0.6)" }}>All Features</p>
-              {moreItems.map((item) => {
-                const isActive = pathname === item.href || (item.href !== "/" && pathname.startsWith(item.href));
-                const Icon = item.icon;
-                return (
-                  <Link
-                    key={item.href}
-                    href={item.href}
-                    onClick={() => setOpen(false)}
-                    className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm transition-all"
-                    style={{
-                      background: isActive ? "rgba(139,92,246,0.18)" : "transparent",
-                      color: isActive ? "#c4b5fd" : "rgba(255,255,255,0.7)",
-                    }}
-                  >
-                    <Icon className="w-4 h-4" />
-                    {item.label}
-                  </Link>
-                );
-              })}
+            <div className="p-2 max-h-[70vh] overflow-y-auto">
+              {moreGroups.map((group, gi) => (
+                <div key={group.label} className={gi > 0 ? "mt-1 pt-1" : ""} style={gi > 0 ? { borderTop: "1px solid rgba(255,255,255,0.07)" } : undefined}>
+                  <p className="text-[10px] font-bold uppercase tracking-wider px-3 py-1.5" style={{ color: "rgba(167,139,250,0.5)" }}>{group.label}</p>
+                  {group.items.map((item) => {
+                    const isActive = pathname === item.href || (item.href !== "/" && pathname.startsWith(item.href));
+                    const Icon = item.icon;
+                    return (
+                      <Link
+                        key={item.href}
+                        href={item.href}
+                        onClick={() => setOpen(false)}
+                        className="flex items-center gap-3 px-3 py-2 rounded-xl text-sm transition-all"
+                        style={{
+                          background: isActive ? "rgba(139,92,246,0.18)" : "transparent",
+                          color: isActive ? "#c4b5fd" : "rgba(255,255,255,0.7)",
+                        }}
+                      >
+                        <Icon className="w-4 h-4" />
+                        {item.label}
+                      </Link>
+                    );
+                  })}
+                </div>
+              ))}
               {/* Settings & utilities */}
               <div className="mt-1 pt-1" style={{ borderTop: "1px solid rgba(255,255,255,0.08)" }}>
                 <Link
@@ -351,8 +365,9 @@ export default function Navigation() {
               </Link>
             </div>
 
-            {/* Right side: more menu */}
+            {/* Right side: search + more menu */}
             <div className="flex items-center gap-1.5">
+              <SearchComponent />
               <MoreMenu pathname={pathname} />
             </div>
           </div>

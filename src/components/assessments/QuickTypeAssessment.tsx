@@ -304,10 +304,10 @@ const headQuestions: Question[] = [
     text: "What do you most protect?",
     options: [
       {
-        text: "Your private inner world and energy",
-        detail: "You need alone time to think and recharge",
+        text: "I need to thoroughly understand something before I can trust it or invest myself in it — engaging without enough information feels dangerous",
+        detail: "Comprehension as a prerequisite for safety",
         types: [5], weight: 2,
-        learn: "Riso & Hudson identify Type 5's core desire as 'to be capable and competent — to be able to understand the world.' The way 5s protect this is by managing their exposure and energy output with care. They don't give themselves to most situations freely; they evaluate whether the investment is worth the depletion.\n\nNaranjo wrote about 5s building a wall around themselves — not a wall of hostility, but of privacy. They give out very little of themselves: opinions, emotions, time, and self are all carefully rationed. The interior world is where they feel most real and most safe.\n\nRiso & Hudson note that this creates both the 5's great strength — an extraordinarily rich inner life, unusual perspective, and depth of knowledge — and their great difficulty: the wall that protects also isolates, and the 5 can spend their life on the periphery of human experience, watching but not fully participating.",
+        learn: "This reflects Type 5's core motivation: to possess enough understanding and capability to feel safe engaging. The withdrawal is a consequence, not the cause.\n\nRiso & Hudson identify Type 5's core desire as 'to be capable and competent — to be able to understand the world.' The way 5s protect this is by managing their exposure and energy output with care. They don't give themselves to most situations freely; they evaluate whether the investment is worth the depletion.\n\nNaranjo wrote about 5s building a wall around themselves — not a wall of hostility, but of privacy. They give out very little of themselves: opinions, emotions, time, and self are all carefully rationed. The interior world is where they feel most real and most safe. But the retreat inward is driven by a need for mastery and safety — when the 5 understands something fully, they can finally trust it enough to engage.",
       },
       {
         text: "Your security and trusted alliances",

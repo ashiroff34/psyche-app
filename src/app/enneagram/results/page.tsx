@@ -38,6 +38,7 @@ import { useProfile } from "@/hooks/useProfile";
 import { markTopicComplete } from "@/hooks/useGameState";
 import GuidedJourney from "@/components/GuidedJourney";
 import NextStepBanner from "@/components/NextStepBanner";
+import ConfidenceBadge from "@/components/ConfidenceBadge";
 
 // ── Famous examples ───────────────────────────────────────────────────────
 const famousExamples: Record<number, { name: string; note: string }[]> = {
@@ -202,6 +203,71 @@ const levelsOfDevelopment: Record<number, { level: number; label: string; descri
 
 const tabs = ["Overview", "Subtypes", "Levels", "Growth", "Deep Psychology"];
 
+// ── Next assessment ladder ────────────────────────────────────────────────────
+const NEXT_ASSESSMENT_LADDER = [
+  {
+    id: "self-id",
+    label: "Self-Identification",
+    desc: "Read all 9 types and recognize yourself — the expert-recommended method",
+    href: "/assessments/self-id",
+    points: "+15%",
+    color: "#f59e0b",
+  },
+  {
+    id: "essential-enneagram",
+    label: "Essential Enneagram",
+    desc: "Stanford paragraph method — choose the paragraph that fits your inner world",
+    href: "/assessments/essential-enneagram",
+    points: "+15%",
+    color: "#a78bfa",
+  },
+  {
+    id: "integrative",
+    label: "Integrative Assessment",
+    desc: "175-question Likert scale based on validated instruments",
+    href: "/assessments/ieq9-integrative",
+    points: "+20%",
+    color: "#38bdf8",
+  },
+  {
+    id: "deep",
+    label: "Deep Assessment",
+    desc: "iEQ9-inspired 144 questions — the most thorough self-report option",
+    href: "/assessments/ieq9-integrative",
+    points: "+25%",
+    color: "#4ade80",
+  },
+];
+
+function NextAssessmentPrompt({ taken }: { taken: string[] }) {
+  const next = NEXT_ASSESSMENT_LADDER.find((a) => !taken.includes(a.id));
+  if (!next) return null;
+
+  return (
+    <Link
+      href={next.href}
+      className="flex items-center gap-4 p-4 rounded-2xl transition-all hover:-translate-y-0.5 active:scale-[0.98]"
+      style={{ background: `${next.color}12`, border: `1px solid ${next.color}30` }}
+    >
+      <div
+        className="w-10 h-10 rounded-xl flex items-center justify-center text-sm font-black flex-shrink-0"
+        style={{ background: `${next.color}22`, color: next.color }}
+      >
+        {next.points}
+      </div>
+      <div className="flex-1 min-w-0">
+        <p className="text-sm font-semibold" style={{ color: "rgba(255,255,255,0.88)" }}>
+          Increase confidence → {next.label}
+        </p>
+        <p className="text-xs mt-0.5 leading-snug" style={{ color: "rgba(255,255,255,0.45)" }}>
+          {next.desc}
+        </p>
+      </div>
+      <ChevronRight className="w-4 h-4 flex-shrink-0" style={{ color: "rgba(255,255,255,0.3)" }} />
+    </Link>
+  );
+}
+
 // ── Main inner component ──────────────────────────────────────────────────
 function ResultsInner() {
   const searchParams = useSearchParams();
@@ -211,6 +277,7 @@ function ResultsInner() {
   const [expandedSubtype, setExpandedSubtype] = useState<string | null>(null);
   const [selectedLevel, setSelectedLevel] = useState<number | null>(null);
   const [growthMode, setGrowthMode] = useState<"integration" | "disintegration">("integration");
+  const [expandedDeepField, setExpandedDeepField] = useState<string | null>(null);
 
   const typeNum = parseInt(searchParams.get("type") ?? String(profile.enneagramType ?? "1"));
   const typeData = enneagramTypes.find((t) => t.number === typeNum);
@@ -235,23 +302,23 @@ function ResultsInner() {
   };
 
   // Save to localStorage on mount
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     if (!typeData) return;
     updateProfile({
       enneagramType: typeNum,
       savedAt: new Date().toISOString(),
     });
-    // Mark learning path progress
     markTopicComplete("enneagram-basics");
     markTopicComplete("core-type");
-  }, [typeNum]);
+  }, [typeNum]); // intentionally omitting updateProfile — it's stable
 
   if (!typeData) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
+      <div className="min-h-screen flex items-center justify-center" style={{ background: "#0f0a1e" }}>
         <div className="text-center">
-          <AlertCircle className="w-10 h-10 text-slate-300 mx-auto mb-3" />
-          <p className="text-slate-500">No type found. <Link href="/enneagram/assess" className="text-sky-500 underline">Take the assessment</Link></p>
+          <AlertCircle className="w-10 h-10 mx-auto mb-3" style={{ color: "rgba(255,255,255,0.3)" }} />
+          <p style={{ color: "rgba(255,255,255,0.5)" }}>No type found. <Link href="/enneagram/assess" className="text-sky-500 underline">Take the assessment</Link></p>
         </div>
       </div>
     );
@@ -275,56 +342,47 @@ function ResultsInner() {
   const traitBarWidth = (idx: number, total: number) => `${Math.round(((total - idx) / total) * 80 + 20)}%`;
 
   return (
-    <div className="min-h-screen py-12">
+    <div className="min-h-screen py-12" style={{ background: "#0f0a1e" }}>
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
 
         {/* Hero Header */}
         <motion.div initial={{ opacity: 1, y: 0 }} animate={{ opacity: 1, y: 0 }} className="mb-8">
-          <div className="p-8 rounded-3xl bg-gradient-to-br from-sky-50 via-indigo-50 to-violet-50 border border-indigo-100">
+          <div className="p-8 rounded-3xl" style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.09)" }}>
             <div className="flex items-start justify-between gap-4 flex-wrap">
               <div className="flex-1">
                 <div className="flex items-center gap-2 flex-wrap mb-4">
-                  <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/80 border border-indigo-100 text-indigo-600 text-xs font-medium">
+                  <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-medium" style={{ background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.1)", color: "rgba(255,255,255,0.5)" }}>
                     <Compass className="w-3 h-3" /> {showTwo ? "Top Matches (iEQ9)" : "Your Enneagram Result"}
                   </div>
-                  {/* Confidence badge */}
-                  <div className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border text-xs font-medium ${
-                    confidence >= 60
-                      ? "bg-emerald-50 border-emerald-100 text-emerald-600"
-                      : confidence >= 35
-                      ? "bg-amber-50 border-amber-100 text-amber-600"
-                      : "bg-rose-50 border-rose-100 text-rose-500"
-                  }`}>
-                    <span className="w-1.5 h-1.5 rounded-full bg-current inline-block" />
-                    {confidence >= 60 ? "High confidence" : confidence >= 35 ? "Moderate confidence" : "Low confidence"} · {confidence}%
-                  </div>
+                  {/* Confidence badge — tappable */}
+                  <ConfidenceBadge confidenceOverride={confidence} />
                 </div>
 
                 {/* Primary type */}
                 <div className="flex items-center gap-3 mb-2">
-                  <span className="text-5xl font-serif font-bold text-slate-900">{typeData.number}</span>
+                  <span className="text-5xl font-serif font-bold" style={{ color: "rgba(255,255,255,0.92)" }}>{typeData.number}</span>
                   <div>
-                    <h1 className="text-2xl font-serif font-bold text-slate-900">{typeData.name}</h1>
+                    <h1 className="text-2xl font-serif font-bold" style={{ color: "rgba(255,255,255,0.92)" }}>{typeData.name}</h1>
                     <p className="text-sm text-indigo-500 font-medium">{typeData.alias}</p>
                   </div>
                 </div>
-                <p className="text-slate-600 max-w-lg leading-relaxed">{typeData.brief}</p>
+                <p className="max-w-lg leading-relaxed" style={{ color: "rgba(255,255,255,0.55)" }}>{typeData.brief}</p>
 
                 {/* Second type display when low confidence (iEQ9 reporting norm) */}
                 {showTwo && secondTypeData && (
-                  <div className="mt-4 p-4 rounded-2xl bg-white/60 border border-indigo-100">
+                  <div className="mt-4 p-4 rounded-2xl" style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.1)" }}>
                     <p className="text-xs font-mono text-amber-600 uppercase tracking-wider mb-2">
                       Also a strong match, read both
                     </p>
                     <div className="flex items-center gap-3">
-                      <span className="text-3xl font-serif font-bold text-slate-700">{secondTypeData.number}</span>
+                      <span className="text-3xl font-serif font-bold" style={{ color: "rgba(255,255,255,0.75)" }}>{secondTypeData.number}</span>
                       <div>
-                        <p className="font-semibold text-slate-800 text-sm">{secondTypeData.name}</p>
-                        <p className="text-xs text-slate-500">{secondTypeData.alias}</p>
+                        <p className="font-semibold text-sm" style={{ color: "rgba(255,255,255,0.85)" }}>{secondTypeData.name}</p>
+                        <p className="text-xs" style={{ color: "rgba(255,255,255,0.45)" }}>{secondTypeData.alias}</p>
                       </div>
                       <div className="ml-auto text-2xl">{secondTypeData.icon}</div>
                     </div>
-                    <p className="text-xs text-slate-500 mt-2 leading-relaxed">
+                    <p className="text-xs mt-2 leading-relaxed" style={{ color: "rgba(255,255,255,0.45)" }}>
                       Your scores for types {typeData.number} and {secondTypeData.number} are close. Per iEQ9 reporting
                       norms, both are considered valid candidates, read both descriptions and decide which resonates
                       more deeply at the level of motivation, not behavior.
@@ -332,12 +390,12 @@ function ResultsInner() {
                   </div>
                 )}
 
-                {/* Low confidence nudge (even if not showing two types) */}
-                {!showTwo && confidence < 50 && (
-                  <div className="mt-4 p-3 rounded-xl bg-amber-50 border border-amber-100">
-                    <p className="text-xs text-amber-700 leading-relaxed">
-                      Your confidence score is moderate. Consider taking the deeper assessment or reviewing
-                      the type descriptions for your top 2 results before deciding.
+                {/* Low confidence nudge */}
+                {confidence < 65 && (
+                  <div className="mt-4 p-3 rounded-xl" style={{ background: "rgba(245,158,11,0.1)", border: "1px solid rgba(245,158,11,0.25)" }}>
+                    <p className="text-xs leading-relaxed" style={{ color: "rgba(245,158,11,0.9)" }}>
+                      <strong>Confidence: {confidence}%</strong> — the quick test is just a starting point.
+                      Tap the badge above to see which assessments will lock in your type.
                     </p>
                   </div>
                 )}
@@ -347,7 +405,7 @@ function ResultsInner() {
 
             {/* Instinct variant display */}
             {dominantInstinct && (
-              <div className="mt-5 p-4 rounded-2xl bg-white/60 border border-violet-100">
+              <div className="mt-5 p-4 rounded-2xl" style={{ background: "rgba(139,92,246,0.1)", border: "1px solid rgba(139,92,246,0.25)" }}>
                 <div className="flex items-center gap-2 mb-1">
                   <span className="text-xs font-mono text-violet-600 uppercase tracking-wider">
                     Dominant Instinct
@@ -356,38 +414,40 @@ function ResultsInner() {
                     {dominantInstinct}
                   </span>
                 </div>
-                <p className="text-sm font-medium text-slate-800">{instinctLabel[dominantInstinct]}</p>
-                <p className="text-xs text-slate-500 mt-0.5 leading-relaxed">{instinctDesc[dominantInstinct]}</p>
+                <p className="text-sm font-medium" style={{ color: "rgba(255,255,255,0.85)" }}>{instinctLabel[dominantInstinct]}</p>
+                <p className="text-xs mt-0.5 leading-relaxed" style={{ color: "rgba(255,255,255,0.45)" }}>{instinctDesc[dominantInstinct]}</p>
               </div>
             )}
 
             {/* Wings quick display */}
             <div className="mt-5 flex gap-3 flex-wrap">
-              <div className="px-4 py-2 rounded-xl bg-white/70 border border-indigo-100 text-xs text-slate-600">
-                <span className="font-medium text-indigo-600">Wing:</span> {typeData.wings.left}
+              <div className="px-4 py-2 rounded-xl text-xs" style={{ background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.1)", color: "rgba(255,255,255,0.55)" }}>
+                <span className="font-medium text-indigo-400">Wing:</span> {typeData.wings.left}
               </div>
-              <div className="px-4 py-2 rounded-xl bg-white/70 border border-indigo-100 text-xs text-slate-600">
-                <span className="font-medium text-indigo-600">Wing:</span> {typeData.wings.right}
+              <div className="px-4 py-2 rounded-xl text-xs" style={{ background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.1)", color: "rgba(255,255,255,0.55)" }}>
+                <span className="font-medium text-indigo-400">Wing:</span> {typeData.wings.right}
               </div>
-              <div className="px-4 py-2 rounded-xl bg-white/70 border border-emerald-100 text-xs text-slate-600">
-                <span className="font-medium text-emerald-600">Growth →</span> Type {typeData.integrationLine}
+              <div className="px-4 py-2 rounded-xl text-xs" style={{ background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.1)", color: "rgba(255,255,255,0.55)" }}>
+                <span className="font-medium text-emerald-400">Growth →</span> Type {typeData.integrationLine}
               </div>
-              <div className="px-4 py-2 rounded-xl bg-white/70 border border-rose-100 text-xs text-slate-600">
-                <span className="font-medium text-rose-500">Stress →</span> Type {typeData.disintegrationLine}
+              <div className="px-4 py-2 rounded-xl text-xs" style={{ background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.1)", color: "rgba(255,255,255,0.55)" }}>
+                <span className="font-medium text-rose-400">Stress →</span> Type {typeData.disintegrationLine}
               </div>
             </div>
           </div>
         </motion.div>
 
         {/* Tabs */}
-        <div className="flex gap-1 p-1 bg-slate-100 rounded-2xl mb-6 overflow-x-auto">
+        <div className="flex gap-1 p-1 rounded-2xl mb-6 overflow-x-auto" style={{ background: "rgba(255,255,255,0.06)" }}>
           {tabs.map((tab, i) => (
             <button
               key={tab}
               onClick={() => setActiveTab(i)}
-              className={`flex-1 min-w-max px-4 py-2.5 rounded-xl text-sm font-medium transition-all ${
-                activeTab === i ? "bg-white text-slate-800 shadow-sm" : "text-slate-500 hover:text-slate-700"
-              }`}
+              className="flex-1 min-w-max px-4 py-2.5 rounded-xl text-sm font-medium transition-all"
+              style={activeTab === i
+                ? { background: "rgba(255,255,255,0.12)", color: "rgba(255,255,255,0.92)" }
+                : { color: "rgba(255,255,255,0.4)" }
+              }
             >
               {tab}
             </button>
@@ -399,51 +459,78 @@ function ResultsInner() {
           {activeTab === 0 && (
             <motion.div key="overview" initial={{ opacity: 1, y: 0 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} className="space-y-6">
 
+              {/* ── Core Wound + What They're Really Doing ── */}
+              {typeData.dropdownSections && (() => {
+                const coreWound = typeData.dropdownSections.find(s => s.title === "The Core Wound");
+                const reallyDoing = typeData.dropdownSections.find(s => s.title === "What They're Really Doing");
+                if (!coreWound && !reallyDoing) return null;
+                return (
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    {coreWound && (
+                      <div className="p-6 rounded-2xl" style={{ background: "#0f0a1e", border: "1px solid rgba(139,92,246,0.3)", boxShadow: "0 4px 24px rgba(139,92,246,0.12)" }}>
+                        <span className="inline-block text-[10px] font-bold uppercase tracking-widest mb-3 px-2 py-0.5 rounded-full" style={{ background: "rgba(139,92,246,0.18)", color: "#a78bfa", letterSpacing: "0.12em" }}>
+                          Core Wound
+                        </span>
+                        <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.78)" }}>{coreWound.content}</p>
+                      </div>
+                    )}
+                    {reallyDoing && (
+                      <div className="p-6 rounded-2xl" style={{ background: "#0f0a1e", border: "1px solid rgba(99,102,241,0.3)", boxShadow: "0 4px 24px rgba(99,102,241,0.12)" }}>
+                        <span className="inline-block text-[10px] font-bold uppercase tracking-widest mb-3 px-2 py-0.5 rounded-full" style={{ background: "rgba(99,102,241,0.18)", color: "#818cf8", letterSpacing: "0.12em" }}>
+                          What They&apos;re Really Doing
+                        </span>
+                        <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.78)" }}>{reallyDoing.content}</p>
+                      </div>
+                    )}
+                  </div>
+                );
+              })()}
+
               {/* Core Triad */}
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                <div className="p-5 rounded-2xl bg-rose-50 border border-rose-100">
+                <div className="p-5 rounded-2xl" style={{ background: "rgba(239,68,68,0.08)", border: "1px solid rgba(239,68,68,0.2)" }}>
                   <div className="flex items-center gap-2 mb-2">
                     <Shield className="w-4 h-4 text-rose-500" />
                     <span className="text-xs font-semibold text-rose-600 uppercase tracking-wide">Core Fear</span>
                   </div>
-                  <p className="text-slate-800 text-sm leading-relaxed">{typeData.coreFear}</p>
+                  <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.82)" }}>{typeData.coreFear}</p>
                 </div>
-                <div className="p-5 rounded-2xl bg-emerald-50 border border-emerald-100">
+                <div className="p-5 rounded-2xl" style={{ background: "rgba(34,197,94,0.08)", border: "1px solid rgba(34,197,94,0.2)" }}>
                   <div className="flex items-center gap-2 mb-2">
                     <Heart className="w-4 h-4 text-emerald-500" />
                     <span className="text-xs font-semibold text-emerald-600 uppercase tracking-wide">Core Desire</span>
                   </div>
-                  <p className="text-slate-800 text-sm leading-relaxed">{typeData.coreDesire}</p>
+                  <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.82)" }}>{typeData.coreDesire}</p>
                 </div>
-                <div className="p-5 rounded-2xl bg-sky-50 border border-sky-100">
+                <div className="p-5 rounded-2xl" style={{ background: "rgba(14,165,233,0.08)", border: "1px solid rgba(14,165,233,0.2)" }}>
                   <div className="flex items-center gap-2 mb-2">
                     <Zap className="w-4 h-4 text-sky-500" />
                     <span className="text-xs font-semibold text-sky-600 uppercase tracking-wide">Core Motivation</span>
                   </div>
-                  <p className="text-slate-800 text-sm leading-relaxed">{typeData.coreMotivation}</p>
+                  <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.82)" }}>{typeData.coreMotivation}</p>
                 </div>
               </div>
 
               {/* Full description */}
-              <div className="p-6 rounded-2xl bg-white border border-slate-100 shadow-sm">
-                <h3 className="text-sm font-semibold text-slate-800 mb-3 flex items-center gap-2">
-                  <BookOpen className="w-4 h-4 text-slate-400" /> Type Description
+              <div className="p-6 rounded-2xl" style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)" }}>
+                <h3 className="text-sm font-semibold mb-3 flex items-center gap-2" style={{ color: "rgba(255,255,255,0.85)" }}>
+                  <BookOpen className="w-4 h-4" style={{ color: "rgba(255,255,255,0.4)" }} /> Type Description
                 </h3>
-                <p className="text-slate-600 leading-relaxed">{typeData.description}</p>
+                <p className="leading-relaxed" style={{ color: "rgba(255,255,255,0.6)" }}>{typeData.description}</p>
               </div>
 
               {/* Key Traits Spectrum */}
-              <div className="p-6 rounded-2xl bg-white border border-slate-100 shadow-sm">
-                <h3 className="text-sm font-semibold text-slate-800 mb-4 flex items-center gap-2">
+              <div className="p-6 rounded-2xl" style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)" }}>
+                <h3 className="text-sm font-semibold mb-4 flex items-center gap-2" style={{ color: "rgba(255,255,255,0.85)" }}>
                   <Star className="w-4 h-4 text-amber-400" /> Key Traits
                 </h3>
                 <div className="space-y-3">
                   {typeData.keyTraits.map((trait, i) => (
                     <div key={trait}>
-                      <div className="flex justify-between text-xs text-slate-500 mb-1">
-                        <span className="font-medium text-slate-700">{trait}</span>
+                      <div className="flex justify-between text-xs mb-1" style={{ color: "rgba(255,255,255,0.4)" }}>
+                        <span className="font-medium" style={{ color: "rgba(255,255,255,0.75)" }}>{trait}</span>
                       </div>
-                      <div className="h-2 bg-slate-100 rounded-full overflow-hidden">
+                      <div className="h-2 rounded-full overflow-hidden" style={{ background: "rgba(255,255,255,0.08)" }}>
                         <motion.div
                           initial={{ width: 0 }}
                           animate={{ width: traitBarWidth(i, typeData.keyTraits.length) }}
@@ -457,19 +544,19 @@ function ResultsInner() {
               </div>
 
               {/* Famous Examples */}
-              <div className="p-6 rounded-2xl bg-white border border-slate-100 shadow-sm">
-                <h3 className="text-sm font-semibold text-slate-800 mb-4 flex items-center gap-2">
+              <div className="p-6 rounded-2xl" style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)" }}>
+                <h3 className="text-sm font-semibold mb-4 flex items-center gap-2" style={{ color: "rgba(255,255,255,0.85)" }}>
                   <User className="w-4 h-4 text-violet-400" /> Famous Examples
                 </h3>
                 <div className="grid grid-cols-2 gap-3">
                   {examples.map((ex) => (
-                    <div key={ex.name} className="flex items-start gap-3 p-3 rounded-xl bg-slate-50">
+                    <div key={ex.name} className="flex items-start gap-3 p-3 rounded-xl" style={{ background: "rgba(255,255,255,0.05)" }}>
                       <div className="w-8 h-8 rounded-full bg-gradient-to-br from-sky-100 to-indigo-100 flex items-center justify-center text-xs font-bold text-indigo-600 shrink-0">
                         {ex.name[0]}
                       </div>
                       <div>
-                        <div className="text-sm font-medium text-slate-800">{ex.name}</div>
-                        <div className="text-xs text-slate-400">{ex.note}</div>
+                        <div className="text-sm font-medium" style={{ color: "rgba(255,255,255,0.85)" }}>{ex.name}</div>
+                        <div className="text-xs" style={{ color: "rgba(255,255,255,0.4)" }}>{ex.note}</div>
                       </div>
                     </div>
                   ))}
@@ -478,7 +565,7 @@ function ResultsInner() {
 
               {/* Integration / Disintegration Lines */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div className="p-5 rounded-2xl bg-emerald-50 border border-emerald-100">
+                <div className="p-5 rounded-2xl" style={{ background: "rgba(34,197,94,0.08)", border: "1px solid rgba(34,197,94,0.2)" }}>
                   <div className="flex items-center gap-2 mb-3">
                     <TrendingUp className="w-4 h-4 text-emerald-500" />
                     <span className="text-xs font-semibold text-emerald-600 uppercase tracking-wide">Integration (Growth)</span>
@@ -487,11 +574,11 @@ function ResultsInner() {
                     <span className="text-2xl font-bold text-emerald-700">{typeData.integrationLine}</span>
                     <span className="text-sm text-emerald-700">{intLine?.name}</span>
                   </div>
-                  <p className="text-xs text-slate-600 leading-relaxed">
+                  <p className="text-xs leading-relaxed" style={{ color: "rgba(255,255,255,0.55)" }}>
                     In growth, Type {typeNum} takes on the healthy qualities of Type {typeData.integrationLine}: {intLine?.healthyTraits.slice(0, 3).join(", ")}.
                   </p>
                 </div>
-                <div className="p-5 rounded-2xl bg-rose-50 border border-rose-100">
+                <div className="p-5 rounded-2xl" style={{ background: "rgba(239,68,68,0.08)", border: "1px solid rgba(239,68,68,0.2)" }}>
                   <div className="flex items-center gap-2 mb-3">
                     <TrendingDown className="w-4 h-4 text-rose-500" />
                     <span className="text-xs font-semibold text-rose-600 uppercase tracking-wide">Disintegration (Stress)</span>
@@ -500,7 +587,7 @@ function ResultsInner() {
                     <span className="text-2xl font-bold text-rose-700">{typeData.disintegrationLine}</span>
                     <span className="text-sm text-rose-700">{disLine?.name}</span>
                   </div>
-                  <p className="text-xs text-slate-600 leading-relaxed">
+                  <p className="text-xs leading-relaxed" style={{ color: "rgba(255,255,255,0.55)" }}>
                     Under stress, Type {typeNum} takes on the average/unhealthy qualities of Type {typeData.disintegrationLine}: {disLine?.averageTraits.slice(0, 3).join(", ")}.
                   </p>
                 </div>
@@ -511,8 +598,8 @@ function ResultsInner() {
           {/* ── TAB 2: SUBTYPES ──────────────────────────────────────── */}
           {activeTab === 1 && (
             <motion.div key="subtypes" initial={{ opacity: 1, y: 0 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} className="space-y-5">
-              <div className="p-4 rounded-2xl bg-amber-50 border border-amber-100">
-                <p className="text-xs text-amber-700 leading-relaxed">
+              <div className="p-4 rounded-2xl" style={{ background: "rgba(245,158,11,0.08)", border: "1px solid rgba(245,158,11,0.2)" }}>
+                <p className="text-xs leading-relaxed" style={{ color: "rgba(245,158,11,0.85)" }}>
                   <strong>Instinctual Subtypes</strong> are how your core type's energy is filtered through one of three biological instincts: Self-Preservation (SP), Sexual/One-to-One (SX), or Social (SO). The same Enneagram type can look dramatically different depending on which instinct is dominant.
                 </p>
               </div>
@@ -528,11 +615,11 @@ function ResultsInner() {
                         setSelectedSubtype(inst);
                         updateProfile({ enneagramSubtype: inst });
                       }}
-                      className={`flex-1 py-2.5 rounded-xl text-xs font-semibold uppercase tracking-wider transition-all border ${
-                        (selectedSubtype ?? saved) === inst
-                          ? "bg-sky-500 text-white border-sky-500 shadow-md"
-                          : "bg-white text-slate-500 border-slate-200 hover:border-sky-200"
-                      }`}
+                      className="flex-1 py-2.5 rounded-xl text-xs font-semibold uppercase tracking-wider transition-all border"
+                      style={(selectedSubtype ?? saved) === inst
+                        ? { background: "rgb(14,165,233)", color: "white", borderColor: "rgb(14,165,233)" }
+                        : { background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.1)", color: "rgba(255,255,255,0.5)" }
+                      }
                     >
                       {inst === "sp" ? "Self-Pres" : inst === "sx" ? "Sexual" : "Social"}
                     </button>
@@ -548,13 +635,15 @@ function ResultsInner() {
                     key={sub.name}
                     initial={{ opacity: 1, y: 0 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className={`rounded-2xl border transition-all overflow-hidden ${
-                      isSelected ? "border-sky-300 shadow-md" : "border-slate-100"
-                    }`}
+                    className="rounded-2xl transition-all overflow-hidden"
+                    style={isSelected
+                      ? { border: "1px solid rgb(125,211,252)", boxShadow: "0 4px 16px rgba(14,165,233,0.2)" }
+                      : { border: "1px solid rgba(255,255,255,0.08)" }
+                    }
                   >
                     <button
                       onClick={() => setExpandedSubtype(isExpanded ? null : sub.name)}
-                      className="w-full text-left p-5 bg-white hover:bg-slate-50 transition"
+                      className="w-full text-left p-5 transition" style={{ background: "rgba(255,255,255,0.04)" }}
                     >
                       <div className="flex items-start justify-between gap-3">
                         <div className="flex-1">
@@ -575,10 +664,10 @@ function ResultsInner() {
                               <CheckCircle className="w-4 h-4 text-sky-500" />
                             )}
                           </div>
-                          <h3 className="font-semibold text-slate-800">{sub.name}</h3>
-                          <p className="text-xs text-indigo-500 font-medium">{sub.chestnutName}</p>
+                          <h3 className="font-semibold" style={{ color: "rgba(255,255,255,0.88)" }}>{sub.name}</h3>
+                          <p className="text-xs text-indigo-400 font-medium">{sub.chestnutName}</p>
                         </div>
-                        {isExpanded ? <ChevronUp className="w-4 h-4 text-slate-400 shrink-0 mt-1" /> : <ChevronDown className="w-4 h-4 text-slate-400 shrink-0 mt-1" />}
+                        {isExpanded ? <ChevronUp className="w-4 h-4 shrink-0 mt-1" style={{ color: "rgba(255,255,255,0.3)" }} /> : <ChevronDown className="w-4 h-4 shrink-0 mt-1" style={{ color: "rgba(255,255,255,0.3)" }} />}
                       </div>
                     </button>
 
@@ -591,14 +680,14 @@ function ResultsInner() {
                           transition={{ duration: 0.2 }}
                           className="overflow-hidden"
                         >
-                          <div className="px-5 pb-5 bg-white space-y-4 border-t border-slate-50">
-                            <p className="text-slate-600 text-sm leading-relaxed pt-4">{sub.description}</p>
+                          <div className="px-5 pb-5 space-y-4" style={{ background: "rgba(255,255,255,0.04)", borderTop: "1px solid rgba(255,255,255,0.06)" }}>
+                            <p className="text-sm leading-relaxed pt-4" style={{ color: "rgba(255,255,255,0.6)" }}>{sub.description}</p>
 
                             <div>
-                              <h4 className="text-xs font-semibold text-slate-700 uppercase tracking-wide mb-2">Key Patterns</h4>
+                              <h4 className="text-xs font-semibold uppercase tracking-wide mb-2" style={{ color: "rgba(255,255,255,0.75)" }}>Key Patterns</h4>
                               <ul className="space-y-1.5">
                                 {sub.keyPatterns.map((p) => (
-                                  <li key={p} className="flex items-start gap-2 text-sm text-slate-600">
+                                  <li key={p} className="flex items-start gap-2 text-sm" style={{ color: "rgba(255,255,255,0.6)" }}>
                                     <div className="w-1.5 h-1.5 rounded-full bg-sky-400 mt-1.5 shrink-0" />
                                     {p}
                                   </li>
@@ -606,14 +695,14 @@ function ResultsInner() {
                               </ul>
                             </div>
 
-                            <div className="p-3 rounded-xl bg-slate-50 border border-slate-100">
-                              <p className="text-xs font-semibold text-slate-600 mb-1">How they differ</p>
-                              <p className="text-xs text-slate-500 leading-relaxed">{sub.howTheyDiffer}</p>
+                            <div className="p-3 rounded-xl" style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.08)" }}>
+                              <p className="text-xs font-semibold mb-1" style={{ color: "rgba(255,255,255,0.6)" }}>How they differ</p>
+                              <p className="text-xs leading-relaxed" style={{ color: "rgba(255,255,255,0.45)" }}>{sub.howTheyDiffer}</p>
                             </div>
 
-                            <div className="p-3 rounded-xl bg-emerald-50 border border-emerald-100">
-                              <p className="text-xs font-semibold text-emerald-700 mb-1">Growth Path</p>
-                              <p className="text-xs text-slate-600 leading-relaxed">{sub.growthPath}</p>
+                            <div className="p-3 rounded-xl" style={{ background: "rgba(34,197,94,0.08)", border: "1px solid rgba(34,197,94,0.2)" }}>
+                              <p className="text-xs font-semibold text-emerald-600 mb-1">Growth Path</p>
+                              <p className="text-xs leading-relaxed" style={{ color: "rgba(255,255,255,0.6)" }}>{sub.growthPath}</p>
                             </div>
 
                             <button
@@ -621,11 +710,11 @@ function ResultsInner() {
                                 setSelectedSubtype(sub.instinct);
                                 updateProfile({ enneagramSubtype: sub.instinct, instinctualStacking: sub.instinct });
                               }}
-                              className={`w-full py-2.5 rounded-xl text-sm font-medium transition-all ${
-                                (selectedSubtype ?? profile.enneagramSubtype) === sub.instinct
-                                  ? "bg-sky-100 text-sky-700 border border-sky-200"
-                                  : "bg-slate-800 text-white hover:bg-slate-700"
-                              }`}
+                              className="w-full py-2.5 rounded-xl text-sm font-medium transition-all"
+                              style={(selectedSubtype ?? profile.enneagramSubtype) === sub.instinct
+                                ? { background: "rgba(14,165,233,0.15)", color: "rgba(14,165,233,0.9)", border: "1px solid rgba(14,165,233,0.3)" }
+                                : { background: "rgba(255,255,255,0.1)", color: "rgba(255,255,255,0.88)" }
+                              }
                             >
                               {(selectedSubtype ?? profile.enneagramSubtype) === sub.instinct ? "✓ This is my subtype" : "Select as my subtype"}
                             </button>
@@ -642,8 +731,8 @@ function ResultsInner() {
           {/* ── TAB 3: LEVELS ────────────────────────────────────────── */}
           {activeTab === 2 && (
             <motion.div key="levels" initial={{ opacity: 1, y: 0 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} className="space-y-5">
-              <div className="p-4 rounded-2xl bg-sky-50 border border-sky-100">
-                <p className="text-xs text-sky-700 leading-relaxed">
+              <div className="p-4 rounded-2xl" style={{ background: "rgba(14,165,233,0.08)", border: "1px solid rgba(14,165,233,0.2)" }}>
+                <p className="text-xs text-sky-400 leading-relaxed">
                   <strong>Levels of Development</strong> (Riso-Hudson) describe the spectrum from psychological health to dysfunction within your type. Click any level to learn more.
                 </p>
               </div>
@@ -659,18 +748,18 @@ function ResultsInner() {
                     <button
                       key={lvl.level}
                       onClick={() => setSelectedLevel(selectedLevel === lvl.level ? null : lvl.level)}
-                      className={`w-full text-left p-4 rounded-xl border transition-all ${
-                        selectedLevel === lvl.level
-                          ? "border-emerald-300 bg-emerald-50"
-                          : "border-slate-100 bg-white hover:border-emerald-200"
-                      }`}
+                      className="w-full text-left p-4 rounded-xl transition-all"
+                      style={selectedLevel === lvl.level
+                        ? { background: "rgba(34,197,94,0.08)", border: "1px solid rgba(34,197,94,0.3)" }
+                        : { background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)" }
+                      }
                     >
                       <div className="flex items-center justify-between">
                         <div className="flex items-center gap-3">
                           <span className="w-7 h-7 rounded-full bg-emerald-100 text-emerald-700 text-xs font-bold flex items-center justify-center">{lvl.level}</span>
-                          <span className="font-medium text-slate-800 text-sm">{lvl.label}</span>
+                          <span className="font-medium text-sm" style={{ color: "rgba(255,255,255,0.85)" }}>{lvl.label}</span>
                         </div>
-                        {selectedLevel === lvl.level ? <ChevronUp className="w-4 h-4 text-emerald-500" /> : <ChevronDown className="w-4 h-4 text-slate-300" />}
+                        {selectedLevel === lvl.level ? <ChevronUp className="w-4 h-4 text-emerald-500" /> : <ChevronDown className="w-4 h-4" style={{ color: "rgba(255,255,255,0.3)" }} />}
                       </div>
                       <AnimatePresence>
                         {selectedLevel === lvl.level && (
@@ -678,7 +767,8 @@ function ResultsInner() {
                             initial={{ height: 0, opacity: 0 }}
                             animate={{ height: "auto", opacity: 1 }}
                             exit={{ height: 0, opacity: 0 }}
-                            className="text-sm text-slate-600 mt-3 leading-relaxed overflow-hidden"
+                            className="text-sm mt-3 leading-relaxed overflow-hidden"
+                            style={{ color: "rgba(255,255,255,0.55)" }}
                           >
                             {lvl.description}
                           </motion.p>
@@ -700,18 +790,18 @@ function ResultsInner() {
                     <button
                       key={lvl.level}
                       onClick={() => setSelectedLevel(selectedLevel === lvl.level ? null : lvl.level)}
-                      className={`w-full text-left p-4 rounded-xl border transition-all ${
-                        selectedLevel === lvl.level
-                          ? "border-amber-300 bg-amber-50"
-                          : "border-slate-100 bg-white hover:border-amber-200"
-                      }`}
+                      className="w-full text-left p-4 rounded-xl transition-all"
+                      style={selectedLevel === lvl.level
+                        ? { background: "rgba(245,158,11,0.08)", border: "1px solid rgba(245,158,11,0.3)" }
+                        : { background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)" }
+                      }
                     >
                       <div className="flex items-center justify-between">
                         <div className="flex items-center gap-3">
                           <span className="w-7 h-7 rounded-full bg-amber-100 text-amber-700 text-xs font-bold flex items-center justify-center">{lvl.level}</span>
-                          <span className="font-medium text-slate-800 text-sm">{lvl.label}</span>
+                          <span className="font-medium text-sm" style={{ color: "rgba(255,255,255,0.85)" }}>{lvl.label}</span>
                         </div>
-                        {selectedLevel === lvl.level ? <ChevronUp className="w-4 h-4 text-amber-500" /> : <ChevronDown className="w-4 h-4 text-slate-300" />}
+                        {selectedLevel === lvl.level ? <ChevronUp className="w-4 h-4 text-amber-500" /> : <ChevronDown className="w-4 h-4" style={{ color: "rgba(255,255,255,0.3)" }} />}
                       </div>
                       <AnimatePresence>
                         {selectedLevel === lvl.level && (
@@ -719,7 +809,8 @@ function ResultsInner() {
                             initial={{ height: 0, opacity: 0 }}
                             animate={{ height: "auto", opacity: 1 }}
                             exit={{ height: 0, opacity: 0 }}
-                            className="text-sm text-slate-600 mt-3 leading-relaxed overflow-hidden"
+                            className="text-sm mt-3 leading-relaxed overflow-hidden"
+                            style={{ color: "rgba(255,255,255,0.55)" }}
                           >
                             {lvl.description}
                           </motion.p>
@@ -741,18 +832,18 @@ function ResultsInner() {
                     <button
                       key={lvl.level}
                       onClick={() => setSelectedLevel(selectedLevel === lvl.level ? null : lvl.level)}
-                      className={`w-full text-left p-4 rounded-xl border transition-all ${
-                        selectedLevel === lvl.level
-                          ? "border-rose-300 bg-rose-50"
-                          : "border-slate-100 bg-white hover:border-rose-200"
-                      }`}
+                      className="w-full text-left p-4 rounded-xl transition-all"
+                      style={selectedLevel === lvl.level
+                        ? { background: "rgba(239,68,68,0.08)", border: "1px solid rgba(239,68,68,0.3)" }
+                        : { background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)" }
+                      }
                     >
                       <div className="flex items-center justify-between">
                         <div className="flex items-center gap-3">
                           <span className="w-7 h-7 rounded-full bg-rose-100 text-rose-700 text-xs font-bold flex items-center justify-center">{lvl.level}</span>
-                          <span className="font-medium text-slate-800 text-sm">{lvl.label}</span>
+                          <span className="font-medium text-sm" style={{ color: "rgba(255,255,255,0.85)" }}>{lvl.label}</span>
                         </div>
-                        {selectedLevel === lvl.level ? <ChevronUp className="w-4 h-4 text-rose-500" /> : <ChevronDown className="w-4 h-4 text-slate-300" />}
+                        {selectedLevel === lvl.level ? <ChevronUp className="w-4 h-4 text-rose-500" /> : <ChevronDown className="w-4 h-4" style={{ color: "rgba(255,255,255,0.3)" }} />}
                       </div>
                       <AnimatePresence>
                         {selectedLevel === lvl.level && (
@@ -760,7 +851,8 @@ function ResultsInner() {
                             initial={{ height: 0, opacity: 0 }}
                             animate={{ height: "auto", opacity: 1 }}
                             exit={{ height: 0, opacity: 0 }}
-                            className="text-sm text-slate-600 mt-3 leading-relaxed overflow-hidden"
+                            className="text-sm mt-3 leading-relaxed overflow-hidden"
+                            style={{ color: "rgba(255,255,255,0.55)" }}
                           >
                             {lvl.description}
                           </motion.p>
@@ -771,7 +863,7 @@ function ResultsInner() {
                 </div>
               </div>
 
-              <div className="p-4 rounded-2xl bg-indigo-50 border border-indigo-100 text-xs text-indigo-700 leading-relaxed">
+              <div className="p-4 rounded-2xl text-xs leading-relaxed" style={{ background: "rgba(99,102,241,0.1)", border: "1px solid rgba(99,102,241,0.25)", color: "rgba(99,102,241,0.9)" }}>
                 <strong>Note:</strong> Most people oscillate between Levels 4-6 in daily life. Levels 1-3 represent genuine psychological growth and are accessed through sustained inner work, not just good circumstances.
               </div>
             </motion.div>
@@ -782,20 +874,24 @@ function ResultsInner() {
             <motion.div key="growth" initial={{ opacity: 1, y: 0 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} className="space-y-6">
 
               {/* Integration / Disintegration toggle */}
-              <div className="flex gap-2 p-1 bg-slate-100 rounded-xl">
+              <div className="flex gap-2 p-1 rounded-xl" style={{ background: "rgba(255,255,255,0.06)" }}>
                 <button
                   onClick={() => setGrowthMode("integration")}
-                  className={`flex-1 py-2.5 rounded-lg text-sm font-medium transition-all ${
-                    growthMode === "integration" ? "bg-emerald-500 text-white shadow-sm" : "text-slate-500"
-                  }`}
+                  className="flex-1 py-2.5 rounded-lg text-sm font-medium transition-all"
+                  style={growthMode === "integration"
+                    ? { background: "rgb(34,197,94)", color: "white" }
+                    : { color: "rgba(255,255,255,0.4)" }
+                  }
                 >
                   Integration (Growth)
                 </button>
                 <button
                   onClick={() => setGrowthMode("disintegration")}
-                  className={`flex-1 py-2.5 rounded-lg text-sm font-medium transition-all ${
-                    growthMode === "disintegration" ? "bg-rose-500 text-white shadow-sm" : "text-slate-500"
-                  }`}
+                  className="flex-1 py-2.5 rounded-lg text-sm font-medium transition-all"
+                  style={growthMode === "disintegration"
+                    ? { background: "rgb(239,68,68)", color: "white" }
+                    : { color: "rgba(255,255,255,0.4)" }
+                  }
                 >
                   Disintegration (Stress)
                 </button>
@@ -804,12 +900,12 @@ function ResultsInner() {
               <AnimatePresence mode="wait">
                 {growthMode === "integration" ? (
                   <motion.div key="int" initial={{ opacity: 1, x: 0 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 10 }} className="space-y-4">
-                    <div className="p-6 rounded-2xl bg-emerald-50 border border-emerald-100">
+                    <div className="p-6 rounded-2xl" style={{ background: "rgba(34,197,94,0.08)", border: "1px solid rgba(34,197,94,0.2)" }}>
                       <div className="flex items-center gap-2 mb-3">
                         <TrendingUp className="w-5 h-5 text-emerald-500" />
-                        <h3 className="font-semibold text-slate-800">Growing Toward Type {typeData.integrationLine}</h3>
+                        <h3 className="font-semibold" style={{ color: "rgba(255,255,255,0.88)" }}>Growing Toward Type {typeData.integrationLine}</h3>
                       </div>
-                      <p className="text-sm text-slate-600 leading-relaxed mb-4">
+                      <p className="text-sm leading-relaxed mb-4" style={{ color: "rgba(255,255,255,0.55)" }}>
                         In genuine growth, Type {typeNum} begins to embody the healthy qualities of Type {typeData.integrationLine}: {intLine?.healthyTraits.join(", ")}. This isn't mimicry, it's the natural expansion that happens when you're no longer run by your type's core fear.
                       </p>
                       <div className="flex flex-wrap gap-2">
@@ -821,12 +917,12 @@ function ResultsInner() {
                   </motion.div>
                 ) : (
                   <motion.div key="dis" initial={{ opacity: 1, x: 0 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -10 }} className="space-y-4">
-                    <div className="p-6 rounded-2xl bg-rose-50 border border-rose-100">
+                    <div className="p-6 rounded-2xl" style={{ background: "rgba(239,68,68,0.08)", border: "1px solid rgba(239,68,68,0.2)" }}>
                       <div className="flex items-center gap-2 mb-3">
                         <TrendingDown className="w-5 h-5 text-rose-500" />
-                        <h3 className="font-semibold text-slate-800">Stress Pattern: Toward Type {typeData.disintegrationLine}</h3>
+                        <h3 className="font-semibold" style={{ color: "rgba(255,255,255,0.88)" }}>Stress Pattern: Toward Type {typeData.disintegrationLine}</h3>
                       </div>
-                      <p className="text-sm text-slate-600 leading-relaxed mb-4">
+                      <p className="text-sm leading-relaxed mb-4" style={{ color: "rgba(255,255,255,0.55)" }}>
                         Under sustained stress, Type {typeNum} can take on the average or unhealthy qualities of Type {typeData.disintegrationLine}: {disLine?.averageTraits.slice(0, 4).join(", ")}. Recognizing this pattern is the first step in interrupting it.
                       </p>
                       <div className="flex flex-wrap gap-2">
@@ -840,8 +936,8 @@ function ResultsInner() {
               </AnimatePresence>
 
               {/* Growth Tips */}
-              <div className="p-6 rounded-2xl bg-white border border-slate-100 shadow-sm">
-                <h3 className="text-sm font-semibold text-slate-800 mb-4 flex items-center gap-2">
+              <div className="p-6 rounded-2xl" style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)" }}>
+                <h3 className="text-sm font-semibold mb-4 flex items-center gap-2" style={{ color: "rgba(255,255,255,0.85)" }}>
                   <Sparkles className="w-4 h-4 text-amber-400" /> Growth Practices for Type {typeNum}
                 </h3>
                 <div className="space-y-3">
@@ -850,21 +946,21 @@ function ResultsInner() {
                       <div className="w-6 h-6 rounded-full bg-gradient-to-br from-sky-100 to-indigo-100 text-indigo-600 text-xs font-bold flex items-center justify-center shrink-0 mt-0.5">
                         {i + 1}
                       </div>
-                      <p className="text-sm text-slate-600 leading-relaxed">{tip}</p>
+                      <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.6)" }}>{tip}</p>
                     </div>
                   ))}
                 </div>
               </div>
 
               {/* Journal Prompts */}
-              <div className="p-6 rounded-2xl bg-gradient-to-br from-violet-50 to-indigo-50 border border-violet-100">
-                <h3 className="text-sm font-semibold text-slate-800 mb-4 flex items-center gap-2">
+              <div className="p-6 rounded-2xl" style={{ background: "rgba(139,92,246,0.08)", border: "1px solid rgba(139,92,246,0.2)" }}>
+                <h3 className="text-sm font-semibold mb-4 flex items-center gap-2" style={{ color: "rgba(255,255,255,0.85)" }}>
                   <BookOpen className="w-4 h-4 text-violet-500" /> Journal Prompts
                 </h3>
                 <div className="space-y-3">
                   {typeData.journalPrompts.map((prompt, i) => (
-                    <div key={i} className="p-3 rounded-xl bg-white/70 border border-violet-100">
-                      <p className="text-sm text-slate-700 leading-relaxed italic">"{prompt}"</p>
+                    <div key={i} className="p-3 rounded-xl" style={{ background: "rgba(255,255,255,0.06)", border: "1px solid rgba(139,92,246,0.15)" }}>
+                      <p className="text-sm leading-relaxed italic" style={{ color: "rgba(255,255,255,0.75)" }}>"{prompt}"</p>
                     </div>
                   ))}
                 </div>
@@ -880,39 +976,189 @@ function ResultsInner() {
                 <>
                   {/* Naranjo Grid */}
                   <div className="grid grid-cols-2 gap-3">
-                    <div className="p-5 rounded-2xl bg-rose-50 border border-rose-100 col-span-2 sm:col-span-1">
+                    {/* Passion */}
+                    <div className="p-5 rounded-2xl col-span-2 sm:col-span-1" style={{ background: "rgba(239,68,68,0.08)", border: "1px solid rgba(239,68,68,0.2)" }}>
                       <div className="text-[10px] font-bold text-rose-600 uppercase tracking-wider mb-1">Passion (Vice)</div>
-                      <div className="text-lg font-bold text-slate-800 mb-2">{naranjo.passion}</div>
-                      <p className="text-xs text-slate-600 leading-relaxed">{naranjo.passionDescription}</p>
+                      <div className="text-lg font-bold mb-2" style={{ color: "rgba(255,255,255,0.88)" }}>{naranjo.passion}</div>
+                      <p className="text-xs leading-relaxed" style={{ color: "rgba(255,255,255,0.55)" }}>{naranjo.passionDescription}</p>
+                      <button
+                        onClick={() => setExpandedDeepField(expandedDeepField === "passion" ? null : "passion")}
+                        className="mt-3 flex items-center gap-1 text-[10px] font-semibold text-rose-500 uppercase tracking-wider"
+                      >
+                        {expandedDeepField === "passion" ? "Less" : "Learn more"}
+                        <ChevronDown className="w-3 h-3" style={{ transform: expandedDeepField === "passion" ? "rotate(180deg)" : "rotate(0deg)", transition: "transform 0.2s" }} />
+                      </button>
+                      <AnimatePresence>
+                        {expandedDeepField === "passion" && (
+                          <motion.div
+                            key="passion-expand"
+                            initial={{ height: 0, opacity: 0 }}
+                            animate={{ height: "auto", opacity: 1 }}
+                            exit={{ height: 0, opacity: 0 }}
+                            transition={{ duration: 0.25 }}
+                            style={{ overflow: "hidden" }}
+                          >
+                            <p className="mt-3 text-xs leading-relaxed" style={{ color: "rgba(255,255,255,0.5)" }}>
+                              Original Ichazo term: {naranjo.passion.split("–")[0].split("-")[0].trim()}. In integration (growth), this passion transforms into the type's virtue through self-awareness. The passion is not a flaw but an excess of a quality — it becomes the gift when balanced.
+                            </p>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
                     </div>
-                    <div className="p-5 rounded-2xl bg-amber-50 border border-amber-100 col-span-2 sm:col-span-1">
+
+                    {/* Fixation */}
+                    <div className="p-5 rounded-2xl col-span-2 sm:col-span-1" style={{ background: "rgba(245,158,11,0.08)", border: "1px solid rgba(245,158,11,0.2)" }}>
                       <div className="text-[10px] font-bold text-amber-600 uppercase tracking-wider mb-1">Fixation (Cognitive Habit)</div>
-                      <div className="text-lg font-bold text-slate-800 mb-2">{naranjo.fixation}</div>
-                      <p className="text-xs text-slate-600 leading-relaxed">{naranjo.fixationDescription}</p>
+                      <div className="text-lg font-bold mb-2" style={{ color: "rgba(255,255,255,0.88)" }}>{naranjo.fixation}</div>
+                      <p className="text-xs leading-relaxed" style={{ color: "rgba(255,255,255,0.55)" }}>{naranjo.fixationDescription}</p>
+                      <button
+                        onClick={() => setExpandedDeepField(expandedDeepField === "fixation" ? null : "fixation")}
+                        className="mt-3 flex items-center gap-1 text-[10px] font-semibold text-amber-500 uppercase tracking-wider"
+                      >
+                        {expandedDeepField === "fixation" ? "Less" : "Learn more"}
+                        <ChevronDown className="w-3 h-3" style={{ transform: expandedDeepField === "fixation" ? "rotate(180deg)" : "rotate(0deg)", transition: "transform 0.2s" }} />
+                      </button>
+                      <AnimatePresence>
+                        {expandedDeepField === "fixation" && (
+                          <motion.div
+                            key="fixation-expand"
+                            initial={{ height: 0, opacity: 0 }}
+                            animate={{ height: "auto", opacity: 1 }}
+                            exit={{ height: 0, opacity: 0 }}
+                            transition={{ duration: 0.25 }}
+                            style={{ overflow: "hidden" }}
+                          >
+                            <p className="mt-3 text-xs leading-relaxed" style={{ color: "rgba(255,255,255,0.5)" }}>
+                              The cognitive habit that keeps the passion in place. Where the passion is felt in the body-emotion, the fixation is the mental story that reinforces it. (Naranjo, <em>Character &amp; Neurosis</em>)
+                            </p>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
                     </div>
-                    <div className="p-5 rounded-2xl bg-emerald-50 border border-emerald-100 col-span-2 sm:col-span-1">
+
+                    {/* Virtue */}
+                    <div className="p-5 rounded-2xl col-span-2 sm:col-span-1" style={{ background: "rgba(34,197,94,0.08)", border: "1px solid rgba(34,197,94,0.2)" }}>
                       <div className="text-[10px] font-bold text-emerald-600 uppercase tracking-wider mb-1">Virtue (Transformed Quality)</div>
-                      <div className="text-lg font-bold text-slate-800 mb-2">{naranjo.virtue}</div>
-                      <p className="text-xs text-slate-600 leading-relaxed">{naranjo.virtueDescription}</p>
+                      <div className="text-lg font-bold mb-2" style={{ color: "rgba(255,255,255,0.88)" }}>{naranjo.virtue}</div>
+                      <p className="text-xs leading-relaxed" style={{ color: "rgba(255,255,255,0.55)" }}>{naranjo.virtueDescription}</p>
+                      <button
+                        onClick={() => setExpandedDeepField(expandedDeepField === "virtue" ? null : "virtue")}
+                        className="mt-3 flex items-center gap-1 text-[10px] font-semibold text-emerald-500 uppercase tracking-wider"
+                      >
+                        {expandedDeepField === "virtue" ? "Less" : "Learn more"}
+                        <ChevronDown className="w-3 h-3" style={{ transform: expandedDeepField === "virtue" ? "rotate(180deg)" : "rotate(0deg)", transition: "transform 0.2s" }} />
+                      </button>
+                      <AnimatePresence>
+                        {expandedDeepField === "virtue" && (
+                          <motion.div
+                            key="virtue-expand"
+                            initial={{ height: 0, opacity: 0 }}
+                            animate={{ height: "auto", opacity: 1 }}
+                            exit={{ height: 0, opacity: 0 }}
+                            transition={{ duration: 0.25 }}
+                            style={{ overflow: "hidden" }}
+                          >
+                            <p className="mt-3 text-xs leading-relaxed" style={{ color: "rgba(255,255,255,0.5)" }}>
+                              Emerges naturally when the passion is no longer compulsive. The virtue is not a practice or discipline — it is what's revealed underneath. (Naranjo / Riso &amp; Hudson)
+                            </p>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
                     </div>
-                    <div className="p-5 rounded-2xl bg-sky-50 border border-sky-100 col-span-2 sm:col-span-1">
+
+                    {/* Holy Idea */}
+                    <div className="p-5 rounded-2xl col-span-2 sm:col-span-1" style={{ background: "rgba(14,165,233,0.08)", border: "1px solid rgba(14,165,233,0.2)" }}>
                       <div className="text-[10px] font-bold text-sky-600 uppercase tracking-wider mb-1">Holy Idea (Ichazo)</div>
-                      <div className="text-lg font-bold text-slate-800 mb-2">{naranjo.holyIdea}</div>
-                      <p className="text-xs text-slate-600 leading-relaxed">{naranjo.holyIdeaDescription}</p>
+                      <div className="text-lg font-bold mb-2" style={{ color: "rgba(255,255,255,0.88)" }}>{naranjo.holyIdea}</div>
+                      <p className="text-xs leading-relaxed" style={{ color: "rgba(255,255,255,0.55)" }}>{naranjo.holyIdeaDescription}</p>
+                      <button
+                        onClick={() => setExpandedDeepField(expandedDeepField === "holyIdea" ? null : "holyIdea")}
+                        className="mt-3 flex items-center gap-1 text-[10px] font-semibold text-sky-500 uppercase tracking-wider"
+                      >
+                        {expandedDeepField === "holyIdea" ? "Less" : "Learn more"}
+                        <ChevronDown className="w-3 h-3" style={{ transform: expandedDeepField === "holyIdea" ? "rotate(180deg)" : "rotate(0deg)", transition: "transform 0.2s" }} />
+                      </button>
+                      <AnimatePresence>
+                        {expandedDeepField === "holyIdea" && (
+                          <motion.div
+                            key="holyIdea-expand"
+                            initial={{ height: 0, opacity: 0 }}
+                            animate={{ height: "auto", opacity: 1 }}
+                            exit={{ height: 0, opacity: 0 }}
+                            transition={{ duration: 0.25 }}
+                            style={{ overflow: "hidden" }}
+                          >
+                            <p className="mt-3 text-xs leading-relaxed" style={{ color: "rgba(255,255,255,0.5)" }}>
+                              The higher cognitive perception that dissolves the fixation. Holy Ideas are not beliefs to adopt — they are experienced directly when the fixation relaxes. (Ichazo, Arica School)
+                            </p>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
                     </div>
                   </div>
 
                   {/* Trap & Defense */}
                   <div className="space-y-3">
-                    <div className="p-5 rounded-2xl bg-white border border-slate-100 shadow-sm">
-                      <div className="text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">The Trap</div>
-                      <div className="text-base font-semibold text-slate-800 mb-2">{naranjo.trap}</div>
-                      <p className="text-sm text-slate-600 leading-relaxed">{naranjo.trapDescription}</p>
+                    {/* Trap */}
+                    <div className="p-5 rounded-2xl" style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)" }}>
+                      <div className="text-[10px] font-bold uppercase tracking-wider mb-1" style={{ color: "rgba(255,255,255,0.4)" }}>The Trap</div>
+                      <div className="text-base font-semibold mb-2" style={{ color: "rgba(255,255,255,0.88)" }}>{naranjo.trap}</div>
+                      <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.55)" }}>{naranjo.trapDescription}</p>
+                      <button
+                        onClick={() => setExpandedDeepField(expandedDeepField === "trap" ? null : "trap")}
+                        className="mt-3 flex items-center gap-1 text-[10px] font-semibold uppercase tracking-wider"
+                        style={{ color: "rgba(255,255,255,0.35)" }}
+                      >
+                        {expandedDeepField === "trap" ? "Less" : "Learn more"}
+                        <ChevronDown className="w-3 h-3" style={{ transform: expandedDeepField === "trap" ? "rotate(180deg)" : "rotate(0deg)", transition: "transform 0.2s" }} />
+                      </button>
+                      <AnimatePresence>
+                        {expandedDeepField === "trap" && (
+                          <motion.div
+                            key="trap-expand"
+                            initial={{ height: 0, opacity: 0 }}
+                            animate={{ height: "auto", opacity: 1 }}
+                            exit={{ height: 0, opacity: 0 }}
+                            transition={{ duration: 0.25 }}
+                            style={{ overflow: "hidden" }}
+                          >
+                            <p className="mt-3 text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.4)" }}>
+                              The trap is the type's attempt to satisfy their core desire using the same strategies that created their suffering. (Naranjo)
+                            </p>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
                     </div>
-                    <div className="p-5 rounded-2xl bg-white border border-slate-100 shadow-sm">
-                      <div className="text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">Defense Mechanism</div>
-                      <div className="text-base font-semibold text-slate-800 mb-2">{naranjo.defenseM}</div>
-                      <p className="text-sm text-slate-600 leading-relaxed">{naranjo.defenseMDescription}</p>
+
+                    {/* Defense Mechanism */}
+                    <div className="p-5 rounded-2xl" style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)" }}>
+                      <div className="text-[10px] font-bold uppercase tracking-wider mb-1" style={{ color: "rgba(255,255,255,0.4)" }}>Defense Mechanism</div>
+                      <div className="text-base font-semibold mb-2" style={{ color: "rgba(255,255,255,0.88)" }}>{naranjo.defenseM}</div>
+                      <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.55)" }}>{naranjo.defenseMDescription}</p>
+                      <button
+                        onClick={() => setExpandedDeepField(expandedDeepField === "defenseM" ? null : "defenseM")}
+                        className="mt-3 flex items-center gap-1 text-[10px] font-semibold uppercase tracking-wider"
+                        style={{ color: "rgba(255,255,255,0.35)" }}
+                      >
+                        {expandedDeepField === "defenseM" ? "Less" : "Learn more"}
+                        <ChevronDown className="w-3 h-3" style={{ transform: expandedDeepField === "defenseM" ? "rotate(180deg)" : "rotate(0deg)", transition: "transform 0.2s" }} />
+                      </button>
+                      <AnimatePresence>
+                        {expandedDeepField === "defenseM" && (
+                          <motion.div
+                            key="defenseM-expand"
+                            initial={{ height: 0, opacity: 0 }}
+                            animate={{ height: "auto", opacity: 1 }}
+                            exit={{ height: 0, opacity: 0 }}
+                            transition={{ duration: 0.25 }}
+                            style={{ overflow: "hidden" }}
+                          >
+                            <p className="mt-3 text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.4)" }}>
+                              Psychological defense mechanisms were mapped to Enneagram types by Riso &amp; Hudson in <em>The Wisdom of the Enneagram</em> (1999). The mechanism is unconscious and automatic — it protects the ego but maintains the pattern.
+                            </p>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
                     </div>
                   </div>
                 </>
@@ -921,17 +1167,18 @@ function ResultsInner() {
               {/* Hornevian / Harmonic / Object Relations */}
               <div className="space-y-3">
                 {hornevian && (
-                  <div className="p-5 rounded-2xl bg-indigo-50 border border-indigo-100">
+                  <div className="p-5 rounded-2xl" style={{ background: "rgba(99,102,241,0.1)", border: "1px solid rgba(99,102,241,0.2)" }}>
                     <div className="flex items-center gap-2 mb-2">
                       <Layers className="w-4 h-4 text-indigo-500" />
-                      <span className="text-xs font-bold text-indigo-600 uppercase tracking-wide">Hornevian Group</span>
+                      <span className="text-xs font-bold text-indigo-400 uppercase tracking-wide">Hornevian Group</span>
                     </div>
-                    <div className="font-semibold text-slate-800 mb-1">{hornevian.name}</div>
-                    <p className="text-xs text-slate-500 mb-2 italic">{hornevian.strategy}</p>
-                    <p className="text-sm text-slate-600 leading-relaxed">{hornevian.description}</p>
+                    <div className="font-semibold mb-1" style={{ color: "rgba(255,255,255,0.88)" }}>{hornevian.name}</div>
+                    <p className="text-xs mb-2 italic" style={{ color: "rgba(255,255,255,0.4)" }}>{hornevian.strategy}</p>
+                    <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.55)" }}>{hornevian.description}</p>
                     <div className="mt-3 flex flex-wrap gap-1">
                       {hornevian.types.map((t) => (
-                        <span key={t} className={`px-2 py-0.5 rounded-md text-xs font-medium ${t === typeNum ? "bg-indigo-200 text-indigo-800" : "bg-white text-slate-500"}`}>
+                        <span key={t} className={`px-2 py-0.5 rounded-md text-xs font-medium ${t === typeNum ? "bg-indigo-200 text-indigo-800" : ""}`}
+                          style={t === typeNum ? {} : { background: "rgba(255,255,255,0.06)", color: "rgba(255,255,255,0.5)" }}>
                           Type {t}
                         </span>
                       ))}
@@ -940,17 +1187,18 @@ function ResultsInner() {
                 )}
 
                 {harmonic && (
-                  <div className="p-5 rounded-2xl bg-violet-50 border border-violet-100">
+                  <div className="p-5 rounded-2xl" style={{ background: "rgba(139,92,246,0.1)", border: "1px solid rgba(139,92,246,0.2)" }}>
                     <div className="flex items-center gap-2 mb-2">
                       <GitMerge className="w-4 h-4 text-violet-500" />
-                      <span className="text-xs font-bold text-violet-600 uppercase tracking-wide">Harmonic Group</span>
+                      <span className="text-xs font-bold text-violet-400 uppercase tracking-wide">Harmonic Group</span>
                     </div>
-                    <div className="font-semibold text-slate-800 mb-1">{harmonic.name}</div>
-                    <p className="text-xs text-slate-500 mb-2 italic">{harmonic.response}</p>
-                    <p className="text-sm text-slate-600 leading-relaxed">{harmonic.description}</p>
+                    <div className="font-semibold mb-1" style={{ color: "rgba(255,255,255,0.88)" }}>{harmonic.name}</div>
+                    <p className="text-xs mb-2 italic" style={{ color: "rgba(255,255,255,0.4)" }}>{harmonic.response}</p>
+                    <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.55)" }}>{harmonic.description}</p>
                     <div className="mt-3 flex flex-wrap gap-1">
                       {harmonic.types.map((t) => (
-                        <span key={t} className={`px-2 py-0.5 rounded-md text-xs font-medium ${t === typeNum ? "bg-violet-200 text-violet-800" : "bg-white text-slate-500"}`}>
+                        <span key={t} className={`px-2 py-0.5 rounded-md text-xs font-medium ${t === typeNum ? "bg-violet-200 text-violet-800" : ""}`}
+                          style={t === typeNum ? {} : { background: "rgba(255,255,255,0.06)", color: "rgba(255,255,255,0.5)" }}>
                           Type {t}
                         </span>
                       ))}
@@ -959,20 +1207,21 @@ function ResultsInner() {
                 )}
 
                 {objectRel && (
-                  <div className="p-5 rounded-2xl bg-rose-50 border border-rose-100">
+                  <div className="p-5 rounded-2xl" style={{ background: "rgba(239,68,68,0.08)", border: "1px solid rgba(239,68,68,0.2)" }}>
                     <div className="flex items-center gap-2 mb-2">
                       <Heart className="w-4 h-4 text-rose-400" />
                       <span className="text-xs font-bold text-rose-600 uppercase tracking-wide">Object Relations Group</span>
                     </div>
-                    <div className="font-semibold text-slate-800 mb-1">{objectRel.name}</div>
-                    <p className="text-xs text-slate-500 mb-2 italic">{objectRel.relationship}</p>
-                    <p className="text-sm text-slate-600 leading-relaxed">{objectRel.description}</p>
-                    <div className="mt-3 p-3 rounded-xl bg-white/70 border border-rose-100">
-                      <p className="text-xs text-slate-600 leading-relaxed">{objectRel.psychodynamics}</p>
+                    <div className="font-semibold mb-1" style={{ color: "rgba(255,255,255,0.88)" }}>{objectRel.name}</div>
+                    <p className="text-xs mb-2 italic" style={{ color: "rgba(255,255,255,0.4)" }}>{objectRel.relationship}</p>
+                    <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.55)" }}>{objectRel.description}</p>
+                    <div className="mt-3 p-3 rounded-xl" style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(239,68,68,0.15)" }}>
+                      <p className="text-xs leading-relaxed" style={{ color: "rgba(255,255,255,0.55)" }}>{objectRel.psychodynamics}</p>
                     </div>
                     <div className="mt-2 flex flex-wrap gap-1">
                       {objectRel.types.map((t) => (
-                        <span key={t} className={`px-2 py-0.5 rounded-md text-xs font-medium ${t === typeNum ? "bg-rose-200 text-rose-800" : "bg-white text-slate-500"}`}>
+                        <span key={t} className={`px-2 py-0.5 rounded-md text-xs font-medium ${t === typeNum ? "bg-rose-200 text-rose-800" : ""}`}
+                          style={t === typeNum ? {} : { background: "rgba(255,255,255,0.06)", color: "rgba(255,255,255,0.5)" }}>
                           Type {t}
                         </span>
                       ))}
@@ -980,6 +1229,9 @@ function ResultsInner() {
                   </div>
                 )}
               </div>
+
+              {/* Next Assessment Prompt */}
+              <NextAssessmentPrompt taken={profile.assessmentsTaken ?? []} />
 
               {/* CTA */}
               <div className="pt-2">

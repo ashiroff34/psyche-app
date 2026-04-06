@@ -3,12 +3,14 @@
 // 4 lessons × 12 exercises each
 // ─────────────────────────────────────────────────────────────────────────────
 
-import type { Lesson } from "@/types/lessons";
+import type { Lesson, ExerciseContent, FreeRecallContent, InterleavingExerciseContent } from "@/types/lessons";
+import type { DiscriminationContent } from "@/components/lessons/exercises/DiscriminationExercise";
 
 // ── Lesson 1: Core Motivation, Fear & Desire ──────────────────────────────
 
 const lesson1: Lesson = {
   id: "u3-l1",
+  scaffoldStep: 2 as const,
   unitId: "type-1",
   order: 1,
   title: "The Inner Critic",
@@ -209,6 +211,7 @@ const lesson1: Lesson = {
 
 const lesson2: Lesson = {
   id: "u3-l2",
+  scaffoldStep: 2 as const,
   unitId: "type-1",
   order: 2,
   title: "Anger to Serenity",
@@ -411,6 +414,17 @@ const lesson2: Lesson = {
           "In Naranjo's framework, each type has a 'passion', an automatic emotional pattern that keeps you stuck in your type's fixation. For Ones, that passion is Anger.",
       },
     },
+    {
+      id: "u3-l2-e13",
+      difficulty: 3,
+      content: {
+        type: "free-recall",
+        prompt: "In your own words, describe the inner experience of a Type 1. What are they actually feeling and why?",
+        keyTerms: ["inner critic", "anger", "resentment", "standards", "serenity", "suppressed"],
+        minWords: 15,
+        modelAnswer: "A Type 1's inner world is dominated by the Inner Critic — a constant evaluating voice that measures everything against an idealized standard of how things should be. The core emotion is anger, but it's not the explosive kind. It's a suppressed, chronic resentment that builds when reality doesn't match their standards. Because expressing anger feels 'bad' or wrong to a One, they hold it inside as bodily tension and irritability. At their healthiest, they find serenity — the ability to accept imperfection without losing their inner peace. The tragedy is that the very self-control they use to manage their anger is also what makes them feel so tightly wound.",
+      } as FreeRecallContent,
+    },
   ],
 };
 
@@ -418,6 +432,7 @@ const lesson2: Lesson = {
 
 const lesson3: Lesson = {
   id: "u3-l3",
+  scaffoldStep: 4 as const,
   unitId: "type-1",
   order: 3,
   title: "How Ones Shift",
@@ -610,6 +625,7 @@ const lesson3: Lesson = {
 
 const lesson4: Lesson = {
   id: "u3-l4",
+  scaffoldStep: 1 as const,
   unitId: "type-1",
   order: 4,
   title: "Spotting the One",
@@ -822,7 +838,105 @@ const lesson4: Lesson = {
           "Ones literally hold tension in their body, their suppressed anger and self-control show up as rigidity, stiff posture, and controlled movements. The body is a map of the type's inner world.",
       },
     },
+    {
+      id: "u3-l4-e13",
+      difficulty: 3,
+      content: {
+        type: "interleaving",
+        title: "Types 1, 3 & 6 — Identify the motivation",
+        typeNumbers: [1, 3, 6],
+        items: [
+          {
+            statement: "Redoes the report at midnight — not because it will hurt their career if it stays wrong, but because leaving an error in place feels morally intolerable.",
+            correctType: 1,
+            explanation: "The One's motivation is internal integrity, not external consequence. The error is wrong in principle.",
+          },
+          {
+            statement: "Checks company policy before acting, not from personal conviction, but because not knowing the rule creates anxious uncertainty.",
+            correctType: 6,
+            explanation: "The Six follows rules to reduce anxiety, not because they hold a deep moral position about them.",
+          },
+          {
+            statement: "Polishes the presentation until it's flawless — primarily so the audience will be impressed and see them as highly competent.",
+            correctType: 3,
+            explanation: "The Three's perfectionism is image-driven. They want the result seen and admired.",
+          },
+        ],
+      } as InterleavingExerciseContent,
+    },
   ],
 };
 
-export const type1Lessons: Lesson[] = [lesson1, lesson2, lesson3, lesson4];
+// ── Lesson 5: Near-Neighbor Discrimination — Type 1 vs Type 6 ─────────────
+
+const lesson5: Lesson = {
+  id: "u3-l5",
+  scaffoldStep: 3 as const,
+  unitId: "type-1",
+  order: 5,
+  title: "Type 1 vs Type 6",
+  subtitle: "Telling apart the two most rule-oriented types",
+  xpReward: 25,
+  exercises: [
+    {
+      id: "u3-l5-e1",
+      difficulty: 1,
+      content: {
+        type: "concept-intro",
+        title: "Why 1 and 6 Are Confused",
+        body: "Types 1 and 6 both follow rules carefully and can appear equally self-controlled. The difference is in the WHY: Ones follow rules because they feel right internally. Sixes follow rules to reduce anxiety about what might happen if they don't.",
+        highlight: "internal standard vs. anxiety reduction",
+      },
+    },
+    {
+      id: "u3-l5-e2",
+      difficulty: 2,
+      content: ({
+        type: "discrimination",
+        typeA: 1,
+        typeB: 6,
+        prompt: "Each statement below belongs to either Type 1 (The Reformer) or Type 6 (The Loyalist). Tap the correct type for each.",
+        items: [
+          {
+            text: "Corrects others because the error itself offends their internal standard of rightness — the mistake feels wrong in principle, regardless of who is watching.",
+            answer: "A",
+            explanation: "Type 1's correction comes from an internalized moral standard. The mistake itself is the problem — not the consequences of it.",
+          },
+          {
+            text: "Checks the rules before acting, not because they personally believe in every rule, but because uncertainty about correct procedure creates anxiety.",
+            answer: "B",
+            explanation: "Type 6 uses rules as an external anchor against anxiety. They need to know what is expected so they feel safe, not because they hold a deep moral conviction.",
+          },
+          {
+            text: "Holds themselves to the same ethical standard they hold others to — often their own harshest critic.",
+            answer: "A",
+            explanation: "The inner critic of Type 1 applies most intensely to themselves. Their ethical standards are not selective.",
+          },
+          {
+            text: "Scans for hidden motives in people in authority — wondering if leaders have undisclosed agendas — before fully committing.",
+            answer: "B",
+            explanation: "Type 6's vigilance is threat-based. They're trying to detect whether authorities and allies are trustworthy.",
+          },
+        ],
+      } as DiscriminationContent) as unknown as ExerciseContent,
+    },
+    {
+      id: "u3-l5-e3",
+      difficulty: 3,
+      content: {
+        type: "multiple-choice",
+        question: "A colleague turns in a report with a minor citation error that no one will notice. Which response is most typical of a Type 1 (not a Type 6)?",
+        options: [
+          "Mentions it because the team might get in trouble if someone finds it later",
+          "Mentions it because an error is an error — getting it right matters regardless of consequence",
+          "Mentions it because they want credit for catching it",
+          "Leaves it alone to avoid conflict",
+        ],
+        correctIndex: 1,
+        explanation: "Type 1 corrects from principle — the incorrectness itself is what matters, independent of any downstream consequence. Type 6 would cite consequences or safety.",
+      },
+    },
+  ],
+};
+
+export const type1Lessons: Lesson[] = [lesson1, lesson2, lesson3, lesson4, lesson5];

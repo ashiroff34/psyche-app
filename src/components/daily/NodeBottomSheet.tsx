@@ -103,11 +103,11 @@ export default function NodeBottomSheet({ node, onClose, onStart, onCompleteNonQ
             animate={{ y: 0 }}
             exit={{ y: "100%" }}
             transition={{ type: "spring", damping: 28, stiffness: 300 }}
-            className="fixed bottom-0 left-0 right-0 z-50 bg-white rounded-t-3xl shadow-2xl"
-            style={{ maxWidth: 640, margin: "0 auto", maxHeight: "85vh", overflowY: "auto" }}
+            className="fixed bottom-0 left-0 right-0 z-50 rounded-t-3xl shadow-2xl"
+            style={{ maxWidth: 640, margin: "0 auto", maxHeight: "85vh", overflowY: "auto", background: "rgba(20,15,40,0.98)", border: "1px solid rgba(255,255,255,0.1)" }}
           >
             {/* Handle */}
-            <div className="flex justify-center pt-3 pb-1 sticky top-0 bg-white z-10">
+            <div className="flex justify-center pt-3 pb-1 sticky top-0 z-10" style={{ background: "rgba(20,15,40,0.98)" }}>
               <div className="w-10 h-1 rounded-full bg-slate-200" />
             </div>
 

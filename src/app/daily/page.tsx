@@ -22,15 +22,23 @@ import BeginnerBanner from "@/components/BeginnerBanner";
 import { useRewards } from "@/components/Rewards";
 import FirstVisitTooltip from "@/components/FirstVisitTooltip";
 import HubView from "@/components/daily/HubView";
-import PathIteration4, { type PathUnit } from "@/components/daily/PathIteration4";
 import NodeBottomSheet, { type PathNodeConfig } from "@/components/daily/NodeBottomSheet";
+import type { PathUnit } from "@/components/daily/PathIteration4";
+import UnitSection from "@/components/learn/UnitSection";
+import NodeSheet from "@/components/learn/NodeSheet";
+import { useMergedLearnState } from "@/hooks/useMergedLearnState";
+import type { LessonWithStatus, UnitWithStatus } from "@/hooks/useMergedLearnState";
 import QuizFullscreen from "@/components/daily/QuizFullscreen";
 import LessonBriefOverlay from "@/components/daily/LessonBriefOverlay";
 import DailyReading from "@/components/daily/DailyReading";
 import { getDailyReading } from "@/data/dailyReadings";
+import MilestoneModal from "@/components/MilestoneModal";
+import { cognitiveGrowthEdges } from "@/data/cognitiveGrowthEdges";
 import { typeQuizQuestions } from "@/data/type-quizzes";
 import { introQuestions } from "@/data/intro-questions";
 import { rateCard, getCardPriority, type FSRSCard } from "@/lib/fsrs";
+import { instinctualStackings } from "@/data/subtypes";
+import { orderedTritypeThyselfs } from "@/data/tritypes";
 
 /* ═══════════════════════════════════════════════════════════════════════════
    UTILITY: Seeded PRNG (deterministic shuffle per day)
@@ -533,6 +541,76 @@ export default function DailyPage() {
   const enneagramTypeForPet = profile.enneagramType ?? profile.enneagramCore;
   const { petState: livePetState, awardDailyGoalXP } = usePetState(enneagramTypeForPet);
 
+  // ── Merged learn state (21 curriculum units) ──
+  const { unitsWithStatus } = useMergedLearnState();
+  const [selectedLesson, setSelectedLesson] = useState<LessonWithStatus | null>(null);
+  const [selectedLessonUnit, setSelectedLessonUnit] = useState<UnitWithStatus | null>(null);
+
+  // ── Daily unit limit gate ──
+  const DAILY_UNIT_LIMIT = 2;
+  const UNIT_LIMIT_ACTIVATES_DAY = 5;
+  const [unitLimitGate, setUnitLimitGate] = useState<{ pendingLesson: LessonWithStatus; pendingUnit: UnitWithStatus } | null>(null);
+
+  // Track which unit IDs have been started today
+  const getTodayStartedUnits = (): Set<string> => {
+    try {
+      const raw = localStorage.getItem(`psyche-units-started-${getDateKey()}`);
+      return raw ? new Set(JSON.parse(raw)) : new Set();
+    } catch { return new Set(); }
+  };
+  const recordUnitStarted = (unitId: string) => {
+    try {
+      const current = getTodayStartedUnits();
+      current.add(unitId);
+      localStorage.setItem(`psyche-units-started-${getDateKey()}`, JSON.stringify([...current]));
+    } catch {}
+  };
+
+  // Days since account created (used to activate gate after Day 5)
+  const daysSinceCreated = (() => {
+    if (!gameStateRaw.accountCreated) return 999;
+    const created = new Date(gameStateRaw.accountCreated).getTime();
+    return Math.floor((Date.now() - created) / 86400000);
+  })();
+  const unitLimitActive = daysSinceCreated >= UNIT_LIMIT_ACTIVATES_DAY;
+
+  const handleLessonNodeTap = (lesson: LessonWithStatus, unit: UnitWithStatus) => {
+    // Only gate non-completed lessons (don't block reviewing done lessons)
+    if (unitLimitActive && lesson.status !== "completed") {
+      const startedToday = getTodayStartedUnits();
+      const isNewUnitToday = !startedToday.has(unit.id);
+      if (isNewUnitToday && startedToday.size >= DAILY_UNIT_LIMIT) {
+        setUnitLimitGate({ pendingLesson: lesson, pendingUnit: unit });
+        return;
+      }
+      // Mark this unit as started today
+      recordUnitStarted(unit.id);
+    }
+    setSelectedLesson(lesson);
+    setSelectedLessonUnit(unit);
+  };
+
+  // ── Streak repair prompt ──
+  const [streakRepairPrompt, setStreakRepairPrompt] = useState(false);
+  useEffect(() => {
+    if (!loaded) return;
+    try {
+      const prevStreakKey = "psyche-prev-streak";
+      const prevStreak = parseInt(localStorage.getItem(prevStreakKey) ?? "0", 10);
+      const currentStreak = gameStateRaw.streakCount ?? 0;
+      // Store current for next check
+      if (currentStreak > 0) localStorage.setItem(prevStreakKey, String(currentStreak));
+      // Show repair if streak just broke (had streak yesterday, now 0)
+      if (prevStreak > 0 && currentStreak === 0) {
+        const repairShownKey = `psyche-repair-shown-${getDateKey()}`;
+        if (!localStorage.getItem(repairShownKey)) {
+          setStreakRepairPrompt(true);
+          localStorage.setItem(repairShownKey, "1");
+        }
+      }
+    } catch {}
+  }, [loaded, gameStateRaw.streakCount]);
+
   // ── View state (hub / path / quiz) ──
   const [view, setView] = useState<"hub" | "path" | "quiz" | "lesson" | "reading">("path");
   const [bottomSheetNode, setBottomSheetNode] = useState<PathNodeConfig | null>(null);
@@ -615,6 +693,15 @@ export default function DailyPage() {
   const dateKey = getDateKey();
   const dayOfYear = getDayOfYear();
   const seed = getTodaySeed();
+
+  // Read notification mute preference
+  const [alertsMuted, setAlertsMuted] = useState(false);
+  useEffect(() => {
+    try {
+      const raw = localStorage.getItem("psyche-notification-prefs");
+      if (raw) setAlertsMuted(!!JSON.parse(raw).muteAll);
+    } catch {}
+  }, []);
 
   // ── Daily Insight (static curated collection) ──
   const insightFallback = {
@@ -1483,6 +1570,12 @@ export default function DailyPage() {
             <BarChart3 className="w-4 h-4" />
           </button>
         </div>
+
+        {/* Streak Milestone Modal */}
+        <MilestoneModal
+          streakCount={streak}
+          enneagramType={profile.enneagramType ?? null}
+        />
       </div>
     );
   }
@@ -1654,6 +1747,24 @@ export default function DailyPage() {
             </div>
           </div>
         </div>
+        {/* ─── Quick Actions ───────────────────────────────────────────── */}
+        <div className="max-w-md mx-auto px-4 pt-4 flex gap-3">
+          <button
+            onClick={() => { setView("quiz"); setActiveTab("today"); }}
+            className="flex-1 py-3 rounded-2xl text-sm font-semibold text-white transition-all active:scale-95"
+            style={{ background: "linear-gradient(135deg, #7c3aed, #4f46e5)", boxShadow: "0 4px 16px rgba(124,58,237,0.35)" }}
+          >
+            🔥 Today&apos;s Challenge
+          </button>
+          <button
+            onClick={() => { setView("quiz"); setActiveTab("deep"); }}
+            className="flex-1 py-3 rounded-2xl text-sm font-semibold transition-all active:scale-95"
+            style={{ background: "rgba(139,92,246,0.15)", border: "1px solid rgba(139,92,246,0.3)", color: "#c4b5fd" }}
+          >
+            ⚡ Practice Quiz
+          </button>
+        </div>
+
         {/* Streak milestone celebration */}
         {[7, 14, 30, 60, 100].includes(streak) && (
           <motion.div
@@ -1667,19 +1778,20 @@ export default function DailyPage() {
           </motion.div>
         )}
         {/* Streak at risk warning */}
-        {completedTodayCount === 0 && new Date().getHours() >= 18 && streak > 0 && (
+        {completedTodayCount === 0 && new Date().getHours() >= 18 && streak > 0 && !alertsMuted && (
           <motion.div
             className="mx-4 mt-2 p-3 rounded-2xl flex items-center gap-2"
             style={{ background: "rgba(239,68,68,0.1)", border: "1px solid rgba(239,68,68,0.3)" }}
             animate={{ x: [-2, 2, -2, 0] }}
             transition={{ duration: 0.5, repeat: 2 }}
           >
-            <Flame className="w-5 h-5 text-red-400" />
-            <span className="text-red-300 text-sm font-medium">Your {streak}-day streak is at risk! Complete a lesson to keep it.</span>
+            <Flame className="w-5 h-5 text-red-400 shrink-0" />
+            <span className="text-red-300 text-sm font-medium flex-1">Your {streak}-day streak is at risk!</span>
+            <Link href="/settings" className="text-[10px] text-red-400/50 underline whitespace-nowrap">Silence</Link>
           </motion.div>
         )}
         {/* Pet health warning banner — shows most urgent issue only */}
-        {livePetState && (() => {
+        {livePetState && !alertsMuted && (() => {
           const warn = !livePetState.isAlive
             ? { icon: <AlertTriangle className="w-4 h-4 text-red-300" />, text: "Your pet needs revival! Visit the avatar page.", bg: "rgba(127,29,29,0.15)", border: "rgba(239,68,68,0.4)", textColor: "text-red-300" }
             : livePetState.health < 20
@@ -1692,12 +1804,14 @@ export default function DailyPage() {
           if (!warn) return null;
           return (
             <div className="max-w-md mx-auto px-4 pt-3">
-              <Link href="/avatar" className="flex items-center gap-2.5 px-4 py-2.5 rounded-2xl" style={{ background: warn.bg, border: `1px solid ${warn.border}` }}>
-                <PetCompanion type={livePetState.type} size={28} />
-                {warn.icon}
-                <span className={`${warn.textColor} text-xs font-medium flex-1`}>{warn.text}</span>
-                <ChevronRight className="w-4 h-4 opacity-40" />
-              </Link>
+              <div className="flex items-center gap-2.5 px-4 py-2.5 rounded-2xl" style={{ background: warn.bg, border: `1px solid ${warn.border}` }}>
+                <Link href="/avatar" className="flex items-center gap-2.5 flex-1 min-w-0">
+                  <PetCompanion type={livePetState.type} size={28} />
+                  {warn.icon}
+                  <span className={`${warn.textColor} text-xs font-medium flex-1`}>{warn.text}</span>
+                </Link>
+                <Link href="/settings" className="text-[10px] opacity-40 underline whitespace-nowrap ml-1">Silence</Link>
+              </div>
             </div>
           );
         })()}
@@ -1718,25 +1832,25 @@ export default function DailyPage() {
             </Link>
           </div>
         )}
-        <div className="max-w-md mx-auto px-4 pt-4">
-          <PathIteration4
-            units={currentUnits}
-            onNodeTap={(node) => setBottomSheetNode(node)}
-            enneagramType={enneagramTypeForPet}
-            instinct={profile.instinctualStacking ?? "sp"}
-          />
+        {/* ─── Curriculum Path ─────────────────────────────────────────── */}
+        <div className="max-w-md mx-auto pt-4 pb-8">
+          {unitsWithStatus.map((unit, i) => (
+            <UnitSection
+              key={unit.id}
+              unit={unit}
+              index={i}
+              enneagramType={enneagramTypeForPet}
+              instinct={profile.instinctualStacking ?? "sp"}
+              onNodeTap={(lesson) => handleLessonNodeTap(lesson, unit)}
+            />
+          ))}
         </div>
-        <NodeBottomSheet
-          node={bottomSheetNode}
-          onClose={() => setBottomSheetNode(null)}
-          onStart={startNode}
-          onCompleteNonQuiz={completeNonQuizNode}
-          isCompleted={(id) => {
-            const nq = dailyProgress?.nonQuizCompleted ?? [];
-            const m = dailyProgress?.modulesCompleted ?? [];
-            const w = dailyProgress?.warmupDone ?? false;
-            return nq.includes(id) || m.includes(id) || (id === "warmup" && w);
-          }}
+
+        {/* ─── Lesson node bottom sheet ────────────────────────────────── */}
+        <NodeSheet
+          lesson={selectedLesson}
+          unit={selectedLessonUnit}
+          onClose={() => { setSelectedLesson(null); setSelectedLessonUnit(null); }}
         />
       </div>
     );
@@ -1856,6 +1970,152 @@ export default function DailyPage() {
               >
                 Keep Going 🔥
               </motion.button>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* ── Daily Unit Limit Gate Modal ─────────────────────────────── */}
+      <AnimatePresence>
+        {unitLimitGate && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[80] flex items-end justify-center px-4 pb-8"
+            style={{ background: "rgba(10,5,25,0.85)", backdropFilter: "blur(12px)" }}
+            onClick={() => setUnitLimitGate(null)}
+          >
+            <motion.div
+              initial={{ y: 60, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              exit={{ y: 60, opacity: 0 }}
+              transition={{ type: "spring", stiffness: 300, damping: 28 }}
+              className="w-full max-w-sm rounded-3xl p-6 text-center"
+              style={{ background: "rgba(22,12,48,0.98)", border: "1px solid rgba(139,92,246,0.25)" }}
+              onClick={e => e.stopPropagation()}
+            >
+              <div className="text-4xl mb-3">🔒</div>
+              <h2 className="text-xl font-black text-white mb-1">Daily Limit Reached</h2>
+              <p className="text-sm mb-5" style={{ color: "rgba(255,255,255,0.5)" }}>
+                You&apos;ve started {DAILY_UNIT_LIMIT} units today. Come back tomorrow, or spend tokens to keep going.
+              </p>
+              <button
+                onClick={() => {
+                  if ((gameStateRaw.tokens ?? 0) < 1) return;
+                  const { pendingLesson, pendingUnit } = unitLimitGate;
+                  import("@/hooks/useGameState").then(() => {});
+                  // spend 1 token
+                  try {
+                    const raw = localStorage.getItem("psyche-game-state");
+                    if (raw) {
+                      const gs = JSON.parse(raw);
+                      if ((gs.tokens ?? 0) >= 1) {
+                        gs.tokens -= 1;
+                        localStorage.setItem("psyche-game-state", JSON.stringify(gs));
+                      }
+                    }
+                  } catch {}
+                  recordUnitStarted(pendingUnit.id);
+                  setUnitLimitGate(null);
+                  setSelectedLesson(pendingLesson);
+                  setSelectedLessonUnit(pendingUnit);
+                }}
+                className="w-full py-3.5 rounded-2xl font-black text-white text-base mb-3 transition-all active:scale-95"
+                style={{
+                  background: (gameStateRaw.tokens ?? 0) >= 1
+                    ? "linear-gradient(135deg, #7c3aed, #4f46e5)"
+                    : "rgba(255,255,255,0.08)",
+                  boxShadow: (gameStateRaw.tokens ?? 0) >= 1 ? "0 4px 20px rgba(124,58,237,0.4)" : "none",
+                  color: (gameStateRaw.tokens ?? 0) >= 1 ? "#fff" : "rgba(255,255,255,0.3)",
+                }}
+              >
+                {(gameStateRaw.tokens ?? 0) >= 1
+                  ? `⚡ Unlock with 1 Token (${gameStateRaw.tokens ?? 0} left)`
+                  : "Not enough tokens"}
+              </button>
+              <button
+                onClick={() => setUnitLimitGate(null)}
+                className="w-full py-2.5 rounded-2xl text-sm font-medium"
+                style={{ color: "rgba(255,255,255,0.4)" }}
+              >
+                Come back tomorrow
+              </button>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* ── Streak Repair Prompt ─────────────────────────────────────── */}
+      <AnimatePresence>
+        {streakRepairPrompt && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[80] flex items-end justify-center px-4 pb-8"
+            style={{ background: "rgba(10,5,25,0.85)", backdropFilter: "blur(12px)" }}
+            onClick={() => setStreakRepairPrompt(false)}
+          >
+            <motion.div
+              initial={{ y: 60, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              exit={{ y: 60, opacity: 0 }}
+              transition={{ type: "spring", stiffness: 300, damping: 28 }}
+              className="w-full max-w-sm rounded-3xl p-6 text-center"
+              style={{ background: "rgba(22,12,48,0.98)", border: "1px solid rgba(239,68,68,0.3)" }}
+              onClick={e => e.stopPropagation()}
+            >
+              <motion.div
+                animate={{ rotate: [-5, 5, -5, 0] }}
+                transition={{ duration: 0.5, delay: 0.2 }}
+                className="text-5xl mb-3"
+              >
+                🔥
+              </motion.div>
+              <h2 className="text-xl font-black text-white mb-1">Your Streak Ended</h2>
+              <p className="text-sm mb-5" style={{ color: "rgba(255,255,255,0.5)" }}>
+                You missed yesterday. Spend 3 tokens to restore your streak — this offer expires at midnight.
+              </p>
+              <button
+                onClick={() => {
+                  if ((gameStateRaw.tokens ?? 0) < 3) return;
+                  try {
+                    const raw = localStorage.getItem("psyche-game-state");
+                    if (raw) {
+                      const gs = JSON.parse(raw);
+                      if ((gs.tokens ?? 0) >= 3) {
+                        gs.tokens -= 3;
+                        gs.streakCount = parseInt(localStorage.getItem("psyche-prev-streak") ?? "1", 10);
+                        gs.lastActivityDate = getDateKey();
+                        localStorage.setItem("psyche-game-state", JSON.stringify(gs));
+                        localStorage.removeItem("psyche-prev-streak");
+                      }
+                    }
+                  } catch {}
+                  setStreakRepairPrompt(false);
+                  window.location.reload();
+                }}
+                className="w-full py-3.5 rounded-2xl font-black text-white text-base mb-3 transition-all active:scale-95"
+                style={{
+                  background: (gameStateRaw.tokens ?? 0) >= 3
+                    ? "linear-gradient(135deg, #ef4444, #dc2626)"
+                    : "rgba(255,255,255,0.08)",
+                  boxShadow: (gameStateRaw.tokens ?? 0) >= 3 ? "0 4px 20px rgba(239,68,68,0.4)" : "none",
+                  color: (gameStateRaw.tokens ?? 0) >= 3 ? "#fff" : "rgba(255,255,255,0.3)",
+                }}
+              >
+                {(gameStateRaw.tokens ?? 0) >= 3
+                  ? `🔥 Repair Streak — 3 Tokens (${gameStateRaw.tokens ?? 0} left)`
+                  : `Not enough tokens (need 3, have ${gameStateRaw.tokens ?? 0})`}
+              </button>
+              <button
+                onClick={() => setStreakRepairPrompt(false)}
+                className="w-full py-2.5 rounded-2xl text-sm font-medium"
+                style={{ color: "rgba(255,255,255,0.4)" }}
+              >
+                Start fresh
+              </button>
             </motion.div>
           </motion.div>
         )}
@@ -2074,6 +2334,38 @@ export default function DailyPage() {
                       <p className="text-slate-600 leading-relaxed text-sm">
                         {dailyInsightData.reflection}
                       </p>
+                      {/* Tritype + instinctual stacking enrichment */}
+                      {(() => {
+                        const tritype = profile.tritype || (profile.tritypeFirst && profile.tritypeSecond && profile.tritypeThird ? `${profile.tritypeFirst}${profile.tritypeSecond}${profile.tritypeThird}` : null);
+                        const stacking = profile.instinctualStacking;
+                        const tritypeArchetype = tritype ? orderedTritypeThyselfs[tritype] : null;
+                        const stackingData = stacking ? instinctualStackings.find(s => s.code === stacking.toLowerCase()) : null;
+                        if (!tritype && !stacking) return null;
+                        return (
+                          <div className="mt-4 pt-4 border-t border-indigo-100/60 space-y-2">
+                            {tritype && (
+                              <div className="flex items-start gap-2">
+                                <span className="mt-0.5 px-2 py-0.5 rounded-full text-[10px] font-bold bg-indigo-100 text-indigo-600 shrink-0 tracking-wide">
+                                  {tritype}{tritypeArchetype ? ` · ${tritypeArchetype}` : ""}
+                                </span>
+                                <p className="text-xs text-slate-500 leading-relaxed">
+                                  Today, notice how your {tritype[0]}-{tritype[1]}-{tritype[2]} combination shapes your response to this insight — which center pulls strongest right now?
+                                </p>
+                              </div>
+                            )}
+                            {stackingData && (
+                              <div className="flex items-start gap-2">
+                                <span className="mt-0.5 px-2 py-0.5 rounded-full text-[10px] font-bold bg-violet-100 text-violet-600 shrink-0 tracking-wide uppercase">
+                                  {stacking}
+                                </span>
+                                <p className="text-xs text-slate-500 leading-relaxed">
+                                  {stackingData.dominant} instinct growth edge: {stackingData.characteristics[stackingData.characteristics.length - 1].toLowerCase()}
+                                </p>
+                              </div>
+                            )}
+                          </div>
+                        );
+                      })()}
                     </div>
                   ) : todayInsight ? (
                     <p className="text-slate-700 leading-relaxed font-serif text-[15px]">{todayInsight}</p>
@@ -2087,6 +2379,26 @@ export default function DailyPage() {
                 </div>
               </div>
             </motion.div>
+
+            {/* Cognitive Edge */}
+            {profile.cognitiveType && cognitiveGrowthEdges[profile.cognitiveType] && (
+              <motion.div initial={{ opacity: 1, y: 0 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.05 }}>
+                <div className="p-5 rounded-3xl bg-white border border-slate-100 shadow-sm">
+                  <div className="flex items-center gap-2.5 mb-3">
+                    <div className="w-8 h-8 rounded-xl bg-sky-100 flex items-center justify-center">
+                      <Brain className="w-4 h-4 text-sky-600" />
+                    </div>
+                    <div>
+                      <div className="text-xs font-semibold text-sky-600">Cognitive Edge</div>
+                      <div className="text-[10px] text-slate-400">{cognitiveGrowthEdges[profile.cognitiveType].dominantFunction}</div>
+                    </div>
+                  </div>
+                  <p className="text-sm text-slate-600 leading-relaxed">
+                    {cognitiveGrowthEdges[profile.cognitiveType].dailyPractice}
+                  </p>
+                </div>
+              </motion.div>
+            )}
 
             {/* Growth Challenge */}
             {todayChallenge && (

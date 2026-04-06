@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowRight, ExternalLink, Search } from "lucide-react";
+import { ExternalLink, Search } from "lucide-react";
 import { enneagramTypes } from "@/data/enneagram";
 
 interface MistypePair {
@@ -70,10 +70,10 @@ export default function MistypeInvestigator({
     return (
       <div className="max-w-3xl mx-auto py-8 px-4">
         <div className="text-center mb-8">
-          <h2 className="text-xl font-serif font-bold text-slate-900 mb-2">
+          <h2 className="text-xl font-serif font-bold mb-2" style={{ color: "rgba(255,255,255,0.95)" }}>
             Mistype Investigator
           </h2>
-          <p className="text-sm text-slate-500 max-w-lg mx-auto">
+          <p className="text-sm max-w-lg mx-auto" style={{ color: "rgba(255,255,255,0.5)" }}>
             Select the type pairs you&apos;re confused between. We&apos;ll ask targeted questions to help you distinguish them.
           </p>
         </div>
@@ -87,9 +87,11 @@ export default function MistypeInvestigator({
               <button
                 key={idx}
                 onClick={() => togglePair(idx)}
-                className={`text-left p-4 rounded-2xl border-2 transition-all ${
-                  isSelected ? "border-rose-300 bg-rose-50/30" : "border-slate-100 bg-white hover:border-rose-200"
-                }`}
+                className="text-left p-4 rounded-2xl border-2 transition-all hover:border-rose-400/40"
+                style={{
+                  background: isSelected ? "rgba(244,63,94,0.1)" : "rgba(255,255,255,0.04)",
+                  borderColor: isSelected ? "rgba(244,63,94,0.5)" : "rgba(255,255,255,0.1)",
+                }}
               >
                 <div className="flex items-center gap-3 mb-2">
                   <div className="flex items-center gap-1">
@@ -99,7 +101,7 @@ export default function MistypeInvestigator({
                     >
                       {pair.typeA}
                     </div>
-                    <span className="text-slate-300 text-sm">vs</span>
+                    <span className="text-sm" style={{ color: "rgba(255,255,255,0.3)" }}>vs</span>
                     <div
                       className="w-8 h-8 rounded-lg flex items-center justify-center text-white text-sm font-bold"
                       style={{ backgroundColor: typeB?.color }}
@@ -108,10 +110,10 @@ export default function MistypeInvestigator({
                     </div>
                   </div>
                   {isSelected && (
-                    <span className="ml-auto px-2 py-0.5 text-[10px] font-medium rounded-full bg-rose-100 text-rose-600">Selected</span>
+                    <span className="ml-auto px-2 py-0.5 text-[10px] font-medium rounded-full bg-rose-500/20 text-rose-400">Selected</span>
                   )}
                 </div>
-                <p className="text-xs text-slate-500 leading-relaxed">{pair.commonConfusion}</p>
+                <p className="text-xs leading-relaxed" style={{ color: "rgba(255,255,255,0.5)" }}>{pair.commonConfusion}</p>
               </button>
             );
           })}
@@ -131,7 +133,8 @@ export default function MistypeInvestigator({
             href="https://www.enneagraminstitute.com/misidentifying-enneagram-types"
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-1.5 text-xs text-slate-400 hover:text-slate-600 transition"
+            className="flex items-center gap-1.5 text-xs transition hover:opacity-80"
+            style={{ color: "rgba(255,255,255,0.4)" }}
           >
             <ExternalLink className="w-3 h-3" />
             Enneagram Institute Mistype Guide
@@ -155,13 +158,13 @@ export default function MistypeInvestigator({
     return (
       <div className="max-w-2xl mx-auto py-8 px-4">
         <div className="mb-6">
-          <div className="flex items-center justify-between text-xs text-slate-400 mb-2">
+          <div className="flex items-center justify-between text-xs mb-2" style={{ color: "rgba(255,255,255,0.4)" }}>
             <span>
               Type {currentPair.typeA} vs {currentPair.typeB}
             </span>
             <span>{Math.round(progress)}%</span>
           </div>
-          <div className="h-1.5 bg-slate-100 rounded-full overflow-hidden">
+          <div className="h-1.5 rounded-full overflow-hidden" style={{ background: "rgba(255,255,255,0.1)" }}>
             <motion.div
               className="h-full bg-gradient-to-r from-rose-400 to-pink-500 rounded-full"
               animate={{ width: `${progress}%` }}
@@ -176,14 +179,15 @@ export default function MistypeInvestigator({
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: -20 }}
           >
-            <h2 className="text-lg font-serif font-semibold text-slate-800 mb-6 text-center">
+            <h2 className="text-lg font-serif font-semibold mb-6 text-center" style={{ color: "rgba(255,255,255,0.9)" }}>
               {q.text}
             </h2>
 
             <div className="space-y-3">
               <button
                 onClick={() => answer(q.optionA.leansToward)}
-                className="w-full text-left p-5 rounded-2xl border-2 border-slate-100 bg-white hover:border-rose-300 hover:bg-rose-50/20 transition-all active:scale-[0.98]"
+                className="w-full text-left p-5 rounded-2xl border-2 transition-all active:scale-[0.98] hover:border-rose-400/40"
+                style={{ background: "rgba(255,255,255,0.04)", borderColor: "rgba(255,255,255,0.1)" }}
               >
                 <div className="flex items-start gap-3">
                   <div
@@ -192,13 +196,14 @@ export default function MistypeInvestigator({
                   >
                     {q.optionA.leansToward}
                   </div>
-                  <p className="text-sm text-slate-700 leading-relaxed">{q.optionA.text}</p>
+                  <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.75)" }}>{q.optionA.text}</p>
                 </div>
               </button>
-              <div className="text-center text-xs text-slate-300">or</div>
+              <div className="text-center text-xs" style={{ color: "rgba(255,255,255,0.3)" }}>or</div>
               <button
                 onClick={() => answer(q.optionB.leansToward)}
-                className="w-full text-left p-5 rounded-2xl border-2 border-slate-100 bg-white hover:border-rose-300 hover:bg-rose-50/20 transition-all active:scale-[0.98]"
+                className="w-full text-left p-5 rounded-2xl border-2 transition-all active:scale-[0.98] hover:border-rose-400/40"
+                style={{ background: "rgba(255,255,255,0.04)", borderColor: "rgba(255,255,255,0.1)" }}
               >
                 <div className="flex items-start gap-3">
                   <div
@@ -207,7 +212,7 @@ export default function MistypeInvestigator({
                   >
                     {q.optionB.leansToward}
                   </div>
-                  <p className="text-sm text-slate-700 leading-relaxed">{q.optionB.text}</p>
+                  <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.75)" }}>{q.optionB.text}</p>
                 </div>
               </button>
             </div>

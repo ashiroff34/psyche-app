@@ -1,10 +1,11 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useState, useCallback, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { CheckCircle, XCircle, ArrowRight, Trophy, Zap } from "lucide-react";
 import type { TypeQuizQuestion } from "@/data/type-quizzes";
 import { REWARDS } from "@/data/rewards";
+import { stableShuffleOptions } from "@/lib/shuffleOptions";
 
 export interface QuizAnswer {
   questionId: number;
@@ -35,16 +36,31 @@ export default function DailyQuiz({ questions, trackName, onComplete }: DailyQui
   const total = questions.length;
   const q = questions[currentIdx];
 
+  // Stable shuffle of options per question. We identify the correct option by its
+  // original letter from the data, then derive the new visual letter after shuffling.
+  const { shuffledOptionObjects, shuffledAnswerLetter } = useMemo(() => {
+    if (!q) return { shuffledOptionObjects: [] as { letter: string; text: string }[], shuffledAnswerLetter: "" };
+    const correctIdx = q.options.findIndex(o => o.letter === q.answer);
+    const { shuffled } = stableShuffleOptions(q.options, correctIdx, String(q.id));
+    const LETTERS = ["A", "B", "C", "D"];
+    const newAnswerIdx = shuffled.findIndex(o => o.letter === q.answer);
+    return {
+      shuffledOptionObjects: shuffled,
+      shuffledAnswerLetter: LETTERS[newAnswerIdx] ?? q.answer,
+    };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [q?.id]);
+
   const handleSelect = useCallback(
-    (letter: string) => {
+    (visualLetter: string) => {
       if (revealed) return;
-      setSelected(letter);
+      setSelected(visualLetter);
       setRevealed(true);
 
-      const isCorrect = letter === q.answer;
+      const isCorrect = visualLetter === shuffledAnswerLetter;
       setAnswers((prev) => [
         ...prev,
-        { questionId: q.id, selected: letter, correct: isCorrect },
+        { questionId: q.id, selected: visualLetter, correct: isCorrect },
       ]);
 
       if (isCorrect) {
@@ -52,7 +68,7 @@ export default function DailyQuiz({ questions, trackName, onComplete }: DailyQui
         setTokensEarned((t) => t + REWARDS.CORRECT_ANSWER);
       }
     },
-    [revealed, q]
+    [revealed, q, shuffledAnswerLetter]
   );
 
   const handleNext = useCallback(() => {
@@ -74,7 +90,8 @@ export default function DailyQuiz({ questions, trackName, onComplete }: DailyQui
 
   if (!q) return null;
 
-  const isCorrect = selected === q.answer;
+  const VISUAL_LETTERS = ["A", "B", "C", "D"];
+  const isCorrect = selected === shuffledAnswerLetter;
   const progressPercent = ((currentIdx + 1) / total) * 100;
 
   return (
@@ -128,9 +145,10 @@ export default function DailyQuiz({ questions, trackName, onComplete }: DailyQui
 
           {/* Options */}
           <div className="space-y-3">
-            {q.options.map((opt) => {
-              const isThis = selected === opt.letter;
-              const isAnswer = opt.letter === q.answer;
+            {shuffledOptionObjects.map((opt, idx) => {
+              const visualLetter = VISUAL_LETTERS[idx];
+              const isThis = selected === visualLetter;
+              const isAnswer = visualLetter === shuffledAnswerLetter;
               let borderClass = "border-slate-200 hover:border-sky-300 hover:bg-sky-50/50";
               let bgClass = "bg-white";
 
@@ -153,7 +171,7 @@ export default function DailyQuiz({ questions, trackName, onComplete }: DailyQui
               return (
                 <button
                   key={opt.letter}
-                  onClick={() => handleSelect(opt.letter)}
+                  onClick={() => handleSelect(visualLetter)}
                   disabled={revealed}
                   className={`w-full flex items-start gap-3 p-4 rounded-2xl border-2 text-left transition-all active:scale-[0.98] ${borderClass} ${bgClass}`}
                 >
@@ -169,7 +187,7 @@ export default function DailyQuiz({ questions, trackName, onComplete }: DailyQui
                     ) : revealed && isThis && !isCorrect ? (
                       <XCircle className="w-4 h-4" />
                     ) : (
-                      opt.letter
+                      visualLetter
                     )}
                   </span>
                   <span className="text-sm text-slate-700 leading-relaxed pt-1">{opt.text}</span>
@@ -201,7 +219,7 @@ export default function DailyQuiz({ questions, trackName, onComplete }: DailyQui
                   <>
                     <XCircle className="w-5 h-5 text-rose-500" />
                     <span className="text-sm font-semibold text-rose-700">Not quite</span>
-                    <span className="ml-auto text-xs text-rose-400">Answer: {q.answer}</span>
+                    <span className="ml-auto text-xs text-rose-400">Answer: {shuffledAnswerLetter}</span>
                   </>
                 )}
               </div>

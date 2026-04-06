@@ -33,11 +33,11 @@ export function TermTooltip({ term, children }: { term: string; children?: React
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 5, scale: 0.95 }}
             transition={{ duration: 0.15 }}
-            className="absolute z-50 bottom-full mb-2 left-0 w-64 sm:w-80 p-3 rounded-xl bg-white shadow-xl shadow-slate-200/50 border border-slate-100"
+            className="absolute z-50 bottom-full mb-2 left-0 w-64 sm:w-80 p-3 rounded-xl shadow-xl" style={{ background: "rgba(20,15,40,0.97)", border: "1px solid rgba(255,255,255,0.12)" }}
             onClick={() => setOpen(false)}
           >
-            <div className="text-xs font-semibold text-sky-700 mb-1">{term}</div>
-            <p className="text-xs text-slate-600 leading-relaxed">
+            <div className="text-xs font-semibold mb-1" style={{ color: "rgba(56,189,248,0.9)" }}>{term}</div>
+            <p className="text-xs leading-relaxed" style={{ color: "rgba(255,255,255,0.65)" }}>
               {level === "beginner" ? glossary.full : glossary.short}
             </p>
           </motion.div>
@@ -59,16 +59,13 @@ export function ExperienceLevelToggle({ compact = false }: { compact?: boolean }
 
   if (compact) {
     return (
-      <div className="flex items-center gap-1 p-1 rounded-xl bg-slate-100">
+      <div className="flex items-center gap-1 p-1 rounded-xl" style={{ background: "rgba(255,255,255,0.07)" }}>
         {levels.map((l) => (
           <button
             key={l.value}
             onClick={() => setExperienceLevel(l.value)}
-            className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
-              level === l.value
-                ? "bg-white text-sky-700 shadow-sm"
-                : "text-slate-500 hover:text-slate-700"
-            }`}
+            className="px-3 py-1.5 rounded-lg text-xs font-medium transition-all"
+            style={level === l.value ? { background: "rgba(139,92,246,0.3)", color: "rgba(167,139,250,0.95)" } : { color: "rgba(255,255,255,0.5)" }}
           >
             {l.emoji} {l.label}
           </button>
@@ -78,25 +75,22 @@ export function ExperienceLevelToggle({ compact = false }: { compact?: boolean }
   }
 
   return (
-    <div className="p-4 rounded-2xl bg-white border border-slate-100 shadow-sm">
-      <div className="text-sm font-medium text-slate-700 mb-3">Experience Level</div>
+    <div className="p-4 rounded-2xl shadow-sm" style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.1)" }}>
+      <div className="text-sm font-medium mb-3" style={{ color: "rgba(255,255,255,0.75)" }}>Experience Level</div>
       <div className="space-y-2">
         {levels.map((l) => (
           <button
             key={l.value}
             onClick={() => setExperienceLevel(l.value)}
-            className={`w-full flex items-center gap-3 p-3 rounded-xl text-left transition-all ${
-              level === l.value
-                ? "bg-sky-50 border-2 border-sky-300"
-                : "bg-slate-50 border-2 border-transparent hover:border-slate-200"
-            }`}
+            className="w-full flex items-center gap-3 p-3 rounded-xl text-left transition-all border-2"
+            style={level === l.value ? { background: "rgba(14,165,233,0.12)", borderColor: "rgba(14,165,233,0.4)" } : { background: "rgba(255,255,255,0.03)", borderColor: "transparent" }}
           >
             <span className="text-xl">{l.emoji}</span>
             <div>
-              <div className={`text-sm font-medium ${level === l.value ? "text-sky-700" : "text-slate-700"}`}>
+              <div className="text-sm font-medium" style={{ color: level === l.value ? "rgba(56,189,248,0.9)" : "rgba(255,255,255,0.75)" }}>
                 {l.label}
               </div>
-              <div className="text-xs text-slate-500">{l.description}</div>
+              <div className="text-xs" style={{ color: "rgba(255,255,255,0.5)" }}>{l.description}</div>
             </div>
           </button>
         ))}

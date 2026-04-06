@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useMemo } from "react";
 import { motion, AnimatePresence, useInView } from "framer-motion";
 import {
   BookOpen,
@@ -26,6 +26,8 @@ import {
 } from "lucide-react";
 import { useProfile } from "@/hooks/useProfile";
 import NextStepBanner from "@/components/NextStepBanner";
+import AssessmentHistory from "@/components/AssessmentHistory";
+import { stableShuffleOptions } from "@/lib/shuffleOptions";
 
 /* ───────────────────────────────────────────
    Knowledge Check Quizzes, earn XP for learning!
@@ -59,15 +61,22 @@ function KnowledgeCheck({ quiz, sectionName }: { quiz: QuizQuestion[]; sectionNa
   const [revealed, setRevealed] = useState(false);
   const [score, setScore] = useState(0);
   const [finished, setFinished] = useState(false);
-  const { addXP, markQuizComplete } = useProfile();
+  const { addXP, markQuizComplete, profile } = useProfile();
 
   const q = quiz[current];
+
+  // Stable shuffle per question so options don't jump on re-renders
+  const { shuffled: shuffledOptions, newCorrectIndex } = useMemo(
+    () => stableShuffleOptions(q.options, q.correct, q.question),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [q.question]
+  );
 
   const handleSelect = (idx: number) => {
     if (revealed) return;
     setSelected(idx);
     setRevealed(true);
-    if (idx === q.correct) setScore(s => s + 1);
+    if (idx === newCorrectIndex) setScore(s => s + 1);
   };
 
   const handleNext = () => {
@@ -150,8 +159,8 @@ function KnowledgeCheck({ quiz, sectionName }: { quiz: QuizQuestion[]; sectionNa
       </div>
       <h4 className="text-sm sm:text-base font-medium mb-4" style={{ color: "rgba(255,255,255,0.93)" }}>{q.question}</h4>
       <div className="space-y-2">
-        {q.options.map((opt, idx) => {
-          const isCorrect = idx === q.correct;
+        {shuffledOptions.map((opt, idx) => {
+          const isCorrect = idx === newCorrectIndex;
           const isSelected = idx === selected;
           return (
             <button
@@ -811,6 +820,7 @@ export default function HistoryPage() {
   const [activeTab, setActiveTab] = useState<TabId>("enneagram");
   const [expandedEnneagram, setExpandedEnneagram] = useState<string | null>(null);
   const [expandedJung, setExpandedJung] = useState<string | null>(null);
+  const { profile } = useProfile();
 
   return (
     <div className="min-h-screen py-10 sm:py-16" style={{ background: "#0f0a1e" }}>
@@ -1171,6 +1181,24 @@ export default function HistoryPage() {
             )}
           </AnimatePresence>
         </div>
+
+        {/* Assessment Journey */}
+        {profile.assessmentHistory && profile.assessmentHistory.length > 0 && (
+          <div style={{ padding: "0 16px 24px" }}>
+            <div style={{
+              background: "rgba(255,255,255,0.03)",
+              border: "1px solid rgba(255,255,255,0.07)",
+              borderRadius: 20,
+              padding: "20px 20px 8px",
+            }}>
+              <div style={{ fontSize: 16, fontWeight: 700, color: "#fff", marginBottom: 4 }}>Assessment Journey</div>
+              <div style={{ fontSize: 13, color: "rgba(255,255,255,0.45)", marginBottom: 20 }}>
+                Track how your type identification has evolved over time.
+              </div>
+              <AssessmentHistory history={profile.assessmentHistory} />
+            </div>
+          </div>
+        )}
 
         <NextStepBanner
           href="/correlations"

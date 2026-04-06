@@ -10,6 +10,10 @@ import MatchingPairsExercise from "./exercises/MatchingPairsExercise";
 import FillInBlankExercise from "./exercises/FillInBlankExercise";
 import ScenarioExercise from "./exercises/ScenarioExercise";
 import SortingExercise from "./exercises/SortingExercise";
+import DiscriminationExercise, { type DiscriminationContent } from "./exercises/DiscriminationExercise";
+import FreeRecallExercise from "./exercises/FreeRecallExercise";
+import SocraticPrompt from "./exercises/SocraticPrompt";
+import InterleavingExercise from "./exercises/InterleavingExercise";
 import LessonComplete from "./LessonComplete";
 
 interface LessonEngineProps {
@@ -152,12 +156,16 @@ export default function LessonEngine({ lesson, onComplete, onExit }: LessonEngin
   if (!currentExercise) return null;
 
   // Render the appropriate exercise component
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const renderExercise = (exercise: Exercise) => {
-    switch (exercise.content.type) {
+    // Cast to any to support extended exercise types not yet in the ExerciseContent union
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const content = exercise.content as any;
+    switch (content.type) {
       case "concept-intro":
         return (
           <ConceptIntroCard
-            content={exercise.content}
+            content={content}
             onContinue={() => {
               setCorrectCount((c) => c + 1);
               setTotalAttempts((t) => t + 1);
@@ -168,35 +176,74 @@ export default function LessonEngine({ lesson, onComplete, onExit }: LessonEngin
       case "multiple-choice":
         return (
           <MultipleChoiceExercise
-            content={exercise.content}
+            content={content}
             onAnswer={handleExerciseAnswer}
+            exerciseId={exercise.id}
           />
         );
       case "matching-pairs":
         return (
           <MatchingPairsExercise
-            content={exercise.content}
+            content={content}
             onComplete={handleExerciseComplete}
           />
         );
       case "fill-in-blank":
         return (
           <FillInBlankExercise
-            content={exercise.content}
+            content={content}
             onAnswer={handleExerciseAnswer}
+            exerciseId={exercise.id}
           />
         );
       case "scenario":
         return (
           <ScenarioExercise
-            content={exercise.content}
+            content={content}
             onAnswer={handleExerciseAnswer}
+            exerciseId={exercise.id}
           />
         );
       case "sorting":
         return (
           <SortingExercise
-            content={exercise.content}
+            content={content}
+            onComplete={handleExerciseComplete}
+          />
+        );
+      case "discrimination":
+        return (
+          <DiscriminationExercise
+            content={content as DiscriminationContent}
+            onComplete={handleExerciseComplete}
+          />
+        );
+      case "free-recall":
+        return (
+          <FreeRecallExercise
+            content={content}
+            onContinue={() => {
+              setCorrectCount((c) => c + 1);
+              setTotalAttempts((t) => t + 1);
+              advanceToNext();
+            }}
+          />
+        );
+      case "socratic-prompt":
+        return (
+          <SocraticPrompt
+            content={content}
+            onContinue={() => {
+              setCorrectCount((c) => c + 1);
+              setTotalAttempts((t) => t + 1);
+              advanceToNext();
+            }}
+          />
+        );
+      case "interleaving":
+        return (
+          <InterleavingExercise
+            content={content}
             onComplete={handleExerciseComplete}
           />
         );
@@ -206,7 +253,7 @@ export default function LessonEngine({ lesson, onComplete, onExit }: LessonEngin
   };
 
   return (
-    <div className="fixed inset-0 z-50 bg-white dark:bg-slate-950 flex flex-col" style={{ maxWidth: 640, margin: "0 auto" }}>
+    <div className="fixed inset-0 z-50 flex flex-col" style={{ maxWidth: 640, margin: "0 auto", background: "#0f0a1e" }}>
       {/* Top bar: X | progress bar | hearts */}
       <div className="flex items-center gap-3 px-4 pt-safe pt-4 pb-3">
         {/* Exit button */}

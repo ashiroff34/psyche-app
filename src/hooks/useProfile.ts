@@ -39,7 +39,27 @@ export interface PsycheProfile {
   // Self-identification flag
   selfIdentified?: boolean;
   // Assessment history
-  assessmentHistory?: { id: string; name: string; result: string; completedAt: string }[];
+  assessmentHistory?: {
+    id: string;
+    name: string;
+    result: string;
+    completedAt: string;
+    topType?: number;
+    scores?: Record<string, number>;
+    confidence?: number;
+  }[];
+
+  // Re-test prompt
+  assessmentDate?: string;       // ISO date of first completed assessment
+
+  // Confidence system
+  typeConfidence?: number;       // 0–95, compounded across assessments
+  assessmentsTaken?: string[];   // e.g. ["quick", "essential-enneagram", "deep"]
+
+  // Conflict resolution — weighted votes from each assessment
+  assessmentVotes?: { id: string; type: number }[];
+  isTypeContested?: boolean;     // true when runner-up holds >30% of weighted vote
+  contestedRunnerUp?: number;    // the runner-up type when contested
 
   // Legacy fields for backward compat
   mbtiType?: string;
@@ -49,6 +69,54 @@ export interface PsycheProfile {
 }
 
 const STORAGE_KEY = "psyche-profile";
+
+// Confidence boosts per assessment (how much each adds to compound score)
+const CONFIDENCE_BOOSTS: Record<string, number> = {
+  "quick": 0,                  // sets the baseline from raw score
+  "essential-enneagram": 15,
+  "self-id": 15,
+  "integrative": 20,
+  "deep": 25,
+};
+
+// How much each assessment's type vote weighs in conflict resolution.
+// A heavier assessment can override a lighter one.
+const ASSESSMENT_VOTE_WEIGHTS: Record<string, number> = {
+  "quick": 1,
+  "essential-enneagram": 2,
+  "self-id": 1.5,
+  "integrative": 3,
+  "deep": 4,
+};
+
+// Resolve the winning type from all assessment votes using weighted majority.
+// Returns the winner, the runner-up (if any), and whether the result is contested
+// (runner-up holds >30% of the weighted vote — meaning it's close enough to matter).
+function resolveTypeFromVotes(votes: { id: string; type: number }[]): {
+  winner: number;
+  runnerUp: number | null;
+  isContested: boolean;
+} {
+  if (votes.length === 0) return { winner: 0, runnerUp: null, isContested: false };
+
+  const weightedTotals: Record<number, number> = {};
+  for (const vote of votes) {
+    const w = ASSESSMENT_VOTE_WEIGHTS[vote.id] ?? 1;
+    weightedTotals[vote.type] = (weightedTotals[vote.type] ?? 0) + w;
+  }
+
+  const sorted = Object.entries(weightedTotals)
+    .map(([t, w]) => ({ type: parseInt(t), weight: w }))
+    .sort((a, b) => b.weight - a.weight);
+
+  const winner = sorted[0].type;
+  const runnerUp = sorted.length > 1 ? sorted[1].type : null;
+  const totalWeight = sorted.reduce((sum, e) => sum + e.weight, 0);
+  const isContested =
+    runnerUp !== null && sorted[1].weight / totalWeight > 0.3;
+
+  return { winner, runnerUp, isContested };
+}
 
 // ─── Cross-component sync ────────────────────────────────────────────────────
 // Any write to psyche-profile dispatches this event so ALL mounted
@@ -128,8 +196,10 @@ export function useProfile() {
       const updated = { ...prev, ...updates };
       try {
         localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
-        broadcastProfileChange(updated); // ← notify all other mounted instances
       } catch {}
+      // Schedule broadcast outside of the state updater to avoid
+      // "setState during render" React warning
+      setTimeout(() => broadcastProfileChange(updated), 0);
       return updated;
     });
   }, []);
@@ -180,6 +250,97 @@ export function useProfile() {
     });
   }, []);
 
+  // Call this whenever an assessment completes.
+  // Uses weighted voting to resolve conflicts: heavier assessments override lighter ones.
+  // Confidence compounds only across assessments that agree with the weighted winner.
+  const recordAssessment = useCallback((
+    assessmentId: string,
+    rawConfidence: number,
+    type: number
+  ) => {
+    setProfile((prev) => {
+      const taken = prev.assessmentsTaken ?? [];
+      const alreadyTook = taken.includes(assessmentId);
+      const prevVotes = prev.assessmentVotes ?? [];
+
+      // ── Update the vote record ────────────────────────────────────────────
+      // If re-taking, replace the old vote; otherwise append.
+      const newVotes = alreadyTook
+        ? prevVotes.map((v) => v.id === assessmentId ? { id: assessmentId, type } : v)
+        : [...prevVotes, { id: assessmentId, type }];
+
+      // ── Resolve the winning type from all weighted votes ──────────────────
+      const { winner, runnerUp, isContested } = resolveTypeFromVotes(newVotes);
+
+      // ── Compound confidence ───────────────────────────────────────────────
+      // Quick sets a low baseline. Every subsequent assessment that agrees with
+      // the weighted winner adds its boost. Disagreement with the winner is
+      // a smaller penalty (the heavier test already corrected the direction).
+      let newConfidence: number;
+
+      if (assessmentId === "quick") {
+        // Always a low baseline — the starting point, not a verdict
+        newConfidence = Math.min(rawConfidence, 22);
+      } else {
+        const boost = CONFIDENCE_BOOSTS[assessmentId] ?? 5;
+        const base = prev.typeConfidence ?? Math.min(rawConfidence, 22);
+        const agreesWithWinner = type === winner;
+
+        if (alreadyTook) {
+          // Re-taking: small bonus if still agrees, small penalty if changed opinion
+          newConfidence = agreesWithWinner
+            ? Math.min(95, base + 5)
+            : Math.max(10, base - 5);
+        } else {
+          // First time taking this assessment
+          newConfidence = agreesWithWinner
+            ? Math.min(95, base + boost)
+            : Math.max(10, base - 3); // lighter penalty — weighted winner already corrected course
+        }
+      }
+
+      // If the resolved winner just flipped from what was stored, knock back
+      // slightly to signal "type is under review" (but not a freefall)
+      const prevWinner = prev.enneagramType;
+      if (prevWinner && prevWinner !== winner && assessmentId !== "quick") {
+        newConfidence = Math.max(12, newConfidence - 5);
+      }
+
+      // Set assessmentDate on the very first assessment taken
+      const isFirstEver = taken.length === 0 && !prev.assessmentDate;
+
+      const historyEntry = {
+        id: assessmentId,
+        name: assessmentId,
+        result: `Type ${winner}`,
+        completedAt: new Date().toISOString(),
+        topType: winner,
+        confidence: Math.round(newConfidence),
+      };
+      const prevHistory = prev.assessmentHistory ?? [];
+      const newHistory = alreadyTook
+        ? prevHistory.map((h) => h.id === assessmentId ? historyEntry : h)
+        : [...prevHistory, historyEntry];
+
+      const updated = {
+        ...prev,
+        enneagramType: winner,
+        typeConfidence: Math.round(newConfidence),
+        assessmentsTaken: alreadyTook ? taken : [...taken, assessmentId],
+        assessmentVotes: newVotes,
+        isTypeContested: isContested,
+        assessmentHistory: newHistory,
+        ...(isContested && runnerUp ? { contestedRunnerUp: runnerUp } : { contestedRunnerUp: undefined }),
+        ...(isFirstEver ? { assessmentDate: new Date().toISOString() } : {}),
+      };
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
+        broadcastProfileChange(updated);
+      } catch {}
+      return updated;
+    });
+  }, []);
+
   const markQuizComplete = useCallback((quizId: string) => {
     setProfile((prev) => {
       if (prev.completedQuizzes?.includes(quizId)) return prev;
@@ -212,6 +373,7 @@ export function useProfile() {
     trackVisit,
     addXP,
     markQuizComplete,
+    recordAssessment,
     hasType,
     displayName,
   };
