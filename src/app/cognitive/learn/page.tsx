@@ -3,6 +3,7 @@
 import { useState, useMemo, Suspense, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 import NextStepBanner from "@/components/NextStepBanner";
+import CognitivePremiumGate from "@/components/CognitivePremiumGate";
 import { markTopicComplete } from "@/hooks/useGameState";
 import { motion, AnimatePresence } from "framer-motion";
 import {
@@ -1928,14 +1929,16 @@ function CognitiveLearnContent() {
 
 export default function CognitiveLearnPage() {
   return (
-    <Suspense
-      fallback={
-        <div className="min-h-screen flex items-center justify-center" style={{ background: "#0f0a1e" }}>
-          <div style={{ color: "rgba(255,255,255,0.35)" }}>Loading...</div>
-        </div>
-      }
-    >
-      <CognitiveLearnContent />
-    </Suspense>
+    <CognitivePremiumGate>
+      <Suspense
+        fallback={
+          <div className="min-h-screen flex items-center justify-center" style={{ background: "#0f0a1e" }}>
+            <div style={{ color: "rgba(255,255,255,0.35)" }}>Loading...</div>
+          </div>
+        }
+      >
+        <CognitiveLearnContent />
+      </Suspense>
+    </CognitivePremiumGate>
   );
 }

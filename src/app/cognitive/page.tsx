@@ -7,6 +7,7 @@ import { MessageCircle, BookOpen, ChevronDown, ChevronUp, Info, Brain } from "lu
 import { cognitiveFunctions, mbtiTypes } from "@/data/cognitive-functions";
 import { useExperienceLevel } from "@/hooks/useExperienceLevel";
 import NextStepBanner from "@/components/NextStepBanner";
+import CognitivePremiumGate from "@/components/CognitivePremiumGate";
 
 function BeginnerIntro() {
   const [open, setOpen] = useState(false);
@@ -62,7 +63,7 @@ function BeginnerIntro() {
   );
 }
 
-export default function CognitivePage() {
+function CognitivePageInner() {
   const { level, loaded } = useExperienceLevel();
   const isAdvanced = loaded && level === "advanced";
   const isBeginner = loaded && level === "beginner";
@@ -362,5 +363,13 @@ export default function CognitivePage() {
         />
       </div>
     </div>
+  );
+}
+
+export default function CognitivePage() {
+  return (
+    <CognitivePremiumGate>
+      <CognitivePageInner />
+    </CognitivePremiumGate>
   );
 }

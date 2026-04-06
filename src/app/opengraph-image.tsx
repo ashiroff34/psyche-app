@@ -1,7 +1,7 @@
 import { ImageResponse } from 'next/og'
 
 export const dynamic = 'force-static'
-export const alt = 'Thyself — Know Your Enneagram Type'
+export const alt = 'Thyself — Know thyself.'
 export const size = { width: 1200, height: 630 }
 export const contentType = 'image/png'
 
@@ -12,219 +12,249 @@ export default async function Image() {
         style={{
           width: '1200px',
           height: '630px',
-          background: 'linear-gradient(135deg, #0a0618 0%, #0f0a1e 40%, #120d28 100%)',
+          background: '#08031a',
           display: 'flex',
           position: 'relative',
           overflow: 'hidden',
-          fontFamily: '"Helvetica Neue", Arial, sans-serif',
+          fontFamily: 'Georgia, "Times New Roman", serif',
         }}
       >
-        {/* Left panel dark overlay */}
+        {/* ── Deep background orbs ── */}
         <div style={{
-          position: 'absolute',
-          left: 0, top: 0, bottom: 0,
-          width: '580px',
-          background: 'rgba(8,4,20,0.5)',
-          borderRight: '1px solid rgba(139,92,246,0.10)',
+          position: 'absolute', top: '-200px', left: '-100px',
+          width: '700px', height: '700px', borderRadius: '50%',
+          background: 'radial-gradient(circle, rgba(109,40,217,0.28) 0%, rgba(79,46,160,0.10) 40%, transparent 70%)',
+          display: 'flex',
+        }} />
+        <div style={{
+          position: 'absolute', bottom: '-180px', right: '80px',
+          width: '600px', height: '600px', borderRadius: '50%',
+          background: 'radial-gradient(circle, rgba(217,70,239,0.16) 0%, transparent 65%)',
+          display: 'flex',
+        }} />
+        <div style={{
+          position: 'absolute', top: '120px', right: '-60px',
+          width: '480px', height: '480px', borderRadius: '50%',
+          background: 'radial-gradient(circle, rgba(139,92,246,0.12) 0%, transparent 60%)',
           display: 'flex',
         }} />
 
-        {/* Ambient glow top-left */}
+        {/* ── Top gradient line ── */}
         <div style={{
-          position: 'absolute',
-          top: '-160px', left: '-80px',
-          width: '560px', height: '560px',
-          borderRadius: '50%',
-          background: 'radial-gradient(circle, rgba(109,40,217,0.32) 0%, transparent 70%)',
+          position: 'absolute', top: 0, left: 0, right: 0, height: '3px',
+          background: 'linear-gradient(90deg, transparent 0%, rgba(124,58,237,0.7) 20%, rgba(167,139,250,1) 50%, rgba(217,70,239,0.7) 80%, transparent 100%)',
           display: 'flex',
         }} />
 
-        {/* Ambient glow bottom-right */}
+        {/* ── Enneagram rings — right side ── */}
+        {/* Outermost ring */}
         <div style={{
-          position: 'absolute',
-          bottom: '-140px', right: '-60px',
-          width: '500px', height: '500px',
-          borderRadius: '50%',
-          background: 'radial-gradient(circle, rgba(217,70,239,0.18) 0%, transparent 65%)',
-          display: 'flex',
-        }} />
-
-        {/* Enneagram visual — right half */}
-        {/* Outer ring */}
-        <div style={{
-          position: 'absolute',
-          right: '55px',
-          top: '50%',
-          marginTop: '-230px',
-          width: '460px', height: '460px',
-          borderRadius: '50%',
-          border: '1.5px solid rgba(139,92,246,0.20)',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
+          position: 'absolute', right: '40px', top: '50%', marginTop: '-270px',
+          width: '540px', height: '540px', borderRadius: '50%',
+          border: '1px solid rgba(139,92,246,0.15)',
+          display: 'flex', alignItems: 'center', justifyContent: 'center',
         }}>
-          {/* Middle ring */}
           <div style={{
-            width: '340px', height: '340px',
-            borderRadius: '50%',
-            border: '1px solid rgba(167,139,250,0.13)',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
+            width: '420px', height: '420px', borderRadius: '50%',
+            border: '1px solid rgba(167,139,250,0.12)',
+            display: 'flex', alignItems: 'center', justifyContent: 'center',
           }}>
-            {/* Inner ring + glow */}
             <div style={{
-              width: '210px', height: '210px',
-              borderRadius: '50%',
-              border: '1px solid rgba(139,92,246,0.28)',
-              background: 'radial-gradient(circle, rgba(109,40,217,0.16) 0%, transparent 70%)',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
+              width: '300px', height: '300px', borderRadius: '50%',
+              border: '1.5px solid rgba(139,92,246,0.22)',
+              background: 'radial-gradient(circle, rgba(109,40,217,0.10) 0%, transparent 70%)',
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
             }}>
-              {/* Core orb */}
               <div style={{
-                width: '66px', height: '66px',
-                borderRadius: '50%',
-                background: 'radial-gradient(circle, rgba(196,181,253,0.95) 0%, rgba(109,40,217,0.7) 55%, transparent 100%)',
-                boxShadow: '0 0 28px rgba(139,92,246,0.9), 0 0 56px rgba(109,40,217,0.5)',
-                display: 'flex',
-              }} />
+                width: '180px', height: '180px', borderRadius: '50%',
+                border: '1px solid rgba(167,139,250,0.18)',
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
+              }}>
+                {/* Core orb */}
+                <div style={{
+                  width: '72px', height: '72px', borderRadius: '50%',
+                  background: 'radial-gradient(circle, rgba(216,180,254,0.95) 0%, rgba(124,58,237,0.75) 50%, transparent 100%)',
+                  boxShadow: '0 0 40px rgba(139,92,246,1), 0 0 80px rgba(109,40,217,0.6), 0 0 120px rgba(109,40,217,0.25)',
+                  display: 'flex',
+                }} />
+              </div>
             </div>
           </div>
         </div>
 
         {/* 9 type dots around outer ring */}
         {[0,1,2,3,4,5,6,7,8].map((i) => {
-          const angle = (i * 40 - 90) * (Math.PI / 180);
-          const r = 230;
-          const cx = 1200 - 55 - 230 + r * Math.cos(angle);
-          const cy = 315 + r * Math.sin(angle);
-          const colors = ['#a78bfa','#f472b6','#fb923c','#facc15','#34d399','#22d3ee','#818cf8','#e879f9','#f87171'];
+          const angle = (i * 40 - 90) * (Math.PI / 180)
+          const r = 270
+          const cx = 1200 - 40 - 270 + r * Math.cos(angle)
+          const cy = 315 + r * Math.sin(angle)
+          const typeColors = [
+            '#a78bfa','#f472b6','#fb923c',
+            '#facc15','#34d399','#22d3ee',
+            '#818cf8','#e879f9','#f87171',
+          ]
+          const isTop = i === 0
           return (
             <div key={i} style={{
               position: 'absolute',
-              left: `${cx - 9}px`,
-              top: `${cy - 9}px`,
-              width: '18px', height: '18px',
+              left: `${cx - (isTop ? 12 : 8)}px`,
+              top: `${cy - (isTop ? 12 : 8)}px`,
+              width: isTop ? '24px' : '16px',
+              height: isTop ? '24px' : '16px',
               borderRadius: '50%',
-              background: colors[i],
-              boxShadow: `0 0 14px ${colors[i]}99`,
+              background: typeColors[i],
+              boxShadow: `0 0 ${isTop ? 20 : 12}px ${typeColors[i]}bb`,
               display: 'flex',
             }} />
-          );
+          )
         })}
 
-        {/* Top gradient line */}
-        <div style={{
-          position: 'absolute',
-          top: 0, left: 0, right: 0,
-          height: '3px',
-          background: 'linear-gradient(90deg, transparent, rgba(124,58,237,0.85) 25%, rgba(167,139,250,1) 50%, rgba(217,70,239,0.85) 75%, transparent)',
-          display: 'flex',
-        }} />
+        {/* Fine spoke lines from center to dots */}
+        <svg
+          style={{ position: 'absolute', top: 0, left: 0, width: '1200px', height: '630px', opacity: 0.12 }}
+          viewBox="0 0 1200 630"
+        >
+          {[0,1,2,3,4,5,6,7,8].map((i) => {
+            const angle = (i * 40 - 90) * (Math.PI / 180)
+            const cx = 1200 - 40 - 270
+            const cy = 315
+            const r = 270
+            return (
+              <line
+                key={i}
+                x1={cx} y1={cy}
+                x2={cx + r * Math.cos(angle)}
+                y2={cy + r * Math.sin(angle)}
+                stroke="#a78bfa"
+                strokeWidth="1"
+              />
+            )
+          })}
+        </svg>
 
-        {/* Left content */}
+        {/* ── Left content panel ── */}
         <div style={{
-          position: 'absolute',
-          left: 0, top: 0, bottom: 0,
-          width: '600px',
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'center',
-          padding: '56px 64px',
+          position: 'absolute', left: 0, top: 0, bottom: 0,
+          width: '620px',
+          display: 'flex', flexDirection: 'column', justifyContent: 'center',
+          padding: '60px 72px',
         }}>
-          {/* Label */}
+
+          {/* App badge */}
           <div style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: '10px',
-            marginBottom: '26px',
+            display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '32px',
           }}>
+            {/* Icon orb */}
             <div style={{
-              width: '24px', height: '24px',
-              borderRadius: '50%',
-              background: 'radial-gradient(circle, #c4b5fd 0%, #7c3aed 100%)',
-              boxShadow: '0 0 16px rgba(139,92,246,0.7)',
-              display: 'flex',
-            }} />
+              width: '32px', height: '32px', borderRadius: '10px',
+              background: 'linear-gradient(135deg, #7c3aed, #4f46e5)',
+              boxShadow: '0 0 20px rgba(124,58,237,0.7)',
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+            }}>
+              <div style={{
+                width: '18px', height: '18px', borderRadius: '50%',
+                background: 'radial-gradient(circle, rgba(255,255,255,0.9) 0%, rgba(196,181,253,0.6) 100%)',
+                display: 'flex',
+              }} />
+            </div>
             <span style={{
-              color: 'rgba(196,181,253,0.75)',
-              fontSize: '12px',
+              color: 'rgba(196,181,253,0.65)',
+              fontSize: '11px',
               fontWeight: 600,
               letterSpacing: '0.22em',
               textTransform: 'uppercase',
+              fontFamily: '"Helvetica Neue", Arial, sans-serif',
             }}>
-              Psychology · Growth · Self-Knowledge
+              Enneagram · Psychology · Self-Discovery
             </span>
           </div>
 
-          {/* Title */}
-          <span style={{
-            fontSize: '100px',
-            fontWeight: 800,
-            color: '#ffffff',
-            letterSpacing: '-4px',
-            lineHeight: 0.9,
-            fontFamily: 'Georgia, "Times New Roman", serif',
-            marginBottom: '22px',
-            textShadow: '0 0 80px rgba(167,139,250,0.25)',
+          {/* Main wordmark */}
+          <div style={{
             display: 'flex',
+            flexDirection: 'column',
+            marginBottom: '28px',
           }}>
-            Thyself
-          </span>
-
-          {/* Tagline */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '5px', marginBottom: '38px' }}>
             <span style={{
-              fontSize: '24px',
-              fontWeight: 300,
-              color: 'rgba(229,231,235,0.88)',
-              letterSpacing: '0.01em',
+              fontSize: '110px',
+              fontWeight: 800,
+              letterSpacing: '-5px',
+              lineHeight: 0.88,
+              color: '#ffffff',
+              textShadow: '0 0 100px rgba(167,139,250,0.2)',
+              display: 'flex',
             }}>
-              Know yourself deeply.
-            </span>
-            <span style={{
-              fontSize: '15px',
-              color: 'rgba(167,139,250,0.6)',
-              letterSpacing: '0.03em',
-            }}>
-              Enneagram · Cognitive Functions · Deep Psychology
+              Thyself
             </span>
           </div>
 
-          {/* Stats */}
+          {/* Tagline — "Know thyself." */}
+          <div style={{
+            display: 'flex', flexDirection: 'column', gap: '8px', marginBottom: '44px',
+          }}>
+            <div style={{ display: 'flex', alignItems: 'baseline', gap: '6px' }}>
+              <span style={{
+                fontSize: '26px',
+                fontWeight: 300,
+                color: 'rgba(229,231,235,0.7)',
+                letterSpacing: '0.02em',
+                fontStyle: 'italic',
+              }}>
+                Know{' '}
+              </span>
+              <span style={{
+                fontSize: '26px',
+                fontWeight: 700,
+                background: 'linear-gradient(135deg, #a78bfa 0%, #c4b5fd 50%, #e879f9 100%)',
+                WebkitBackgroundClip: 'text',
+                color: 'transparent',
+                letterSpacing: '0.01em',
+                fontStyle: 'italic',
+              }}>
+                thyself.
+              </span>
+            </div>
+            <span style={{
+              fontSize: '14px',
+              color: 'rgba(167,139,250,0.5)',
+              letterSpacing: '0.06em',
+              fontFamily: '"Helvetica Neue", Arial, sans-serif',
+              fontWeight: 400,
+            }}>
+              9 types · 27 subtypes · Ichazo, Naranjo & Riso-Hudson
+            </span>
+          </div>
+
+          {/* Stat pills */}
           <div style={{ display: 'flex', gap: '10px' }}>
             {[
               { n: '9', label: 'Types' },
               { n: '27', label: 'Subtypes' },
-              { n: '100+', label: 'Lessons' },
+              { n: '5', label: 'Assessments' },
             ].map((s) => (
               <div key={s.n} style={{
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                padding: '13px 22px',
-                borderRadius: '14px',
+                display: 'flex', flexDirection: 'column', alignItems: 'center',
+                padding: '14px 24px',
+                borderRadius: '16px',
                 background: 'rgba(139,92,246,0.10)',
-                border: '1px solid rgba(139,92,246,0.25)',
-                gap: '3px',
+                border: '1px solid rgba(139,92,246,0.22)',
+                gap: '4px',
               }}>
                 <span style={{
                   color: '#ffffff',
-                  fontSize: '30px',
-                  fontWeight: 700,
+                  fontSize: '32px',
+                  fontWeight: 800,
                   lineHeight: 1,
-                  fontFamily: 'Georgia, serif',
                 }}>
                   {s.n}
                 </span>
                 <span style={{
-                  color: 'rgba(196,181,253,0.6)',
+                  color: 'rgba(196,181,253,0.55)',
                   fontSize: '10px',
                   fontWeight: 600,
-                  letterSpacing: '0.12em',
+                  letterSpacing: '0.14em',
                   textTransform: 'uppercase',
+                  fontFamily: '"Helvetica Neue", Arial, sans-serif',
                 }}>
                   {s.label}
                 </span>
@@ -232,20 +262,31 @@ export default async function Image() {
             ))}
           </div>
 
-          {/* URL watermark */}
+          {/* URL */}
           <div style={{
-            marginTop: 'auto',
-            paddingTop: '28px',
-            display: 'flex',
-            alignItems: 'center',
-            gap: '8px',
+            marginTop: 'auto', paddingTop: '32px',
+            display: 'flex', alignItems: 'center', gap: '10px',
           }}>
-            <div style={{ width: '18px', height: '1px', background: 'rgba(139,92,246,0.35)', display: 'flex' }} />
-            <span style={{ color: 'rgba(139,92,246,0.45)', fontSize: '11px', letterSpacing: '0.12em' }}>
+            <div style={{ width: '20px', height: '1px', background: 'rgba(139,92,246,0.3)', display: 'flex' }} />
+            <span style={{
+              color: 'rgba(139,92,246,0.4)',
+              fontSize: '11px',
+              letterSpacing: '0.14em',
+              fontFamily: '"Helvetica Neue", Arial, sans-serif',
+            }}>
               thyself.app
             </span>
           </div>
         </div>
+
+        {/* ── Vertical divider ── */}
+        <div style={{
+          position: 'absolute', left: '590px', top: '60px', bottom: '60px',
+          width: '1px',
+          background: 'linear-gradient(180deg, transparent, rgba(139,92,246,0.15) 20%, rgba(139,92,246,0.15) 80%, transparent)',
+          display: 'flex',
+        }} />
+
       </div>
     ),
     { width: 1200, height: 630 }

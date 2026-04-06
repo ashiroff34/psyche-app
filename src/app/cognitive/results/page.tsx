@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { BookOpen, Feather, GitCompare, ChevronDown, ChevronUp, Brain } from "lucide-react";
 import { cognitiveFunctions, mbtiTypes } from "@/data/cognitive-functions";
+import CognitivePremiumGate from "@/components/CognitivePremiumGate";
 import { useProfile } from "@/hooks/useProfile";
 import { markTopicComplete } from "@/hooks/useGameState";
 import GuidedJourney from "@/components/GuidedJourney";
@@ -1293,12 +1294,14 @@ function ResultsContent() {
 
 export default function CognitiveResultsPage() {
   return (
-    <Suspense fallback={
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="text-sm" style={{ color: "rgba(255,255,255,0.4)" }}>Loading results...</div>
-      </div>
-    }>
-      <ResultsContent />
-    </Suspense>
+    <CognitivePremiumGate>
+      <Suspense fallback={
+        <div className="min-h-screen flex items-center justify-center">
+          <div className="text-sm" style={{ color: "rgba(255,255,255,0.4)" }}>Loading results...</div>
+        </div>
+      }>
+        <ResultsContent />
+      </Suspense>
+    </CognitivePremiumGate>
   );
 }

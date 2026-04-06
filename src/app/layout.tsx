@@ -11,13 +11,13 @@ import { Toaster } from "sonner";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://psyche-app-two.vercel.app"),
-  title: "Thyself — Know Your Enneagram Type",
+  title: "Thyself — Know thyself.",
   description:
-    "Discover your Enneagram type through scientifically-grounded assessments. Explore 9 types, 27 subtypes, cognitive functions, and deep psychology rooted in Ichazo, Naranjo, and Riso-Hudson.",
+    "Know thyself. Discover your Enneagram type through 5 assessment paths. 9 types, 27 subtypes, cognitive functions, and deep psychology rooted in Ichazo, Naranjo, and Riso-Hudson.",
   manifest: assetPath("/manifest.json"),
   appleWebApp: {
     capable: true,
-    statusBarStyle: "default",
+    statusBarStyle: "black-translucent",
     title: "Thyself",
   },
   other: {
@@ -25,9 +25,9 @@ export const metadata: Metadata = {
     "apple-mobile-web-app-capable": "yes",
   },
   openGraph: {
-    title: "Thyself — Know Your Enneagram Type",
+    title: "Thyself — Know thyself.",
     description:
-      "Discover your Enneagram type. 9 types, 27 subtypes, 5 assessment paths. Grounded in Ichazo, Naranjo & Riso-Hudson.",
+      "Know thyself. 9 types, 27 subtypes, 5 assessment paths. Grounded in Ichazo, Naranjo & Riso-Hudson.",
     url: "https://psyche-app-two.vercel.app",
     siteName: "Thyself",
     type: "website",
@@ -36,15 +36,15 @@ export const metadata: Metadata = {
         url: "https://psyche-app-two.vercel.app/opengraph-image",
         width: 1200,
         height: 630,
-        alt: "Thyself — Know Your Enneagram Type",
+        alt: "Thyself — Know thyself.",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Thyself — Know Your Enneagram Type",
+    title: "Thyself — Know thyself.",
     description:
-      "Discover your Enneagram type through 5 assessment paths. Deep psychology, 27 subtypes, cognitive functions.",
+      "Know thyself. Discover your Enneagram type through 5 assessment paths. Deep psychology, 27 subtypes, cognitive functions.",
     images: ["https://psyche-app-two.vercel.app/opengraph-image"],
   },
 };
@@ -67,7 +67,8 @@ export default function RootLayout({
     <html lang="en">
       <head>
         <link rel="icon" href={assetPath("/favicon-32.png")} sizes="32x32" type="image/png" />
-        <link rel="apple-touch-icon" href={assetPath("/apple-icon-180.png")} sizes="180x180" />
+        <link rel="icon" href="/icon.png" sizes="32x32" type="image/png" />
+        <link rel="apple-touch-icon" href="/apple-icon.png" sizes="180x180" />
         <link
           href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap"
           rel="stylesheet"
