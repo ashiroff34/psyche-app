@@ -18,7 +18,7 @@ interface Props {
 export default function FirstVisitTooltip({
   storageKey,
   message,
-  icon = "💡",
+  icon = "»",
   duration = 5000,
 }: Props) {
   const [visible, setVisible] = useState(false);

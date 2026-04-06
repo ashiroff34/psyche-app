@@ -208,9 +208,9 @@ export default function SprintPage() {
 
           <div className="grid grid-cols-3 gap-3 mb-8">
             {[
-              { label: "60 sec", sub: "Time limit", icon: "⏱️" },
-              { label: "+8 XP", sub: "Per correct", icon: "⚡" },
-              { label: "+4 bonus", sub: "On 3× streak", icon: "🔥" },
+              { label: "60 sec", sub: "Time limit", icon: ":" },
+              { label: "+8 XP", sub: "Per correct", icon: "+" },
+              { label: "+4 bonus", sub: "On 3× streak", icon: "★" },
             ].map((s) => (
               <div key={s.label} className="bg-white border border-slate-100 rounded-2xl p-4 shadow-sm">
                 <div className="text-2xl mb-1">{s.icon}</div>
@@ -254,7 +254,7 @@ export default function SprintPage() {
         >
           {/* Header */}
           <div className={`rounded-3xl bg-gradient-to-r ${grade.bg} p-8 text-center text-white mb-4 shadow-xl`}>
-            <div className="text-4xl mb-2">🏁</div>
+            <div className="text-4xl mb-2">→</div>
             <h2 className="text-2xl font-serif font-bold mb-1">{grade.label}</h2>
             <p className="text-white/70 text-sm">{answers.length} questions in 60 seconds</p>
           </div>
@@ -263,10 +263,10 @@ export default function SprintPage() {
           <div className="bg-white rounded-3xl border border-slate-100 shadow-sm p-6 mb-4">
             <div className="grid grid-cols-2 gap-4">
               {[
-                { label: "Correct", value: correct, icon: "✅" },
-                { label: "Wrong", value: wrong, icon: "❌" },
-                { label: "Accuracy", value: `${accuracy}%`, icon: "🎯" },
-                { label: "Best Streak", value: `${bestStreak}×`, icon: "🔥" },
+                { label: "Correct", value: correct, icon: "✓" },
+                { label: "Wrong", value: wrong, icon: "✗" },
+                { label: "Accuracy", value: `${accuracy}%`, icon: "→" },
+                { label: "Best Streak", value: `${bestStreak}×`, icon: "★" },
               ].map((s) => (
                 <div key={s.label} className="text-center p-3 rounded-2xl bg-slate-50">
                   <div className="text-xl mb-1">{s.icon}</div>

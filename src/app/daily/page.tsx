@@ -795,6 +795,32 @@ export default function DailyPage() {
       }
     }
     setWeeklyData(days);
+
+    // ── Restore quiz progress from sessionStorage (if any) ──
+    try {
+      const savedQuiz = sessionStorage.getItem("psyche-quiz-progress");
+      if (savedQuiz) {
+        const parsed = JSON.parse(savedQuiz) as {
+          moduleId: string;
+          questionIdx: number;
+          answers: boolean[];
+          moduleName: string;
+        };
+        // Only restore if the module exists in our config
+        const moduleExists = MODULE_CONFIG.some(m => m.id === parsed.moduleId);
+        if (moduleExists && parsed.questionIdx > 0) {
+          setActiveModule(parsed.moduleId);
+          setModuleQ(parsed.questionIdx);
+          setModuleAnswers(parsed.answers);
+          setModuleSelected(null);
+          setModuleShowExp(false);
+          setModuleDone(false);
+          setModuleStartTime(Date.now());
+          setSessionXP(0);
+          setView("quiz");
+        }
+      }
+    } catch {}
   }, [loaded]);
 
   // ── Save progress helper ──
@@ -1037,11 +1063,24 @@ export default function DailyPage() {
       }
     }
     saveDifficulty(newDiff);
+
+    // ── Persist quiz progress to sessionStorage for resume-on-return ──
+    try {
+      const newAnswers = [...moduleAnswers, correct];
+      sessionStorage.setItem("psyche-quiz-progress", JSON.stringify({
+        moduleId: activeModule,
+        questionIdx: moduleQ + 1, // next question index (we've answered moduleQ)
+        answers: newAnswers,
+        moduleName: MODULE_CONFIG.find(m => m.id === activeModule)?.title ?? "",
+      }));
+    } catch {}
   };
 
   const nextModuleQuestion = () => {
     if (moduleQ + 1 >= moduleQuestions.length) {
       setModuleDone(true);
+      // Quiz complete — clear saved progress
+      try { sessionStorage.removeItem("psyche-quiz-progress"); } catch {}
       bumpSessionCount();
       trackWeeklyEvent("module_complete");
       const correctCount = moduleAnswers.filter(Boolean).length + (moduleSelected === moduleQuestions[moduleQ]?.ans ? 1 : 0);
@@ -1415,8 +1454,8 @@ export default function DailyPage() {
         {/* Confetti handled by react-rewards anchors in layout */}
         <FirstVisitTooltip
           storageKey="psyche-visited-daily"
-          message="Complete your daily goal to earn XP, tokens, and build your streak 🔥"
-          icon="🎯"
+          message="Complete your daily goal to earn XP, tokens, and build your streak ★"
+          icon="→"
         />
         <BeginnerBanner
           dismissKey="daily-hub"
@@ -1551,7 +1590,7 @@ export default function DailyPage() {
                   transition={{ duration: 0.8, delay: 0.2 }}
                   className="text-6xl mb-4"
                 >
-                  🏆
+                  ★
                 </motion.div>
                 <motion.h2
                   initial={{ y: 12, opacity: 0 }}
@@ -1670,14 +1709,14 @@ export default function DailyPage() {
             className="flex-1 py-3 rounded-2xl text-sm font-semibold text-white transition-all active:scale-95"
             style={{ background: "linear-gradient(135deg, #7c3aed, #4f46e5)", boxShadow: "0 4px 16px rgba(124,58,237,0.35)" }}
           >
-            🔥 Today&apos;s Challenge
+            ★ Today&apos;s Challenge
           </button>
           <button
             onClick={() => setView("hub")}
             className="flex-1 py-3 rounded-2xl text-sm font-semibold transition-all active:scale-95"
             style={{ background: "rgba(139,92,246,0.15)", border: "1px solid rgba(139,92,246,0.3)", color: "#c4b5fd" }}
           >
-            ⚡ Practice Quiz
+            + Practice Quiz
           </button>
         </div>
 
@@ -1689,7 +1728,7 @@ export default function DailyPage() {
             initial={{ scale: 0.8, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
           >
-            <span className="text-yellow-400 text-lg">🏆</span>
+            <span className="text-yellow-400 text-lg">★</span>
             <span className="text-yellow-300 text-sm font-bold ml-2">{streak}-Day Streak!</span>
           </motion.div>
         )}
@@ -1910,7 +1949,7 @@ export default function DailyPage() {
                 transition={{ duration: 0.7, delay: 0.2 }}
                 className="text-6xl mb-4"
               >
-                {weeklyChallenge?.emoji ?? "🏆"}
+                {weeklyChallenge?.emoji ?? "★"}
               </motion.div>
               <h2 className="text-2xl font-bold text-white mb-2">Challenge Complete!</h2>
               <p className="font-semibold mb-1" style={{ color: "#a78bfa" }}>
@@ -1936,7 +1975,7 @@ export default function DailyPage() {
                 className="w-full py-3.5 rounded-2xl text-white font-semibold text-base"
                 style={{ background: "linear-gradient(135deg, #7c3aed, #4f46e5)", boxShadow: "0 8px 24px rgba(124,58,237,0.4)" }}
               >
-                Keep Going 🔥
+                Keep Going ★
               </motion.button>
             </motion.div>
           </motion.div>
@@ -1963,7 +2002,7 @@ export default function DailyPage() {
               style={{ background: "rgba(22,12,48,0.98)", border: "1px solid rgba(139,92,246,0.25)" }}
               onClick={e => e.stopPropagation()}
             >
-              <div className="text-4xl mb-3">🔒</div>
+              <div className="text-4xl mb-3"></div>
               <h2 className="text-xl font-black text-white mb-1">Daily Limit Reached</h2>
               <p className="text-sm mb-5" style={{ color: "rgba(255,255,255,0.5)" }}>
                 You&apos;ve started {DAILY_UNIT_LIMIT} units today. Come back tomorrow, or spend tokens to keep going.
@@ -2000,7 +2039,7 @@ export default function DailyPage() {
                 }}
               >
                 {(gameStateRaw.tokens ?? 0) >= 1
-                  ? `⚡ Unlock with 1 Token (${gameStateRaw.tokens ?? 0} left)`
+                  ? `+ Unlock with 1 Token (${gameStateRaw.tokens ?? 0} left)`
                   : <span style={{ color: "rgba(255,255,255,0.5)" }}>Not enough tokens</span>}
               </button>
               {streakDeclined ? (
@@ -2047,7 +2086,7 @@ export default function DailyPage() {
                 transition={{ duration: 0.5, delay: 0.2 }}
                 className="text-5xl mb-3"
               >
-                🔥
+                ★
               </motion.div>
               <h2 className="text-xl font-black text-white mb-1">Your Streak Ended</h2>
               <p className="text-sm mb-5" style={{ color: "rgba(255,255,255,0.5)" }}>
@@ -2083,7 +2122,7 @@ export default function DailyPage() {
                 }}
               >
                 {(gameStateRaw.tokens ?? 0) >= 3
-                  ? `🔥 Repair Streak — 3 Tokens (${gameStateRaw.tokens ?? 0} left)`
+                  ? `★ Repair Streak — 3 Tokens (${gameStateRaw.tokens ?? 0} left)`
                   : <span style={{ color: "rgba(255,255,255,0.5)" }}>{`Not enough tokens (need 3, have ${gameStateRaw.tokens ?? 0})`}</span>}
               </button>
               {streakDeclined ? (
@@ -2121,14 +2160,14 @@ export default function DailyPage() {
               exit={{ scale: 0.8, opacity: 0 }}
               transition={{ type: "spring", damping: 15 }}
             >
-              <div className="text-5xl mb-4">🏆</div>
+              <div className="text-5xl mb-4">★</div>
               <h2 className="text-3xl font-black text-white mb-2">{streakMilestoneShown} Days!</h2>
               <p className="text-yellow-300/80 text-sm mb-1">Incredible consistency.</p>
               <p className="text-white/60 text-xs mb-6">You&apos;ve built a real habit. This is how growth works.</p>
               <div className="flex items-center justify-center gap-2 px-4 py-2 rounded-full mb-6"
                 style={{ background: "rgba(251,191,36,0.15)", border: "1px solid rgba(251,191,36,0.3)" }}>
                 <span className="text-amber-300 font-bold text-sm">
-                  +{streakMilestoneShown >= 100 ? 100 : streakMilestoneShown >= 30 ? 50 : streakMilestoneShown >= 14 ? 30 : 20} bonus tokens 🪙
+                  +{streakMilestoneShown >= 100 ? 100 : streakMilestoneShown >= 30 ? 50 : streakMilestoneShown >= 14 ? 30 : 20} bonus tokens
                 </span>
               </div>
               <button
@@ -2136,7 +2175,7 @@ export default function DailyPage() {
                 className="w-full py-3.5 rounded-2xl font-bold text-white"
                 style={{ background: "linear-gradient(135deg, #d97706, #f59e0b)", boxShadow: "0 4px 20px rgba(245,158,11,0.4)" }}
               >
-                Keep going 🔥
+                Keep going ★
               </button>
             </motion.div>
           </motion.div>
@@ -2183,6 +2222,8 @@ export default function DailyPage() {
               onAnswer={activeOnAnswer}
               onNext={activeOnNext}
               onQuit={() => {
+                // Clear saved quiz progress on explicit quit
+                try { sessionStorage.removeItem("psyche-quiz-progress"); } catch {}
                 const dest = quizSourceNode ? "path" : "hub";
                 setView(dest);
                 setQuizSourceNode(null);

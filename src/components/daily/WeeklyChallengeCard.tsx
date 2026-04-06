@@ -101,7 +101,7 @@ export default function WeeklyChallengeCard({ challenge, onClaim }: Props) {
 
           {/* Description */}
           <p className={`text-xs mb-3 leading-relaxed ${rewardClaimed ? "text-emerald-600" : completed ? "text-amber-800" : "text-slate-500"}`}>
-            {rewardClaimed ? "Challenge complete, great work this week! 🎉" : description}
+            {rewardClaimed ? "Challenge complete, great work this week! :)" : description}
           </p>
 
           {/* Progress */}

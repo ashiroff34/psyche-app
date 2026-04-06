@@ -146,7 +146,7 @@ export default function ReadPage() {
             Read &amp; Explore
           </h1>
           <p className="text-slate-500 text-sm leading-relaxed max-w-xs mx-auto">
-            Deepen your understanding while your hearts restore. Every 3 minutes of reading earns you a ❤️.
+            Deepen your understanding while your hearts restore. Every 3 minutes of reading earns you a heart.
           </p>
         </div>
 

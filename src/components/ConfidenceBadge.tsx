@@ -161,7 +161,7 @@ export default function ConfidenceBadge({ confidenceOverride }: ConfidenceBadgeP
                   style={{ background: "rgba(245,158,11,0.1)", border: "1px solid rgba(245,158,11,0.3)" }}
                 >
                   <p className="text-xs font-semibold mb-1" style={{ color: "#f59e0b" }}>
-                    ⚡ Your results are split
+                    + Your results are split
                   </p>
                   <p className="text-xs leading-relaxed" style={{ color: "rgba(255,255,255,0.55)" }}>
                     Your assessments don't fully agree — they're divided between your current type and{" "}

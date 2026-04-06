@@ -21,10 +21,10 @@ const NODE_TYPE_LABEL: Record<string, string> = {
 };
 
 const NODE_TYPE_EMOJI: Record<string, string> = {
-  reflection: "✍️",
-  challenge: "💪",
-  bonus: "⭐",
-  quiz: "🧠",
+  reflection: "~",
+  challenge: "+",
+  bonus: "★",
+  quiz: "→",
 };
 
 export default function KeepGoingCard({
@@ -60,7 +60,7 @@ export default function KeepGoingCard({
           transition={{ repeat: Infinity, duration: 1.4, ease: "easeInOut" }}
           className="text-base"
         >
-          {isPerfect ? "⚡" : "🔥"}
+          {isPerfect ? "+" : "★"}
         </motion.span>
         <span className="text-xs font-bold text-orange-500 uppercase tracking-widest">
           {isPerfect
@@ -81,7 +81,7 @@ export default function KeepGoingCard({
         >
           <Coins className="w-3 h-3 text-amber-600" />
           <span className="text-[11px] font-bold text-amber-700">
-            Finish one more module for a bonus token drop 🎁
+            Finish one more module for a bonus token drop (+)
           </span>
         </div>
 
@@ -94,7 +94,7 @@ export default function KeepGoingCard({
                 background: `linear-gradient(135deg, ${nextNode.gradFrom ?? "#8b5cf6"}, ${nextNode.gradTo ?? "#d946ef"})`,
               }}
             >
-              {NODE_TYPE_EMOJI[nextNode.nodeType] ?? "🧠"}
+              {NODE_TYPE_EMOJI[nextNode.nodeType] ?? "→"}
             </div>
 
             {/* Info */}

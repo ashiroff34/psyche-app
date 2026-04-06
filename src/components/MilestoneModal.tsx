@@ -119,7 +119,7 @@ export default function MilestoneModal({ streakCount, enneagramType }: Milestone
                 className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full mb-5"
                 style={{ background: "rgba(251,146,60,0.12)", border: "1px solid rgba(251,146,60,0.25)" }}
               >
-                <span className="text-base">🔥</span>
+                <span className="text-base">★</span>
                 <span className="text-sm font-bold" style={{ color: "rgba(251,146,60,0.9)" }}>
                   {streakCount} day streak
                 </span>

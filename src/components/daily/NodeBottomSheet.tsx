@@ -266,7 +266,7 @@ export default function NodeBottomSheet({ node, onClose, onStart, onCompleteNonQ
                         animate={{ opacity: 1, y: 0 }}
                         className={`text-xs font-semibold ${wordCountMsg.color}`}
                       >
-                        {wordCount >= BONUS_TIER_2 ? "🏆" : wordCount >= BONUS_TIER_1 ? "✨" : "✓"} {wordCountMsg.text}
+                        {wordCount >= BONUS_TIER_2 ? "★" : wordCount >= BONUS_TIER_1 ? "✦" : "✓"} {wordCountMsg.text}
                       </motion.span>
                     )}
                   </div>

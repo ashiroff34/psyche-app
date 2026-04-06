@@ -16,21 +16,21 @@ interface Props {
 const TIER_CONFIG = {
   common: {
     label: "Lucky find!",
-    chest: "🎁",
+    chest: "(+)",
     color: "#8b5cf6",
     glow: "rgba(139,92,246,0.4)",
     gradient: "linear-gradient(135deg, #8b5cf6, #a78bfa)",
   },
   rare: {
-    label: "Lucky Drop! 💎",
-    chest: "💎",
+    label: "Lucky Drop! ◆",
+    chest: "◆",
     color: "#0ea5e9",
     glow: "rgba(14,165,233,0.5)",
     gradient: "linear-gradient(135deg, #0ea5e9, #38bdf8)",
   },
   epic: {
-    label: "JACKPOT! 🌟",
-    chest: "🌟",
+    label: "JACKPOT! ★",
+    chest: "★",
     color: "#f59e0b",
     glow: "rgba(245,158,11,0.6)",
     gradient: "linear-gradient(135deg, #f59e0b, #fcd34d)",
@@ -120,7 +120,7 @@ export default function TokenDropOverlay({ drop, onClaim }: Props) {
               transition={{ repeat: Infinity, duration: 2, ease: "linear" }}
               className="text-2xl"
             >
-              🪙
+              ★
             </motion.span>
             TOKEN DROP!
             <motion.span
@@ -128,7 +128,7 @@ export default function TokenDropOverlay({ drop, onClaim }: Props) {
               transition={{ repeat: Infinity, duration: 2, ease: "linear" }}
               className="text-2xl"
             >
-              ⚡
+              +
             </motion.span>
           </motion.div>
 
@@ -167,7 +167,7 @@ export default function TokenDropOverlay({ drop, onClaim }: Props) {
                     boxShadow: `0 8px 32px ${cfg.glow}`,
                   }}
                 >
-                  🎁
+                  (+)
                 </motion.div>
                 <motion.div
                   animate={{ opacity: [0.6, 1, 0.6] }}

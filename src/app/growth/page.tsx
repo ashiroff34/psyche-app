@@ -318,7 +318,7 @@ export default function GrowthPage() {
           </>
         ) : (
           <div className="text-center py-12 px-6">
-            <div className="text-4xl mb-4">🌱</div>
+            <div className="text-4xl mb-4">~</div>
             <h3 className="text-lg font-serif font-semibold mb-2" style={{ color: "rgba(255,255,255,0.88)" }}>Your growth path starts with knowing your type</h3>
             <p className="text-sm mb-6 max-w-xs mx-auto" style={{ color: "rgba(255,255,255,0.45)" }}>
               Each Enneagram type has a unique path to growth — specific fears to face, virtues to cultivate, and integration lines to explore.

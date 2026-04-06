@@ -347,7 +347,7 @@ export default function HubView({
                 className="px-4 py-3 flex items-start gap-3"
                 style={{ background: "rgba(245,158,11,0.15)", border: "1px solid rgba(245,158,11,0.3)" }}
               >
-                <div className="text-2xl shrink-0 mt-0.5">🪙</div>
+                <div className="text-2xl shrink-0 mt-0.5">★</div>
                 <div className="flex-1">
                   <p className="text-sm font-bold" style={{ color: "#fbbf24" }}>You earned tokens!</p>
                   <p className="text-xs mt-0.5 leading-relaxed" style={{ color: "rgba(251,191,36,0.8)" }}>

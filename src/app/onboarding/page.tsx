@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, Suspense } from "react";
+import { useState, useEffect, Suspense, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useRouter, useSearchParams } from "next/navigation";
 import { ArrowRight, ArrowLeft, Mail, User } from "lucide-react";
@@ -32,8 +32,8 @@ function TermsScreen({ onAccept }: { onAccept: () => void }) {
 
           <div className="space-y-3 mb-4">
             {[
-              { icon: "🔬", text: "For self-exploration only, not a clinical diagnosis" },
-              { icon: "🔒", text: "Your data stays on your device, never sold" },
+              { icon: "»", text: "For self-exploration only, not a clinical diagnosis" },
+              { icon: "", text: "Your data stays on your device, never sold" },
             ].map(({ icon, text }) => (
               <div key={text} className="flex items-start gap-3 px-4 py-3 rounded-2xl"
                 style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.07)" }}>
@@ -81,6 +81,20 @@ function TermsScreen({ onAccept }: { onAccept: () => void }) {
   );
 }
 
+// ── Type reveal sentences ─────────────────────────────────────────────────────
+
+const TYPE_REVEAL_SENTENCES: Record<number, string> = {
+  1: "You carry the vision of a better world — and the weight of making it real.",
+  2: "You love with your whole heart, and you're learning to include yourself.",
+  3: "You were born to become — and you're discovering who you are beneath the achievement.",
+  4: "You transform suffering into meaning. That is your gift and your work.",
+  5: "You see what others miss. Your mind is your compass.",
+  6: "You build loyalty that lasts a lifetime. Trust begins with yourself.",
+  7: "You chase joy because you know life is short. Now you're learning to stay.",
+  8: "You protect what matters fiercely. Vulnerability is your final frontier.",
+  9: "You make peace possible. Now make it for yourself, too.",
+};
+
 // ── Step 0: Welcome ───────────────────────────────────────────────────────────
 
 function StepWelcome({ onNext }: { onNext: () => void }) {
@@ -118,7 +132,238 @@ function StepWelcome({ onNext }: { onNext: () => void }) {
   );
 }
 
-// ── Step 1: Intent Fork ───────────────────────────────────────────────────────
+// ── Step 1: Name (optional) ───────────────────────────────────────────────────
+
+function StepName({
+  onNext,
+  onBack,
+}: {
+  onNext: (name: string) => void;
+  onBack: () => void;
+}) {
+  const [name, setName] = useState("");
+
+  return (
+    <div className="flex flex-col items-center px-4 max-w-md mx-auto w-full">
+      <button
+        onClick={onBack}
+        className="self-start flex items-center gap-1 text-sm mb-6 transition-colors"
+        style={{ color: "rgba(255,255,255,0.35)" }}
+      >
+        <ArrowLeft className="w-4 h-4" /> Back
+      </button>
+
+      <h2
+        className="text-3xl font-serif font-bold mb-2 text-center"
+        style={{ color: "rgba(255,255,255,0.93)" }}
+      >
+        What should we call you?
+      </h2>
+      <p className="text-sm text-center mb-8" style={{ color: "rgba(255,255,255,0.4)" }}>
+        Optional — skip anytime.
+      </p>
+
+      <div className="w-full relative mb-8">
+        <div className="absolute left-4 top-1/2 -translate-y-1/2 pointer-events-none" style={{ color: "rgba(255,255,255,0.3)" }}>
+          <User className="w-4 h-4" />
+        </div>
+        <input
+          type="text"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          onKeyDown={(e) => { if (e.key === "Enter") onNext(name.trim()); }}
+          placeholder="Your name…"
+          maxLength={40}
+          autoFocus
+          className="w-full pl-11 pr-5 py-4 text-base rounded-2xl focus:outline-none transition-all"
+          style={{
+            background: "rgba(255,255,255,0.06)",
+            border: "1px solid rgba(255,255,255,0.12)",
+            color: "rgba(255,255,255,0.88)",
+          }}
+        />
+      </div>
+
+      <button
+        onClick={() => onNext(name.trim())}
+        className="w-full py-3.5 rounded-2xl text-sm font-bold text-white transition-all hover:-translate-y-0.5 active:scale-[0.98]"
+        style={{
+          background: "linear-gradient(135deg, #7c3aed, #4f46e5)",
+          boxShadow: "0 8px 24px rgba(124,58,237,0.45)",
+        }}
+      >
+        {name.trim() ? `Let's go, ${name.trim().split(" ")[0]} →` : "Continue →"}
+      </button>
+    </div>
+  );
+}
+
+// ── TypeRevealScreen ──────────────────────────────────────────────────────────
+
+function TypeRevealScreen({
+  result,
+  displayName,
+  onContinue,
+  onExploreRunnerUp,
+}: {
+  result: { type: number; confidence: number; runnerUp: number };
+  displayName: string;
+  onContinue: () => void;
+  onExploreRunnerUp: () => void;
+}) {
+  const typeData = enneagramTypes.find((t) => t.number === result.type);
+  const typeColor = typeData?.color ?? "#a78bfa";
+  const typeName = typeData?.name ?? `Type ${result.type}`;
+  const revealSentence = TYPE_REVEAL_SENTENCES[result.type] ?? "";
+  const isHighConfidence = result.confidence >= 70;
+  const confidenceLabel = isHighConfidence ? "High match" : "Moderate match";
+  const confidenceColor = isHighConfidence ? "#22c55e" : "#f59e0b";
+
+  // Mastery progress (endowed — always show a small positive number)
+  const masteryPercent = Math.max(4, Math.min(12, Math.round(result.confidence * 0.08 + 2)));
+
+  // Auto-advance after 2.5 s if user doesn't tap
+  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  useEffect(() => {
+    timerRef.current = setTimeout(() => {
+      onContinue();
+    }, 2500);
+    return () => { if (timerRef.current) clearTimeout(timerRef.current); };
+  }, [onContinue]);
+
+  const handleContinue = () => {
+    if (timerRef.current) clearTimeout(timerRef.current);
+    onContinue();
+  };
+
+  const handleRunnerUp = () => {
+    if (timerRef.current) clearTimeout(timerRef.current);
+    onExploreRunnerUp();
+  };
+
+  return (
+    <div
+      className="min-h-screen flex flex-col items-center justify-center px-6 relative overflow-hidden"
+      style={{ background: "#0a0514" }}
+    >
+      {/* Ambient glow in the type's color */}
+      <div
+        className="fixed inset-0 -z-10 pointer-events-none"
+        style={{
+          background: `radial-gradient(ellipse 70% 60% at 50% 50%, ${typeColor}28 0%, transparent 70%)`,
+        }}
+      />
+
+      <motion.div
+        initial={{ opacity: 0, scale: 0.7 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
+        className="flex flex-col items-center text-center max-w-sm w-full"
+      >
+        {/* Type number — hero element */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.1, duration: 0.5 }}
+          className="font-black leading-none mb-2"
+          style={{ fontSize: "clamp(7rem, 22vw, 10rem)", color: typeColor, textShadow: `0 0 80px ${typeColor}66` }}
+        >
+          {result.type}
+        </motion.div>
+
+        {/* Type name */}
+        <motion.p
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.25 }}
+          className="text-2xl font-serif font-bold mb-5"
+          style={{ color: "rgba(255,255,255,0.92)" }}
+        >
+          The {typeName}
+        </motion.p>
+
+        {/* Evocative sentence */}
+        <motion.p
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.38 }}
+          className="text-base leading-relaxed mb-6 font-serif italic"
+          style={{ color: "rgba(255,255,255,0.72)" }}
+        >
+          {revealSentence}
+        </motion.p>
+
+        {/* Confidence indicator */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.52 }}
+          className="flex items-center gap-2 mb-6"
+        >
+          <div className="w-2 h-2 rounded-full" style={{ background: confidenceColor }} />
+          <span className="text-xs font-semibold" style={{ color: confidenceColor }}>
+            {confidenceLabel}
+          </span>
+        </motion.div>
+
+        {/* Endowed progress — delayed appearance */}
+        <motion.div
+          initial={{ opacity: 0, y: 6 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.72 }}
+          className="mb-8 px-4 py-2 rounded-full text-xs"
+          style={{ background: `${typeColor}18`, border: `1px solid ${typeColor}30`, color: "rgba(255,255,255,0.55)" }}
+        >
+          Type {result.type} Mastery: {masteryPercent}% · Unlock wings, subtypes &amp; more as you practice
+        </motion.div>
+
+        {/* CTA */}
+        <motion.button
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.6 }}
+          onClick={handleContinue}
+          className="w-full py-4 rounded-2xl font-bold text-white text-base transition-all hover:-translate-y-0.5 active:scale-[0.98] mb-3"
+          style={{
+            background: `linear-gradient(135deg, ${typeColor}, #4f46e5)`,
+            boxShadow: `0 8px 28px ${typeColor}55`,
+          }}
+        >
+          This is me →
+        </motion.button>
+
+        {/* Runner-up link */}
+        {result.runnerUp !== result.type && (
+          <motion.button
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.75 }}
+            onClick={handleRunnerUp}
+            className="text-xs transition-colors"
+            style={{ color: "rgba(255,255,255,0.35)" }}
+          >
+            Explore further: I might be Type {result.runnerUp}
+          </motion.button>
+        )}
+
+        {/* Personalized greeting if name provided */}
+        {displayName && (
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.9 }}
+            className="text-[11px] mt-3"
+            style={{ color: "rgba(255,255,255,0.2)" }}
+          >
+            Welcome, {displayName}.
+          </motion.p>
+        )}
+      </motion.div>
+    </div>
+  );
+}
+
+// ── (Legacy intent fork types — kept for localStorage compatibility) ───────────
 
 type Intent = "discover" | "learn" | "practice";
 
@@ -130,19 +375,19 @@ const intentOptions: {
 }[] = [
   {
     id: "discover",
-    emoji: "🔍",
+    emoji: "→",
     label: "Discover my type",
     description: "I want to find out which Enneagram type I am",
   },
   {
     id: "learn",
-    emoji: "📚",
+    emoji: "",
     label: "Learn the full system",
     description: "I want to understand all 9 types deeply",
   },
   {
     id: "practice",
-    emoji: "🌱",
+    emoji: "~",
     label: "Daily growth practice",
     description: "I want to use this for ongoing self-development",
   },
@@ -248,15 +493,17 @@ function StepIntent({
 
 function StepEmailGate({
   result,
+  prefillName,
   onSave,
   onSkip,
 }: {
   result: { type: number; confidence: number; runnerUp: number };
+  prefillName?: string;
   onSave: (email: string, name: string) => void;
   onSkip: () => void;
 }) {
   const [email, setEmail] = useState("");
-  const [name, setName] = useState("");
+  const [name, setName] = useState(prefillName ?? "");
   const [emailError, setEmailError] = useState("");
   const [touched, setTouched] = useState(false);
 
@@ -326,7 +573,7 @@ function StepEmailGate({
         className="text-2xl font-serif font-bold mb-1 text-center"
         style={{ color: "rgba(255,255,255,0.93)" }}
       >
-        Save your results
+        Lock in your type
       </h2>
       <p className="text-sm text-center mb-6" style={{ color: "rgba(255,255,255,0.4)" }}>
         Enter your email to keep your type and track your growth over time.
@@ -396,14 +643,14 @@ function StepEmailGate({
           boxShadow: "0 8px 24px rgba(124,58,237,0.45)",
         }}
       >
-        Save My Type &amp; Explore →
+        Begin my journey →
       </button>
-      <p className="text-xs text-emerald-400/70 mt-1 mb-2 text-center">🎁 50 bonus tokens awarded on signup</p>
+      <p className="text-xs mt-1 mb-2 text-center" style={{ color: "rgba(255,255,255,0.35)" }}>(+50 tokens on signup)</p>
 
       <button
         onClick={onSkip}
-        className="text-center text-xs py-2 transition-colors"
-        style={{ color: "rgba(255,255,255,0.22)" }}
+        className="text-center text-sm py-2 transition-colors"
+        style={{ color: "rgba(255,255,255,0.5)" }}
       >
         Continue without saving
       </button>
@@ -505,7 +752,7 @@ function ManualTypePicker({ onSave }: { onSave: (name: string, type: number) => 
       >
         Enter Thyself →
       </button>
-      <p className="text-xs text-emerald-400/70 mt-2 text-center">🎁 50 bonus tokens on signup</p>
+      <p className="text-xs text-emerald-400/70 mt-2 text-center">(+) 50 bonus tokens on signup</p>
     </div>
   );
 }
@@ -519,9 +766,10 @@ function OnboardingPageInner() {
   const isManual = searchParams.get("manual") === "true";
 
   const [acceptedTerms, setAcceptedTerms] = useState(false);
-  // 0 = welcome, 1 = intent, 2 = assessment, 3 = email gate, 4 = manual picker
+  // 0 = welcome, 1 = name, 2 = assessment, 3 = type reveal, 4 = email gate, 5 = manual picker
   const [step, setStep] = useState(0);
-  const [intent, setIntent] = useState<Intent>("discover");
+  const [intent] = useState<Intent>("discover");
+  const [displayName, setDisplayName] = useState("");
   const [assessmentResult, setAssessmentResult] = useState<{
     type: number;
     confidence: number;
@@ -536,7 +784,7 @@ function OnboardingPageInner() {
         // Jump directly to assessment if coming from enter experience
         if (fromEnter) setStep(2);
         // Jump to manual picker if user already knows their type
-        else if (isManual) setStep(4);
+        else if (isManual) setStep(5);
       }
       if (localStorage.getItem("psyche-onboarding-complete") === "true") router.replace("/");
     } catch {}
@@ -550,8 +798,8 @@ function OnboardingPageInner() {
           try { localStorage.setItem("psyche-terms-accepted", "true"); } catch {}
           // Jump to correct step based on URL params
           if (fromEnter) setStep(2);
-          else if (isManual) setStep(4);
-          // else stay at step 0 (the welcome/intent screens)
+          else if (isManual) setStep(5);
+          // else stay at step 0 (welcome)
         }}
       />
     );
@@ -563,7 +811,22 @@ function OnboardingPageInner() {
     runnerUp: number;
   }) => {
     setAssessmentResult(result);
-    setStep(3);
+    setStep(3); // go to type reveal
+  };
+
+  const handleRevealContinue = () => {
+    setStep(4); // go to email gate
+  };
+
+  const handleRunnerUpExplore = () => {
+    if (!assessmentResult) return;
+    // Swap primary and runner-up, then show type reveal for runner-up
+    setAssessmentResult((prev) => prev ? {
+      type: prev.runnerUp,
+      confidence: Math.max(30, prev.confidence - 20),
+      runnerUp: prev.type,
+    } : prev);
+    // stay on step 3 — the reveal will re-render with new type
   };
 
   const getPostOnboardingRoute = (
@@ -702,19 +965,19 @@ function OnboardingPageInner() {
           </motion.div>
         )}
 
-        {/* Step 1: Intent fork */}
+        {/* Step 1: Name (optional) */}
         {step === 1 && (
           <motion.div
-            key="intent"
+            key="name"
             initial={{ opacity: 0, x: 40 }}
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: -40 }}
             transition={{ duration: 0.22 }}
             className="min-h-screen flex items-center justify-center px-4 py-16"
           >
-            <StepIntent
-              onNext={(chosen) => {
-                setIntent(chosen);
+            <StepName
+              onNext={(name) => {
+                setDisplayName(name);
                 setStep(2);
               }}
               onBack={() => setStep(0)}
@@ -722,7 +985,7 @@ function OnboardingPageInner() {
           </motion.div>
         )}
 
-        {/* Step 2: Assessment (no extra chrome — the component fills the screen) */}
+        {/* Step 2: Assessment */}
         {step === 2 && (
           <motion.div
             key="assessment"
@@ -745,7 +1008,7 @@ function OnboardingPageInner() {
                   <OuroborosLogo size={28} />
                 </div>
                 <p className="text-xs font-medium" style={{ color: "rgba(255,255,255,0.35)" }}>
-                  Quick Type Finder · Ichazo · Naranjo · Riso &amp; Hudson
+                  {displayName ? `Hey, ${displayName.split(" ")[0]} · ` : ""}Quick Type Finder · Ichazo · Naranjo · Riso &amp; Hudson
                 </p>
               </div>
             </div>
@@ -753,8 +1016,26 @@ function OnboardingPageInner() {
           </motion.div>
         )}
 
-        {/* Step 3: Email gate */}
+        {/* Step 3: Type Reveal */}
         {step === 3 && assessmentResult && (
+          <motion.div
+            key={`type-reveal-${assessmentResult.type}`}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+          >
+            <TypeRevealScreen
+              result={assessmentResult}
+              displayName={displayName}
+              onContinue={handleRevealContinue}
+              onExploreRunnerUp={handleRunnerUpExplore}
+            />
+          </motion.div>
+        )}
+
+        {/* Step 4: Email gate */}
+        {step === 4 && assessmentResult && (
           <motion.div
             key="email-gate"
             initial={{ opacity: 0, x: 40 }}
@@ -766,6 +1047,7 @@ function OnboardingPageInner() {
             <div className="w-full max-w-lg py-6">
               <StepEmailGate
                 result={assessmentResult}
+                prefillName={displayName}
                 onSave={saveAndContinue}
                 onSkip={skipSave}
               />
@@ -773,8 +1055,8 @@ function OnboardingPageInner() {
           </motion.div>
         )}
 
-        {/* Step 4: Manual type picker (for users who already know their type) */}
-        {step === 4 && (
+        {/* Step 5: Manual type picker (for users who already know their type) */}
+        {step === 5 && (
           <motion.div
             key="manual"
             initial={{ opacity: 0, y: 20 }}

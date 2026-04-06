@@ -40,7 +40,7 @@ export function useRewards() {
     startVelocity: 20,
     decay: 0.94,
     lifetime: 250,
-    emoji: ["🔥", "⭐", "✨"],
+    emoji: ["★", "★", "✦"],
   });
 
   // Balloon burst (big achievements)

@@ -16,7 +16,7 @@ export default function Error({
   return (
     <div className="min-h-screen flex items-center justify-center px-6">
       <div className="text-center max-w-sm">
-        <div className="text-4xl mb-4">😵</div>
+        <div className="text-4xl mb-4">!</div>
         <h2 className="text-xl font-bold text-slate-800 mb-2">
           Something went wrong
         </h2>

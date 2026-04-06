@@ -420,7 +420,7 @@ export default function AvatarPage() {
       <FirstVisitTooltip
         storageKey="psyche-visited-pet"
         message="Earn tokens from daily quizzes, spend them here to feed and care for your pet!"
-        icon="🐾"
+        icon="~"
       />
 
       <div className="max-w-3xl mx-auto px-4 pt-6 space-y-8">
@@ -502,7 +502,7 @@ export default function AvatarPage() {
                     animate={{ y: [0, -3, 0] }}
                     transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
                   >
-                    👑
+                    ★
                   </motion.div>
                 )}
 
@@ -606,15 +606,15 @@ export default function AvatarPage() {
                   <div className="flex items-center justify-between mb-2">
                     <div className="flex items-center gap-2">
                       {isMaster ? (
-                        <span className="text-lg">👑</span>
+                        <span className="text-lg">★</span>
                       ) : isEvolved ? (
                         <motion.span
                           className="text-lg"
                           animate={{ scale: [1, 1.2, 1] }}
                           transition={{ repeat: Infinity, duration: 2 }}
-                        >⭐</motion.span>
+                        >★</motion.span>
                       ) : (
-                        <span className="text-lg">🌱</span>
+                        <span className="text-lg">~</span>
                       )}
                       <span className="text-sm font-bold text-white">
                         {isMaster ? "Master Companion" : isEvolved ? "Evolved Companion" : "Companion"}
@@ -654,12 +654,12 @@ export default function AvatarPage() {
                     <div className={`flex-1 flex items-center gap-1.5 px-2 py-1.5 rounded-lg text-[10px] font-medium ${
                       isEvolved ? "bg-amber-500/20 text-amber-300" : "bg-slate-700/40 text-slate-500"
                     }`}>
-                      {isEvolved ? "✅" : "🔒"} Lv.5 Gold Aura
+                      {isEvolved ? "✓" : ""} Lv.5 Gold Aura
                     </div>
                     <div className={`flex-1 flex items-center gap-1.5 px-2 py-1.5 rounded-lg text-[10px] font-medium ${
                       isMaster ? "bg-amber-500/20 text-amber-300" : "bg-slate-700/40 text-slate-500"
                     }`}>
-                      {isMaster ? "✅" : "🔒"} Lv.10 Crown
+                      {isMaster ? "✓" : ""} Lv.10 Crown
                     </div>
                   </div>
 

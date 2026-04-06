@@ -58,13 +58,13 @@ export default function StreakShareCard({
   const leagueLabel = LEAGUE_LABELS[league] ?? league;
 
   const shareText = [
-    `🔥 ${streak}-day streak on Thyself!`,
+    `★ ${streak}-day streak on Thyself!`,
     cognitiveType && enneagramType
       ? `I'm a ${cognitiveType} · Type ${enneagramType}, Level ${level} ${leagueLabel} league`
       : `Level ${level} in the ${leagueLabel} league`,
     `${totalXP.toLocaleString()} XP earned`,
     "",
-    "Building self-knowledge one day at a time 🧠",
+    "Building self-knowledge one day at a time",
     "thyself.app",
   ]
     .filter(Boolean)
@@ -157,7 +157,7 @@ export default function StreakShareCard({
                   <p className="text-white font-extrabold text-3xl leading-tight">
                     {streak === 1 ? "1 day" : `${streak} days`}
                   </p>
-                  <p className="text-white/75 text-sm font-medium">learning streak 🔥</p>
+                  <p className="text-white/75 text-sm font-medium">learning streak ★</p>
                   {longestStreak && longestStreak > streak && (
                     <p className="text-white/50 text-xs mt-1">Best: {longestStreak} days</p>
                   )}

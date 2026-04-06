@@ -12,7 +12,7 @@
  * - Locked = light gray with subtle lock, NOT pressable
  * - Thick dashed connector lines between nodes (playful, like Duolingo)
  * - Chibi character on a little "speech bubble" platform next to current node
- * - Section labels are fun/themed ("🔥 Type Deep Dive", "🧠 Mind & Functions")
+ * - Section labels are fun/themed ("★ Type Deep Dive", "Mind & Functions")
  * - No unit boxes/cards, just colored background bands that flow
  * - Streak flame counter floating in top-right
  */
@@ -37,11 +37,11 @@ interface Props {
 }
 
 const SECTION_THEMES = [
-  { bg: "#ddf4dd", accent: "#58cc02", emoji: "☀️" },
-  { bg: "#e8d5f5", accent: "#ce82ff", emoji: "🧠" },
-  { bg: "#d0f0e4", accent: "#00cd9c", emoji: "🔗" },
-  { bg: "#ffecd2", accent: "#ff9600", emoji: "📚" },
-  { bg: "#d6eeff", accent: "#1cb0f6", emoji: "⭐" },
+  { bg: "#ddf4dd", accent: "#58cc02", emoji: "~" },
+  { bg: "#e8d5f5", accent: "#ce82ff", emoji: "→" },
+  { bg: "#d0f0e4", accent: "#00cd9c", emoji: "+" },
+  { bg: "#ffecd2", accent: "#ff9600", emoji: "" },
+  { bg: "#d6eeff", accent: "#1cb0f6", emoji: "★" },
 ];
 
 function ChunkyNode({

@@ -325,7 +325,7 @@ export default function TypeMatchPage() {
       <div className="min-h-screen flex items-center justify-center px-4 bg-gradient-to-br from-indigo-50 via-white to-violet-50">
         <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} className="w-full max-w-md">
           <div className={`rounded-3xl p-8 text-center text-white mb-4 shadow-xl ${correct === ROUNDS ? "bg-gradient-to-r from-emerald-400 to-teal-500" : correct >= 3 ? "bg-gradient-to-r from-indigo-500 to-violet-600" : "bg-gradient-to-r from-amber-400 to-orange-500"}`}>
-            <div className="text-4xl mb-2">{correct === ROUNDS ? "🧠✨" : correct >= 3 ? "🧠" : "📖"}</div>
+            <div className="text-4xl mb-2">{correct === ROUNDS ? "★✦" : correct >= 3 ? "→" : "[read]"}</div>
             <h2 className="text-2xl font-serif font-bold mb-1">{grade}</h2>
             <p className="text-white/70 text-sm">{correct} of {ROUNDS} correct</p>
           </div>

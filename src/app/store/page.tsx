@@ -316,7 +316,7 @@ export default function StorePage() {
       <FirstVisitTooltip
         storageKey="psyche-visited-store"
         message="Earn free tokens daily by completing your practice, no purchase needed!"
-        icon="🪙"
+        icon="(+)"
       />
 
       <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 pb-24">

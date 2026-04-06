@@ -328,29 +328,29 @@ export function getBadgeProgress(state: GameState): BadgeProgress[] {
   };
 
   // Streak badges
-  add("week-warrior", "Week Warrior", "🔥", "Maintain a 7-day streak",
+  add("week-warrior", "Week Warrior", "★", "Maintain a 7-day streak",
     state.streakCount, 7, (c, t) => `${c} / ${t} days`);
-  add("fortnight-fury", "Fortnight Fury", "🌀", "Maintain a 14-day streak",
+  add("fortnight-fury", "Fortnight Fury", "✦", "Maintain a 14-day streak",
     state.streakCount, 14, (c, t) => `${c} / ${t} days`);
-  add("month-master", "Month Master", "⚡", "Maintain a 30-day streak",
+  add("month-master", "Month Master", "+", "Maintain a 30-day streak",
     state.streakCount, 30, (c, t) => `${c} / ${t} days`);
-  add("century-club", "Century Club", "🏆", "Maintain a 100-day streak",
+  add("century-club", "Century Club", "★", "Maintain a 100-day streak",
     state.streakCount, 100, (c, t) => `${c} / ${t} days`);
 
   // Level badges
-  add("level-10", "Double Digits", "🌟", "Reach Level 10",
+  add("level-10", "Double Digits", "★", "Reach Level 10",
     state.level, 10, (c, t) => `Level ${c} / ${t}`);
-  add("level-25", "Quarter Century", "👑", "Reach Level 25",
+  add("level-25", "Quarter Century", "★", "Reach Level 25",
     state.level, 25, (c, t) => `Level ${c} / ${t}`);
-  add("level-50", "Transcendent", "💫", "Reach Level 50",
+  add("level-50", "Transcendent", "✦", "Reach Level 50",
     state.level, 50, (c, t) => `Level ${c} / ${t}`);
 
   // Mastery badges
-  add("deep-thinker", "Deep Thinker", "📚", "Answer 50 questions",
+  add("deep-thinker", "Deep Thinker", "", "Answer 50 questions",
     state.totalAttempted, 50, (c, t) => `${c} / ${t} questions`);
-  add("quiz-streak-10", "On Fire", "💥", "Get 10 correct in a row",
+  add("quiz-streak-10", "On Fire", "+", "Get 10 correct in a row",
     state.quizStreak, 10, (c, t) => `${c} / ${t} in a row`);
-  add("accuracy-ace", "Accuracy Ace", "🎯", "Answer 100 questions with 80%+ accuracy",
+  add("accuracy-ace", "Accuracy Ace", "→", "Answer 100 questions with 80%+ accuracy",
     state.totalAttempted, 100, (c, t) => `${c} / ${t} questions`);
 
   // Sort by progress % descending (closest to earning = first), take top 2
@@ -481,9 +481,9 @@ export interface WeeklyChallengeTemplate {
 }
 
 export const WEEKLY_CHALLENGES: WeeklyChallengeTemplate[] = [
-  { id: "streak", name: "Streak Warrior", emoji: "🔥", description: "Meet your daily goal 5 days this week", goal: 5, xpReward: 100, tokenReward: 30, progressKey: "daysGoalMet" },
-  { id: "quiz", name: "Quiz Master", emoji: "🧠", description: "Answer 30 questions correctly this week", goal: 30, xpReward: 100, tokenReward: 30, progressKey: "quizCorrect" },
-  { id: "module", name: "Deep Diver", emoji: "📚", description: "Complete 3 full learning modules this week", goal: 3, xpReward: 100, tokenReward: 30, progressKey: "modulesCompleted" },
+  { id: "streak", name: "Streak Warrior", emoji: "★", description: "Meet your daily goal 5 days this week", goal: 5, xpReward: 100, tokenReward: 30, progressKey: "daysGoalMet" },
+  { id: "quiz", name: "Quiz Master", emoji: "→", description: "Answer 30 questions correctly this week", goal: 30, xpReward: 100, tokenReward: 30, progressKey: "quizCorrect" },
+  { id: "module", name: "Deep Diver", emoji: "", description: "Complete 3 full learning modules this week", goal: 3, xpReward: 100, tokenReward: 30, progressKey: "modulesCompleted" },
 ];
 
 function getISOWeekKey(): string {

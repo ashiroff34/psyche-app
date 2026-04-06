@@ -1426,7 +1426,7 @@ export default function ProfilePage() {
       <FirstVisitTooltip
         storageKey="psyche-visited-profile"
         message="Set your Enneagram type here, your daily practice and chibi pet unlock once you do!"
-        icon="✨"
+        icon="✦"
       />
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
 
@@ -1527,9 +1527,9 @@ export default function ProfilePage() {
             </p>
             <div className="flex flex-wrap justify-center gap-3 mb-8">
               {[
-                { icon: "🐾", text: "Your chibi matches your type" },
-                { icon: "🎯", text: "Quizzes tailored to your path" },
-                { icon: "🌱", text: "Personalised growth insights" },
+                { icon: "~", text: "Your chibi matches your type" },
+                { icon: "→", text: "Quizzes tailored to your path" },
+                { icon: "~", text: "Personalised growth insights" },
               ].map((item) => (
                 <span
                   key={item.text}
