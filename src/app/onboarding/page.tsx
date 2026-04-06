@@ -1,8 +1,8 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { ArrowRight, ArrowLeft, Mail, User } from "lucide-react";
 import { notifyProfileChanged } from "@/hooks/useProfile";
 import OuroborosLogo from "@/components/OuroborosLogo";
@@ -411,13 +411,115 @@ function StepEmailGate({
   );
 }
 
+// ── Manual Type Picker (skip flow) ────────────────────────────────────────────
+
+const TYPE_NAMES: Record<number, string> = {
+  1: "The Reformer", 2: "The Helper", 3: "The Achiever",
+  4: "The Individualist", 5: "The Investigator", 6: "The Loyalist",
+  7: "The Enthusiast", 8: "The Challenger", 9: "The Peacemaker",
+};
+
+function ManualTypePicker({ onSave }: { onSave: (name: string, type: number) => void }) {
+  const [name, setName] = useState("");
+  const [type, setType] = useState<number | null>(null);
+
+  return (
+    <div className="flex flex-col items-center px-6 max-w-sm mx-auto w-full pt-8 pb-24">
+      <div className="w-12 h-12 rounded-2xl overflow-hidden mb-6 flex-shrink-0" style={{ boxShadow: "0 0 28px rgba(124,58,237,0.5)" }}>
+        <OuroborosLogo size={48} />
+      </div>
+      <h2 className="text-2xl font-serif font-bold text-center mb-1" style={{ color: "rgba(255,255,255,0.95)" }}>
+        Welcome to Thyself
+      </h2>
+      <p className="text-sm text-center mb-8" style={{ color: "rgba(255,255,255,0.4)" }}>
+        Tell us about yourself to personalize your experience.
+      </p>
+
+      {/* Name */}
+      <div className="w-full mb-6">
+        <label className="block text-xs font-semibold mb-2 uppercase tracking-wider" style={{ color: "rgba(167,139,250,0.7)" }}>
+          Your name (optional)
+        </label>
+        <div className="relative">
+          <User className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4" style={{ color: "rgba(255,255,255,0.25)" }} />
+          <input
+            type="text"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            placeholder="What should we call you?"
+            className="w-full pl-10 pr-4 py-3.5 rounded-xl text-sm outline-none transition-all"
+            style={{
+              background: "rgba(255,255,255,0.06)",
+              border: "1px solid rgba(255,255,255,0.1)",
+              color: "rgba(255,255,255,0.88)",
+            }}
+          />
+        </div>
+      </div>
+
+      {/* Type picker */}
+      <div className="w-full mb-8">
+        <label className="block text-xs font-semibold mb-3 uppercase tracking-wider" style={{ color: "rgba(167,139,250,0.7)" }}>
+          Your Enneagram type
+        </label>
+        <div className="grid grid-cols-3 gap-2">
+          {[1,2,3,4,5,6,7,8,9].map((t) => (
+            <button
+              key={t}
+              onClick={() => setType(t)}
+              className="flex flex-col items-center py-3 px-2 rounded-xl transition-all active:scale-[0.97]"
+              style={{
+                background: type === t ? "rgba(124,58,237,0.22)" : "rgba(255,255,255,0.05)",
+                border: type === t ? "1px solid rgba(167,139,250,0.5)" : "1px solid rgba(255,255,255,0.08)",
+              }}
+            >
+              <span className="text-lg font-serif font-bold mb-0.5" style={{ color: type === t ? "#c4b5fd" : "rgba(255,255,255,0.8)" }}>
+                {t}
+              </span>
+              <span className="text-[9px] text-center leading-tight" style={{ color: type === t ? "rgba(196,181,253,0.7)" : "rgba(255,255,255,0.3)" }}>
+                {TYPE_NAMES[t]}
+              </span>
+            </button>
+          ))}
+        </div>
+        {!type && (
+          <p className="text-xs text-center mt-2" style={{ color: "rgba(255,255,255,0.25)" }}>
+            Not sure yet?{" "}
+            <a href="/onboarding?fromEnter=true" className="underline" style={{ color: "rgba(167,139,250,0.5)" }}>
+              Take the assessment instead
+            </a>
+          </p>
+        )}
+      </div>
+
+      <button
+        onClick={() => type && onSave(name, type)}
+        disabled={!type}
+        className="w-full py-4 rounded-2xl font-bold text-white text-base transition-all hover:-translate-y-0.5 active:scale-[0.98]"
+        style={{
+          background: type ? "linear-gradient(135deg, #7c3aed, #4f46e5)" : "rgba(255,255,255,0.08)",
+          boxShadow: type ? "0 8px 24px rgba(124,58,237,0.45)" : "none",
+          color: type ? "white" : "rgba(255,255,255,0.3)",
+          cursor: type ? "pointer" : "not-allowed",
+        }}
+      >
+        Enter Thyself →
+      </button>
+      <p className="text-xs text-emerald-400/70 mt-2 text-center">🎁 50 bonus tokens on signup</p>
+    </div>
+  );
+}
+
 // ── Main ──────────────────────────────────────────────────────────────────────
 
-export default function OnboardingPage() {
+function OnboardingPageInner() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const fromEnter = searchParams.get("fromEnter") === "true";
+  const isManual = searchParams.get("manual") === "true";
 
   const [acceptedTerms, setAcceptedTerms] = useState(false);
-  // 0 = welcome, 1 = intent, 2 = assessment, 3 = email gate
+  // 0 = welcome, 1 = intent, 2 = assessment, 3 = email gate, 4 = manual picker
   const [step, setStep] = useState(0);
   const [intent, setIntent] = useState<Intent>("discover");
   const [assessmentResult, setAssessmentResult] = useState<{
@@ -428,10 +530,17 @@ export default function OnboardingPage() {
 
   useEffect(() => {
     try {
-      if (localStorage.getItem("psyche-terms-accepted") === "true") setAcceptedTerms(true);
+      const termsAccepted = localStorage.getItem("psyche-terms-accepted") === "true";
+      if (termsAccepted) {
+        setAcceptedTerms(true);
+        // Jump directly to assessment if coming from enter experience
+        if (fromEnter) setStep(2);
+        // Jump to manual picker if user already knows their type
+        else if (isManual) setStep(4);
+      }
       if (localStorage.getItem("psyche-onboarding-complete") === "true") router.replace("/");
     } catch {}
-  }, [router]);
+  }, [router, fromEnter, isManual]);
 
   if (!acceptedTerms) {
     return (
@@ -439,6 +548,10 @@ export default function OnboardingPage() {
         onAccept={() => {
           setAcceptedTerms(true);
           try { localStorage.setItem("psyche-terms-accepted", "true"); } catch {}
+          // Jump to correct step based on URL params
+          if (fromEnter) setStep(2);
+          else if (isManual) setStep(4);
+          // else stay at step 0 (the welcome/intent screens)
         }}
       />
     );
@@ -504,6 +617,34 @@ export default function OnboardingPage() {
     } catch {}
 
     router.push(getPostOnboardingRoute(assessmentResult, intent));
+  };
+
+  const saveManual = (name: string, type: number) => {
+    try {
+      const raw = localStorage.getItem("psyche-profile");
+      const p = raw ? JSON.parse(raw) : {};
+      const updated = {
+        ...p,
+        enneagramType: type,
+        assessmentsTaken: ["manual"],
+        ...(name.trim() ? { displayName: name.trim() } : {}),
+      };
+      localStorage.setItem("psyche-profile", JSON.stringify(updated));
+      localStorage.setItem("psyche-onboarding-complete", "true");
+      localStorage.setItem("psyche-tutorial-complete", "true");
+      notifyProfileChanged();
+      try {
+        const gsRaw = localStorage.getItem("psyche-game-state");
+        const gs = gsRaw ? JSON.parse(gsRaw) : {};
+        const current = (gs.tokens as number) ?? 0;
+        localStorage.setItem("psyche-game-state", JSON.stringify({
+          ...gs,
+          tokens: current + 50,
+          totalTokensEarned: ((gs.totalTokensEarned as number) ?? 0) + 50,
+        }));
+      } catch {}
+    } catch {}
+    router.push("/");
   };
 
   const skipSave = () => {
@@ -593,7 +734,7 @@ export default function OnboardingPage() {
           >
             <div className="max-w-lg mx-auto px-4 pt-4 pb-2">
               <button
-                onClick={() => setStep(1)}
+                onClick={() => fromEnter ? router.push("/") : setStep(1)}
                 className="flex items-center gap-1 text-sm mb-3 transition-colors"
                 style={{ color: "rgba(255,255,255,0.35)" }}
               >
@@ -631,7 +772,33 @@ export default function OnboardingPage() {
             </div>
           </motion.div>
         )}
+
+        {/* Step 4: Manual type picker (for users who already know their type) */}
+        {step === 4 && (
+          <motion.div
+            key="manual"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.25 }}
+            className="min-h-screen flex items-center justify-center pt-8 pb-24"
+          >
+            <ManualTypePicker onSave={saveManual} />
+          </motion.div>
+        )}
       </AnimatePresence>
     </div>
+  );
+}
+
+export default function OnboardingPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen flex items-center justify-center" style={{ background: "#0f0a1e" }}>
+        <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-violet-500 to-indigo-500" />
+      </div>
+    }>
+      <OnboardingPageInner />
+    </Suspense>
   );
 }

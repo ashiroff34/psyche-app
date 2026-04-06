@@ -2427,17 +2427,17 @@ export default function DailyPage() {
 
             {/* Daily Insight */}
             <motion.div initial={{ opacity: 1, y: 0 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.05 }}>
-              <div className="relative overflow-hidden p-6 rounded-3xl bg-gradient-to-br from-indigo-50 via-sky-50 to-violet-50 border border-indigo-100/60">
-                <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-indigo-100/40 to-transparent rounded-bl-full" />
+              <div className="relative overflow-hidden p-6 rounded-3xl" style={{ background: "rgba(99,102,241,0.1)", border: "1px solid rgba(99,102,241,0.22)" }}>
+                <div className="absolute top-0 right-0 w-32 h-32 rounded-bl-full" style={{ background: "radial-gradient(circle, rgba(99,102,241,0.08) 0%, transparent 70%)" }} />
                 <div className="relative">
                   <div className="flex items-center gap-2.5 mb-4">
-                    <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-indigo-100 to-indigo-200 flex items-center justify-center shadow-sm">
-                      <Wand2 className="w-4 h-4 text-indigo-600" />
+                    <div className="w-9 h-9 rounded-xl flex items-center justify-center" style={{ background: "rgba(99,102,241,0.2)" }}>
+                      <Wand2 className="w-4 h-4" style={{ color: "#818cf8" }} />
                     </div>
                     <div className="flex-1">
-                      <div className="text-xs font-semibold text-indigo-600 tracking-wide">Today&apos;s Insight</div>
+                      <div className="text-xs font-semibold tracking-wide" style={{ color: "#818cf8" }}>Today&apos;s Insight</div>
                       {dailyInsightData && (
-                        <div className="text-[10px] text-slate-400 capitalize">
+                        <div className="text-[10px] capitalize" style={{ color: "rgba(255,255,255,0.38)" }}>
                           {dailyInsightData.category}
                         </div>
                       )}
@@ -2447,11 +2447,11 @@ export default function DailyPage() {
                   {/* Daily insight content */}
                   {dailyInsightData ? (
                     <div>
-                      <p className="text-slate-700 leading-relaxed font-serif text-[15px] italic mb-2">
+                      <p className="leading-relaxed font-serif text-[15px] italic mb-2" style={{ color: "rgba(255,255,255,0.88)" }}>
                         &ldquo;{dailyInsightData.quote}&rdquo;
                       </p>
-                      <p className="text-xs text-slate-400 mb-3">{dailyInsightData.author}</p>
-                      <p className="text-slate-600 leading-relaxed text-sm">
+                      <p className="text-xs mb-3" style={{ color: "rgba(255,255,255,0.4)" }}>{dailyInsightData.author}</p>
+                      <p className="leading-relaxed text-sm" style={{ color: "rgba(255,255,255,0.65)" }}>
                         {dailyInsightData.reflection}
                       </p>
                       {/* Tritype + instinctual stacking enrichment */}
@@ -2462,23 +2462,23 @@ export default function DailyPage() {
                         const stackingData = stacking ? instinctualStackings.find(s => s.code === stacking.toLowerCase()) : null;
                         if (!tritype && !stacking) return null;
                         return (
-                          <div className="mt-4 pt-4 border-t border-indigo-100/60 space-y-2">
+                          <div className="mt-4 pt-4 space-y-2" style={{ borderTop: "1px solid rgba(99,102,241,0.18)" }}>
                             {tritype && (
                               <div className="flex items-start gap-2">
-                                <span className="mt-0.5 px-2 py-0.5 rounded-full text-[10px] font-bold bg-indigo-100 text-indigo-600 shrink-0 tracking-wide">
+                                <span className="mt-0.5 px-2 py-0.5 rounded-full text-[10px] font-bold shrink-0 tracking-wide" style={{ background: "rgba(99,102,241,0.2)", color: "#818cf8" }}>
                                   {tritype}{tritypeArchetype ? ` · ${tritypeArchetype}` : ""}
                                 </span>
-                                <p className="text-xs text-slate-500 leading-relaxed">
+                                <p className="text-xs leading-relaxed" style={{ color: "rgba(255,255,255,0.5)" }}>
                                   Today, notice how your {tritype[0]}-{tritype[1]}-{tritype[2]} combination shapes your response to this insight — which center pulls strongest right now?
                                 </p>
                               </div>
                             )}
                             {stackingData && (
                               <div className="flex items-start gap-2">
-                                <span className="mt-0.5 px-2 py-0.5 rounded-full text-[10px] font-bold bg-violet-100 text-violet-600 shrink-0 tracking-wide uppercase">
+                                <span className="mt-0.5 px-2 py-0.5 rounded-full text-[10px] font-bold shrink-0 tracking-wide uppercase" style={{ background: "rgba(167,139,250,0.18)", color: "#c4b5fd" }}>
                                   {stacking}
                                 </span>
-                                <p className="text-xs text-slate-500 leading-relaxed">
+                                <p className="text-xs leading-relaxed" style={{ color: "rgba(255,255,255,0.5)" }}>
                                   {stackingData.dominant} instinct growth edge: {stackingData.characteristics[stackingData.characteristics.length - 1].toLowerCase()}
                                 </p>
                               </div>
@@ -2488,12 +2488,12 @@ export default function DailyPage() {
                       })()}
                     </div>
                   ) : todayInsight ? (
-                    <p className="text-slate-700 leading-relaxed font-serif text-[15px]">{todayInsight}</p>
+                    <p className="leading-relaxed font-serif text-[15px]" style={{ color: "rgba(255,255,255,0.85)" }}>{todayInsight}</p>
                   ) : (
                     <div className="space-y-2.5 animate-pulse">
-                      <div className="h-4 bg-indigo-100 rounded-full w-full" />
-                      <div className="h-4 bg-indigo-100 rounded-full w-5/6" />
-                      <div className="h-4 bg-indigo-100 rounded-full w-4/6" />
+                      <div className="h-4 rounded-full w-full" style={{ background: "rgba(99,102,241,0.15)" }} />
+                      <div className="h-4 rounded-full w-5/6" style={{ background: "rgba(99,102,241,0.15)" }} />
+                      <div className="h-4 rounded-full w-4/6" style={{ background: "rgba(99,102,241,0.15)" }} />
                     </div>
                   )}
                 </div>
@@ -2503,17 +2503,17 @@ export default function DailyPage() {
             {/* Cognitive Edge */}
             {profile.cognitiveType && cognitiveGrowthEdges[profile.cognitiveType] && (
               <motion.div initial={{ opacity: 1, y: 0 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.05 }}>
-                <div className="p-5 rounded-3xl bg-white border border-slate-100 shadow-sm">
+                <div className="p-5 rounded-3xl" style={{ background: "rgba(14,165,233,0.08)", border: "1px solid rgba(14,165,233,0.2)" }}>
                   <div className="flex items-center gap-2.5 mb-3">
-                    <div className="w-8 h-8 rounded-xl bg-sky-100 flex items-center justify-center">
-                      <Brain className="w-4 h-4 text-sky-600" />
+                    <div className="w-8 h-8 rounded-xl flex items-center justify-center" style={{ background: "rgba(14,165,233,0.15)" }}>
+                      <Brain className="w-4 h-4" style={{ color: "#38bdf8" }} />
                     </div>
                     <div>
-                      <div className="text-xs font-semibold text-sky-600">Cognitive Edge</div>
-                      <div className="text-[10px] text-slate-400">{cognitiveGrowthEdges[profile.cognitiveType].dominantFunction}</div>
+                      <div className="text-xs font-semibold" style={{ color: "#38bdf8" }}>Cognitive Edge</div>
+                      <div className="text-[10px]" style={{ color: "rgba(255,255,255,0.38)" }}>{cognitiveGrowthEdges[profile.cognitiveType].dominantFunction}</div>
                     </div>
                   </div>
-                  <p className="text-sm text-slate-600 leading-relaxed">
+                  <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.72)" }}>
                     {cognitiveGrowthEdges[profile.cognitiveType].dailyPractice}
                   </p>
                 </div>
@@ -2523,45 +2523,46 @@ export default function DailyPage() {
             {/* Growth Challenge */}
             {todayChallenge && (
               <motion.div initial={{ opacity: 1, y: 0 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}>
-                <div className="p-6 rounded-3xl bg-white border border-slate-100 shadow-sm">
+                <div className="p-6 rounded-3xl" style={{ background: "rgba(16,185,129,0.08)", border: "1px solid rgba(16,185,129,0.22)" }}>
                   <div className="flex items-center gap-2.5 mb-4">
-                    <div className="w-9 h-9 rounded-xl bg-emerald-100 flex items-center justify-center">
-                      <Target className="w-4 h-4 text-emerald-600" />
+                    <div className="w-9 h-9 rounded-xl flex items-center justify-center" style={{ background: "rgba(16,185,129,0.18)" }}>
+                      <Target className="w-4 h-4" style={{ color: "#34d399" }} />
                     </div>
                     <div>
-                      <div className="text-xs font-semibold text-emerald-600">Today&apos;s Challenge</div>
-                      <div className="text-[10px] text-slate-400">A concrete growth edge for Type {profile.enneagramType}</div>
+                      <div className="text-xs font-semibold" style={{ color: "#34d399" }}>Today&apos;s Challenge</div>
+                      <div className="text-[10px]" style={{ color: "rgba(255,255,255,0.38)" }}>A concrete growth edge for Type {profile.enneagramType}</div>
                     </div>
                   </div>
-                  <p className="text-slate-700 leading-relaxed">{todayChallenge}</p>
+                  <p className="leading-relaxed" style={{ color: "rgba(255,255,255,0.82)" }}>{todayChallenge}</p>
                 </div>
               </motion.div>
             )}
 
             {/* Warmup Quiz */}
             <motion.div initial={{ opacity: 1, y: 0 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.15 }}>
-              <div className="p-6 rounded-3xl bg-white border border-slate-100 shadow-sm">
+              <div className="p-6 rounded-3xl" style={{ background: "rgba(14,165,233,0.07)", border: "1px solid rgba(14,165,233,0.18)" }}>
                 <div className="flex items-center gap-2.5 mb-5">
-                  <div className="w-9 h-9 rounded-xl bg-sky-100 flex items-center justify-center">
-                    <Brain className="w-4 h-4 text-sky-600" />
+                  <div className="w-9 h-9 rounded-xl flex items-center justify-center" style={{ background: "rgba(14,165,233,0.15)" }}>
+                    <Brain className="w-4 h-4" style={{ color: "#38bdf8" }} />
                   </div>
                   <div>
-                    <div className="text-sm font-semibold text-slate-800">Quick Warm-Up</div>
-                    <div className="text-xs text-slate-400">5 questions to start your day {isFirstQuizToday && "-- 2x XP bonus!"}</div>
+                    <div className="text-sm font-semibold" style={{ color: "rgba(255,255,255,0.9)" }}>Quick Warm-Up</div>
+                    <div className="text-xs" style={{ color: "rgba(255,255,255,0.4)" }}>5 questions to start your day {isFirstQuizToday && "· 2× XP bonus!"}</div>
                   </div>
                   {isFirstQuizToday && (
-                    <span className="ml-auto px-2 py-0.5 bg-amber-50 text-amber-600 text-[10px] font-bold rounded-full border border-amber-100">
-                      2X XP
+                    <span className="ml-auto px-2 py-0.5 text-[10px] font-bold rounded-full" style={{ background: "rgba(245,158,11,0.18)", color: "#fbbf24", border: "1px solid rgba(245,158,11,0.3)" }}>
+                      2× XP
                     </span>
                   )}
                 </div>
 
                 {!warmupStarted && !warmupDone && (
                   <div className="text-center py-4">
-                    <p className="text-sm text-slate-500 mb-4">Test your knowledge across Enneagram, cognitive functions, and psychology.</p>
+                    <p className="text-sm mb-4" style={{ color: "rgba(255,255,255,0.5)" }}>Test your knowledge across Enneagram, cognitive functions, and psychology.</p>
                     <button
                       onClick={() => setWarmupStarted(true)}
-                      className="px-6 py-3.5 bg-gradient-to-r from-sky-500 to-indigo-500 text-white rounded-xl font-medium text-sm hover:shadow-lg hover:shadow-indigo-200/50 transition-all"
+                      className="px-6 py-3.5 text-white rounded-xl font-medium text-sm transition-all hover:-translate-y-0.5"
+                      style={{ background: "linear-gradient(135deg, #0ea5e9, #6366f1)", boxShadow: "0 4px 16px rgba(99,102,241,0.3)" }}
                     >
                       Start Warm-Up
                     </button>
@@ -2576,11 +2577,11 @@ export default function DailyPage() {
                 {warmupDone && (
                   <motion.div initial={{ opacity: 1, scale: 1 }} animate={{ opacity: 1, scale: 1 }} className="text-center py-4">
                     <Trophy className="w-10 h-10 text-amber-500 mx-auto mb-2" />
-                    <p className="font-semibold text-slate-800 text-lg mb-1">Warm-Up Complete!</p>
-                    <p className="text-sm text-slate-500 mb-1">
+                    <p className="font-semibold text-lg mb-1" style={{ color: "rgba(255,255,255,0.92)" }}>Warm-Up Complete!</p>
+                    <p className="text-sm mb-1" style={{ color: "rgba(255,255,255,0.55)" }}>
                       {warmupAnswers.filter(Boolean).length} / {warmupAnswers.length} correct
                     </p>
-                    <p className="text-xs text-slate-400">Ready for the deep learning modules?</p>
+                    <p className="text-xs" style={{ color: "rgba(255,255,255,0.38)" }}>Ready for the deep learning modules?</p>
                   </motion.div>
                 )}
               </div>

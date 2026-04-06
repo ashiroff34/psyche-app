@@ -85,25 +85,128 @@ function useHomeState() {
   return { state, profile, gameState, dailyProgress };
 }
 
-// ── State A: New User Hero ────────────────────────────────────────────────────
+// ── State A: Enter Experience (new users) ────────────────────────────────────
 
-const staggerChildren = {
-  hidden: {},
-  show: { transition: { staggerChildren: 0.12 } },
-};
-const fadeUp = {
-  hidden: { opacity: 1, y: 0 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.5 } },
-};
-
-function HeroScreen() {
+function EnterScreen() {
+  const router = useRouter();
 
   return (
+    <div
+      className="fixed inset-0 flex flex-col items-center justify-center overflow-hidden"
+      style={{ background: "#08031a" }}
+    >
+      {/* Large ambient glow — top center */}
+      <div style={{
+        position: "absolute", top: "-15%", left: "50%", transform: "translateX(-50%)",
+        width: "700px", height: "700px", borderRadius: "50%",
+        background: "radial-gradient(circle, rgba(109,40,217,0.18) 0%, transparent 65%)",
+        pointerEvents: "none",
+      }} />
+      {/* Secondary glow — bottom right */}
+      <div style={{
+        position: "absolute", bottom: "-10%", right: "5%",
+        width: "400px", height: "400px", borderRadius: "50%",
+        background: "radial-gradient(circle, rgba(79,70,229,0.12) 0%, transparent 65%)",
+        pointerEvents: "none",
+      }} />
+
+      {/* Animated concentric rings */}
+      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+        {[440, 320, 210].map((size, i) => (
+          <motion.div
+            key={size}
+            style={{
+              position: "absolute",
+              width: size, height: size,
+              borderRadius: "50%",
+              border: `1px solid rgba(139,92,246,${0.04 + i * 0.04})`,
+            }}
+            animate={{ scale: [1, 1.035, 1], opacity: [0.5, 0.85, 0.5] }}
+            transition={{ duration: 4 + i * 1.2, repeat: Infinity, delay: i * 0.9, ease: "easeInOut" }}
+          />
+        ))}
+      </div>
+
+      {/* Logo */}
+      <motion.div
+        initial={{ opacity: 0, scale: 0.85 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.65 }}
+        className="w-16 h-16 rounded-2xl overflow-hidden mb-9 relative z-10 flex-shrink-0"
+        style={{ boxShadow: "0 0 48px rgba(124,58,237,0.55)" }}
+      >
+        <OuroborosLogo size={64} />
+      </motion.div>
+
+      {/* Hero text */}
+      <motion.h1
+        initial={{ opacity: 0, y: 18 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.7, delay: 0.15 }}
+        className="relative z-10 font-serif font-bold text-center tracking-tight mb-4"
+        style={{ fontSize: "clamp(52px, 14vw, 80px)", lineHeight: 1, color: "rgba(255,255,255,0.96)" }}
+      >
+        Know{" "}
+        <span style={{
+          background: "linear-gradient(135deg, #c4b5fd 0%, #a78bfa 45%, #818cf8 100%)",
+          WebkitBackgroundClip: "text",
+          WebkitTextFillColor: "transparent",
+          backgroundClip: "text",
+        }}>
+          thyself.
+        </span>
+      </motion.h1>
+
+      {/* Subtext */}
+      <motion.p
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.8, delay: 0.4 }}
+        className="relative z-10 text-sm text-center mb-12"
+        style={{ color: "rgba(255,255,255,0.3)", letterSpacing: "0.1em", maxWidth: "260px" }}
+      >
+        The Enneagram, accurately.
+      </motion.p>
+
+      {/* CTAs */}
+      <motion.div
+        initial={{ opacity: 0, y: 16 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.65, delay: 0.55 }}
+        className="relative z-10 flex flex-col items-center gap-4 w-full px-8"
+        style={{ maxWidth: "340px" }}
+      >
+        <button
+          onClick={() => router.push("/onboarding?fromEnter=true")}
+          className="w-full py-4 rounded-2xl font-bold text-white text-base transition-all hover:-translate-y-0.5 active:scale-[0.98] flex items-center justify-center gap-2"
+          style={{
+            background: "linear-gradient(135deg, #7c3aed, #4f46e5)",
+            boxShadow: "0 8px 36px rgba(124,58,237,0.6)",
+          }}
+        >
+          Begin your journey
+          <ArrowRight className="w-4 h-4" />
+        </button>
+
+        <button
+          onClick={() => router.push("/onboarding?manual=true")}
+          className="text-sm transition-colors hover:opacity-70"
+          style={{ color: "rgba(167,139,250,0.45)" }}
+        >
+          I already know my type →
+        </button>
+      </motion.div>
+    </div>
+  );
+}
+
+// ── (old HeroScreen removed — replaced by EnterScreen above) ─────────────────
+const staggerChildren = { hidden: {}, show: { transition: { staggerChildren: 0.12 } } };
+const fadeUp = { hidden: { opacity: 1, y: 0 }, show: { opacity: 1, y: 0, transition: { duration: 0.5 } } };
+function _placeholder() {
+  return (
     <div className="min-h-screen flex flex-col relative" style={{ background: "#0f0a1e" }}>
-      {/* Aurora orbs */}
       <div className="absolute top-20 left-10 w-80 h-80 rounded-full blur-3xl pointer-events-none" style={{ background: "radial-gradient(circle, rgba(139,92,246,0.15) 0%, transparent 70%)" }} />
-      <div className="absolute top-40 right-20 w-96 h-96 rounded-full blur-3xl pointer-events-none" style={{ background: "radial-gradient(circle, rgba(79,70,229,0.12) 0%, transparent 70%)" }} />
-      <div className="absolute bottom-20 left-1/3 w-64 h-64 rounded-full blur-3xl pointer-events-none" style={{ background: "radial-gradient(circle, rgba(124,58,237,0.1) 0%, transparent 70%)" }} />
 
       {/* Hero */}
       <section className="relative overflow-hidden flex-1 flex items-center">
@@ -726,7 +829,7 @@ export default function HomePage() {
     );
   }
 
-  if (state === "new") return <div onTouchStart={onTouchStart} onTouchEnd={onTouchEnd} className="fixed inset-0 z-[100] overflow-y-auto" style={{ background: "#0f0a1e" }}><HeroScreen /></div>;
+  if (state === "new") return <div onTouchStart={onTouchStart} onTouchEnd={onTouchEnd}><EnterScreen /></div>;
   if (state === "onboarding") return <div onTouchStart={onTouchStart} onTouchEnd={onTouchEnd}><OnboardingResumeScreen profile={profile} /></div>;
   if (state === "assess_prompt") return <div onTouchStart={onTouchStart} onTouchEnd={onTouchEnd}><AssessPromptScreen profile={profile} /></div>;
   return <div onTouchStart={onTouchStart} onTouchEnd={onTouchEnd}><DashboardScreen profile={profile} gameState={gameState} dailyProgress={dailyProgress} /></div>;
