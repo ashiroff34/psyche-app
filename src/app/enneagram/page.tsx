@@ -28,7 +28,7 @@ function BeginnerIntro() {
       >
         <div className="flex items-center gap-3">
           <Info className="w-4 h-4 flex-shrink-0" style={{ color: "#38bdf8" }} />
-          <span className="text-sm font-semibold" style={{ color: "rgba(255,255,255,0.85)" }}>What is the Enneagram?</span>
+          <span className="text-sm font-semibold" style={{ color: "rgba(255,255,255,0.85)" }}>New to the Enneagram? Start here</span>
         </div>
         {open
           ? <ChevronUp className="w-4 h-4" style={{ color: "rgba(255,255,255,0.3)" }} />
@@ -43,10 +43,22 @@ function BeginnerIntro() {
             transition={{ duration: 0.2 }}
             className="overflow-hidden"
           >
-            <div className="px-5 pb-5 space-y-3 text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.6)" }}>
+            <div className="px-5 pb-5 space-y-4 text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.6)" }}>
               <p>The Enneagram describes <strong style={{ color: "rgba(255,255,255,0.85)" }}>9 core personality types</strong>, each defined by a central motivation, fear, and pattern of attention. Unlike simpler systems, it focuses on the <em>why</em> behind what you do, not just surface traits.</p>
               <p>Each type has a number (1–9), a name, and rich psychological layers: wings, integration lines, instinctual subtypes, and developmental levels.</p>
-              <p><strong style={{ color: "rgba(255,255,255,0.75)" }}>Recommended:</strong> Take the Quick Type Finder, then read your type&apos;s full profile to see yourself clearly.</p>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
+                {[
+                  { title: "Core Motivations", text: "Each type is driven by a fundamental desire that shapes all behavior and decisions." },
+                  { title: "Wings", text: "The types on either side of yours influence how your core type expresses itself." },
+                  { title: "Integration & Disintegration", text: "Under growth you move toward one type; under stress, toward another." },
+                  { title: "Instinctual Subtypes", text: "Each type has 3 subtypes (sp/sx/so) that create 27 distinct personality variants." },
+                ].map((item) => (
+                  <div key={item.title} className="p-3 rounded-xl" style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.07)" }}>
+                    <p className="text-xs font-semibold mb-1" style={{ color: "rgba(255,255,255,0.75)" }}>{item.title}</p>
+                    <p className="text-xs leading-relaxed" style={{ color: "rgba(255,255,255,0.45)" }}>{item.text}</p>
+                  </div>
+                ))}
+              </div>
             </div>
           </motion.div>
         )}
@@ -289,18 +301,20 @@ export default function EnneagramPage() {
               )}
 
               <div className="flex flex-wrap gap-3">
-                <Link href="/assessments"
+                <Link href="/onboarding?fromEnter=true"
                   className="flex items-center gap-2 px-6 py-3 rounded-xl font-semibold text-white transition-all hover:-translate-y-0.5"
                   style={{ background: "linear-gradient(135deg, #7c3aed, #4f46e5)", boxShadow: "0 8px 24px rgba(124,58,237,0.4)" }}>
                   <MessageCircle className="w-4 h-4" />
                   {isBeginner ? "Find Your Type" : "Take Assessment"}
                 </Link>
-                <Link href="/enneagram/learn"
-                  className="flex items-center gap-2 px-6 py-3 rounded-xl font-medium transition-all hover:-translate-y-0.5"
-                  style={{ background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.1)", color: "rgba(255,255,255,0.75)" }}>
-                  <BookOpen className="w-4 h-4" />
-                  {isAdvanced ? "Deep Framework Reference" : "Learn the System"}
-                </Link>
+                {isAdvanced && (
+                  <Link href="/enneagram/learn"
+                    className="flex items-center gap-2 px-6 py-3 rounded-xl font-medium transition-all hover:-translate-y-0.5"
+                    style={{ background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.1)", color: "rgba(255,255,255,0.75)" }}>
+                    <BookOpen className="w-4 h-4" />
+                    Deep Framework Reference
+                  </Link>
+                )}
               </div>
             </motion.div>
           </div>
@@ -363,9 +377,9 @@ export default function EnneagramPage() {
           {!myType && (
             <div className="mt-8">
               <NextStepBanner
-                href="/assessments"
+                href="/onboarding?fromEnter=true"
                 label="Ready to find your type?"
-                sublabel="Take the validated assessment, results in 12–65 min depending on depth"
+                sublabel="8 questions · ~3 minutes · instant result"
                 icon={<MessageCircle className="w-5 h-5" />}
                 color="#0ea5e9"
                 dismissKey="enneagram-hub-assess"
@@ -375,47 +389,6 @@ export default function EnneagramPage() {
         </div>
       </section>
 
-      {/* Enneagram Basics — shown to beginner/intermediate only */}
-      {!isAdvanced && (
-        <section className="py-16" style={{ background: "rgba(255,255,255,0.02)" }}>
-          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="text-2xl font-serif font-bold mb-8" style={{ color: "rgba(255,255,255,0.92)" }}>
-              Understanding the Enneagram
-            </h2>
-            <div className="grid md:grid-cols-2 gap-6">
-              {[
-                {
-                  title: "Core Motivations",
-                  text: "Each type is driven by a core motivation, a fundamental desire that shapes behavior, decisions, and relationships. Understanding your core motivation unlocks deep self-awareness.",
-                },
-                {
-                  title: "Wings",
-                  text: "Your dominant type is influenced by the types on either side of it on the Enneagram circle. These 'wings' add nuance and complexity to your personality expression.",
-                },
-                {
-                  title: "Integration & Disintegration",
-                  text: "Under growth, each type moves toward the healthy traits of another type (integration). Under stress, they take on the unhealthy traits of a different type (disintegration).",
-                },
-                {
-                  title: "Levels of Development",
-                  text: "Each type expresses itself across a spectrum from healthy to average to unhealthy. Growth means moving toward the healthier expression of your type.",
-                },
-              ].map((item) => (
-                <div
-                  key={item.title}
-                  className="p-6 rounded-2xl"
-                  style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.09)" }}
-                >
-                  <h3 className="font-serif font-semibold mb-2" style={{ color: "rgba(255,255,255,0.85)" }}>
-                    {item.title}
-                  </h3>
-                  <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.5)" }}>{item.text}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
 
       {/* Advanced: raw framework reference panel */}
       {isAdvanced && (

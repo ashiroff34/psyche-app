@@ -411,12 +411,12 @@ function AssessPromptScreen({ profile }: { profile: Record<string, any> }) {
           </p>
           <div className="flex flex-col gap-3">
             <Link
-              href="/enneagram/assess"
+              href="/onboarding?fromEnter=true"
               className="flex items-center justify-center gap-2 w-full px-6 py-4 rounded-2xl font-semibold transition-all hover:-translate-y-0.5"
               style={{ background: "linear-gradient(135deg, #7c3aed, #4f46e5)", color: "white", boxShadow: "0 8px 24px rgba(124,58,237,0.4)" }}
             >
               <Compass className="w-5 h-5" />
-              Enneagram Assessment
+              Find My Type
               <ArrowRight className="w-4 h-4" />
             </Link>
             <Link
@@ -472,7 +472,7 @@ function OnboardingResumeScreen({ profile }: { profile: Record<string, any> }) {
           </div>
 
           <Link
-            href="/onboarding"
+            href="/onboarding?fromEnter=true"
             className="flex items-center justify-center gap-2 w-full px-6 py-4 rounded-2xl font-semibold transition-all hover:-translate-y-0.5 mb-6"
             style={{ background: "linear-gradient(135deg, #7c3aed, #4f46e5)", color: "white", boxShadow: "0 8px 24px rgba(124,58,237,0.4)" }}
           >

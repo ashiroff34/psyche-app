@@ -363,6 +363,159 @@ function TypeRevealScreen({
   );
 }
 
+// ── Step 2: Type Preview ──────────────────────────────────────────────────────
+
+const TYPE_PREVIEW_DATA = [
+  { num: 1, name: "The Reformer", color: "#B85C38" },
+  { num: 2, name: "The Helper", color: "#C4607A" },
+  { num: 3, name: "The Achiever", color: "#C9921A" },
+  { num: 4, name: "The Individualist", color: "#7B5AAD" },
+  { num: 5, name: "The Investigator", color: "#3D6B9C" },
+  { num: 6, name: "The Loyalist", color: "#7A8FA6" },
+  { num: 7, name: "The Enthusiast", color: "#5B8FD0" },
+  { num: 8, name: "The Challenger", color: "#9B2C2C" },
+  { num: 9, name: "The Peacemaker", color: "#8B7355" },
+];
+
+function StepTypePreview({ onNext, onBack }: { onNext: () => void; onBack: () => void }) {
+  return (
+    <div className="flex flex-col items-center px-6 max-w-sm mx-auto w-full text-center">
+      <button
+        onClick={onBack}
+        className="self-start flex items-center gap-1 text-sm mb-8 transition-colors"
+        style={{ color: "rgba(255,255,255,0.35)" }}
+      >
+        <ArrowLeft className="w-4 h-4" /> Back
+      </button>
+
+      <h2 className="text-3xl font-serif font-bold mb-3" style={{ color: "rgba(255,255,255,0.93)" }}>
+        This will reveal{" "}
+        <span style={{ background: "linear-gradient(135deg, #a78bfa, #818cf8)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>
+          your Enneagram type
+        </span>
+      </h2>
+      <p className="text-sm leading-relaxed mb-8" style={{ color: "rgba(255,255,255,0.45)" }}>
+        The Enneagram maps 9 personality types defined by what drives you at your core — not just what you do. By the end of 8 questions, you&apos;ll know which one is you.
+      </p>
+
+      <div className="grid grid-cols-3 gap-2 w-full mb-8">
+        {TYPE_PREVIEW_DATA.map((t) => (
+          <div
+            key={t.num}
+            className="flex flex-col items-center py-3 px-2 rounded-xl"
+            style={{ background: `${t.color}15`, border: `1px solid ${t.color}28` }}
+          >
+            <span className="text-xl font-serif font-black mb-0.5" style={{ color: t.color }}>{t.num}</span>
+            <span className="text-[9px] text-center leading-tight" style={{ color: "rgba(255,255,255,0.38)" }}>{t.name}</span>
+          </div>
+        ))}
+      </div>
+
+      <p className="text-xs mb-8" style={{ color: "rgba(255,255,255,0.22)" }}>
+        8 questions · ~3 minutes · Ichazo, Naranjo, Riso-Hudson
+      </p>
+
+      <button
+        onClick={onNext}
+        className="w-full py-4 rounded-2xl font-bold text-white text-base transition-all hover:-translate-y-0.5 active:scale-[0.98]"
+        style={{ background: "linear-gradient(135deg, #7c3aed, #4f46e5)", boxShadow: "0 8px 28px rgba(124,58,237,0.5)" }}
+      >
+        Show me my type →
+      </button>
+    </div>
+  );
+}
+
+// ── Step 6: All Set ───────────────────────────────────────────────────────────
+
+function StepAllSet({
+  result,
+  displayName,
+  onStart,
+}: {
+  result: { type: number; confidence: number; runnerUp: number };
+  displayName: string;
+  onStart: () => void;
+}) {
+  const typeData = enneagramTypes.find((t) => t.number === result.type);
+  const typeColor = typeData?.color ?? "#a78bfa";
+
+  useEffect(() => {
+    const timer = setTimeout(onStart, 3200);
+    return () => clearTimeout(timer);
+  }, [onStart]);
+
+  return (
+    <div
+      className="min-h-screen flex flex-col items-center justify-center px-6 relative overflow-hidden"
+      style={{ background: "#0a0514" }}
+    >
+      <div className="fixed inset-0 -z-10 pointer-events-none"
+        style={{ background: `radial-gradient(ellipse 65% 55% at 50% 50%, ${typeColor}22 0%, transparent 70%)` }} />
+
+      <motion.div
+        initial={{ opacity: 0, scale: 0.9 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+        className="flex flex-col items-center text-center max-w-sm w-full"
+      >
+        <div className="w-16 h-16 rounded-2xl overflow-hidden mb-7 flex-shrink-0"
+          style={{ boxShadow: `0 0 40px ${typeColor}55` }}>
+          <OuroborosLogo size={64} />
+        </div>
+
+        <motion.h2
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2 }}
+          className="text-3xl font-serif font-bold mb-3"
+          style={{ color: "rgba(255,255,255,0.95)" }}
+        >
+          {displayName ? <>You&apos;re all set, {displayName.split(" ")[0]}.</> : <>You&apos;re all set.</>}
+        </motion.h2>
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.35 }}
+          className="text-base mb-1"
+          style={{ color: typeColor }}
+        >
+          Type {result.type} · {typeData?.name ?? ""}
+        </motion.p>
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.45 }}
+          className="text-sm mb-10"
+          style={{ color: "rgba(255,255,255,0.28)" }}
+        >
+          Your journey begins today.
+        </motion.p>
+
+        <motion.button
+          initial={{ opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.55 }}
+          onClick={onStart}
+          className="w-full py-4 rounded-2xl font-bold text-white text-base transition-all hover:-translate-y-0.5 active:scale-[0.98] mb-3"
+          style={{ background: `linear-gradient(135deg, ${typeColor}, #4f46e5)`, boxShadow: `0 8px 28px ${typeColor}55` }}
+        >
+          Start Day 1 →
+        </motion.button>
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.8 }}
+          className="text-xs"
+          style={{ color: "rgba(255,255,255,0.18)" }}
+        >
+          Starting automatically...
+        </motion.p>
+      </motion.div>
+    </div>
+  );
+}
+
 // ── (Legacy intent fork types — kept for localStorage compatibility) ───────────
 
 type Intent = "discover" | "learn" | "practice";
@@ -766,7 +919,7 @@ function OnboardingPageInner() {
   const isManual = searchParams.get("manual") === "true";
 
   const [acceptedTerms, setAcceptedTerms] = useState(false);
-  // 0 = welcome, 1 = name, 2 = assessment, 3 = type reveal, 4 = email gate, 5 = manual picker
+  // 0=welcome, 1=name, 2=preview, 3=assessment, 4=type reveal, 5=email gate, 6=all set, 7=manual picker
   const [step, setStep] = useState(0);
   const [intent] = useState<Intent>("discover");
   const [displayName, setDisplayName] = useState("");
@@ -781,10 +934,10 @@ function OnboardingPageInner() {
       const termsAccepted = localStorage.getItem("psyche-terms-accepted") === "true";
       if (termsAccepted) {
         setAcceptedTerms(true);
-        // Jump directly to assessment if coming from enter experience
+        // Jump to type preview (→ assessment) if coming from enter experience
         if (fromEnter) setStep(2);
         // Jump to manual picker if user already knows their type
-        else if (isManual) setStep(5);
+        else if (isManual) setStep(7);
       }
       if (localStorage.getItem("psyche-onboarding-complete") === "true") router.replace("/");
     } catch {}
@@ -798,7 +951,7 @@ function OnboardingPageInner() {
           try { localStorage.setItem("psyche-terms-accepted", "true"); } catch {}
           // Jump to correct step based on URL params
           if (fromEnter) setStep(2);
-          else if (isManual) setStep(5);
+          else if (isManual) setStep(7);
           // else stay at step 0 (welcome)
         }}
       />
@@ -811,11 +964,11 @@ function OnboardingPageInner() {
     runnerUp: number;
   }) => {
     setAssessmentResult(result);
-    setStep(3); // go to type reveal
+    setStep(4); // go to type reveal
   };
 
   const handleRevealContinue = () => {
-    setStep(4); // go to email gate
+    setStep(5); // go to email gate
   };
 
   const handleRunnerUpExplore = () => {
@@ -879,7 +1032,7 @@ function OnboardingPageInner() {
       } catch {}
     } catch {}
 
-    router.push(getPostOnboardingRoute(assessmentResult, intent));
+    setStep(6); // all set → daily
   };
 
   const saveManual = (name: string, type: number) => {
@@ -938,7 +1091,7 @@ function OnboardingPageInner() {
         }));
       } catch {}
     } catch {}
-    router.push(getPostOnboardingRoute(assessmentResult, intent));
+    setStep(6); // all set → daily
   };
 
   return (
@@ -985,8 +1138,25 @@ function OnboardingPageInner() {
           </motion.div>
         )}
 
-        {/* Step 2: Assessment */}
+        {/* Step 2: Type Preview */}
         {step === 2 && (
+          <motion.div
+            key="type-preview"
+            initial={{ opacity: 0, x: 40 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -40 }}
+            transition={{ duration: 0.22 }}
+            className="min-h-screen flex items-center justify-center px-4 py-16"
+          >
+            <StepTypePreview
+              onNext={() => setStep(3)}
+              onBack={() => setStep(1)}
+            />
+          </motion.div>
+        )}
+
+        {/* Step 3: Assessment */}
+        {step === 3 && (
           <motion.div
             key="assessment"
             initial={{ opacity: 0, x: 40 }}
@@ -997,7 +1167,7 @@ function OnboardingPageInner() {
           >
             <div className="max-w-lg mx-auto px-4 pt-4 pb-2">
               <button
-                onClick={() => fromEnter ? router.push("/") : setStep(1)}
+                onClick={() => fromEnter ? router.push("/") : setStep(2)}
                 className="flex items-center gap-1 text-sm mb-3 transition-colors"
                 style={{ color: "rgba(255,255,255,0.35)" }}
               >
@@ -1016,10 +1186,10 @@ function OnboardingPageInner() {
           </motion.div>
         )}
 
-        {/* Step 3: Type Reveal */}
-        {step === 3 && assessmentResult && (
+        {/* Step 4: Type Reveal */}
+        {step === 4 && assessmentResult && (
           <motion.div
-            key={`type-reveal-${assessmentResult.type}`}
+            key={`reveal-${assessmentResult.type}`}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -1034,8 +1204,8 @@ function OnboardingPageInner() {
           </motion.div>
         )}
 
-        {/* Step 4: Email gate */}
-        {step === 4 && assessmentResult && (
+        {/* Step 5: Email gate */}
+        {step === 5 && assessmentResult && (
           <motion.div
             key="email-gate"
             initial={{ opacity: 0, x: 40 }}
@@ -1055,8 +1225,25 @@ function OnboardingPageInner() {
           </motion.div>
         )}
 
-        {/* Step 5: Manual type picker (for users who already know their type) */}
-        {step === 5 && (
+        {/* Step 6: All Set */}
+        {step === 6 && assessmentResult && (
+          <motion.div
+            key="all-set"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+          >
+            <StepAllSet
+              result={assessmentResult}
+              displayName={displayName}
+              onStart={() => router.push("/daily")}
+            />
+          </motion.div>
+        )}
+
+        {/* Step 7: Manual type picker (for users who already know their type) */}
+        {step === 7 && (
           <motion.div
             key="manual"
             initial={{ opacity: 0, y: 20 }}
