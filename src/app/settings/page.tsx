@@ -264,6 +264,55 @@ export default function SettingsPage() {
     weeklySummary: false,
   });
 
+  // Native push notification permission
+  const [notifPermission, setNotifPermission] = useState<NotificationPermission | "unsupported">("default");
+  useEffect(() => {
+    if (typeof window !== "undefined" && "Notification" in window) {
+      setNotifPermission(Notification.permission);
+    } else {
+      setNotifPermission("unsupported");
+    }
+  }, []);
+
+  const registerServiceWorker = async () => {
+    if (typeof window === "undefined" || !("serviceWorker" in navigator)) return;
+    try {
+      const reg = await navigator.serviceWorker.register("/sw-notifications.js", { scope: "/" });
+      // Request periodic sync if supported
+      if ("periodicSync" in reg) {
+        try {
+          // @ts-expect-error periodicSync is not in all TS lib versions yet
+          await reg.periodicSync.register("daily-reminder", { minInterval: 60 * 60 * 1000 });
+        } catch {
+          // periodicSync permission denied or unavailable — silent fallback
+        }
+      }
+    } catch {
+      // SW registration failed (dev environment, http, etc.) — silent fallback
+    }
+  };
+
+  const requestNotificationPermission = async () => {
+    if (notifPermission === "unsupported" || notifPermission === "denied") return;
+    try {
+      const result = await Notification.requestPermission();
+      setNotifPermission(result);
+      if (result === "granted") {
+        // Register SW for background reminders
+        await registerServiceWorker();
+        // Save preference
+        try {
+          localStorage.setItem("psyche-notif-enabled", "true");
+        } catch {}
+        // Confirmation notification
+        new Notification("Thyself 🔥", {
+          body: "Daily reminders are on! We'll nudge you so you never lose your streak.",
+          icon: "/icons/icon-192x192.png",
+        });
+      }
+    } catch {}
+  };
+
   // Dark mode
   const [isDark, setIsDark] = useState(false);
 
@@ -618,10 +667,37 @@ export default function SettingsPage() {
             description="Receive a summary of your weekly activity"
           />
 
-          <p className="text-xs flex items-center gap-1.5 pt-1" style={{ color: "rgba(255,255,255,0.35)" }}>
-            <Info className="w-3 h-3 flex-shrink-0" />
-            Push notifications are coming soon. Your preferences are saved and ready.
-          </p>
+          {/* Native push notification enable */}
+          <div className="pt-1">
+            {notifPermission === "unsupported" && (
+              <p className="text-xs flex items-center gap-1.5" style={{ color: "rgba(255,255,255,0.35)" }}>
+                <Info className="w-3 h-3 flex-shrink-0" />
+                Browser notifications not supported on this device.
+              </p>
+            )}
+            {notifPermission === "granted" && (
+              <p className="text-xs flex items-center gap-1.5 text-emerald-400/80">
+                <Check className="w-3 h-3 flex-shrink-0" />
+                Device notifications enabled — we&apos;ll remind you daily.
+              </p>
+            )}
+            {notifPermission === "denied" && (
+              <p className="text-xs flex items-center gap-1.5 text-amber-400/80">
+                <AlertTriangle className="w-3 h-3 flex-shrink-0" />
+                Notifications blocked. Enable them in your browser settings.
+              </p>
+            )}
+            {notifPermission === "default" && (
+              <button
+                onClick={requestNotificationPermission}
+                className="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-xl font-semibold text-sm transition-all active:scale-98"
+                style={{ background: "rgba(139,92,246,0.2)", border: "1px solid rgba(139,92,246,0.35)", color: "#c4b5fd" }}
+              >
+                <Bell className="w-4 h-4" />
+                Enable daily reminders on this device
+              </button>
+            )}
+          </div>
         </ExpandableSection>
 
         {/* ── Section 3: App Preferences ──────────────────────────────────── */}

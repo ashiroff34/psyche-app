@@ -137,13 +137,13 @@ export default function QuizFullscreen({
     if (!isLastCorrect) return;
 
     let msg: string | null = null;
-    if (correctStreak === 3) msg = "🔥 3 in a row! Keep going!";
-    else if (correctStreak === 5) msg = "⚡ On fire! 5 in a row!";
-    else if (correctStreak === 10) msg = "🏆 Unstoppable! 10 correct!";
+    if (correctStreak === 3) msg = "🔥 On fire! 3 in a row!";
+    else if (correctStreak === 5) msg = "⚡ UNSTOPPABLE! 5 in a row!";
+    else if (correctStreak === 10) msg = "🏆 LEGENDARY! 10 correct!";
 
     if (msg) {
       setMomentumToast(msg);
-      const t = setTimeout(() => setMomentumToast(null), 1800);
+      const t = setTimeout(() => setMomentumToast(null), 2200);
       return () => clearTimeout(t);
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -171,6 +171,7 @@ export default function QuizFullscreen({
   const [showStreakBurst, setShowStreakBurst] = useState(false);
   const [celebrationText, setCelebrationText] = useState<string | null>(null);
   const [showSparkle, setShowSparkle] = useState(false);
+  const [showPerfectFlash, setShowPerfectFlash] = useState(false);
 
   // ── Running score counter + XP flash ───────────────────────────────────────
   const [xpFlash, setXpFlash] = useState(false);
@@ -227,6 +228,10 @@ export default function QuizFullscreen({
         setCountedPct(pctFinal);
         setCountedXP(sessionXP);
         setCountActive(true);
+        if (isPerfectFinal) {
+          setShowPerfectFlash(true);
+          setTimeout(() => setShowPerfectFlash(false), 2000);
+        }
         // Tiered celebration based on accuracy
         if (pctFinal >= 80 || beatBest) {
           if (pctFinal >= 90) {
@@ -322,6 +327,31 @@ export default function QuizFullscreen({
                   style={{ background: i % 2 === 0 ? "#fbbf24" : "#8b5cf6" }}
                 />
               ))}
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        {/* Perfect flash overlay */}
+        <AnimatePresence>
+          {showPerfectFlash && (
+            <motion.div
+              initial={{ opacity: 0, scale: 0.5 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 1.3 }}
+              transition={{ type: "spring", damping: 12, stiffness: 200 }}
+              className="fixed inset-0 z-[80] flex items-center justify-center pointer-events-none"
+            >
+              <div
+                className="px-10 py-6 rounded-3xl text-center"
+                style={{
+                  background: "linear-gradient(135deg, rgba(139,92,246,0.95), rgba(217,70,239,0.95))",
+                  boxShadow: "0 0 80px rgba(139,92,246,0.6), 0 0 160px rgba(217,70,239,0.3)",
+                }}
+              >
+                <div className="text-4xl mb-2">✨</div>
+                <p className="text-white font-black text-3xl tracking-wide">PERFECT!</p>
+                <p className="text-white/70 text-sm mt-1">100% correct</p>
+              </div>
             </motion.div>
           )}
         </AnimatePresence>
@@ -839,13 +869,19 @@ export default function QuizFullscreen({
         {momentumToast && (
           <motion.div
             key={momentumToast}
-            initial={{ opacity: 0, y: 16, scale: 0.92 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: -8, scale: 0.95 }}
-            transition={{ type: "spring", damping: 20, stiffness: 320 }}
-            className="absolute bottom-36 left-1/2 -translate-x-1/2 z-20 pointer-events-none"
+            initial={{ y: -60, opacity: 0, scale: 0.7 }}
+            animate={{ y: 0, opacity: 1, scale: 1 }}
+            exit={{ y: -40, opacity: 0, scale: 0.9 }}
+            transition={{ type: "spring", damping: 14, stiffness: 280 }}
+            className="fixed top-20 left-0 right-0 flex justify-center z-[70] pointer-events-none"
           >
-            <div className="flex items-center gap-2 px-5 py-2.5 rounded-full bg-slate-900 text-white text-sm font-bold shadow-xl whitespace-nowrap">
+            <div
+              className="px-6 py-3 rounded-2xl font-black text-white text-lg shadow-2xl"
+              style={{
+                background: "linear-gradient(135deg, #f59e0b, #ef4444)",
+                boxShadow: "0 0 40px rgba(245,158,11,0.6), 0 8px 32px rgba(0,0,0,0.4)",
+              }}
+            >
               {momentumToast}
             </div>
           </motion.div>

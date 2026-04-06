@@ -1682,27 +1682,37 @@ export default function DailyPage() {
           )}
         </AnimatePresence>
 
-        {/* Duolingo-style stat bar */}
+        {/* Stat bar — streak is the hero metric */}
         <div className="sticky top-0 z-20 px-4 py-2.5" style={{ background: "rgba(15,10,30,0.95)", backdropFilter: "blur(12px)", borderBottom: "1px solid rgba(139,92,246,0.15)" }}>
           <div className="flex items-center justify-between max-w-md mx-auto">
-            {/* Streak */}
-            <div className="flex items-center gap-1.5">
-              <Flame className="w-5 h-5 text-orange-400" />
-              <SlotCounter value={streak} sequentialAnimationMode charClassName="text-white font-bold text-sm" duration={0.6} />
-            </div>
-            {/* Hearts */}
-            <div className="flex items-center gap-1.5">
-              <Heart className="w-5 h-5 text-red-400 fill-red-400" />
-              <div className="flex flex-col items-start">
-                <span className="text-white font-bold text-sm">{gameStateRaw.hearts ?? 5}</span>
-                {(gameStateRaw.hearts ?? 5) < (gameStateRaw.maxHearts ?? 5) && gameStateRaw.heartsRefillTime && (
-                  <span className="text-[8px] text-red-300/60">{formatRefillTime(gameStateRaw.heartsRefillTime)}</span>
-                )}
-              </div>
-            </div>
-            {/* XP */}
+            {/* ── STREAK (hero element) ── */}
+            {(() => {
+              const atRisk = completedTodayCount === 0 && new Date().getHours() >= 18 && streak > 0;
+              return (
+                <div className="flex items-center gap-2">
+                  <motion.div
+                    animate={atRisk ? { scale: [1, 1.15, 1] } : {}}
+                    transition={{ duration: 1, repeat: atRisk ? Infinity : 0, repeatDelay: 1.5 }}
+                  >
+                    <Flame className={`w-6 h-6 ${atRisk ? "text-red-400" : "text-orange-400"}`} />
+                  </motion.div>
+                  <div className="flex flex-col leading-none">
+                    <SlotCounter
+                      value={streak}
+                      sequentialAnimationMode
+                      charClassName={`font-black text-xl ${atRisk ? "text-red-300" : "text-white"}`}
+                      duration={0.6}
+                    />
+                    <span className={`text-[9px] font-semibold ${atRisk ? "text-red-400/70" : "text-orange-400/60"}`}>
+                      {atRisk ? "at risk" : streak === 1 ? "day streak" : "day streak"}
+                    </span>
+                  </div>
+                </div>
+              );
+            })()}
+            {/* ── XP (secondary) ── */}
             <div className="flex items-center gap-1.5 relative">
-              <Star className="w-5 h-5 text-yellow-400 fill-yellow-400" />
+              <Star className="w-4 h-4 text-yellow-400 fill-yellow-400" />
               <SlotCounter value={totalXP} sequentialAnimationMode charClassName="text-white font-bold text-sm" duration={0.6} />
               <AnimatePresence>
                 {xpGainShow && (
@@ -1718,14 +1728,15 @@ export default function DailyPage() {
                 )}
               </AnimatePresence>
             </div>
-            {/* Tokens */}
+            {/* ── Tokens (secondary) ── */}
             <div className="flex items-center gap-1.5">
-              <Zap className="w-5 h-5 text-emerald-400" />
+              <Zap className="w-4 h-4 text-emerald-400" />
               <SlotCounter value={gameStateRaw.tokens ?? 0} sequentialAnimationMode charClassName="text-white font-bold text-sm" duration={0.6} />
             </div>
-            {/* Progress */}
-            <div className="flex items-center gap-1.5">
+            {/* ── Daily progress ── */}
+            <div className="flex items-center gap-1">
               <span className="text-violet-400/60 text-xs font-medium">{completedTodayCount}/{allPathNodes.length}</span>
+              <span className="text-violet-400/30 text-[10px]">done</span>
             </div>
           </div>
           {/* XP progress bar */}
@@ -1781,13 +1792,21 @@ export default function DailyPage() {
         {completedTodayCount === 0 && new Date().getHours() >= 18 && streak > 0 && !alertsMuted && (
           <motion.div
             className="mx-4 mt-2 p-3 rounded-2xl flex items-center gap-2"
-            style={{ background: "rgba(239,68,68,0.1)", border: "1px solid rgba(239,68,68,0.3)" }}
-            animate={{ x: [-2, 2, -2, 0] }}
-            transition={{ duration: 0.5, repeat: 2 }}
+            style={{ background: "rgba(239,68,68,0.13)", border: "1px solid rgba(239,68,68,0.45)" }}
+            animate={{ x: [-3, 3, -3, 2, -2, 0] }}
+            transition={{ duration: 0.6, repeat: 1 }}
           >
-            <Flame className="w-5 h-5 text-red-400 shrink-0" />
-            <span className="text-red-300 text-sm font-medium flex-1">Your {streak}-day streak is at risk!</span>
-            <Link href="/settings" className="text-[10px] text-red-400/50 underline whitespace-nowrap">Silence</Link>
+            <motion.div
+              animate={{ scale: [1, 1.2, 1] }}
+              transition={{ duration: 0.8, repeat: Infinity, repeatDelay: 1.2 }}
+            >
+              <Flame className="w-5 h-5 text-red-400 shrink-0" />
+            </motion.div>
+            <div className="flex-1 min-w-0">
+              <p className="text-red-300 text-sm font-bold leading-tight">Your {streak}-day streak ends tonight</p>
+              <p className="text-red-400/60 text-[11px] mt-0.5">Practice once to keep it alive →</p>
+            </div>
+            <Link href="/settings" className="text-[10px] text-red-400/40 underline whitespace-nowrap ml-2 shrink-0">Silence</Link>
           </motion.div>
         )}
         {/* Pet health warning banner — shows most urgent issue only */}
@@ -1832,6 +1851,45 @@ export default function DailyPage() {
             </Link>
           </div>
         )}
+        {/* ── Mastery Arc Progress ─────────────────────────────────────────── */}
+        {(() => {
+          const currentUnit = unitsWithStatus.find(u => !u.isLocked && u.lessonsWithStatus.some(l => l.status === "current"))
+            ?? unitsWithStatus.find(u => !u.isLocked && u.progress.completed < u.progress.total);
+          if (!currentUnit) return null;
+          const totalLessons = currentUnit.progress.total;
+          const doneLessons = currentUnit.progress.completed;
+          const pct = totalLessons > 0 ? Math.round((doneLessons / totalLessons) * 100) : 0;
+          return (
+            <div className="max-w-md mx-auto px-4 pt-4 pb-1">
+              <div className="px-4 py-3 rounded-2xl" style={{ background: "rgba(139,92,246,0.08)", border: "1px solid rgba(139,92,246,0.15)" }}>
+                <div className="flex items-center justify-between mb-2">
+                  <div className="flex items-center gap-2">
+                    <span className="text-base">{currentUnit.icon}</span>
+                    <div>
+                      <p className="text-white/90 text-xs font-bold leading-tight">{currentUnit.title}</p>
+                      <p className="text-violet-400/60 text-[10px]">{doneLessons} of {totalLessons} lessons done</p>
+                    </div>
+                  </div>
+                  <span className="text-violet-300 text-xs font-bold">{pct}%</span>
+                </div>
+                <div className="h-1.5 rounded-full overflow-hidden" style={{ background: "rgba(139,92,246,0.15)" }}>
+                  <motion.div
+                    className="h-full rounded-full"
+                    style={{ background: "linear-gradient(90deg, #8b5cf6, #d946ef)" }}
+                    initial={{ width: 0 }}
+                    animate={{ width: `${pct}%` }}
+                    transition={{ duration: 0.8, ease: "easeOut" }}
+                  />
+                </div>
+                {doneLessons < totalLessons && (
+                  <p className="text-violet-400/50 text-[10px] mt-1.5">
+                    {totalLessons - doneLessons} lesson{totalLessons - doneLessons !== 1 ? "s" : ""} left in this unit
+                  </p>
+                )}
+              </div>
+            </div>
+          );
+        })()}
         {/* ─── Curriculum Path ─────────────────────────────────────────── */}
         <div className="max-w-md mx-auto pt-4 pb-8">
           {unitsWithStatus.map((unit, i) => (

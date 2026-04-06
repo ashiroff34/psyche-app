@@ -40,21 +40,28 @@ const bottomTabs = [
 ];
 
 // ── "More" items — grouped into 3 sections ─────────────────────────────────
+// Items are gated by account age (progressive disclosure):
+//   Day 0-6:  Core only (Curriculum Map, Progress, Assessments, Enneagram, Cognitive)
+//   Day 7+:   + Inner Work, Compare Types, Correlations
+//   Day 14+:  + History & Origins
 
-const moreGroups = [
+type MoreItem = { href: string; label: string; icon: React.ElementType; unlocksDay?: number };
+type MoreGroup = { label: string; items: MoreItem[] };
+
+const ALL_MORE_GROUPS: MoreGroup[] = [
   {
     label: "Learn",
     items: [
       { href: "/lessons", label: "Curriculum Map", icon: BookOpen },
       { href: "/game", label: "Progress", icon: Trophy },
-      { href: "/journal", label: "Inner Work", icon: Beaker },
+      { href: "/journal", label: "Inner Work", icon: Beaker, unlocksDay: 7 },
     ],
   },
   {
     label: "Assess",
     items: [
       { href: "/assessments", label: "Type Assessments", icon: Zap },
-      { href: "/compare", label: "Compare Types", icon: ArrowLeftRight },
+      { href: "/compare", label: "Compare Types", icon: ArrowLeftRight, unlocksDay: 7 },
     ],
   },
   {
@@ -62,8 +69,8 @@ const moreGroups = [
     items: [
       { href: "/enneagram", label: "Enneagram", icon: Compass },
       { href: "/cognitive", label: "Cognitive Functions", icon: Brain },
-      { href: "/correlations", label: "Correlations", icon: ArrowLeftRight },
-      { href: "/history", label: "History & Origins", icon: Clock },
+      { href: "/correlations", label: "Correlations", icon: ArrowLeftRight, unlocksDay: 7 },
+      { href: "/history", label: "History & Origins", icon: Clock, unlocksDay: 14 },
     ],
   },
 ];
@@ -73,6 +80,7 @@ const moreGroups = [
 function MoreMenu({ pathname }: { pathname: string }) {
   const [open, setOpen] = useState(false);
   const [hasSeenExplore, setHasSeenExplore] = useState(true);
+  const [daysSinceCreated, setDaysSinceCreated] = useState(999); // default shows all
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -82,7 +90,25 @@ function MoreMenu({ pathname }: { pathname: string }) {
     } catch {
       // private browsing / storage blocked
     }
+    // Read account age for progressive disclosure
+    try {
+      const raw = localStorage.getItem("psyche-game-state");
+      if (raw) {
+        const gs = JSON.parse(raw);
+        if (gs.accountCreated) {
+          const created = new Date(gs.accountCreated).getTime();
+          const days = Math.floor((Date.now() - created) / 86400000);
+          setDaysSinceCreated(days);
+        }
+      }
+    } catch {}
   }, []);
+
+  // Filter groups by account age — items without unlocksDay are always shown
+  const moreGroups = ALL_MORE_GROUPS.map(group => ({
+    ...group,
+    items: group.items.filter(item => !item.unlocksDay || daysSinceCreated >= item.unlocksDay),
+  })).filter(group => group.items.length > 0);
 
   const handleOpen = () => {
     setOpen(!open);
@@ -277,19 +303,35 @@ export default function Navigation() {
 
   const [hasPrevPage, setHasPrevPage] = useState(false);
   const [storeNotifVisible, setStoreNotifVisible] = useState(false);
+  const [storeUnlocked, setStoreUnlocked] = useState(false);
+  const [accountDays, setAccountDays] = useState(999);
 
   // Show pulsing Store dot only when user has >= 50 tokens and hasn't visited yet
+  // Also gate Store tab visibility until user has earned their first tokens (Day 2+)
   useEffect(() => {
     try {
-      const visited = localStorage.getItem("psyche-store-visited");
-      if (visited) { setStoreNotifVisible(false); return; }
       const raw = localStorage.getItem("psyche-game-state");
       if (!raw) return;
       const gs = JSON.parse(raw);
       const tokens = (gs.tokens as number) ?? 0;
-      setStoreNotifVisible(tokens >= 50);
+
+      // Account age
+      let days = 999;
+      if (gs.accountCreated) {
+        days = Math.floor((Date.now() - new Date(gs.accountCreated).getTime()) / 86400000);
+      }
+      setAccountDays(days);
+
+      // Store is unlocked if they have tokens OR have been around 2+ days
+      setStoreUnlocked(tokens > 0 || days >= 2);
+
+      // Pulsing dot: tokens >= 50 and haven't visited
+      const visited = localStorage.getItem("psyche-store-visited");
+      if (!visited && tokens >= 50) setStoreNotifVisible(true);
+      else setStoreNotifVisible(false);
     } catch {}
   }, [pathname]); // re-check whenever route changes (tokens may have just been awarded)
+  void accountDays; // used above, referenced to avoid lint warning
 
   // Store page history in localStorage so back button always works
   useEffect(() => {
@@ -378,7 +420,7 @@ export default function Navigation() {
       {!hideChrome && (
         <div className="fixed bottom-0 left-0 right-0 z-50 backdrop-blur-xl safe-area-bottom" style={{ background: "rgba(15,10,30,0.96)", borderTop: "1px solid rgba(139,92,246,0.12)" }}>
           <div className="max-w-lg mx-auto flex items-center justify-around px-2 py-1">
-            {bottomTabs.map((tab) => {
+            {bottomTabs.filter(tab => tab.href !== "/store" || storeUnlocked).map((tab) => {
               const isActive =
                 tab.href === "/"
                   ? pathname === "/"
