@@ -104,29 +104,21 @@ export default function ComebackModal() {
     // Gentle (1-3 days): no token bonus. Moderate (4-13): +25. Win-back (14+): +50.
     const tokenBonus = daysSince >= 14 ? 50 : daysSince >= 4 ? 25 : 0;
 
-    // Add XP and streak freeze for 4+ day comebacks
-    if (daysSince >= 4) {
+    // Apply all rewards in a single read-modify-write to avoid overwriting earlier changes
+    if (daysSince >= 4 || tokenBonus > 0) {
       try {
         const raw = localStorage.getItem("psyche-game-state");
-        const gameState = raw ? JSON.parse(raw) : {};
-        gameState.xp = (gameState.xp ?? 0) + 50;
-        gameState.totalXPEarned = (gameState.totalXPEarned ?? 0) + 50;
-        gameState.streakFreezes = (gameState.streakFreezes ?? 0) + 1;
-        localStorage.setItem("psyche-game-state", JSON.stringify(gameState));
-      } catch {}
-    }
-
-    // Add token bonus if applicable
-    if (tokenBonus > 0) {
-      try {
-        const gsRaw = localStorage.getItem("psyche-game-state");
-        const gs = gsRaw ? JSON.parse(gsRaw) : {};
-        const current = (gs.tokens as number) ?? 0;
-        localStorage.setItem("psyche-game-state", JSON.stringify({
-          ...gs,
-          tokens: current + tokenBonus,
-          totalTokensEarned: ((gs.totalTokensEarned as number) ?? 0) + tokenBonus,
-        }));
+        const gs = raw ? JSON.parse(raw) : {};
+        if (daysSince >= 4) {
+          gs.xp = (gs.xp ?? 0) + 50;
+          gs.totalXPEarned = (gs.totalXPEarned ?? 0) + 50;
+          gs.streakFreezes = (gs.streakFreezes ?? 0) + 1;
+        }
+        if (tokenBonus > 0) {
+          gs.tokens = ((gs.tokens as number) ?? 0) + tokenBonus;
+          gs.totalTokensEarned = ((gs.totalTokensEarned as number) ?? 0) + tokenBonus;
+        }
+        localStorage.setItem("psyche-game-state", JSON.stringify(gs));
       } catch {}
     }
 
