@@ -99,13 +99,13 @@ const TYPE_REVEAL_SENTENCES: Record<number, string> = {
 
 function StepWelcome({ onNext }: { onNext: () => void }) {
   return (
-    <div className="flex flex-col items-center text-center px-4">
-      <div className="w-20 h-20 rounded-3xl overflow-hidden mb-8 shadow-xl flex-shrink-0"
+    <div className="flex flex-col items-center text-center px-5 max-w-sm mx-auto w-full">
+      <div className="w-16 h-16 rounded-2xl overflow-hidden mb-7 shadow-xl flex-shrink-0"
         style={{ boxShadow: "0 12px 40px rgba(124,58,237,0.5)" }}>
-        <OuroborosLogo size={80} />
+        <OuroborosLogo size={64} />
       </div>
 
-      <h1 className="text-4xl sm:text-5xl font-serif font-bold mb-4"
+      <h1 className="text-4xl font-serif font-bold mb-5 leading-tight"
         style={{ color: "rgba(255,255,255,0.95)" }}>
         Know thyself{" "}
         <span style={{ background: "linear-gradient(135deg, #a78bfa, #818cf8)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>
@@ -113,19 +113,22 @@ function StepWelcome({ onNext }: { onNext: () => void }) {
         </span>
       </h1>
 
-      <p className="text-lg leading-relaxed max-w-md mb-4" style={{ color: "rgba(255,255,255,0.5)" }}>
-        Answer 8 questions to discover your Enneagram type — based on the original theorists.
+      {/* What the Enneagram is */}
+      <p className="text-base leading-relaxed mb-3" style={{ color: "rgba(255,255,255,0.55)" }}>
+        The Enneagram is an archetypal system mapping{" "}
+        <span style={{ color: "rgba(255,255,255,0.82)", fontWeight: 500 }}>9 personality types</span>
+        {" "}— each defined by a core desire, a core fear, and a pattern of attention that shapes everything you do.
       </p>
-      <p className="text-sm mb-10" style={{ color: "rgba(255,255,255,0.3)" }}>
-        Takes about 3 minutes.
+      <p className="text-sm mb-8" style={{ color: "rgba(255,255,255,0.32)" }}>
+        8 questions · ~3 minutes · Instant result
       </p>
 
       <button
         onClick={onNext}
-        className="flex items-center gap-2 px-8 py-4 rounded-2xl font-bold text-white text-lg transition-all hover:-translate-y-0.5 active:scale-[0.98]"
+        className="w-full flex items-center justify-center gap-2 py-4 rounded-2xl font-bold text-white text-base transition-all hover:-translate-y-0.5 active:scale-[0.98]"
         style={{ background: "linear-gradient(135deg, #7c3aed, #4f46e5)", boxShadow: "0 8px 32px rgba(124,58,237,0.5)" }}
       >
-        Discover My Type
+        Discover my type
         <ArrowRight className="w-5 h-5" />
       </button>
     </div>

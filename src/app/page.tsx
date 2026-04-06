@@ -92,17 +92,16 @@ function EnterScreen() {
 
   return (
     <div
-      className="fixed inset-0 flex flex-col items-center justify-center overflow-hidden"
+      className="fixed inset-0 flex flex-col items-center justify-center overflow-hidden px-6"
       style={{ background: "#08031a" }}
     >
-      {/* Large ambient glow — top center */}
+      {/* Ambient glows */}
       <div style={{
         position: "absolute", top: "-15%", left: "50%", transform: "translateX(-50%)",
         width: "700px", height: "700px", borderRadius: "50%",
-        background: "radial-gradient(circle, rgba(109,40,217,0.18) 0%, transparent 65%)",
+        background: "radial-gradient(circle, rgba(109,40,217,0.2) 0%, transparent 65%)",
         pointerEvents: "none",
       }} />
-      {/* Secondary glow — bottom right */}
       <div style={{
         position: "absolute", bottom: "-10%", right: "5%",
         width: "400px", height: "400px", borderRadius: "50%",
@@ -132,19 +131,19 @@ function EnterScreen() {
         initial={{ opacity: 0, scale: 0.85 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.65 }}
-        className="w-16 h-16 rounded-2xl overflow-hidden mb-9 relative z-10 flex-shrink-0"
+        className="w-14 h-14 rounded-2xl overflow-hidden mb-7 relative z-10 flex-shrink-0"
         style={{ boxShadow: "0 0 48px rgba(124,58,237,0.55)" }}
       >
-        <OuroborosLogo size={64} />
+        <OuroborosLogo size={56} />
       </motion.div>
 
-      {/* Hero text */}
+      {/* Headline */}
       <motion.h1
         initial={{ opacity: 0, y: 18 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.7, delay: 0.15 }}
-        className="relative z-10 font-serif font-bold text-center tracking-tight mb-4"
-        style={{ fontSize: "clamp(52px, 14vw, 80px)", lineHeight: 1, color: "rgba(255,255,255,0.96)" }}
+        className="relative z-10 font-serif font-bold text-center tracking-tight mb-5"
+        style={{ fontSize: "clamp(44px, 12vw, 72px)", lineHeight: 1.05, color: "rgba(255,255,255,0.96)" }}
       >
         Know{" "}
         <span style={{
@@ -157,23 +156,47 @@ function EnterScreen() {
         </span>
       </motion.h1>
 
-      {/* Subtext */}
+      {/* What the Enneagram is — the key missing piece */}
       <motion.p
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.7, delay: 0.3 }}
+        className="relative z-10 text-center leading-relaxed mb-6"
+        style={{ color: "rgba(255,255,255,0.55)", fontSize: "clamp(14px, 3.5vw, 17px)", maxWidth: "360px" }}
+      >
+        The Enneagram is an archetypal system mapping{" "}
+        <span style={{ color: "rgba(255,255,255,0.82)", fontWeight: 500 }}>9 distinct personality types</span>
+        {" "}— each defined by a core desire, a core fear, and a pattern of attention that shapes everything you do.
+      </motion.p>
+
+      {/* Proof pills */}
+      <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ duration: 0.8, delay: 0.4 }}
-        className="relative z-10 text-sm text-center mb-12"
-        style={{ color: "rgba(255,255,255,0.3)", letterSpacing: "0.1em", maxWidth: "260px" }}
+        transition={{ duration: 0.6, delay: 0.45 }}
+        className="relative z-10 flex items-center gap-2 flex-wrap justify-center mb-8"
       >
-        The Enneagram, accurately.
-      </motion.p>
+        {["9 archetypes", "27 subtypes", "Naranjo · Riso-Hudson · Chestnut"].map((pill) => (
+          <span
+            key={pill}
+            className="px-3 py-1 rounded-full text-xs font-medium"
+            style={{
+              background: "rgba(139,92,246,0.1)",
+              border: "1px solid rgba(139,92,246,0.22)",
+              color: "rgba(167,139,250,0.75)",
+            }}
+          >
+            {pill}
+          </span>
+        ))}
+      </motion.div>
 
       {/* CTAs */}
       <motion.div
         initial={{ opacity: 0, y: 16 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.65, delay: 0.55 }}
-        className="relative z-10 flex flex-col items-center gap-4 w-full px-8"
+        transition={{ duration: 0.65, delay: 0.58 }}
+        className="relative z-10 flex flex-col items-center gap-4 w-full"
         style={{ maxWidth: "340px" }}
       >
         <button
@@ -184,14 +207,14 @@ function EnterScreen() {
             boxShadow: "0 8px 36px rgba(124,58,237,0.6)",
           }}
         >
-          Begin your journey
+          Discover my type
           <ArrowRight className="w-4 h-4" />
         </button>
 
         <button
           onClick={() => router.push("/onboarding?manual=true")}
           className="text-sm transition-colors hover:opacity-70"
-          style={{ color: "rgba(167,139,250,0.45)" }}
+          style={{ color: "rgba(167,139,250,0.4)" }}
         >
           I already know my type →
         </button>
