@@ -80,7 +80,13 @@ export default function RootLayout({
         />
         <script
           dangerouslySetInnerHTML={{
-            __html: `if("serviceWorker" in navigator){navigator.serviceWorker.register("/sw.js").catch(function(){})}`,
+            __html: `if("serviceWorker"in navigator){
+  navigator.serviceWorker.register("/sw.js").catch(function(){});
+  var _reloading=false;
+  navigator.serviceWorker.addEventListener("controllerchange",function(){
+    if(!_reloading){_reloading=true;window.location.reload();}
+  });
+}`,
           }}
         />
       </head>
