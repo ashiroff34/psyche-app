@@ -339,6 +339,20 @@ export default function AssessmentsPage() {
           </p>
         </div>
 
+        {/* Guide me CTA */}
+        <div className="mb-6 p-4 rounded-2xl flex items-center justify-between gap-4"
+          style={{ background: "rgba(139,92,246,0.08)", border: "1px solid rgba(139,92,246,0.2)" }}>
+          <div>
+            <p className="text-white/90 text-sm font-semibold">Not sure which to take?</p>
+            <p className="text-violet-400/60 text-xs mt-0.5">Most people start with the Quick Type Finder — 5 min, instant result.</p>
+          </div>
+          <Link href="/assessments/quick"
+            className="shrink-0 px-4 py-2 rounded-xl text-sm font-semibold whitespace-nowrap"
+            style={{ background: "linear-gradient(135deg, #7c3aed, #4f46e5)", color: "white" }}>
+            Start here →
+          </Link>
+        </div>
+
         {/* Featured 3 */}
         <div className="space-y-3 mb-8">
           {featured.map((a) => <AssessmentCard key={a.id} assessment={a} />)}

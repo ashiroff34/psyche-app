@@ -592,6 +592,7 @@ export default function DailyPage() {
 
   // ── Streak repair prompt ──
   const [streakRepairPrompt, setStreakRepairPrompt] = useState(false);
+  const [streakMilestoneShown, setStreakMilestoneShown] = useState<number | null>(null);
   useEffect(() => {
     if (!loaded) return;
     try {
@@ -610,6 +611,29 @@ export default function DailyPage() {
       }
     } catch {}
   }, [loaded, gameStateRaw.streakCount]);
+
+  useEffect(() => {
+    if (!loaded) return;
+    const milestones = [7, 14, 30, 60, 100];
+    const currentStreak = gameStateRaw.streakCount ?? 0;
+    if (!milestones.includes(currentStreak)) return;
+    try {
+      const shownKey = `psyche-milestone-shown-${currentStreak}`;
+      if (localStorage.getItem(shownKey)) return;
+      localStorage.setItem(shownKey, "1");
+      setStreakMilestoneShown(currentStreak);
+      // Award bonus tokens for milestone
+      const gsRaw = localStorage.getItem("psyche-game-state");
+      const gs = gsRaw ? JSON.parse(gsRaw) : {};
+      const bonus = currentStreak >= 100 ? 100 : currentStreak >= 30 ? 50 : currentStreak >= 14 ? 30 : 20;
+      const current = (gs.tokens as number) ?? 0;
+      localStorage.setItem("psyche-game-state", JSON.stringify({
+        ...gs,
+        tokens: current + bonus,
+        totalTokensEarned: ((gs.totalTokensEarned as number) ?? 0) + bonus,
+      }));
+    } catch {}
+  }, [gameStateRaw.streakCount, loaded]);
 
   // ── View state (hub / path / quiz) ──
   const [view, setView] = useState<"hub" | "path" | "quiz" | "lesson" | "reading">("path");
@@ -2173,6 +2197,44 @@ export default function DailyPage() {
                 style={{ color: "rgba(255,255,255,0.4)" }}
               >
                 Start fresh
+              </button>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Streak milestone celebration modal */}
+      <AnimatePresence>
+        {streakMilestoneShown && (
+          <motion.div
+            className="fixed inset-0 z-[70] flex items-center justify-center p-6"
+            style={{ background: "rgba(0,0,0,0.75)", backdropFilter: "blur(8px)" }}
+            initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+          >
+            <motion.div
+              className="w-full max-w-sm rounded-3xl p-8 text-center"
+              style={{ background: "linear-gradient(135deg, #1a0f3a, #0f0a1e)", border: "1px solid rgba(251,191,36,0.4)", boxShadow: "0 0 60px rgba(251,191,36,0.2)" }}
+              initial={{ scale: 0.7, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.8, opacity: 0 }}
+              transition={{ type: "spring", damping: 15 }}
+            >
+              <div className="text-5xl mb-4">🏆</div>
+              <h2 className="text-3xl font-black text-white mb-2">{streakMilestoneShown} Days!</h2>
+              <p className="text-yellow-300/80 text-sm mb-1">Incredible consistency.</p>
+              <p className="text-white/60 text-xs mb-6">You&apos;ve built a real habit. This is how growth works.</p>
+              <div className="flex items-center justify-center gap-2 px-4 py-2 rounded-full mb-6"
+                style={{ background: "rgba(251,191,36,0.15)", border: "1px solid rgba(251,191,36,0.3)" }}>
+                <span className="text-amber-300 font-bold text-sm">
+                  +{streakMilestoneShown >= 100 ? 100 : streakMilestoneShown >= 30 ? 50 : streakMilestoneShown >= 14 ? 30 : 20} bonus tokens 🪙
+                </span>
+              </div>
+              <button
+                onClick={() => setStreakMilestoneShown(null)}
+                className="w-full py-3.5 rounded-2xl font-bold text-white"
+                style={{ background: "linear-gradient(135deg, #d97706, #f59e0b)", boxShadow: "0 4px 20px rgba(245,158,11,0.4)" }}
+              >
+                Keep going 🔥
               </button>
             </motion.div>
           </motion.div>

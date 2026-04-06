@@ -390,7 +390,7 @@ function StepEmailGate({
 
       <button
         onClick={handleSave}
-        className="w-full py-4 rounded-2xl font-bold text-white text-base transition-all hover:-translate-y-0.5 active:scale-[0.98] mb-3"
+        className="w-full py-4 rounded-2xl font-bold text-white text-base transition-all hover:-translate-y-0.5 active:scale-[0.98] mb-2"
         style={{
           background: "linear-gradient(135deg, #7c3aed, #4f46e5)",
           boxShadow: "0 8px 24px rgba(124,58,237,0.45)",
@@ -398,6 +398,7 @@ function StepEmailGate({
       >
         Save My Type &amp; Explore →
       </button>
+      <p className="text-xs text-emerald-400/70 mt-1 mb-2 text-center">🎁 50 bonus tokens awarded on signup</p>
 
       <button
         onClick={onSkip}
@@ -489,6 +490,17 @@ export default function OnboardingPage() {
       localStorage.setItem("psyche-tutorial-complete", "true");
       localStorage.setItem("thyself_intent", intent);
       notifyProfileChanged();
+      // Award onboarding completion bonus
+      try {
+        const gsRaw = localStorage.getItem("psyche-game-state");
+        const gs = gsRaw ? JSON.parse(gsRaw) : {};
+        const current = (gs.tokens as number) ?? 0;
+        localStorage.setItem("psyche-game-state", JSON.stringify({
+          ...gs,
+          tokens: current + 50,
+          totalTokensEarned: ((gs.totalTokensEarned as number) ?? 0) + 50,
+        }));
+      } catch {}
     } catch {}
 
     router.push(getPostOnboardingRoute(assessmentResult, intent));
@@ -510,6 +522,17 @@ export default function OnboardingPage() {
       localStorage.setItem("psyche-tutorial-complete", "true");
       localStorage.setItem("thyself_intent", intent);
       notifyProfileChanged();
+      // Award onboarding completion bonus
+      try {
+        const gsRaw = localStorage.getItem("psyche-game-state");
+        const gs = gsRaw ? JSON.parse(gsRaw) : {};
+        const current = (gs.tokens as number) ?? 0;
+        localStorage.setItem("psyche-game-state", JSON.stringify({
+          ...gs,
+          tokens: current + 50,
+          totalTokensEarned: ((gs.totalTokensEarned as number) ?? 0) + 50,
+        }));
+      } catch {}
     } catch {}
     router.push(getPostOnboardingRoute(assessmentResult, intent));
   };

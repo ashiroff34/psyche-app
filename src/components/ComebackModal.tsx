@@ -2,7 +2,8 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Trophy, Heart, X, Zap, Snowflake } from "lucide-react";
+import { Trophy, Heart, X, Zap, Snowflake, Coins } from "lucide-react";
+import { useRouter } from "next/navigation";
 import PetSprite from "@/components/PetSprite";
 import { acquireNotificationLock, releaseNotificationLock } from "@/lib/notificationLock";
 
@@ -33,6 +34,7 @@ interface ModalData {
 // ─── Component ───────────────────────────────────────────────────────────────
 
 export default function ComebackModal() {
+  const router = useRouter();
   const [show, setShow] = useState(false);
   const [data, setData] = useState<ModalData | null>(null);
   const [claimed, setClaimed] = useState(false);
@@ -97,7 +99,7 @@ export default function ComebackModal() {
   const handleClaim = () => {
     const today = getDateKey();
 
-    // Add 50 XP and 1 streak freeze to psyche-game-state (authoritative source)
+    // Add 50 XP, 1 streak freeze, and 2x token bonus to psyche-game-state (authoritative source)
     try {
       const raw = localStorage.getItem("psyche-game-state");
       const gameState = raw ? JSON.parse(raw) : {};
@@ -107,6 +109,18 @@ export default function ComebackModal() {
       localStorage.setItem("psyche-game-state", JSON.stringify(gameState));
     } catch {}
 
+    // Add 2x token bonus for comeback
+    try {
+      const gsRaw = localStorage.getItem("psyche-game-state");
+      const gs = gsRaw ? JSON.parse(gsRaw) : {};
+      const current = (gs.tokens as number) ?? 0;
+      localStorage.setItem("psyche-game-state", JSON.stringify({
+        ...gs,
+        tokens: current + 25,
+        totalTokensEarned: ((gs.totalTokensEarned as number) ?? 0) + 25,
+      }));
+    } catch {}
+
     // Mark claimed
     sessionStorage.setItem("comeback-claimed-date", today);
 
@@ -114,6 +128,7 @@ export default function ComebackModal() {
     setTimeout(() => {
       releaseNotificationLock("comeback-modal");
       setShow(false);
+      router.push("/daily");
     }, 1200);
   };
 
@@ -174,15 +189,29 @@ export default function ComebackModal() {
                 </button>
 
                 {/* Heading */}
-                <div className="text-center mb-6">
+                <div className="text-center mb-5">
                   <h2 className="text-2xl font-serif font-bold mb-0.5" style={{ color: "rgba(255,255,255,0.95)" }}>
-                    Welcome back{data.userType ? `, ${data.userType}` : ""}
+                    {data.petName !== "Your pet"
+                      ? `${data.petName} missed you.`
+                      : data.userType
+                      ? `We missed you, ${data.userType}.`
+                      : "We missed you."}
                   </h2>
                   <p className="text-sm" style={{ color: "rgba(255,255,255,0.5)" }}>
                     {data.daysSince === 1
-                      ? "You were away for 1 day"
-                      : `You were away for ${data.daysSince} days`}
+                      ? "You were away for 1 day — come back strong."
+                      : `You were away for ${data.daysSince} days — don't let it slip further.`}
                   </p>
+                  {/* Urgency line */}
+                  {data.petHealth !== null && data.petHealth < 80 ? (
+                    <p className="text-xs mt-2 font-medium" style={{ color: "#fb923c" }}>
+                      Your pet&apos;s health dropped while you were away
+                    </p>
+                  ) : (data.petHealth === null || data.petHealth >= 80) && data.daysSince > 0 ? (
+                    <p className="text-xs mt-2 font-medium" style={{ color: "#f87171" }}>
+                      Your streak reset — start a new one today
+                    </p>
+                  ) : null}
                 </div>
 
                 {/* Comeback bonus card */}
@@ -202,6 +231,12 @@ export default function ComebackModal() {
                         <Snowflake className="w-4 h-4" style={{ color: "#38bdf8" }} />
                       </div>
                       <span className="text-sm font-medium" style={{ color: "rgba(255,255,255,0.82)" }}>+1 Streak Freeze</span>
+                    </div>
+                    <div className="flex items-center gap-2.5">
+                      <div className="w-8 h-8 rounded-xl flex items-center justify-center" style={{ background: "rgba(52,211,153,0.15)" }}>
+                        <Coins className="w-4 h-4" style={{ color: "#34d399" }} />
+                      </div>
+                      <span className="text-sm font-medium" style={{ color: "rgba(255,255,255,0.82)" }}>2× tokens today <span className="text-xs" style={{ color: "rgba(255,255,255,0.45)" }}>+25 bonus</span></span>
                     </div>
                   </div>
                 </div>

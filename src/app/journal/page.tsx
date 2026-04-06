@@ -1952,6 +1952,16 @@ function EnneagramJournal() {
     setEntries(updated);
     saveJournalEntries(updated);
     incrementGrowthStreak();
+    // Award XP for journaling
+    try {
+      const gsRaw = localStorage.getItem("psyche-game-state");
+      const gs = gsRaw ? JSON.parse(gsRaw) : {};
+      const current = (gs.xp as number) ?? 0;
+      localStorage.setItem("psyche-game-state", JSON.stringify({
+        ...gs,
+        xp: current + 10,
+      }));
+    } catch {}
     setText("");
     setSelectedTypes([]);
     setSelectedTopics([]);
@@ -2216,7 +2226,7 @@ function EnneagramJournal() {
               boxShadow: text.trim() ? "0 4px 16px rgba(124,58,237,0.35)" : "none",
             }}
           >
-            Save Entry
+            Save Entry<span className="text-xs text-violet-300/70 ml-1 font-normal">+10 XP</span>
           </button>
         </motion.div>
       )}
