@@ -2,9 +2,11 @@ import type { NextConfig } from "next";
 
 const isGithubPages = process.env.GITHUB_PAGES === "true";
 
+// On Vercel and local dev, use standard Next.js (SSR + dynamic routes).
+// Only use static export for GitHub Pages.
 const nextConfig: NextConfig = {
   reactStrictMode: true,
-  output: "export",
+  ...(isGithubPages ? { output: "export" } : {}),
   images: {
     unoptimized: true,
   },
