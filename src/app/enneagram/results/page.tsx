@@ -25,6 +25,7 @@ import {
   Sparkles,
   AlertCircle,
   ChevronRight,
+  Share2,
 } from "lucide-react";
 import { enneagramTypes } from "@/data/enneagram";
 import { subtypes } from "@/data/subtypes";
@@ -39,6 +40,8 @@ import { markTopicComplete } from "@/hooks/useGameState";
 import GuidedJourney from "@/components/GuidedJourney";
 import NextStepBanner from "@/components/NextStepBanner";
 import ConfidenceBadge from "@/components/ConfidenceBadge";
+import TypeDiscoveryModal from "@/components/TypeDiscoveryModal";
+import TikTokTypeCard from "@/components/TikTokTypeCard";
 
 // ── Famous examples ───────────────────────────────────────────────────────
 const famousExamples: Record<number, { name: string; note: string }[]> = {
@@ -273,6 +276,7 @@ function ResultsInner() {
   const searchParams = useSearchParams();
   const { profile, loaded, updateProfile } = useProfile();
   const [activeTab, setActiveTab] = useState(0);
+  const [showTypeCard, setShowTypeCard] = useState(false);
   const [selectedSubtype, setSelectedSubtype] = useState<string | null>(null);
   const [expandedSubtype, setExpandedSubtype] = useState<string | null>(null);
   const [selectedLevel, setSelectedLevel] = useState<number | null>(null);
@@ -281,6 +285,18 @@ function ResultsInner() {
 
   const typeNum = parseInt(searchParams.get("type") ?? String(profile.enneagramType ?? "1"));
   const typeData = enneagramTypes.find((t) => t.number === typeNum);
+
+  // Detect first-ever type discovery (profile had no type before this page loaded)
+  const [isFirstDiscovery] = useState(() => {
+    try {
+      const raw = localStorage.getItem("psyche-profile");
+      if (!raw) return true;
+      const p = JSON.parse(raw);
+      return !p.enneagramType || p.enneagramType === 0;
+    } catch {
+      return false;
+    }
+  });
 
   // iEQ9-style confidence and dual-type reporting
   const confidence = parseInt(searchParams.get("confidence") ?? "70");
@@ -343,6 +359,20 @@ function ResultsInner() {
 
   return (
     <div className="min-h-screen py-12" style={{ background: "#0f0a1e" }}>
+      <TypeDiscoveryModal typeNum={typeNum} isFirstDiscovery={isFirstDiscovery} />
+      <AnimatePresence>
+        {showTypeCard && (
+          <TikTokTypeCard
+            enneagramType={typeNum}
+            wing={profile.enneagramWing ?? undefined}
+            instinct={dominantInstinct ?? profile.instinctualStacking ?? undefined}
+            tritype={profile.tritype ?? undefined}
+            mbtiType={profile.cognitiveType ?? profile.mbtiType ?? undefined}
+            displayName={profile.displayName ?? undefined}
+            onClose={() => setShowTypeCard(false)}
+          />
+        )}
+      </AnimatePresence>
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
 
         {/* Hero Header */}
@@ -445,6 +475,22 @@ function ResultsInner() {
               <div className="px-4 py-2 rounded-xl text-xs" style={{ background: "rgba(201,146,26,0.12)", border: "1px solid rgba(201,146,26,0.3)", color: "rgba(255,255,255,0.55)" }}>
                 <span className="font-medium" style={{ color: "#C9921A" }}>Stress →</span> Type {typeData.disintegrationLine}
               </div>
+            </div>
+
+            {/* Share CTA */}
+            <div className="mt-5">
+              <button
+                onClick={() => setShowTypeCard(true)}
+                className="w-full py-3 rounded-2xl font-bold text-sm flex items-center justify-center gap-2 transition-all"
+                style={{
+                  background: "linear-gradient(135deg, #7c3aed, #d946ef)",
+                  boxShadow: "0 4px 20px rgba(124,58,237,0.35)",
+                  color: "white",
+                }}
+              >
+                <Share2 className="w-4 h-4" />
+                Share your type
+              </button>
             </div>
           </div>
         </motion.div>

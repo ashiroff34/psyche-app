@@ -27,6 +27,7 @@ type GamePhase = "intro" | "playing" | "answered" | "finished";
 interface SprintAnswer {
   correct: boolean;
   xpEarned: number;
+  typeNum: number;
 }
 
 // ─── Constants ────────────────────────────────────────────────────────────────
@@ -139,7 +140,7 @@ export default function SprintPage() {
     setStreak(newStreak);
     setBestStreak(newBest);
     setTotalXP((prev) => prev + xp);
-    setAnswers((prev) => [...prev, { correct: isCorrect, xpEarned: xp }]);
+    setAnswers((prev) => [...prev, { correct: isCorrect, xpEarned: xp, typeNum: currentQ.type }]);
 
     if (xp > 0) {
       setShowXPPop(xp);
@@ -179,43 +180,50 @@ export default function SprintPage() {
 
   const timerBg =
     timeLeft <= 10
-      ? "bg-rose-50 border-rose-200"
+      ? "border-rose-500/40"
       : timeLeft <= 20
-      ? "bg-amber-50 border-amber-200"
-      : "bg-emerald-50 border-emerald-200";
+      ? "border-amber-500/40"
+      : "border-emerald-500/40";
+
+  const timerBgStyle =
+    timeLeft <= 10
+      ? "rgba(239,68,68,0.12)"
+      : timeLeft <= 20
+      ? "rgba(245,158,11,0.12)"
+      : "rgba(52,211,153,0.12)";
 
   // ─── Intro ─────────────────────────────────────────────────────────────────
 
   if (phase === "intro") {
     return (
-      <div className="min-h-screen flex items-center justify-center px-4 bg-gradient-to-br from-violet-50 via-white to-sky-50">
+      <div className="min-h-screen flex items-center justify-center px-4" style={{ background: "#0f0a1e" }}>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           className="w-full max-w-md text-center"
         >
-          <div className="inline-flex items-center justify-center w-20 h-20 rounded-3xl bg-gradient-to-br from-violet-500 to-purple-600 shadow-xl shadow-violet-200/60 mb-6 mx-auto">
+          <div className="inline-flex items-center justify-center w-20 h-20 rounded-3xl mb-6 mx-auto" style={{ background: "linear-gradient(135deg, #7c3aed, #6366f1)" }}>
             <Timer className="w-9 h-9 text-white" />
           </div>
           <div className="flex items-center justify-center gap-2 mb-2">
-            <h1 className="text-3xl font-serif font-bold text-slate-900">Sprint Mode</h1>
+            <h1 className="text-3xl font-serif font-bold" style={{ color: "rgba(255,255,255,0.92)" }}>Sprint Mode</h1>
             <PetCompanion type={petType} size={48} />
           </div>
-          <p className="text-slate-500 text-sm mb-8 leading-relaxed">
-            Answer as many questions as you can in <strong>60 seconds</strong>.<br/>
+          <p className="text-sm mb-8 leading-relaxed" style={{ color: "rgba(255,255,255,0.45)" }}>
+            Answer as many questions as you can in <strong style={{ color: "rgba(255,255,255,0.7)" }}>60 seconds</strong>.<br/>
             Build streaks for bonus XP. No hearts lost, just go fast.
           </p>
 
           <div className="grid grid-cols-3 gap-3 mb-8">
             {[
-              { label: "60 sec", sub: "Time limit", icon: ":" },
-              { label: "+8 XP", sub: "Per correct", icon: "+" },
-              { label: "+4 bonus", sub: "On 3× streak", icon: "★" },
+              { label: "60 sec", sub: "Time limit", icon: "(:)" },
+              { label: "+8 XP", sub: "Per correct", icon: "(+)" },
+              { label: "+4 bonus", sub: "On 3x streak", icon: "(*)" },
             ].map((s) => (
-              <div key={s.label} className="bg-white border border-slate-100 rounded-2xl p-4 shadow-sm">
-                <div className="text-2xl mb-1">{s.icon}</div>
-                <div className="text-sm font-bold text-slate-800">{s.label}</div>
-                <div className="text-[10px] text-slate-400">{s.sub}</div>
+              <div key={s.label} className="rounded-2xl p-4" style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.09)" }}>
+                <div className="text-lg mb-1 font-mono" style={{ color: "rgba(167,139,250,0.8)" }}>{s.icon}</div>
+                <div className="text-sm font-bold" style={{ color: "rgba(255,255,255,0.85)" }}>{s.label}</div>
+                <div className="text-[10px]" style={{ color: "rgba(255,255,255,0.3)" }}>{s.sub}</div>
               </div>
             ))}
           </div>
@@ -223,13 +231,14 @@ export default function SprintPage() {
           <motion.button
             whileTap={{ scale: 0.97 }}
             onClick={startGame}
-            className="w-full py-4 rounded-2xl bg-gradient-to-r from-violet-500 to-purple-600 text-white font-bold text-lg shadow-lg shadow-violet-200/60 hover:shadow-xl hover:-translate-y-0.5 transition-all"
+            className="w-full py-4 rounded-2xl text-white font-bold text-lg transition-all"
+            style={{ background: "linear-gradient(to right, #7c3aed, #6366f1)" }}
           >
             Start Sprint
           </motion.button>
 
-          <Link href="/game" className="mt-4 block text-sm text-slate-400 hover:text-slate-600 transition-colors">
-            ← Back to Game
+          <Link href="/game" className="mt-4 block text-sm transition-colors" style={{ color: "rgba(255,255,255,0.3)" }}>
+            Back to Game
           </Link>
         </motion.div>
       </div>
@@ -240,74 +249,139 @@ export default function SprintPage() {
 
   if (phase === "finished") {
     const grade =
-      accuracy >= 90 ? { label: "Brilliant!", color: "text-emerald-600", bg: "from-emerald-400 to-teal-500" } :
-      accuracy >= 70 ? { label: "Solid!", color: "text-sky-600", bg: "from-sky-400 to-indigo-500" } :
-      accuracy >= 50 ? { label: "Nice try!", color: "text-violet-600", bg: "from-violet-400 to-purple-500" } :
-      { label: "Keep practicing!", color: "text-amber-600", bg: "from-amber-400 to-orange-500" };
+      accuracy >= 90 ? { label: "Brilliant", gradient: "from-emerald-400 to-teal-500", color: "#34d399" } :
+      accuracy >= 70 ? { label: "Solid", gradient: "from-sky-400 to-indigo-500", color: "#38bdf8" } :
+      accuracy >= 50 ? { label: "Good effort", gradient: "from-violet-400 to-purple-500", color: "#a78bfa" } :
+      { label: "Keep practicing", gradient: "from-amber-400 to-orange-500", color: "#fbbf24" };
+
+    // Per-type accuracy breakdown
+    const typeBreakdown = Array.from({ length: 9 }, (_, i) => {
+      const t = i + 1;
+      const forType = answers.filter((a) => a.typeNum === t);
+      const typeCorrect = forType.filter((a) => a.correct).length;
+      return { type: t, total: forType.length, correct: typeCorrect };
+    }).filter((r) => r.total > 0);
 
     return (
-      <div className="min-h-screen flex items-center justify-center px-4 bg-gradient-to-br from-violet-50 via-white to-sky-50">
+      <div className="min-h-screen px-4 py-8" style={{ background: "#0f0a1e" }}>
         <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
+          initial={{ opacity: 0, scale: 0.96 }}
           animate={{ opacity: 1, scale: 1 }}
-          className="w-full max-w-md"
+          className="w-full max-w-md mx-auto"
         >
           {/* Header */}
-          <div className={`rounded-3xl bg-gradient-to-r ${grade.bg} p-8 text-center text-white mb-4 shadow-xl`}>
-            <div className="text-4xl mb-2">→</div>
-            <h2 className="text-2xl font-serif font-bold mb-1">{grade.label}</h2>
-            <p className="text-white/70 text-sm">{answers.length} questions in 60 seconds</p>
-          </div>
+          <div
+            className="rounded-3xl p-6 text-center mb-4"
+            style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.09)" }}
+          >
+            <p className="text-[11px] font-bold uppercase tracking-widest mb-2" style={{ color: "rgba(255,255,255,0.3)" }}>
+              Sprint complete
+            </p>
+            <h2 className="text-3xl font-serif font-bold mb-1" style={{ color: grade.color }}>
+              {grade.label}
+            </h2>
+            <p className="text-sm" style={{ color: "rgba(255,255,255,0.45)" }}>
+              {answers.length} question{answers.length !== 1 ? "s" : ""} in 60 seconds
+            </p>
 
-          {/* Stats */}
-          <div className="bg-white rounded-3xl border border-slate-100 shadow-sm p-6 mb-4">
-            <div className="grid grid-cols-2 gap-4">
-              {[
-                { label: "Correct", value: correct, icon: "✓" },
-                { label: "Wrong", value: wrong, icon: "✗" },
-                { label: "Accuracy", value: `${accuracy}%`, icon: "→" },
-                { label: "Best Streak", value: `${bestStreak}×`, icon: "★" },
-              ].map((s) => (
-                <div key={s.label} className="text-center p-3 rounded-2xl bg-slate-50">
-                  <div className="text-xl mb-1">{s.icon}</div>
-                  <div className="text-xl font-bold text-slate-800">{s.value}</div>
-                  <div className="text-xs text-slate-400">{s.label}</div>
-                </div>
-              ))}
+            {/* Accuracy bar */}
+            <div className="mt-4 h-2 rounded-full overflow-hidden" style={{ background: "rgba(255,255,255,0.1)" }}>
+              <motion.div
+                className={`h-full rounded-full bg-gradient-to-r ${grade.gradient}`}
+                initial={{ width: "0%" }}
+                animate={{ width: `${accuracy}%` }}
+                transition={{ duration: 0.8, ease: "easeOut" }}
+              />
             </div>
-          </div>
-
-          {/* Pet reaction */}
-          <div className="bg-white rounded-2xl border border-slate-100 shadow-sm p-4 mb-4 flex items-center gap-4">
-            <PetCompanion type={petType} size={56} state="happy" />
-            <p className="text-sm font-medium text-slate-600">
-              {accuracy >= 90
-                ? "Your companion is proud!"
-                : accuracy >= 50
-                ? "Your companion cheers you on!"
-                : "Your companion believes in you!"}
+            <p className="text-xs mt-1.5 font-mono font-semibold" style={{ color: grade.color }}>
+              {accuracy}% accuracy
             </p>
           </div>
 
-          {/* XP earned */}
-          <div className="bg-gradient-to-r from-indigo-50 to-violet-50 rounded-2xl border border-indigo-100 p-4 mb-6 flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <Zap className="w-5 h-5 text-indigo-500" />
-              <span className="font-semibold text-indigo-700">XP Earned</span>
+          {/* Stats grid */}
+          <div
+            className="rounded-2xl p-5 mb-4 grid grid-cols-2 gap-3"
+            style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.09)" }}
+          >
+            {[
+              { label: "Correct", value: correct, color: "#34d399" },
+              { label: "Wrong", value: wrong, color: "#f87171" },
+              { label: "Best streak", value: `${bestStreak}×`, color: "#fbbf24" },
+              { label: "XP earned", value: `+${totalXP}`, color: "#a78bfa" },
+            ].map((s) => (
+              <div
+                key={s.label}
+                className="p-3 rounded-xl text-center"
+                style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.06)" }}
+              >
+                <div className="text-xl font-bold font-mono mb-0.5" style={{ color: s.color }}>{s.value}</div>
+                <div className="text-[10px] font-medium uppercase tracking-wider" style={{ color: "rgba(255,255,255,0.35)" }}>{s.label}</div>
+              </div>
+            ))}
+          </div>
+
+          {/* Per-type breakdown */}
+          {typeBreakdown.length > 0 && (
+            <div
+              className="rounded-2xl p-4 mb-4"
+              style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.09)" }}
+            >
+              <p className="text-[10px] font-bold uppercase tracking-widest mb-3" style={{ color: "rgba(255,255,255,0.3)" }}>
+                Accuracy by type
+              </p>
+              <div className="space-y-2">
+                {typeBreakdown.map(({ type: t, total, correct: tc }) => {
+                  const pct = Math.round((tc / total) * 100);
+                  const barColor = pct >= 70 ? "#34d399" : pct >= 40 ? "#fbbf24" : "#f87171";
+                  return (
+                    <div key={t} className="flex items-center gap-2">
+                      <span className="text-[10px] font-mono w-8 shrink-0" style={{ color: "rgba(255,255,255,0.4)" }}>T{t}</span>
+                      <div className="flex-1 h-1.5 rounded-full overflow-hidden" style={{ background: "rgba(255,255,255,0.1)" }}>
+                        <motion.div
+                          className="h-full rounded-full"
+                          style={{ background: barColor }}
+                          initial={{ width: "0%" }}
+                          animate={{ width: `${pct}%` }}
+                          transition={{ duration: 0.6, ease: "easeOut", delay: 0.1 * (t - 1) }}
+                        />
+                      </div>
+                      <span className="text-[10px] font-mono w-10 text-right shrink-0" style={{ color: "rgba(255,255,255,0.4)" }}>
+                        {tc}/{total}
+                      </span>
+                    </div>
+                  );
+                })}
+              </div>
             </div>
-            <span className="text-2xl font-bold text-indigo-600">+{totalXP}</span>
+          )}
+
+          {/* Pet reaction */}
+          <div
+            className="rounded-2xl p-4 mb-4 flex items-center gap-4"
+            style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.09)" }}
+          >
+            <PetCompanion type={petType} size={52} state="happy" />
+            <p className="text-sm" style={{ color: "rgba(255,255,255,0.55)" }}>
+              {accuracy >= 90
+                ? "Outstanding precision."
+                : accuracy >= 50
+                ? "Solid session. Keep going."
+                : "Every sprint builds the pattern."}
+            </p>
           </div>
 
           <div className="flex gap-3">
             <button
               onClick={startGame}
-              className="flex-1 py-3.5 rounded-2xl bg-gradient-to-r from-violet-500 to-purple-600 text-white font-bold shadow-md hover:shadow-lg transition-all"
+              className="flex-1 py-3.5 rounded-2xl font-bold text-sm"
+              style={{ background: `linear-gradient(to right, #7c3aed, #6366f1)`, color: "white" }}
             >
               Play Again
             </button>
             <Link
               href="/game"
-              className="flex-1 py-3.5 rounded-2xl bg-white border border-slate-200 text-slate-700 font-semibold text-center hover:border-slate-300 transition-all"
+              className="flex-1 py-3.5 rounded-2xl font-semibold text-sm text-center"
+              style={{ background: "rgba(255,255,255,0.08)", color: "rgba(255,255,255,0.7)" }}
             >
               Game Hub
             </Link>
@@ -324,31 +398,34 @@ export default function SprintPage() {
   const timerPct = (timeLeft / SPRINT_DURATION) * 100;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-violet-50 via-white to-sky-50 px-4 py-6 flex flex-col max-w-lg mx-auto">
+    <div className="min-h-screen px-4 py-6 flex flex-col max-w-lg mx-auto" style={{ background: "#0f0a1e" }}>
       {/* Top bar */}
       <div className="flex items-center justify-between mb-4">
         {/* Timer */}
-        <div className={`flex items-center gap-2 px-4 py-2.5 rounded-2xl border font-mono font-bold text-lg ${timerBg} ${timerColor} ${timeLeft <= 10 ? "animate-pulse" : ""}`}>
+        <div
+          className={`flex items-center gap-2 px-4 py-2.5 rounded-2xl border font-mono font-bold text-lg ${timerBg} ${timerColor} ${timeLeft <= 10 ? "animate-pulse" : ""}`}
+          style={{ background: timerBgStyle }}
+        >
           <Timer className="w-4 h-4" />
           {timeLeft}s
         </div>
 
         {/* Streak */}
-        <div className="flex items-center gap-1.5 px-3 py-2 rounded-2xl bg-white border border-orange-100">
-          <Flame className="w-4 h-4 text-orange-500" />
-          <span className="font-bold text-slate-700 text-sm">{streak}</span>
-          <span className="text-xs text-slate-400">streak</span>
+        <div className="flex items-center gap-1.5 px-3 py-2 rounded-2xl" style={{ background: "rgba(245,158,11,0.1)", border: "1px solid rgba(245,158,11,0.2)" }}>
+          <Flame className="w-4 h-4 text-orange-400" />
+          <span className="font-bold text-sm" style={{ color: "rgba(255,255,255,0.85)" }}>{streak}</span>
+          <span className="text-xs" style={{ color: "rgba(255,255,255,0.35)" }}>streak</span>
         </div>
 
         {/* Score */}
-        <div className="flex items-center gap-1.5 px-3 py-2 rounded-2xl bg-white border border-indigo-100">
-          <Zap className="w-4 h-4 text-indigo-500" />
-          <span className="font-bold text-indigo-600 text-sm">{totalXP} XP</span>
+        <div className="flex items-center gap-1.5 px-3 py-2 rounded-2xl" style={{ background: "rgba(139,92,246,0.1)", border: "1px solid rgba(139,92,246,0.2)" }}>
+          <Zap className="w-4 h-4 text-violet-400" />
+          <span className="font-bold text-sm" style={{ color: "#a78bfa" }}>{totalXP} XP</span>
         </div>
       </div>
 
       {/* Timer bar */}
-      <div className="h-1.5 bg-slate-100 rounded-full mb-6 overflow-hidden">
+      <div className="h-1.5 rounded-full mb-6 overflow-hidden" style={{ background: "rgba(255,255,255,0.08)" }}>
         <motion.div
           animate={{ width: `${timerPct}%` }}
           transition={{ duration: 0.5 }}
@@ -369,12 +446,12 @@ export default function SprintPage() {
           className="flex-1"
         >
           {/* Category tag */}
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-violet-100 text-violet-600 text-xs font-medium mb-4">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium mb-4" style={{ background: "rgba(139,92,246,0.15)", color: "#a78bfa" }}>
             <Star className="w-3 h-3" />
-            Type {currentQ.type} · {currentQ.category}
+            Type {currentQ.type} {currentQ.category}
           </div>
 
-          <h2 className="text-lg font-semibold text-slate-800 leading-snug mb-6">
+          <h2 className="text-lg font-semibold leading-snug mb-6" style={{ color: "rgba(255,255,255,0.9)" }}>
             {currentQ.question}
           </h2>
 
@@ -389,9 +466,21 @@ export default function SprintPage() {
                   const isCorrectAnswer = visualLetter === shuffledSprintAnswer;
                   const showResult = selected !== null;
 
-                  let style = "bg-white border-slate-200 text-slate-700";
-                  if (showResult && isCorrectAnswer) style = "bg-emerald-50 border-emerald-400 text-emerald-700";
-                  else if (showResult && isSelected && !isCorrectAnswer) style = "bg-rose-50 border-rose-400 text-rose-700";
+                  const btnBg = showResult && isCorrectAnswer
+                    ? "rgba(52,211,153,0.12)"
+                    : showResult && isSelected && !isCorrectAnswer
+                    ? "rgba(248,113,113,0.12)"
+                    : "rgba(255,255,255,0.05)";
+                  const btnBorder = showResult && isCorrectAnswer
+                    ? "rgba(52,211,153,0.5)"
+                    : showResult && isSelected && !isCorrectAnswer
+                    ? "rgba(248,113,113,0.5)"
+                    : "rgba(255,255,255,0.1)";
+                  const btnColor = showResult && isCorrectAnswer
+                    ? "#34d399"
+                    : showResult && isSelected && !isCorrectAnswer
+                    ? "#f87171"
+                    : "rgba(255,255,255,0.8)";
 
                   return (
                     <motion.button
@@ -399,14 +488,15 @@ export default function SprintPage() {
                       whileTap={{ scale: selected === null ? 0.98 : 1 }}
                       onClick={() => handleAnswer(visualLetter)}
                       disabled={selected !== null}
-                      className={`w-full flex items-center gap-3 p-4 rounded-2xl border-2 text-left transition-all ${style} ${selected === null ? "hover:border-violet-300 hover:bg-violet-50 cursor-pointer" : "cursor-default"}`}
+                      className={`w-full flex items-center gap-3 p-4 rounded-2xl border-2 text-left transition-all ${selected === null ? "cursor-pointer" : "cursor-default"}`}
+                      style={{ background: btnBg, borderColor: btnBorder, color: btnColor }}
                     >
-                      <span className="w-7 h-7 rounded-xl bg-slate-100 flex items-center justify-center text-xs font-bold shrink-0 text-slate-500">
+                      <span className="w-7 h-7 rounded-xl flex items-center justify-center text-xs font-bold shrink-0" style={{ background: "rgba(255,255,255,0.08)", color: "rgba(255,255,255,0.5)" }}>
                         {visualLetter}
                       </span>
                       <span className="text-sm font-medium leading-snug">{opt.text}</span>
-                      {showResult && isCorrectAnswer && <CheckCircle className="w-4 h-4 text-emerald-500 ml-auto shrink-0" />}
-                      {showResult && isSelected && !isCorrectAnswer && <XCircle className="w-4 h-4 text-rose-500 ml-auto shrink-0" />}
+                      {showResult && isCorrectAnswer && <CheckCircle className="w-4 h-4 text-emerald-400 ml-auto shrink-0" />}
+                      {showResult && isSelected && !isCorrectAnswer && <XCircle className="w-4 h-4 text-rose-400 ml-auto shrink-0" />}
                     </motion.button>
                   );
                 })}
@@ -422,7 +512,8 @@ export default function SprintPage() {
                 initial={{ opacity: 0, y: 0 }}
                 animate={{ opacity: 1, y: -20 }}
                 exit={{ opacity: 0 }}
-                className="fixed top-24 right-6 text-lg font-bold text-indigo-600 pointer-events-none"
+                className="fixed top-24 right-6 text-lg font-bold pointer-events-none"
+                style={{ color: "#a78bfa" }}
               >
                 +{showXPPop} XP
               </motion.div>
@@ -432,9 +523,9 @@ export default function SprintPage() {
       </AnimatePresence>
 
       {/* Progress footer */}
-      <div className="mt-6 flex items-center justify-between text-xs text-slate-400">
+      <div className="mt-6 flex items-center justify-between text-xs" style={{ color: "rgba(255,255,255,0.3)" }}>
         <span>{answers.length} answered</span>
-        <span>{correct} correct · {wrong} wrong</span>
+        <span>{correct} correct  {wrong} wrong</span>
       </div>
     </div>
   );

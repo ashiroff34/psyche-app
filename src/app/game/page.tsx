@@ -212,7 +212,7 @@ function HeaderSection({
           <span className="text-sm font-mono font-semibold text-orange-600">{state.streakCount}</span>
           <span className="text-[10px] text-orange-400 uppercase tracking-wider">streak</span>
           {state.streakCount >= state.longestStreak && state.streakCount > 0 && (
-            <span className="text-[9px] font-bold px-1.5 py-0.5 rounded-full bg-amber-100 text-amber-600 border border-amber-200">★ PB</span>
+            <span className="text-[9px] font-bold px-1.5 py-0.5 rounded-full bg-amber-100 text-amber-600 border border-amber-200">(PB)</span>
           )}
           <button
             onClick={() => setShowShareCard(true)}
@@ -884,11 +884,11 @@ function LeaderboardSection({ state }: { state: any }) {
       {/* Social signal — makes leaderboard feel alive */}
       {(() => {
         const signals = [
-          "★ Type 8s are dominating this week",
-          "+ 3 new badges unlocked in your league today",
-          "★ Top players have 7+ day streaks",
-          "◆ Type 4s climbing fast this week",
-          "★ 5 players hit a new personal best today",
+          "(+) Type 8s are dominating this week",
+          "(+) 3 new badges unlocked in your league today",
+          "(*) Top players have 7+ day streaks",
+          "(>) Type 4s climbing fast this week",
+          "(*) 5 players hit a new personal best today",
         ];
         // Pick signal based on day of year so it changes daily but feels deterministic
         const idx = new Date().getDay() % signals.length;

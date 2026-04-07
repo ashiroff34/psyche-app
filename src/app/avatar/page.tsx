@@ -502,7 +502,7 @@ export default function AvatarPage() {
                     animate={{ y: [0, -3, 0] }}
                     transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
                   >
-                    ★
+                    (*)
                   </motion.div>
                 )}
 
@@ -606,13 +606,13 @@ export default function AvatarPage() {
                   <div className="flex items-center justify-between mb-2">
                     <div className="flex items-center gap-2">
                       {isMaster ? (
-                        <span className="text-lg">★</span>
+                        <span className="text-lg font-mono">(*)</span>
                       ) : isEvolved ? (
                         <motion.span
-                          className="text-lg"
+                          className="text-lg font-mono"
                           animate={{ scale: [1, 1.2, 1] }}
                           transition={{ repeat: Infinity, duration: 2 }}
-                        >★</motion.span>
+                        >(*)</motion.span>
                       ) : (
                         <span className="text-lg">~</span>
                       )}

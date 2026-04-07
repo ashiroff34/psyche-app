@@ -137,9 +137,9 @@ export default function QuizFullscreen({
     if (!isLastCorrect) return;
 
     let msg: string | null = null;
-    if (correctStreak === 3) msg = "★ On fire! 3 in a row!";
-    else if (correctStreak === 5) msg = "+ UNSTOPPABLE! 5 in a row!";
-    else if (correctStreak === 10) msg = "★ LEGENDARY! 10 correct!";
+    if (correctStreak === 3) msg = "(*) On fire! 3 in a row!";
+    else if (correctStreak === 5) msg = "(+) UNSTOPPABLE! 5 in a row!";
+    else if (correctStreak === 10) msg = "(*) LEGENDARY! 10 correct!";
 
     if (msg) {
       setMomentumToast(msg);
@@ -351,7 +351,7 @@ export default function QuizFullscreen({
                   boxShadow: "0 0 80px rgba(139,92,246,0.6), 0 0 160px rgba(217,70,239,0.3)",
                 }}
               >
-                <div className="text-4xl mb-2">✦</div>
+                <div className="text-2xl mb-2 font-mono font-bold">(+)</div>
                 <p className="text-white font-black text-3xl tracking-wide">PERFECT!</p>
                 <p className="text-white/70 text-sm mt-1">100% correct</p>
               </div>
@@ -370,7 +370,7 @@ export default function QuizFullscreen({
               className="fixed top-8 left-1/2 -translate-x-1/2 z-[70] px-6 py-3 rounded-2xl font-black text-white text-lg shadow-xl"
               style={{ background: "linear-gradient(135deg, #8b5cf6, #d946ef)", boxShadow: "0 8px 32px rgba(139,92,246,0.5)" }}
             >
-              ★ NEW PERSONAL BEST! ★
+              (*) NEW PERSONAL BEST!
             </motion.div>
           )}
         </AnimatePresence>
@@ -389,9 +389,10 @@ export default function QuizFullscreen({
                 <motion.div
                   animate={{ rotate: [-8, 8, -8, 8, 0], scale: [1, 1.2, 1] }}
                   transition={{ duration: 0.6 }}
-                  className="text-7xl"
+                  className="text-4xl font-mono font-bold"
+                  style={{ color: "#fbbf24" }}
                 >
-                  ★
+                  (*)
                 </motion.div>
                 <motion.p
                   initial={{ y: 10, opacity: 0 }}
@@ -408,7 +409,7 @@ export default function QuizFullscreen({
                   transition={{ delay: 0.4 }}
                   className="text-base font-semibold text-orange-400"
                 >
-                  Keep the fire burning ★
+                  Keep the fire burning
                 </motion.p>
               </div>
             </motion.div>

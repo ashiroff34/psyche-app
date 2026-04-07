@@ -23,7 +23,7 @@ const NODE_TYPE_LABEL: Record<string, string> = {
 const NODE_TYPE_EMOJI: Record<string, string> = {
   reflection: "~",
   challenge: "+",
-  bonus: "★",
+  bonus: "(*)",
   quiz: "→",
 };
 
@@ -60,7 +60,7 @@ export default function KeepGoingCard({
           transition={{ repeat: Infinity, duration: 1.4, ease: "easeInOut" }}
           className="text-base"
         >
-          {isPerfect ? "+" : "★"}
+          {isPerfect ? "(+)" : "(*)"}
         </motion.span>
         <span className="text-xs font-bold text-orange-500 uppercase tracking-widest">
           {isPerfect

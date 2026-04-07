@@ -2,17 +2,10 @@
   "version": "0.0.1",
   "configurations": [
     {
-      "name": "psyche-dev",
-      "runtimeExecutable": "/Users/ariannashiroff/.nvm/versions/node/v24.14.0/bin/node",
-      "runtimeArgs": ["/Users/ariannashiroff/.nvm/versions/node/v24.14.0/bin/npx", "next", "dev", "-p", "3003"],
+      "name": "thyself-dev",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "dev"],
       "port": 3003
-    },
-    {
-      "name": "psyche-static",
-      "runtimeExecutable": "/Users/ariannashiroff/.nvm/versions/node/v24.14.0/bin/npx",
-      "runtimeArgs": ["serve", "out", "-p", "3001", "--no-clipboard"],
-      "cwd": "/Users/ariannashiroff/Documents/Thyself/psyche-app 2",
-      "port": 3001
     }
   ]
 }

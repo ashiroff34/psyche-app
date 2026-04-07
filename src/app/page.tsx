@@ -36,7 +36,16 @@ function getGreeting() {
 }
 
 function useHomeState() {
-  const [state, setState] = useState<"loading" | "new" | "onboarding" | "assess_prompt" | "dashboard">("loading");
+  const [state, setState] = useState<"loading" | "new" | "onboarding" | "assess_prompt" | "dashboard">(() => {
+    if (typeof window === "undefined") return "loading";
+    try {
+      const raw = localStorage.getItem("psyche-profile");
+      if (!raw && !localStorage.getItem("psyche-onboarding-complete")) return "new";
+      const p = raw ? JSON.parse(raw) : {};
+      if (p.enneagramType || p.cognitiveType || p.mbtiType) return "dashboard";
+    } catch {}
+    return "loading";
+  });
   const [profile, setProfile] = useState<Record<string, any>>({});
   const [gameState, setGameState] = useState<Record<string, any>>({});
   const [dailyProgress, setDailyProgress] = useState<Record<string, any>>({});
@@ -87,27 +96,8 @@ function useHomeState() {
 
 // ── State A: Enter Experience (new users) ────────────────────────────────────
 
-const ORBIT_TYPES = [
-  { n: 1, color: "#ef4444", name: "Reformer" },
-  { n: 2, color: "#22c55e", name: "Helper" },
-  { n: 3, color: "#f59e0b", name: "Achiever" },
-  { n: 4, color: "#a855f7", name: "Individualist" },
-  { n: 5, color: "#3b82f6", name: "Investigator" },
-  { n: 6, color: "#94a3b8", name: "Loyalist" },
-  { n: 7, color: "#f97316", name: "Enthusiast" },
-  { n: 8, color: "#dc2626", name: "Challenger" },
-  { n: 9, color: "#10b981", name: "Peacemaker" },
-];
-
 function EnterScreen() {
   const router = useRouter();
-  const [mouse, setMouse] = useState({ x: -9999, y: -9999 });
-
-  useEffect(() => {
-    const handler = (e: MouseEvent) => setMouse({ x: e.clientX, y: e.clientY });
-    window.addEventListener("mousemove", handler);
-    return () => window.removeEventListener("mousemove", handler);
-  }, []);
 
   return (
     <div
@@ -126,7 +116,7 @@ function EnterScreen() {
         }}
       />
 
-      {/* ── Layer 2: Drifting aurora blobs ── */}
+      {/* ── Layer 2: Drifting aurora blobs (CSS-only) ── */}
       <motion.div aria-hidden
         animate={{ x: [0, 55, -20, 0], y: [0, -35, 15, 0] }}
         transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
@@ -145,30 +135,12 @@ function EnterScreen() {
           background: "radial-gradient(circle, rgba(79,70,229,0.2) 0%, transparent 60%)",
         }}
       />
-      <motion.div aria-hidden
-        animate={{ x: [0, 30, -40, 0], y: [0, -30, 20, 0] }}
-        transition={{ duration: 32, repeat: Infinity, ease: "easeInOut" }}
-        style={{
-          position: "absolute", top: "35%", right: "2%",
-          width: 320, height: 320, borderRadius: "50%", filter: "blur(40px)", pointerEvents: "none",
-          background: "radial-gradient(circle, rgba(168,85,247,0.16) 0%, transparent 60%)",
-        }}
-      />
 
-      {/* ── Layer 3: Cursor spotlight ── */}
-      <div aria-hidden style={{
-        position: "absolute", inset: 0, pointerEvents: "none", zIndex: 4,
-        background: `radial-gradient(480px circle at ${mouse.x}px ${mouse.y}px, rgba(124,58,237,0.13), transparent 70%)`,
-      }} />
-
-      {/* ── Layer 4: Concentric pulse rings (centered on snake) ── */}
+      {/* ── Layer 3: Concentric pulse rings ── */}
       <div
         aria-hidden
         className="absolute pointer-events-none"
-        style={{
-          top: "50%", left: "50%",
-          transform: "translate(-50%, calc(-50% - 80px))",
-        }}
+        style={{ top: "50%", left: "50%", transform: "translate(-50%, calc(-50% - 80px))" }}
       >
         {[380, 270, 175].map((size, i) => (
           <motion.div
@@ -187,7 +159,7 @@ function EnterScreen() {
         ))}
       </div>
 
-      {/* ── CENTER: Ouroboros snake + orbiting chibis ── */}
+      {/* ── CENTER: Stationary purple icon + rotating snake overlay ── */}
       <motion.div
         initial={{ opacity: 0, scale: 0.7 }}
         animate={{ opacity: 1, scale: 1 }}
@@ -195,7 +167,7 @@ function EnterScreen() {
         className="relative flex-shrink-0"
         style={{ width: 210, height: 210, marginBottom: 28, zIndex: 10 }}
       >
-        {/* Deep glow behind snake */}
+        {/* Deep glow */}
         <motion.div
           animate={{ opacity: [0.4, 0.75, 0.4], scale: [1, 1.08, 1] }}
           transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
@@ -205,61 +177,24 @@ function EnterScreen() {
           }}
         />
 
-        {/* Counter-clockwise rotating snake */}
-        <motion.div
+        {/* Stationary purple background square */}
+        <div style={{
+          position: "absolute", inset: 0, borderRadius: "22%",
+          background: "linear-gradient(135deg, #5b21b6 0%, #7c3aed 50%, #4f46e5 100%)",
+          boxShadow: "0 0 80px rgba(124,58,237,0.55), 0 0 32px rgba(167,139,250,0.3)",
+        }} />
+
+        {/* Counter-clockwise rotating snake only (transparent background) */}
+        <motion.img
+          src="/thyself-snake-only.svg"
+          alt="Ouroboros"
           animate={{ rotate: -360 }}
           transition={{ duration: 46, repeat: Infinity, ease: "linear" }}
-          style={{ width: 210, height: 210 }}
-        >
-          <motion.img
-            src="/thyself-logo.svg"
-            alt="Ouroboros"
-            animate={{ scale: [1, 1.04, 1] }}
-            transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut" }}
-            style={{
-              width: "100%", height: "100%", borderRadius: "22%", display: "block",
-              boxShadow: "0 0 80px rgba(124,58,237,0.55), 0 0 32px rgba(167,139,250,0.3)",
-            }}
-          />
-        </motion.div>
-
-        {/* Orbiting chibi ring — outer container rotates, each chibi counter-rotates to stay upright */}
-        <motion.div
-          animate={{ rotate: 360 }}
-          transition={{ duration: 78, repeat: Infinity, ease: "linear" }}
-          style={{ position: "absolute", top: "50%", left: "50%", width: 0, height: 0, zIndex: 20 }}
-        >
-          {ORBIT_TYPES.map((t, i) => {
-            const angle = (i / 9) * 2 * Math.PI - Math.PI / 2; // start top
-            const rx = 142, ry = 86;
-            const x = Math.round(rx * Math.cos(angle));
-            const y = Math.round(ry * Math.sin(angle));
-            return (
-              <motion.div
-                key={t.n}
-                animate={{ rotate: -360 }}
-                transition={{ duration: 78, repeat: Infinity, ease: "linear" }}
-                style={{ position: "absolute", x, y, translateX: "-50%", translateY: "-50%" }}
-              >
-                {/* Idle float per chibi (staggered) */}
-                <motion.div
-                  animate={{ y: [0, -5, 0] }}
-                  transition={{ duration: 2.8 + i * 0.22, repeat: Infinity, ease: "easeInOut", delay: i * 0.38 }}
-                >
-                  <img
-                    src={`/sprites/chibi/${t.n}-sp${t.n}.png`}
-                    alt={`Type ${t.n}`}
-                    style={{
-                      width: 58, height: 58,
-                      objectFit: "contain",
-                      filter: `drop-shadow(0 0 10px ${t.color}90)`,
-                    }}
-                  />
-                </motion.div>
-              </motion.div>
-            );
-          })}
-        </motion.div>
+          style={{
+            position: "absolute", inset: 0,
+            width: "100%", height: "100%", display: "block",
+          }}
+        />
       </motion.div>
 
       {/* ── Headline ── */}
@@ -1000,10 +935,13 @@ export default function HomePage() {
   const { state, profile, gameState, dailyProgress } = useHomeState();
   const router = useRouter();
 
-  // No auto-redirect, Home tab shows its own dashboard with chibi greeting.
-
   const touchStartX = useRef(0);
   const touchStartY = useRef(0);
+
+  // Redirect dashboard users to /daily (home is replaced by the daily page)
+  useEffect(() => {
+    if (state === "dashboard") router.replace("/daily");
+  }, [state, router]);
 
   const onTouchStart = (e: React.TouchEvent) => {
     touchStartX.current = e.touches[0].clientX;
@@ -1014,10 +952,9 @@ export default function HomePage() {
     const deltaY = e.changedTouches[0].clientY - touchStartY.current;
     if (Math.abs(deltaX) < 80 || Math.abs(deltaX) < Math.abs(deltaY)) return;
     if (deltaX < 0) router.push("/daily");
-    // swipe right on home, no previous tab
   };
 
-  if (state === "loading") {
+  if (state === "loading" || state === "dashboard") {
     return (
       <div className="min-h-screen flex items-center justify-center" style={{ background: "#0f0a1e" }}>
         <motion.div
@@ -1033,6 +970,5 @@ export default function HomePage() {
 
   if (state === "new") return <div onTouchStart={onTouchStart} onTouchEnd={onTouchEnd}><EnterScreen /></div>;
   if (state === "onboarding") return <div onTouchStart={onTouchStart} onTouchEnd={onTouchEnd}><OnboardingResumeScreen profile={profile} /></div>;
-  if (state === "assess_prompt") return <div onTouchStart={onTouchStart} onTouchEnd={onTouchEnd}><AssessPromptScreen profile={profile} /></div>;
-  return <div onTouchStart={onTouchStart} onTouchEnd={onTouchEnd}><DashboardScreen profile={profile} gameState={gameState} dailyProgress={dailyProgress} /></div>;
+  return <div onTouchStart={onTouchStart} onTouchEnd={onTouchEnd}><AssessPromptScreen profile={profile} /></div>;
 }

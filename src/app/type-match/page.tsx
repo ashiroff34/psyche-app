@@ -285,26 +285,27 @@ export default function TypeMatchPage() {
 
   if (phase === "intro") {
     return (
-      <div className="min-h-screen flex items-center justify-center px-4 bg-gradient-to-br from-indigo-50 via-white to-violet-50">
+      <div className="min-h-screen flex items-center justify-center px-4" style={{ background: "#0f0a1e" }}>
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="w-full max-w-md text-center">
-          <div className="inline-flex items-center justify-center w-20 h-20 rounded-3xl bg-gradient-to-br from-indigo-500 to-violet-600 shadow-xl shadow-indigo-200/60 mb-6 mx-auto">
+          <div className="inline-flex items-center justify-center w-20 h-20 rounded-3xl mb-6 mx-auto" style={{ background: "linear-gradient(135deg, #4f46e5, #7c3aed)" }}>
             <Brain className="w-9 h-9 text-white" />
           </div>
-          <h1 className="text-3xl font-serif font-bold text-slate-900 mb-2">Type Match</h1>
-          <p className="text-slate-500 text-sm mb-8 leading-relaxed">
+          <h1 className="text-3xl font-serif font-bold mb-2" style={{ color: "rgba(255,255,255,0.92)" }}>Type Match</h1>
+          <p className="text-sm mb-8 leading-relaxed" style={{ color: "rgba(255,255,255,0.45)" }}>
             Read a quote, behavior, or inner dialogue.<br/>
             Identify which Enneagram type it represents.<br/>
-            <span className="text-indigo-600 font-medium">5 rounds · +{XP_PER_CORRECT} XP per correct</span>
+            <span className="font-medium" style={{ color: "#a78bfa" }}>5 rounds  +{XP_PER_CORRECT} XP per correct</span>
           </p>
           <motion.button
             whileTap={{ scale: 0.97 }}
             onClick={startGame}
-            className="w-full py-4 rounded-2xl bg-gradient-to-r from-indigo-500 to-violet-600 text-white font-bold text-lg shadow-lg shadow-indigo-200/60 hover:shadow-xl hover:-translate-y-0.5 transition-all"
+            className="w-full py-4 rounded-2xl text-white font-bold text-lg transition-all"
+            style={{ background: "linear-gradient(to right, #4f46e5, #7c3aed)" }}
           >
             Start Matching
           </motion.button>
-          <Link href="/game" className="mt-4 block text-sm text-slate-400 hover:text-slate-600 transition-colors">
-            ← Back to Game
+          <Link href="/game" className="mt-4 block text-sm transition-colors" style={{ color: "rgba(255,255,255,0.3)" }}>
+            Back to Game
           </Link>
         </motion.div>
       </div>
@@ -321,40 +322,54 @@ export default function TypeMatchPage() {
       correct >= 3 ? "Good eye!" :
       "Keep studying!";
 
+    const headerGradient = correct === ROUNDS
+      ? "linear-gradient(135deg, #34d399, #14b8a6)"
+      : correct >= 3
+      ? "linear-gradient(135deg, #4f46e5, #7c3aed)"
+      : "linear-gradient(135deg, #f59e0b, #f97316)";
+
     return (
-      <div className="min-h-screen flex items-center justify-center px-4 bg-gradient-to-br from-indigo-50 via-white to-violet-50">
+      <div className="min-h-screen flex items-center justify-center px-4" style={{ background: "#0f0a1e" }}>
         <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} className="w-full max-w-md">
-          <div className={`rounded-3xl p-8 text-center text-white mb-4 shadow-xl ${correct === ROUNDS ? "bg-gradient-to-r from-emerald-400 to-teal-500" : correct >= 3 ? "bg-gradient-to-r from-indigo-500 to-violet-600" : "bg-gradient-to-r from-amber-400 to-orange-500"}`}>
-            <div className="text-4xl mb-2">{correct === ROUNDS ? "★✦" : correct >= 3 ? "→" : "[read]"}</div>
+          <div className="rounded-3xl p-8 text-center text-white mb-4" style={{ background: headerGradient }}>
+            <div className="text-2xl mb-2 font-mono">{correct === ROUNDS ? "(*)(+)" : correct >= 3 ? "(+)" : "(read)"}</div>
             <h2 className="text-2xl font-serif font-bold mb-1">{grade}</h2>
             <p className="text-white/70 text-sm">{correct} of {ROUNDS} correct</p>
           </div>
 
-          <div className="bg-white rounded-3xl border border-slate-100 shadow-sm p-6 mb-4">
+          <div className="rounded-3xl p-6 mb-4" style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.09)" }}>
             <div className="flex justify-between items-center mb-3">
-              <span className="text-sm font-semibold text-slate-700">Round Results</span>
-              <span className="text-sm text-slate-400">{pct}% accuracy</span>
+              <span className="text-sm font-semibold" style={{ color: "rgba(255,255,255,0.7)" }}>Round Results</span>
+              <span className="text-sm" style={{ color: "rgba(255,255,255,0.35)" }}>{pct}% accuracy</span>
             </div>
             <div className="flex gap-2">
               {results.map((r, i) => (
-                <div key={i} className={`flex-1 h-2.5 rounded-full ${r ? "bg-emerald-400" : "bg-rose-300"}`} />
+                <div key={i} className={`flex-1 h-2.5 rounded-full ${r ? "bg-emerald-400" : "bg-rose-400"}`} />
               ))}
             </div>
           </div>
 
-          <div className="bg-gradient-to-r from-indigo-50 to-violet-50 rounded-2xl border border-indigo-100 p-4 mb-6 flex items-center justify-between">
+          <div className="rounded-2xl p-4 mb-6 flex items-center justify-between" style={{ background: "rgba(139,92,246,0.1)", border: "1px solid rgba(139,92,246,0.2)" }}>
             <div className="flex items-center gap-2">
-              <Zap className="w-5 h-5 text-indigo-500" />
-              <span className="font-semibold text-indigo-700">XP Earned</span>
+              <Zap className="w-5 h-5 text-violet-400" />
+              <span className="font-semibold" style={{ color: "rgba(255,255,255,0.75)" }}>XP Earned</span>
             </div>
-            <span className="text-2xl font-bold text-indigo-600">+{totalXP}</span>
+            <span className="text-2xl font-bold" style={{ color: "#a78bfa" }}>+{totalXP}</span>
           </div>
 
           <div className="flex gap-3">
-            <button onClick={startGame} className="flex-1 py-3.5 rounded-2xl bg-gradient-to-r from-indigo-500 to-violet-600 text-white font-bold shadow-md hover:shadow-lg transition-all">
+            <button
+              onClick={startGame}
+              className="flex-1 py-3.5 rounded-2xl text-white font-bold transition-all"
+              style={{ background: "linear-gradient(to right, #4f46e5, #7c3aed)" }}
+            >
               Play Again
             </button>
-            <Link href="/game" className="flex-1 py-3.5 rounded-2xl bg-white border border-slate-200 text-slate-700 font-semibold text-center hover:border-slate-300 transition-all">
+            <Link
+              href="/game"
+              className="flex-1 py-3.5 rounded-2xl font-semibold text-center transition-all"
+              style={{ background: "rgba(255,255,255,0.07)", border: "1px solid rgba(255,255,255,0.1)", color: "rgba(255,255,255,0.65)" }}
+            >
               Game Hub
             </Link>
           </div>
@@ -368,7 +383,7 @@ export default function TypeMatchPage() {
   if (!card) return null;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-violet-50 px-4 py-8 flex flex-col max-w-lg mx-auto">
+    <div className="min-h-screen px-4 py-8 flex flex-col max-w-lg mx-auto" style={{ background: "#0f0a1e" }}>
       {/* Progress */}
       <div className="flex items-center gap-3 mb-6">
         <div className="flex gap-1.5 flex-1">
@@ -377,15 +392,20 @@ export default function TypeMatchPage() {
               key={i}
               className={`flex-1 h-1.5 rounded-full transition-all ${
                 i < results.length
-                  ? results[i] ? "bg-emerald-400" : "bg-rose-300"
-                  : i === round
-                  ? "bg-indigo-300"
-                  : "bg-slate-200"
+                  ? results[i] ? "bg-emerald-400" : "bg-rose-400"
+                  : "bg-transparent"
               }`}
+              style={
+                i < results.length
+                  ? {}
+                  : i === round
+                  ? { background: "rgba(139,92,246,0.5)" }
+                  : { background: "rgba(255,255,255,0.1)" }
+              }
             />
           ))}
         </div>
-        <span className="text-xs text-slate-400 font-mono shrink-0">{round + 1} / {ROUNDS}</span>
+        <span className="text-xs font-mono shrink-0" style={{ color: "rgba(255,255,255,0.35)" }}>{round + 1} / {ROUNDS}</span>
       </div>
 
       {/* Card */}
@@ -398,18 +418,18 @@ export default function TypeMatchPage() {
           transition={{ duration: 0.2 }}
           className="flex-1"
         >
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-indigo-100 text-indigo-600 text-xs font-medium mb-4">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium mb-4" style={{ background: "rgba(139,92,246,0.15)", color: "#a78bfa" }}>
             <Sparkles className="w-3 h-3" />
             {card.tag}
           </div>
 
-          <div className="bg-white rounded-3xl border border-slate-100 shadow-md p-6 mb-6">
-            <p className="text-slate-700 text-base leading-relaxed font-medium italic">
+          <div className="rounded-3xl p-6 mb-6" style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.09)" }}>
+            <p className="text-base leading-relaxed font-medium italic" style={{ color: "rgba(255,255,255,0.85)" }}>
               {card.prompt}
             </p>
           </div>
 
-          <p className="text-xs text-slate-400 uppercase tracking-wider font-semibold mb-3">
+          <p className="text-xs uppercase tracking-wider font-semibold mb-3" style={{ color: "rgba(255,255,255,0.3)" }}>
             Which type is this?
           </p>
 
@@ -419,9 +439,23 @@ export default function TypeMatchPage() {
               const isCorrectType = type === card.type;
               const showResult = selected !== null;
 
-              let style = "bg-white border-slate-200 text-slate-700 hover:border-indigo-300 hover:bg-indigo-50";
-              if (showResult && isCorrectType) style = "bg-emerald-50 border-emerald-400 text-emerald-700";
-              else if (showResult && isSelected && !isCorrectType) style = "bg-rose-50 border-rose-400 text-rose-700";
+              const btnBg = showResult && isCorrectType
+                ? "rgba(52,211,153,0.12)"
+                : showResult && isSelected && !isCorrectType
+                ? "rgba(248,113,113,0.12)"
+                : selected === null
+                ? "rgba(255,255,255,0.05)"
+                : "rgba(255,255,255,0.03)";
+              const btnBorder = showResult && isCorrectType
+                ? "rgba(52,211,153,0.6)"
+                : showResult && isSelected && !isCorrectType
+                ? "rgba(248,113,113,0.6)"
+                : "rgba(255,255,255,0.1)";
+              const btnColor = showResult && isCorrectType
+                ? "#34d399"
+                : showResult && isSelected && !isCorrectType
+                ? "#f87171"
+                : "rgba(255,255,255,0.8)";
 
               return (
                 <motion.button
@@ -429,7 +463,8 @@ export default function TypeMatchPage() {
                   whileTap={{ scale: selected === null ? 0.96 : 1 }}
                   onClick={() => handlePick(type)}
                   disabled={selected !== null}
-                  className={`relative flex flex-col items-center p-4 rounded-2xl border-2 transition-all ${style} ${selected === null ? "cursor-pointer" : "cursor-default"}`}
+                  className={`relative flex flex-col items-center p-4 rounded-2xl border-2 transition-all ${selected === null ? "cursor-pointer" : "cursor-default"}`}
+                  style={{ background: btnBg, borderColor: btnBorder, color: btnColor }}
                 >
                   <div
                     className="w-8 h-8 rounded-xl flex items-center justify-center text-white font-bold text-sm mb-2 shadow-sm"
@@ -437,7 +472,7 @@ export default function TypeMatchPage() {
                   >
                     {type}
                   </div>
-                  <span className="text-xs font-medium text-center leading-tight">{TYPE_NAMES[type]}</span>
+                  <span className="text-xs font-medium text-center leading-tight" style={{ color: btnColor }}>{TYPE_NAMES[type]}</span>
                   {showResult && isCorrectType && <CheckCircle className="absolute top-2 right-2 w-4 h-4 text-emerald-500" />}
                   {showResult && isSelected && !isCorrectType && <XCircle className="absolute top-2 right-2 w-4 h-4 text-rose-500" />}
                 </motion.button>
@@ -453,15 +488,28 @@ export default function TypeMatchPage() {
                 animate={{ opacity: 1, y: 0 }}
                 className="space-y-3"
               >
-                <div className={`flex items-start gap-3 p-4 rounded-2xl ${selected === card.type ? "bg-emerald-50 border border-emerald-200" : "bg-rose-50 border border-rose-200"}`}>
+                <div
+                  className="flex items-start gap-3 p-4 rounded-2xl"
+                  style={{
+                    background: selected === card.type ? "rgba(52,211,153,0.1)" : "rgba(248,113,113,0.1)",
+                    border: `1px solid ${selected === card.type ? "rgba(52,211,153,0.3)" : "rgba(248,113,113,0.3)"}`,
+                  }}
+                >
                   {selected === card.type
-                    ? <CheckCircle className="w-5 h-5 text-emerald-500 shrink-0 mt-0.5" />
-                    : <XCircle className="w-5 h-5 text-rose-500 shrink-0 mt-0.5" />}
+                    ? <CheckCircle className="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" />
+                    : <XCircle className="w-5 h-5 text-rose-400 shrink-0 mt-0.5" />}
                   <div>
-                    <p className={`text-sm font-semibold mb-1 ${selected === card.type ? "text-emerald-700" : "text-rose-700"}`}>
-                      {selected === card.type ? `Correct! Type ${card.type} · ${TYPE_NAMES[card.type]}` : `That's Type ${card.type} · ${TYPE_NAMES[card.type]}`}
+                    <p className="text-sm font-semibold mb-1" style={{ color: selected === card.type ? "#34d399" : "#f87171" }}>
+                      {selected === card.type ? `Correct! Type ${card.type} ${TYPE_NAMES[card.type]}` : `That is Type ${card.type} ${TYPE_NAMES[card.type]}`}
                     </p>
-                    <p className="text-xs text-slate-500 leading-relaxed">{card.hint}</p>
+                    <p className="text-xs leading-relaxed mb-2" style={{ color: "rgba(255,255,255,0.5)" }}>{card.hint}</p>
+                    <Link
+                      href={`/enneagram/${card.type}`}
+                      className="inline-flex items-center gap-1 text-[11px] font-semibold transition-colors"
+                      style={{ color: "#a78bfa" }}
+                    >
+                      Read more about Type {card.type} <ArrowRight className="w-3 h-3" />
+                    </Link>
                   </div>
                 </div>
 

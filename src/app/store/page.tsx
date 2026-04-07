@@ -182,7 +182,7 @@ function GrowthPathSection({ tokenBalance }: { tokenBalance: number | null }) {
   const typeLabel = enneagramType ? `Type ${enneagramType}` : null;
   const week13Desc = enneagramType ? (TYPE_FEARS[enneagramType] ?? "Understanding your core fear") : "Understanding your core fear";
   const week46Desc = enneagramType ? (TYPE_INTEGRATION[enneagramType] ?? "Growth direction practice") : "Growth direction practice";
-  const hasEnoughTokens = tokenBalance !== null && tokenBalance >= 500;
+  const hasEnoughTokens = tokenBalance !== null && tokenBalance >= 1200;
 
   return (
     <motion.section {...fadeUp} transition={{ delay: 0.07 }} className="mb-10">
@@ -271,12 +271,12 @@ function GrowthPathSection({ tokenBalance }: { tokenBalance: number | null }) {
                 style={{ background: "rgba(139,92,246,0.15)", color: "rgba(255,255,255,0.45)", border: "1px solid rgba(139,92,246,0.2)", cursor: "default" }}
               >
                 <Lock className="w-4 h-4" />
-                Unlock Full Path — 500 tokens
+                Unlock Full Path — 1200 tokens
               </button>
               <p className="text-center text-xs" style={{ color: "rgba(255,255,255,0.35)" }}>
                 Your balance: <span style={{ color: "#fbbf24", fontWeight: 600 }}>{tokenBalance ?? 0} tokens</span>
-                {tokenBalance !== null && tokenBalance < 500 && (
-                  <> · {500 - tokenBalance} more needed</>
+                {tokenBalance !== null && tokenBalance < 1200 && (
+                  <> · {1200 - tokenBalance} more needed</>
                 )}
               </p>
             </div>
@@ -293,6 +293,7 @@ export default function StorePage() {
   const [billingCycle, setBillingCycle] = useState<"monthly" | "annual">("annual");
   const [purchaseToast, setPurchaseToast] = useState<string | null>(null);
   const [tokenBalance, setTokenBalance] = useState<number | null>(null);
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
     try {
@@ -302,7 +303,16 @@ export default function StorePage() {
     } catch {
       setTokenBalance(0);
     }
+    setMounted(true);
   }, []);
+
+  if (!mounted) return (
+    <div className="min-h-screen" style={{ background: "#0f0a1e" }}>
+      <div className="fixed inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute -top-32 -right-32 w-96 h-96 rounded-full blur-3xl" style={{ background: "radial-gradient(circle, rgba(251,191,36,0.08) 0%, transparent 70%)" }} />
+      </div>
+    </div>
+  );
 
   return (
     <div className="min-h-screen" style={{ background: "#0f0a1e" }}>

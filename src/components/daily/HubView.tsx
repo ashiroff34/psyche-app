@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
-import { Flame, Zap, Heart, ArrowRight, Sparkles, BookOpen, CheckCircle, Target, Star, Clock, Lock, ChevronRight, Coins, Brain } from "lucide-react";
+import { Flame, Zap, Heart, ArrowRight, Sparkles, BookOpen, CheckCircle, Target, Star, Clock, Lock, ChevronRight, Coins, Brain, Trophy } from "lucide-react";
 
 // ─── Type-match preview cards (subset for daily challenge) ────────────────────
 const DAILY_CHALLENGE_CARDS = [
@@ -48,6 +48,7 @@ const TYPE_NAMES: Record<number, string> = {
   7: "Type 7", 8: "Type 8", 9: "Type 9",
 };
 import WeeklyChallengeCard from "./WeeklyChallengeCard";
+import IntegrationCompanion from "./IntegrationCompanion";
 import PetSprite from "@/components/PetSprite";
 import ChibiSprite from "@/components/ChibiSprite";
 import type { PathNodeConfig } from "./NodeBottomSheet";
@@ -239,11 +240,97 @@ export default function HubView({
           )}
         </AnimatePresence>
 
+        {/* ── Gradient progress ring + chibi (visual hero — top of page) ── */}
+        <motion.div
+          initial={{ opacity: 1, scale: 1 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ delay: 0.1 }}
+          className="flex flex-col items-center mb-6"
+        >
+          <div className="relative">
+            {/* Outer glow */}
+            <div
+              className="absolute inset-0 rounded-full blur-xl opacity-30"
+              style={{
+                background: "radial-gradient(circle, #8b5cf6, #ec4899)",
+                transform: "scale(1.15)",
+              }}
+            />
+
+            <svg width="152" height="152" viewBox="0 0 152 152" className="relative">
+              <defs>
+                <linearGradient id="hub-ring-grad-top" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stopColor="#8b5cf6" />
+                  <stop offset="50%" stopColor="#d946ef" />
+                  <stop offset="100%" stopColor="#ec4899" />
+                </linearGradient>
+              </defs>
+              <circle cx="76" cy="76" r="52" fill="none" stroke="#e9d5ff" strokeWidth="6" />
+              <motion.circle
+                cx="76" cy="76" r="52" fill="none"
+                stroke="url(#hub-ring-grad-top)"
+                strokeWidth="6" strokeLinecap="round"
+                strokeDasharray={ringCircumference}
+                initial={{ strokeDashoffset: ringCircumference }}
+                animate={{ strokeDashoffset: ringCircumference - (ringCircumference * overallProgress) / 100 }}
+                transition={{ duration: 1.2, ease: "easeOut", delay: 0.3 }}
+                style={{ transform: "rotate(-90deg)", transformOrigin: "76px 76px", filter: "drop-shadow(0 0 8px rgba(139,92,246,0.5))" }}
+              />
+            </svg>
+
+            <div className="absolute inset-0 flex flex-col items-center justify-center">
+              {enneagramType ? (
+                <ChibiSprite type={enneagramType} instinct={instinct} size={64} state={warmupDoneToday ? "happy" : "idle"} />
+              ) : (
+                <div className="flex flex-col items-center">
+                  <span className="text-3xl font-bold text-slate-800">{overallProgress}%</span>
+                  <span className="text-[10px] text-slate-400 uppercase tracking-wide">today</span>
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* XP progress bar */}
+          {xpToNext !== null && nextMilestoneLabel && (
+            <div className="mt-4 w-48">
+              <div className="flex justify-between text-[10px] text-slate-400 mb-1">
+                <span>{xpLabel}</span>
+                <span>{xpToNext} to {nextMilestoneLabel}</span>
+              </div>
+              <div className="h-1.5 bg-violet-100 rounded-full overflow-hidden">
+                <motion.div
+                  className="h-full rounded-full"
+                  style={{ background: "linear-gradient(90deg, #8b5cf6, #ec4899)" }}
+                  initial={{ width: 0 }}
+                  animate={{ width: `${xpProgress}%` }}
+                  transition={{ duration: 1, delay: 0.5 }}
+                />
+              </div>
+            </div>
+          )}
+
+          {/* Type identity pills */}
+          {(enneagramType > 0 || jungianType) && (
+            <div className="flex items-center gap-2 mt-3 flex-wrap justify-center">
+              {enneagramType > 0 && (
+                <span className="px-2.5 py-1 rounded-full bg-violet-100 text-violet-700 text-[11px] font-bold">
+                  Type {enneagramType}
+                </span>
+              )}
+              {jungianType && (
+                <span className="px-2.5 py-1 rounded-full bg-indigo-100 text-indigo-700 text-[11px] font-bold font-mono">
+                  {jungianType}
+                </span>
+              )}
+            </div>
+          )}
+        </motion.div>
+
         {/* ── Stats row ── */}
         <motion.div
           initial={{ opacity: 1, y: 0 }}
           animate={{ opacity: 1, y: 0 }}
-          className="flex items-center justify-between mb-8"
+          className="flex items-center justify-between mb-6"
         >
           {/* Streak */}
           <div
@@ -267,7 +354,6 @@ export default function HubView({
             <span className="text-xl font-bold text-slate-800 leading-none">{streak}</span>
             <span className="text-[9px] text-slate-400 uppercase tracking-wide mt-0.5">streak</span>
 
-            {/* Countdown badge — shows when streak is at risk */}
             {streakAtRisk && (
               <div
                 className={`flex items-center gap-0.5 mt-1 px-1.5 py-0.5 rounded-full text-[9px] font-bold ${
@@ -311,25 +397,20 @@ export default function HubView({
           </div>
         </motion.div>
 
-        {/* ── Token balance chip + first-time explainer ── */}
-        <AnimatePresence>
-          {tokens > 0 && (
-            <motion.div
-              key="token-chip"
-              initial={{ opacity: 0, y: -6, scale: 0.95 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.95 }}
-              transition={{ type: "spring", damping: 22, stiffness: 300 }}
-              className="flex justify-center -mt-4 mb-6"
-            >
-              <div className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-amber-50 border border-amber-200 shadow-sm">
-                <Coins className="w-3.5 h-3.5 text-amber-500" />
-                <span className="text-sm font-bold text-amber-700">{tokens.toLocaleString()}</span>
-                <span className="text-xs text-amber-500 font-medium">tokens</span>
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
+        {/* ── Token balance chip ── always visible ── */}
+        <div className="flex justify-center mt-3 mb-6">
+          <div
+            className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full"
+            style={{
+              background: tokens > 0 ? "rgba(245,158,11,0.12)" : "rgba(255,255,255,0.06)",
+              border: `1px solid ${tokens > 0 ? "rgba(245,158,11,0.3)" : "rgba(255,255,255,0.1)"}`,
+            }}
+          >
+            <Coins className="w-3.5 h-3.5" style={{ color: tokens > 0 ? "#fbbf24" : "rgba(255,255,255,0.3)" }} />
+            <span className="text-sm font-bold" style={{ color: tokens > 0 ? "#fbbf24" : "rgba(255,255,255,0.35)" }}>{tokens.toLocaleString()}</span>
+            <span className="text-xs font-medium" style={{ color: tokens > 0 ? "rgba(245,158,11,0.7)" : "rgba(255,255,255,0.25)" }}>tokens</span>
+          </div>
+        </div>
 
         {/* First-time token tooltip */}
         <AnimatePresence>
@@ -347,7 +428,7 @@ export default function HubView({
                 className="px-4 py-3 flex items-start gap-3"
                 style={{ background: "rgba(245,158,11,0.15)", border: "1px solid rgba(245,158,11,0.3)" }}
               >
-                <div className="text-2xl shrink-0 mt-0.5">★</div>
+                <div className="text-base shrink-0 mt-0.5 font-mono font-bold" style={{ color: "#fbbf24" }}>(+)</div>
                 <div className="flex-1">
                   <p className="text-sm font-bold" style={{ color: "#fbbf24" }}>You earned tokens!</p>
                   <p className="text-xs mt-0.5 leading-relaxed" style={{ color: "rgba(251,191,36,0.8)" }}>
@@ -368,120 +449,6 @@ export default function HubView({
             </motion.div>
           )}
         </AnimatePresence>
-
-        {/* ── Gradient progress ring + pet ── */}
-        <motion.div
-          initial={{ opacity: 1, scale: 1 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: 0.1 }}
-          className="flex flex-col items-center mb-8"
-        >
-          <div className="relative">
-            {/* Outer glow */}
-            <div
-              className="absolute inset-0 rounded-full blur-xl opacity-30"
-              style={{
-                background: "radial-gradient(circle, #8b5cf6, #ec4899)",
-                transform: "scale(1.15)",
-              }}
-            />
-
-            <svg width="152" height="152" viewBox="0 0 152 152" className="relative">
-              <defs>
-                <linearGradient id="hub-ring-grad" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stopColor="#8b5cf6" />
-                  <stop offset="50%" stopColor="#d946ef" />
-                  <stop offset="100%" stopColor="#ec4899" />
-                </linearGradient>
-              </defs>
-              {/* Background track */}
-              <circle
-                cx="76"
-                cy="76"
-                r="52"
-                fill="none"
-                stroke="#e9d5ff"
-                strokeWidth="6"
-              />
-              {/* Progress arc */}
-              <motion.circle
-                cx="76"
-                cy="76"
-                r="52"
-                fill="none"
-                stroke="url(#hub-ring-grad)"
-                strokeWidth="6"
-                strokeLinecap="round"
-                strokeDasharray={ringCircumference}
-                initial={{ strokeDashoffset: ringCircumference }}
-                animate={{
-                  strokeDashoffset:
-                    ringCircumference - (ringCircumference * overallProgress) / 100,
-                }}
-                transition={{ duration: 1.2, ease: "easeOut", delay: 0.3 }}
-                style={{
-                  transform: "rotate(-90deg)",
-                  transformOrigin: "76px 76px",
-                  filter: "drop-shadow(0 0 8px rgba(139,92,246,0.5))",
-                }}
-              />
-            </svg>
-
-            {/* Center content — chibi or % */}
-            <div className="absolute inset-0 flex flex-col items-center justify-center">
-              {enneagramType ? (
-                <ChibiSprite
-                  type={enneagramType}
-                  instinct={instinct}
-                  size={64}
-                  state={warmupDoneToday ? "happy" : "idle"}
-                />
-              ) : (
-                <div className="flex flex-col items-center">
-                  <span className="text-3xl font-bold text-slate-800">{overallProgress}%</span>
-                  <span className="text-[10px] text-slate-400 uppercase tracking-wide">today</span>
-                </div>
-              )}
-            </div>
-          </div>
-
-          {/* XP progress bar */}
-          {xpToNext !== null && nextMilestoneLabel && (
-            <div className="mt-4 w-48">
-              <div className="flex justify-between text-[10px] text-slate-400 mb-1">
-                <span>{xpLabel}</span>
-                <span>{xpToNext} to {nextMilestoneLabel}</span>
-              </div>
-              <div className="h-1.5 bg-violet-100 rounded-full overflow-hidden">
-                <motion.div
-                  className="h-full rounded-full"
-                  style={{
-                    background: "linear-gradient(90deg, #8b5cf6, #ec4899)",
-                  }}
-                  initial={{ width: 0 }}
-                  animate={{ width: `${xpProgress}%` }}
-                  transition={{ duration: 1, delay: 0.5 }}
-                />
-              </div>
-            </div>
-          )}
-
-          {/* Type identity pills */}
-          {(enneagramType > 0 || jungianType) && (
-            <div className="flex items-center gap-2 mt-3 flex-wrap justify-center">
-              {enneagramType > 0 && (
-                <span className="px-2.5 py-1 rounded-full bg-violet-100 text-violet-700 text-[11px] font-bold">
-                  Type {enneagramType}
-                </span>
-              )}
-              {jungianType && (
-                <span className="px-2.5 py-1 rounded-full bg-indigo-100 text-indigo-700 text-[11px] font-bold font-mono">
-                  {jungianType}
-                </span>
-              )}
-            </div>
-          )}
-        </motion.div>
 
         {/* ── Streak-at-risk urgent banner ── */}
         <AnimatePresence>
@@ -518,6 +485,11 @@ export default function HubView({
             </motion.div>
           )}
         </AnimatePresence>
+
+        {/* ── Integration Companion ── */}
+        {enneagramType > 0 && (
+          <IntegrationCompanion userType={enneagramType} />
+        )}
 
         {/* ══════════════════════════════════════════════════════════════
              ── INLINE LEARNING PATH (Duolingo-style) ──
@@ -879,7 +851,7 @@ export default function HubView({
                   </div>
                   <div className="flex-1 min-w-0">
                     <p className={`text-[10px] font-bold uppercase tracking-wide ${challengeDone ? "text-emerald-600" : "text-violet-600"}`}>
-                      Today&apos;s Type Challenge ✦
+                      Today&apos;s Type Challenge
                     </p>
                     <p className={`text-sm font-medium ${challengeDone ? "text-emerald-700" : "text-slate-700"}`}>
                       {challengeDone ? "Challenge complete!" : "Can you identify the type?"}
@@ -941,6 +913,19 @@ export default function HubView({
             </motion.div>
           );
         })()}
+
+              {/* Progress shortcut */}
+              <Link
+                href="/game"
+                className="flex items-center justify-between p-3 rounded-xl transition-all"
+                style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.07)" }}
+              >
+                <div className="flex items-center gap-2">
+                  <Trophy className="w-4 h-4" style={{ color: "#fbbf24" }} />
+                  <span className="text-xs font-semibold" style={{ color: "rgba(255,255,255,0.65)" }}>View my progress</span>
+                </div>
+                <ArrowRight className="w-3.5 h-3.5" style={{ color: "rgba(255,255,255,0.3)" }} />
+              </Link>
 
         {/* ── Today's Reading card ── */}
         {onStartReading && (

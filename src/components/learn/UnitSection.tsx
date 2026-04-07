@@ -291,7 +291,7 @@ export default function UnitSection({ unit, onNodeTap, index, enneagramType = 4,
               border: `1px solid ${isLocked ? "rgba(255,255,255,0.08)" : palette.from + "55"}`,
             }}
           >
-            {isLocked ? "" : unit.icon ?? "★"}
+            {isLocked ? "" : unit.icon ?? "(*)"}
           </div>
 
           <div className="flex-1 min-w-0">
@@ -302,7 +302,7 @@ export default function UnitSection({ unit, onNodeTap, index, enneagramType = 4,
               >
                 Unit {unit.order}
               </span>
-              {pct === 100 && <span className="text-[10px]">★</span>}
+              {pct === 100 && <span className="text-[10px] font-mono">(*)</span>}
             </div>
             <h3
               className="font-black text-base leading-tight mb-1"

@@ -29,8 +29,8 @@ const TIER_CONFIG = {
     gradient: "linear-gradient(135deg, #0ea5e9, #38bdf8)",
   },
   epic: {
-    label: "JACKPOT! ★",
-    chest: "★",
+    label: "JACKPOT!",
+    chest: "(*)",
     color: "#f59e0b",
     glow: "rgba(245,158,11,0.6)",
     gradient: "linear-gradient(135deg, #f59e0b, #fcd34d)",
@@ -118,9 +118,9 @@ export default function TokenDropOverlay({ drop, onClaim }: Props) {
             <motion.span
               animate={{ rotate: [0, 360] }}
               transition={{ repeat: Infinity, duration: 2, ease: "linear" }}
-              className="text-2xl"
+              className="text-lg font-mono font-bold"
             >
-              ★
+              (*)
             </motion.span>
             TOKEN DROP!
             <motion.span

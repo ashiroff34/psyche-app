@@ -9,36 +9,217 @@ import {
   Brain,
   Compass,
   Beaker,
-  Menu,
   X,
-  Home,
   UserCircle,
-  ArrowLeftRight,
-  BookOpen,
   Flame,
-  Clock,
   Coins,
-  Cat,
   ChevronLeft,
-  Trophy,
   Zap,
   Moon,
   Bug,
   Settings,
-  Lock,
+  Grid3x3,
+  BookOpen,
 } from "lucide-react";
 import OuroborosLogo from "@/components/OuroborosLogo";
 import SearchComponent from "@/components/Search";
 
 // ── Bottom Tab Bar (5 main tabs, Duolingo-style) ──────────────────────────
 
-const bottomTabs = [
-  { href: "/", label: "Home", icon: Home },
-  { href: "/daily", label: "Daily", icon: Flame },
-  { href: "/avatar", label: "Pet", icon: Cat },
-  { href: "/store", label: "Store", icon: Coins },
-  { href: "/profile", label: "Profile", icon: UserCircle },
-];
+
+// ── Nav Wheel spokes ──────────────────────────────────────────────────────────
+// 6 destinations arranged in a fan above the center button.
+// Labels match the BRIEFING redesign: Know / Learn / Practice / Explore / Grow / You
+
+const WHEEL_SPOKES = [
+  { href: "/assessments", label: "Know",     icon: Zap,        color: "#8b5cf6" },
+  { href: "/daily",       label: "Practice", icon: Flame,      color: "#d946ef" },
+  { href: "/enneagram",   label: "Explore",  icon: Compass,    color: "#0ea5e9" },
+  { href: "/journal",     label: "Grow",     icon: Beaker,     color: "#10b981" },
+  { href: "/profile",     label: "You",      icon: UserCircle, color: "#a78bfa" },
+] as const;
+
+// Spoke positions: fan of ±50° from straight-up, r=130px — 5 spokes
+const SPOKE_OFFSETS = [-50, -25, 0, 25, 50].map((angleDeg) => {
+  const r = 130;
+  const rad = (angleDeg * Math.PI) / 180;
+  return { x: r * Math.sin(rad), y: -r * Math.cos(rad) };
+});
+
+function NavWheel({
+  pathname,
+  storeUnlocked,
+  storeNotifVisible,
+  storeLockToast,
+  onNavClick,
+  onStoreLockDismiss,
+}: {
+  pathname: string;
+  storeUnlocked: boolean;
+  storeNotifVisible: boolean;
+  storeLockToast: boolean;
+  onNavClick: (e: React.MouseEvent, href: string) => void;
+  onStoreLockDismiss: () => void;
+}) {
+  const [open, setOpen] = useState(false);
+  const router = useRouter();
+
+  // Close wheel on route change
+  useEffect(() => { setOpen(false); }, [pathname]);
+
+  // Close on outside tap
+  useEffect(() => {
+    if (!open) return;
+    const handle = (e: MouseEvent | TouchEvent) => {
+      const target = e.target as HTMLElement;
+      if (!target.closest("[data-nav-wheel]")) setOpen(false);
+    };
+    document.addEventListener("mousedown", handle);
+    document.addEventListener("touchstart", handle);
+    return () => {
+      document.removeEventListener("mousedown", handle);
+      document.removeEventListener("touchstart", handle);
+    };
+  }, [open]);
+
+  function handleSpokeTap(e: React.MouseEvent, href: string) {
+    onNavClick(e, href);
+    if (!e.defaultPrevented) {
+      setOpen(false);
+      router.push(href);
+    }
+  }
+
+  return (
+    <>
+      {/* Backdrop */}
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            key="wheel-backdrop"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.18 }}
+            className="fixed inset-0 z-40"
+            style={{ background: "rgba(10,6,20,0.72)", backdropFilter: "blur(4px)" }}
+            onClick={() => setOpen(false)}
+          />
+        )}
+      </AnimatePresence>
+
+      {/* Wheel container — fixed, centered at bottom */}
+      <div
+        data-nav-wheel
+        className="fixed z-50"
+        style={{ bottom: 24, left: "50%", transform: "translateX(-50%)" }}
+      >
+        {/* Spokes */}
+        <AnimatePresence>
+          {open && WHEEL_SPOKES.map((spoke, i) => {
+            const { x, y } = SPOKE_OFFSETS[i];
+            const Icon = spoke.icon;
+            const isActive = pathname === spoke.href || (spoke.href !== "/" as string && pathname.startsWith(spoke.href));
+
+            return (
+              <motion.button
+                key={spoke.href}
+                initial={{ x: 0, y: 0, scale: 0, opacity: 0 }}
+                animate={{ x, y, scale: 1, opacity: 1 }}
+                exit={{ x: 0, y: 0, scale: 0, opacity: 0 }}
+                transition={{
+                  type: "spring",
+                  stiffness: 320,
+                  damping: 24,
+                  delay: open ? i * 0.03 : (WHEEL_SPOKES.length - 1 - i) * 0.02,
+                }}
+                onClick={(e) => handleSpokeTap(e as unknown as React.MouseEvent, spoke.href)}
+                className="absolute flex flex-col items-center gap-1.5"
+                style={{ transform: `translate(${x}px, ${y}px) translate(-50%, -50%)` }}
+              >
+                {/* Icon bubble */}
+                <motion.div
+                  whileTap={{ scale: 0.9 }}
+                  className="w-11 h-11 rounded-2xl flex items-center justify-center shadow-lg"
+                  style={{
+                    background: isActive
+                      ? spoke.color
+                      : `${spoke.color}22`,
+                    border: `1px solid ${spoke.color}${isActive ? "ff" : "55"}`,
+                    boxShadow: isActive ? `0 0 18px ${spoke.color}55` : "none",
+                  }}
+                >
+                  <Icon className="w-5 h-5" style={{ color: isActive ? "#fff" : spoke.color }} />
+                </motion.div>
+                {/* Label */}
+                <span
+                  className="text-[10px] font-bold uppercase tracking-wide leading-none"
+                  style={{ color: isActive ? spoke.color : "rgba(255,255,255,0.55)" }}
+                >
+                  {spoke.label}
+                </span>
+              </motion.button>
+            );
+          })}
+        </AnimatePresence>
+
+        {/* Center button */}
+        <motion.button
+          whileTap={{ scale: 0.92 }}
+          onClick={() => setOpen(v => !v)}
+          className="relative w-14 h-14 rounded-full flex items-center justify-center shadow-xl"
+          style={{
+            background: open
+              ? "rgba(139,92,246,0.25)"
+              : "linear-gradient(135deg, #7c3aed, #4f46e5)",
+            border: `2px solid ${open ? "rgba(139,92,246,0.6)" : "rgba(139,92,246,0.4)"}`,
+            boxShadow: open ? "0 0 32px rgba(139,92,246,0.4)" : "0 4px 20px rgba(0,0,0,0.5)",
+          }}
+        >
+          <AnimatePresence mode="wait">
+            {open ? (
+              <motion.span
+                key="close"
+                initial={{ rotate: -45, opacity: 0 }}
+                animate={{ rotate: 0, opacity: 1 }}
+                exit={{ rotate: 45, opacity: 0 }}
+                transition={{ duration: 0.15 }}
+              >
+                <X className="w-5 h-5 text-violet-300" />
+              </motion.span>
+            ) : (
+              <motion.span
+                key="open"
+                initial={{ rotate: 45, opacity: 0 }}
+                animate={{ rotate: 0, opacity: 1 }}
+                exit={{ rotate: -45, opacity: 0 }}
+                transition={{ duration: 0.15 }}
+              >
+                <Grid3x3 className="w-5 h-5 text-white" />
+              </motion.span>
+            )}
+          </AnimatePresence>
+        </motion.button>
+
+        {/* Store lock toast */}
+        <AnimatePresence>
+          {storeLockToast && (
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: -80 }}
+              exit={{ opacity: 0 }}
+              onClick={onStoreLockDismiss}
+              className="absolute left-1/2 -translate-x-1/2 px-4 py-2 rounded-xl text-xs font-medium text-white whitespace-nowrap cursor-pointer"
+              style={{ background: "rgba(22,12,48,0.97)", border: "1px solid rgba(139,92,246,0.3)", boxShadow: "0 4px 16px rgba(0,0,0,0.4)" }}
+            >
+              Complete a lesson to unlock the Store
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
+    </>
+  );
+}
 
 // ── "More" items — grouped into 3 sections ─────────────────────────────────
 // Items are gated by account age (progressive disclosure):
@@ -51,27 +232,10 @@ type MoreGroup = { label: string; items: MoreItem[] };
 
 const ALL_MORE_GROUPS: MoreGroup[] = [
   {
-    label: "Study",
+    label: "App",
     items: [
-      { href: "/lessons", label: "Curriculum Map", icon: BookOpen },
-      { href: "/game", label: "Progress", icon: Trophy },
-      { href: "/journal", label: "Inner Work", icon: Beaker, unlocksDay: 7 },
-    ],
-  },
-  {
-    label: "Discover",
-    items: [
-      { href: "/assessments", label: "Type Assessments", icon: Zap },
-      { href: "/compare", label: "Compare Types", icon: ArrowLeftRight, unlocksDay: 7 },
-    ],
-  },
-  {
-    label: "Explore",
-    items: [
-      { href: "/enneagram", label: "Enneagram", icon: Compass },
-      { href: "/cognitive", label: "Cognitive Functions", icon: Brain },
-      { href: "/correlations", label: "Correlations", icon: ArrowLeftRight, unlocksDay: 7 },
-      { href: "/history", label: "History & Origins", icon: Clock, unlocksDay: 14 },
+      { href: "/settings", label: "Settings", icon: Settings },
+      { href: "/sources", label: "Sources & Research", icon: BookOpen },
     ],
   },
 ];
@@ -182,20 +346,8 @@ function MoreMenu({ pathname }: { pathname: string }) {
                   })}
                 </div>
               ))}
-              {/* Settings & utilities */}
+              {/* Utilities */}
               <div className="mt-1 pt-1" style={{ borderTop: "1px solid rgba(255,255,255,0.08)" }}>
-                <Link
-                  href="/settings"
-                  onClick={() => setOpen(false)}
-                  className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm transition-all"
-                  style={{
-                    background: pathname === "/settings" ? "rgba(139,92,246,0.18)" : "transparent",
-                    color: pathname === "/settings" ? "#c4b5fd" : "rgba(255,255,255,0.7)",
-                  }}
-                >
-                  <Settings className="w-4 h-4" />
-                  Settings
-                </Link>
                 <button
                   onClick={() => {
                     document.documentElement.classList.toggle("light");
@@ -415,8 +567,19 @@ export default function Navigation() {
               </Link>
             </div>
 
-            {/* Right side: search + more menu */}
+            {/* Right side: store chip + search + more menu */}
             <div className="flex items-center gap-1.5">
+              <Link
+                href="/store"
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-full transition-all"
+                style={{
+                  background: "rgba(251,191,36,0.12)",
+                  border: "1px solid rgba(251,191,36,0.28)",
+                }}
+              >
+                <Coins className="w-3.5 h-3.5" style={{ color: "#fbbf24" }} />
+                <span className="text-xs font-bold" style={{ color: "#fbbf24" }}>Store</span>
+              </Link>
               <SearchComponent />
               <MoreMenu pathname={pathname} />
             </div>
@@ -424,70 +587,16 @@ export default function Navigation() {
         </div>
       </nav>
 
-      {/* ── Bottom Tab Bar (Duolingo-style) ──────────────────────────────── */}
+      {/* ── Nav Wheel ─────────────────────────────────────────────────────── */}
       {!hideChrome && (
-        <div className="fixed bottom-0 left-0 right-0 z-50 backdrop-blur-xl safe-area-bottom" style={{ background: "rgba(15,10,30,0.96)", borderTop: "1px solid rgba(139,92,246,0.12)" }}>
-          <div className="max-w-lg mx-auto flex items-center justify-around px-2 py-1 relative">
-            {bottomTabs.map((tab) => {
-              const isActive =
-                tab.href === "/"
-                  ? pathname === "/"
-                  : pathname === tab.href || pathname.startsWith(tab.href);
-              const Icon = tab.icon;
-              const isStore = tab.href === "/store";
-              const isStoreLocked = isStore && !storeUnlocked;
-
-              return (
-                <Link
-                  key={tab.href}
-                  href={isStoreLocked ? "#" : tab.href}
-                  onClick={(e) => handleNavClick(e, tab.href)}
-                  className="relative flex flex-col items-center gap-0.5 px-3 py-2 rounded-xl min-w-[56px] transition-all"
-                  style={{ color: isStoreLocked ? "rgba(255,255,255,0.2)" : isActive ? "#a78bfa" : "rgba(255,255,255,0.35)", opacity: isStoreLocked ? 0.4 : 1 }}
-                >
-                  {/* Highlight dot for active tab */}
-                  {isActive && !isStoreLocked && (
-                    <motion.div
-                      layoutId="bottom-tab-indicator"
-                      className="absolute -top-1 w-5 h-1 rounded-full bg-gradient-to-r from-violet-400 to-indigo-400"
-                      transition={{ type: "spring", stiffness: 400, damping: 30 }}
-                    />
-                  )}
-                  <div className={`relative ${isStore && !isStoreLocked ? "p-1 rounded-lg bg-gradient-to-br from-amber-100 to-orange-100" : ""}`}>
-                    <Icon className={`w-5 h-5 ${isStore && !isActive && !isStoreLocked ? "text-amber-600" : ""}`} />
-                    {/* Lock overlay for locked store */}
-                    {isStoreLocked && (
-                      <div className="absolute -top-1 -right-1 w-3.5 h-3.5 rounded-full flex items-center justify-center" style={{ background: "rgba(30,20,60,0.9)", border: "1px solid rgba(255,255,255,0.2)" }}>
-                        <Lock className="w-2 h-2" style={{ color: "rgba(255,255,255,0.6)" }} />
-                      </div>
-                    )}
-                    {/* Store gets a subtle glow — only when tokens ≥ 50 and never visited */}
-                    {isStore && !isActive && storeNotifVisible && !isStoreLocked && (
-                      <div className="absolute -top-0.5 -right-0.5 w-2 h-2 rounded-full bg-amber-400 animate-pulse" />
-                    )}
-                  </div>
-                  <span className="text-[10px] font-medium">
-                    {tab.label}
-                  </span>
-                </Link>
-              );
-            })}
-            {/* Store lock toast */}
-            <AnimatePresence>
-              {storeLockToast && (
-                <motion.div
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: 10 }}
-                  className="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 px-4 py-2 rounded-xl text-xs font-medium text-white whitespace-nowrap"
-                  style={{ background: "rgba(22,12,48,0.97)", border: "1px solid rgba(139,92,246,0.3)", boxShadow: "0 4px 16px rgba(0,0,0,0.4)" }}
-                >
-                  Complete a lesson to unlock the Store
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </div>
-        </div>
+        <NavWheel
+          pathname={pathname}
+          storeUnlocked={storeUnlocked}
+          storeNotifVisible={storeNotifVisible}
+          storeLockToast={storeLockToast}
+          onNavClick={handleNavClick}
+          onStoreLockDismiss={() => setStoreLockToast(false)}
+        />
       )}
 
     </>

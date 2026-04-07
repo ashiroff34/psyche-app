@@ -418,6 +418,34 @@ export default function EnneagramPage() {
           </div>
         </section>
       )}
+
+      {/* ── Go deeper ── */}
+      <section className="py-12">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <p className="text-[10px] font-bold uppercase tracking-widest mb-3" style={{ color: "rgba(255,255,255,0.25)" }}>
+            Go deeper
+          </p>
+          <div className="grid grid-cols-2 gap-3">
+            {[
+              { href: "/cognitive", label: "Cognitive Functions", sub: "Jungian function stacks", color: "#6366f1" },
+              { href: "/history", label: "History & Origins", sub: "Roots of the system", color: "#0ea5e9" },
+            ].map(({ href, label, sub, color }) => (
+              <Link
+                key={href}
+                href={href}
+                className="p-4 rounded-2xl transition-all hover:-translate-y-0.5"
+                style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)" }}
+              >
+                <div className="w-7 h-7 rounded-xl flex items-center justify-center mb-2" style={{ background: `${color}20` }}>
+                  <ArrowRight className="w-3.5 h-3.5" style={{ color }} />
+                </div>
+                <p className="text-xs font-semibold mb-0.5" style={{ color: "rgba(255,255,255,0.8)" }}>{label}</p>
+                <p className="text-[10px]" style={{ color: "rgba(255,255,255,0.4)" }}>{sub}</p>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
     </div>
   );
 }

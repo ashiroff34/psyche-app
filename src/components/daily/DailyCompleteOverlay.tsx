@@ -71,9 +71,10 @@ export default function DailyCompleteOverlay({ show, streak, xpEarned, onDismiss
                 rotate: [0, -5, 5, 0],
               }}
               transition={{ duration: 1.2, delay: 0.4, ease: "easeInOut", repeat: 2, repeatType: "loop" }}
-              className="text-8xl mb-4 select-none"
+              className="text-5xl mb-4 select-none font-mono font-bold"
+              style={{ color: "#fbbf24" }}
             >
-              ★
+              (*)
             </motion.div>
 
             {/* Heading */}
@@ -91,7 +92,7 @@ export default function DailyCompleteOverlay({ show, streak, xpEarned, onDismiss
               transition={{ delay: 0.45, duration: 0.4 }}
               className="text-purple-300 text-sm font-medium mb-8"
             >
-              You crushed every quest today ✦
+              You crushed every quest today
             </motion.p>
 
             {/* Stats row */}

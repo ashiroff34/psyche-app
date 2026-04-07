@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import {
   Flame, Zap, Star, CheckCircle, XCircle, Trophy, Lightbulb,
-  Target, ChevronRight, Brain, Compass, Clock,
+  Target, ChevronRight, ChevronDown, Brain, Compass, Clock,
   BarChart3, Sparkles, ArrowRight, Copy, Check,
   Layers, History,
   GraduationCap, Dumbbell, Crown, Snowflake, Heart, Wand2,
@@ -33,6 +33,7 @@ import LessonBriefOverlay from "@/components/daily/LessonBriefOverlay";
 import DailyReading from "@/components/daily/DailyReading";
 import { getDailyReading } from "@/data/dailyReadings";
 import MilestoneModal from "@/components/MilestoneModal";
+import MorningObservation, { shouldShowMorningObservation } from "@/components/daily/MorningObservation";
 import { cognitiveGrowthEdges } from "@/data/cognitiveGrowthEdges";
 import { typeQuizQuestions } from "@/data/type-quizzes";
 import { introQuestions } from "@/data/intro-questions";
@@ -537,8 +538,17 @@ function srSelectQuestions(pool: Question[], n: number, stats: Record<string, QS
 export default function DailyPage() {
   const { profile, loaded, trackVisit, markQuizComplete, addXP } = useProfile();
   const { state: gameStateRaw, earnXP: gameEarnXP, loseHeart, buyHearts, xpGainAnimation, completeReading, recordTokenDrop, bumpSessionCount, weeklyChallenge, claimWeeklyReward } = useGameState();
-  const enneagramTypeForPet = profile.enneagramType ?? profile.enneagramCore;
+  const enneagramTypeForPet = profile.enneagramType ?? profile.enneagramCore ?? undefined;
   const { petState: livePetState, awardDailyGoalXP } = usePetState(enneagramTypeForPet);
+
+  // ── Morning observation interstitial ──
+  const [showMorningObservation, setShowMorningObservation] = useState(false);
+  useEffect(() => {
+    if (!loaded) return;
+    const type = profile.enneagramType ?? profile.enneagramCore;
+    if (!type) return;
+    if (shouldShowMorningObservation()) setShowMorningObservation(true);
+  }, [loaded, profile.enneagramType, profile.enneagramCore]);
 
   // ── Merged learn state (21 curriculum units) ──
   const { unitsWithStatus } = useMergedLearnState();
@@ -637,6 +647,7 @@ export default function DailyPage() {
 
   // ── View state (hub / path / quiz) ──
   const [view, setView] = useState<"hub" | "path" | "quiz" | "lesson" | "reading">("path");
+  const [pathExpanded, setPathExpanded] = useState(false);
   const [bottomSheetNode, setBottomSheetNode] = useState<PathNodeConfig | null>(null);
   const [quizSourceNode, setQuizSourceNode] = useState<PathNodeConfig | null>(null);
   const [pendingQuizNode, setPendingQuizNode] = useState<PathNodeConfig | null>(null);
@@ -1299,6 +1310,19 @@ export default function DailyPage() {
     </div>
   );
 
+  // Morning observation interstitial — full-screen gate before any view
+  if (showMorningObservation && profile.enneagramType) {
+    return (
+      <AnimatePresence>
+        <MorningObservation
+          key="morning-observation"
+          typeNumber={profile.enneagramType}
+          onDismiss={() => setShowMorningObservation(false)}
+        />
+      </AnimatePresence>
+    );
+  }
+
   // ═══════════════════════════════════════════════════════════════════════
   // QUIZ RENDERER
   // ═══════════════════════════════════════════════════════════════════════
@@ -1454,7 +1478,7 @@ export default function DailyPage() {
         {/* Confetti handled by react-rewards anchors in layout */}
         <FirstVisitTooltip
           storageKey="psyche-visited-daily"
-          message="Complete your daily goal to earn XP, tokens, and build your streak ★"
+          message="Complete your daily goal to earn XP, tokens, and build your streak (*)"
           icon="→"
         />
         <BeginnerBanner
@@ -1588,9 +1612,9 @@ export default function DailyPage() {
                 <motion.div
                   animate={{ scale: [1, 1.15, 1], rotate: [0, -5, 5, 0] }}
                   transition={{ duration: 0.8, delay: 0.2 }}
-                  className="text-6xl mb-4"
+                  className="text-5xl mb-4 font-mono"
                 >
-                  ★
+                  (*)
                 </motion.div>
                 <motion.h2
                   initial={{ y: 12, opacity: 0 }}
@@ -1703,20 +1727,20 @@ export default function DailyPage() {
           </div>
         </div>
         {/* ─── Quick Actions ───────────────────────────────────────────── */}
-        <div className="max-w-md mx-auto px-4 pt-4 flex gap-3">
+        <div className="max-w-md mx-auto px-4 pt-4 flex items-center gap-2">
           <button
             onClick={() => setView("hub")}
-            className="flex-1 py-3 rounded-2xl text-sm font-semibold text-white transition-all active:scale-95"
+            className="flex-1 py-3 rounded-2xl text-sm font-bold text-white transition-all active:scale-95"
             style={{ background: "linear-gradient(135deg, #7c3aed, #4f46e5)", boxShadow: "0 4px 16px rgba(124,58,237,0.35)" }}
           >
-            ★ Today&apos;s Challenge
+            (*) Today&apos;s Challenge
           </button>
           <button
             onClick={() => setView("hub")}
-            className="flex-1 py-3 rounded-2xl text-sm font-semibold transition-all active:scale-95"
-            style={{ background: "rgba(139,92,246,0.15)", border: "1px solid rgba(139,92,246,0.3)", color: "#c4b5fd" }}
+            className="py-3 px-4 rounded-2xl text-xs font-semibold transition-all active:scale-95 whitespace-nowrap"
+            style={{ background: "rgba(139,92,246,0.1)", border: "1px solid rgba(139,92,246,0.2)", color: "rgba(196,181,253,0.7)" }}
           >
-            + Practice Quiz
+            Practice Quiz
           </button>
         </div>
 
@@ -1728,8 +1752,8 @@ export default function DailyPage() {
             initial={{ scale: 0.8, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
           >
-            <span className="text-yellow-400 text-lg">★</span>
-            <span className="text-yellow-300 text-sm font-bold ml-2">{streak}-Day Streak!</span>
+            <span className="text-yellow-400 text-sm font-mono font-bold">(*)</span>
+            <span className="text-yellow-300 text-sm font-bold ml-2">{streak} Day Streak!</span>
           </motion.div>
         )}
         {/* Streak at risk warning */}
@@ -1778,20 +1802,17 @@ export default function DailyPage() {
             </div>
           );
         })()}
-        {/* Pet companion banner */}
+        {/* Pet companion — compact chip */}
         {livePetState && (
-          <div className="max-w-md mx-auto px-4 pt-3">
-            <Link href="/avatar" className="flex items-center gap-3 px-4 py-2.5 rounded-2xl" style={{ background: "rgba(139,92,246,0.08)", border: "1px solid rgba(139,92,246,0.15)" }}>
-              <PetCompanion type={livePetState.type} size={36} />
-              <div className="flex-1 min-w-0">
-                <span className="text-violet-300 text-xs font-semibold">{livePetState.name || "Your Pet"}</span>
-                <span className="text-violet-400/50 text-[10px] ml-2">
-                  {livePetState.isAlive
-                    ? livePetState.health > 80 ? "Thriving!" : livePetState.hunger < 30 ? "Hungry..." : "Happy"
-                    : "Needs revival!"}
-                </span>
-              </div>
-              <ChevronRight className="w-4 h-4 text-violet-400/40" />
+          <div className="max-w-md mx-auto px-4 pt-2">
+            <Link href="/avatar" className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full" style={{ background: "rgba(139,92,246,0.08)", border: "1px solid rgba(139,92,246,0.14)" }}>
+              <PetCompanion type={livePetState.type} size={22} />
+              <span className="text-violet-300 text-[11px] font-semibold">{livePetState.name || "Your Pet"}</span>
+              <span className="text-violet-400/45 text-[10px]">
+                {livePetState.isAlive
+                  ? livePetState.health > 80 ? "Thriving" : livePetState.hunger < 30 ? "Hungry" : "Happy"
+                  : "Needs revival"}
+              </span>
             </Link>
           </div>
         )}
@@ -1835,18 +1856,35 @@ export default function DailyPage() {
           );
         })()}
         {/* ─── Curriculum Path ─────────────────────────────────────────── */}
-        <div className="max-w-md mx-auto pt-4 pb-8">
-          {unitsWithStatus.map((unit, i) => (
-            <UnitSection
-              key={unit.id}
-              unit={unit}
-              index={i}
-              enneagramType={enneagramTypeForPet}
-              instinct={profile.instinctualStacking ?? "sp"}
-              onNodeTap={(lesson) => handleLessonNodeTap(lesson, unit)}
+        <div className="max-w-md mx-auto px-4 pt-3 pb-2">
+          <button
+            onClick={() => setPathExpanded(p => !p)}
+            className="w-full flex items-center justify-between px-4 py-2.5 rounded-2xl transition-all"
+            style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.07)" }}
+          >
+            <span className="text-xs font-bold uppercase tracking-widest" style={{ color: "rgba(255,255,255,0.4)" }}>
+              {pathExpanded ? "Hide curriculum" : "View full curriculum"}
+            </span>
+            <ChevronDown
+              className="w-4 h-4 transition-transform"
+              style={{ color: "rgba(255,255,255,0.3)", transform: pathExpanded ? "rotate(180deg)" : "rotate(0deg)" }}
             />
-          ))}
+          </button>
         </div>
+        {pathExpanded && (
+          <div className="max-w-md mx-auto pt-1 pb-8">
+            {unitsWithStatus.map((unit, i) => (
+              <UnitSection
+                key={unit.id}
+                unit={unit}
+                index={i}
+                enneagramType={enneagramTypeForPet}
+                instinct={profile.instinctualStacking ?? "sp"}
+                onNodeTap={(lesson) => handleLessonNodeTap(lesson, unit)}
+              />
+            ))}
+          </div>
+        )}
 
         {/* ─── Lesson node bottom sheet ────────────────────────────────── */}
         <NodeSheet
@@ -1917,7 +1955,7 @@ export default function DailyPage() {
             className="fixed inset-x-0 top-16 z-[60] flex justify-center pointer-events-none"
           >
             <div className="bg-gradient-to-r from-amber-500/90 via-yellow-400/90 to-amber-500/90 backdrop-blur-md text-white px-6 py-4 rounded-2xl shadow-2xl border border-amber-300/30 max-w-sm mx-4 text-center">
-              <div className="text-2xl mb-1">{"\uD83C\uDF89"}</div>
+              <div className="text-xl mb-1 font-mono font-bold" style={{ color: "#fbbf24" }}>(+)</div>
               <div className="font-bold text-lg">Daily Goal Complete!</div>
               <div className="text-amber-100 text-sm mt-1">+15 tokens earned!</div>
             </div>
@@ -1949,7 +1987,7 @@ export default function DailyPage() {
                 transition={{ duration: 0.7, delay: 0.2 }}
                 className="text-6xl mb-4"
               >
-                {weeklyChallenge?.emoji ?? "★"}
+                {weeklyChallenge?.emoji ?? "(*)"}
               </motion.div>
               <h2 className="text-2xl font-bold text-white mb-2">Challenge Complete!</h2>
               <p className="font-semibold mb-1" style={{ color: "#a78bfa" }}>
@@ -1975,7 +2013,7 @@ export default function DailyPage() {
                 className="w-full py-3.5 rounded-2xl text-white font-semibold text-base"
                 style={{ background: "linear-gradient(135deg, #7c3aed, #4f46e5)", boxShadow: "0 8px 24px rgba(124,58,237,0.4)" }}
               >
-                Keep Going ★
+                Keep Going
               </motion.button>
             </motion.div>
           </motion.div>
@@ -2084,13 +2122,13 @@ export default function DailyPage() {
               <motion.div
                 animate={{ rotate: [-5, 5, -5, 0] }}
                 transition={{ duration: 0.5, delay: 0.2 }}
-                className="text-5xl mb-3"
+                className="text-4xl mb-3 font-mono"
               >
-                ★
+                (~)
               </motion.div>
               <h2 className="text-xl font-black text-white mb-1">Your Streak Ended</h2>
               <p className="text-sm mb-5" style={{ color: "rgba(255,255,255,0.5)" }}>
-                You missed yesterday. Spend 3 tokens to restore your streak — this offer expires at midnight.
+                You missed yesterday. Spend 3 tokens to restore your streak. This offer expires at midnight.
               </p>
               <button
                 onClick={() => {
@@ -2122,7 +2160,7 @@ export default function DailyPage() {
                 }}
               >
                 {(gameStateRaw.tokens ?? 0) >= 3
-                  ? `★ Repair Streak — 3 Tokens (${gameStateRaw.tokens ?? 0} left)`
+                  ? `(*) Repair Streak  3 Tokens (${gameStateRaw.tokens ?? 0} left)`
                   : <span style={{ color: "rgba(255,255,255,0.5)" }}>{`Not enough tokens (need 3, have ${gameStateRaw.tokens ?? 0})`}</span>}
               </button>
               {streakDeclined ? (
@@ -2160,7 +2198,7 @@ export default function DailyPage() {
               exit={{ scale: 0.8, opacity: 0 }}
               transition={{ type: "spring", damping: 15 }}
             >
-              <div className="text-5xl mb-4">★</div>
+              <div className="text-4xl mb-4 font-mono">(*)</div>
               <h2 className="text-3xl font-black text-white mb-2">{streakMilestoneShown} Days!</h2>
               <p className="text-yellow-300/80 text-sm mb-1">Incredible consistency.</p>
               <p className="text-white/60 text-xs mb-6">You&apos;ve built a real habit. This is how growth works.</p>
@@ -2175,7 +2213,7 @@ export default function DailyPage() {
                 className="w-full py-3.5 rounded-2xl font-bold text-white"
                 style={{ background: "linear-gradient(135deg, #d97706, #f59e0b)", boxShadow: "0 4px 20px rgba(245,158,11,0.4)" }}
               >
-                Keep going ★
+                Keep going
               </button>
             </motion.div>
           </motion.div>

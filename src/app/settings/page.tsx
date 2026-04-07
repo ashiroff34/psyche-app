@@ -306,7 +306,7 @@ export default function SettingsPage() {
           localStorage.setItem("psyche-notif-enabled", "true");
         } catch {}
         // Confirmation notification
-        new Notification("Thyself ★", {
+        new Notification("Thyself", {
           body: "Daily reminders are on! We'll nudge you so you never lose your streak.",
           icon: "/icons/icon-192x192.png",
         });

@@ -37,6 +37,8 @@ import NextStepBanner from "@/components/NextStepBanner";
 import BeginnerBanner from "@/components/BeginnerBanner";
 import GlossaryTip from "@/components/GlossaryTip";
 import FirstVisitTooltip from "@/components/FirstVisitTooltip";
+import PsychicPortrait from "@/components/PsychicPortrait";
+import TikTokTypeCard from "@/components/TikTokTypeCard";
 
 
 const MBTI_TYPES = [
@@ -138,7 +140,7 @@ function TypeDNASection({ profile }: { profile: import("@/hooks/useProfile").Psy
             <div className="flex-1 min-w-0">
               <div className="flex items-center justify-between mb-1">
                 <span className="text-[11px] font-medium truncate" style={{ color: isUserType ? "rgba(196,181,253,0.9)" : "rgba(255,255,255,0.6)" }}>
-                  {bar.name}{isUserType ? " ★" : ""}
+                  {bar.name}{isUserType ? " (*)" : ""}
                 </span>
                 {bar.label && (
                   <span className="text-[10px] text-white/35 ml-2 shrink-0">{bar.label}</span>
@@ -1407,6 +1409,8 @@ export default function ProfilePage() {
     tritype: profile.tritype,
   };
 
+  const [showTypeCard, setShowTypeCard] = useState(false);
+
   // Check if new user who chose "I know my type" path (must be before conditional return)
   const [showNewUserPrompt, setShowNewUserPrompt] = useState(false);
   useEffect(() => {
@@ -1432,10 +1436,23 @@ export default function ProfilePage() {
 
   return (
     <div className="min-h-screen" style={{ background: "linear-gradient(160deg, #160f38 0%, #0f0a1e 100%)" }}>
+      <AnimatePresence>
+        {showTypeCard && profile.enneagramType && (
+          <TikTokTypeCard
+            enneagramType={profile.enneagramType}
+            wing={profile.enneagramWing ?? undefined}
+            instinct={profile.instinctualStacking ?? undefined}
+            tritype={profile.tritype ?? undefined}
+            mbtiType={profile.cognitiveType ?? profile.mbtiType ?? undefined}
+            displayName={profile.displayName ?? undefined}
+            onClose={() => setShowTypeCard(false)}
+          />
+        )}
+      </AnimatePresence>
       <FirstVisitTooltip
         storageKey="psyche-visited-profile"
         message="Set your Enneagram type here, your daily practice and chibi pet unlock once you do!"
-        icon="✦"
+        icon="(*)"
       />
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
 
@@ -1447,7 +1464,7 @@ export default function ProfilePage() {
           primaryHref="/daily"
         />
 
-        {/* New user welcome banner — only for "I know my type" path */}
+        {/* New user welcome banner — only for "I know my type" path (comment only, not UI text) */}
         {showNewUserPrompt && (
           <motion.div
             initial={{ opacity: 1, y: 0 }}
@@ -1518,6 +1535,31 @@ export default function ProfilePage() {
             </motion.button>
           )}
         </motion.div>
+
+        {/* ── Psychic Portrait constellation ── */}
+        {hasProfile && (() => {
+          const tritypeArr: [number, number, number] | null = (() => {
+            if (compat.tritypeFirst && compat.tritypeSecond && compat.tritypeThird) {
+              return [compat.tritypeFirst, compat.tritypeSecond, compat.tritypeThird];
+            }
+            if (compat.tritype && compat.tritype.length >= 3) {
+              const nums = compat.tritype.split("").map(Number).filter(n => n >= 1 && n <= 9);
+              if (nums.length === 3) return [nums[0], nums[1], nums[2]] as [number, number, number];
+            }
+            return null;
+          })();
+          return (
+            <PsychicPortrait
+              enneagramType={compat.enneagramCore}
+              enneagramWing={compat.enneagramWing}
+              tritype={tritypeArr}
+              cognitiveType={compat.mbtiType}
+              instinctualStacking={compat.instinctualStacking}
+              completedLessons={profile.xp ? Math.min(100, Math.floor(profile.xp / 20)) : 0}
+              displayName={profile.displayName}
+            />
+          );
+        })()}
 
         {/* ── Empty state: no type set yet ─────────────────────────────────── */}
         {!hasProfile && !isEditing && (
@@ -1752,6 +1794,19 @@ export default function ProfilePage() {
               enneagramWing={profile.enneagramWing}
               displayName={profile.displayName}
             />
+            {profile.enneagramType && (
+              <button
+                onClick={() => setShowTypeCard(true)}
+                className="w-full mt-3 py-3 rounded-2xl font-bold text-sm flex items-center justify-center gap-2"
+                style={{
+                  background: "linear-gradient(135deg, #7c3aed, #d946ef)",
+                  boxShadow: "0 4px 20px rgba(124,58,237,0.35)",
+                  color: "white",
+                }}
+              >
+                Share your type card
+              </button>
+            )}
           </div>
         )}
 
@@ -1777,12 +1832,15 @@ export default function ProfilePage() {
               </div>
               <div>
                 <p style={{ fontSize: 15, fontWeight: 700, color: "white", marginBottom: 2 }}>Your Type Report</p>
-                <p style={{ fontSize: 12, color: "rgba(255,255,255,0.5)" }}>Full psychology breakdown — arrows, subtypes, insights</p>
+                <p style={{ fontSize: 12, color: "rgba(255,255,255,0.5)" }}>Full psychology breakdown  arrows, subtypes, insights</p>
               </div>
             </div>
             <ArrowRight className="w-4 h-4" style={{ color: "rgba(167,139,250,0.8)", flexShrink: 0 }} />
           </Link>
         )}
+
+        {/* Referral Block */}
+        {hasProfile && !isEditing && <ReferralBlock />}
 
         {/* Next Step guidance */}
         {hasProfile && !isEditing && (
@@ -1794,6 +1852,77 @@ export default function ProfilePage() {
             color="#0ea5e9"
           />
         )}
+      </div>
+    </div>
+  );
+}
+
+// ─── Referral Block ───────────────────────────────────────────────────────────
+
+function ReferralBlock() {
+  const [code] = useState(() => {
+    try {
+      let c = localStorage.getItem("psyche-my-referral-code");
+      if (!c) {
+        c = Math.random().toString(36).slice(2, 8).toUpperCase();
+        localStorage.setItem("psyche-my-referral-code", c);
+      }
+      return c;
+    } catch {
+      return "THYSELF";
+    }
+  });
+  const [copied, setCopied] = useState(false);
+
+  const link = `https://thyself.app/r/${code}`;
+
+  const copyLink = async () => {
+    try {
+      await navigator.clipboard.writeText(link);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2200);
+    } catch {}
+  };
+
+  return (
+    <div
+      className="mt-4 p-4 rounded-2xl"
+      style={{
+        background: "rgba(245,158,11,0.07)",
+        border: "1px solid rgba(245,158,11,0.18)",
+      }}
+    >
+      <div className="flex items-start gap-3 mb-3">
+        <span className="text-sm font-mono font-bold mt-0.5 shrink-0" style={{ color: "#fbbf24" }}>(+)</span>
+        <div>
+          <p className="text-sm font-bold text-white">Invite a friend</p>
+          <p className="text-xs mt-0.5 leading-relaxed" style={{ color: "rgba(255,255,255,0.45)" }}>
+            They get +25 tokens on their first assessment. Share your link.
+          </p>
+        </div>
+      </div>
+      <div className="flex items-center gap-2">
+        <div
+          className="flex-1 px-3 py-2 rounded-xl text-xs font-mono truncate"
+          style={{
+            background: "rgba(255,255,255,0.06)",
+            border: "1px solid rgba(255,255,255,0.1)",
+            color: "rgba(255,255,255,0.5)",
+          }}
+        >
+          {link}
+        </div>
+        <button
+          onClick={copyLink}
+          className="px-3 py-2 rounded-xl text-xs font-bold whitespace-nowrap transition-all"
+          style={{
+            background: copied ? "rgba(52,211,153,0.15)" : "rgba(245,158,11,0.15)",
+            border: copied ? "1px solid rgba(52,211,153,0.3)" : "1px solid rgba(245,158,11,0.3)",
+            color: copied ? "#34d399" : "#fbbf24",
+          }}
+        >
+          {copied ? "Copied!" : "Copy link"}
+        </button>
       </div>
     </div>
   );

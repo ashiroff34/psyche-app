@@ -309,6 +309,24 @@ export function useProfile() {
       // Set assessmentDate on the very first assessment taken
       const isFirstEver = taken.length === 0 && !prev.assessmentDate;
 
+      // Award referral tokens on first-ever assessment
+      if (isFirstEver) {
+        try {
+          const referralCode = localStorage.getItem("psyche-referral-code");
+          const alreadyRewarded = localStorage.getItem("psyche-referral-rewarded");
+          if (referralCode && !alreadyRewarded) {
+            localStorage.setItem("psyche-referral-rewarded", "1");
+            // Award tokens to this (referred) user via game state
+            const gsRaw = localStorage.getItem("psyche-game-state");
+            if (gsRaw) {
+              const gs = JSON.parse(gsRaw);
+              gs.tokens = (gs.tokens ?? 0) + 25;
+              localStorage.setItem("psyche-game-state", JSON.stringify(gs));
+            }
+          }
+        } catch {}
+      }
+
       const historyEntry = {
         id: assessmentId,
         name: assessmentId,

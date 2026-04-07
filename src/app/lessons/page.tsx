@@ -63,7 +63,7 @@ function getPersonalizedSubtitle(
   profile: { enneagramType?: number; cognitiveType?: string }
 ): string {
   if (unitId === "your-type" && profile.enneagramType) {
-    return `Deep dive into Type ${profile.enneagramType}, your core motivations`;
+    return `Deep dive into Type ${profile.enneagramType} — your core motivations`;
   }
   if (unitId === "your-mind" && profile.cognitiveType) {
     return `How your ${profile.cognitiveType} mind shapes your thinking`;

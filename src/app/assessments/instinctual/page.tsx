@@ -72,6 +72,7 @@ function ResultsView({
   selections: Record<number, Instinct>;
   onSave: () => void;
 }) {
+  const router = useRouter();
   const { scores, stacking, ranked } = computeStacking(selections);
   const total = Object.values(scores).reduce((s, n) => s + n, 0);
   const dominantInstinct = instinctualVariants.find((v) => v.code === ranked[0]);
@@ -128,7 +129,7 @@ function ResultsView({
             <div key={inst}>
               <div className="flex items-center justify-between mb-1">
                 <span className="text-xs font-medium" style={{ color: colors.text }}>
-                  {inst.toUpperCase()} — {INSTINCT_LABELS[inst]}
+                  {inst.toUpperCase()} {INSTINCT_LABELS[inst]}
                 </span>
                 <span className="text-xs font-mono" style={{ color: "rgba(255,255,255,0.5)" }}>
                   {scores[inst]}/{total}
@@ -217,7 +218,7 @@ function ResultsView({
           Save to Profile
         </button>
         <button
-          onClick={() => window.history.back()}
+          onClick={() => router.push("/assessments")}
           className="w-full py-3 rounded-2xl font-medium transition-all"
           style={{ background: "rgba(255,255,255,0.08)", color: "rgba(255,255,255,0.7)" }}
         >
@@ -280,7 +281,7 @@ export default function InstinctualPage() {
     });
     addXP(75, "instinctual-complete");
     setSaved(true);
-    setTimeout(() => router.push("/profile"), 800);
+    setTimeout(() => router.push("/assessments"), 800);
   }
 
   // Intro screen
@@ -311,7 +312,7 @@ export default function InstinctualPage() {
               Instinctual Stacking
             </h1>
             <p className="text-base leading-relaxed mb-8" style={{ color: "rgba(255,255,255,0.6)" }}>
-              Your instinctual drives shape <em>how</em> your Enneagram type expresses itself. Discover which of the three survival instincts — Self-Preservation, Sexual/One-to-One, and Social — runs your life most powerfully.
+              Your instinctual drives shape <em>how</em> your Enneagram type expresses itself. Discover which of the three survival instincts (Self-Preservation, Sexual/One-to-One, and Social) runs your life most powerfully.
             </p>
             <div
               className="p-4 rounded-xl text-sm text-left space-y-2 mb-8"
@@ -319,7 +320,7 @@ export default function InstinctualPage() {
             >
               <p style={{ color: "rgba(255,255,255,0.7)" }}>
                 <span className="font-semibold" style={{ color: "rgba(255,255,255,0.9)" }}>30 forced-choice questions.</span>{" "}
-                Each presents two statements — pick whichever is MORE like you, not which you wish were true.
+                Each presents two statements. Pick whichever is MORE like you, not which you wish were true.
               </p>
               <p style={{ color: "rgba(255,255,255,0.5)" }}>
                 There are no right or wrong answers. Go with your gut. Takes about 5 minutes.

@@ -485,11 +485,11 @@ export default function TritypeAssessmentPage() {
                 <RotateCcw className="w-4 h-4" /> Retake
               </button>
               <Link
-                href="/profile"
+                href="/assessments"
                 className="flex-2 flex-1 py-3.5 rounded-xl text-sm font-semibold flex items-center justify-center gap-2 transition-all"
                 style={{ background: "linear-gradient(135deg, #7c3aed, #4f46e5)", color: "white" }}
               >
-                View Profile <ChevronRight className="w-4 h-4" />
+                Next Step <ChevronRight className="w-4 h-4" />
               </Link>
             </div>
           </motion.div>

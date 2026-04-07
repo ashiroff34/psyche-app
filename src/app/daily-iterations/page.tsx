@@ -142,7 +142,7 @@ export default function DailyIterationsPage() {
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
-   SHARED HEADER, streak, XP, daily insight (present in all iterations)
+   SHARED HEADER — streak, XP, daily insight (present in all iterations)
    ═══════════════════════════════════════════════════════════════════════════ */
 function SharedHeader() {
   return (
@@ -174,7 +174,7 @@ function SharedHeader() {
         <p className="text-sm text-slate-700 leading-relaxed italic">
           &ldquo;Until you make the unconscious conscious, it will direct your life and you will call it fate.&rdquo;
         </p>
-        <p className="text-xs text-slate-400 mt-1">Carl Jung</p>
+        <p className="text-xs text-slate-400 mt-1">— Carl Jung</p>
       </div>
     </div>
   );
@@ -806,7 +806,7 @@ function Iteration9() {
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
-   ITERATION 10: HYBRID (best of all, Duo path + clean cards + gamification)
+   ITERATION 10: HYBRID (best of all — Duo path + clean cards + gamification)
    ═══════════════════════════════════════════════════════════════════════════ */
 function Iteration10() {
   return (

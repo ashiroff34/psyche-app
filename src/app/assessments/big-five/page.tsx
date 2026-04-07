@@ -324,7 +324,7 @@ export default function BigFivePage() {
             })),
           });
           addXP(100, "big-five-complete");
-          router.push("/profile");
+          router.push("/assessments");
         }}
       />
     );

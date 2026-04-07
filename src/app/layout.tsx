@@ -94,7 +94,8 @@ export default function RootLayout({
           visibleToasts={2}
         />
         <RewardAnchors />
-        <main className="pt-14 pb-20">{children}</main>
+        {/* pb-24 = NavWheel clearance: button h-14 (56px) + bottom-24px offset + label ~16px */}
+        <main className="pt-14 pb-24">{children}</main>
         <TutorialProvider />
         <RetentionBanner />
         <EngagementNudge />

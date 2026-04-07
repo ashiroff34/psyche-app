@@ -1899,17 +1899,30 @@ function EnneagramJournal() {
     setEntries(updated);
     saveJournalEntries(updated);
     incrementGrowthStreak();
-    // Award XP for journaling
+    // Award XP for journaling with word count and daily limit checks
+    const wordCount = text.trim().split(/\s+/).filter(Boolean).length;
+    const dateKey = new Date().toISOString().slice(0, 10);
+    const xpCountKey = `psyche-journal-xp-${dateKey}`;
     try {
-      const gsRaw = localStorage.getItem("psyche-game-state");
-      const gs = gsRaw ? JSON.parse(gsRaw) : {};
-      const current = (gs.xp as number) ?? 0;
-      localStorage.setItem("psyche-game-state", JSON.stringify({
-        ...gs,
-        xp: current + 10,
-      }));
-      toast("✦ +10 XP earned for journaling!");
-    } catch {}
+      const dailyCount = parseInt(localStorage.getItem(xpCountKey) || "0", 10);
+      if (wordCount >= 50 && dailyCount < 3) {
+        const gsRaw = localStorage.getItem("psyche-game-state");
+        const gs = gsRaw ? JSON.parse(gsRaw) : {};
+        const current = (gs.xp as number) ?? 0;
+        localStorage.setItem("psyche-game-state", JSON.stringify({
+          ...gs,
+          xp: current + 10,
+        }));
+        localStorage.setItem(xpCountKey, String(dailyCount + 1));
+        toast("(+) +10 XP earned for journaling!");
+      } else if (dailyCount >= 3) {
+        toast("Entry saved. Daily reflection limit reached.");
+      } else {
+        toast("Entry saved.");
+      }
+    } catch {
+      toast("Entry saved.");
+    }
     setText("");
     setSelectedTypes([]);
     setSelectedTopics([]);
