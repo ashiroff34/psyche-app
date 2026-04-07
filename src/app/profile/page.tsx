@@ -1860,21 +1860,24 @@ export default function ProfilePage() {
 // ─── Referral Block ───────────────────────────────────────────────────────────
 
 function ReferralBlock() {
-  const [code] = useState(() => {
+  // Must use useEffect — localStorage is not available during SSR
+  const [code, setCode] = useState<string | null>(null);
+  const [copied, setCopied] = useState(false);
+
+  useEffect(() => {
     try {
       let c = localStorage.getItem("psyche-my-referral-code");
       if (!c) {
         c = Math.random().toString(36).slice(2, 8).toUpperCase();
         localStorage.setItem("psyche-my-referral-code", c);
       }
-      return c;
+      setCode(c);
     } catch {
-      return "THYSELF";
+      setCode("THYSELF");
     }
-  });
-  const [copied, setCopied] = useState(false);
+  }, []);
 
-  const link = `https://thyself.app/r/${code}`;
+  const link = `https://thyself.app/r/${code ?? "...loading"}`;
 
   const copyLink = async () => {
     try {

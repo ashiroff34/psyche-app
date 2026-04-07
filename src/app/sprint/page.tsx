@@ -60,8 +60,8 @@ export default function SprintPage() {
       const raw = localStorage.getItem("psyche-profile");
       if (raw) {
         const profile = JSON.parse(raw);
-        if (profile.type && typeof profile.type === "number") {
-          setPetType(profile.type);
+        if (profile.enneagramType && typeof profile.enneagramType === "number") {
+          setPetType(profile.enneagramType);
         }
       }
     } catch {}
@@ -87,6 +87,18 @@ export default function SprintPage() {
   const wrong = answers.filter((a) => !a.correct).length;
   const accuracy = answers.length > 0 ? Math.round((correct / answers.length) * 100) : 0;
 
+  // ── Game Logic ─────────────────────────────────────────────────────────────
+
+  const finishGame = useCallback(() => {
+    setPhase("finished");
+    const elapsed = Math.floor((Date.now() - startTimeRef.current) / 1000);
+    // Speed demon badge: finished with 5+ correct answers
+    if (elapsed < 60 && correct >= 5) {
+      unlockBadge("speed-demon");
+    }
+    recordQuizComplete(elapsed, accuracy);
+  }, [correct, accuracy, unlockBadge, recordQuizComplete]);
+
   // ── Timer ──────────────────────────────────────────────────────────────────
 
   useEffect(() => {
@@ -97,9 +109,7 @@ export default function SprintPage() {
     }
     const id = setTimeout(() => setTimeLeft((t) => t - 1), 1000);
     return () => clearTimeout(id);
-  }, [phase, timeLeft]);
-
-  // ── Game Logic ─────────────────────────────────────────────────────────────
+  }, [phase, timeLeft, finishGame]);
 
   const startGame = () => {
     const q = shuffleArray(typeQuizQuestions).slice(0, 40); // cap at 40 for UX
@@ -114,16 +124,6 @@ export default function SprintPage() {
     startTimeRef.current = Date.now();
     setPhase("playing");
   };
-
-  const finishGame = useCallback(() => {
-    setPhase("finished");
-    const elapsed = Math.floor((Date.now() - startTimeRef.current) / 1000);
-    // Speed demon badge, finished a quiz under 60s (used all time perfectly or got through questions fast)
-    if (elapsed < 60 && correct >= 5) {
-      unlockBadge("speed-demon");
-    }
-    recordQuizComplete(elapsed, accuracy);
-  }, [correct, accuracy, unlockBadge, recordQuizComplete]);
 
   const handleAnswer = (letter: string) => {
     if (selected !== null || phase !== "playing") return;

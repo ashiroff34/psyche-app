@@ -287,16 +287,18 @@ function ResultsInner() {
   const typeData = enneagramTypes.find((t) => t.number === typeNum);
 
   // Detect first-ever type discovery (profile had no type before this page loaded)
-  const [isFirstDiscovery] = useState(() => {
+  // Must use useEffect — localStorage is not available during SSR
+  const [isFirstDiscovery, setIsFirstDiscovery] = useState(false);
+  useEffect(() => {
     try {
       const raw = localStorage.getItem("psyche-profile");
-      if (!raw) return true;
+      if (!raw) { setIsFirstDiscovery(true); return; }
       const p = JSON.parse(raw);
-      return !p.enneagramType || p.enneagramType === 0;
+      setIsFirstDiscovery(!p.enneagramType || p.enneagramType === 0);
     } catch {
-      return false;
+      setIsFirstDiscovery(false);
     }
-  });
+  }, []);
 
   // iEQ9-style confidence and dual-type reporting
   const confidence = parseInt(searchParams.get("confidence") ?? "70");

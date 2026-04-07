@@ -1735,13 +1735,13 @@ export default function DailyPage() {
           >
             (*) Today&apos;s Challenge
           </button>
-          <button
-            onClick={() => setView("hub")}
+          <Link
+            href="/sprint"
             className="py-3 px-4 rounded-2xl text-xs font-semibold transition-all active:scale-95 whitespace-nowrap"
             style={{ background: "rgba(139,92,246,0.1)", border: "1px solid rgba(139,92,246,0.2)", color: "rgba(196,181,253,0.7)" }}
           >
             Practice Quiz
-          </button>
+          </Link>
         </div>
 
         {/* Streak milestone celebration */}
