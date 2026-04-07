@@ -83,6 +83,147 @@ function ExpandableSection({ title, icon: Icon, children, defaultOpen = false }:
   );
 }
 
+/* ───────────────────────────────────────────────────────────────────────────
+   CollapsibleDeepCard — for deep-systems subgroups with custom colored headers
+   ─────────────────────────────────────────────────────────────────────────── */
+function CollapsibleDeepCard({
+  headerBg,
+  border,
+  headerContent,
+  children,
+  defaultOpen = false,
+}: {
+  headerBg: string;
+  border: string;
+  headerContent: React.ReactNode;
+  children: React.ReactNode;
+  defaultOpen?: boolean;
+}) {
+  const [open, setOpen] = useState(defaultOpen);
+  return (
+    <div className="rounded-2xl overflow-hidden" style={{ border }}>
+      <button
+        onClick={() => setOpen(!open)}
+        className="w-full text-left px-5 py-4 flex items-start justify-between gap-2 transition-opacity active:opacity-70"
+        style={{ background: headerBg }}
+      >
+        <div className="flex-1 min-w-0">{headerContent}</div>
+        <div className="mt-0.5 flex-shrink-0">
+          {open
+            ? <ChevronUp className="w-4 h-4" style={{ color: "rgba(255,255,255,0.35)" }} />
+            : <ChevronDown className="w-4 h-4" style={{ color: "rgba(255,255,255,0.35)" }} />}
+        </div>
+      </button>
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            className="overflow-hidden"
+          >
+            <div className="px-5 py-4" style={{ background: "rgba(255,255,255,0.03)" }}>
+              {children}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+}
+
+/* ───────────────────────────────────────────────────────────────────────────
+   Original teacher perspectives per type
+   ─────────────────────────────────────────────────────────────────────────── */
+const TEACHER_PERSPECTIVES: Record<number, { ichazo: string; naranjo: string; risoHudson: string }> = {
+  1: {
+    ichazo: "Oscar Ichazo identified the Holy Idea for this type as Holy Perfection — the direct recognition that reality is already whole and complete. The loss of this perception produces the fixation of Resentment: a compulsive scanning for what is wrong, and a tightening against imperfection that becomes indistinguishable from the person's own conscience.",
+    naranjo: "Claudio Naranjo characterized this type's passion as Anger — not explosive rage, but suppressed resentment expressed as relentless demand for correctness. In his clinical work, he observed how the One's inner critic functions as an internalized punishing parent, turned inward with a ferocity that exceeds anything the original environment actually required.",
+    risoHudson: "Riso and Hudson placed this type's core fear as being condemned or fundamentally flawed, with the basic desire to be good and to have integrity. In their Levels of Development, the highest expression of this type is the truly principled person who has transcended their own standards into genuine wisdom — accepting imperfection in themselves and the world.",
+  },
+  2: {
+    ichazo: "Ichazo's Holy Idea for this type is Holy Will — the recognition that love does not need to be earned and that genuine will arises naturally from contact with being. The loss of this produces Pride: an inflated self-image built on indispensability, where the Two becomes the giver of love but loses access to being a receiver of it.",
+    naranjo: "Naranjo identified Pride as this type's root passion — not arrogance but a rejection of one's own neediness. He described a subtle grandiosity in which the Two maintains a self-image as giver, helper, and sustainer, while remaining unconscious of their own significant emotional hunger. His clinical observations pointed to a deep terror of being ordinary or dispensable.",
+    risoHudson: "Riso and Hudson described this type's core fear as being unloved and unwanted, with the basic desire to feel loved. They observed that at average levels the helping becomes conditional — unconsciously building debt — while at high levels of development the Two achieves genuine unconditional love, freely given without agenda or expectation.",
+  },
+  3: {
+    ichazo: "Ichazo assigned Holy Law or Holy Harmony as the Holy Idea — the recognition that value and worth are inherent in being, not produced by doing. The passion is Deceit, but Ichazo meant self-deceit: the Three loses contact with authentic feeling and comes to genuinely believe they are the image they have constructed.",
+    naranjo: "Naranjo identified Vanity as the passion — a love of image, but more precisely, an identification so complete with performance and achievement that the Three no longer has access to who they are beneath the performing. He noted that this is among the most culturally rewarded character structures in Western societies, which makes the distortion especially invisible.",
+    risoHudson: "Riso and Hudson identified this type's core fear as being worthless, with the basic desire to feel valuable and worthwhile. They introduced the crucial observation that the Three has lost touch with their own heart — not because they lack feeling, but because the feeling center has been bypassed in service of efficient performance. Recovery means finding themselves beneath the role.",
+  },
+  4: {
+    ichazo: "Ichazo's Holy Idea for this type is Holy Origin — the recognition that one's deepest nature is not deficient but connected to all of being. The loss of this produces Envy: a painful sense that others possess something essential the Four is missing, a turning of longing outward rather than inward toward their own inherent depth.",
+    naranjo: "Naranjo characterized the Four's passion as Envy, treating it as a structural state — not jealousy of specific things, but a pervasive sense of existential lack. He observed the Four's tendency to use emotional intensity as a substitute for presence, and identified romantic melancholy as a defense against the more unbearable experience of ordinary satisfaction.",
+    risoHudson: "Riso and Hudson named this type's core fear as having no personal significance, with the basic desire to find themselves and their significance. They identified the key developmental move as letting go of the past, recognizing that the Four's attachment to their own emotional history is both their richness and their primary obstacle to living fully in the present.",
+  },
+  5: {
+    ichazo: "Ichazo's Holy Idea is Holy Omniscience — the direct knowing that comes from contact with being itself, not from accumulated information. The passion of Avarice describes the Five's hoarding not just of objects but of energy, time, and inner resources, maintained through a deeply held belief that engagement will deplete what little they have.",
+    naranjo: "Naranjo characterized this type through the passion of Avarice — a radical withholding from the world, particularly in the domain of self-expression and emotional contact. He observed the Five as living in substitutes for life: ideas and systems replacing the lived experience of being present and engaged. The retreat into knowledge becomes a substitute for aliveness.",
+    risoHudson: "Riso and Hudson identified this type's core fear as being helpless, incapable, and overwhelmed, with the basic desire to be capable and competent. They noted that at high levels of development, Fives become visionary thinkers who have integrated their intellectual gifts with genuine presence — no longer observers of life but participants in it.",
+  },
+  6: {
+    ichazo: "Ichazo assigned Holy Strength or Holy Faith as this type's Holy Idea — the inner knowing that support and guidance are available from within. The passion of Fear describes a structural distrust of this inner knowing, producing the constant outsourcing of authority to external sources regarded as more reliable than the Six's own perception.",
+    naranjo: "Naranjo identified Cowardice as the root passion — not physical timidity, but a failure to trust one's own inner authority. He distinguished the phobic Six (openly anxious, seeking reassurance) from the counterphobic Six (confronting feared objects aggressively as a defense against fear), both organized around the same structural distrust of the self.",
+    risoHudson: "Riso and Hudson identified this type's core fear as being without support and guidance, with the basic desire to have security and support. They made the crucial distinction between authority issues (distrust of external authority) and the underlying problem (distrust of inner authority), identifying self-reliance as this type's central developmental task.",
+  },
+  7: {
+    ichazo: "Ichazo's Holy Idea is Holy Work or Holy Wisdom — the recognition that suffering and limitation are not obstacles to fulfillment but part of a meaningful whole. The passion of Gluttony describes the Seven's compulsive reaching for more experiences and options as a defense against the confrontation with present-moment limitation.",
+    naranjo: "Naranjo characterized the Seven's passion as Gluttony — a hunger not for food but for experience, stimulation, and possibility. He observed the Seven as having a particularly sophisticated relationship with pain: the avoidance is not direct denial but a rapid creative reframing that transforms difficulty into opportunity so fast that the pain is never actually felt.",
+    risoHudson: "Riso and Hudson identified this type's core fear as being deprived and in pain, with the basic desire to be satisfied and content. They observed that at high levels of development, the Seven integrates the capacity to stay with difficulty and discovers that the depth they sought through variety was available in the present moment all along.",
+  },
+  8: {
+    ichazo: "Ichazo assigned Holy Truth as this type's Holy Idea — the direct recognition of reality as it is, without distortion or pretense. The passion of Lust (intensity) describes the Eight's compulsive need for direct, unmediated contact with reality: a preference for collision over distance, and a fundamental intolerance of anything that feels false or controlled.",
+    naranjo: "Naranjo identified this type's passion as Lust — not primarily sexual, but a need for intensity and excess in all domains. He characterized the Eight as someone who learned that vulnerability leads to betrayal and built a character structure organized around preventing any such exposure, becoming formidable enough that betrayal becomes unlikely.",
+    risoHudson: "Riso and Hudson identified this type's core fear as being harmed or controlled, with the basic desire to protect themselves and determine their own course. They noted the Eight's great challenge is developing genuine trust — discovering that vulnerability, the thing they protect against most fiercely, is also the source of the deep connection they secretly want.",
+  },
+  9: {
+    ichazo: "Ichazo's Holy Idea for this type is Holy Love — the recognition that one is loved not for what one does or becomes, but for the simple fact of existing. The passion of Sloth is not physical inactivity but a fundamental inertia of the self: a failure to exert oneself in the direction of one's own growth, presence, and becoming.",
+    naranjo: "Naranjo characterized the Nine's passion as Laziness — specifically, laziness of self-development: a failure to invest in becoming more fully themselves. He observed the Nine as the most self-forgetting of the types, not because they are simple, but because the self-erasure is so thorough and habitual that it has become invisible even to the Nine themselves.",
+    risoHudson: "Riso and Hudson identified this type's core fear as loss and separation, with the basic desire to have inner stability and peace of mind. They observed that the Nine's central developmental challenge is waking up to their own existence — recognizing that the self they keep sacrificing to maintain peace is not a threat to peace but its actual foundation.",
+  },
+};
+
+function TeacherPerspectivesSection({ typeNumber }: { typeNumber: number }) {
+  const data = TEACHER_PERSPECTIVES[typeNumber];
+  if (!data) return null;
+  return (
+    <ExpandableSection title="Original Teachers" icon={BookOpen}>
+      <div className="space-y-4">
+        <p className="text-xs mb-1" style={{ color: "rgba(255,255,255,0.4)" }}>
+          How the original architects of the Enneagram understood this type — from Oscar Ichazo&apos;s Arica system and Claudio Naranjo&apos;s clinical adaptations, to Don Riso and Russ Hudson&apos;s contemporary synthesis.
+        </p>
+        <div className="space-y-3">
+          <div className="p-4 rounded-xl" style={{ background: "rgba(245,158,11,0.07)", border: "1px solid rgba(245,158,11,0.15)" }}>
+            <div className="flex items-center gap-2 mb-2">
+              <div className="w-5 h-5 rounded-full flex items-center justify-center text-[9px] font-bold" style={{ background: "rgba(245,158,11,0.2)", color: "#fcd34d" }}>OI</div>
+              <div className="text-xs font-semibold text-amber-400">Oscar Ichazo</div>
+              <div className="text-[10px]" style={{ color: "rgba(255,255,255,0.3)" }}>Arica Institute · Protoanalysis</div>
+            </div>
+            <p className="text-xs leading-relaxed" style={{ color: "rgba(255,255,255,0.65)" }}>{data.ichazo}</p>
+          </div>
+          <div className="p-4 rounded-xl" style={{ background: "rgba(139,92,246,0.07)", border: "1px solid rgba(139,92,246,0.15)" }}>
+            <div className="flex items-center gap-2 mb-2">
+              <div className="w-5 h-5 rounded-full flex items-center justify-center text-[9px] font-bold" style={{ background: "rgba(139,92,246,0.2)", color: "#c4b5fd" }}>CN</div>
+              <div className="text-xs font-semibold text-violet-400">Claudio Naranjo</div>
+              <div className="text-[10px]" style={{ color: "rgba(255,255,255,0.3)" }}>Character and Neurosis · SAT Program</div>
+            </div>
+            <p className="text-xs leading-relaxed" style={{ color: "rgba(255,255,255,0.65)" }}>{data.naranjo}</p>
+          </div>
+          <div className="p-4 rounded-xl" style={{ background: "rgba(14,165,233,0.07)", border: "1px solid rgba(14,165,233,0.15)" }}>
+            <div className="flex items-center gap-2 mb-2">
+              <div className="w-5 h-5 rounded-full flex items-center justify-center text-[9px] font-bold" style={{ background: "rgba(14,165,233,0.2)", color: "#7dd3fc" }}>RH</div>
+              <div className="text-xs font-semibold text-sky-400">Don Riso &amp; Russ Hudson</div>
+              <div className="text-[10px]" style={{ color: "rgba(255,255,255,0.3)" }}>Personality Types · The Enneagram Institute</div>
+            </div>
+            <p className="text-xs leading-relaxed" style={{ color: "rgba(255,255,255,0.65)" }}>{data.risoHudson}</p>
+          </div>
+        </div>
+      </div>
+    </ExpandableSection>
+  );
+}
+
 // ── Myth vs Reality data ─────────────────────────────────────────────────────
 const MYTHS: Record<number, { myth: string; reality: string }[]> = {
   1: [
@@ -460,6 +601,9 @@ function TypeDetail({ type }: { type: EnneagramType }) {
             </ExpandableSection>
           );
         })()}
+
+        {/* Original Teachers — Ichazo, Naranjo, Riso-Hudson */}
+        <TeacherPerspectivesSection typeNumber={type.number} />
 
         {/* Misidentification — Common Confusions */}
         {(() => {
@@ -916,82 +1060,91 @@ function LearnContent() {
               </p>
               <div className="space-y-5 mb-8">
                 {/* Moving Toward (Compliant) */}
-                <div className="rounded-2xl overflow-hidden" style={{ border: "1px solid rgba(16,185,129,0.2)" }}>
-                  <div className="px-5 py-4" style={{ background: "rgba(16,185,129,0.08)" }}>
-                    <div className="flex items-center gap-3 flex-wrap">
-                      <h4 className="font-serif font-semibold" style={{ color: "rgba(255,255,255,0.92)" }}>Moving Toward (Compliant)</h4>
-                      <div className="flex gap-1.5">
-                        {[1, 2, 6].map((n) => (
-                          <span key={n} className="w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold text-white" style={{ backgroundColor: [, "#E74C3C", "#27AE60", , , , "#2C3E50"][n] }}>{n}</span>
-                        ))}
+                <CollapsibleDeepCard
+                  border="1px solid rgba(16,185,129,0.2)"
+                  headerBg="rgba(16,185,129,0.08)"
+                  headerContent={
+                    <>
+                      <div className="flex items-center gap-3 flex-wrap">
+                        <h4 className="font-serif font-semibold" style={{ color: "rgba(255,255,255,0.92)" }}>Moving Toward (Compliant)</h4>
+                        <div className="flex gap-1.5">
+                          {[1, 2, 6].map((n) => (
+                            <span key={n} className="w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold text-white" style={{ backgroundColor: [, "#E74C3C", "#27AE60", , , , "#2C3E50"][n] }}>{n}</span>
+                          ))}
+                        </div>
                       </div>
-                    </div>
-                    <p className="text-xs mt-1" style={{ color: "#6ee7b7" }}>Types 1, 2, 6 · Strategy: earn safety through duty, service, and compliance</p>
-                  </div>
-                  <div className="px-5 py-4" style={{ background: "rgba(255,255,255,0.03)" }}>
-                    <p className="text-sm leading-relaxed mb-3" style={{ color: "rgba(255,255,255,0.67)" }}>
-                      Horney&apos;s &ldquo;moving toward&rdquo; strategy describes people who manage anxiety by orienting toward others — making themselves dutiful, indispensable, or perfectly aligned with authority. In the Enneagram, this corresponds to Types 1, 2, and 6, which Riso and Hudson call the Compliant group. These types are superego-driven: they&apos;ve internalized external standards, expectations, or demands so completely that they experience them as their own moral code, sense of responsibility, or commitment to loyalty.
-                    </p>
-                    <p className="text-sm leading-relaxed mb-3" style={{ color: "rgba(255,255,255,0.67)" }}>
-                      Ones earn safety by being right and morally above reproach — the perfect compliance with one&apos;s own inner standard. Twos earn safety by being needed — making others so dependent on their care that abandonment becomes impossible. Sixes earn safety through loyalty to trusted authority — outsourcing their own guidance to something or someone they can depend on. All three types have a difficult relationship with genuine autonomy: asserting their own will, beyond what&apos;s expected of them, feels transgressive or dangerous.
-                    </p>
-                    <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.67)" }}>
-                      The shadow of this group is resentment — the cost of perpetual compliance. When the compliance stops working, or when the authority figure fails them, Compliant types are often blindsided by the force of their own suppressed anger. Growth for this group means developing genuine autonomy: learning to identify and act from their own inner authority rather than from duty, need to be needed, or fear of being unsupported.
-                    </p>
-                  </div>
-                </div>
+                      <p className="text-xs mt-1" style={{ color: "#6ee7b7" }}>Types 1, 2, 6 · Strategy: earn safety through duty, service, and compliance</p>
+                    </>
+                  }
+                >
+                  <p className="text-sm leading-relaxed mb-3" style={{ color: "rgba(255,255,255,0.67)" }}>
+                    Horney&apos;s &ldquo;moving toward&rdquo; strategy describes people who manage anxiety by orienting toward others — making themselves dutiful, indispensable, or perfectly aligned with authority. In the Enneagram, this corresponds to Types 1, 2, and 6, which Riso and Hudson call the Compliant group. These types are superego-driven: they&apos;ve internalized external standards, expectations, or demands so completely that they experience them as their own moral code, sense of responsibility, or commitment to loyalty.
+                  </p>
+                  <p className="text-sm leading-relaxed mb-3" style={{ color: "rgba(255,255,255,0.67)" }}>
+                    Ones earn safety by being right and morally above reproach — the perfect compliance with one&apos;s own inner standard. Twos earn safety by being needed — making others so dependent on their care that abandonment becomes impossible. Sixes earn safety through loyalty to trusted authority — outsourcing their own guidance to something or someone they can depend on. All three types have a difficult relationship with genuine autonomy: asserting their own will, beyond what&apos;s expected of them, feels transgressive or dangerous.
+                  </p>
+                  <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.67)" }}>
+                    The shadow of this group is resentment — the cost of perpetual compliance. When the compliance stops working, or when the authority figure fails them, Compliant types are often blindsided by the force of their own suppressed anger. Growth for this group means developing genuine autonomy: learning to identify and act from their own inner authority rather than from duty, need to be needed, or fear of being unsupported.
+                  </p>
+                </CollapsibleDeepCard>
 
                 {/* Moving Against (Aggressive) */}
-                <div className="rounded-2xl overflow-hidden" style={{ border: "1px solid rgba(239,68,68,0.2)" }}>
-                  <div className="px-5 py-4" style={{ background: "rgba(239,68,68,0.08)" }}>
-                    <div className="flex items-center gap-3 flex-wrap">
-                      <h4 className="font-serif font-semibold" style={{ color: "rgba(255,255,255,0.92)" }}>Moving Against (Aggressive)</h4>
-                      <div className="flex gap-1.5">
-                        {[3, 7, 8].map((n) => (
-                          <span key={n} className="w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold text-white" style={{ backgroundColor: [, , , "#F39C12", , , , "#E67E22", "#C0392B"][n] }}>{n}</span>
-                        ))}
+                <CollapsibleDeepCard
+                  border="1px solid rgba(239,68,68,0.2)"
+                  headerBg="rgba(239,68,68,0.08)"
+                  headerContent={
+                    <>
+                      <div className="flex items-center gap-3 flex-wrap">
+                        <h4 className="font-serif font-semibold" style={{ color: "rgba(255,255,255,0.92)" }}>Moving Against (Aggressive)</h4>
+                        <div className="flex gap-1.5">
+                          {[3, 7, 8].map((n) => (
+                            <span key={n} className="w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold text-white" style={{ backgroundColor: [, , , "#F39C12", , , , "#E67E22", "#C0392B"][n] }}>{n}</span>
+                          ))}
+                        </div>
                       </div>
-                    </div>
-                    <p className="text-xs mt-1" style={{ color: "#fca5a5" }}>Types 3, 7, 8 · Strategy: get needs met by expanding and going after what you want</p>
-                  </div>
-                  <div className="px-5 py-4" style={{ background: "rgba(255,255,255,0.03)" }}>
-                    <p className="text-sm leading-relaxed mb-3" style={{ color: "rgba(255,255,255,0.67)" }}>
-                      Horney&apos;s &ldquo;moving against&rdquo; strategy describes people who manage anxiety by becoming more forceful, dominant, and expansive than the threats around them. Riso and Hudson identify this as the Assertive group: Types 3, 7, and 8. These are ego-expansive types — they grow themselves to fill space, to outpace or outmaneuver whatever feels threatening. Where Compliant types try to become smaller and more acceptable, Assertive types try to become larger and more powerful.
-                    </p>
-                    <p className="text-sm leading-relaxed mb-3" style={{ color: "rgba(255,255,255,0.67)" }}>
-                      Threes assert through achievement and image — by becoming the most successful, most polished version of themselves, they ensure they can&apos;t be overlooked or dismissed. Sevens assert through constant forward momentum — by staying ahead of pain, boredom, and limitation, they maintain the sense that they are in control of their experience. Eights assert through force and confrontation — by being the most powerful entity in the room, they ensure no one can betray or control them.
-                    </p>
-                    <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.67)" }}>
-                      The shadow of this group is vulnerability — the cost of perpetual expansion. These types have the most difficulty with genuine receptivity: being helped, being moved, sitting with difficulty without making it into something. They tend to resist acknowledging that they need others. Growth means developing genuine openness: the capacity to receive rather than always pursue, and to be affected rather than always affecting.
-                    </p>
-                  </div>
-                </div>
+                      <p className="text-xs mt-1" style={{ color: "#fca5a5" }}>Types 3, 7, 8 · Strategy: get needs met by expanding and going after what you want</p>
+                    </>
+                  }
+                >
+                  <p className="text-sm leading-relaxed mb-3" style={{ color: "rgba(255,255,255,0.67)" }}>
+                    Horney&apos;s &ldquo;moving against&rdquo; strategy describes people who manage anxiety by becoming more forceful, dominant, and expansive than the threats around them. Riso and Hudson identify this as the Assertive group: Types 3, 7, and 8. These are ego-expansive types — they grow themselves to fill space, to outpace or outmaneuver whatever feels threatening. Where Compliant types try to become smaller and more acceptable, Assertive types try to become larger and more powerful.
+                  </p>
+                  <p className="text-sm leading-relaxed mb-3" style={{ color: "rgba(255,255,255,0.67)" }}>
+                    Threes assert through achievement and image — by becoming the most successful, most polished version of themselves, they ensure they can&apos;t be overlooked or dismissed. Sevens assert through constant forward momentum — by staying ahead of pain, boredom, and limitation, they maintain the sense that they are in control of their experience. Eights assert through force and confrontation — by being the most powerful entity in the room, they ensure no one can betray or control them.
+                  </p>
+                  <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.67)" }}>
+                    The shadow of this group is vulnerability — the cost of perpetual expansion. These types have the most difficulty with genuine receptivity: being helped, being moved, sitting with difficulty without making it into something. They tend to resist acknowledging that they need others. Growth means developing genuine openness: the capacity to receive rather than always pursue, and to be affected rather than always affecting.
+                  </p>
+                </CollapsibleDeepCard>
 
                 {/* Moving Away (Withdrawn) */}
-                <div className="rounded-2xl overflow-hidden" style={{ border: "1px solid rgba(99,102,241,0.2)" }}>
-                  <div className="px-5 py-4" style={{ background: "rgba(99,102,241,0.08)" }}>
-                    <div className="flex items-center gap-3 flex-wrap">
-                      <h4 className="font-serif font-semibold" style={{ color: "rgba(255,255,255,0.92)" }}>Moving Away (Withdrawn)</h4>
-                      <div className="flex gap-1.5">
-                        {[4, 5, 9].map((n) => (
-                          <span key={n} className="w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold text-white" style={{ backgroundColor: [, , , , "#8E44AD", "#3498DB", , , , "#1ABC9C"][n] }}>{n}</span>
-                        ))}
+                <CollapsibleDeepCard
+                  border="1px solid rgba(99,102,241,0.2)"
+                  headerBg="rgba(99,102,241,0.08)"
+                  headerContent={
+                    <>
+                      <div className="flex items-center gap-3 flex-wrap">
+                        <h4 className="font-serif font-semibold" style={{ color: "rgba(255,255,255,0.92)" }}>Moving Away (Withdrawn)</h4>
+                        <div className="flex gap-1.5">
+                          {[4, 5, 9].map((n) => (
+                            <span key={n} className="w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold text-white" style={{ backgroundColor: [, , , , "#8E44AD", "#3498DB", , , , "#1ABC9C"][n] }}>{n}</span>
+                          ))}
+                        </div>
                       </div>
-                    </div>
-                    <p className="text-xs mt-1" style={{ color: "#a5b4fc" }}>Types 4, 5, 9 · Strategy: manage needs by retreating inward and meeting them there</p>
-                  </div>
-                  <div className="px-5 py-4" style={{ background: "rgba(255,255,255,0.03)" }}>
-                    <p className="text-sm leading-relaxed mb-3" style={{ color: "rgba(255,255,255,0.67)" }}>
-                      Horney&apos;s &ldquo;moving away&rdquo; strategy describes people who manage anxiety by reducing engagement with the external world and retreating into a rich inner life. Riso and Hudson call this the Withdrawn group: Types 4, 5, and 9. Where Compliant types reach toward others and Assertive types expand outward, Withdrawn types pull inward — not out of weakness, but as a fundamentally different architecture for managing the world&apos;s demands.
-                    </p>
-                    <p className="text-sm leading-relaxed mb-3" style={{ color: "rgba(255,255,255,0.67)" }}>
-                      Fours withdraw into emotion and imagination, constructing a rich private world of feeling and longing that substitutes for the connection they find elusive in reality. Fives withdraw into intellect, building elaborate internal systems of understanding as a substitute for — and protection against — the depleting demands of engagement. Nines withdraw through self-erasure and numbing, merging into the environment rather than asserting a distinct self that could be in conflict with it.
-                    </p>
-                    <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.67)" }}>
-                      The shadow of this group is disengagement — the cost of perpetual retreat. These types struggle most with decisive, sustained engagement with external reality: taking action, asserting their perspective, and maintaining presence even when it&apos;s difficult. Growth means developing the capacity to remain in contact with the world without being overwhelmed by it — discovering that presence doesn&apos;t have to mean dissolution.
-                    </p>
-                  </div>
-                </div>
+                      <p className="text-xs mt-1" style={{ color: "#a5b4fc" }}>Types 4, 5, 9 · Strategy: manage needs by retreating inward and meeting them there</p>
+                    </>
+                  }
+                >
+                  <p className="text-sm leading-relaxed mb-3" style={{ color: "rgba(255,255,255,0.67)" }}>
+                    Horney&apos;s &ldquo;moving away&rdquo; strategy describes people who manage anxiety by reducing engagement with the external world and retreating into a rich inner life. Riso and Hudson call this the Withdrawn group: Types 4, 5, and 9. Where Compliant types reach toward others and Assertive types expand outward, Withdrawn types pull inward — not out of weakness, but as a fundamentally different architecture for managing the world&apos;s demands.
+                  </p>
+                  <p className="text-sm leading-relaxed mb-3" style={{ color: "rgba(255,255,255,0.67)" }}>
+                    Fours withdraw into emotion and imagination, constructing a rich private world of feeling and longing that substitutes for the connection they find elusive in reality. Fives withdraw into intellect, building elaborate internal systems of understanding as a substitute for — and protection against — the depleting demands of engagement. Nines withdraw through self-erasure and numbing, merging into the environment rather than asserting a distinct self that could be in conflict with it.
+                  </p>
+                  <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.67)" }}>
+                    The shadow of this group is disengagement — the cost of perpetual retreat. These types struggle most with decisive, sustained engagement with external reality: taking action, asserting their perspective, and maintaining presence even when it&apos;s difficult. Growth means developing the capacity to remain in contact with the world without being overwhelmed by it — discovering that presence doesn&apos;t have to mean dissolution.
+                  </p>
+                </CollapsibleDeepCard>
 
                 {/* Citation */}
                 <div className="p-3 rounded-xl" style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.07)" }}>
@@ -1013,82 +1166,91 @@ function LearnContent() {
               </p>
               <div className="space-y-5 mb-8">
                 {/* Positive Outlook */}
-                <div className="rounded-2xl overflow-hidden" style={{ border: "1px solid rgba(245,158,11,0.2)" }}>
-                  <div className="px-5 py-4" style={{ background: "rgba(245,158,11,0.08)" }}>
-                    <div className="flex items-center gap-3 flex-wrap">
-                      <h4 className="font-serif font-semibold" style={{ color: "rgba(255,255,255,0.92)" }}>Positive Outlook</h4>
-                      <div className="flex gap-1.5">
-                        {[2, 7, 9].map((n) => (
-                          <span key={n} className="w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold text-white" style={{ backgroundColor: [, , "#27AE60", , , , , "#E67E22", , "#1ABC9C"][n] }}>{n}</span>
-                        ))}
+                <CollapsibleDeepCard
+                  border="1px solid rgba(245,158,11,0.2)"
+                  headerBg="rgba(245,158,11,0.08)"
+                  headerContent={
+                    <>
+                      <div className="flex items-center gap-3 flex-wrap">
+                        <h4 className="font-serif font-semibold" style={{ color: "rgba(255,255,255,0.92)" }}>Positive Outlook</h4>
+                        <div className="flex gap-1.5">
+                          {[2, 7, 9].map((n) => (
+                            <span key={n} className="w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold text-white" style={{ backgroundColor: [, , "#27AE60", , , , , "#E67E22", , "#1ABC9C"][n] }}>{n}</span>
+                          ))}
+                        </div>
                       </div>
-                    </div>
-                    <p className="text-xs mt-1" style={{ color: "#fcd34d" }}>Types 2, 7, 9 · Handle difficulty by reframing or suppressing the negative</p>
-                  </div>
-                  <div className="px-5 py-4" style={{ background: "rgba(255,255,255,0.03)" }}>
-                    <p className="text-sm leading-relaxed mb-3" style={{ color: "rgba(255,255,255,0.67)" }}>
-                      Types 2, 7, and 9 manage conflict and disappointment by maintaining — or restoring — a positive emotional atmosphere. This isn&apos;t simple optimism; it&apos;s a defensive strategy. Each of these types has learned that dwelling in negativity is dangerous: for Twos, expressing their own pain threatens the relationships they depend on; for Sevens, staying with pain risks being trapped in a deprivation they can&apos;t escape; for Nines, any conflict or negativity threatens the peace they&apos;ve carefully cultivated.
-                    </p>
-                    <p className="text-sm leading-relaxed mb-3" style={{ color: "rgba(255,255,255,0.67)" }}>
-                      As a result, these types suppress, minimize, or reframe their own negative experience. Twos focus on others&apos; needs, keeping their own pain out of awareness. Sevens reframe everything: &ldquo;This difficult situation is actually full of possibility.&rdquo; Nines smooth things over, going along to avoid disruption. The effect in relationships is often experienced by others as a kind of unavailability: the Positive Outlook type is present, warm, and engaged — but not fully contact-able in their pain.
-                    </p>
-                    <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.67)" }}>
-                      Shadow work for this group involves learning to stay with negative emotion without immediately transforming it: to feel the disappointment fully, to let the grief land, to allow the conflict to exist without rushing toward resolution. This is genuinely difficult, because these types have built elaborate and sophisticated defenses against exactly this experience.
-                    </p>
-                  </div>
-                </div>
+                      <p className="text-xs mt-1" style={{ color: "#fcd34d" }}>Types 2, 7, 9 · Handle difficulty by reframing or suppressing the negative</p>
+                    </>
+                  }
+                >
+                  <p className="text-sm leading-relaxed mb-3" style={{ color: "rgba(255,255,255,0.67)" }}>
+                    Types 2, 7, and 9 manage conflict and disappointment by maintaining — or restoring — a positive emotional atmosphere. This isn&apos;t simple optimism; it&apos;s a defensive strategy. Each of these types has learned that dwelling in negativity is dangerous: for Twos, expressing their own pain threatens the relationships they depend on; for Sevens, staying with pain risks being trapped in a deprivation they can&apos;t escape; for Nines, any conflict or negativity threatens the peace they&apos;ve carefully cultivated.
+                  </p>
+                  <p className="text-sm leading-relaxed mb-3" style={{ color: "rgba(255,255,255,0.67)" }}>
+                    As a result, these types suppress, minimize, or reframe their own negative experience. Twos focus on others&apos; needs, keeping their own pain out of awareness. Sevens reframe everything: &ldquo;This difficult situation is actually full of possibility.&rdquo; Nines smooth things over, going along to avoid disruption. The effect in relationships is often experienced by others as a kind of unavailability: the Positive Outlook type is present, warm, and engaged — but not fully contact-able in their pain.
+                  </p>
+                  <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.67)" }}>
+                    Shadow work for this group involves learning to stay with negative emotion without immediately transforming it: to feel the disappointment fully, to let the grief land, to allow the conflict to exist without rushing toward resolution. This is genuinely difficult, because these types have built elaborate and sophisticated defenses against exactly this experience.
+                  </p>
+                </CollapsibleDeepCard>
 
                 {/* Competency */}
-                <div className="rounded-2xl overflow-hidden" style={{ border: "1px solid rgba(14,165,233,0.2)" }}>
-                  <div className="px-5 py-4" style={{ background: "rgba(14,165,233,0.08)" }}>
-                    <div className="flex items-center gap-3 flex-wrap">
-                      <h4 className="font-serif font-semibold" style={{ color: "rgba(255,255,255,0.92)" }}>Competency</h4>
-                      <div className="flex gap-1.5">
-                        {[1, 3, 5].map((n) => (
-                          <span key={n} className="w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold text-white" style={{ backgroundColor: [, "#E74C3C", , "#F39C12", , "#3498DB"][n] }}>{n}</span>
-                        ))}
+                <CollapsibleDeepCard
+                  border="1px solid rgba(14,165,233,0.2)"
+                  headerBg="rgba(14,165,233,0.08)"
+                  headerContent={
+                    <>
+                      <div className="flex items-center gap-3 flex-wrap">
+                        <h4 className="font-serif font-semibold" style={{ color: "rgba(255,255,255,0.92)" }}>Competency</h4>
+                        <div className="flex gap-1.5">
+                          {[1, 3, 5].map((n) => (
+                            <span key={n} className="w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold text-white" style={{ backgroundColor: [, "#E74C3C", , "#F39C12", , "#3498DB"][n] }}>{n}</span>
+                          ))}
+                        </div>
                       </div>
-                    </div>
-                    <p className="text-xs mt-1" style={{ color: "#7dd3fc" }}>Types 1, 3, 5 · Handle difficulty by setting feelings aside and finding solutions</p>
-                  </div>
-                  <div className="px-5 py-4" style={{ background: "rgba(255,255,255,0.03)" }}>
-                    <p className="text-sm leading-relaxed mb-3" style={{ color: "rgba(255,255,255,0.67)" }}>
-                      Types 1, 3, and 5 manage conflict and disappointment by setting feelings aside and solving the problem. These are the types who, when something goes wrong, immediately shift into rational problem-solving mode — identifying what needs to be fixed, what standard needs to be met, what more efficient path forward exists. Emotion is treated as noise that interferes with the signal. The Competency group believes, at a structural level, that feelings are obstacles to functioning rather than information about it.
-                    </p>
-                    <p className="text-sm leading-relaxed mb-3" style={{ color: "rgba(255,255,255,0.67)" }}>
-                      Ones apply standards: the correct response to difficulty is to do the right thing, even if it&apos;s hard. Threes perform: they shift into efficient, outcome-oriented mode, adjusting and adapting to succeed. Fives analyze: they step back, process the situation intellectually, and arrive at the objectively correct response — often days later, via email. Each strategy keeps the person functional while bypassing genuine emotional contact with the difficulty.
-                    </p>
-                    <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.67)" }}>
-                      Shadow work for this group involves allowing themselves to feel incompetent, messy, and emotionally affected. These types often don&apos;t know how to be comforted — they&apos;d rather have their problem solved or their competence confirmed. Learning to receive emotional support, rather than analysis or solutions, is often their central relational challenge.
-                    </p>
-                  </div>
-                </div>
+                      <p className="text-xs mt-1" style={{ color: "#7dd3fc" }}>Types 1, 3, 5 · Handle difficulty by setting feelings aside and finding solutions</p>
+                    </>
+                  }
+                >
+                  <p className="text-sm leading-relaxed mb-3" style={{ color: "rgba(255,255,255,0.67)" }}>
+                    Types 1, 3, and 5 manage conflict and disappointment by setting feelings aside and solving the problem. These are the types who, when something goes wrong, immediately shift into rational problem-solving mode — identifying what needs to be fixed, what standard needs to be met, what more efficient path forward exists. Emotion is treated as noise that interferes with the signal. The Competency group believes, at a structural level, that feelings are obstacles to functioning rather than information about it.
+                  </p>
+                  <p className="text-sm leading-relaxed mb-3" style={{ color: "rgba(255,255,255,0.67)" }}>
+                    Ones apply standards: the correct response to difficulty is to do the right thing, even if it&apos;s hard. Threes perform: they shift into efficient, outcome-oriented mode, adjusting and adapting to succeed. Fives analyze: they step back, process the situation intellectually, and arrive at the objectively correct response — often days later, via email. Each strategy keeps the person functional while bypassing genuine emotional contact with the difficulty.
+                  </p>
+                  <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.67)" }}>
+                    Shadow work for this group involves allowing themselves to feel incompetent, messy, and emotionally affected. These types often don&apos;t know how to be comforted — they&apos;d rather have their problem solved or their competence confirmed. Learning to receive emotional support, rather than analysis or solutions, is often their central relational challenge.
+                  </p>
+                </CollapsibleDeepCard>
 
                 {/* Reactive */}
-                <div className="rounded-2xl overflow-hidden" style={{ border: "1px solid rgba(236,72,153,0.2)" }}>
-                  <div className="px-5 py-4" style={{ background: "rgba(236,72,153,0.08)" }}>
-                    <div className="flex items-center gap-3 flex-wrap">
-                      <h4 className="font-serif font-semibold" style={{ color: "rgba(255,255,255,0.92)" }}>Reactive (Emotional Realness)</h4>
-                      <div className="flex gap-1.5">
-                        {[4, 6, 8].map((n) => (
-                          <span key={n} className="w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold text-white" style={{ backgroundColor: [, , , , "#8E44AD", , "#2C3E50", , "#C0392B"][n] }}>{n}</span>
-                        ))}
+                <CollapsibleDeepCard
+                  border="1px solid rgba(236,72,153,0.2)"
+                  headerBg="rgba(236,72,153,0.08)"
+                  headerContent={
+                    <>
+                      <div className="flex items-center gap-3 flex-wrap">
+                        <h4 className="font-serif font-semibold" style={{ color: "rgba(255,255,255,0.92)" }}>Reactive (Emotional Realness)</h4>
+                        <div className="flex gap-1.5">
+                          {[4, 6, 8].map((n) => (
+                            <span key={n} className="w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold text-white" style={{ backgroundColor: [, , , , "#8E44AD", , "#2C3E50", , "#C0392B"][n] }}>{n}</span>
+                          ))}
+                        </div>
                       </div>
-                    </div>
-                    <p className="text-xs mt-1" style={{ color: "#f9a8d4" }}>Types 4, 6, 8 · Handle difficulty by having a strong emotional reaction that needs to be witnessed</p>
-                  </div>
-                  <div className="px-5 py-4" style={{ background: "rgba(255,255,255,0.03)" }}>
-                    <p className="text-sm leading-relaxed mb-3" style={{ color: "rgba(255,255,255,0.67)" }}>
-                      Types 4, 6, and 8 manage conflict and disappointment by having a strong emotional reaction — and needing others to engage with that reaction. Where Positive Outlook types suppress their feelings and Competency types bypass them, Reactive types lead with them. They are not interested in managing their emotional state for the sake of social comfort; they are interested in authentic engagement with what is actually happening, including what it feels like. This gives these types an emotional directness that can be arresting or overwhelming, depending on your own type.
-                    </p>
-                    <p className="text-sm leading-relaxed mb-3" style={{ color: "rgba(255,255,255,0.67)" }}>
-                      Fours express hurt and need empathy: &ldquo;This has wounded me, and I need you to understand that.&rdquo; Sixes express anxiety and need reassurance: &ldquo;I&apos;m scared this will go wrong, and I need you to help me think it through.&rdquo; Eights express anger and need direct engagement: &ldquo;This is wrong, and I need you to either stand your ground or acknowledge it.&rdquo; In each case, the emotional reality must be seen and responded to before the person can move forward.
-                    </p>
-                    <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.67)" }}>
-                      Shadow work for this group involves self-soothing rather than requiring external emotional processing — developing the capacity to regulate their own emotional experience without needing others to bear witness first. This doesn&apos;t mean suppressing; it means building enough inner resources that the emotional reality can be metabolized internally, not only through relationship.
-                    </p>
-                  </div>
-                </div>
+                      <p className="text-xs mt-1" style={{ color: "#f9a8d4" }}>Types 4, 6, 8 · Handle difficulty by having a strong emotional reaction that needs to be witnessed</p>
+                    </>
+                  }
+                >
+                  <p className="text-sm leading-relaxed mb-3" style={{ color: "rgba(255,255,255,0.67)" }}>
+                    Types 4, 6, and 8 manage conflict and disappointment by having a strong emotional reaction — and needing others to engage with that reaction. Where Positive Outlook types suppress their feelings and Competency types bypass them, Reactive types lead with them. They are not interested in managing their emotional state for the sake of social comfort; they are interested in authentic engagement with what is actually happening, including what it feels like. This gives these types an emotional directness that can be arresting or overwhelming, depending on your own type.
+                  </p>
+                  <p className="text-sm leading-relaxed mb-3" style={{ color: "rgba(255,255,255,0.67)" }}>
+                    Fours express hurt and need empathy: &ldquo;This has wounded me, and I need you to understand that.&rdquo; Sixes express anxiety and need reassurance: &ldquo;I&apos;m scared this will go wrong, and I need you to help me think it through.&rdquo; Eights express anger and need direct engagement: &ldquo;This is wrong, and I need you to either stand your ground or acknowledge it.&rdquo; In each case, the emotional reality must be seen and responded to before the person can move forward.
+                  </p>
+                  <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.67)" }}>
+                    Shadow work for this group involves self-soothing rather than requiring external emotional processing — developing the capacity to regulate their own emotional experience without needing others to bear witness first. This doesn&apos;t mean suppressing; it means building enough inner resources that the emotional reality can be metabolized internally, not only through relationship.
+                  </p>
+                </CollapsibleDeepCard>
 
                 {/* Citation */}
                 <div className="p-3 rounded-xl" style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.07)" }}>
@@ -1101,19 +1263,27 @@ function LearnContent() {
 
             {/* Object Relations */}
             <div>
-              <h3 className="font-serif font-semibold text-lg mb-4" style={{ color: "rgba(255,255,255,0.88)" }}>Object Relations Groups</h3>
+              <h3 className="font-serif font-semibold text-lg mb-2" style={{ color: "rgba(255,255,255,0.88)" }}>Object Relations Groups</h3>
               <p className="text-xs mb-4" style={{ color: "rgba(255,255,255,0.4)" }}>How each type relates to their primary attachment figures, based on object relations theory and Riso-Hudson&apos;s research.</p>
-              <div className="space-y-4">
+              <div className="space-y-3">
                 {objectRelationsGroups.map((group) => (
-                  <div key={group.name} className="p-5 rounded-2xl" style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)" }}>
-                    <h4 className="font-serif font-semibold mb-1" style={{ color: "rgba(255,255,255,0.88)" }}>{group.name}</h4>
-                    <div className="text-xs text-sky-400 mb-2">Types {group.types.join(", ")} · {group.relationship}</div>
+                  <CollapsibleDeepCard
+                    key={group.name}
+                    border="1px solid rgba(255,255,255,0.08)"
+                    headerBg="rgba(255,255,255,0.04)"
+                    headerContent={
+                      <>
+                        <h4 className="font-serif font-semibold" style={{ color: "rgba(255,255,255,0.88)" }}>{group.name}</h4>
+                        <div className="text-xs text-sky-400 mt-0.5">Types {group.types.join(", ")} · {group.relationship}</div>
+                      </>
+                    }
+                  >
                     <p className="text-sm leading-relaxed mb-3" style={{ color: "rgba(255,255,255,0.65)" }}>{group.description}</p>
                     <div className="p-3 rounded-xl" style={{ background: "rgba(139,92,246,0.08)", border: "1px solid rgba(139,92,246,0.15)" }}>
                       <div className="text-[10px] font-medium text-violet-400 mb-1">Psychodynamics</div>
                       <p className="text-xs" style={{ color: "rgba(255,255,255,0.6)" }}>{group.psychodynamics}</p>
                     </div>
-                  </div>
+                  </CollapsibleDeepCard>
                 ))}
               </div>
             </div>
