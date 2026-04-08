@@ -187,11 +187,13 @@ function HeaderSection({
   xpProgress,
   enneagramType,
   cognitiveType,
+  instinct,
 }: {
   state: any;
   xpProgress: any;
   enneagramType?: number;
   cognitiveType?: string;
+  instinct?: string;
 }) {
   const leagueColor = LEAGUE_COLORS[state.league as League];
   const [showShareCard, setShowShareCard] = useState(false);
@@ -276,6 +278,7 @@ function HeaderSection({
         totalXP={state.xp}
         enneagramType={enneagramType}
         cognitiveType={cognitiveType}
+        instinct={instinct}
         onClose={() => setShowShareCard(false)}
       />
     )}
@@ -1100,6 +1103,7 @@ export default function GamePage() {
   const [petType, setPetType] = useState<number>(1);
   const [profileEnneagram, setProfileEnneagram] = useState<number | undefined>();
   const [profileCognitive, setProfileCognitive] = useState<string | undefined>();
+  const [profileInstinct, setProfileInstinct] = useState<string | undefined>();
   useEffect(() => {
     try {
       const raw = localStorage.getItem("psyche-profile");
@@ -1112,6 +1116,8 @@ export default function GamePage() {
         }
         const c = profile.cognitiveType ?? profile.mbtiType;
         if (c) setProfileCognitive(c);
+        const inst = profile.enneagramSubtype ?? profile.instinctualStacking;
+        if (inst) setProfileInstinct(inst);
       }
     } catch {}
   }, []);
@@ -1191,6 +1197,7 @@ export default function GamePage() {
           xpProgress={xpProgress}
           enneagramType={profileEnneagram}
           cognitiveType={profileCognitive}
+          instinct={profileInstinct}
         />
 
         {/* Main Grid */}

@@ -4,6 +4,7 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Flame, X, Share2, Copy, Check, Zap, Crown } from "lucide-react";
 import { assetPath } from "@/lib/assetPath";
+import ChibiSprite from "@/components/ChibiSprite";
 
 interface Props {
   streak: number;
@@ -13,6 +14,7 @@ interface Props {
   totalXP: number;
   enneagramType?: number;
   cognitiveType?: string;
+  instinct?: string;
   onClose: () => void;
 }
 
@@ -46,6 +48,7 @@ export default function StreakShareCard({
   totalXP,
   enneagramType,
   cognitiveType,
+  instinct,
   onClose,
 }: Props) {
   const [copied, setCopied] = useState(false);
@@ -147,12 +150,32 @@ export default function StreakShareCard({
                 <span className="text-white/90 text-sm font-semibold tracking-wide">Thyself</span>
               </div>
 
-              {/* Streak hero */}
-              <div className="flex items-center gap-4 mb-6">
-                <div className="w-20 h-20 rounded-2xl bg-white/20 backdrop-blur-sm flex flex-col items-center justify-center shadow-lg">
-                  <Flame className="w-8 h-8 text-white mb-0.5" />
-                  <span className="text-2xl font-extrabold text-white leading-none">{streak}</span>
-                </div>
+              {/* Streak hero — chibi + streak count */}
+              <div className="flex items-center gap-4 mb-5">
+                {enneagramType ? (
+                  <div className="relative shrink-0">
+                    <ChibiSprite
+                      type={enneagramType}
+                      instinct={instinct}
+                      size={88}
+                      state="happy"
+                      className="drop-shadow-xl"
+                    />
+                    {/* Streak badge on chibi */}
+                    <div
+                      className="absolute -bottom-1 -right-1 flex items-center gap-0.5 px-1.5 py-0.5 rounded-full text-[10px] font-black"
+                      style={{ background: "rgba(0,0,0,0.6)", color: "#fff", backdropFilter: "blur(4px)" }}
+                    >
+                      <Flame className="w-2.5 h-2.5" style={{ color: "#fb923c" }} />
+                      {streak}
+                    </div>
+                  </div>
+                ) : (
+                  <div className="w-20 h-20 rounded-2xl bg-white/20 backdrop-blur-sm flex flex-col items-center justify-center shadow-lg shrink-0">
+                    <Flame className="w-8 h-8 text-white mb-0.5" />
+                    <span className="text-2xl font-extrabold text-white leading-none">{streak}</span>
+                  </div>
+                )}
                 <div>
                   <p className="text-white font-extrabold text-3xl leading-tight">
                     {streak === 1 ? "1 day" : `${streak} days`}
