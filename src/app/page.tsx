@@ -94,10 +94,30 @@ function useHomeState() {
   return { state, profile, gameState, dailyProgress };
 }
 
+// ── Saved-progress step labels ────────────────────────────────────────────────
+
+const RESUME_LABELS: Record<number, string> = {
+  1: "Continue: Enter your name",
+  2: "Continue: Preview the types",
+  3: "Continue: Take the quiz",
+  4: "Continue: See your type result",
+  5: "Continue: Save your result",
+  6: "Continue: You're almost done",
+};
+
 // ── State A: Enter Experience (new users) ────────────────────────────────────
 
 function EnterScreen() {
   const router = useRouter();
+  const [resumeStep, setResumeStep] = useState<number | null>(null);
+
+  useEffect(() => {
+    try {
+      const saved = parseInt(localStorage.getItem("psyche-onboarding-step") ?? "0", 10);
+      const done = localStorage.getItem("psyche-onboarding-complete") === "true";
+      if (!done && saved > 0 && saved < 7) setResumeStep(saved);
+    } catch {}
+  }, []);
 
   return (
     <div
@@ -253,6 +273,21 @@ function EnterScreen() {
         className="relative flex flex-col items-center gap-4 w-full px-6"
         style={{ maxWidth: "340px", zIndex: 10 }}
       >
+        {/* Resume button — shown only when the user has in-progress onboarding */}
+        {resumeStep !== null && (
+          <Link
+            href="/onboarding"
+            className="w-full py-4 rounded-2xl font-bold text-base transition-all hover:-translate-y-0.5 active:scale-[0.98] flex items-center justify-center gap-2 animate-pulse"
+            style={{
+              background: "linear-gradient(135deg, rgba(245,158,11,0.2), rgba(217,119,6,0.2))",
+              border: "1px solid rgba(245,158,11,0.4)",
+              color: "#fbbf24",
+            }}
+          >
+            {RESUME_LABELS[resumeStep] ?? "Continue where you left off"} →
+          </Link>
+        )}
+
         <button
           onClick={() => router.push("/onboarding?fromEnter=true")}
           className="w-full py-4 rounded-2xl font-bold text-white text-base transition-all hover:-translate-y-0.5 active:scale-[0.98] flex items-center justify-center gap-2"

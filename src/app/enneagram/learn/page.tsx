@@ -86,6 +86,150 @@ function AdvancedContentGate({ children }: { children: React.ReactNode }) {
 }
 
 /* ═══════════════════════════════════════════════════════════════════
+   Pro Self Work paywall
+   ═══════════════════════════════════════════════════════════════════ */
+function ProSelfWorkGate({ children }: { children: React.ReactNode }) {
+  const [unlocked, setUnlocked] = useState<boolean | null>(null);
+
+  useEffect(() => {
+    try {
+      setUnlocked(localStorage.getItem("psyche-pro-unlocked") === "true");
+    } catch { setUnlocked(false); }
+  }, []);
+
+  if (unlocked === null) return null;
+  if (unlocked) return <>{children}</>;
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 12 }}
+      animate={{ opacity: 1, y: 0 }}
+      className="max-w-sm mx-auto mt-8 flex flex-col items-center text-center px-4"
+    >
+      <div className="w-16 h-16 rounded-2xl flex items-center justify-center mb-5"
+        style={{ background: "rgba(251,191,36,0.12)", border: "1px solid rgba(251,191,36,0.3)" }}>
+        <Lock className="w-7 h-7" style={{ color: "#fcd34d" }} />
+      </div>
+      <h2 className="text-xl font-serif font-bold mb-2" style={{ color: "rgba(255,255,255,0.92)" }}>Type Self Work</h2>
+      <p className="text-sm mb-6 max-w-xs" style={{ color: "rgba(255,255,255,0.45)" }}>
+        Integration practices, type-specific journaling prompts, and growth exercises — personalized to your type.
+      </p>
+      <Link
+        href="/store"
+        className="w-full py-3.5 rounded-2xl font-bold text-white text-sm transition-all active:scale-95 text-center block mb-4"
+        style={{ background: "linear-gradient(135deg, #d97706, #f59e0b)", boxShadow: "0 4px 20px rgba(245,158,11,0.35)" }}
+      >
+        Get Pro →
+      </Link>
+      <p className="text-xs" style={{ color: "rgba(255,255,255,0.3)" }}>
+        Already a token holder? Earn Pro access through 25+ referrals.
+      </p>
+    </motion.div>
+  );
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   Self Work data per type
+   ═══════════════════════════════════════════════════════════════════ */
+const SELF_WORK_DATA: Record<number, {
+  integrationPractice: string[];
+  shadowPrompt: string;
+  growthArrow: { arrow: string; exercise: string };
+  weeklyChallenge: string;
+}> = {
+  1: {
+    integrationPractice: [
+      "Notice one moment today when your inner critic speaks.",
+      "Write down exactly what it says.",
+      "Ask: is this standard mine, or inherited?",
+    ],
+    shadowPrompt: "What would you do differently if you stopped believing your worth depended on being correct?",
+    growthArrow: { arrow: "→7", exercise: "Choose one thing today to do imperfectly and enjoy it anyway." },
+    weeklyChallenge: "Let something be 'good enough' once each day this week.",
+  },
+  2: {
+    integrationPractice: [
+      "Name one thing you want today — not what someone else needs.",
+      "Ask for it directly.",
+      "Notice the discomfort without fixing it.",
+    ],
+    shadowPrompt: "What do you give to others that you refuse to give yourself?",
+    growthArrow: { arrow: "→4", exercise: "Spend 20 minutes on something creative with no audience." },
+    weeklyChallenge: "Say no to one request this week without explaining why.",
+  },
+  3: {
+    integrationPractice: [
+      "Sit alone for 10 minutes with no task.",
+      "Notice what feelings arise without an audience.",
+      "Write one sentence about who you are without your achievements.",
+    ],
+    shadowPrompt: "What would you still value about yourself if you failed publicly?",
+    growthArrow: { arrow: "→6", exercise: "Share a genuine fear with someone you trust." },
+    weeklyChallenge: "Do one thing this week purely for yourself with no external validation.",
+  },
+  4: {
+    integrationPractice: [
+      "Do one ordinary thing excellently today.",
+      "Notice the resistance.",
+      "Find one moment of ordinary beauty to document.",
+    ],
+    shadowPrompt: "What would you have to give up if you stopped believing you were fundamentally different from everyone else?",
+    growthArrow: { arrow: "→1", exercise: "Complete one small, concrete task you've been avoiding." },
+    weeklyChallenge: "Show up to something ordinary this week without performing your feelings about it.",
+  },
+  5: {
+    integrationPractice: [
+      "Share one thought before fully forming it.",
+      "Stay in a conversation one minute longer than comfortable.",
+      "Notice the world didn't end.",
+    ],
+    shadowPrompt: "What are you hoarding right now — energy, information, time — and who does that protect you from?",
+    growthArrow: { arrow: "→8", exercise: "Take one decisive action today without all the information you want." },
+    weeklyChallenge: "Initiate one social exchange this week that you wouldn't normally.",
+  },
+  6: {
+    integrationPractice: [
+      "Notice one fear thought today.",
+      "Ask: what's the evidence against this?",
+      "Trust your own answer for 10 minutes.",
+    ],
+    shadowPrompt: "What would you do if you trusted your own judgment completely?",
+    growthArrow: { arrow: "→9", exercise: "Spend 15 minutes today not preparing for anything — just being." },
+    weeklyChallenge: "Make one decision this week without seeking external confirmation.",
+  },
+  7: {
+    integrationPractice: [
+      "Sit with one uncomfortable feeling for 5 minutes without reframing it.",
+      "Name it precisely.",
+      "Notice it doesn't consume you.",
+    ],
+    shadowPrompt: "What are you running from under all the plans and possibilities?",
+    growthArrow: { arrow: "→5", exercise: "Go deep on one topic this week instead of wide on many." },
+    weeklyChallenge: "Finish one thing you started before beginning something new.",
+  },
+  8: {
+    integrationPractice: [
+      "Notice one moment today where you softened.",
+      "Allow it.",
+      "Write what it cost you — and whether that cost was real.",
+    ],
+    shadowPrompt: "What are you protecting by staying hard?",
+    growthArrow: { arrow: "→2", exercise: "Do one small thing for someone today with no agenda." },
+    weeklyChallenge: "Ask for help with something this week.",
+  },
+  9: {
+    integrationPractice: [
+      "Name one thing you want today — your own preference, not a compromise.",
+      "State it out loud.",
+      "Act on it once.",
+    ],
+    shadowPrompt: "Whose agenda have you been living this week instead of your own?",
+    growthArrow: { arrow: "→3", exercise: "Set one specific goal for tomorrow and pursue it." },
+    weeklyChallenge: "Disagree with someone once this week — out loud.",
+  },
+};
+
+/* ═══════════════════════════════════════════════════════════════════
    TYPE NUANCE CARD, static deep insights per type
    ═══════════════════════════════════════════════════════════════════ */
 const TYPE_NUANCES: Record<number, string> = {
@@ -788,8 +932,9 @@ function LearnContent() {
   const router = useRouter();
   const typeParam = searchParams.get("type");
   const [selectedType, setSelectedType] = useState<number | null>(typeParam ? parseInt(typeParam) : null);
-  const [learnTab, setLearnTab] = useState<"types" | "instincts" | "stackings" | "tritypes" | "deepsystems">("types");
+  const [learnTab, setLearnTab] = useState<"types" | "instincts" | "stackings" | "tritypes" | "deepsystems" | "selfwork">("types");
   const [advUnlocked, setAdvUnlocked] = useState(false);
+  const [proUnlocked, setProUnlocked] = useState(false);
   const { profile } = useProfile();
   const myType = profile.enneagramType ?? null; // reactive, updates when type changes
 
@@ -798,6 +943,7 @@ function LearnContent() {
     markTopicComplete("enneagram-basics");
     try {
       setAdvUnlocked(localStorage.getItem(ENNEAGRAM_ADV_UNLOCK_KEY) === "true");
+      setProUnlocked(localStorage.getItem("psyche-pro-unlocked") === "true");
     } catch {}
   }, []);
 
@@ -846,11 +992,12 @@ function LearnContent() {
         {/* Top-level tabs — same for everyone */}
         <div className="flex gap-1 p-1 rounded-xl w-fit mb-8 flex-wrap" style={{ background: "rgba(255,255,255,0.06)" }}>
           {[
-            { key: "types" as const, label: "9 Types", premium: false },
-            { key: "instincts" as const, label: "Instinctual Variants", premium: false },
-            { key: "stackings" as const, label: "Stackings", premium: true },
-            { key: "tritypes" as const, label: "Tritypes", premium: true },
-            { key: "deepsystems" as const, label: "Deep Systems", premium: true },
+            { key: "types" as const, label: "9 Types", premium: false, pro: false },
+            { key: "instincts" as const, label: "Instinctual Variants", premium: false, pro: false },
+            { key: "stackings" as const, label: "Stackings", premium: true, pro: false },
+            { key: "tritypes" as const, label: "Tritypes", premium: true, pro: false },
+            { key: "deepsystems" as const, label: "Deep Systems", premium: true, pro: false },
+            { key: "selfwork" as const, label: "Self Work", premium: false, pro: true },
           ].map((tab) => (
             <button key={tab.key} onClick={() => setLearnTab(tab.key)}
               className="px-4 py-2 rounded-lg text-sm font-medium transition flex items-center gap-1.5"
@@ -860,6 +1007,7 @@ function LearnContent() {
               }>
               {tab.label}
               {tab.premium && !advUnlocked && <Lock className="w-3 h-3 opacity-50" />}
+              {tab.pro && !proUnlocked && <Sparkles className="w-3 h-3 opacity-50" />}
             </button>
           ))}
         </div>
@@ -1379,6 +1527,118 @@ function LearnContent() {
             </div>
           </div>
           </AdvancedContentGate>
+        )}
+
+        {/* Self Work Tab */}
+        {learnTab === "selfwork" && (
+          <ProSelfWorkGate>
+            <div className="max-w-2xl mx-auto space-y-6">
+              {!selectedType ? (
+                <>
+                  <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.55)" }}>
+                    Select your type to see personalized integration practices and growth exercises.
+                  </p>
+                  <div className="flex flex-wrap gap-3">
+                    {enneagramTypes.map((t) => (
+                      <button
+                        key={t.number}
+                        onClick={() => setSelectedType(t.number)}
+                        className="flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium transition-all border hover:border-sky-500/40"
+                        style={{ background: "rgba(255,255,255,0.05)", color: "rgba(255,255,255,0.65)", borderColor: "rgba(255,255,255,0.1)" }}
+                      >
+                        <span className="text-xs">{t.icon}</span>
+                        {t.number}. {t.name.split("The ")[1]}
+                      </button>
+                    ))}
+                  </div>
+                </>
+              ) : (() => {
+                const sw = SELF_WORK_DATA[selectedType];
+                const typeName = enneagramTypes.find(t => t.number === selectedType)?.name ?? `Type ${selectedType}`;
+                if (!sw) return null;
+                return (
+                  <>
+                    {/* Type selector */}
+                    <div className="flex flex-wrap gap-2 mb-2">
+                      {enneagramTypes.map((t) => (
+                        <button
+                          key={t.number}
+                          onClick={() => setSelectedType(t.number)}
+                          className="w-9 h-9 rounded-xl font-bold text-sm transition-all hover:-translate-y-0.5"
+                          style={selectedType === t.number
+                            ? { background: "rgba(139,92,246,0.35)", border: "1px solid rgba(139,92,246,0.6)", color: "#c4b5fd" }
+                            : { background: "rgba(139,92,246,0.1)", border: "1px solid rgba(139,92,246,0.2)", color: "#a78bfa" }}
+                        >
+                          {t.number}
+                        </button>
+                      ))}
+                    </div>
+
+                    <div className="flex items-center gap-2 mb-4">
+                      <Sparkles className="w-5 h-5" style={{ color: "#fcd34d" }} />
+                      <h2 className="font-serif font-bold text-xl" style={{ color: "rgba(255,255,255,0.92)" }}>
+                        Type {selectedType} Self Work
+                      </h2>
+                      <span className="text-sm" style={{ color: "rgba(255,255,255,0.4)" }}>{typeName}</span>
+                    </div>
+
+                    {/* Integration Practice */}
+                    <div className="p-5 rounded-2xl" style={{ background: "rgba(99,102,241,0.08)", border: "1px solid rgba(99,102,241,0.2)" }}>
+                      <div className="flex items-center gap-2 mb-3">
+                        <div className="w-7 h-7 rounded-lg flex items-center justify-center" style={{ background: "rgba(99,102,241,0.2)" }}>
+                          <Flame className="w-3.5 h-3.5" style={{ color: "#a5b4fc" }} />
+                        </div>
+                        <div className="text-sm font-semibold" style={{ color: "#a5b4fc" }}>Integration Practice</div>
+                        <div className="text-xs" style={{ color: "rgba(255,255,255,0.3)" }}>Daily · 3 steps</div>
+                      </div>
+                      <div className="space-y-2">
+                        {sw.integrationPractice.map((step, i) => (
+                          <div key={i} className="flex gap-3 items-start">
+                            <div className="w-5 h-5 rounded-full flex items-center justify-center text-xs font-bold shrink-0 mt-0.5" style={{ background: "rgba(99,102,241,0.25)", color: "#a5b4fc" }}>{i + 1}</div>
+                            <p className="text-sm" style={{ color: "rgba(255,255,255,0.72)" }}>{step}</p>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Shadow Work Prompt */}
+                    <div className="p-5 rounded-2xl" style={{ background: "rgba(139,92,246,0.08)", border: "1px solid rgba(139,92,246,0.2)" }}>
+                      <div className="flex items-center gap-2 mb-3">
+                        <div className="w-7 h-7 rounded-lg flex items-center justify-center" style={{ background: "rgba(139,92,246,0.2)" }}>
+                          <Eye className="w-3.5 h-3.5" style={{ color: "#c4b5fd" }} />
+                        </div>
+                        <div className="text-sm font-semibold" style={{ color: "#c4b5fd" }}>Shadow Work Prompt</div>
+                      </div>
+                      <p className="text-sm italic leading-relaxed" style={{ color: "rgba(255,255,255,0.75)" }}>&ldquo;{sw.shadowPrompt}&rdquo;</p>
+                    </div>
+
+                    {/* Growth Arrow Exercise */}
+                    <div className="p-5 rounded-2xl" style={{ background: "rgba(34,197,94,0.07)", border: "1px solid rgba(34,197,94,0.18)" }}>
+                      <div className="flex items-center gap-2 mb-3">
+                        <div className="w-7 h-7 rounded-lg flex items-center justify-center" style={{ background: "rgba(34,197,94,0.18)" }}>
+                          <TrendingUp className="w-3.5 h-3.5 text-emerald-400" />
+                        </div>
+                        <div className="text-sm font-semibold text-emerald-400">Growth Arrow Exercise</div>
+                        <span className="text-xs font-mono px-2 py-0.5 rounded-full" style={{ background: "rgba(34,197,94,0.12)", color: "#4ade80" }}>{sw.growthArrow.arrow}</span>
+                      </div>
+                      <p className="text-sm" style={{ color: "rgba(255,255,255,0.72)" }}>{sw.growthArrow.exercise}</p>
+                    </div>
+
+                    {/* Weekly Challenge */}
+                    <div className="p-5 rounded-2xl" style={{ background: "rgba(245,158,11,0.07)", border: "1px solid rgba(245,158,11,0.2)" }}>
+                      <div className="flex items-center gap-2 mb-3">
+                        <div className="w-7 h-7 rounded-lg flex items-center justify-center" style={{ background: "rgba(245,158,11,0.18)" }}>
+                          <Star className="w-3.5 h-3.5 text-amber-400" />
+                        </div>
+                        <div className="text-sm font-semibold text-amber-400">Weekly Challenge</div>
+                      </div>
+                      <p className="text-sm" style={{ color: "rgba(255,255,255,0.72)" }}>{sw.weeklyChallenge}</p>
+                    </div>
+                  </>
+                );
+              })()}
+            </div>
+          </ProSelfWorkGate>
         )}
 
         {/* Next Step Banners — shown at the natural end of each tab */}

@@ -8,6 +8,7 @@ import { notifyProfileChanged } from "@/hooks/useProfile";
 import OuroborosLogo from "@/components/OuroborosLogo";
 import QuickTypeAssessment from "@/components/assessments/QuickTypeAssessment";
 import { enneagramTypes } from "@/data/enneagram";
+import ChibiSprite from "@/components/ChibiSprite";
 import dynamic from "next/dynamic";
 const Confetti = dynamic(() => import("react-confetti"), { ssr: false });
 
@@ -276,22 +277,41 @@ function TypeRevealScreen({
         transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
         className="flex flex-col items-center text-center max-w-sm w-full"
       >
-        {/* Type number — hero element */}
+        {/* Chibi — #1 hero element, first thing they see */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.1, duration: 0.5 }}
-          className="font-black leading-none mb-2"
-          style={{ fontSize: "clamp(7rem, 22vw, 10rem)", color: typeColor, textShadow: `0 0 80px ${typeColor}66` }}
+          initial={{ scale: 0.3, opacity: 0, y: 30 }}
+          animate={{ scale: 1, opacity: 1, y: 0 }}
+          transition={{ type: "spring", stiffness: 240, damping: 18, delay: 0.08 }}
+          className="relative mb-3"
         >
-          {result.type}
+          {/* Color glow behind chibi */}
+          <div
+            className="absolute inset-0 rounded-full blur-3xl"
+            style={{
+              background: typeColor,
+              opacity: 0.35,
+              transform: "scale(0.85) translateY(10%)",
+            }}
+          />
+          <ChibiSprite type={result.type} size={200} state="happy" className="relative z-10 drop-shadow-2xl" />
+        </motion.div>
+
+        {/* Type number badge */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ delay: 0.3 }}
+          className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-sm font-bold mb-3"
+          style={{ background: `${typeColor}22`, border: `1px solid ${typeColor}44`, color: typeColor }}
+        >
+          Type {result.type}
         </motion.div>
 
         {/* Type name */}
         <motion.p
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.25 }}
+          transition={{ delay: 0.35 }}
           className="text-2xl font-serif font-bold mb-5"
           style={{ color: "rgba(255,255,255,0.92)" }}
         >
@@ -802,6 +822,27 @@ function ManualTypePicker({ onSave }: { onSave: (name: string, type: number) => 
 // ── Main ──────────────────────────────────────────────────────────────────────
 
 function OnboardingPageInner() {
+  // ── First-User Flow ───────────────────────────────────────────────
+  // New visitor lands on / (hero page)
+  //   → taps "Discover your type"
+  //   → Terms screen (if first time)
+  //   → Step 0: Welcome
+  //   → Step 1: Name (optional, 5s tap-to-skip)
+  //   → Step 2: Type Preview (what is the Enneagram)
+  //   → Step 3: Quiz (8 questions) + Subtype selection
+  //   → Step 4: Type Reveal (confetti, "This is me →")
+  //   → Step 5: Email gate (save result / skip)
+  //   → Step 6: All Set ("+50 tokens · Start Day 1 →")
+  //   → Lands on /daily
+  //
+  // Return visitor (incomplete):
+  //   → Hero page shows "Continue where you left off" amber button
+  //   → Tapping it resumes at saved step
+  //
+  // Return visitor (complete):
+  //   → localStorage: psyche-onboarding-complete = "true"
+  //   → Redirected to / which shows the app
+  // ─────────────────────────────────────────────────────────────────
   const router = useRouter();
   const searchParams = useSearchParams();
   const fromEnter = searchParams.get("fromEnter") === "true";
@@ -818,6 +859,20 @@ function OnboardingPageInner() {
     instinct?: string;
   } | null>(null);
 
+  // Persist current step so return visitors can resume
+  useEffect(() => {
+    if (step > 0) {
+      try { localStorage.setItem("psyche-onboarding-step", String(step)); } catch {}
+    }
+  }, [step]);
+
+  // Persist display name so it survives a page reload
+  useEffect(() => {
+    if (displayName) {
+      try { localStorage.setItem("psyche-onboarding-name", displayName); } catch {}
+    }
+  }, [displayName]);
+
   useEffect(() => {
     try {
       const termsAccepted = localStorage.getItem("psyche-terms-accepted") === "true";
@@ -827,6 +882,13 @@ function OnboardingPageInner() {
         if (fromEnter) setStep(2);
         // Jump to manual picker if user already knows their type
         else if (isManual) setStep(8);
+        else {
+          // Restore saved progress for return visitors
+          const savedStep = parseInt(localStorage.getItem("psyche-onboarding-step") ?? "0", 10);
+          const savedName = localStorage.getItem("psyche-onboarding-name") ?? "";
+          if (savedName) setDisplayName(savedName);
+          if (savedStep > 0 && savedStep < 7) setStep(savedStep);
+        }
       }
       if (localStorage.getItem("psyche-onboarding-complete") === "true") router.replace("/");
     } catch {}
@@ -898,6 +960,8 @@ function OnboardingPageInner() {
       localStorage.setItem("psyche-onboarding-complete-date", new Date().toISOString().slice(0, 10));
       localStorage.setItem("psyche-tutorial-complete", "true");
       localStorage.setItem("thyself_intent", "discover");
+      localStorage.removeItem("psyche-onboarding-step");
+      localStorage.removeItem("psyche-onboarding-name");
       notifyProfileChanged();
       // Award onboarding completion bonus
       try {
@@ -929,6 +993,8 @@ function OnboardingPageInner() {
       localStorage.setItem("psyche-onboarding-complete", "true");
       localStorage.setItem("psyche-onboarding-complete-date", new Date().toISOString().slice(0, 10));
       localStorage.setItem("psyche-tutorial-complete", "true");
+      localStorage.removeItem("psyche-onboarding-step");
+      localStorage.removeItem("psyche-onboarding-name");
       notifyProfileChanged();
       try {
         const gsRaw = localStorage.getItem("psyche-game-state");
@@ -960,6 +1026,8 @@ function OnboardingPageInner() {
       localStorage.setItem("psyche-onboarding-complete-date", new Date().toISOString().slice(0, 10));
       localStorage.setItem("psyche-tutorial-complete", "true");
       localStorage.setItem("thyself_intent", "discover");
+      localStorage.removeItem("psyche-onboarding-step");
+      localStorage.removeItem("psyche-onboarding-name");
       notifyProfileChanged();
       // Award onboarding completion bonus
       try {

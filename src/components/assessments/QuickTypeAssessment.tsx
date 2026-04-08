@@ -4,6 +4,7 @@ import { useState } from "react";
 import { motion, AnimatePresence, useMotionValue, useTransform, animate } from "framer-motion";
 import { useDrag } from "@use-gesture/react";
 import { Check, ChevronDown, BookOpen } from "lucide-react";
+import ChibiSprite from "@/components/ChibiSprite";
 
 // ─── Theory ──────────────────────────────────────────────────────────────────
 // Oscar Ichazo (triadic centers, passions, fixations)
@@ -528,12 +529,48 @@ function SwipeOption({
 // ─── Component ───────────────────────────────────────────────────────────────
 
 const INSTINCT_OPTIONS = [
-  { code: "sp/sx", label: "sp / sx", desc: "Build security first, then seek depth — private and selective" },
-  { code: "sp/so", label: "sp / so", desc: "Practical and community-minded — steady, reliable, a builder" },
-  { code: "sx/sp", label: "sx / sp", desc: "Intense but grounded — magnetic, self-contained, passionate" },
-  { code: "sx/so", label: "sx / so", desc: "Charismatic and connected — bring intensity into group settings" },
-  { code: "so/sp", label: "so / sp", desc: "Social architect — responsible, institutional, purpose-driven" },
-  { code: "so/sx", label: "so / sx", desc: "Passionate connector — charismatic presence, seek deep belonging" },
+  {
+    code: "sp/sx",
+    label: "Self-Preservation first",
+    sublabel: "Self-Pres + Sexual",
+    desc: "Security-focused and intensely private. You take care of essentials first — shelter, health, finances — before letting anyone in. When you connect, it's deep and selective.",
+    detail: "Self-Preservation types orient around survival and comfort: physical safety, routines, and resources. The Sexual secondary means that once your needs are met, you invest in passionate one-on-one connections. You tend to be private, self-sufficient, and quietly intense — not the center of attention, but fiercely present in close relationships.",
+  },
+  {
+    code: "sp/so",
+    label: "Self-Preservation first",
+    sublabel: "Self-Pres + Social",
+    desc: "Practical and community-minded. You're a builder — you make sure the basics are handled, then show up reliably for the people and groups that matter to you.",
+    detail: "Self-Preservation primary with Social secondary. You focus on stability and practicality while also caring about belonging and contribution. You tend to be the dependable one — steady, responsible, good at maintaining systems and communities. Less interested in one-on-one intensity; more interested in building something lasting together.",
+  },
+  {
+    code: "sx/sp",
+    label: "Sexual (One-to-One) first",
+    sublabel: "Sexual + Self-Pres",
+    desc: "Intensely magnetic and self-contained. You're drawn to deep, transformative connection — and you bring real presence to everything you do. Privacy matters to you.",
+    detail: "The Sexual instinct (also called the One-to-One instinct) is about chemistry, intensity, and depth — not necessarily romantic, but always personal. With Self-Pres secondary, you balance this intensity with a need for your own space and resources. You're selective, passionate, and don't spread yourself thin. When you focus on someone or something, you really focus.",
+  },
+  {
+    code: "sx/so",
+    label: "Sexual (One-to-One) first",
+    sublabel: "Sexual + Social",
+    desc: "Charismatic and deeply connected. You bring intensity into group settings — you want meaningful exchange, not just pleasant interaction. You make rooms feel alive.",
+    detail: "Sexual primary means you seek depth and chemistry; Social secondary means you also want to belong and matter within a broader community. This combination produces people who are magnetically attractive in groups — they pull others in, create spark, and often become the emotional center of their communities. You crave meaning in both intimate and group contexts.",
+  },
+  {
+    code: "so/sp",
+    label: "Social first",
+    sublabel: "Social + Self-Pres",
+    desc: "Purposeful and grounded. You care about your role in the bigger picture — and you're reliable enough to actually follow through. A builder of communities and institutions.",
+    detail: "Social primary means you orient around belonging, hierarchy, and your role in the group. Self-Pres secondary keeps you practical and sustainable — you don't burn out trying to be everything to everyone. This combination produces leaders, organizers, and institutional builders: people who care deeply about collective wellbeing and are structured enough to maintain it.",
+  },
+  {
+    code: "so/sx",
+    label: "Social first",
+    sublabel: "Social + Sexual",
+    desc: "A passionate connector. You want deep belonging — to matter to people and be seen in the groups you care about. You bring real intensity into social settings.",
+    detail: "Social primary with Sexual secondary creates an especially relational combination. You want to belong and matter — and you pursue that with real intensity. You're often the one forging the deep bonds within a group, the person others feel truly seen by. You may struggle with being everything to everyone, because you genuinely care and the connections feel real.",
+  },
 ];
 
 export default function QuickTypeAssessment({
@@ -546,6 +583,7 @@ export default function QuickTypeAssessment({
   const [phase, setPhase] = useState<"triage" | "gut" | "heart" | "head" | "result" | "subtype">("triage");
   const [qIdx, setQIdx] = useState(0);
   const [selectedInstinct, setSelectedInstinct] = useState<string | null>(null);
+  const [expandedInstinct, setExpandedInstinct] = useState<string | null>(null);
   const [selectedOption, setSelectedOption] = useState<number | null>(null);
   const [expandedLearn, setExpandedLearn] = useState<number | null>(null);
   const [result, setResult] = useState<{ type: number; confidence: number; runnerUp: number } | null>(null);
@@ -608,36 +646,54 @@ export default function QuickTypeAssessment({
         animate={{ opacity: 1, scale: 1 }}
         className="max-w-lg mx-auto py-10 px-4 text-center"
       >
+        {/* Chibi is the FIRST thing they see */}
         <motion.div
-          initial={{ scale: 0.5, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          transition={{ type: "spring", stiffness: 280, damping: 20, delay: 0.1 }}
-          className="w-24 h-24 rounded-3xl mx-auto mb-6 flex items-center justify-center text-white text-4xl font-serif font-bold"
-          style={{ backgroundColor: typeColors[result.type], boxShadow: `0 16px 48px ${typeColors[result.type]}50` }}
+          initial={{ scale: 0.4, opacity: 0, y: 20 }}
+          animate={{ scale: 1, opacity: 1, y: 0 }}
+          transition={{ type: "spring" as const, stiffness: 260, damping: 18, delay: 0.05 }}
+          className="relative flex flex-col items-center mb-2"
         >
-          {result.type}
+          {/* Glow ring behind chibi */}
+          <div
+            className="absolute inset-0 rounded-full blur-3xl opacity-30 mx-auto"
+            style={{
+              width: 180, height: 180,
+              background: typeColors[result.type],
+              top: "10%", left: "50%", transform: "translateX(-50%)",
+            }}
+          />
+          <ChibiSprite type={result.type} size={180} state="happy" className="relative z-10" />
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.45 }}
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold -mt-2 relative z-10"
+            style={{ background: `${typeColors[result.type]}25`, color: typeColors[result.type], border: `1px solid ${typeColors[result.type]}40` }}
+          >
+            Type {result.type} · {result.confidence}% match
+          </motion.div>
         </motion.div>
 
-        <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }}>
-          <h2 className="text-2xl font-serif font-bold mb-1" style={{ color: "rgba(255,255,255,0.92)" }}>
-            Type {result.type}: {typeNames[result.type]}
+        <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.35 }}>
+          <h2 className="text-2xl font-serif font-bold mb-1 mt-4" style={{ color: "rgba(255,255,255,0.92)" }}>
+            {typeNames[result.type]}
           </h2>
-          <p className="text-sm italic mb-6 max-w-sm mx-auto leading-relaxed" style={{ color: "rgba(255,255,255,0.45)" }}>
+          <p className="text-sm italic mb-5 max-w-sm mx-auto leading-relaxed" style={{ color: "rgba(255,255,255,0.45)" }}>
             "{typeTaglines[result.type]}"
           </p>
 
-          <div className="flex items-center justify-center gap-3 mb-6">
-            <div className="px-3 py-1.5 rounded-full text-xs font-semibold"
-              style={{ background: `${typeColors[result.type]}25`, color: typeColors[result.type] }}>
-              {result.confidence}% match
-            </div>
-            {result.runnerUp !== result.type && (
+          {result.runnerUp !== result.type && (
+            <div className="flex items-center justify-center mb-5">
               <div className="px-3 py-1.5 rounded-full text-xs font-medium"
                 style={{ background: "rgba(255,255,255,0.07)", color: "rgba(255,255,255,0.45)" }}>
                 Also consider: Type {result.runnerUp}
               </div>
-            )}
-          </div>
+            </div>
+          )}
+
+          <p className="text-xs mb-5" style={{ color: "rgba(255,255,255,0.35)" }}>
+            Choose your instinct on the next screen to unlock your personalized avatar ↓
+          </p>
 
           <button
             onClick={() => setPhase("subtype")}
@@ -645,7 +701,7 @@ export default function QuickTypeAssessment({
             style={{ background: `linear-gradient(135deg, ${typeColors[result.type]}, ${typeColors[result.type]}aa)` }}
           >
             <Check className="w-4 h-4" />
-            Continue →
+            Unlock my avatar →
           </button>
         </motion.div>
       </motion.div>
@@ -678,27 +734,64 @@ export default function QuickTypeAssessment({
         </div>
 
         <div className="space-y-2 mb-6">
-          {INSTINCT_OPTIONS.map(({ code, label, desc }) => {
+          {INSTINCT_OPTIONS.map(({ code, label, sublabel, desc, detail }) => {
             const isSelected = selectedInstinct === code;
+            const isExpanded = expandedInstinct === code;
             return (
-              <button
+              <div
                 key={code}
-                onClick={() => setSelectedInstinct(code)}
-                className="w-full text-left px-4 py-3.5 rounded-2xl transition-all active:scale-[0.98]"
+                className="rounded-2xl overflow-hidden transition-all"
                 style={{
                   background: isSelected ? "rgba(124,58,237,0.18)" : "rgba(255,255,255,0.05)",
                   border: isSelected ? "1px solid rgba(167,139,250,0.45)" : "1px solid rgba(255,255,255,0.09)",
                 }}
               >
-                <div className="flex items-center gap-3">
-                  <span className="text-xs font-bold font-mono shrink-0" style={{ color: isSelected ? "#c4b5fd" : "rgba(255,255,255,0.5)", minWidth: "3.5rem" }}>
-                    {label}
-                  </span>
-                  <span className="text-xs leading-snug" style={{ color: isSelected ? "rgba(255,255,255,0.78)" : "rgba(255,255,255,0.38)" }}>
-                    {desc}
-                  </span>
-                </div>
-              </button>
+                <button
+                  onClick={() => setSelectedInstinct(code)}
+                  className="w-full text-left px-4 py-3.5 transition-all active:scale-[0.98]"
+                >
+                  <div className="flex items-start gap-3">
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center gap-2 mb-0.5">
+                        <span className="text-xs font-bold" style={{ color: isSelected ? "#c4b5fd" : "rgba(255,255,255,0.65)" }}>
+                          {label}
+                        </span>
+                        <span className="text-[10px] px-1.5 py-0.5 rounded-full font-mono" style={{ background: "rgba(255,255,255,0.07)", color: "rgba(255,255,255,0.35)" }}>
+                          {sublabel}
+                        </span>
+                      </div>
+                      <span className="text-xs leading-snug block" style={{ color: isSelected ? "rgba(255,255,255,0.78)" : "rgba(255,255,255,0.38)" }}>
+                        {desc}
+                      </span>
+                    </div>
+                    <button
+                      onClick={(e) => { e.stopPropagation(); setExpandedInstinct(isExpanded ? null : code); }}
+                      className="shrink-0 mt-0.5 p-1 rounded-lg transition-colors"
+                      style={{ background: "rgba(255,255,255,0.07)", color: "rgba(255,255,255,0.4)" }}
+                    >
+                      <ChevronDown size={12} style={{ transform: isExpanded ? "rotate(180deg)" : "none", transition: "transform 0.2s" }} />
+                    </button>
+                  </div>
+                </button>
+                <AnimatePresence>
+                  {isExpanded && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: "auto", opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.2 }}
+                      className="overflow-hidden"
+                    >
+                      <div className="px-4 pb-4 pt-0">
+                        <div className="h-px mb-3" style={{ background: "rgba(255,255,255,0.07)" }} />
+                        <p className="text-xs leading-relaxed" style={{ color: "rgba(255,255,255,0.5)" }}>
+                          {detail}
+                        </p>
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
             );
           })}
         </div>
