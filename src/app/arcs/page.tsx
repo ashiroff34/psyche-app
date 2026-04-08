@@ -142,8 +142,7 @@ function daysSinceStart(startDate: string): number {
 function awardTokens(amount: number) {
   try {
     const raw = localStorage.getItem("psyche-game-state");
-    if (!raw) return;
-    const state = JSON.parse(raw);
+    const state = raw ? JSON.parse(raw) : {};
     state.tokens = (state.tokens ?? 0) + amount;
     state.totalTokensEarned = (state.totalTokensEarned ?? 0) + amount;
     localStorage.setItem("psyche-game-state", JSON.stringify(state));
@@ -153,8 +152,7 @@ function awardTokens(amount: number) {
 function awardBadge(badge: { id: string; name: string; description: string; icon: string }) {
   try {
     const raw = localStorage.getItem("psyche-game-state");
-    if (!raw) return;
-    const state = JSON.parse(raw);
+    const state = raw ? JSON.parse(raw) : {};
     if (!Array.isArray(state.badges)) state.badges = [];
     const alreadyEarned = state.badges.some((b: { id: string }) => b.id === badge.id);
     if (!alreadyEarned) {

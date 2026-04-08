@@ -1895,18 +1895,20 @@ function ReferralBlock() {
 
   const recordShare = () => {
     try {
-      const newCount = shareCount + 1;
+      const currentCount = parseInt(localStorage.getItem(REFERRAL_SHARE_COUNT_KEY) ?? "0", 10);
+      const newCount = currentCount + 1;
       setShareCount(newCount);
       localStorage.setItem(REFERRAL_SHARE_COUNT_KEY, String(newCount));
 
       const gs = JSON.parse(localStorage.getItem("psyche-game-state") || "{}");
+      let totalAward = 0;
 
       // First share reward
       if (!tokensAwarded) {
         gs.tokens = (gs.tokens ?? 0) + REFERRAL_SHARE_TOKENS;
         localStorage.setItem(REFERRAL_SHARE_TOKEN_KEY, "true");
         setTokensAwarded(true);
-        setLatestAward(REFERRAL_SHARE_TOKENS);
+        totalAward += REFERRAL_SHARE_TOKENS;
       }
 
       // 5-share milestone
@@ -1914,11 +1916,14 @@ function ReferralBlock() {
         gs.tokens = (gs.tokens ?? 0) + REFERRAL_MILESTONE_TOKENS;
         localStorage.setItem(REFERRAL_MILESTONE_KEY, "true");
         setMilestoneReached(true);
-        setLatestAward(REFERRAL_MILESTONE_TOKENS);
+        totalAward += REFERRAL_MILESTONE_TOKENS;
       }
 
       localStorage.setItem("psyche-game-state", JSON.stringify(gs));
-      setTimeout(() => setLatestAward(null), 2800);
+      if (totalAward > 0) {
+        setLatestAward(totalAward);
+        setTimeout(() => setLatestAward(null), 2800);
+      }
     } catch {}
   };
 

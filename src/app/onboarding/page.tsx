@@ -444,96 +444,6 @@ function StepTypePreview({ onNext, onBack }: { onNext: () => void; onBack: () =>
 
 // ── Step 5: Subtype unlock ────────────────────────────────────────────────────
 
-const SUBTYPE_OPTIONS = [
-  { code: "sp/sx", label: "sp / sx", desc: "Build security first, then seek depth — private and selective" },
-  { code: "sp/so", label: "sp / so", desc: "Practical and community-minded — steady, reliable, a builder" },
-  { code: "sx/sp", label: "sx / sp", desc: "Intense but grounded — magnetic, self-contained, passionate" },
-  { code: "sx/so", label: "sx / so", desc: "Charismatic and connected — bring intensity into group settings" },
-  { code: "so/sp", label: "so / sp", desc: "Social architect — responsible, institutional, purpose-driven" },
-  { code: "so/sx", label: "so / sx", desc: "Passionate connector — charismatic presence, seek deep belonging" },
-];
-
-function StepSubtype({
-  enneagramType,
-  typeColor,
-  onNext,
-  onSkip,
-}: {
-  enneagramType: number;
-  typeColor: string;
-  onNext: (stacking: string) => void;
-  onSkip: () => void;
-}) {
-  const [selected, setSelected] = useState<string | null>(null);
-
-  return (
-    <div className="flex flex-col items-center px-6 max-w-sm mx-auto w-full">
-      <div className="text-center mb-7">
-        <div
-          className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold mb-5"
-          style={{ background: `${typeColor}18`, border: `1px solid ${typeColor}35`, color: typeColor }}
-        >
-          Type {enneagramType} — Subtype
-        </div>
-        <h2 className="text-2xl font-serif font-bold mb-2" style={{ color: "rgba(255,255,255,0.93)" }}>
-          Unlock your avatar
-        </h2>
-        <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.4)" }}>
-          Your instinctual subtype shapes how your type shows up in the world — and unlocks your personalized chibi.
-        </p>
-      </div>
-
-      <div className="w-full space-y-2 mb-6">
-        {SUBTYPE_OPTIONS.map(({ code, label, desc }) => {
-          const isSelected = selected === code;
-          return (
-            <button
-              key={code}
-              onClick={() => setSelected(code)}
-              className="w-full text-left px-4 py-3.5 rounded-2xl transition-all active:scale-[0.98]"
-              style={{
-                background: isSelected ? "rgba(124,58,237,0.18)" : "rgba(255,255,255,0.05)",
-                border: isSelected ? "1px solid rgba(167,139,250,0.45)" : "1px solid rgba(255,255,255,0.09)",
-              }}
-            >
-              <div className="flex items-center gap-3">
-                <span
-                  className="text-xs font-bold font-mono shrink-0"
-                  style={{ color: isSelected ? "#c4b5fd" : "rgba(255,255,255,0.5)", minWidth: "3.5rem" }}
-                >
-                  {label}
-                </span>
-                <span className="text-xs leading-snug" style={{ color: isSelected ? "rgba(255,255,255,0.78)" : "rgba(255,255,255,0.38)" }}>
-                  {desc}
-                </span>
-              </div>
-            </button>
-          );
-        })}
-      </div>
-
-      <button
-        onClick={() => { if (selected) onNext(selected); }}
-        disabled={!selected}
-        className="w-full py-3.5 rounded-2xl text-sm font-bold text-white transition-all hover:-translate-y-0.5 active:scale-[0.98] disabled:opacity-35 mb-3"
-        style={{
-          background: selected ? "linear-gradient(135deg, #7c3aed, #4f46e5)" : "rgba(255,255,255,0.08)",
-          boxShadow: selected ? "0 8px 24px rgba(124,58,237,0.45)" : "none",
-        }}
-      >
-        Unlock my avatar →
-      </button>
-      <button
-        onClick={onSkip}
-        className="text-xs py-2 transition-colors"
-        style={{ color: "rgba(255,255,255,0.22)" }}
-      >
-        Skip for now
-      </button>
-    </div>
-  );
-}
-
 // ── Step 7: All Set ───────────────────────────────────────────────────────────
 
 function StepAllSet({
@@ -930,7 +840,7 @@ function OnboardingPageInner() {
           try { localStorage.setItem("psyche-terms-accepted", "true"); } catch {}
           // Jump to correct step based on URL params
           if (fromEnter) setStep(2);
-          else if (isManual) setStep(7);
+          else if (isManual) setStep(8);
           // else stay at step 0 (welcome)
         }}
       />
@@ -985,6 +895,7 @@ function OnboardingPageInner() {
       };
       localStorage.setItem("psyche-profile", JSON.stringify(updated));
       localStorage.setItem("psyche-onboarding-complete", "true");
+      localStorage.setItem("psyche-onboarding-complete-date", new Date().toISOString().slice(0, 10));
       localStorage.setItem("psyche-tutorial-complete", "true");
       localStorage.setItem("thyself_intent", "discover");
       notifyProfileChanged();
@@ -1016,6 +927,7 @@ function OnboardingPageInner() {
       };
       localStorage.setItem("psyche-profile", JSON.stringify(updated));
       localStorage.setItem("psyche-onboarding-complete", "true");
+      localStorage.setItem("psyche-onboarding-complete-date", new Date().toISOString().slice(0, 10));
       localStorage.setItem("psyche-tutorial-complete", "true");
       notifyProfileChanged();
       try {
@@ -1045,6 +957,7 @@ function OnboardingPageInner() {
       };
       localStorage.setItem("psyche-profile", JSON.stringify(updated));
       localStorage.setItem("psyche-onboarding-complete", "true");
+      localStorage.setItem("psyche-onboarding-complete-date", new Date().toISOString().slice(0, 10));
       localStorage.setItem("psyche-tutorial-complete", "true");
       localStorage.setItem("thyself_intent", "discover");
       notifyProfileChanged();

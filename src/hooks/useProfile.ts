@@ -318,12 +318,11 @@ export function useProfile() {
             localStorage.setItem("psyche-referral-rewarded", "1");
             // Award tokens to this (referred) user via game state
             const gsRaw = localStorage.getItem("psyche-game-state");
-            if (gsRaw) {
-              const gs = JSON.parse(gsRaw);
-              const limitedBonus = localStorage.getItem("psyche-referral-limited-bonus") === "true" ? 100 : 0;
-              gs.tokens = (gs.tokens ?? 0) + 50 + limitedBonus;
-              localStorage.setItem("psyche-game-state", JSON.stringify(gs));
-            }
+            const gs = gsRaw ? JSON.parse(gsRaw) : {};
+            const limitedBonus = localStorage.getItem("psyche-referral-limited-bonus") === "true" ? 100 : 0;
+            gs.tokens = (gs.tokens ?? 0) + 50 + limitedBonus;
+            localStorage.setItem("psyche-game-state", JSON.stringify(gs));
+            if (limitedBonus) localStorage.removeItem("psyche-referral-limited-bonus");
           }
         } catch {}
       }
