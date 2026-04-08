@@ -18,6 +18,7 @@ import {
   BookOpen,
   Target,
   Sprout,
+  MoreHorizontal,
 } from "lucide-react";
 import OuroborosLogo from "@/components/OuroborosLogo";
 import SearchComponent from "@/components/Search";
@@ -52,69 +53,72 @@ function BottomTabBar({
     <div
       className="fixed bottom-0 left-0 right-0 z-50"
       style={{
-        background: "rgba(10,6,20,0.97)",
-        backdropFilter: "blur(20px)",
-        borderTop: "1px solid rgba(139,92,246,0.18)",
-        paddingBottom: "env(safe-area-inset-bottom, 0px)",
+        background: "rgba(8,4,18,0.98)",
+        backdropFilter: "blur(24px)",
+        borderTop: "1px solid rgba(139,92,246,0.22)",
+        paddingBottom: "max(env(safe-area-inset-bottom, 0px), 8px)",
       }}
     >
-      <div className="flex items-center justify-around max-w-md mx-auto px-1 py-2">
+      <div className="flex items-center justify-around max-w-md mx-auto px-2 py-1.5">
         {WHEEL_SPOKES.map((spoke) => {
           const Icon = spoke.icon;
+          // Root "/" and "/dashboard" map to the "Know" (/assessments) tab
+          const effectivePath = (pathname === "/" || pathname === "/dashboard") ? "/assessments" : pathname;
           const isActive =
-            pathname === spoke.href ||
-            pathname.startsWith(spoke.href + "/") ||
-            (spoke.href.length > 1 && pathname.startsWith(spoke.href));
+            effectivePath === spoke.href ||
+            effectivePath.startsWith(spoke.href + "/") ||
+            (spoke.href.length > 1 && effectivePath.startsWith(spoke.href));
           const isPractice = spoke.href === "/daily";
 
           return (
             <motion.button
               key={spoke.href}
-              whileTap={{ scale: 0.92 }}
+              whileTap={{ scale: 0.9 }}
               onClick={(e) => {
                 onNavClick(e as unknown as React.MouseEvent, spoke.href);
                 if (!e.defaultPrevented) router.push(spoke.href);
               }}
-              className="relative flex flex-col items-center gap-0.5 min-w-[52px] py-1"
+              className="relative flex flex-col items-center gap-1 flex-1 py-2"
+              style={{ minWidth: 56 }}
             >
               {/* Active indicator pill */}
               {isActive && (
                 <motion.div
                   layoutId="tab-active-pill"
-                  className="absolute inset-0 rounded-2xl"
+                  className="absolute inset-x-1 inset-y-0 rounded-2xl"
                   style={{
-                    background: `${spoke.color}18`,
-                    border: `1px solid ${spoke.color}35`,
-                    boxShadow: `0 0 12px ${spoke.color}25`,
+                    background: `${spoke.color}20`,
+                    border: `1px solid ${spoke.color}40`,
+                    boxShadow: `0 0 16px ${spoke.color}30`,
                   }}
                   transition={{ type: "spring", stiffness: 500, damping: 35 }}
                 />
               )}
 
-              {/* Icon — slightly larger for center (Practice) tab */}
+              {/* Icon */}
               <div
-                className={`relative z-10 flex items-center justify-center rounded-xl transition-all ${isPractice ? "w-10 h-10" : "w-8 h-8"}`}
+                className={`relative z-10 flex items-center justify-center rounded-xl transition-all ${isPractice ? "w-12 h-12" : "w-10 h-10"}`}
                 style={{
-                  background: isActive && isPractice ? `${spoke.color}25` : "transparent",
-                  boxShadow: isActive && isPractice ? `0 0 16px ${spoke.color}40` : "none",
+                  background: isActive && isPractice ? `${spoke.color}30` : "transparent",
+                  boxShadow: isActive && isPractice ? `0 0 20px ${spoke.color}50` : "none",
                 }}
               >
                 <Icon
-                  className={isPractice ? "w-5 h-5" : "w-4.5 h-4.5"}
                   style={{
-                    color: isActive ? spoke.color : "rgba(255,255,255,0.3)",
-                    filter: isActive ? `drop-shadow(0 0 6px ${spoke.color}80)` : "none",
-                    width: isPractice ? "1.25rem" : "1.125rem",
-                    height: isPractice ? "1.25rem" : "1.125rem",
+                    color: isActive ? spoke.color : "rgba(255,255,255,0.35)",
+                    filter: isActive ? `drop-shadow(0 0 8px ${spoke.color}90)` : "none",
+                    width: isPractice ? "1.5rem" : "1.25rem",
+                    height: isPractice ? "1.5rem" : "1.25rem",
                   }}
                 />
               </div>
 
               {/* Label */}
               <span
-                className="text-[9px] font-bold relative z-10 tracking-wide transition-all"
+                className="text-[10px] font-bold relative z-10 tracking-wide transition-all"
                 style={{
-                  color: isActive ? spoke.color : "rgba(255,255,255,0.25)",
+                  color: isActive ? spoke.color : "rgba(255,255,255,0.3)",
+                  textShadow: isActive ? `0 0 8px ${spoke.color}60` : "none",
                 }}
               >
                 {spoke.label}
@@ -210,8 +214,8 @@ function MoreMenu({ pathname }: { pathname: string }) {
         className="relative flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-sm font-medium transition-all"
         style={{ color: "rgba(255,255,255,0.8)" }}
       >
-        <Compass className="w-4 h-4" />
-        <span className="hidden sm:inline">Explore</span>
+        <MoreHorizontal className="w-4 h-4" />
+        <span className="hidden sm:inline">More</span>
         {!hasSeenExplore && (
           <span className="absolute -top-0.5 -right-0.5 w-2 h-2 rounded-full bg-indigo-500 animate-pulse" title="New feature available" />
         )}
