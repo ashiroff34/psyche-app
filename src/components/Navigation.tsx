@@ -8,18 +8,16 @@ import { motion, AnimatePresence } from "framer-motion";
 import {
   Brain,
   Compass,
-  Beaker,
-  X,
   UserCircle,
   Flame,
   Coins,
   ChevronLeft,
-  Zap,
   Moon,
   Bug,
   Settings,
-  Grid3x3,
   BookOpen,
+  Target,
+  Sprout,
 } from "lucide-react";
 import OuroborosLogo from "@/components/OuroborosLogo";
 import SearchComponent from "@/components/Search";
@@ -32,192 +30,100 @@ import SearchComponent from "@/components/Search";
 // Labels match the BRIEFING redesign: Know / Learn / Practice / Explore / Grow / You
 
 const WHEEL_SPOKES = [
-  { href: "/assessments", label: "Know",     icon: Zap,        color: "#8b5cf6" },
+  { href: "/assessments", label: "Know",     icon: Target,     color: "#8b5cf6" },
   { href: "/daily",       label: "Practice", icon: Flame,      color: "#d946ef" },
   { href: "/enneagram",   label: "Explore",  icon: Compass,    color: "#0ea5e9" },
-  { href: "/journal",     label: "Grow",     icon: Beaker,     color: "#10b981" },
+  { href: "/journal",     label: "Grow",     icon: Sprout,     color: "#10b981" },
   { href: "/profile",     label: "You",      icon: UserCircle, color: "#a78bfa" },
 ] as const;
 
-// Spoke positions: fan of ±50° from straight-up, r=130px — 5 spokes
-const SPOKE_OFFSETS = [-50, -25, 0, 25, 50].map((angleDeg) => {
-  const r = 130;
-  const rad = (angleDeg * Math.PI) / 180;
-  return { x: r * Math.sin(rad), y: -r * Math.cos(rad) };
-});
 
-function NavWheel({
+// ── Persistent bottom tab bar — 1-tap navigation, always highlighted ──────────
+function BottomTabBar({
   pathname,
-  storeUnlocked,
-  storeNotifVisible,
-  storeLockToast,
   onNavClick,
-  onStoreLockDismiss,
 }: {
   pathname: string;
-  storeUnlocked: boolean;
-  storeNotifVisible: boolean;
-  storeLockToast: boolean;
   onNavClick: (e: React.MouseEvent, href: string) => void;
-  onStoreLockDismiss: () => void;
 }) {
-  const [open, setOpen] = useState(false);
   const router = useRouter();
 
-  // Close wheel on route change
-  useEffect(() => { setOpen(false); }, [pathname]);
-
-  // Close on outside tap
-  useEffect(() => {
-    if (!open) return;
-    const handle = (e: MouseEvent | TouchEvent) => {
-      const target = e.target as HTMLElement;
-      if (!target.closest("[data-nav-wheel]")) setOpen(false);
-    };
-    document.addEventListener("mousedown", handle);
-    document.addEventListener("touchstart", handle);
-    return () => {
-      document.removeEventListener("mousedown", handle);
-      document.removeEventListener("touchstart", handle);
-    };
-  }, [open]);
-
-  function handleSpokeTap(e: React.MouseEvent, href: string) {
-    onNavClick(e, href);
-    if (!e.defaultPrevented) {
-      setOpen(false);
-      router.push(href);
-    }
-  }
-
   return (
-    <>
-      {/* Backdrop */}
-      <AnimatePresence>
-        {open && (
-          <motion.div
-            key="wheel-backdrop"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.18 }}
-            className="fixed inset-0 z-40"
-            style={{ background: "rgba(10,6,20,0.72)", backdropFilter: "blur(4px)" }}
-            onClick={() => setOpen(false)}
-          />
-        )}
-      </AnimatePresence>
+    <div
+      className="fixed bottom-0 left-0 right-0 z-50"
+      style={{
+        background: "rgba(10,6,20,0.97)",
+        backdropFilter: "blur(20px)",
+        borderTop: "1px solid rgba(139,92,246,0.18)",
+        paddingBottom: "env(safe-area-inset-bottom, 0px)",
+      }}
+    >
+      <div className="flex items-center justify-around max-w-md mx-auto px-1 py-2">
+        {WHEEL_SPOKES.map((spoke) => {
+          const Icon = spoke.icon;
+          const isActive =
+            pathname === spoke.href ||
+            pathname.startsWith(spoke.href + "/") ||
+            (spoke.href.length > 1 && pathname.startsWith(spoke.href));
+          const isPractice = spoke.href === "/daily";
 
-      {/* Wheel container — fixed, centered at bottom */}
-      <div
-        data-nav-wheel
-        className="fixed z-50"
-        style={{ bottom: 24, left: "50%", transform: "translateX(-50%)" }}
-      >
-        {/* Spokes */}
-        <AnimatePresence>
-          {open && WHEEL_SPOKES.map((spoke, i) => {
-            const { x, y } = SPOKE_OFFSETS[i];
-            const Icon = spoke.icon;
-            const isActive = pathname === spoke.href || (spoke.href !== "/" as string && pathname.startsWith(spoke.href));
-
-            return (
-              <motion.button
-                key={spoke.href}
-                initial={{ x: 0, y: 0, scale: 0, opacity: 0 }}
-                animate={{ x, y, scale: 1, opacity: 1 }}
-                exit={{ x: 0, y: 0, scale: 0, opacity: 0 }}
-                transition={{
-                  type: "spring",
-                  stiffness: 320,
-                  damping: 24,
-                  delay: open ? i * 0.03 : (WHEEL_SPOKES.length - 1 - i) * 0.02,
-                }}
-                onClick={(e) => handleSpokeTap(e as unknown as React.MouseEvent, spoke.href)}
-                className="absolute flex flex-col items-center gap-1.5"
-                style={{ transform: `translate(${x}px, ${y}px) translate(-50%, -50%)` }}
-              >
-                {/* Icon bubble */}
-                <motion.div
-                  whileTap={{ scale: 0.9 }}
-                  className="w-11 h-11 rounded-2xl flex items-center justify-center shadow-lg"
-                  style={{
-                    background: isActive
-                      ? spoke.color
-                      : `${spoke.color}22`,
-                    border: `1px solid ${spoke.color}${isActive ? "ff" : "55"}`,
-                    boxShadow: isActive ? `0 0 18px ${spoke.color}55` : "none",
-                  }}
-                >
-                  <Icon className="w-5 h-5" style={{ color: isActive ? "#fff" : spoke.color }} />
-                </motion.div>
-                {/* Label */}
-                <span
-                  className="text-[10px] font-bold uppercase tracking-wide leading-none"
-                  style={{ color: isActive ? spoke.color : "rgba(255,255,255,0.55)" }}
-                >
-                  {spoke.label}
-                </span>
-              </motion.button>
-            );
-          })}
-        </AnimatePresence>
-
-        {/* Center button */}
-        <motion.button
-          whileTap={{ scale: 0.92 }}
-          onClick={() => setOpen(v => !v)}
-          className="relative w-14 h-14 rounded-full flex items-center justify-center shadow-xl"
-          style={{
-            background: open
-              ? "rgba(139,92,246,0.25)"
-              : "linear-gradient(135deg, #7c3aed, #4f46e5)",
-            border: `2px solid ${open ? "rgba(139,92,246,0.6)" : "rgba(139,92,246,0.4)"}`,
-            boxShadow: open ? "0 0 32px rgba(139,92,246,0.4)" : "0 4px 20px rgba(0,0,0,0.5)",
-          }}
-        >
-          <AnimatePresence mode="wait">
-            {open ? (
-              <motion.span
-                key="close"
-                initial={{ rotate: -45, opacity: 0 }}
-                animate={{ rotate: 0, opacity: 1 }}
-                exit={{ rotate: 45, opacity: 0 }}
-                transition={{ duration: 0.15 }}
-              >
-                <X className="w-5 h-5 text-violet-300" />
-              </motion.span>
-            ) : (
-              <motion.span
-                key="open"
-                initial={{ rotate: 45, opacity: 0 }}
-                animate={{ rotate: 0, opacity: 1 }}
-                exit={{ rotate: -45, opacity: 0 }}
-                transition={{ duration: 0.15 }}
-              >
-                <Grid3x3 className="w-5 h-5 text-white" />
-              </motion.span>
-            )}
-          </AnimatePresence>
-        </motion.button>
-
-        {/* Store lock toast */}
-        <AnimatePresence>
-          {storeLockToast && (
-            <motion.div
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: -80 }}
-              exit={{ opacity: 0 }}
-              onClick={onStoreLockDismiss}
-              className="absolute left-1/2 -translate-x-1/2 px-4 py-2 rounded-xl text-xs font-medium text-white whitespace-nowrap cursor-pointer"
-              style={{ background: "rgba(22,12,48,0.97)", border: "1px solid rgba(139,92,246,0.3)", boxShadow: "0 4px 16px rgba(0,0,0,0.4)" }}
+          return (
+            <motion.button
+              key={spoke.href}
+              whileTap={{ scale: 0.92 }}
+              onClick={(e) => {
+                onNavClick(e as unknown as React.MouseEvent, spoke.href);
+                if (!e.defaultPrevented) router.push(spoke.href);
+              }}
+              className="relative flex flex-col items-center gap-0.5 min-w-[52px] py-1"
             >
-              Complete a lesson to unlock the Store
-            </motion.div>
-          )}
-        </AnimatePresence>
+              {/* Active indicator pill */}
+              {isActive && (
+                <motion.div
+                  layoutId="tab-active-pill"
+                  className="absolute inset-0 rounded-2xl"
+                  style={{
+                    background: `${spoke.color}18`,
+                    border: `1px solid ${spoke.color}35`,
+                    boxShadow: `0 0 12px ${spoke.color}25`,
+                  }}
+                  transition={{ type: "spring", stiffness: 500, damping: 35 }}
+                />
+              )}
+
+              {/* Icon — slightly larger for center (Practice) tab */}
+              <div
+                className={`relative z-10 flex items-center justify-center rounded-xl transition-all ${isPractice ? "w-10 h-10" : "w-8 h-8"}`}
+                style={{
+                  background: isActive && isPractice ? `${spoke.color}25` : "transparent",
+                  boxShadow: isActive && isPractice ? `0 0 16px ${spoke.color}40` : "none",
+                }}
+              >
+                <Icon
+                  className={isPractice ? "w-5 h-5" : "w-4.5 h-4.5"}
+                  style={{
+                    color: isActive ? spoke.color : "rgba(255,255,255,0.3)",
+                    filter: isActive ? `drop-shadow(0 0 6px ${spoke.color}80)` : "none",
+                    width: isPractice ? "1.25rem" : "1.125rem",
+                    height: isPractice ? "1.25rem" : "1.125rem",
+                  }}
+                />
+              </div>
+
+              {/* Label */}
+              <span
+                className="text-[9px] font-bold relative z-10 tracking-wide transition-all"
+                style={{
+                  color: isActive ? spoke.color : "rgba(255,255,255,0.25)",
+                }}
+              >
+                {spoke.label}
+              </span>
+            </motion.button>
+          );
+        })}
       </div>
-    </>
+    </div>
   );
 }
 
@@ -455,37 +361,22 @@ export default function Navigation() {
   }, [pathname]);
 
   const [hasPrevPage, setHasPrevPage] = useState(false);
-  const [storeNotifVisible, setStoreNotifVisible] = useState(false);
   const [storeUnlocked, setStoreUnlocked] = useState(false);
-  const [accountDays, setAccountDays] = useState(999);
   const [storeLockToast, setStoreLockToast] = useState(false);
 
-  // Show pulsing Store dot only when user has >= 50 tokens and hasn't visited yet
-  // Also gate Store tab visibility until user has earned their first tokens (Day 2+)
   useEffect(() => {
     try {
       const raw = localStorage.getItem("psyche-game-state");
       if (!raw) return;
       const gs = JSON.parse(raw);
       const tokens = (gs.tokens as number) ?? 0;
-
-      // Account age
       let days = 999;
       if (gs.accountCreated) {
         days = Math.floor((Date.now() - new Date(gs.accountCreated).getTime()) / 86400000);
       }
-      setAccountDays(days);
-
-      // Store is unlocked if they have tokens OR have been around 2+ days
       setStoreUnlocked(tokens > 0 || days >= 2);
-
-      // Pulsing dot: tokens >= 50 and haven't visited
-      const visited = localStorage.getItem("psyche-store-visited");
-      if (!visited && tokens >= 50) setStoreNotifVisible(true);
-      else setStoreNotifVisible(false);
     } catch {}
-  }, [pathname]); // re-check whenever route changes (tokens may have just been awarded)
-  void accountDays; // used above, referenced to avoid lint warning
+  }, [pathname]);
 
   // Store page history in localStorage so back button always works
   useEffect(() => {
@@ -527,7 +418,6 @@ export default function Navigation() {
         return;
       }
       try { localStorage.setItem("psyche-store-visited", "true"); } catch {}
-      setStoreNotifVisible(false);
     }
   };
 
@@ -587,15 +477,11 @@ export default function Navigation() {
         </div>
       </nav>
 
-      {/* ── Nav Wheel ─────────────────────────────────────────────────────── */}
+      {/* ── Bottom Tab Bar — persistent, 1-tap navigation ─────────────── */}
       {!hideChrome && (
-        <NavWheel
+        <BottomTabBar
           pathname={pathname}
-          storeUnlocked={storeUnlocked}
-          storeNotifVisible={storeNotifVisible}
-          storeLockToast={storeLockToast}
           onNavClick={handleNavClick}
-          onStoreLockDismiss={() => setStoreLockToast(false)}
         />
       )}
 

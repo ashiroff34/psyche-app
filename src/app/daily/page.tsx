@@ -647,6 +647,7 @@ export default function DailyPage() {
 
   // ── View state (hub / path / quiz) ──
   const [view, setView] = useState<"hub" | "path" | "quiz" | "lesson" | "reading">("path");
+  const [statsCollapsed, setStatsCollapsed] = useState(true);
   const [pathExpanded, setPathExpanded] = useState(false);
   const [bottomSheetNode, setBottomSheetNode] = useState<PathNodeConfig | null>(null);
   const [quizSourceNode, setQuizSourceNode] = useState<PathNodeConfig | null>(null);
@@ -1650,98 +1651,124 @@ export default function DailyPage() {
           )}
         </AnimatePresence>
 
-        {/* Stat bar — streak is the hero metric */}
-        <div className="sticky top-0 z-20 px-4 py-2.5" style={{ background: "rgba(15,10,30,0.95)", backdropFilter: "blur(12px)", borderBottom: "1px solid rgba(139,92,246,0.15)" }}>
-          <div className="flex items-center justify-between max-w-md mx-auto">
-            {/* ── STREAK (hero element) ── */}
-            {(() => {
-              const atRisk = completedTodayCount === 0 && new Date().getHours() >= 18 && streak > 0;
-              return (
-                <div className="flex items-center gap-2">
-                  <motion.div
-                    animate={atRisk ? { scale: [1, 1.15, 1] } : {}}
-                    transition={{ duration: 1, repeat: atRisk ? Infinity : 0, repeatDelay: 1.5 }}
-                  >
-                    <Flame className={`w-6 h-6 ${atRisk ? "text-red-400" : "text-orange-400"}`} />
-                  </motion.div>
-                  <div className="flex flex-col leading-none">
-                    <SlotCounter
-                      value={streak}
-                      sequentialAnimationMode
-                      charClassName={`font-black text-xl ${atRisk ? "text-red-300" : "text-white"}`}
-                      duration={0.6}
-                    />
-                    <span className={`text-[9px] font-semibold ${atRisk ? "text-red-400/70" : "text-orange-400/60"}`}>
-                      {atRisk ? "at risk" : streak === 1 ? "day streak" : "day streak"}
-                    </span>
+        {/* Stat bar — collapsible, collapsed by default so the path shines */}
+        <div className="sticky top-0 z-20" style={{ background: "rgba(15,10,30,0.95)", backdropFilter: "blur(12px)", borderBottom: "1px solid rgba(139,92,246,0.12)" }}>
+          <AnimatePresence initial={false}>
+            {statsCollapsed ? (
+              /* ── Collapsed: tap to expand ── */
+              <motion.button
+                key="mini-bar"
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: "auto" }}
+                exit={{ opacity: 0, height: 0 }}
+                transition={{ duration: 0.2 }}
+                onClick={() => setStatsCollapsed(false)}
+                className="w-full flex items-center justify-between px-5 py-2"
+              >
+                <div className="flex items-center gap-3">
+                  {(() => {
+                    const atRisk = completedTodayCount === 0 && new Date().getHours() >= 18 && streak > 0;
+                    return (
+                      <>
+                        <Flame className={`w-3.5 h-3.5 ${atRisk ? "text-red-400" : "text-orange-400"}`} />
+                        <span className={`text-xs font-bold ${atRisk ? "text-red-300" : "text-white"}`}>{streak}</span>
+                        <Star className="w-3.5 h-3.5 text-yellow-400 fill-yellow-400" />
+                        <span className="text-xs font-bold text-white">{totalXP}</span>
+                        <Zap className="w-3.5 h-3.5 text-emerald-400" />
+                        <span className="text-xs font-bold text-white">{gameStateRaw.tokens ?? 0}</span>
+                        <span className="text-[10px] text-violet-400/50">{completedTodayCount}/{allPathNodes.length}</span>
+                      </>
+                    );
+                  })()}
+                </div>
+                <ChevronDown className="w-3.5 h-3.5" style={{ color: "rgba(139,92,246,0.5)" }} />
+              </motion.button>
+            ) : (
+              /* ── Expanded: full stat bar + quick actions ── */
+              <motion.div
+                key="full-bar"
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: "auto" }}
+                exit={{ opacity: 0, height: 0 }}
+                transition={{ duration: 0.2 }}
+                className="overflow-hidden"
+              >
+                <div className="px-4 pt-2.5 pb-1">
+                  <div className="flex items-center justify-between max-w-md mx-auto">
+                    {/* ── STREAK ── */}
+                    {(() => {
+                      const atRisk = completedTodayCount === 0 && new Date().getHours() >= 18 && streak > 0;
+                      return (
+                        <div className="flex items-center gap-2">
+                          <motion.div
+                            animate={atRisk ? { scale: [1, 1.15, 1] } : {}}
+                            transition={{ duration: 1, repeat: atRisk ? Infinity : 0, repeatDelay: 1.5 }}
+                          >
+                            <Flame className={`w-6 h-6 ${atRisk ? "text-red-400" : "text-orange-400"}`} />
+                          </motion.div>
+                          <div className="flex flex-col leading-none">
+                            <SlotCounter value={streak} sequentialAnimationMode charClassName={`font-black text-xl ${atRisk ? "text-red-300" : "text-white"}`} duration={0.6} />
+                            <span className={`text-[9px] font-semibold ${atRisk ? "text-red-400/70" : "text-orange-400/60"}`}>
+                              {atRisk ? "at risk" : "day streak"}
+                            </span>
+                          </div>
+                        </div>
+                      );
+                    })()}
+                    {/* ── XP ── */}
+                    <div className="flex items-center gap-1.5 relative">
+                      <Star className="w-4 h-4 text-yellow-400 fill-yellow-400" />
+                      <SlotCounter value={totalXP} sequentialAnimationMode charClassName="text-white font-bold text-sm" duration={0.6} />
+                      <AnimatePresence>
+                        {xpGainShow && (
+                          <motion.span className="absolute -top-4 left-1/2 text-yellow-300 text-xs font-bold" initial={{ y: 0, opacity: 1 }} animate={{ y: -20, opacity: 0 }} exit={{ opacity: 0 }} transition={{ duration: 1.5 }}>+XP</motion.span>
+                        )}
+                      </AnimatePresence>
+                    </div>
+                    {/* ── Tokens ── */}
+                    <div className="flex items-center gap-1.5">
+                      <Zap className="w-4 h-4 text-emerald-400" />
+                      <SlotCounter value={gameStateRaw.tokens ?? 0} sequentialAnimationMode charClassName="text-white font-bold text-sm" duration={0.6} />
+                    </div>
+                    {/* ── Progress + collapse button ── */}
+                    <div className="flex items-center gap-2">
+                      <span className="text-violet-400/60 text-xs font-medium">{completedTodayCount}/{allPathNodes.length}</span>
+                      <button onClick={() => setStatsCollapsed(true)} className="p-1 rounded-lg active:scale-95 transition-transform" style={{ color: "rgba(139,92,246,0.5)" }}>
+                        <ChevronDown className="w-3.5 h-3.5 rotate-180" />
+                      </button>
+                    </div>
+                  </div>
+                  {/* XP progress bar */}
+                  <div className="max-w-md mx-auto mt-1.5">
+                    <div className="h-1.5 rounded-full overflow-hidden" style={{ background: "rgba(139,92,246,0.2)" }}>
+                      <div className="h-full rounded-full transition-all duration-500" style={{ width: `${Math.min(progressToNext, 100)}%`, background: "linear-gradient(90deg, #8b5cf6, #a855f7)" }} />
+                    </div>
+                    <div className="flex justify-between mt-0.5">
+                      <span className="text-[9px] text-violet-400/50 font-medium">{currentMilestone.label}</span>
+                      {nextMilestone && <span className="text-[9px] text-violet-400/50 font-medium">{nextMilestone.xp - totalXP} XP to {nextMilestone.label}</span>}
+                    </div>
                   </div>
                 </div>
-              );
-            })()}
-            {/* ── XP (secondary) ── */}
-            <div className="flex items-center gap-1.5 relative">
-              <Star className="w-4 h-4 text-yellow-400 fill-yellow-400" />
-              <SlotCounter value={totalXP} sequentialAnimationMode charClassName="text-white font-bold text-sm" duration={0.6} />
-              <AnimatePresence>
-                {xpGainShow && (
-                  <motion.span
-                    className="absolute -top-4 left-1/2 text-yellow-300 text-xs font-bold"
-                    initial={{ y: 0, opacity: 1 }}
-                    animate={{ y: -20, opacity: 0 }}
-                    exit={{ opacity: 0 }}
-                    transition={{ duration: 1.5 }}
+                {/* ─── Quick Actions ─── */}
+                <div className="max-w-md mx-auto px-4 pt-2 pb-3 flex items-center gap-2">
+                  <button
+                    onClick={() => setView("hub")}
+                    className="flex-1 py-3 rounded-2xl text-sm font-bold text-white transition-all active:scale-95"
+                    style={{ background: "linear-gradient(135deg, #7c3aed, #4f46e5)", boxShadow: "0 4px 16px rgba(124,58,237,0.35)" }}
                   >
-                    +XP
-                  </motion.span>
-                )}
-              </AnimatePresence>
-            </div>
-            {/* ── Tokens (secondary) ── */}
-            <div className="flex items-center gap-1.5">
-              <Zap className="w-4 h-4 text-emerald-400" />
-              <SlotCounter value={gameStateRaw.tokens ?? 0} sequentialAnimationMode charClassName="text-white font-bold text-sm" duration={0.6} />
-            </div>
-            {/* ── Daily progress ── */}
-            <div className="flex items-center gap-1">
-              <span className="text-violet-400/60 text-xs font-medium">{completedTodayCount}/{allPathNodes.length}</span>
-              <span className="text-violet-400/30 text-[10px]">done</span>
-            </div>
-          </div>
-          {/* XP progress bar */}
-          <div className="max-w-md mx-auto mt-1.5">
-            <div className="h-1.5 rounded-full overflow-hidden" style={{ background: "rgba(139,92,246,0.2)" }}>
-              <div
-                className="h-full rounded-full transition-all duration-500"
-                style={{
-                  width: `${Math.min(progressToNext, 100)}%`,
-                  background: "linear-gradient(90deg, #8b5cf6, #a855f7)",
-                }}
-              />
-            </div>
-            <div className="flex justify-between mt-0.5">
-              <span className="text-[9px] text-violet-400/50 font-medium">{currentMilestone.label}</span>
-              {nextMilestone && (
-                <span className="text-[9px] text-violet-400/50 font-medium">{nextMilestone.xp - totalXP} XP to {nextMilestone.label}</span>
-              )}
-            </div>
-          </div>
-        </div>
-        {/* ─── Quick Actions ───────────────────────────────────────────── */}
-        <div className="max-w-md mx-auto px-4 pt-4 flex items-center gap-2">
-          <button
-            onClick={() => setView("hub")}
-            className="flex-1 py-3 rounded-2xl text-sm font-bold text-white transition-all active:scale-95"
-            style={{ background: "linear-gradient(135deg, #7c3aed, #4f46e5)", boxShadow: "0 4px 16px rgba(124,58,237,0.35)" }}
-          >
-            (*) Today&apos;s Challenge
-          </button>
-          <Link
-            href="/sprint"
-            className="py-3 px-4 rounded-2xl text-xs font-semibold transition-all active:scale-95 whitespace-nowrap"
-            style={{ background: "rgba(139,92,246,0.1)", border: "1px solid rgba(139,92,246,0.2)", color: "rgba(196,181,253,0.7)" }}
-          >
-            Practice Quiz
-          </Link>
+                    (*) Today&apos;s Challenge
+                  </button>
+                  <Link
+                    href="/sprint"
+                    className="py-3 px-4 rounded-2xl text-xs font-semibold transition-all active:scale-95 whitespace-nowrap"
+                    style={{ background: "rgba(139,92,246,0.1)", border: "1px solid rgba(139,92,246,0.2)", color: "rgba(196,181,253,0.7)" }}
+                  >
+                    Practice Quiz
+                  </Link>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
 
         {/* Streak milestone celebration */}

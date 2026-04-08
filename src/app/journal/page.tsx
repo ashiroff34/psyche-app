@@ -41,6 +41,79 @@ import {
 } from "@/data/deep-cognitive";
 import Link from "next/link";
 import { useGameState } from "@/hooks/useGameState";
+import { Lock } from "lucide-react";
+
+// ============================================================
+// Shadow Work paywall
+// ============================================================
+
+const SHADOW_UNLOCK_KEY = "psyche-shadow-work-unlocked";
+const SHADOW_UNLOCK_COST = 150;
+
+function ShadowWorkGate({ children }: { children: React.ReactNode }) {
+  const [unlocked, setUnlocked] = useState<boolean | null>(null);
+  const [tokens, setTokens] = useState(0);
+  const [spending, setSpending] = useState(false);
+  const [err, setErr] = useState("");
+
+  useEffect(() => {
+    try {
+      setUnlocked(localStorage.getItem(SHADOW_UNLOCK_KEY) === "true");
+      const gs = JSON.parse(localStorage.getItem("psyche-game-state") || "{}");
+      setTokens(typeof gs.tokens === "number" ? gs.tokens : 0);
+    } catch { setUnlocked(false); }
+  }, []);
+
+  const handleUnlock = () => {
+    if (tokens < SHADOW_UNLOCK_COST) {
+      setErr(`You need ${SHADOW_UNLOCK_COST - tokens} more tokens. Earn them through daily practice.`);
+      return;
+    }
+    setSpending(true);
+    try {
+      const gs = JSON.parse(localStorage.getItem("psyche-game-state") || "{}");
+      gs.tokens = (typeof gs.tokens === "number" ? gs.tokens : 0) - SHADOW_UNLOCK_COST;
+      localStorage.setItem("psyche-game-state", JSON.stringify(gs));
+      localStorage.setItem(SHADOW_UNLOCK_KEY, "true");
+      setUnlocked(true);
+    } catch { setErr("Something went wrong."); setSpending(false); }
+  };
+
+  if (unlocked === null) return null;
+  if (unlocked) return <>{children}</>;
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 12 }}
+      animate={{ opacity: 1, y: 0 }}
+      className="flex flex-col items-center text-center px-6 py-12 max-w-sm mx-auto"
+    >
+      <div className="w-16 h-16 rounded-2xl flex items-center justify-center mb-5"
+        style={{ background: "rgba(139,92,246,0.15)", border: "1px solid rgba(139,92,246,0.3)" }}>
+        <Lock className="w-7 h-7" style={{ color: "#a78bfa" }} />
+      </div>
+      <h2 className="text-xl font-serif font-black text-white mb-2">Shadow Work</h2>
+      <p className="text-sm leading-relaxed mb-6" style={{ color: "rgba(255,255,255,0.55)" }}>
+        Explore your cognitive shadow stack, grip states, and active imagination dialogues. Unlock once to access forever.
+      </p>
+      <div className="flex items-center gap-2 mb-6 px-4 py-2.5 rounded-full"
+        style={{ background: "rgba(251,191,36,0.12)", border: "1px solid rgba(251,191,36,0.25)" }}>
+        <Zap className="w-4 h-4 text-amber-400" />
+        <span className="text-sm font-bold text-amber-300">{SHADOW_UNLOCK_COST} tokens</span>
+        <span className="text-xs" style={{ color: "rgba(255,255,255,0.35)" }}>· you have {tokens}</span>
+      </div>
+      {err && <p className="text-xs text-red-400 mb-3">{err}</p>}
+      <button
+        onClick={handleUnlock}
+        disabled={spending || tokens < SHADOW_UNLOCK_COST}
+        className="w-full py-3.5 rounded-2xl font-bold text-white text-sm transition-all active:scale-95 disabled:opacity-50"
+        style={{ background: "linear-gradient(135deg, #7c3aed, #d946ef)", boxShadow: "0 4px 20px rgba(124,58,237,0.4)" }}
+      >
+        {spending ? "Unlocking…" : tokens >= SHADOW_UNLOCK_COST ? "Unlock Shadow Work" : "Not enough tokens yet"}
+      </button>
+    </motion.div>
+  );
+}
 
 // ============================================================
 // Types
@@ -2369,7 +2442,7 @@ export default function InnerWorkLabPage() {
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.25 }}
           >
-            {activeTab === "shadow" && <ShadowWorkExplorer />}
+            {activeTab === "shadow" && <ShadowWorkGate><ShadowWorkExplorer /></ShadowWorkGate>}
             {activeTab === "dynamics" && <TypeDynamicsSimulator />}
             {activeTab === "reframe" && <CognitiveReframeTool />}
             {activeTab === "patterns" && <PatternTracker />}
