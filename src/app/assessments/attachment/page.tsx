@@ -302,7 +302,7 @@ function ResultPage({
             style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)" }}
           >
             <p className="text-xs" style={{ color: "rgba(255,255,255,0.45)" }}>
-              Take an Enneagram assessment to unlock your combined Enneagram + Attachment portrait — a deeper map of your relational patterns.
+              Take an Enneagram assessment to unlock your combined Enneagram + Attachment portrait. a deeper map of your relational patterns.
             </p>
           </motion.div>
         )}
@@ -310,7 +310,7 @@ function ResultPage({
         {/* Sources */}
         <div className="p-3 rounded-xl mb-6" style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.07)" }}>
           <p className="text-[10px] font-mono leading-relaxed" style={{ color: "rgba(255,255,255,0.3)" }}>
-            Sources: Bowlby (1969, 1973) — Attachment and Loss · Ainsworth et al. (1978) — Patterns of Attachment · Bartholomew &amp; Horowitz (1991) — Adult attachment styles · Main &amp; Solomon (1986) — Disorganized attachment · ECR-R: Fraley, Waller &amp; Brennan (2000)
+            Sources: Bowlby (1969, 1973). Attachment and Loss · Ainsworth et al. (1978). Patterns of Attachment · Bartholomew &amp; Horowitz (1991). Adult attachment styles · Main &amp; Solomon (1986). Disorganized attachment · ECR-R: Fraley, Waller &amp; Brennan (2000)
           </p>
         </div>
 
@@ -390,12 +390,12 @@ export default function AttachmentAssessmentPage() {
           </h1>
 
           <p className="text-sm leading-relaxed mb-6" style={{ color: "rgba(255,255,255,0.6)" }}>
-            Attachment theory, developed by John Bowlby and expanded by Mary Ainsworth, proposes that the emotional bonds formed with caregivers in early childhood create an internal working model — a blueprint for how we relate in adult relationships. Your attachment style shapes how you seek closeness, respond to emotional distance, and manage vulnerability with the people who matter most.
+            Attachment theory, developed by John Bowlby and expanded by Mary Ainsworth, proposes that the emotional bonds formed with caregivers in early childhood create an internal working model. a blueprint for how we relate in adult relationships. Your attachment style shapes how you seek closeness, respond to emotional distance, and manage vulnerability with the people who matter most.
           </p>
 
           <div className="space-y-3 mb-8">
             {[
-              { label: "20 questions", detail: "Based on the ECR-R (Experiences in Close Relationships — Revised)" },
+              { label: "20 questions", detail: "Based on the ECR-R (Experiences in Close Relationships. Revised)" },
               { label: "~5 minutes", detail: "Rate each statement on a 5-point scale" },
               { label: "4 attachment styles", detail: "Secure · Anxious-Preoccupied · Dismissive-Avoidant · Fearful-Avoidant" },
             ].map((item) => (

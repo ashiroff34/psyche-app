@@ -554,11 +554,11 @@ export default function DailyPage() {
     if (!loaded) return;
     const type = profile.enneagramType ?? profile.enneagramCore;
     if (!type) return;
-    // Don't show on day 1 — let user get oriented first
+    // Don't show on day 1. let user get oriented first
     try {
       const onboardingDate = localStorage.getItem("psyche-onboarding-complete-date");
       if (!onboardingDate) {
-        // First time — record today's date and skip morning observation
+        // First time. record today's date and skip morning observation
         localStorage.setItem("psyche-onboarding-complete-date", new Date().toISOString().slice(0, 10));
         return;
       }
@@ -1127,7 +1127,7 @@ export default function DailyPage() {
   const nextModuleQuestion = () => {
     if (moduleQ + 1 >= moduleQuestions.length) {
       setModuleDone(true);
-      // Quiz complete — clear saved progress
+      // Quiz complete. clear saved progress
       try { sessionStorage.removeItem("psyche-quiz-progress"); } catch {}
       bumpSessionCount();
       trackWeeklyEvent("module_complete");
@@ -1176,7 +1176,7 @@ export default function DailyPage() {
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     } catch {
-      // clipboard permission denied — fail silently
+      // clipboard permission denied. fail silently
     }
   };
 
@@ -1184,7 +1184,7 @@ export default function DailyPage() {
   const totalAnsweredToday = dailyProgress?.questionsAnswered ?? 0;
   const totalCorrectToday = dailyProgress?.correctAnswers ?? 0;
   const accuracyToday = totalAnsweredToday > 0 ? Math.round((totalCorrectToday / totalAnsweredToday) * 100) : 0;
-  // Load all-time total once on mount — not recalculated on every answer
+  // Load all-time total once on mount. not recalculated on every answer
   const [totalAnsweredAllTime, setTotalAnsweredAllTime] = useState(0);
   useEffect(() => {
     if (!loaded || typeof window === "undefined") return;
@@ -1297,7 +1297,7 @@ export default function DailyPage() {
     }
   };
 
-  // ── Start a node (from bottom sheet) — show lesson first ──
+  // ── Start a node (from bottom sheet). show lesson first ──
   const startNode = (node: PathNodeConfig) => {
     setBottomSheetNode(null);
     if (node.moduleId) {
@@ -1347,7 +1347,7 @@ export default function DailyPage() {
     </div>
   );
 
-  // Shadow re-engagement modal — shown before morning observation
+  // Shadow re-engagement modal. shown before morning observation
   if (showShadowModal && profile.enneagramType) {
     return (
       <ShadowReengagement
@@ -1358,7 +1358,7 @@ export default function DailyPage() {
     );
   }
 
-  // Morning observation interstitial — full-screen gate before any view
+  // Morning observation interstitial. full-screen gate before any view
   if (showMorningObservation && profile.enneagramType) {
     return (
       <AnimatePresence>
@@ -1706,7 +1706,7 @@ export default function DailyPage() {
           )}
         </AnimatePresence>
 
-        {/* Stat bar — collapsible, collapsed by default so the path shines */}
+        {/* Stat bar. collapsible, collapsed by default so the path shines */}
         <div className="sticky top-0 z-20" style={{ background: "rgba(15,10,30,0.95)", backdropFilter: "blur(12px)", borderBottom: "1px solid rgba(139,92,246,0.12)" }}>
           <AnimatePresence initial={false}>
             {statsCollapsed ? (
@@ -1859,7 +1859,7 @@ export default function DailyPage() {
             <Link href="/settings" className="text-[10px] text-red-400/40 underline whitespace-nowrap ml-2 shrink-0">Silence</Link>
           </motion.div>
         )}
-        {/* Pet health warning banner — shows most urgent issue only */}
+        {/* Pet health warning banner. shows most urgent issue only */}
         {livePetState && !alertsMuted && (() => {
           const warn = !livePetState.isAlive
             ? { icon: <AlertTriangle className="w-4 h-4 text-red-300" />, text: "Your pet needs revival! Visit the avatar page.", bg: "rgba(127,29,29,0.15)", border: "rgba(239,68,68,0.4)", textColor: "text-red-300" }
@@ -1884,7 +1884,7 @@ export default function DailyPage() {
             </div>
           );
         })()}
-        {/* Pet companion — compact chip */}
+        {/* Pet companion. compact chip */}
         {livePetState && (
           <div className="max-w-md mx-auto px-4 pt-2">
             <Link href="/avatar" className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full" style={{ background: "rgba(139,92,246,0.08)", border: "1px solid rgba(139,92,246,0.14)" }}>
@@ -2146,7 +2146,7 @@ export default function DailyPage() {
                   : <span style={{ color: "rgba(255,255,255,0.5)" }}>Not enough tokens</span>}
               </button>
               {streakDeclined ? (
-                <p className="text-sm text-center py-2" style={{ color: "rgba(255,255,255,0.5)" }}>Got it — no streak repair for today.</p>
+                <p className="text-sm text-center py-2" style={{ color: "rgba(255,255,255,0.5)" }}>Got it. no streak repair for today.</p>
               ) : (
                 <button
                   onClick={() => {
@@ -2229,7 +2229,7 @@ export default function DailyPage() {
                   : <span style={{ color: "rgba(255,255,255,0.5)" }}>{`Not enough tokens (need 3, have ${gameStateRaw.tokens ?? 0})`}</span>}
               </button>
               {streakDeclined ? (
-                <p className="text-sm text-center py-2" style={{ color: "rgba(255,255,255,0.5)" }}>Got it — no streak repair for today.</p>
+                <p className="text-sm text-center py-2" style={{ color: "rgba(255,255,255,0.5)" }}>Got it. no streak repair for today.</p>
               ) : (
                 <button
                   onClick={() => {
@@ -2501,7 +2501,7 @@ export default function DailyPage() {
                                   {tritype}{tritypeArchetype ? ` · ${tritypeArchetype}` : ""}
                                 </span>
                                 <p className="text-xs leading-relaxed" style={{ color: "rgba(255,255,255,0.5)" }}>
-                                  Today, notice how your {tritype[0]}-{tritype[1]}-{tritype[2]} combination shapes your response to this insight — which center pulls strongest right now?
+                                  Today, notice how your {tritype[0]}-{tritype[1]}-{tritype[2]} combination shapes your response to this insight. which center pulls strongest right now?
                                 </p>
                               </div>
                             )}

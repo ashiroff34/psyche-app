@@ -74,7 +74,7 @@ export default function AnimatedPet({
         priority
       />
 
-      {/* Hat — sits at top center, overlays the pet's head */}
+      {/* Hat. sits at top center, overlays the pet's head */}
       {hatSrc && (
         <Image
           src={hatSrc}

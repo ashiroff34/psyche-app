@@ -55,7 +55,7 @@ export default function PathPreviewPage() {
 
   return (
     <div className="min-h-screen">
-      {/* Iteration selector — sticky top */}
+      {/* Iteration selector. sticky top */}
       <div className="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-gray-200 px-4 py-3">
         <p className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Path Iteration Preview</p>
         <div className="flex gap-2">

@@ -56,7 +56,7 @@ export interface PsycheProfile {
   typeConfidence?: number;       // 0–95, compounded across assessments
   assessmentsTaken?: string[];   // e.g. ["quick", "essential-enneagram", "deep"]
 
-  // Conflict resolution — weighted votes from each assessment
+  // Conflict resolution. weighted votes from each assessment
   assessmentVotes?: { id: string; type: number }[];
   isTypeContested?: boolean;     // true when runner-up holds >30% of weighted vote
   contestedRunnerUp?: number;    // the runner-up type when contested
@@ -91,7 +91,7 @@ const ASSESSMENT_VOTE_WEIGHTS: Record<string, number> = {
 
 // Resolve the winning type from all assessment votes using weighted majority.
 // Returns the winner, the runner-up (if any), and whether the result is contested
-// (runner-up holds >30% of the weighted vote — meaning it's close enough to matter).
+// (runner-up holds >30% of the weighted vote. meaning it's close enough to matter).
 function resolveTypeFromVotes(votes: { id: string; type: number }[]): {
   winner: number;
   runnerUp: number | null;
@@ -142,7 +142,7 @@ export function checkStreakFreeze(): boolean {
     if (active !== "true" || !expires) return false;
     const today = new Intl.DateTimeFormat("en-CA").format(new Date());
     if (expires >= today) return true;
-    // Expired — clean up
+    // Expired. clean up
     localStorage.removeItem("psyche-streak-freeze-active");
     localStorage.removeItem("psyche-streak-freeze-expires");
     return false;
@@ -298,7 +298,7 @@ export function useProfile() {
       let newConfidence: number;
 
       if (assessmentId === "quick") {
-        // Always a low baseline — the starting point, not a verdict
+        // Always a low baseline. the starting point, not a verdict
         newConfidence = Math.min(rawConfidence, 22);
       } else {
         const boost = CONFIDENCE_BOOSTS[assessmentId] ?? 5;
@@ -314,7 +314,7 @@ export function useProfile() {
           // First time taking this assessment
           newConfidence = agreesWithWinner
             ? Math.min(95, base + boost)
-            : Math.max(10, base - 3); // lighter penalty — weighted winner already corrected course
+            : Math.max(10, base - 3); // lighter penalty. weighted winner already corrected course
         }
       }
 

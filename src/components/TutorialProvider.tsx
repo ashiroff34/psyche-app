@@ -2,7 +2,7 @@
 // Tutorial overlay was removed (replaced with contextual tooltips).
 // This provider handles the legacy psyche-tutorial-complete flag so the
 // retention system (RetentionBanner, ComebackModal, EngagementNudge) activates
-// for all users — new and existing.
+// for all users. new and existing.
 import { useEffect } from "react";
 
 export default function TutorialProvider() {

@@ -286,11 +286,11 @@ export default function SettingsPage() {
           // @ts-expect-error periodicSync is not in all TS lib versions yet
           await reg.periodicSync.register("daily-reminder", { minInterval: 60 * 60 * 1000 });
         } catch {
-          // periodicSync permission denied or unavailable — silent fallback
+          // periodicSync permission denied or unavailable. silent fallback
         }
       }
     } catch {
-      // SW registration failed (dev environment, http, etc.) — silent fallback
+      // SW registration failed (dev environment, http, etc.). silent fallback
     }
   };
 
@@ -734,7 +734,7 @@ export default function SettingsPage() {
             {notifPermission === "granted" && (
               <p className="text-xs flex items-center gap-1.5 text-emerald-400/80">
                 <Check className="w-3 h-3 flex-shrink-0" />
-                Device notifications enabled — we&apos;ll remind you daily.
+                Device notifications enabled. we&apos;ll remind you daily.
               </p>
             )}
             {notifPermission === "denied" && (

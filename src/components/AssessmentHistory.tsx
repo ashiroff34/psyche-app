@@ -29,7 +29,7 @@ const ASSESSMENT_DISPLAY_NAMES: Record<string, string> = {
 function getTypeName(typeNum?: number): string {
   if (!typeNum) return "Unknown";
   const t = enneagramTypes.find((t) => t.number === typeNum);
-  return t ? `Type ${typeNum} — ${t.name}` : `Type ${typeNum}`;
+  return t ? `Type ${typeNum}. ${t.name}` : `Type ${typeNum}`;
 }
 
 function formatDate(iso: string): string {
@@ -71,7 +71,7 @@ export default function AssessmentHistory({ history }: { history: HistoryEntry[]
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
 
-      {/* Before / After comparison — only when 2+ assessments */}
+      {/* Before / After comparison. only when 2+ assessments */}
       {sorted.length >= 2 && (
         <div style={{
           background: "rgba(255,255,255,0.04)",
@@ -124,7 +124,7 @@ export default function AssessmentHistory({ history }: { history: HistoryEntry[]
 
           <div style={{ marginTop: 14, fontSize: 13, color: "rgba(255,255,255,0.55)", lineHeight: 1.6 }}>
             {typeChanged
-              ? `After ${sorted.length} assessments, your type shifted from Type ${first?.topType} to Type ${latest?.topType}. This is common — Enneagram self-knowledge deepens significantly after learning the theory.`
+              ? `After ${sorted.length} assessments, your type shifted from Type ${first?.topType} to Type ${latest?.topType}. This is common. Enneagram self-knowledge deepens significantly after learning the theory.`
               : `Your type has stayed consistent across all ${sorted.length} assessments. This consistency is a good signal of accurate self-identification.`}
           </div>
         </div>

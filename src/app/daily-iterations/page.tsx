@@ -142,7 +142,7 @@ export default function DailyIterationsPage() {
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
-   SHARED HEADER — streak, XP, daily insight (present in all iterations)
+   SHARED HEADER. streak, XP, daily insight (present in all iterations)
    ═══════════════════════════════════════════════════════════════════════════ */
 function SharedHeader() {
   return (
@@ -806,7 +806,7 @@ function Iteration9() {
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
-   ITERATION 10: HYBRID (best of all — Duo path + clean cards + gamification)
+   ITERATION 10: HYBRID (best of all. Duo path + clean cards + gamification)
    ═══════════════════════════════════════════════════════════════════════════ */
 function Iteration10() {
   return (

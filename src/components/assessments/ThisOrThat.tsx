@@ -43,7 +43,7 @@ const PAIRS: Pair[] = [
   {
     id: 5, category: "Inner World",
     a: { text: "My mind is always analyzing, planning, or anticipating", types: { 5: 2, 6: 3, 7: 2 } },
-    b: { text: "My body and gut lead — I act first, think later", types: { 8: 3, 9: 2, 1: 1 } },
+    b: { text: "My body and gut lead. I act first, think later", types: { 8: 3, 9: 2, 1: 1 } },
   },
   {
     id: 6, category: "What Energizes You",
@@ -57,13 +57,13 @@ const PAIRS: Pair[] = [
   },
   {
     id: 8, category: "Attention Goes To",
-    a: { text: "What could go wrong — I'm always scanning for threats", types: { 6: 3, 1: 1 } },
-    b: { text: "What could go right — I'm naturally optimistic", types: { 7: 3, 2: 1, 9: 1 } },
+    a: { text: "What could go wrong. I'm always scanning for threats", types: { 6: 3, 1: 1 } },
+    b: { text: "What could go right. I'm naturally optimistic", types: { 7: 3, 2: 1, 9: 1 } },
   },
   {
     id: 9, category: "Conflict Style",
     a: { text: "I avoid conflict and smooth things over", types: { 9: 3, 2: 1 } },
-    b: { text: "I lean into conflict — it doesn't scare me", types: { 8: 3, 1: 2 } },
+    b: { text: "I lean into conflict. it doesn't scare me", types: { 8: 3, 1: 2 } },
   },
   {
     id: 10, category: "Identity",
@@ -117,8 +117,8 @@ const PAIRS: Pair[] = [
   },
   {
     id: 20, category: "Life Orientation",
-    a: { text: "I merge with others — their reality becomes mine", types: { 9: 3, 2: 1 } },
-    b: { text: "I stand apart — I need my distinct perspective", types: { 4: 2, 5: 2, 8: 1 } },
+    a: { text: "I merge with others. their reality becomes mine", types: { 9: 3, 2: 1 } },
+    b: { text: "I stand apart. I need my distinct perspective", types: { 4: 2, 5: 2, 8: 1 } },
   },
 ];
 
@@ -557,7 +557,7 @@ function ResultScreen({ result }: { result: ThisOrThatResult }) {
           className="text-xs text-center mt-6 leading-relaxed"
           style={{ color: "rgba(255,255,255,0.25)" }}
         >
-          Binary quick-tests narrow possibilities — they don't confirm type.
+          Binary quick-tests narrow possibilities. they don't confirm type.
           <br />Take a longer assessment to build real confidence.
         </p>
       </motion.div>

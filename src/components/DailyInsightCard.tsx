@@ -38,7 +38,7 @@ export default function DailyInsightCard({
       setTokenPop(true);
       setTimeout(() => setTokenPop(false), 2000);
     } catch {
-      // silent — localStorage may not be available
+      // silent. localStorage may not be available
     }
   }, [tokensAwarded, shareKey]);
 

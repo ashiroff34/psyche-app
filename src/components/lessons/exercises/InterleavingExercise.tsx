@@ -90,7 +90,7 @@ export default function InterleavingExercise({ content, onComplete }: Props) {
                 {n}
               </div>
               <span className="text-xs font-medium" style={{ color: data.color }}>
-                Type {n} — {data.name}
+                Type {n}. {data.name}
               </span>
             </div>
           );
@@ -182,7 +182,7 @@ export default function InterleavingExercise({ content, onComplete }: Props) {
                           <>
                             <X className="w-4 h-4 text-rose-400 shrink-0" />
                             <span className="text-xs font-semibold text-rose-400">
-                              This is Type {item.correctType}{correctTypeData ? ` — ${correctTypeData.name}` : ""}
+                              This is Type {item.correctType}{correctTypeData ? `. ${correctTypeData.name}` : ""}
                             </span>
                           </>
                         )}

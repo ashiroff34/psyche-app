@@ -42,7 +42,7 @@ export default function ScenarioExercise({ content, onAnswer, exerciseId }: Prop
       className="flex flex-col h-full"
     >
       <div className="flex-1 overflow-y-auto px-5 pt-4 pb-2">
-        {/* Scenario block — quote-style with left border */}
+        {/* Scenario block. quote-style with left border */}
         <motion.div
           initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
@@ -65,7 +65,7 @@ export default function ScenarioExercise({ content, onAnswer, exerciseId }: Prop
           </p>
         </motion.div>
 
-        {/* Options — same pattern as MultipleChoice */}
+        {/* Options. same pattern as MultipleChoice */}
         <div className="space-y-3">
           {shuffledOptions.map((opt, i) => {
             const isThisSelected = i === selected;

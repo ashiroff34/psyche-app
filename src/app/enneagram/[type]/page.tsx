@@ -1333,7 +1333,7 @@ export default function TypeDeepDivePage() {
                     <div className="rounded-2xl overflow-hidden" style={{ border: "1px solid rgba(16,185,129,0.2)" }}>
                       <div className="flex items-center gap-2 px-4 py-3" style={{ background: "rgba(16,185,129,0.08)" }}>
                         <div className="w-2.5 h-2.5 rounded-full bg-emerald-500 shrink-0" />
-                        <p className="text-sm font-semibold text-emerald-400">Healthy — Levels 1–3</p>
+                        <p className="text-sm font-semibold text-emerald-400">Healthy. Levels 1–3</p>
                         <p className="text-xs ml-auto" style={{ color: "rgba(255,255,255,0.3)" }}>Tap to expand</p>
                       </div>
                       <div className="px-3 pb-3 pt-1 space-y-1.5" style={{ background: "rgba(16,185,129,0.03)" }}>
@@ -1352,7 +1352,7 @@ export default function TypeDeepDivePage() {
                     <div className="rounded-2xl overflow-hidden" style={{ border: "1px solid rgba(245,158,11,0.2)" }}>
                       <div className="flex items-center gap-2 px-4 py-3" style={{ background: "rgba(245,158,11,0.08)" }}>
                         <div className="w-2.5 h-2.5 rounded-full bg-amber-500 shrink-0" />
-                        <p className="text-sm font-semibold text-amber-400">Average — Levels 4–6</p>
+                        <p className="text-sm font-semibold text-amber-400">Average. Levels 4–6</p>
                       </div>
                       <div className="px-3 pb-3 pt-1 space-y-1.5" style={{ background: "rgba(245,158,11,0.03)" }}>
                         {typeData.levels.average.map((item) => (
@@ -1370,7 +1370,7 @@ export default function TypeDeepDivePage() {
                     <div className="rounded-2xl overflow-hidden" style={{ border: "1px solid rgba(239,68,68,0.2)" }}>
                       <div className="flex items-center gap-2 px-4 py-3" style={{ background: "rgba(239,68,68,0.08)" }}>
                         <div className="w-2.5 h-2.5 rounded-full bg-red-500 shrink-0" />
-                        <p className="text-sm font-semibold text-red-400">Unhealthy — Levels 7–9</p>
+                        <p className="text-sm font-semibold text-red-400">Unhealthy. Levels 7–9</p>
                       </div>
                       <div className="px-3 pb-3 pt-1 space-y-1.5" style={{ background: "rgba(239,68,68,0.03)" }}>
                         {typeData.levels.unhealthy.map((item) => (

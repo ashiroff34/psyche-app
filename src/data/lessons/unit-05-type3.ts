@@ -1,5 +1,5 @@
 // ─────────────────────────────────────────────────────────────────────────────
-// Unit 5 — Type 3: The Achiever / The Performer
+// Unit 5. Type 3: The Achiever / The Performer
 // 4 lessons × 12 exercises each
 // ─────────────────────────────────────────────────────────────────────────────
 
@@ -21,11 +21,11 @@ const lesson1: Lesson = {
       difficulty: 1,
       content: {
         type: "socratic-prompt",
-        question: "Imagine someone who has been succeeding their whole life. Now imagine what happens inside them when they fail at something. What do you think they feel — and why might it be more complicated than just disappointment?",
+        question: "Imagine someone who has been succeeding their whole life. Now imagine what happens inside them when they fail at something. What do you think they feel. and why might it be more complicated than just disappointment?",
         reflection: "Consider what success might mean to someone who has organized their entire identity around it.",
         revealLabel: "See the insight",
         conceptTitle: "When the Image Cracks",
-        conceptBody: "For the Three, failure isn't just an event — it's a threat to identity. Threes have spent their lives equating their worth with their achievements, so failure feels like a verdict about who they are, not just what they did. This is why Threes often respond to failure by immediately pivoting to the next goal rather than sitting with the feeling.",
+        conceptBody: "For the Three, failure isn't just an event. it's a threat to identity. Threes have spent their lives equating their worth with their achievements, so failure feels like a verdict about who they are, not just what they did. This is why Threes often respond to failure by immediately pivoting to the next goal rather than sitting with the feeling.",
         highlight: "verdict about who they are",
       } as SocraticPromptContent,
     },
@@ -818,21 +818,21 @@ const lesson4: Lesson = {
       difficulty: 3,
       content: {
         type: "interleaving",
-        title: "Types 3, 1 & 7 — Identify the motivation",
+        title: "Types 3, 1 & 7. Identify the motivation",
         typeNumbers: [3, 1, 7],
         items: [
           {
-            statement: "Starts a new venture with enormous energy and plans, primarily drawn by the exciting possibilities — and quickly moves to the next thing if this one stops being stimulating.",
+            statement: "Starts a new venture with enormous energy and plans, primarily drawn by the exciting possibilities. and quickly moves to the next thing if this one stops being stimulating.",
             correctType: 7,
             explanation: "The Seven's drive is about freedom and stimulation. They chase possibilities to stay ahead of boredom and pain.",
           },
           {
-            statement: "Researches the 'best way' to do something for hours before starting — needing to be sure they're doing it correctly, not just efficiently.",
+            statement: "Researches the 'best way' to do something for hours before starting. needing to be sure they're doing it correctly, not just efficiently.",
             correctType: 1,
             explanation: "The One wants to do it right, from an internalized standard. The concern is correctness, not image.",
           },
           {
-            statement: "Shapes their personality and presentation to match what they sense the room values — because being seen as successful and impressive is the deep goal.",
+            statement: "Shapes their personality and presentation to match what they sense the room values. because being seen as successful and impressive is the deep goal.",
             correctType: 3,
             explanation: "The Three is a chameleon who adapts to earn admiration. Worth feels contingent on achievement.",
           },

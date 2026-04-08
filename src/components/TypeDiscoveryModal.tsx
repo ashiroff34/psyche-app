@@ -131,7 +131,7 @@ export default function TypeDiscoveryModal({ typeNum, isFirstDiscovery }: Props)
                     Your next step
                   </p>
                   <p className="text-xs font-medium" style={{ color: "rgba(255,255,255,0.62)" }}>
-                    Instinctual Stacking — discover your subtype
+                    Instinctual Stacking. discover your subtype
                   </p>
                 </div>
                 <ArrowRight className="w-4 h-4 shrink-0" style={{ color: "rgba(255,255,255,0.3)" }} />

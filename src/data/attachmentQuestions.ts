@@ -1,5 +1,5 @@
 // Attachment Style Assessment Questions
-// Inspired by the ECR-R (Experiences in Close Relationships — Revised)
+// Inspired by the ECR-R (Experiences in Close Relationships. Revised)
 // Brennan, Clark & Shaver (1998); Fraley, Waller & Brennan (2000)
 //
 // SCORING MODEL:
@@ -23,7 +23,7 @@ export interface AttachmentQuestion {
 }
 
 export const attachmentQuestions: AttachmentQuestion[] = [
-  // ANXIETY DIMENSION — fear of abandonment, need for reassurance, hypervigilance
+  // ANXIETY DIMENSION. fear of abandonment, need for reassurance, hypervigilance
   {
     id: 1,
     text: "I worry that romantic partners won't care about me as much as I care about them.",
@@ -74,7 +74,7 @@ export const attachmentQuestions: AttachmentQuestion[] = [
   },
   {
     id: 9,
-    text: "I find it hard to stop thinking about problems in my relationships — they stay with me.",
+    text: "I find it hard to stop thinking about problems in my relationships. they stay with me.",
     dimension: 'anxiety',
     reversed: false,
   },
@@ -85,7 +85,7 @@ export const attachmentQuestions: AttachmentQuestion[] = [
     reversed: false,
   },
 
-  // AVOIDANCE DIMENSION — discomfort with closeness, suppression of needs, self-reliance
+  // AVOIDANCE DIMENSION. discomfort with closeness, suppression of needs, self-reliance
   {
     id: 11,
     text: "I prefer not to show partners how I feel deep down.",

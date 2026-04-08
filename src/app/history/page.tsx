@@ -628,7 +628,7 @@ function TimelineItem({
           : { background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.09)" }}
         onClick={onToggle}
       >
-        {/* Header — always visible */}
+        {/* Header. always visible */}
         <div className="p-4 sm:p-6">
           <div className="flex items-start gap-3 sm:gap-4">
             {/* Portrait placeholder */}
@@ -750,7 +750,7 @@ function TimelineItem({
 function VennDiagram() {
   return (
     <div className="relative w-full max-w-lg mx-auto h-72 sm:h-80">
-      {/* Left circle — Enneagram */}
+      {/* Left circle. Enneagram */}
       <motion.div
         initial={{ x: 0, opacity: 1 }}
         animate={{ x: 0, opacity: 1 }}
@@ -767,7 +767,7 @@ function VennDiagram() {
         </div>
       </motion.div>
 
-      {/* Right circle — Cognitive Functions */}
+      {/* Right circle. Cognitive Functions */}
       <motion.div
         initial={{ x: 0, opacity: 1 }}
         animate={{ x: 0, opacity: 1 }}

@@ -373,7 +373,7 @@ export default function EnneagramPage() {
             );})}
           </div>
 
-          {/* Next Step Banner — shown only if user hasn't typed themselves yet */}
+          {/* Next Step Banner. shown only if user hasn't typed themselves yet */}
           {!myType && (
             <div className="mt-8">
               <NextStepBanner

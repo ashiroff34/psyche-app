@@ -12,7 +12,7 @@ import ServiceWorkerRegistrar from "@/components/ServiceWorkerRegistrar";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://psyche-app-two.vercel.app"),
-  title: "Thyself — Know thyself.",
+  title: "Thyself. Know thyself.",
   description:
     "Know thyself. Discover your Enneagram type through 5 assessment paths. 9 types, 27 subtypes, cognitive functions, and deep psychology rooted in Ichazo, Naranjo, and Riso-Hudson.",
   manifest: assetPath("/manifest.json"),
@@ -26,7 +26,7 @@ export const metadata: Metadata = {
     "apple-mobile-web-app-capable": "yes",
   },
   openGraph: {
-    title: "Thyself — Know thyself.",
+    title: "Thyself. Know thyself.",
     description:
       "Know thyself. 9 types, 27 subtypes, 5 assessment paths. Grounded in Ichazo, Naranjo & Riso-Hudson.",
     url: "https://psyche-app-two.vercel.app",
@@ -37,13 +37,13 @@ export const metadata: Metadata = {
         url: "https://psyche-app-two.vercel.app/opengraph-image",
         width: 1200,
         height: 630,
-        alt: "Thyself — Know thyself.",
+        alt: "Thyself. Know thyself.",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Thyself — Know thyself.",
+    title: "Thyself. Know thyself.",
     description:
       "Know thyself. Discover your Enneagram type through 5 assessment paths. Deep psychology, 27 subtypes, cognitive functions.",
     images: ["https://psyche-app-two.vercel.app/opengraph-image"],

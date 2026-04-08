@@ -111,7 +111,7 @@ const TOKEN_USES = [
 ];
 
 const PRO_FEATURES = [
-  { icon: Brain, label: "Inner Work Lab — Jungian shadow work, type dynamics, cognitive reframing" },
+  { icon: Brain, label: "Inner Work Lab. Jungian shadow work, type dynamics, cognitive reframing" },
   { icon: Eye, label: "Ad-free experience" },
   { icon: Palette, label: "10 exclusive avatar outfits & backgrounds" },
   { icon: Target, label: "Advanced type analysis reports" },
@@ -119,7 +119,7 @@ const PRO_FEATURES = [
   { icon: Coins, label: "500 bonus tokens every month" },
 ];
 
-// localStorage key for Pro unlock (simulated — real payment not wired yet)
+// localStorage key for Pro unlock (simulated. real payment not wired yet)
 const PRO_UNLOCK_KEY = "psyche-pro-unlocked";
 
 const FREE_EARN = [
@@ -209,7 +209,7 @@ function GrowthPathSection({ tokenBalance }: { tokenBalance: number | null }) {
 
         {/* Rows */}
         <div className="divide-y" style={{ borderColor: "rgba(255,255,255,0.06)" }}>
-          {/* Row 1 — unlocked */}
+          {/* Row 1. unlocked */}
           <div className="flex items-start gap-3 px-6 py-4">
             <div className="w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5" style={{ background: "rgba(52,211,153,0.15)", border: "1px solid rgba(52,211,153,0.3)" }}>
               <Check className="w-3.5 h-3.5" style={{ color: "#34d399" }} />
@@ -220,7 +220,7 @@ function GrowthPathSection({ tokenBalance }: { tokenBalance: number | null }) {
             </div>
           </div>
 
-          {/* Row 2 — unlocked */}
+          {/* Row 2. unlocked */}
           <div className="flex items-start gap-3 px-6 py-4">
             <div className="w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5" style={{ background: "rgba(52,211,153,0.15)", border: "1px solid rgba(52,211,153,0.3)" }}>
               <Check className="w-3.5 h-3.5" style={{ color: "#34d399" }} />
@@ -231,7 +231,7 @@ function GrowthPathSection({ tokenBalance }: { tokenBalance: number | null }) {
             </div>
           </div>
 
-          {/* Row 3 — locked/blurred */}
+          {/* Row 3. locked/blurred */}
           <div className="flex items-start gap-3 px-6 py-4 relative overflow-hidden">
             <div className="absolute inset-0" style={{ backdropFilter: "blur(2px)", background: "rgba(10,5,25,0.35)" }} />
             <div className="relative w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5" style={{ background: "rgba(139,92,246,0.15)", border: "1px solid rgba(139,92,246,0.25)" }}>
@@ -243,7 +243,7 @@ function GrowthPathSection({ tokenBalance }: { tokenBalance: number | null }) {
             </div>
           </div>
 
-          {/* Row 4 — locked/blurred */}
+          {/* Row 4. locked/blurred */}
           <div className="flex items-start gap-3 px-6 py-4 relative overflow-hidden">
             <div className="absolute inset-0" style={{ backdropFilter: "blur(2px)", background: "rgba(10,5,25,0.45)" }} />
             <div className="relative w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5" style={{ background: "rgba(139,92,246,0.15)", border: "1px solid rgba(139,92,246,0.25)" }}>
@@ -274,7 +274,7 @@ function GrowthPathSection({ tokenBalance }: { tokenBalance: number | null }) {
                 style={{ background: "rgba(139,92,246,0.15)", color: "rgba(255,255,255,0.45)", border: "1px solid rgba(139,92,246,0.2)", cursor: "default" }}
               >
                 <Lock className="w-4 h-4" />
-                Unlock Full Path — 1200 tokens
+                Unlock Full Path. 1200 tokens
               </button>
               <p className="text-center text-xs" style={{ color: "rgba(255,255,255,0.35)" }}>
                 Your balance: <span style={{ color: "#fbbf24", fontWeight: 600 }}>{tokenBalance ?? 0} tokens</span>
@@ -384,7 +384,7 @@ export default function StorePage() {
               <Zap className="w-4 h-4 mt-0.5 flex-shrink-0 text-emerald-400" />
               <div>
                 <p className="text-xs font-bold text-emerald-400 mb-0.5">Enneagram · Tokens</p>
-                <p className="text-xs" style={{ color: "rgba(255,255,255,0.45)" }}>Growth path, advanced learn tabs — earn tokens free through daily practice</p>
+                <p className="text-xs" style={{ color: "rgba(255,255,255,0.45)" }}>Growth path, advanced learn tabs. earn tokens free through daily practice</p>
               </div>
             </div>
             <div className="flex-1 flex items-start gap-3 p-3.5 rounded-2xl text-left"
@@ -392,7 +392,7 @@ export default function StorePage() {
               <Crown className="w-4 h-4 mt-0.5 flex-shrink-0" style={{ color: "#818cf8" }} />
               <div>
                 <p className="text-xs font-bold mb-0.5" style={{ color: "#818cf8" }}>Jungian · Pro</p>
-                <p className="text-xs" style={{ color: "rgba(255,255,255,0.45)" }}>Inner Work Lab, shadow work, type dynamics — requires Pro subscription</p>
+                <p className="text-xs" style={{ color: "rgba(255,255,255,0.45)" }}>Inner Work Lab, shadow work, type dynamics. requires Pro subscription</p>
               </div>
             </div>
           </div>

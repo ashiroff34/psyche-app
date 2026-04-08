@@ -87,9 +87,9 @@ function TermsScreen({ onAccept }: { onAccept: () => void }) {
 // ── Type reveal sentences ─────────────────────────────────────────────────────
 
 const TYPE_REVEAL_SENTENCES: Record<number, string> = {
-  1: "You carry the vision of a better world — and the weight of making it real.",
+  1: "You carry the vision of a better world. and the weight of making it real.",
   2: "You love with your whole heart, and you're learning to include yourself.",
-  3: "You were born to become — and you're discovering who you are beneath the achievement.",
+  3: "You were born to become. and you're discovering who you are beneath the achievement.",
   4: "You transform suffering into meaning. That is your gift and your work.",
   5: "You see what others miss. Your mind is your compass.",
   6: "You build loyalty that lasts a lifetime. Trust begins with yourself.",
@@ -166,7 +166,7 @@ function StepName({
         What should we call you?
       </h2>
       <p className="text-sm text-center mb-8" style={{ color: "rgba(255,255,255,0.4)" }}>
-        Optional — skip anytime.
+        Optional. skip anytime.
       </p>
 
       <div className="w-full relative mb-8">
@@ -225,7 +225,7 @@ function TypeRevealScreen({
   const confidenceLabel = isHighConfidence ? "High match" : "Moderate match";
   const confidenceColor = isHighConfidence ? "#22c55e" : "#f59e0b";
 
-  // Mastery progress (endowed — always show a small positive number)
+  // Mastery progress (endowed. always show a small positive number)
   const masteryPercent = Math.max(4, Math.min(12, Math.round(result.confidence * 0.08 + 2)));
 
   // Confetti burst on reveal
@@ -277,7 +277,7 @@ function TypeRevealScreen({
         transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
         className="flex flex-col items-center text-center max-w-sm w-full"
       >
-        {/* Chibi — #1 hero element, first thing they see */}
+        {/* Chibi. #1 hero element, first thing they see */}
         <motion.div
           initial={{ scale: 0.3, opacity: 0, y: 30 }}
           animate={{ scale: 1, opacity: 1, y: 0 }}
@@ -342,7 +342,7 @@ function TypeRevealScreen({
           </span>
         </motion.div>
 
-        {/* Endowed progress — delayed appearance */}
+        {/* Endowed progress. delayed appearance */}
         <motion.div
           initial={{ opacity: 0, y: 6 }}
           animate={{ opacity: 1, y: 0 }}
@@ -431,7 +431,7 @@ function StepTypePreview({ onNext, onBack }: { onNext: () => void; onBack: () =>
         </span>
       </h2>
       <p className="text-sm leading-relaxed mb-8" style={{ color: "rgba(255,255,255,0.45)" }}>
-        The Enneagram maps 9 personality types defined by what drives you at your core — not just what you do. By the end of 8 questions, you&apos;ll know which one is you.
+        The Enneagram maps 9 personality types defined by what drives you at your core. not just what you do. By the end of 8 questions, you&apos;ll know which one is you.
       </p>
 
       <div className="grid grid-cols-3 gap-2 w-full mb-8">
@@ -478,7 +478,7 @@ function StepAllSet({
   const typeData = enneagramTypes.find((t) => t.number === result.type);
   const typeColor = typeData?.color ?? "#a78bfa";
 
-  // No auto-advance — user must tap to enter the app
+  // No auto-advance. user must tap to enter the app
 
   return (
     <div
@@ -939,7 +939,7 @@ function OnboardingPageInner() {
       confidence: Math.max(30, prev.confidence - 20),
       runnerUp: prev.type,
     } : prev);
-    // stay on step 3 — the reveal will re-render with new type
+    // stay on step 3. the reveal will re-render with new type
   };
 
   const saveAndContinue = (email: string, name: string) => {

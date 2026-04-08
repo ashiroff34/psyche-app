@@ -213,7 +213,7 @@ export function getMasteryLevel(points: number): MasteryLevel {
   return "Novice";
 }
 
-/** Standalone helper — call from any page to increment a type's mastery without importing the full hook */
+/** Standalone helper. call from any page to increment a type's mastery without importing the full hook */
 export function incrementTypeMastery(typeNum: string | number, points = 10) {
   if (typeof window === "undefined") return;
   try {
@@ -1144,7 +1144,7 @@ export function useGameState() {
       } else if (!prev.lastGrowthDate) {
         newGrowthStreak = 1;
       } else {
-        newGrowthStreak = 1; // gap — reset
+        newGrowthStreak = 1; // gap. reset
       }
       return {
         ...prev,
@@ -1302,7 +1302,7 @@ export function useGameState() {
     } catch {}
 
     // Perfect score badge is only awarded by recordQuizComplete() on 100% accuracy
-    // — not by streak, which is a separate metric
+    //. not by streak, which is a separate metric
 
     // Pet parent, pet alive 30+ days (use accountCreated as proxy for pet birth)
     if (state.petAlive && state.accountCreated) {

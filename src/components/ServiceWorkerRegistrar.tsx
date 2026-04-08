@@ -13,7 +13,7 @@ export default function ServiceWorkerRegistrar() {
     navigator.serviceWorker.addEventListener("controllerchange", () => {
       if (reloading) return;
       reloading = true;
-      toast("✦ App updated — refreshing…", {
+      toast("✦ App updated. refreshing…", {
         duration: 1800,
         style: {
           background: "#1a0f2e",

@@ -1,5 +1,5 @@
 // Daily provocative insights for each Enneagram type
-// Co-Star meets philosophy — cryptic, poetic, screenshot-worthy
+// Co-Star meets philosophy. cryptic, poetic, screenshot-worthy
 
 export interface TypeInsight {
   text: string;
@@ -42,7 +42,7 @@ const type1Insights: TypeInsight[] = [
   },
   {
     text: "You delay joy until you deserve it. You never quite do.",
-    subtext: "This is the Reformer's original sin — not wrongdoing, but withholding.",
+    subtext: "This is the Reformer's original sin. not wrongdoing, but withholding.",
   },
   {
     text: "Resentment is the bill for unpaid anger. Check your tab.",
@@ -65,7 +65,7 @@ const type1Insights: TypeInsight[] = [
     subtext: "Acceptance is not capitulation. Sometimes it's the bravest act.",
   },
   {
-    text: "The rule you're enforcing — who made it? Why do you believe them?",
+    text: "The rule you're enforcing. who made it? Why do you believe them?",
     subtext: "Trace one rigid belief back to its origin today.",
   },
   {
@@ -90,7 +90,7 @@ const type1Insights: TypeInsight[] = [
   },
   {
     text: "Beneath every should is a want you're ashamed of.",
-    subtext: "What do you actually want — before you judge it?",
+    subtext: "What do you actually want. before you judge it?",
   },
   {
     text: "You've been fair to everyone except yourself.",
@@ -193,7 +193,7 @@ const type2Insights: TypeInsight[] = [
     subtext: "The body keeps the score. What is yours trying to say?",
   },
   {
-    text: "Pride is the shadow of the Helper — the knowing that no one gives like you.",
+    text: "Pride is the shadow of the Helper. the knowing that no one gives like you.",
     subtext: "Riso & Hudson: Type 2's deadly sin is pride in its specific, self-aggrandizing form.",
   },
   {
@@ -293,7 +293,7 @@ const type3Insights: TypeInsight[] = [
     subtext: "Test that theory today. Do one thing with no audience and no outcome.",
   },
   {
-    text: "Deceit is the Three's shadow — and most of it is directed inward.",
+    text: "Deceit is the Three's shadow. and most of it is directed inward.",
     subtext: "What have you been performing, even to yourself?",
   },
   {
@@ -306,7 +306,7 @@ const type3Insights: TypeInsight[] = [
   },
   {
     text: "You adapted so well to what was valued that you lost track of what you value.",
-    subtext: "Make a list. Not goals — values. Notice how unfamiliar it feels.",
+    subtext: "Make a list. Not goals. values. Notice how unfamiliar it feels.",
   },
   {
     text: "The goal-setter and the human are not the same entity. One needs to rest.",
@@ -325,7 +325,7 @@ const type3Insights: TypeInsight[] = [
     subtext: "What would it cost to be known? By one person. Today.",
   },
   {
-    text: "The version of yourself you're presenting — does it like the same things you do?",
+    text: "The version of yourself you're presenting. does it like the same things you do?",
     subtext: "When persona and person diverge this long, something goes quiet.",
   },
   {
@@ -341,7 +341,7 @@ const type3Insights: TypeInsight[] = [
     subtext: "What if the part is already cast?",
   },
   {
-    text: "The shortcut you took — was it worth the detour you've been taking ever since?",
+    text: "The shortcut you took. was it worth the detour you've been taking ever since?",
     subtext: "Integrity isn't about never cutting corners. It's about knowing when you did.",
   },
   {
@@ -358,7 +358,7 @@ const type3Insights: TypeInsight[] = [
   },
   {
     text: "You've mastered the external. The internal is still waiting.",
-    subtext: "What do you feel — not think, not plan — right now?",
+    subtext: "What do you feel. not think, not plan. right now?",
   },
   {
     text: "Role and soul are not the same. You've been investing heavily in the wrong one.",
@@ -370,7 +370,7 @@ const type3Insights: TypeInsight[] = [
   },
   {
     text: "The emptiness you're filling with achievements will always need refilling.",
-    subtext: "The Buddhists call this tanha — craving that creates more craving.",
+    subtext: "The Buddhists call this tanha. craving that creates more craving.",
   },
   {
     text: "Someone loves you at your least impressive. Find out who.",
@@ -394,7 +394,7 @@ const type4Insights: TypeInsight[] = [
   },
   {
     text: "You want to be found. You keep hiding.",
-    subtext: "The longing for connection and the terror of ordinariness — one of them has to yield.",
+    subtext: "The longing for connection and the terror of ordinariness. one of them has to yield.",
   },
   {
     text: "Your uniqueness is real. But it has also become an excuse.",
@@ -426,7 +426,7 @@ const type4Insights: TypeInsight[] = [
   },
   {
     text: "Envy is longing without direction. Give it somewhere to go.",
-    subtext: "Riso & Hudson: Type 4's passion is envy — the gap between what is and what should be.",
+    subtext: "Riso & Hudson: Type 4's passion is envy. the gap between what is and what should be.",
   },
   {
     text: "The suffering you've cultivated is not character. It's a habit.",
@@ -457,7 +457,7 @@ const type4Insights: TypeInsight[] = [
     subtext: "Joy is not shallow. You have been afraid of it for a long time.",
   },
   {
-    text: "The relationship that ended — you've told yourself that story so many times it's now mythology.",
+    text: "The relationship that ended. you've told yourself that story so many times it's now mythology.",
     subtext: "What would the mundane version sound like?",
   },
   {
@@ -473,7 +473,7 @@ const type4Insights: TypeInsight[] = [
     subtext: "Everyone has an inner life as complicated as yours. Some just don't announce it.",
   },
   {
-    text: "The thing you're waiting to feel before you begin — it won't come before you begin.",
+    text: "The thing you're waiting to feel before you begin. it won't come before you begin.",
     subtext: "Action precedes motivation more often than motivation precedes action.",
   },
   {
@@ -525,7 +525,7 @@ const type5Insights: TypeInsight[] = [
     subtext: "The soma knows things the intellect won't admit. When did you last listen?",
   },
   {
-    text: "Avarice is the Five's shadow — and it runs deeper than money.",
+    text: "Avarice is the Five's shadow. and it runs deeper than money.",
     subtext: "What do you hoard? Time, energy, knowledge, yourself?",
   },
   {
@@ -613,7 +613,7 @@ const type5Insights: TypeInsight[] = [
     subtext: "People don't want you to have the answer. They want you to stay.",
   },
   {
-    text: "The information you're still gathering — what decision is it postponing?",
+    text: "The information you're still gathering. what decision is it postponing?",
     subtext: "Name the decision. That's the real subject.",
   },
   {
@@ -645,7 +645,7 @@ const type6Insights: TypeInsight[] = [
     subtext: "Doubt serves you until it starts serving itself.",
   },
   {
-    text: "The worst-case scenario you're running — how often has it materialized?",
+    text: "The worst-case scenario you're running. how often has it materialized?",
     subtext: "Track the accuracy of your threat detection. The data may surprise you.",
   },
   {
@@ -657,7 +657,7 @@ const type6Insights: TypeInsight[] = [
     subtext: "Try looking for one thing that is simply safe, simply present, simply fine.",
   },
   {
-    text: "The group you're loyal to — do they know the cost of that loyalty?",
+    text: "The group you're loyal to. do they know the cost of that loyalty?",
     subtext: "Loyalty given freely is beautiful. Loyalty extracted is something else.",
   },
   {
@@ -729,7 +729,7 @@ const type6Insights: TypeInsight[] = [
     subtext: "Who actually deserves it? Start there.",
   },
   {
-    text: "You'd rather have a bad answer than no answer. That's not resolution — that's anxiety relief.",
+    text: "You'd rather have a bad answer than no answer. That's not resolution. that's anxiety relief.",
     subtext: "Some questions don't have answers. Practice tolerating that.",
   },
   {
@@ -766,7 +766,7 @@ const type7Insights: TypeInsight[] = [
   },
   {
     text: "Gluttony is not about appetite. It's about using fullness to avoid emptiness.",
-    subtext: "Riso & Hudson: Type 7's passion is gluttony — consuming experience to evade pain.",
+    subtext: "Riso & Hudson: Type 7's passion is gluttony. consuming experience to evade pain.",
   },
   {
     text: "Every exit you're planning is a way of not being where you are.",
@@ -789,7 +789,7 @@ const type7Insights: TypeInsight[] = [
     subtext: "Depth requires choosing. What are you not choosing?",
   },
   {
-    text: "The anxiety you're outrunning with activity — it will still be there when you stop.",
+    text: "The anxiety you're outrunning with activity. it will still be there when you stop.",
     subtext: "Stop. Let it catch up. It's smaller than you think.",
   },
   {
@@ -837,12 +837,12 @@ const type7Insights: TypeInsight[] = [
     subtext: "Not everything is okay. Some things require grief. Let them have it.",
   },
   {
-    text: "The life you're designing in your head — does the person in it look back?",
+    text: "The life you're designing in your head. does the person in it look back?",
     subtext: "Who are you actually living for?",
   },
   {
     text: "You have been confusing the menu with the meal.",
-    subtext: "Planning, imagining, listing — these are not the thing. The thing is the thing.",
+    subtext: "Planning, imagining, listing. these are not the thing. The thing is the thing.",
   },
   {
     text: "Depth isn't the opposite of joy. It's where joy comes from.",
@@ -889,7 +889,7 @@ const type8Insights: TypeInsight[] = [
     subtext: "Who taught you that lesson? Were they right?",
   },
   {
-    text: "Lust — the Eight's passion — is not about sex. It's about the need for impact at full intensity.",
+    text: "Lust. the Eight's passion. is not about sex. It's about the need for impact at full intensity.",
     subtext: "Riso & Hudson: what are you consuming at full force that deserves more restraint?",
   },
   {
@@ -933,7 +933,7 @@ const type8Insights: TypeInsight[] = [
     subtext: "Translate. It's worth the effort.",
   },
   {
-    text: "The rules you refuse to follow — who made them, and why are you still arguing with them?",
+    text: "The rules you refuse to follow. who made them, and why are you still arguing with them?",
     subtext: "Sometimes the rebellion is more about the past than the present.",
   },
   {
@@ -965,7 +965,7 @@ const type8Insights: TypeInsight[] = [
     subtext: "Conviction and consideration can coexist. Practice that.",
   },
   {
-    text: "The fight you're picking — is it about what you say it's about?",
+    text: "The fight you're picking. is it about what you say it's about?",
     subtext: "Check the subtext. Sometimes the argument is about feeling unheard.",
   },
   {
@@ -1010,7 +1010,7 @@ const type9Insights: TypeInsight[] = [
   },
   {
     text: "Sloth is not laziness. It's forgetting yourself while tending to everything else.",
-    subtext: "Riso & Hudson: Type 9's passion is sloth — the loss of oneself, not of productivity.",
+    subtext: "Riso & Hudson: Type 9's passion is sloth. the loss of oneself, not of productivity.",
   },
   {
     text: "The conflict you're avoiding is growing in the avoidance.",
@@ -1026,14 +1026,14 @@ const type9Insights: TypeInsight[] = [
   },
   {
     text: "You've been accommodating so long that you've lost the map to what you want.",
-    subtext: "Take five minutes and make a list. What do you actually want? Not for them — for you.",
+    subtext: "Take five minutes and make a list. What do you actually want? Not for them. for you.",
   },
   {
     text: "Harmony built on your silence is not harmony. It's a truce you pay for.",
     subtext: "What hasn't been said in the relationship you're most careful in?",
   },
   {
-    text: "Your opinion matters. The one you swallowed this morning — what was it?",
+    text: "Your opinion matters. The one you swallowed this morning. what was it?",
     subtext: "Say it, even if just here.",
   },
   {
@@ -1057,7 +1057,7 @@ const type9Insights: TypeInsight[] = [
     subtext: "Where did you end today and where did someone else begin?",
   },
   {
-    text: "The decision you keep deferring — it's already been made. You're just not saying it yet.",
+    text: "The decision you keep deferring. it's already been made. You're just not saying it yet.",
     subtext: "What do you already know?",
   },
   {
@@ -1073,7 +1073,7 @@ const type9Insights: TypeInsight[] = [
     subtext: "What needs moving that your groundedness is keeping in place?",
   },
   {
-    text: "The small rebellions — the late arrivals, the forgotten tasks — speak what your mouth doesn't.",
+    text: "The small rebellions. the late arrivals, the forgotten tasks. speak what your mouth doesn't.",
     subtext: "What are they saying?",
   },
   {
@@ -1105,7 +1105,7 @@ const type9Insights: TypeInsight[] = [
     subtext: "What are you accepting that you shouldn't?",
   },
   {
-    text: "The peace you've created — how much of it is real, and how much is performed?",
+    text: "The peace you've created. how much of it is real, and how much is performed?",
     subtext: "Ask the people closest to you. Their answer might surprise you.",
   },
   {
@@ -1117,7 +1117,7 @@ const type9Insights: TypeInsight[] = [
     subtext: "Show up to one thing you've been absent from.",
   },
   {
-    text: "You know what you think. The act of saying it is not aggression — it's participation.",
+    text: "You know what you think. The act of saying it is not aggression. it's participation.",
     subtext: "Participate today. Fully. Your perspective changes the room.",
   },
 ];

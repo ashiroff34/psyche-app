@@ -47,7 +47,7 @@ const shadowPrompts: Record<number, string> = {
   3: "You stepped away from the performance. What did it feel like to not be achieving anything?",
   4: "The absence created space. What ordinary feeling did you avoid by being away?",
   5: "You retreated further than usual. What were you protecting yourself from knowing?",
-  6: "The uncertainty of being away — did it feel like freedom or like something was about to go wrong?",
+  6: "The uncertainty of being away. did it feel like freedom or like something was about to go wrong?",
   7: "You were elsewhere, chasing something. What were you running from this time?",
   8: "You went quiet. What vulnerability were you refusing to show?",
   9: "You merged with the drift. What priority of yours dissolved while you weren't looking?",
@@ -257,7 +257,7 @@ export default function ShadowReengagement({
             (e.currentTarget as HTMLButtonElement).style.transform = "translateY(0)";
           }}
         >
-          Begin a shadow session — free
+          Begin a shadow session. free
         </button>
 
         {/* Dismiss */}

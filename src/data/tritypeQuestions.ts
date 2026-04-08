@@ -18,7 +18,7 @@ export interface TritypeQuestion {
 // Type 1: internalizes anger as self-criticism, strives for correctness
 
 export const tritypeQuestions: TritypeQuestion[] = [
-  // GUT CENTER — 8 vs 9
+  // GUT CENTER. 8 vs 9
   {
     id: 1,
     center: "gut",
@@ -27,24 +27,24 @@ export const tritypeQuestions: TritypeQuestion[] = [
       type: 8,
     },
     optionB: {
-      text: "At my core, I avoid conflict and merge with others' agendas to keep peace — even losing track of my own desires.",
+      text: "At my core, I avoid conflict and merge with others' agendas to keep peace. even losing track of my own desires.",
       type: 9,
     },
   },
-  // GUT CENTER — 8 vs 1
+  // GUT CENTER. 8 vs 1
   {
     id: 2,
     center: "gut",
     optionA: {
-      text: "When I feel wronged, I instinctively push back, confront, and assert myself — I won't be pushed around.",
+      text: "When I feel wronged, I instinctively push back, confront, and assert myself. I won't be pushed around.",
       type: 8,
     },
     optionB: {
-      text: "When I feel wronged, I suppress my anger and redirect it into criticism — of myself and what's wrong with the situation.",
+      text: "When I feel wronged, I suppress my anger and redirect it into criticism. of myself and what's wrong with the situation.",
       type: 1,
     },
   },
-  // GUT CENTER — 9 vs 1
+  // GUT CENTER. 9 vs 1
   {
     id: 3,
     center: "gut",
@@ -57,7 +57,7 @@ export const tritypeQuestions: TritypeQuestion[] = [
       type: 1,
     },
   },
-  // GUT CENTER — 8 vs 9
+  // GUT CENTER. 8 vs 9
   {
     id: 4,
     center: "gut",
@@ -70,7 +70,7 @@ export const tritypeQuestions: TritypeQuestion[] = [
       type: 9,
     },
   },
-  // GUT CENTER — 9 vs 1
+  // GUT CENTER. 9 vs 1
   {
     id: 5,
     center: "gut",
@@ -79,11 +79,11 @@ export const tritypeQuestions: TritypeQuestion[] = [
       type: 9,
     },
     optionB: {
-      text: "I often feel like I have to be the responsible one — catching errors others miss and correcting things before they go wrong.",
+      text: "I often feel like I have to be the responsible one. catching errors others miss and correcting things before they go wrong.",
       type: 1,
     },
   },
-  // GUT CENTER — 8 vs 1
+  // GUT CENTER. 8 vs 1
   {
     id: 6,
     center: "gut",
@@ -96,7 +96,7 @@ export const tritypeQuestions: TritypeQuestion[] = [
       type: 1,
     },
   },
-  // GUT CENTER — 8 vs 9
+  // GUT CENTER. 8 vs 9
   {
     id: 7,
     center: "gut",
@@ -109,7 +109,7 @@ export const tritypeQuestions: TritypeQuestion[] = [
       type: 9,
     },
   },
-  // GUT CENTER — 1 vs 9
+  // GUT CENTER. 1 vs 9
   {
     id: 8,
     center: "gut",
@@ -118,20 +118,20 @@ export const tritypeQuestions: TritypeQuestion[] = [
       type: 1,
     },
     optionB: {
-      text: "There is a deep inner numbness — I space out, procrastinate, and get lost in minor distractions to avoid what demands effort.",
+      text: "There is a deep inner numbness. I space out, procrastinate, and get lost in minor distractions to avoid what demands effort.",
       type: 9,
     },
   },
-  // GUT CENTER — 8 vs 1
+  // GUT CENTER. 8 vs 1
   {
     id: 9,
     center: "gut",
     optionA: {
-      text: "I am fundamentally concerned with power — who has it, who's using it, and whether I can protect what matters to me.",
+      text: "I am fundamentally concerned with power. who has it, who's using it, and whether I can protect what matters to me.",
       type: 8,
     },
     optionB: {
-      text: "I am fundamentally concerned with integrity — whether I, and the world around me, are living up to what is right.",
+      text: "I am fundamentally concerned with integrity. whether I, and the world around me, are living up to what is right.",
       type: 1,
     },
   },
@@ -142,7 +142,7 @@ export const tritypeQuestions: TritypeQuestion[] = [
   // Type 3: worth through achievement, image, and success
   // Type 4: worth through uniqueness and authenticity, feels something is missing
 
-  // HEART CENTER — 2 vs 3
+  // HEART CENTER. 2 vs 3
   {
     id: 10,
     center: "heart",
@@ -155,7 +155,7 @@ export const tritypeQuestions: TritypeQuestion[] = [
       type: 3,
     },
   },
-  // HEART CENTER — 2 vs 4
+  // HEART CENTER. 2 vs 4
   {
     id: 11,
     center: "heart",
@@ -168,12 +168,12 @@ export const tritypeQuestions: TritypeQuestion[] = [
       type: 4,
     },
   },
-  // HEART CENTER — 3 vs 4
+  // HEART CENTER. 3 vs 4
   {
     id: 12,
     center: "heart",
     optionA: {
-      text: "I adapt my presentation to succeed in any environment — I know intuitively what image works and I project it.",
+      text: "I adapt my presentation to succeed in any environment. I know intuitively what image works and I project it.",
       type: 3,
     },
     optionB: {
@@ -181,12 +181,12 @@ export const tritypeQuestions: TritypeQuestion[] = [
       type: 4,
     },
   },
-  // HEART CENTER — 2 vs 3
+  // HEART CENTER. 2 vs 3
   {
     id: 13,
     center: "heart",
     optionA: {
-      text: "I often don't know what I need or feel — I'm so focused on others that my own inner life gets overlooked.",
+      text: "I often don't know what I need or feel. I'm so focused on others that my own inner life gets overlooked.",
       type: 2,
     },
     optionB: {
@@ -194,7 +194,7 @@ export const tritypeQuestions: TritypeQuestion[] = [
       type: 3,
     },
   },
-  // HEART CENTER — 3 vs 4
+  // HEART CENTER. 3 vs 4
   {
     id: 14,
     center: "heart",
@@ -207,7 +207,7 @@ export const tritypeQuestions: TritypeQuestion[] = [
       type: 4,
     },
   },
-  // HEART CENTER — 2 vs 4
+  // HEART CENTER. 2 vs 4
   {
     id: 15,
     center: "heart",
@@ -220,7 +220,7 @@ export const tritypeQuestions: TritypeQuestion[] = [
       type: 4,
     },
   },
-  // HEART CENTER — 3 vs 2
+  // HEART CENTER. 3 vs 2
   {
     id: 16,
     center: "heart",
@@ -233,12 +233,12 @@ export const tritypeQuestions: TritypeQuestion[] = [
       type: 2,
     },
   },
-  // HEART CENTER — 4 vs 3
+  // HEART CENTER. 4 vs 3
   {
     id: 17,
     center: "heart",
     optionA: {
-      text: "I often feel a persistent sense that something essential is missing from my life or from me — and I'm always searching for it.",
+      text: "I often feel a persistent sense that something essential is missing from my life or from me. and I'm always searching for it.",
       type: 4,
     },
     optionB: {
@@ -246,7 +246,7 @@ export const tritypeQuestions: TritypeQuestion[] = [
       type: 3,
     },
   },
-  // HEART CENTER — 2 vs 4
+  // HEART CENTER. 2 vs 4
   {
     id: 18,
     center: "heart",
@@ -266,7 +266,7 @@ export const tritypeQuestions: TritypeQuestion[] = [
   // Type 6: scans for threats, seeks security/guidance, fears being without support
   // Type 7: reframes toward positive, keeps options open, fears pain/deprivation
 
-  // HEAD CENTER — 5 vs 6
+  // HEAD CENTER. 5 vs 6
   {
     id: 19,
     center: "head",
@@ -279,7 +279,7 @@ export const tritypeQuestions: TritypeQuestion[] = [
       type: 6,
     },
   },
-  // HEAD CENTER — 5 vs 7
+  // HEAD CENTER. 5 vs 7
   {
     id: 20,
     center: "head",
@@ -292,7 +292,7 @@ export const tritypeQuestions: TritypeQuestion[] = [
       type: 7,
     },
   },
-  // HEAD CENTER — 6 vs 7
+  // HEAD CENTER. 6 vs 7
   {
     id: 21,
     center: "head",
@@ -305,7 +305,7 @@ export const tritypeQuestions: TritypeQuestion[] = [
       type: 7,
     },
   },
-  // HEAD CENTER — 5 vs 6
+  // HEAD CENTER. 5 vs 6
   {
     id: 22,
     center: "head",
@@ -318,7 +318,7 @@ export const tritypeQuestions: TritypeQuestion[] = [
       type: 6,
     },
   },
-  // HEAD CENTER — 6 vs 7
+  // HEAD CENTER. 6 vs 7
   {
     id: 23,
     center: "head",
@@ -331,33 +331,33 @@ export const tritypeQuestions: TritypeQuestion[] = [
       type: 7,
     },
   },
-  // HEAD CENTER — 5 vs 7
+  // HEAD CENTER. 5 vs 7
   {
     id: 24,
     center: "head",
     optionA: {
-      text: "I fear being depleted by the world — intruded upon, overwhelmed by demands, left with no inner reserves.",
+      text: "I fear being depleted by the world. intruded upon, overwhelmed by demands, left with no inner reserves.",
       type: 5,
     },
     optionB: {
-      text: "I fear being trapped in pain, boredom, or limitation — cut off from options, pleasure, or stimulation.",
+      text: "I fear being trapped in pain, boredom, or limitation. cut off from options, pleasure, or stimulation.",
       type: 7,
     },
   },
-  // HEAD CENTER — 5 vs 6
+  // HEAD CENTER. 5 vs 6
   {
     id: 25,
     center: "head",
     optionA: {
-      text: "I accumulate knowledge and expertise as protection — understanding gives me a sense of control over an overwhelming world.",
+      text: "I accumulate knowledge and expertise as protection. understanding gives me a sense of control over an overwhelming world.",
       type: 5,
     },
     optionB: {
-      text: "I build loyal alliances and structures as protection — having reliable support gives me a sense of safety in an uncertain world.",
+      text: "I build loyal alliances and structures as protection. having reliable support gives me a sense of safety in an uncertain world.",
       type: 6,
     },
   },
-  // HEAD CENTER — 7 vs 6
+  // HEAD CENTER. 7 vs 6
   {
     id: 26,
     center: "head",
@@ -370,7 +370,7 @@ export const tritypeQuestions: TritypeQuestion[] = [
       type: 6,
     },
   },
-  // HEAD CENTER — 5 vs 7
+  // HEAD CENTER. 5 vs 7
   {
     id: 27,
     center: "head",
@@ -379,7 +379,7 @@ export const tritypeQuestions: TritypeQuestion[] = [
       type: 5,
     },
     optionB: {
-      text: "I participate more than I reflect. I'm most comfortable when I'm engaged, moving, experiencing — life should be savored.",
+      text: "I participate more than I reflect. I'm most comfortable when I'm engaged, moving, experiencing. life should be savored.",
       type: 7,
     },
   },

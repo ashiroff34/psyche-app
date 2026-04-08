@@ -179,7 +179,7 @@ export default function TokenDropOverlay({ drop, onClaim }: Props) {
                 </motion.div>
               </motion.button>
             ) : (
-              /* Opened state — burst + reveal */
+              /* Opened state. burst + reveal */
               <motion.div
                 initial={{ scale: 0.5, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}

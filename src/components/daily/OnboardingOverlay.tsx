@@ -203,7 +203,7 @@ export default function OnboardingOverlay({ onComplete }: Props) {
               </span>
             </motion.div>
 
-            {/* Chibi mascot — only on welcome slide */}
+            {/* Chibi mascot. only on welcome slide */}
             {slideIdx === 0 && (
               <motion.div
                 initial={{ scale: 0.7, opacity: 0 }}

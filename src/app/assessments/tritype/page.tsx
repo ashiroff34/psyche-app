@@ -155,7 +155,7 @@ export default function TritypeAssessmentPage() {
             </h1>
             <p className="text-base leading-relaxed mb-6" style={{ color: "rgba(255,255,255,0.6)" }}>
               Tritype identifies your dominant Enneagram type in each of the three centers of
-              intelligence — gut, heart, and head. Together, they form a three-digit code that
+              intelligence. gut, heart, and head. Together, they form a three-digit code that
               captures more of who you are than a single type alone.
             </p>
           </div>

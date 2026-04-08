@@ -210,7 +210,7 @@ export default function NodeBottomSheet({ node, onClose, onStart, onCompleteNonQ
                 </div>
               )}
 
-              {/* Quiz node — Start / Practice Again */}
+              {/* Quiz node. Start / Practice Again */}
               {!locked && !isNonQuiz && (
                 <button
                   onClick={() => onStart(node)}
@@ -232,7 +232,7 @@ export default function NodeBottomSheet({ node, onClose, onStart, onCompleteNonQ
                 </button>
               )}
 
-              {/* Reflection / Challenge node — textarea + word count */}
+              {/* Reflection / Challenge node. textarea + word count */}
               {!locked && isNonQuiz && !done && !submitted && (
                 <div className="space-y-3">
                   {node.prompt && (

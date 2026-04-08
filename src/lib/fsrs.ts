@@ -11,7 +11,7 @@ const scheduler = fsrs();
 
 /** Persistent card state stored in localStorage per question ID */
 export interface FSRSCard {
-  due: string;           // ISO string — when the card is next due
+  due: string;           // ISO string. when the card is next due
   stability: number;
   difficulty: number;
   elapsed_days: number;

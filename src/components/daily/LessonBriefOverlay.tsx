@@ -225,7 +225,7 @@ function getCards(moduleId: string, enneagramType?: number): BriefCard[] {
 
 function renderLearnContent(raw: string) {
   // Pre-process: split inline type lists "1, Name: desc. 2, Name: desc." into lines
-  const preprocessed = raw.replace(/\. (\d — [A-Z])/g, ".\n$1");
+  const preprocessed = raw.replace(/\. (\d. [A-Z])/g, ".\n$1");
 
   const paragraphs = preprocessed.split("\n\n");
 
@@ -519,7 +519,7 @@ function renderLearnContent(raw: string) {
               }
 
               // ── Single type entry: "5, Investigator: fears being incompetent." ──
-              const typeLineMatch = line.match(/^(\d) — ([A-Z][^:]+): (.+)/);
+              const typeLineMatch = line.match(/^(\d). ([A-Z][^:]+): (.+)/);
               if (typeLineMatch) {
                 return (
                   <div key={lIdx} className={`flex gap-2.5 items-start ${gap}`}>

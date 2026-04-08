@@ -664,7 +664,7 @@ function ResultsContent() {
             <span>Dominant function: {dominantFunc?.alias}</span>
           </div>
 
-          {/* Confidence + Consistency badges — MBTI Form M IRT methodology */}
+          {/* Confidence + Consistency badges. MBTI Form M IRT methodology */}
           <div className="flex items-center justify-center gap-3 flex-wrap mb-8">
             <div className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border text-xs font-medium ${
               confidence >= 65
@@ -712,7 +712,7 @@ function ResultsContent() {
             </div>
           )}
 
-          {/* Full 8-function stack — per Nardi methodology: show all functions, not just type label */}
+          {/* Full 8-function stack. per Nardi methodology: show all functions, not just type label */}
           {normalizedScores.length > 0 && (
             <div className="max-w-lg mx-auto space-y-2.5">
               <p className="text-xs font-mono uppercase tracking-wider mb-4 text-center" style={{ color: "rgba(255,255,255,0.4)" }}>

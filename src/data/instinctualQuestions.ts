@@ -39,8 +39,8 @@ export const instinctualQuestions: InstinctualQuestion[] = [
   },
   {
     id: 7,
-    optionA: { text: "Self-sufficiency — being able to take care of myself — is a core value for me.", instinct: "sp" },
-    optionB: { text: "Merging fully with another person or experience — losing the boundary — is something I crave.", instinct: "sx" },
+    optionA: { text: "Self-sufficiency. being able to take care of myself. is a core value for me.", instinct: "sp" },
+    optionB: { text: "Merging fully with another person or experience. losing the boundary. is something I crave.", instinct: "sx" },
   },
   {
     id: 8,
@@ -138,7 +138,7 @@ export const instinctualQuestions: InstinctualQuestion[] = [
   },
   {
     id: 26,
-    optionA: { text: "I often experience a kind of hunger or longing that feels hard to name — a search for the right connection.", instinct: "sx" },
+    optionA: { text: "I often experience a kind of hunger or longing that feels hard to name. a search for the right connection.", instinct: "sx" },
     optionB: { text: "I often feel restless until I know my role and contribution within a group are secure.", instinct: "so" },
   },
   {
@@ -153,7 +153,7 @@ export const instinctualQuestions: InstinctualQuestion[] = [
   },
   {
     id: 29,
-    optionA: { text: "I notice immediately when the energy between me and another person shifts — even subtly.", instinct: "sx" },
+    optionA: { text: "I notice immediately when the energy between me and another person shifts. even subtly.", instinct: "sx" },
     optionB: { text: "I notice immediately when the social dynamics in a room shift and how it affects my place in it.", instinct: "so" },
   },
   {

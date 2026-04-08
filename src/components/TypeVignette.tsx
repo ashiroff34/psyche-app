@@ -137,7 +137,7 @@ export default function TypeVignetteSection({ vignette }: TypeVigetteProps) {
         className="text-sm leading-relaxed mb-5"
         style={{ color: "rgba(255,255,255,0.45)" }}
       >
-        Short portraits of this type across different situations — written in close third-person
+        Short portraits of this type across different situations. written in close third-person
         to show the inner world in motion.
       </p>
       {moods.map((mood, i) => (

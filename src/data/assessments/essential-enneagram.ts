@@ -24,7 +24,7 @@ export const essentialParagraphs: TypeParagraph[] = [
   },
   {
     typeNumber: 4,
-    paragraph: 'I experience life through a rich and intense emotional landscape, and authenticity matters to me more than almost anything.  There is a persistent sense that something essential is missing — a longing I cannot always name but that shapes everything.  I am drawn to beauty, meaning, and depth, and I find the ordinary or superficial difficult to tolerate for long.  Envy, in the Enneagram sense, is part of my structure: a painful awareness that others seem to have something I lack.  I build my identity around what makes me unique, and I can swing between feeling special and feeling fundamentally deficient.  In relationships I seek depth and true understanding, yet I often push people away when they get close — afraid that being fully known will reveal the deficiency I most fear.  I would rather feel something real than nothing at all.',
+    paragraph: 'I experience life through a rich and intense emotional landscape, and authenticity matters to me more than almost anything.  There is a persistent sense that something essential is missing. a longing I cannot always name but that shapes everything.  I am drawn to beauty, meaning, and depth, and I find the ordinary or superficial difficult to tolerate for long.  Envy, in the Enneagram sense, is part of my structure: a painful awareness that others seem to have something I lack.  I build my identity around what makes me unique, and I can swing between feeling special and feeling fundamentally deficient.  In relationships I seek depth and true understanding, yet I often push people away when they get close. afraid that being fully known will reveal the deficiency I most fear.  I would rather feel something real than nothing at all.',
   },
   {
     typeNumber: 5,
@@ -40,7 +40,7 @@ export const essentialParagraphs: TypeParagraph[] = [
   },
   {
     typeNumber: 8,
-    paragraph: 'I move through the world with intensity, directness, and a determination to protect myself and the people I care about.  I trust my gut instincts, act decisively, and have little patience for indirectness or manipulation.  I learned early — or simply know in my bones — that the world is tough and you must be tougher to survive it.  Vulnerability feels dangerous, so I test people, push against limits, and confront rather than accommodate.  The anger and force that others find overwhelming is, for me, simply the energy of being fully alive.  Beneath the power is a tenderness I rarely show, because showing it feels like handing someone a weapon.  I protect the people I love fiercely, sometimes more than they want.  In relationships I am loyal and magnetic, but I struggle to let anyone see the softer self I guard so carefully.',
+    paragraph: 'I move through the world with intensity, directness, and a determination to protect myself and the people I care about.  I trust my gut instincts, act decisively, and have little patience for indirectness or manipulation.  I learned early. or simply know in my bones. that the world is tough and you must be tougher to survive it.  Vulnerability feels dangerous, so I test people, push against limits, and confront rather than accommodate.  The anger and force that others find overwhelming is, for me, simply the energy of being fully alive.  Beneath the power is a tenderness I rarely show, because showing it feels like handing someone a weapon.  I protect the people I love fiercely, sometimes more than they want.  In relationships I am loyal and magnetic, but I struggle to let anyone see the softer self I guard so carefully.',
   },
   {
     typeNumber: 9,
@@ -61,7 +61,7 @@ export const narrowingQuestions: NarrowingQuestion[] = [
     types: [2, 9],
     question: 'When a friend is going through a hard time, how do you typically respond?',
     options: [
-      { text: 'I step in actively — I call them, bring them something, and make sure they know I am there.', scores: { '2': 2 } },
+      { text: 'I step in actively. I call them, bring them something, and make sure they know I am there.', scores: { '2': 2 } },
       { text: 'I am present and supportive but follow their lead, letting them set the pace.', scores: { '9': 2 } },
     ],
   },
@@ -77,15 +77,15 @@ export const narrowingQuestions: NarrowingQuestion[] = [
     types: [4, 6],
     question: 'When you feel anxious or unsettled, where does your attention go?',
     options: [
-      { text: 'Inward — I examine my emotions, search for what feels missing, and try to understand myself more deeply.', scores: { '4': 2 } },
-      { text: 'Outward — I look for reassurance, analyze threats, or try to stay alert to what could go wrong.', scores: { '6': 2 } },
+      { text: 'Inward. I examine my emotions, search for what feels missing, and try to understand myself more deeply.', scores: { '4': 2 } },
+      { text: 'Outward. I look for reassurance, analyze threats, or try to stay alert to what could go wrong.', scores: { '6': 2 } },
     ],
   },
   {
     types: [5, 9],
     question: 'When you withdraw from social interaction, what is usually happening inside?',
     options: [
-      { text: 'My mind is highly active — I am analyzing, researching, or deeply focused on something I find fascinating.', scores: { '5': 2 } },
+      { text: 'My mind is highly active. I am analyzing, researching, or deeply focused on something I find fascinating.', scores: { '5': 2 } },
       { text: 'I feel a comfortable inner stillness; I am just recovering and letting my mind go quiet.', scores: { '9': 2 } },
     ],
   },
@@ -94,14 +94,14 @@ export const narrowingQuestions: NarrowingQuestion[] = [
     question: 'What is the main reason you put so much effort into being there for others?',
     options: [
       { text: 'I genuinely need to feel loved and appreciated, and helping others is how I earn that closeness.', scores: { '2': 2 } },
-      { text: 'I want to be reliable and trustworthy — knowing people can count on me feels safe.', scores: { '6': 2 } },
+      { text: 'I want to be reliable and trustworthy. knowing people can count on me feels safe.', scores: { '6': 2 } },
     ],
   },
   {
     types: [4, 9],
     question: 'How would you describe your relationship with your own emotions?',
     options: [
-      { text: 'My emotions are vivid and central to my identity — I would rather feel pain than feel nothing at all.', scores: { '4': 2 } },
+      { text: 'My emotions are vivid and central to my identity. I would rather feel pain than feel nothing at all.', scores: { '4': 2 } },
       { text: 'I often feel a gentle numbness; my emotions are there but I can tune them out to keep the peace.', scores: { '9': 2 } },
     ],
   },
@@ -157,8 +157,8 @@ export const narrowingQuestions: NarrowingQuestion[] = [
     types: [1, 8],
     question: 'When you feel angry, how does it typically come out?',
     options: [
-      { text: 'I try to contain it and channel it into measured, justified criticism — losing control feels wrong.', scores: { '1': 2 } },
-      { text: 'It comes out directly and intensely — I confront the issue head-on without holding back.', scores: { '8': 2 } },
+      { text: 'I try to contain it and channel it into measured, justified criticism. losing control feels wrong.', scores: { '1': 2 } },
+      { text: 'It comes out directly and intensely. I confront the issue head-on without holding back.', scores: { '8': 2 } },
     ],
   },
 ];

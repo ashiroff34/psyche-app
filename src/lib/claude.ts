@@ -1,5 +1,5 @@
 /**
- * Thyself — Claude API helper
+ * Thyself. Claude API helper
  *
  * All content generation goes through generateContent().
  * The system prompt is automatically injected on every call.
@@ -38,9 +38,9 @@ export interface ContentResult {
 // ---------------------------------------------------------------------------
 
 const MODELS: Record<ContentModel, string> = {
-  /** Type descriptions, lesson narratives, rich content — highest accuracy */
+  /** Type descriptions, lesson narratives, rich content. highest accuracy */
   quality: "claude-opus-4-5",
-  /** Quiz questions, short prompts, quick lookups — faster & cheaper */
+  /** Quiz questions, short prompts, quick lookups. faster & cheaper */
   fast: "claude-haiku-3-5",
 };
 
@@ -128,7 +128,7 @@ export async function generateQuizQuestions(
 ): Promise<string> {
   const { text } = await generateContent(
     `Generate ${count} multiple-choice quiz questions about: ${topic}. ` +
-      `Apply spaced repetition principles — vary difficulty, include retrieval practice, ` +
+      `Apply spaced repetition principles. vary difficulty, include retrieval practice, ` +
       `and write distractors that address common misconceptions. ` +
       `Return valid JSON: [{ question, options: string[], correctIndex: number, explanation }]`,
     { model: "fast" }
@@ -146,7 +146,7 @@ export async function generateLessonCard(
     ? ` Lightly personalize for a Type ${enneagramType} learner (max 20% customization).`
     : "";
   const { text } = await generateContent(
-    `Generate a microlearning lesson card for: "${unitTitle} — ${lessonTitle}".` +
+    `Generate a microlearning lesson card for: "${unitTitle}. ${lessonTitle}".` +
       personalization +
       ` Structure it as: hook (1 sentence), core concept (2-3 sentences), ` +
       `reflection question, and one actionable takeaway. Keep it under 150 words total.`

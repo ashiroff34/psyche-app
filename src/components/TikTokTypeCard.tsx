@@ -52,16 +52,16 @@ const GLOBAL_HASHTAGS = [
   "#innergrowth",
 ];
 
-// Invite-style share hooks — designed to make viewers curious about their own type
+// Invite-style share hooks. designed to make viewers curious about their own type
 const TYPE_SHARE_HOOKS: Record<number, string> = {
   1: "I'm an Enneagram Type 1. What's your type? Find out free →",
   2: "Just found out I'm a Type 2. This explains so much about me. What are you?",
-  3: "Type 3 here. Thyself showed me exactly what's driving me — what's driving you?",
-  4: "I'm a Type 4 on the Enneagram. Find your type at thyself.app — it's free.",
+  3: "Type 3 here. Thyself showed me exactly what's driving me. what's driving you?",
+  4: "I'm a Type 4 on the Enneagram. Find your type at thyself.app. it's free.",
   5: "Type 5 according to Thyself. Honestly the most accurate thing I've read about myself.",
   6: "Found my Enneagram type and I can't stop sending it to everyone I know. What's yours?",
   7: "I'm a Type 7! Thyself mapped my entire personality in minutes. What's your type?",
-  8: "Type 8. This app knows me better than I know myself. Try it — it's free.",
+  8: "Type 8. This app knows me better than I know myself. Try it. it's free.",
   9: "Just discovered I'm a Type 9. What are you? thyself.app is free and actually accurate.",
 };
 
@@ -149,7 +149,7 @@ export default function TikTokTypeCard({
         await handleDownload();
       }
     } catch (err) {
-      // User cancelled or share not supported — fall back to download
+      // User cancelled or share not supported. fall back to download
       if ((err as Error)?.name !== "AbortError") {
         await handleDownload();
       }

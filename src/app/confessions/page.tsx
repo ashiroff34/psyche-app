@@ -643,7 +643,7 @@ export default function ConfessionsPage() {
   const [mounted, setMounted] = useState(false);
   const deviceIdRef = useRef<string>("");
 
-  // Load on mount — try Supabase first, fall back to localStorage
+  // Load on mount. try Supabase first, fall back to localStorage
   useEffect(() => {
     setMounted(true);
     setUserType(getUserType());
@@ -653,7 +653,7 @@ export default function ConfessionsPage() {
       const sb = await getSupabase();
 
       if (!sb) {
-        // Supabase not configured — use localStorage
+        // Supabase not configured. use localStorage
         setConfessions(loadConfessionsFromStorage());
         return;
       }
@@ -665,7 +665,7 @@ export default function ConfessionsPage() {
         .limit(50);
 
       if (error || !data || data.length === 0) {
-        // Supabase error or empty — fall back to localStorage seed
+        // Supabase error or empty. fall back to localStorage seed
         setConfessions(loadConfessionsFromStorage());
         return;
       }

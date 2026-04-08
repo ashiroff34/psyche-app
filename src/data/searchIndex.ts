@@ -15,7 +15,7 @@ export const searchIndex: SearchItem[] = [
   // ── Enneagram Types ────────────────────────────────────────────────────────
   {
     id: "enn-1",
-    title: "Type 1 — The Reformer",
+    title: "Type 1. The Reformer",
     subtitle: "Enneagram",
     category: "type",
     href: "/enneagram/1",
@@ -24,7 +24,7 @@ export const searchIndex: SearchItem[] = [
   },
   {
     id: "enn-2",
-    title: "Type 2 — The Helper",
+    title: "Type 2. The Helper",
     subtitle: "Enneagram",
     category: "type",
     href: "/enneagram/2",
@@ -33,7 +33,7 @@ export const searchIndex: SearchItem[] = [
   },
   {
     id: "enn-3",
-    title: "Type 3 — The Achiever",
+    title: "Type 3. The Achiever",
     subtitle: "Enneagram",
     category: "type",
     href: "/enneagram/3",
@@ -42,7 +42,7 @@ export const searchIndex: SearchItem[] = [
   },
   {
     id: "enn-4",
-    title: "Type 4 — The Individualist",
+    title: "Type 4. The Individualist",
     subtitle: "Enneagram",
     category: "type",
     href: "/enneagram/4",
@@ -51,7 +51,7 @@ export const searchIndex: SearchItem[] = [
   },
   {
     id: "enn-5",
-    title: "Type 5 — The Investigator",
+    title: "Type 5. The Investigator",
     subtitle: "Enneagram",
     category: "type",
     href: "/enneagram/5",
@@ -60,7 +60,7 @@ export const searchIndex: SearchItem[] = [
   },
   {
     id: "enn-6",
-    title: "Type 6 — The Loyalist",
+    title: "Type 6. The Loyalist",
     subtitle: "Enneagram",
     category: "type",
     href: "/enneagram/6",
@@ -69,7 +69,7 @@ export const searchIndex: SearchItem[] = [
   },
   {
     id: "enn-7",
-    title: "Type 7 — The Enthusiast",
+    title: "Type 7. The Enthusiast",
     subtitle: "Enneagram",
     category: "type",
     href: "/enneagram/7",
@@ -78,7 +78,7 @@ export const searchIndex: SearchItem[] = [
   },
   {
     id: "enn-8",
-    title: "Type 8 — The Challenger",
+    title: "Type 8. The Challenger",
     subtitle: "Enneagram",
     category: "type",
     href: "/enneagram/8",
@@ -87,7 +87,7 @@ export const searchIndex: SearchItem[] = [
   },
   {
     id: "enn-9",
-    title: "Type 9 — The Peacemaker",
+    title: "Type 9. The Peacemaker",
     subtitle: "Enneagram",
     category: "type",
     href: "/enneagram/9",
@@ -98,7 +98,7 @@ export const searchIndex: SearchItem[] = [
   // ── Cognitive Function Types ───────────────────────────────────────────────
   {
     id: "mbti-INTJ",
-    title: "INTJ — The Mastermind",
+    title: "INTJ. The Mastermind",
     subtitle: "Cognitive Functions",
     category: "type",
     href: "/cognitive/learn?type=INTJ",
@@ -107,7 +107,7 @@ export const searchIndex: SearchItem[] = [
   },
   {
     id: "mbti-INTP",
-    title: "INTP — The Architect",
+    title: "INTP. The Architect",
     subtitle: "Cognitive Functions",
     category: "type",
     href: "/cognitive/learn?type=INTP",
@@ -116,7 +116,7 @@ export const searchIndex: SearchItem[] = [
   },
   {
     id: "mbti-ENTJ",
-    title: "ENTJ — The Commander",
+    title: "ENTJ. The Commander",
     subtitle: "Cognitive Functions",
     category: "type",
     href: "/cognitive/learn?type=ENTJ",
@@ -125,7 +125,7 @@ export const searchIndex: SearchItem[] = [
   },
   {
     id: "mbti-ENTP",
-    title: "ENTP — The Visionary",
+    title: "ENTP. The Visionary",
     subtitle: "Cognitive Functions",
     category: "type",
     href: "/cognitive/learn?type=ENTP",
@@ -134,7 +134,7 @@ export const searchIndex: SearchItem[] = [
   },
   {
     id: "mbti-INFJ",
-    title: "INFJ — The Counselor",
+    title: "INFJ. The Counselor",
     subtitle: "Cognitive Functions",
     category: "type",
     href: "/cognitive/learn?type=INFJ",
@@ -143,7 +143,7 @@ export const searchIndex: SearchItem[] = [
   },
   {
     id: "mbti-INFP",
-    title: "INFP — The Healer",
+    title: "INFP. The Healer",
     subtitle: "Cognitive Functions",
     category: "type",
     href: "/cognitive/learn?type=INFP",
@@ -152,7 +152,7 @@ export const searchIndex: SearchItem[] = [
   },
   {
     id: "mbti-ENFJ",
-    title: "ENFJ — The Teacher",
+    title: "ENFJ. The Teacher",
     subtitle: "Cognitive Functions",
     category: "type",
     href: "/cognitive/learn?type=ENFJ",
@@ -161,7 +161,7 @@ export const searchIndex: SearchItem[] = [
   },
   {
     id: "mbti-ENFP",
-    title: "ENFP — The Champion",
+    title: "ENFP. The Champion",
     subtitle: "Cognitive Functions",
     category: "type",
     href: "/cognitive/learn?type=ENFP",
@@ -170,7 +170,7 @@ export const searchIndex: SearchItem[] = [
   },
   {
     id: "mbti-ISTJ",
-    title: "ISTJ — The Inspector",
+    title: "ISTJ. The Inspector",
     subtitle: "Cognitive Functions",
     category: "type",
     href: "/cognitive/learn?type=ISTJ",
@@ -179,7 +179,7 @@ export const searchIndex: SearchItem[] = [
   },
   {
     id: "mbti-ISFJ",
-    title: "ISFJ — The Protector",
+    title: "ISFJ. The Protector",
     subtitle: "Cognitive Functions",
     category: "type",
     href: "/cognitive/learn?type=ISFJ",
@@ -188,7 +188,7 @@ export const searchIndex: SearchItem[] = [
   },
   {
     id: "mbti-ESTJ",
-    title: "ESTJ — The Supervisor",
+    title: "ESTJ. The Supervisor",
     subtitle: "Cognitive Functions",
     category: "type",
     href: "/cognitive/learn?type=ESTJ",
@@ -197,7 +197,7 @@ export const searchIndex: SearchItem[] = [
   },
   {
     id: "mbti-ESFJ",
-    title: "ESFJ — The Provider",
+    title: "ESFJ. The Provider",
     subtitle: "Cognitive Functions",
     category: "type",
     href: "/cognitive/learn?type=ESFJ",
@@ -206,7 +206,7 @@ export const searchIndex: SearchItem[] = [
   },
   {
     id: "mbti-ISTP",
-    title: "ISTP — The Craftsman",
+    title: "ISTP. The Craftsman",
     subtitle: "Cognitive Functions",
     category: "type",
     href: "/cognitive/learn?type=ISTP",
@@ -215,7 +215,7 @@ export const searchIndex: SearchItem[] = [
   },
   {
     id: "mbti-ISFP",
-    title: "ISFP — The Composer",
+    title: "ISFP. The Composer",
     subtitle: "Cognitive Functions",
     category: "type",
     href: "/cognitive/learn?type=ISFP",
@@ -224,7 +224,7 @@ export const searchIndex: SearchItem[] = [
   },
   {
     id: "mbti-ESTP",
-    title: "ESTP — The Dynamo",
+    title: "ESTP. The Dynamo",
     subtitle: "Cognitive Functions",
     category: "type",
     href: "/cognitive/learn?type=ESTP",
@@ -233,7 +233,7 @@ export const searchIndex: SearchItem[] = [
   },
   {
     id: "mbti-ESFP",
-    title: "ESFP — The Performer",
+    title: "ESFP. The Performer",
     subtitle: "Cognitive Functions",
     category: "type",
     href: "/cognitive/learn?type=ESFP",
@@ -244,7 +244,7 @@ export const searchIndex: SearchItem[] = [
   // ── Cognitive Functions ────────────────────────────────────────────────────
   {
     id: "func-Ni",
-    title: "Ni — Introverted Intuition",
+    title: "Ni. Introverted Intuition",
     subtitle: "Cognitive Function",
     category: "function",
     href: "/cognitive/learn?func=Ni",
@@ -253,7 +253,7 @@ export const searchIndex: SearchItem[] = [
   },
   {
     id: "func-Ne",
-    title: "Ne — Extraverted Intuition",
+    title: "Ne. Extraverted Intuition",
     subtitle: "Cognitive Function",
     category: "function",
     href: "/cognitive/learn?func=Ne",
@@ -262,7 +262,7 @@ export const searchIndex: SearchItem[] = [
   },
   {
     id: "func-Si",
-    title: "Si — Introverted Sensing",
+    title: "Si. Introverted Sensing",
     subtitle: "Cognitive Function",
     category: "function",
     href: "/cognitive/learn?func=Si",
@@ -271,7 +271,7 @@ export const searchIndex: SearchItem[] = [
   },
   {
     id: "func-Se",
-    title: "Se — Extraverted Sensing",
+    title: "Se. Extraverted Sensing",
     subtitle: "Cognitive Function",
     category: "function",
     href: "/cognitive/learn?func=Se",
@@ -280,7 +280,7 @@ export const searchIndex: SearchItem[] = [
   },
   {
     id: "func-Ti",
-    title: "Ti — Introverted Thinking",
+    title: "Ti. Introverted Thinking",
     subtitle: "Cognitive Function",
     category: "function",
     href: "/cognitive/learn?func=Ti",
@@ -289,7 +289,7 @@ export const searchIndex: SearchItem[] = [
   },
   {
     id: "func-Te",
-    title: "Te — Extraverted Thinking",
+    title: "Te. Extraverted Thinking",
     subtitle: "Cognitive Function",
     category: "function",
     href: "/cognitive/learn?func=Te",
@@ -298,7 +298,7 @@ export const searchIndex: SearchItem[] = [
   },
   {
     id: "func-Fi",
-    title: "Fi — Introverted Feeling",
+    title: "Fi. Introverted Feeling",
     subtitle: "Cognitive Function",
     category: "function",
     href: "/cognitive/learn?func=Fi",
@@ -307,7 +307,7 @@ export const searchIndex: SearchItem[] = [
   },
   {
     id: "func-Fe",
-    title: "Fe — Extraverted Feeling",
+    title: "Fe. Extraverted Feeling",
     subtitle: "Cognitive Function",
     category: "function",
     href: "/cognitive/learn?func=Fe",
@@ -377,7 +377,7 @@ export const searchIndex: SearchItem[] = [
     category: "assessment",
     href: "/assessments/tritype",
     keywords: ["tritype", "fauvre", "katherine fauvre", "three centers", "gut heart head", "archetype", "forced choice", "27 questions"],
-    preview: "27 forced-choice questions to identify your dominant type in each of the three centers — gut, heart, and head.",
+    preview: "27 forced-choice questions to identify your dominant type in each of the three centers. gut, heart, and head.",
   },
   {
     id: "assess-jungian-self-id",
@@ -415,7 +415,7 @@ export const searchIndex: SearchItem[] = [
     category: "concept",
     href: "/enneagram/learn",
     keywords: ["tritype", "fauvre", "three centers", "code", "archetype", "541", "358", "279", "gut heart head"],
-    preview: "Your dominant Enneagram type from each center — gut, heart, and head — combined into a three-digit code and named archetype.",
+    preview: "Your dominant Enneagram type from each center. gut, heart, and head. combined into a three-digit code and named archetype.",
   },
   {
     id: "concept-instinctual-stacking",
@@ -442,7 +442,7 @@ export const searchIndex: SearchItem[] = [
     category: "concept",
     href: "/enneagram/learn",
     keywords: ["centers", "gut", "heart", "head", "body", "feeling", "thinking", "instinct", "emotion", "reason", "triads"],
-    preview: "The three fundamental intelligences — gut (8,9,1), heart (2,3,4), and head (5,6,7) — that organize the nine types into triads.",
+    preview: "The three fundamental intelligences. gut (8,9,1), heart (2,3,4), and head (5,6,7). that organize the nine types into triads.",
   },
   {
     id: "concept-shadow",
@@ -451,7 +451,7 @@ export const searchIndex: SearchItem[] = [
     category: "concept",
     href: "/cognitive/learn",
     keywords: ["shadow", "beebe", "8 functions", "unconscious", "nemesis", "trickster", "demon", "critical parent", "opposing", "inferior"],
-    preview: "John Beebe's 8-function model: the bottom four functions operate as 'shadow' — less conscious versions of the top four.",
+    preview: "John Beebe's 8-function model: the bottom four functions operate as 'shadow'. less conscious versions of the top four.",
   },
   {
     id: "concept-function-loops",
@@ -469,7 +469,7 @@ export const searchIndex: SearchItem[] = [
     category: "concept",
     href: "/cognitive/learn",
     keywords: ["keirsey", "temperament", "artisan", "guardian", "idealist", "rational", "sp", "sj", "nf", "nt", "please understand me"],
-    preview: "Keirsey's four temperaments — Artisan (SP), Guardian (SJ), Idealist (NF), and Rational (NT) — organize the 16 types by core need and drive.",
+    preview: "Keirsey's four temperaments. Artisan (SP), Guardian (SJ), Idealist (NF), and Rational (NT). organize the 16 types by core need and drive.",
   },
   {
     id: "concept-big-five",

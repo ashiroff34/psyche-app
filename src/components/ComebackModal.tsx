@@ -170,7 +170,7 @@ export default function ComebackModal() {
   const subtextEl =
     segment === "gentle" ? (
       <p className="text-sm" style={{ color: "rgba(255,255,255,0.5)" }}>
-        You were away for {daysSince === 1 ? "1 day" : `${daysSince} days`} — let&apos;s pick up where you left off.
+        You were away for {daysSince === 1 ? "1 day" : `${daysSince} days`}. let&apos;s pick up where you left off.
       </p>
     ) : segment === "winback" ? (
       <p className="text-sm" style={{ color: "rgba(255,255,255,0.5)" }}>
@@ -179,8 +179,8 @@ export default function ComebackModal() {
     ) : (
       <p className="text-sm" style={{ color: "rgba(255,255,255,0.5)" }}>
         {daysSince === 1
-          ? "You were away for 1 day — come back strong."
-          : `You were away for ${daysSince} days — don't let it slip further.`}
+          ? "You were away for 1 day. come back strong."
+          : `You were away for ${daysSince} days. don't let it slip further.`}
       </p>
     );
 
@@ -235,7 +235,7 @@ export default function ComebackModal() {
                     {headingText}
                   </h2>
                   {subtextEl}
-                  {/* Urgency line — only for moderate/winback */}
+                  {/* Urgency line. only for moderate/winback */}
                   {segment !== "gentle" && (
                     data.petHealth !== null && data.petHealth < 80 ? (
                       <p className="text-xs mt-2 font-medium" style={{ color: "#fb923c" }}>
@@ -243,13 +243,13 @@ export default function ComebackModal() {
                       </p>
                     ) : (data.petHealth === null || data.petHealth >= 80) && daysSince > 0 ? (
                       <p className="text-xs mt-2 font-medium" style={{ color: "#f87171" }}>
-                        Your streak reset — start a new one today
+                        Your streak reset. start a new one today
                       </p>
                     ) : null
                   )}
                 </div>
 
-                {/* Comeback bonus card — only for moderate (4-13) and win-back (14+) */}
+                {/* Comeback bonus card. only for moderate (4-13) and win-back (14+) */}
                 {segment !== "gentle" && (
                   <div className="p-4 rounded-2xl mb-4" style={{ background: "rgba(139,92,246,0.12)", border: "1px solid rgba(139,92,246,0.2)" }}>
                     <p className="text-xs font-semibold tracking-wide mb-3 uppercase" style={{ color: "#a78bfa" }}>
@@ -283,7 +283,7 @@ export default function ComebackModal() {
                   </div>
                 )}
 
-                {/* Pet status (if pet exists) — show for moderate and winback */}
+                {/* Pet status (if pet exists). show for moderate and winback */}
                 {segment !== "gentle" && (data.petName !== "Your pet" || data.petHealth !== null) ? (
                   <div className="p-4 rounded-2xl mb-5" style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.08)" }}>
                     <div className="flex items-center gap-3 mb-3">

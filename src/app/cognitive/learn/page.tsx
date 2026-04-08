@@ -1673,7 +1673,7 @@ function TabKeirsey() {
           David Keirsey reorganized Jung&apos;s 16 types into four temperaments based on patterns of need,
           value, and self-image that remain stable across a person&apos;s entire life. Where MBTI focuses on
           cognitive preferences, Keirsey focused on behavioral patterns and core drives. His two foundational
-          books — <em>Please Understand Me</em> (1978) and <em>Please Understand Me II</em> (1998) — are among
+          books. <em>Please Understand Me</em> (1978) and <em>Please Understand Me II</em> (1998). are among
           the most widely read works in personality psychology.
         </p>
         {userTemperament && (

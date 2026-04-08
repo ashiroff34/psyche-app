@@ -271,7 +271,7 @@ export default function MorningObservation({ typeNumber, onDismiss }: MorningObs
               >
                 {selectedMode === "witness" && (
                   <p className="text-[17px] leading-relaxed font-light" style={{ color: "rgba(255,255,255,0.88)" }}>
-                    Carry this with you today. No action required — just notice.
+                    Carry this with you today. No action required. just notice.
                   </p>
                 )}
                 {selectedMode === "explore" && (
@@ -332,7 +332,7 @@ export default function MorningObservation({ typeNumber, onDismiss }: MorningObs
                   Evening check-in
                 </h2>
                 <p className="text-[15px] leading-relaxed" style={{ color: "rgba(255,255,255,0.5)" }}>
-                  At the end of the day, we&apos;ll send you a short follow-up — asking what, if anything, surfaced.
+                  At the end of the day, we&apos;ll send you a short follow-up. asking what, if anything, surfaced.
                 </p>
               </div>
 
@@ -388,7 +388,7 @@ export default function MorningObservation({ typeNumber, onDismiss }: MorningObs
                   {emailSaved ? (
                     <>
                       <CheckCircle size={16} />
-                      Saved — enter the day
+                      Saved. enter the day
                     </>
                   ) : (
                     <>

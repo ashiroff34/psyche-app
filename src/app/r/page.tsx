@@ -54,7 +54,7 @@ function ReferralContent() {
             ⚡ Limited time offer
           </span>
           <span className="text-xs font-bold ml-2" style={{ color: "rgba(255,255,255,0.6)" }}>
-            — new users get +{TOTAL_REWARD} tokens today
+           . new users get +{TOTAL_REWARD} tokens today
           </span>
         </motion.div>
 
@@ -77,7 +77,7 @@ function ReferralContent() {
             Discover who<br />you actually are.
           </h1>
           <p className="mt-3 text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.45)" }}>
-            Thyself maps your Enneagram type, instinctual subtype, tritype, and cognitive style — free.
+            Thyself maps your Enneagram type, instinctual subtype, tritype, and cognitive style. free.
           </p>
         </div>
 
@@ -91,13 +91,13 @@ function ReferralContent() {
           <div className="flex items-center justify-center gap-2">
             <span className="text-sm font-mono font-bold" style={{ color: "#fbbf24" }}>(+)</span>
             <span className="text-sm font-bold" style={{ color: "#fbbf24" }}>
-              +{REFERRAL_TOKEN_REWARD} tokens — friend referral bonus
+              +{REFERRAL_TOKEN_REWARD} tokens. friend referral bonus
             </span>
           </div>
           <div className="flex items-center justify-center gap-2">
             <span className="text-sm font-mono font-bold" style={{ color: "#f87171" }}>(+)</span>
             <span className="text-sm font-bold" style={{ color: "#f87171" }}>
-              +{LIMITED_TIME_BONUS} tokens — limited time bonus
+              +{LIMITED_TIME_BONUS} tokens. limited time bonus
             </span>
           </div>
           <div className="mt-1 pt-1.5" style={{ borderTop: "1px solid rgba(245,158,11,0.2)" }}>
@@ -109,10 +109,10 @@ function ReferralContent() {
 
         <div className="w-full space-y-2.5">
           {[
-            "Core Enneagram type — motivation not just behavior",
-            "Instinctual subtype — sp, sx, or so",
-            "Tritype — your 3-center combination",
-            "Cognitive style — Jungian functions overlay",
+            "Core Enneagram type. motivation not just behavior",
+            "Instinctual subtype. sp, sx, or so",
+            "Tritype. your 3-center combination",
+            "Cognitive style. Jungian functions overlay",
           ].map((item, i) => (
             <motion.div
               key={i}
@@ -139,7 +139,7 @@ function ReferralContent() {
             boxShadow: "0 8px 32px rgba(124,58,237,0.45)",
           }}
         >
-          Find my type — free
+          Find my type. free
         </motion.button>
 
         <p className="text-xs" style={{ color: "rgba(255,255,255,0.2)" }}>

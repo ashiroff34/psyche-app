@@ -1112,7 +1112,7 @@ export default function ComparePage() {
           </p>
         </motion.div>
 
-        {/* Personalized Relationship Patterns — shown only if user has a type */}
+        {/* Personalized Relationship Patterns. shown only if user has a type */}
         {userEnneagramType && (() => {
           const userTypeData = enneagramTypes.find(t => t.number === userEnneagramType);
           if (!userTypeData) return null;
@@ -1126,17 +1126,17 @@ export default function ComparePage() {
             {
               label: "Integration (Growth Line)",
               typeNums: [userEnneagramType, integrationTypeNum] as [number, number],
-              note: `Where you go in growth — Type ${integrationTypeNum}'s qualities as growth edge`,
+              note: `Where you go in growth. Type ${integrationTypeNum}'s qualities as growth edge`,
             },
             {
               label: "Disintegration (Stress Line)",
               typeNums: [userEnneagramType, disintegrationTypeNum] as [number, number],
-              note: `Where you go under stress — Type ${disintegrationTypeNum}'s patterns activated`,
+              note: `Where you go under stress. Type ${disintegrationTypeNum}'s patterns activated`,
             },
             {
               label: "Wing Connection",
               typeNums: [userEnneagramType, wingTypeNum] as [number, number],
-              note: `Your adjacent wing — influences your core type's expression`,
+              note: `Your adjacent wing. influences your core type's expression`,
             },
           ];
 
@@ -1152,7 +1152,7 @@ export default function ComparePage() {
                     Your Relationship Patterns
                   </h2>
                   <p className="text-xs mt-0.5" style={{ color: "rgba(255,255,255,0.35)" }}>
-                    Type {userEnneagramType} · {userTypeData.name} — key dynamics for your type
+                    Type {userEnneagramType} · {userTypeData.name}. key dynamics for your type
                   </p>
                 </div>
               </div>

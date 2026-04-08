@@ -69,7 +69,7 @@ export default function CognitivePremiumGate({ children }: Props) {
     );
   }
 
-  // Unlocked — show content
+  // Unlocked. show content
   if (unlocked) return <>{children}</>;
 
   // Paywall

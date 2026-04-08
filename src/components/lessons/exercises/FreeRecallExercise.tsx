@@ -105,7 +105,7 @@ export default function FreeRecallExercise({ content, onContinue }: Props) {
               In Your Own Words
             </p>
             <p className="text-xs" style={{ color: "rgba(255,255,255,0.45)" }}>
-              Free recall — no multiple choice
+              Free recall. no multiple choice
             </p>
           </div>
         </div>

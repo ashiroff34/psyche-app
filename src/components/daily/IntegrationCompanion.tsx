@@ -211,7 +211,7 @@ export default function IntegrationCompanion({ userType }: Props) {
           </span>
         </div>
 
-        {/* Response buttons — shown until responded */}
+        {/* Response buttons. shown until responded */}
         <AnimatePresence>
           {!responded && (
             <motion.div
@@ -271,7 +271,7 @@ export default function IntegrationCompanion({ userType }: Props) {
           )}
         </AnimatePresence>
 
-        {/* Explore prompt — shown after tapping Explore */}
+        {/* Explore prompt. shown after tapping Explore */}
         <AnimatePresence>
           {showExplore && message.explorePrompt && (
             <motion.div

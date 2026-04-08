@@ -33,12 +33,12 @@ const TYPE_TAGLINES: Record<number, string> = {
 };
 
 const SLIDE_ACCENT_COLORS = [
-  "#7C3AED", // slide 1 — purple
-  "#E74C3C", // slide 2 — type (overridden dynamically)
-  "#F39C12", // slide 3 — amber
-  "#27AE60", // slide 4 — green
-  "#2980B9", // slide 5 — blue
-  "#1ABC9C", // slide 6 — teal
+  "#7C3AED", // slide 1. purple
+  "#E74C3C", // slide 2. type (overridden dynamically)
+  "#F39C12", // slide 3. amber
+  "#27AE60", // slide 4. green
+  "#2980B9", // slide 5. blue
+  "#1ABC9C", // slide 6. teal
 ];
 
 const UPCOMING_ARC = {
@@ -162,7 +162,7 @@ const scaleIn = {
   },
 };
 
-// Slide 1 — Welcome Back
+// Slide 1. Welcome Back
 function SlideWelcome({ data }: { data: WrappedData }) {
   const typeColor = data.enneagramType ? TYPE_COLORS[data.enneagramType] : "#7C3AED";
   return (
@@ -217,7 +217,7 @@ function SlideWelcome({ data }: { data: WrappedData }) {
   );
 }
 
-// Slide 2 — Your Type
+// Slide 2. Your Type
 function SlideType({ data }: { data: WrappedData }) {
   const type = data.enneagramType || 4;
   const typeColor = TYPE_COLORS[type];
@@ -297,7 +297,7 @@ function SlideType({ data }: { data: WrappedData }) {
   );
 }
 
-// Slide 3 — Your Numbers
+// Slide 3. Your Numbers
 function SlideNumbers({ data }: { data: WrappedData }) {
   const stats = [
     { icon: <Flame size={22} />, label: "Day streak", value: data.streakCount, color: "#F39C12" },
@@ -360,7 +360,7 @@ function SlideNumbers({ data }: { data: WrappedData }) {
   );
 }
 
-// Slide 4 — Your Growth
+// Slide 4. Your Growth
 function SlideGrowth({ data }: { data: WrappedData }) {
   const arc = data.arcProgress;
   const daysCompleted = arc ? arc.completedDays.length : 0;
@@ -480,7 +480,7 @@ function SlideGrowth({ data }: { data: WrappedData }) {
   );
 }
 
-// Slide 5 — Your Shares
+// Slide 5. Your Shares
 function SlideShares({ data }: { data: WrappedData }) {
   const count = data.shareCount;
   return (
@@ -547,7 +547,7 @@ function SlideShares({ data }: { data: WrappedData }) {
   );
 }
 
-// Slide 6 — What&apos;s Ahead
+// Slide 6. What&apos;s Ahead
 function SlideAhead({ data, onKeepExploring }: { data: WrappedData; onKeepExploring: () => void }) {
   return (
     <div className="flex flex-col items-center justify-center h-full text-center px-6 gap-6">
@@ -819,7 +819,7 @@ export default function WrappedPage() {
         setTimeout(() => setShareSuccess(false), 2500);
       }
     } catch (err) {
-      // user cancelled or error — silent fail
+      // user cancelled or error. silent fail
       console.warn("Share failed:", err);
     } finally {
       setSharing(false);
@@ -923,7 +923,7 @@ export default function WrappedPage() {
         </AnimatePresence>
       </div>
 
-      {/* Bottom bar — share button on last slide */}
+      {/* Bottom bar. share button on last slide */}
       <div className="relative z-20 pb-10 px-6 flex justify-center">
         {currentSlide === TOTAL_SLIDES - 1 && (
           <motion.button

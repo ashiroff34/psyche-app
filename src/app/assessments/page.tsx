@@ -166,7 +166,7 @@ function getRecommendation(
       tags: ["120 Questions", "IPIP-NEO"],
     };
   }
-  // All mapped — recommend mistype investigation if contested, otherwise deep assessment
+  // All mapped. recommend mistype investigation if contested, otherwise deep assessment
   if (isContested) {
     return {
       dimensionId: "enneagram",

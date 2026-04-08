@@ -207,7 +207,7 @@ function HeaderSection({
           <span className="text-sm font-semibold">{LEAGUE_NAMES[state.league as League]}</span>
         </div>
 
-        {/* Streak — with share button */}
+        {/* Streak. with share button */}
         <div className="flex items-center gap-2 pl-4 pr-2 py-2 rounded-2xl bg-orange-50 border border-orange-200">
           <Flame className="w-4 h-4 text-orange-500" />
           <span className="text-sm font-mono font-semibold text-orange-600">{state.streakCount}</span>
@@ -882,7 +882,7 @@ function LeaderboardSection({ state }: { state: any }) {
         </span>
       </div>
 
-      {/* Social signal — makes leaderboard feel alive */}
+      {/* Social signal. makes leaderboard feel alive */}
       {(() => {
         const signals = [
           "(+) Type 8s are dominating this week",

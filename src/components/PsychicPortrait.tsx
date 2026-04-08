@@ -118,7 +118,7 @@ export default function PsychicPortrait({
   ].filter(Boolean).join(" · ");
 
   function handleCopyShare() {
-    const text = `My Type Map: ${shareStr} — via Thyself`;
+    const text = `My Type Map: ${shareStr}. via Thyself`;
     navigator.clipboard.writeText(text).then(() => {
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);

@@ -212,7 +212,7 @@ const NEXT_ASSESSMENT_LADDER = [
   {
     id: "self-id",
     label: "Self-Identification",
-    desc: "Read all 9 types and recognize yourself — the expert-recommended method",
+    desc: "Read all 9 types and recognize yourself. the expert-recommended method",
     href: "/assessments/self-id",
     points: "+15%",
     color: "#f59e0b",
@@ -220,7 +220,7 @@ const NEXT_ASSESSMENT_LADDER = [
   {
     id: "essential-enneagram",
     label: "Essential Enneagram",
-    desc: "Stanford paragraph method — choose the paragraph that fits your inner world",
+    desc: "Stanford paragraph method. choose the paragraph that fits your inner world",
     href: "/assessments/essential-enneagram",
     points: "+15%",
     color: "#a78bfa",
@@ -236,7 +236,7 @@ const NEXT_ASSESSMENT_LADDER = [
   {
     id: "deep",
     label: "Deep Assessment",
-    desc: "iEQ9-inspired 144 questions — the most thorough self-report option",
+    desc: "iEQ9-inspired 144 questions. the most thorough self-report option",
     href: "/assessments/ieq9-integrative",
     points: "+25%",
     color: "#4ade80",
@@ -289,7 +289,7 @@ function ResultsInner() {
   const typeData = enneagramTypes.find((t) => t.number === typeNum);
 
   // Detect first-ever type discovery (profile had no type before this page loaded)
-  // Must use useEffect — localStorage is not available during SSR
+  // Must use useEffect. localStorage is not available during SSR
   const [isFirstDiscovery, setIsFirstDiscovery] = useState(false);
   useEffect(() => {
     try {
@@ -331,7 +331,7 @@ function ResultsInner() {
     });
     markTopicComplete("enneagram-basics");
     markTopicComplete("core-type");
-  }, [typeNum]); // intentionally omitting updateProfile — it's stable
+  }, [typeNum]); // intentionally omitting updateProfile. it's stable
 
   if (!typeData) {
     return (
@@ -397,7 +397,7 @@ function ResultsInner() {
                   <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-medium" style={{ background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.1)", color: "rgba(255,255,255,0.5)" }}>
                     <Compass className="w-3 h-3" /> {showTwo ? "Top Matches (iEQ9)" : "Your Enneagram Result"}
                   </div>
-                  {/* Confidence badge — tappable */}
+                  {/* Confidence badge. tappable */}
                   <ConfidenceBadge confidenceOverride={confidence} />
                 </div>
 
@@ -449,7 +449,7 @@ function ResultsInner() {
                 {confidence < 65 && (
                   <div className="mt-4 p-3 rounded-xl" style={{ background: "rgba(245,158,11,0.1)", border: "1px solid rgba(245,158,11,0.25)" }}>
                     <p className="text-xs leading-relaxed" style={{ color: "rgba(245,158,11,0.9)" }}>
-                      <strong>Confidence: {confidence}%</strong> — the quick test is just a starting point.
+                      <strong>Confidence: {confidence}%</strong>. the quick test is just a starting point.
                       Tap the badge above to see which assessments will lock in your type.
                     </p>
                   </div>
@@ -490,7 +490,7 @@ function ResultsInner() {
               </div>
             </div>
 
-            {/* Share CTA — TikTok / Instagram viral card */}
+            {/* Share CTA. TikTok / Instagram viral card */}
             <motion.div
               className="mt-6 rounded-2xl overflow-hidden cursor-pointer"
               style={{ border: "1px solid rgba(139,92,246,0.3)", background: "linear-gradient(135deg, rgba(124,58,237,0.15), rgba(217,70,239,0.12))" }}
@@ -1094,7 +1094,7 @@ function ResultsInner() {
                             style={{ overflow: "hidden" }}
                           >
                             <p className="mt-3 text-xs leading-relaxed" style={{ color: "rgba(255,255,255,0.5)" }}>
-                              Original Ichazo term: {naranjo.passion.split("–")[0].split("-")[0].trim()}. In integration (growth), this passion transforms into the type's virtue through self-awareness. The passion is not a flaw but an excess of a quality — it becomes the gift when balanced.
+                              Original Ichazo term: {naranjo.passion.split("–")[0].split("-")[0].trim()}. In integration (growth), this passion transforms into the type's virtue through self-awareness. The passion is not a flaw but an excess of a quality. it becomes the gift when balanced.
                             </p>
                           </motion.div>
                         )}
@@ -1154,7 +1154,7 @@ function ResultsInner() {
                             style={{ overflow: "hidden" }}
                           >
                             <p className="mt-3 text-xs leading-relaxed" style={{ color: "rgba(255,255,255,0.5)" }}>
-                              Emerges naturally when the passion is no longer compulsive. The virtue is not a practice or discipline — it is what's revealed underneath. (Naranjo / Riso &amp; Hudson)
+                              Emerges naturally when the passion is no longer compulsive. The virtue is not a practice or discipline. it is what's revealed underneath. (Naranjo / Riso &amp; Hudson)
                             </p>
                           </motion.div>
                         )}
@@ -1184,7 +1184,7 @@ function ResultsInner() {
                             style={{ overflow: "hidden" }}
                           >
                             <p className="mt-3 text-xs leading-relaxed" style={{ color: "rgba(255,255,255,0.5)" }}>
-                              The higher cognitive perception that dissolves the fixation. Holy Ideas are not beliefs to adopt — they are experienced directly when the fixation relaxes. (Ichazo, Arica School)
+                              The higher cognitive perception that dissolves the fixation. Holy Ideas are not beliefs to adopt. they are experienced directly when the fixation relaxes. (Ichazo, Arica School)
                             </p>
                           </motion.div>
                         )}
@@ -1249,7 +1249,7 @@ function ResultsInner() {
                             style={{ overflow: "hidden" }}
                           >
                             <p className="mt-3 text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.4)" }}>
-                              Psychological defense mechanisms were mapped to Enneagram types by Riso &amp; Hudson in <em>The Wisdom of the Enneagram</em> (1999). The mechanism is unconscious and automatic — it protects the ego but maintains the pattern.
+                              Psychological defense mechanisms were mapped to Enneagram types by Riso &amp; Hudson in <em>The Wisdom of the Enneagram</em> (1999). The mechanism is unconscious and automatic. it protects the ego but maintains the pattern.
                             </p>
                           </motion.div>
                         )}

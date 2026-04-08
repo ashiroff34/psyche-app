@@ -1,5 +1,5 @@
 // ─────────────────────────────────────────────────────────────────────────────
-// Unit 4 — Type 2: The Helper / The Giver
+// Unit 4. Type 2: The Helper / The Giver
 // 4 lessons × 12 exercises each
 // ─────────────────────────────────────────────────────────────────────────────
 
@@ -21,11 +21,11 @@ const lesson1: Lesson = {
       difficulty: 1,
       content: {
         type: "socratic-prompt",
-        question: "Think of someone who always seems to know what others need before they ask. What do you think drives that? Is it pure generosity — or could there be something else underneath?",
-        reflection: "Think about what it would actually feel like to live that way — always attuned to others. What would that person need in return?",
+        question: "Think of someone who always seems to know what others need before they ask. What do you think drives that? Is it pure generosity. or could there be something else underneath?",
+        reflection: "Think about what it would actually feel like to live that way. always attuned to others. What would that person need in return?",
         revealLabel: "See the insight",
         conceptTitle: "The Hidden Equation",
-        conceptBody: "For the Two, giving is not optional — it's how they stay safe. At the deepest level, Twos believe that being needed is the only reliable guarantee of being loved. What looks like selflessness is actually a sophisticated survival strategy: if I make myself indispensable, I cannot be abandoned.",
+        conceptBody: "For the Two, giving is not optional. it's how they stay safe. At the deepest level, Twos believe that being needed is the only reliable guarantee of being loved. What looks like selflessness is actually a sophisticated survival strategy: if I make myself indispensable, I cannot be abandoned.",
         highlight: "indispensable",
       } as SocraticPromptContent,
     },
@@ -838,16 +838,16 @@ const lesson4: Lesson = {
       difficulty: 3,
       content: {
         type: "interleaving",
-        title: "Types 2, 3 & 9 — Identify the motivation",
+        title: "Types 2, 3 & 9. Identify the motivation",
         typeNumbers: [2, 3, 9],
         items: [
           {
-            statement: "Anticipates what their friend needs before being asked, then quietly provides it — driven by the felt need to be seen as indispensable.",
+            statement: "Anticipates what their friend needs before being asked, then quietly provides it. driven by the felt need to be seen as indispensable.",
             correctType: 2,
             explanation: "The Two gives to secure their place in the relationship. Being needed feels like being safe from abandonment.",
           },
           {
-            statement: "Goes along with the group's plan even though it's not what they wanted — keeping the peace feels more important than asserting themselves.",
+            statement: "Goes along with the group's plan even though it's not what they wanted. keeping the peace feels more important than asserting themselves.",
             correctType: 9,
             explanation: "The Nine merges with others' agendas to avoid conflict and maintain harmony, not to earn love.",
           },

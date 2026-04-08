@@ -21,7 +21,7 @@ export default function OuroborosLogo({ size = 32, className = "" }: { size?: nu
   );
 }
 
-/** Full logo mark — ouroboros icon + "Thyself" text */
+/** Full logo mark. ouroboros icon + "Thyself" text */
 export function PsycheLogo({ iconSize = 32, showText = true, textClass = "" }: { iconSize?: number; showText?: boolean; textClass?: string }) {
   return (
     <div className="flex items-center gap-2">

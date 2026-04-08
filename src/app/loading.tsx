@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 
-// Full-screen loading splash — uses the actual ouroboros SVG image
+// Full-screen loading splash. uses the actual ouroboros SVG image
 // with expanding pulse rings and staggered "Thyself" letter reveal.
 
 const LETTERS = "Thyself".split("");
@@ -56,7 +56,7 @@ export default function Loading() {
         }}
       />
 
-      {/* Ouroboros SVG image — breathing scale + slow rotation */}
+      {/* Ouroboros SVG image. breathing scale + slow rotation */}
       <motion.div
         animate={{ rotate: -360 }}
         transition={{ duration: 18, repeat: Infinity, ease: "linear" }}

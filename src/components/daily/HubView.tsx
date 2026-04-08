@@ -244,7 +244,7 @@ export default function HubView({
           )}
         </AnimatePresence>
 
-        {/* ── Gradient progress ring + chibi (visual hero — top of page) ── */}
+        {/* ── Gradient progress ring + chibi (visual hero. top of page) ── */}
         <motion.div
           initial={{ opacity: 1, scale: 1 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -532,7 +532,7 @@ export default function HubView({
             )}
           </div>
 
-          {/* Inline path — show first active unit */}
+          {/* Inline path. show first active unit */}
           {(() => {
             const activeUnit = units[0]; // show first unit (current unit)
             if (!activeUnit) return null;

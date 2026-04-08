@@ -273,7 +273,7 @@ function EnterScreen() {
         className="relative flex flex-col items-center gap-4 w-full px-6"
         style={{ maxWidth: "340px", zIndex: 10 }}
       >
-        {/* Resume button — shown only when the user has in-progress onboarding */}
+        {/* Resume button. shown only when the user has in-progress onboarding */}
         {resumeStep !== null && (
           <Link
             href="/onboarding"
@@ -312,7 +312,7 @@ function EnterScreen() {
   );
 }
 
-// ── (old HeroScreen removed — replaced by EnterScreen above) ─────────────────
+// ── (old HeroScreen removed. replaced by EnterScreen above) ─────────────────
 const staggerChildren = { hidden: {}, show: { transition: { staggerChildren: 0.12 } } };
 const fadeUp = { hidden: { opacity: 1, y: 0 }, show: { opacity: 1, y: 0, transition: { duration: 0.5 } } };
 function _placeholder() {
@@ -635,10 +635,10 @@ const dashboardTypeQuotes: Record<number, { quote: string; label: string }> = {
   1: { quote: "Perfection is not attainable, but if we chase it we can catch excellence.", label: "Type 1 · The Reformer" },
   2: { quote: "You cannot pour from an empty cup. Taking care of yourself is part of taking care of others.", label: "Type 2 · The Helper" },
   3: { quote: "Authenticity is the daily practice of letting go of who we think we should be.", label: "Type 3 · The Achiever" },
-  4: { quote: "What makes you different makes you beautiful — and infinitely valuable.", label: "Type 4 · The Individualist" },
+  4: { quote: "What makes you different makes you beautiful. and infinitely valuable.", label: "Type 4 · The Individualist" },
   5: { quote: "Knowledge is not enough. The integrated mind turns insight into embodied action.", label: "Type 5 · The Investigator" },
   6: { quote: "Courage is not the absence of fear. It is taking the next step despite it.", label: "Type 6 · The Loyalist" },
-  7: { quote: "The present moment always will have been. Slow down — depth is its own adventure.", label: "Type 7 · The Enthusiast" },
+  7: { quote: "The present moment always will have been. Slow down. depth is its own adventure.", label: "Type 7 · The Enthusiast" },
   8: { quote: "True strength includes the courage to be vulnerable with those you trust.", label: "Type 8 · The Challenger" },
   9: { quote: "Your voice matters. The world needs what only you, fully present, can offer.", label: "Type 9 · The Peacemaker" },
 };

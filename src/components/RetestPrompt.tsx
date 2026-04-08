@@ -69,7 +69,7 @@ export default function RetestPrompt({ assessmentDate }: RetestPromptProps) {
           </p>
           <p className="text-sm leading-relaxed mb-4" style={{ color: "rgba(255,255,255,0.65)" }}>
             You took your first assessment 30 days ago. Research shows Enneagram self-knowledge often
-            improves after studying the theory — people regularly discover a different type. Want to
+            improves after studying the theory. people regularly discover a different type. Want to
             retake it?
           </p>
           <div className="flex gap-2 flex-wrap">

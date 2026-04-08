@@ -526,7 +526,7 @@ export default function EnneagramCircle({
                 letterSpacing: "0.01em",
               }}
             >
-              {tooltipTypeData.number} — {tooltipTypeData.name}
+              {tooltipTypeData.number}. {tooltipTypeData.name}
             </div>
             <div
               style={{

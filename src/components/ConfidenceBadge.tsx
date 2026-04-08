@@ -164,7 +164,7 @@ export default function ConfidenceBadge({ confidenceOverride }: ConfidenceBadgeP
                     + Your results are split
                   </p>
                   <p className="text-xs leading-relaxed" style={{ color: "rgba(255,255,255,0.55)" }}>
-                    Your assessments don't fully agree — they're divided between your current type and{" "}
+                    Your assessments don't fully agree. they're divided between your current type and{" "}
                     <strong style={{ color: "rgba(255,255,255,0.8)" }}>Type {contestedRunnerUp}</strong>.
                     The heavier assessment is currently winning, but take another to resolve it.
                   </p>
@@ -180,7 +180,7 @@ export default function ConfidenceBadge({ confidenceOverride }: ConfidenceBadgeP
                   : taken.length === 1
                   ? "The quick test gives you a starting point, not a final answer. Each additional assessment that confirms your type significantly increases accuracy."
                   : isContested
-                  ? "Your assessments are conflicting. The type shown is the weighted winner — but more assessments will settle it."
+                  ? "Your assessments are conflicting. The type shown is the weighted winner. but more assessments will settle it."
                   : `Based on ${taken.length} assessments. Each one that confirms the same type compounds your accuracy.`}
                 {!isContested && potentialGain > 0 &&
                   ` You can gain up to +${potentialGain}% more.`}

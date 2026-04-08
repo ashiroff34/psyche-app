@@ -238,7 +238,7 @@ export default function RetentionBanner() {
     }
 
     if (!data) return;
-    // Acquire the global notification lock — bail if something else is already showing
+    // Acquire the global notification lock. bail if something else is already showing
     if (!acquireNotificationLock("retention-banner")) return;
     setBanner(data);
   }

@@ -2404,7 +2404,7 @@ function ProGate({ children }: { children: React.ReactNode }) {
         </div>
         <h1 className="text-2xl font-serif font-bold mb-2" style={{ color: "rgba(255,255,255,0.93)" }}>Inner Work Lab</h1>
         <p className="text-sm leading-relaxed mb-2" style={{ color: "rgba(255,255,255,0.5)" }}>
-          Shadow work, Jungian type dynamics, cognitive reframing, and pattern tracking — based on Carl Jung&apos;s depth psychology.
+          Shadow work, Jungian type dynamics, cognitive reframing, and pattern tracking. based on Carl Jung&apos;s depth psychology.
         </p>
         <p className="text-xs leading-relaxed mb-6" style={{ color: "rgba(255,255,255,0.3)" }}>
           This is premium content. Requires a Thyself Pro subscription.
@@ -2419,7 +2419,7 @@ function ProGate({ children }: { children: React.ReactNode }) {
         <div className="p-4 rounded-2xl" style={{ background: "rgba(16,185,129,0.08)", border: "1px solid rgba(16,185,129,0.2)" }}>
           <p className="text-xs font-semibold mb-1" style={{ color: "#34d399" }}>Looking for Enneagram growth?</p>
           <p className="text-xs mb-2" style={{ color: "rgba(255,255,255,0.4)" }}>
-            Type-specific growth prompts and integration practices are available for tokens — no subscription needed.
+            Type-specific growth prompts and integration practices are available for tokens. no subscription needed.
           </p>
           <Link href="/growth" className="text-xs font-bold underline underline-offset-2" style={{ color: "#34d399" }}>
             Unlock Enneagram Growth Path →

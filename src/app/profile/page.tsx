@@ -1465,7 +1465,7 @@ export default function ProfilePage() {
           primaryHref="/daily"
         />
 
-        {/* New user welcome banner — only for "I know my type" path (comment only, not UI text) */}
+        {/* New user welcome banner. only for "I know my type" path (comment only, not UI text) */}
         {showNewUserPrompt && (
           <motion.div
             initial={{ opacity: 1, y: 0 }}
@@ -1941,7 +1941,7 @@ function ReferralBlock() {
   };
 
   const copyDiscord = async () => {
-    const discordText = `🔮 Just mapped my Enneagram type, instinct, and tritype on Thyself — it's actually accurate. Find your type free: ${link}`;
+    const discordText = `🔮 Just mapped my Enneagram type, instinct, and tritype on Thyself. it's actually accurate. Find your type free: ${link}`;
     try {
       await navigator.clipboard.writeText(discordText);
       setDiscordCopied(true);
@@ -1954,8 +1954,8 @@ function ReferralBlock() {
     try {
       if (navigator.share) {
         await navigator.share({
-          title: "Discover your Enneagram type — free",
-          text: "I use Thyself to understand myself better. Find your Enneagram type, instinct, tritype, and cognitive style — it's free.",
+          title: "Discover your Enneagram type. free",
+          text: "I use Thyself to understand myself better. Find your Enneagram type, instinct, tritype, and cognitive style. it's free.",
           url: link,
         });
         recordShare();
@@ -2017,7 +2017,7 @@ function ReferralBlock() {
       {milestoneReached && (
         <div className="flex items-center gap-1.5 mb-3 px-3 py-1.5 rounded-lg" style={{ background: "rgba(52,211,153,0.1)", border: "1px solid rgba(52,211,153,0.2)" }}>
           <Zap className="w-3 h-3 text-emerald-400" />
-          <span className="text-xs font-bold text-emerald-300">Milestone reached — +{REFERRAL_MILESTONE_TOKENS} tokens earned!</span>
+          <span className="text-xs font-bold text-emerald-300">Milestone reached. +{REFERRAL_MILESTONE_TOKENS} tokens earned!</span>
         </div>
       )}
 

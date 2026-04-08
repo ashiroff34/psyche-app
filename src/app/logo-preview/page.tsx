@@ -1,10 +1,10 @@
 "use client";
 
 export default function LogoPreview() {
-  // Reusable ouroboros SVG matching the reference — snake biting its tail, visible head with eye, overlapping body
+  // Reusable ouroboros SVG matching the reference. snake biting its tail, visible head with eye, overlapping body
   const Ouroboros = ({ size = 32, color = "white", strokeW = 2 }: { size?: number; color?: string; strokeW?: number }) => (
     <svg width={size} height={size} viewBox="0 0 64 64" fill="none">
-      {/* Main body circle — slight overlap where head meets tail */}
+      {/* Main body circle. slight overlap where head meets tail */}
       <path
         d="M32 8 C46 8 56 18 56 32 C56 46 46 56 32 56 C18 56 8 46 8 32 C8 18 17 9 28 8"
         stroke={color}
@@ -12,7 +12,7 @@ export default function LogoPreview() {
         fill="none"
         strokeLinecap="round"
       />
-      {/* Inner overlap — tail going under the head */}
+      {/* Inner overlap. tail going under the head */}
       <path
         d="M28 8 C24 8.5 20 10 17 13"
         stroke={color}
@@ -21,7 +21,7 @@ export default function LogoPreview() {
         strokeLinecap="round"
         opacity={0.5}
       />
-      {/* Snake head — wider, biting down on tail */}
+      {/* Snake head. wider, biting down on tail */}
       <path
         d="M28 7 L32 4 L36 7 L34 9 Q32 11 29 9 Z"
         fill={color}
@@ -29,7 +29,7 @@ export default function LogoPreview() {
         strokeWidth={strokeW * 0.3}
         strokeLinejoin="round"
       />
-      {/* Jaw/mouth opening — biting the tail */}
+      {/* Jaw/mouth opening. biting the tail */}
       <path
         d="M29 9 L32 11 L35 9"
         stroke={color}
@@ -46,8 +46,8 @@ export default function LogoPreview() {
 
   return (
     <div className="min-h-screen bg-white p-8">
-      <h1 className="text-2xl font-serif font-bold text-slate-900 mb-2">Ouroboros Logo — Round 2</h1>
-      <p className="text-slate-500 mb-8">Closer to the reference — snake with visible head biting its tail. Same sky-to-indigo colors.</p>
+      <h1 className="text-2xl font-serif font-bold text-slate-900 mb-2">Ouroboros Logo. Round 2</h1>
+      <p className="text-slate-500 mb-8">Closer to the reference. snake with visible head biting its tail. Same sky-to-indigo colors.</p>
 
       <div className="grid grid-cols-2 gap-8 max-w-2xl">
 
@@ -62,7 +62,7 @@ export default function LogoPreview() {
             </div>
             <span className="text-lg font-serif font-semibold text-slate-800">Thyself</span>
           </div>
-          <span className="text-xs text-slate-400 font-medium">A — Gradient square</span>
+          <span className="text-xs text-slate-400 font-medium">A. Gradient square</span>
         </div>
 
         {/* Option B: Gradient circle */}
@@ -76,7 +76,7 @@ export default function LogoPreview() {
             </div>
             <span className="text-lg font-serif font-semibold text-slate-800">Thyself</span>
           </div>
-          <span className="text-xs text-slate-400 font-medium">B — Gradient circle</span>
+          <span className="text-xs text-slate-400 font-medium">B. Gradient circle</span>
         </div>
 
         {/* Option C: White background, colored snake */}
@@ -90,7 +90,7 @@ export default function LogoPreview() {
             </div>
             <span className="text-lg font-serif font-semibold text-slate-800">Thyself</span>
           </div>
-          <span className="text-xs text-slate-400 font-medium">C — Outlined (indigo on white)</span>
+          <span className="text-xs text-slate-400 font-medium">C. Outlined (indigo on white)</span>
         </div>
 
         {/* Option D: Dark background, white snake */}
@@ -104,7 +104,7 @@ export default function LogoPreview() {
             </div>
             <span className="text-lg font-serif font-semibold text-slate-800">Thyself</span>
           </div>
-          <span className="text-xs text-slate-400 font-medium">D — White on dark</span>
+          <span className="text-xs text-slate-400 font-medium">D. White on dark</span>
         </div>
       </div>
 

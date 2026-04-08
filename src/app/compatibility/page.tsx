@@ -68,34 +68,34 @@ const COMPATIBILITY_MATRIX: Record<string, CompatibilityData> = {
       "Two Reformers together share a deep commitment to doing things right, which can create a beautifully principled partnership or an exhausting cycle of mutual criticism. You understand each other's inner critic instantly, which is both a relief and a risk.",
     strengths: [
       "Shared integrity and moral purpose create a rock-solid foundation",
-      "Both hold high standards — no one lets the other off the hook",
+      "Both hold high standards. no one lets the other off the hook",
       "Deep mutual respect for discipline, effort, and doing good work",
     ],
     edges: [
-      "The inner critic goes stereo — both of you can spiral into perfectionism together",
+      "The inner critic goes stereo. both of you can spiral into perfectionism together",
       "Difficulty relaxing or celebrating; there's always something to improve",
       "Competing visions of 'the right way' can create stubborn standoffs",
     ],
-    tip: "Schedule explicit time for play and imperfection — let something be 'good enough' together, on purpose.",
+    tip: "Schedule explicit time for play and imperfection. let something be 'good enough' together, on purpose.",
   },
   "2-2": {
     insight:
       "Two Helpers share extraordinary warmth and attentiveness, but the same pattern that makes you generous can leave you both waiting for the other to admit they need something. The relationship flourishes when both of you practice receiving as gracefully as you give.",
     strengths: [
-      "Lavish mutual care — you both intuitively anticipate each other's needs",
+      "Lavish mutual care. you both intuitively anticipate each other's needs",
       "A naturally emotionally attuned environment where feelings are honored",
       "Shared joy in nurturing others, whether family, friends, or community",
     ],
     edges: [
-      "Neither wants to be the 'needy' one — real needs go unspoken",
+      "Neither wants to be the 'needy' one. real needs go unspoken",
       "Resentment can quietly build if both keep score unconsciously",
       "Over-focusing on others' wellbeing at the expense of your own relationship",
     ],
-    tip: "Take turns asking each other directly: 'What do you need from me right now?' — and mean it.",
+    tip: "Take turns asking each other directly: 'What do you need from me right now?'. and mean it.",
   },
   "3-3": {
     insight:
-      "Two Achievers together can build something remarkable, but success can become the third presence in the relationship. You'll need to deliberately carve out space to simply be — not perform, not accomplish — together.",
+      "Two Achievers together can build something remarkable, but success can become the third presence in the relationship. You'll need to deliberately carve out space to simply be. not perform, not accomplish. together.",
     strengths: [
       "Mutual drive and ambition create a high-energy, highly functional partnership",
       "Genuine appreciation for each other's competence and accomplishments",
@@ -106,43 +106,43 @@ const COMPATIBILITY_MATRIX: Record<string, CompatibilityData> = {
       "Competitive undercurrents may surface, even if both deny it",
       "Risk of defining the relationship by what you achieve rather than who you are",
     ],
-    tip: "Create a standing ritual — a walk, a meal — where neither of you talks about goals, work, or achievements.",
+    tip: "Create a standing ritual. a walk, a meal. where neither of you talks about goals, work, or achievements.",
   },
   "4-4": {
     insight:
       "Two Individualists create a relationship of extraordinary emotional depth and creative richness. The shadow side is that shared melancholy can become a mutual dwelling place; you both need to consciously reach toward what's beautiful and present, not just what's absent.",
     strengths: [
-      "Profound emotional attunement — you speak each other's inner language",
+      "Profound emotional attunement. you speak each other's inner language",
       "Creative resonance that produces art, meaning, and genuine beauty",
       "A rare mutual permission to be fully, rawly yourself",
     ],
     edges: [
-      "Melancholy can compound — two people drawn to longing can feed each other's",
+      "Melancholy can compound. two people drawn to longing can feed each other's",
       "Competitive suffering or uniqueness can create subtle one-upmanship",
       "Intensity without grounding can destabilize both people simultaneously",
     ],
-    tip: "Balance your shared depth with explicit gratitude for the ordinary — notice what's already here, not only what's missing.",
+    tip: "Balance your shared depth with explicit gratitude for the ordinary. notice what's already here, not only what's missing.",
   },
   "5-5": {
     insight:
-      "Two Investigators create an intellectually rich sanctuary where both can think without intrusion. The challenge is that both retreating to separate inner worlds can leave genuine intimacy unexplored — you'll need to actively choose to show each other what's inside.",
+      "Two Investigators create an intellectually rich sanctuary where both can think without intrusion. The challenge is that both retreating to separate inner worlds can leave genuine intimacy unexplored. you'll need to actively choose to show each other what's inside.",
     strengths: [
       "Deep mutual respect for autonomy, space, and intellectual independence",
       "Conversations of extraordinary depth and rigor",
-      "Neither overwhelms the other — both are comfortable with quiet and solitude",
+      "Neither overwhelms the other. both are comfortable with quiet and solitude",
     ],
     edges: [
       "Emotional connection can be permanently deferred in favor of more thinking",
       "Two people each managing scarcity can leave both feeling quietly unseen",
       "Decisions can stall indefinitely while both continue gathering information",
     ],
-    tip: "Choose one topic each week where you share your actual feelings — not your analysis of your feelings, but the raw experience itself.",
+    tip: "Choose one topic each week where you share your actual feelings. not your analysis of your feelings, but the raw experience itself.",
   },
   "6-6": {
     insight:
-      "Two Loyalists share a rare depth of trustworthiness and commitment that can create an unusually stable bond. The risk is that shared anxiety can amplify — when both of you spiral into worst-case thinking, you need a shared agreement to interrupt the loop.",
+      "Two Loyalists share a rare depth of trustworthiness and commitment that can create an unusually stable bond. The risk is that shared anxiety can amplify. when both of you spiral into worst-case thinking, you need a shared agreement to interrupt the loop.",
     strengths: [
-      "Extraordinary loyalty and commitment — both of you show up when it matters",
+      "Extraordinary loyalty and commitment. both of you show up when it matters",
       "Mutual understanding of anxiety without judgment or dismissal",
       "Shared values around reliability, honesty, and community",
     ],
@@ -151,34 +151,34 @@ const COMPATIBILITY_MATRIX: Record<string, CompatibilityData> = {
       "Overthinking decisions can lead to paralysis on things that need action",
       "Both scanning for threats can make the environment feel perpetually unsafe",
     ],
-    tip: "Agree on a phrase — a codeword — to interrupt shared spiraling and redirect toward what you actually know to be true right now.",
+    tip: "Agree on a phrase. a codeword. to interrupt shared spiraling and redirect toward what you actually know to be true right now.",
   },
   "7-7": {
     insight:
-      "Two Enthusiasts create a relationship of extraordinary vitality, curiosity, and fun. The shadow is that depth, conflict, and the harder parts of connection can be collectively avoided — you'll need to deliberately choose to stay when it gets uncomfortable.",
+      "Two Enthusiasts create a relationship of extraordinary vitality, curiosity, and fun. The shadow is that depth, conflict, and the harder parts of connection can be collectively avoided. you'll need to deliberately choose to stay when it gets uncomfortable.",
     strengths: [
       "Boundless energy, adventure, and delight in each other's company",
       "Mutual permission to be curious, expansive, and to chase what excites you",
-      "Genuine joy in exploration — neither drags the other toward limitation",
+      "Genuine joy in exploration. neither drags the other toward limitation",
     ],
     edges: [
       "Conflict avoidance can leave real issues buried under another activity",
       "Difficulty sustaining commitment when the novelty of something wears off",
       "Two people generating options without grounding can spin without landing",
     ],
-    tip: "Build in a regular 'stay and feel' conversation — one where neither of you is allowed to reframe, pivot, or redirect for at least ten minutes.",
+    tip: "Build in a regular 'stay and feel' conversation. one where neither of you is allowed to reframe, pivot, or redirect for at least ten minutes.",
   },
   "8-8": {
     insight:
-      "Two Challengers create a relationship of extraordinary honesty, intensity, and mutual respect — when healthy. Two dominant forces sharing space will need to negotiate power consciously, or the relationship becomes a collision zone.",
+      "Two Challengers create a relationship of extraordinary honesty, intensity, and mutual respect. when healthy. Two dominant forces sharing space will need to negotiate power consciously, or the relationship becomes a collision zone.",
     strengths: [
-      "Radical mutual honesty — neither of you flinches from hard truths",
+      "Radical mutual honesty. neither of you flinches from hard truths",
       "Deep respect earned through directness; neither needs to be protected",
       "Shared strength means both can bring their full force to any challenge",
     ],
     edges: [
       "Power struggles can escalate without natural deescalation",
-      "Vulnerability can feel like tactical exposure — opening up is genuinely hard",
+      "Vulnerability can feel like tactical exposure. opening up is genuinely hard",
       "Both moving at full speed in different directions requires active coordination",
     ],
     tip: "Establish a turn-taking norm for decisions: one person 'drives' per domain, and both honor it rather than re-litigating every call.",
@@ -187,22 +187,22 @@ const COMPATIBILITY_MATRIX: Record<string, CompatibilityData> = {
     insight:
       "Two Peacemakers create a deeply comfortable, harmonious space where both feel accepted. The shadow is that important things go unsaid, decisions go unmade, and growth gets indefinitely deferred in the service of not rocking the boat.",
     strengths: [
-      "Profound mutual acceptance — neither judges, neither pushes",
+      "Profound mutual acceptance. neither judges, neither pushes",
       "A genuinely peaceful environment where both feel seen and calm",
       "Shared generosity and goodwill toward each other and the world",
     ],
     edges: [
       "Conflict avoidance means real issues accumulate unaddressed",
       "Priorities and passions can get lost in mutual accommodation",
-      "Inertia can settle in — neither partner initiates growth or change",
+      "Inertia can settle in. neither partner initiates growth or change",
     ],
-    tip: "Take turns naming one thing you actually want — not what would be fine, but what you genuinely prefer — and practice honoring each other's answer.",
+    tip: "Take turns naming one thing you actually want. not what would be fine, but what you genuinely prefer. and practice honoring each other's answer.",
   },
 
   // ── Cross-type pairs ─────────────────────────────────────────────────────
   "1-2": {
     insight:
-      "The Reformer and the Helper are united by a genuine desire to make the world better — one through standards, the other through service. When healthy, this creates principled and humane action; when stressed, the One's criticism lands as rejection and the Two's helpfulness feels like management.",
+      "The Reformer and the Helper are united by a genuine desire to make the world better. one through standards, the other through service. When healthy, this creates principled and humane action; when stressed, the One's criticism lands as rejection and the Two's helpfulness feels like management.",
     strengths: [
       "Shared commitment to doing good in the world",
       "The One provides structure and vision; the Two provides warmth and care",
@@ -217,7 +217,7 @@ const COMPATIBILITY_MATRIX: Record<string, CompatibilityData> = {
   },
   "1-3": {
     insight:
-      "The Reformer and the Achiever are both Competency types — they share a drive to do things excellently and are frustrated by mediocrity. The One wants things done right; the Three wants things done effectively. These are often the same goal, but they diverge memorably under pressure.",
+      "The Reformer and the Achiever are both Competency types. they share a drive to do things excellently and are frustrated by mediocrity. The One wants things done right; the Three wants things done effectively. These are often the same goal, but they diverge memorably under pressure.",
     strengths: [
       "Both have exceptionally high standards and the drive to meet them",
       "Mutual competence earns deep mutual respect",
@@ -228,11 +228,11 @@ const COMPATIBILITY_MATRIX: Record<string, CompatibilityData> = {
       "The One's ethical rigidity feels like inefficiency to the Three",
       "Both can become too focused on doing to make space for being",
     ],
-    tip: "Agree in advance on which goal matters most right now — integrity or impact — so neither feels their core value is being overridden.",
+    tip: "Agree in advance on which goal matters most right now. integrity or impact. so neither feels their core value is being overridden.",
   },
   "1-4": {
     insight:
-      "Both the Reformer and the Individualist reach toward an ideal — the One through discipline, the Four through authentic feeling. They share integration lines, which means each holds the other's potential growth. They can inspire each other profoundly or frustrate each other deeply.",
+      "Both the Reformer and the Individualist reach toward an ideal. the One through discipline, the Four through authentic feeling. They share integration lines, which means each holds the other's potential growth. They can inspire each other profoundly or frustrate each other deeply.",
     strengths: [
       "Mutual appreciation for depth, meaning, and refusing the superficial",
       "The One's structure gives form to the Four's vision",
@@ -258,11 +258,11 @@ const COMPATIBILITY_MATRIX: Record<string, CompatibilityData> = {
       "The One's certainty about right action can feel authoritarian to the Six",
       "The Six's questioning of authority can feel like undermining to the One",
     ],
-    tip: "Channel your shared conscientiousness outward — toward a cause or project — so it doesn't turn into mutual criticism.",
+    tip: "Channel your shared conscientiousness outward. toward a cause or project. so it doesn't turn into mutual criticism.",
   },
   "1-8": {
     insight:
-      "The Reformer and the Challenger share a fierce commitment to truth and a low tolerance for hypocrisy. Both are capable of righteous anger. The difference is that the One turns much of that energy inward while the Eight projects it outward — which creates both respect and collision.",
+      "The Reformer and the Challenger share a fierce commitment to truth and a low tolerance for hypocrisy. Both are capable of righteous anger. The difference is that the One turns much of that energy inward while the Eight projects it outward. which creates both respect and collision.",
     strengths: [
       "Mutual respect for directness, honesty, and standing for what's right",
       "Neither backs down from hard conversations or hard truths",
@@ -273,11 +273,11 @@ const COMPATIBILITY_MATRIX: Record<string, CompatibilityData> = {
       "The One resents the Eight's disregard for rules; the Eight resents the One's rigidity",
       "High tension when values align but methods diverge sharply",
     ],
-    tip: "Before a conflict escalates, ask: 'Are we actually disagreeing about the goal, or just the method?' — you may be closer than it feels.",
+    tip: "Before a conflict escalates, ask: 'Are we actually disagreeing about the goal, or just the method?'. you may be closer than it feels.",
   },
   "1-9": {
     insight:
-      "The Reformer and the Peacemaker share a core wing — they are natural neighbors on the Enneagram. The One wants to improve; the Nine wants to accept. This tension is one of the most instructive dynamics in personal growth, and in relationship it can be both deeply complementary and deeply frustrating.",
+      "The Reformer and the Peacemaker share a core wing. they are natural neighbors on the Enneagram. The One wants to improve; the Nine wants to accept. This tension is one of the most instructive dynamics in personal growth, and in relationship it can be both deeply complementary and deeply frustrating.",
     strengths: [
       "The Nine softens the One's self-criticism with genuine acceptance",
       "The One gives direction and purpose to the Nine's tendency to drift",
@@ -307,14 +307,14 @@ const COMPATIBILITY_MATRIX: Record<string, CompatibilityData> = {
   },
   "2-4": {
     insight:
-      "The Helper and the Individualist share a deep emotional life and a longing to be truly seen. The Two expresses this through giving; the Four expresses it through depth of feeling. Together they can create a relationship of remarkable emotional richness — when neither is in their wound.",
+      "The Helper and the Individualist share a deep emotional life and a longing to be truly seen. The Two expresses this through giving; the Four expresses it through depth of feeling. Together they can create a relationship of remarkable emotional richness. when neither is in their wound.",
     strengths: [
       "Mutual emotional attunement and genuine empathy",
       "The Two's warmth holds the Four's intensity with acceptance",
       "The Four's depth gives the Two permission to want and feel, not just give",
     ],
     edges: [
-      "The Four needs to be seen in their uniqueness; the Two needs to be indispensable — both can feel unappreciated",
+      "The Four needs to be seen in their uniqueness; the Two needs to be indispensable. both can feel unappreciated",
       "The Two's giving can feel intrusive when the Four needs to be alone with their feelings",
       "Both can become absorbed in the emotional weather and lose practical footing",
     ],
@@ -326,14 +326,14 @@ const COMPATIBILITY_MATRIX: Record<string, CompatibilityData> = {
     strengths: [
       "Mutual warmth, dedication, and genuine investment in each other",
       "Both show up reliably and take relationships seriously",
-      "A strong sense of safety and belonging — neither abandons the other",
+      "A strong sense of safety and belonging. neither abandons the other",
     ],
     edges: [
       "Both can rely on reassurance rather than developing internal security",
       "The Two's helpfulness can tip into managing; the Six reads it as control",
       "Shared anxiety can create a feedback loop rather than stability",
     ],
-    tip: "Practice giving and receiving reassurance without immediately escalating to problem-solving — sometimes 'I hear you' is the whole answer.",
+    tip: "Practice giving and receiving reassurance without immediately escalating to problem-solving. sometimes 'I hear you' is the whole answer.",
   },
   "2-8": {
     insight:
@@ -352,14 +352,14 @@ const COMPATIBILITY_MATRIX: Record<string, CompatibilityData> = {
   },
   "2-9": {
     insight:
-      "The Helper and the Peacemaker share a natural warmth and deep desire for harmony in relationships. Both are giving, easy to be around, and conflict-averse — which creates a gentle, supportive bond, but one that can drift if neither speaks up about what they actually need.",
+      "The Helper and the Peacemaker share a natural warmth and deep desire for harmony in relationships. Both are giving, easy to be around, and conflict-averse. which creates a gentle, supportive bond, but one that can drift if neither speaks up about what they actually need.",
     strengths: [
       "Mutual generosity, acceptance, and ease with each other",
       "Genuine warmth that creates a nurturing, low-drama environment",
       "Both deeply attentive to others' comfort and wellbeing",
     ],
     edges: [
-      "Needs go unspoken — both prioritize the other's comfort to the point of self-erasure",
+      "Needs go unspoken. both prioritize the other's comfort to the point of self-erasure",
       "Important decisions get perpetually deferred",
       "Both can become resentful without either having named what went wrong",
     ],
@@ -367,7 +367,7 @@ const COMPATIBILITY_MATRIX: Record<string, CompatibilityData> = {
   },
   "3-4": {
     insight:
-      "The Achiever and the Individualist share their integration lines — each holds what the other is moving toward. The Three wants substance; the Four wants recognition. Together they can create work and love of striking authenticity and quality, when the envy and competition is navigated.",
+      "The Achiever and the Individualist share their integration lines. each holds what the other is moving toward. The Three wants substance; the Four wants recognition. Together they can create work and love of striking authenticity and quality, when the envy and competition is navigated.",
     strengths: [
       "The Four's depth gives the Three's ambition genuine meaning",
       "The Three's effectiveness helps the Four bring their vision into form",
@@ -378,7 +378,7 @@ const COMPATIBILITY_MATRIX: Record<string, CompatibilityData> = {
       "The Four's perceived withdrawal can feel like rejection to the Three's performer",
       "Mutual envy: each secretly wants what the other seems to have",
     ],
-    tip: "Take turns asking: 'What are you actually proud of right now?' — and celebrate the answer, not just the achievement behind it.",
+    tip: "Take turns asking: 'What are you actually proud of right now?'. and celebrate the answer, not just the achievement behind it.",
   },
   "3-5": {
     insight:
@@ -386,18 +386,18 @@ const COMPATIBILITY_MATRIX: Record<string, CompatibilityData> = {
     strengths: [
       "Complementary intelligence: Three brings strategy and charisma, Five brings depth and analysis",
       "Both respect competence and will earn each other's admiration",
-      "Neither is particularly emotionally demanding — both value space",
+      "Neither is particularly emotionally demanding. both value space",
     ],
     edges: [
       "The Three's need for recognition baffles the Five's preference for privacy",
       "The Five's withdrawal can feel like rejection to the Three",
       "Both can prioritize their work over each other for long stretches",
     ],
-    tip: "Schedule deliberate connection time where neither of you is performing or analyzing — just present with each other.",
+    tip: "Schedule deliberate connection time where neither of you is performing or analyzing. just present with each other.",
   },
   "3-6": {
     insight:
-      "The Achiever and the Loyalist both care about credibility and being trusted, but they earn it differently — the Three through success, the Six through reliability. When aligned, this creates an unusually effective and dependable team; under stress, trust becomes fragile.",
+      "The Achiever and the Loyalist both care about credibility and being trusted, but they earn it differently. the Three through success, the Six through reliability. When aligned, this creates an unusually effective and dependable team; under stress, trust becomes fragile.",
     strengths: [
       "Shared investment in being seen as trustworthy and capable",
       "The Three's confidence steadies the Six's anxiety; the Six's loyalty grounds the Three",
@@ -408,11 +408,11 @@ const COMPATIBILITY_MATRIX: Record<string, CompatibilityData> = {
       "The Three can find the Six's doubt and caution exhausting",
       "Trust cracks when either one feels like the other is performing rather than being real",
     ],
-    tip: "Three: let the Six see you fail or doubt — it builds more trust than any success. Six: let the Three's confidence expand your sense of what's possible.",
+    tip: "Three: let the Six see you fail or doubt. it builds more trust than any success. Six: let the Three's confidence expand your sense of what's possible.",
   },
   "3-7": {
     insight:
-      "The Achiever and the Enthusiast are both high-energy, positive, and forward-moving. Together they create an exciting, generative partnership — and also one that can avoid stillness, depth, and difficulty at impressive speed.",
+      "The Achiever and the Enthusiast are both high-energy, positive, and forward-moving. Together they create an exciting, generative partnership. and also one that can avoid stillness, depth, and difficulty at impressive speed.",
     strengths: [
       "Infectious energy, enthusiasm, and mutual encouragement",
       "Both are adaptable, social, and skilled at making things happen",
@@ -423,11 +423,11 @@ const COMPATIBILITY_MATRIX: Record<string, CompatibilityData> = {
       "The Three's image-consciousness can constrain the Seven's wild spontaneity",
       "Neither wants to be the one who names what isn't working",
     ],
-    tip: "Build in one 'real talk' conversation per week — no brainstorming, no planning, just honest check-in on how you each actually are.",
+    tip: "Build in one 'real talk' conversation per week. no brainstorming, no planning, just honest check-in on how you each actually are.",
   },
   "4-6": {
     insight:
-      "The Individualist and the Loyalist both live with a heightened sense of what could go wrong or what might be missing — for different reasons. The Four grieves what isn't there; the Six worries about what might come. Together they can create unusual depth and security, when both feel safe enough to trust.",
+      "The Individualist and the Loyalist both live with a heightened sense of what could go wrong or what might be missing. for different reasons. The Four grieves what isn't there; the Six worries about what might come. Together they can create unusual depth and security, when both feel safe enough to trust.",
     strengths: [
       "Both are emotionally honest and capable of genuine vulnerability",
       "The Six's loyalty creates the safety the Four needs to be fully themselves",
@@ -438,7 +438,7 @@ const COMPATIBILITY_MATRIX: Record<string, CompatibilityData> = {
       "The Four's need for uniqueness can feel like instability to the Six",
       "The Six's anxiety about the relationship can feel like a lack of trust to the Four",
     ],
-    tip: "Name your actual fear beneath the reaction — 'I'm scared you'll leave' is more connective than 'you never understand me.'",
+    tip: "Name your actual fear beneath the reaction. 'I'm scared you'll leave' is more connective than 'you never understand me.'",
   },
   "4-5": {
     insight:
@@ -457,7 +457,7 @@ const COMPATIBILITY_MATRIX: Record<string, CompatibilityData> = {
   },
   "4-9": {
     insight:
-      "The Individualist and the Peacemaker create a sanctuary of unusual acceptance. The Four brings depth and authenticity; the Nine brings warmth and non-judgment. Together they offer each other what they most need — to be seen without being fixed.",
+      "The Individualist and the Peacemaker create a sanctuary of unusual acceptance. The Four brings depth and authenticity; the Nine brings warmth and non-judgment. Together they offer each other what they most need. to be seen without being fixed.",
     strengths: [
       "The Nine's acceptance gives the Four rare permission to simply be",
       "The Four's depth helps the Nine access their own buried emotions",
@@ -466,13 +466,13 @@ const COMPATIBILITY_MATRIX: Record<string, CompatibilityData> = {
     edges: [
       "The Nine's conflict avoidance leaves the Four's intensity unmet",
       "The Four may feel the Nine never truly takes a stand",
-      "Both can drift — the Nine through inertia, the Four through longing",
+      "Both can drift. the Nine through inertia, the Four through longing",
     ],
     tip: "Nine: name one strong preference this week without softening it. Four: receive the Nine's acceptance as its own form of depth, not a lack of engagement.",
   },
   "5-7": {
     insight:
-      "The Investigator and the Enthusiast both live in their minds but in very different ways — the Five contracts and deepens, the Seven expands and multiplies. They fascinate each other, and they frustrate each other in almost equal measure.",
+      "The Investigator and the Enthusiast both live in their minds but in very different ways. the Five contracts and deepens, the Seven expands and multiplies. They fascinate each other, and they frustrate each other in almost equal measure.",
     strengths: [
       "Shared love of ideas, curiosity, and mental stimulation",
       "The Seven's energy can draw the Five out into the world",
@@ -487,37 +487,37 @@ const COMPATIBILITY_MATRIX: Record<string, CompatibilityData> = {
   },
   "5-8": {
     insight:
-      "The Investigator and the Challenger seem opposite — one retreats, one advances — but both are intensely autonomous, dislike dependency, and will fight fiercely to protect their own territory. When they respect each other, few relationships are more honest.",
+      "The Investigator and the Challenger seem opposite. one retreats, one advances. but both are intensely autonomous, dislike dependency, and will fight fiercely to protect their own territory. When they respect each other, few relationships are more honest.",
     strengths: [
       "Mutual respect for competence, independence, and directness",
       "Neither needs the other to be softer than they are",
-      "Deep trust when it's earned — and both know how to earn it",
+      "Deep trust when it's earned. and both know how to earn it",
     ],
     edges: [
-      "Both can be dismissive of emotional needs — their own and each other's",
+      "Both can be dismissive of emotional needs. their own and each other's",
       "The Eight's intensity can overwhelm the Five's carefully managed resources",
       "Power struggles over control and information can harden into walls",
     ],
-    tip: "Five: share one piece of your thinking out loud before it's finished — the Eight will feel more included. Eight: ask questions before drawing conclusions.",
+    tip: "Five: share one piece of your thinking out loud before it's finished. the Eight will feel more included. Eight: ask questions before drawing conclusions.",
   },
   "5-9": {
     insight:
       "The Investigator and the Peacemaker share a quiet depth and an appreciation for spacious, unpressured companionship. Both are comfortable with silence, with solitude-in-togetherness, and with letting things unfold rather than forcing them.",
     strengths: [
       "Mutual appreciation for space, calm, and unforced presence",
-      "Rare freedom from drama — neither generates it, neither needs it",
+      "Rare freedom from drama. neither generates it, neither needs it",
       "The Nine's acceptance invites the Five to venture out; the Five's depth gives the Nine something to engage with",
     ],
     edges: [
       "Important things can go permanently unspoken between two avoiders",
-      "Inertia can settle in — neither pushes toward growth or change",
+      "Inertia can settle in. neither pushes toward growth or change",
       "Both can merge with their inner world and lose sight of the relationship itself",
     ],
-    tip: "Choose one thing each month that neither of you would choose alone — and actually do it.",
+    tip: "Choose one thing each month that neither of you would choose alone. and actually do it.",
   },
   "6-7": {
     insight:
-      "The Loyalist and the Enthusiast share an integration line — the Six moves toward Seven in health. The Seven's optimism and the Six's carefulness are a natural counterbalance: together, they can plan for challenges without letting fear stop them from living fully.",
+      "The Loyalist and the Enthusiast share an integration line. the Six moves toward Seven in health. The Seven's optimism and the Six's carefulness are a natural counterbalance: together, they can plan for challenges without letting fear stop them from living fully.",
     strengths: [
       "The Seven's confidence steadies the Six's anxiety beautifully",
       "The Six's groundedness gives the Seven's adventures a safe base to return to",
@@ -528,15 +528,15 @@ const COMPATIBILITY_MATRIX: Record<string, CompatibilityData> = {
       "The Six's worry can dampen the Seven's enthusiasm and generate the very conflict the Seven is trying to avoid",
       "Different risk tolerances can make decisions a source of ongoing friction",
     ],
-    tip: "Name your anxiety as anxiety, not as evidence — and name the adventure as adventure, not as avoidance.",
+    tip: "Name your anxiety as anxiety, not as evidence. and name the adventure as adventure, not as avoidance.",
   },
   "6-8": {
     insight:
-      "The Loyalist and the Challenger share a fierce protectiveness and a radar for inauthenticity. Both value loyalty above almost everything. When trust is established, this is one of the most rock-solid bonds on the Enneagram — when it's broken, the fallout is severe.",
+      "The Loyalist and the Challenger share a fierce protectiveness and a radar for inauthenticity. Both value loyalty above almost everything. When trust is established, this is one of the most rock-solid bonds on the Enneagram. when it's broken, the fallout is severe.",
     strengths: [
       "Fierce mutual loyalty once trust is established",
       "Both protect the people they love with great intensity",
-      "Direct communication — neither likes pretense",
+      "Direct communication. neither likes pretense",
     ],
     edges: [
       "The Eight's force can trigger the Six's anxiety into either flight or counter-aggression",
@@ -551,48 +551,48 @@ const COMPATIBILITY_MATRIX: Record<string, CompatibilityData> = {
     strengths: [
       "Shared warmth, reliability, and genuine investment in others",
       "Both create a sense of safety and groundedness that attracts others",
-      "Mutual acceptance — neither one judges the other harshly",
+      "Mutual acceptance. neither one judges the other harshly",
     ],
     edges: [
       "Neither tends to initiate growth, change, or difficult conversations",
       "The Six's anxiety and the Nine's avoidance can reinforce each other",
       "Important things can be perpetually deferred in the name of keeping peace",
     ],
-    tip: "Take turns being the one who names a thing that needs addressing — and commit to staying with it rather than smoothing it over.",
+    tip: "Take turns being the one who names a thing that needs addressing. and commit to staying with it rather than smoothing it over.",
   },
   "7-8": {
     insight:
-      "The Enthusiast and the Challenger are both bold, high-energy, and unwilling to be constrained. Together they create a relationship of remarkable vitality and freedom — and one where restraint, depth, and emotional safety may need to be consciously cultivated.",
+      "The Enthusiast and the Challenger are both bold, high-energy, and unwilling to be constrained. Together they create a relationship of remarkable vitality and freedom. and one where restraint, depth, and emotional safety may need to be consciously cultivated.",
     strengths: [
       "Shared love of boldness, directness, and not wasting time",
-      "Both push each other toward more of everything — bigger, bolder, freer",
+      "Both push each other toward more of everything. bigger, bolder, freer",
       "A mutual appreciation for living fully and refusing diminishment",
     ],
     edges: [
       "Neither is naturally inclined toward yielding, vulnerability, or slowing down",
       "The Eight's dominance and the Seven's independence can create a power struggle dressed as adventure",
-      "Tenderness can feel threatening to both — depth is easier to avoid than to cultivate",
+      "Tenderness can feel threatening to both. depth is easier to avoid than to cultivate",
     ],
-    tip: "Challenge each other to one act of deliberate vulnerability per week — and hold each other to it.",
+    tip: "Challenge each other to one act of deliberate vulnerability per week. and hold each other to it.",
   },
   "7-9": {
     insight:
-      "The Enthusiast and the Peacemaker both avoid pain, but in different ways — the Seven sprints past it toward the next good thing, the Nine merges away from it into comfortable numbness. Together they create a warm, easy-going relationship that may need a deliberate push toward reality.",
+      "The Enthusiast and the Peacemaker both avoid pain, but in different ways. the Seven sprints past it toward the next good thing, the Nine merges away from it into comfortable numbness. Together they create a warm, easy-going relationship that may need a deliberate push toward reality.",
     strengths: [
       "Genuinely easy, low-conflict, and joyful together",
       "The Seven's energy activates the Nine; the Nine's calm grounds the Seven",
       "Shared generosity and warmth make them delightful company",
     ],
     edges: [
-      "Both avoid discomfort — real problems can go perpetually unaddressed",
+      "Both avoid discomfort. real problems can go perpetually unaddressed",
       "The Seven's pace can overwhelm the Nine's need for groundedness",
       "Neither is naturally inclined to push into difficulty, which is required for growth",
     ],
-    tip: "Name one hard truth — each of you — in your next conversation. Not to fix anything, just to practice saying what's real.",
+    tip: "Name one hard truth. each of you. in your next conversation. Not to fix anything, just to practice saying what's real.",
   },
   "8-9": {
     insight:
-      "The Challenger and the Peacemaker are wing neighbors and natural complements — one moves outward with force, the other stays still with acceptance. Together they can create a relationship of unusual completeness: the Eight's strength protects the Nine's softness, and the Nine's calm is the one thing that can truly reach the Eight.",
+      "The Challenger and the Peacemaker are wing neighbors and natural complements. one moves outward with force, the other stays still with acceptance. Together they can create a relationship of unusual completeness: the Eight's strength protects the Nine's softness, and the Nine's calm is the one thing that can truly reach the Eight.",
     strengths: [
       "The Nine is often the only person who doesn't need the Eight to be smaller",
       "The Eight gives the Nine's gentle nature genuine protection and strength",
@@ -601,9 +601,9 @@ const COMPATIBILITY_MATRIX: Record<string, CompatibilityData> = {
     edges: [
       "The Eight's force can cause the Nine to go underground rather than engage",
       "The Nine's conflict avoidance leaves the Eight feeling like they're fighting alone",
-      "The Nine can disappear emotionally while remaining physically present — and the Eight may not notice until it's late",
+      "The Nine can disappear emotionally while remaining physically present. and the Eight may not notice until it's late",
     ],
-    tip: "Eight: lower your voice a notch and ask what the Nine actually thinks — not what's fine, what they actually think. Nine: say it even if the Eight seems to already have decided.",
+    tip: "Eight: lower your voice a notch and ask what the Nine actually thinks. not what's fine, what they actually think. Nine: say it even if the Eight seems to already have decided.",
   },
 };
 
@@ -618,12 +618,12 @@ function generateFallback(a: number, b: number): CompatibilityData {
   const sameTriad = triadA === triadB;
 
   const triadDescriptions: Record<string, string> = {
-    Gut: "instinctual, body-based wisdom — they act first and process later",
-    Heart: "emotional intelligence and relational attunement — they feel first",
-    Head: "mental clarity and strategy — they think and plan before acting",
+    Gut: "instinctual, body-based wisdom. they act first and process later",
+    Heart: "emotional intelligence and relational attunement. they feel first",
+    Head: "mental clarity and strategy. they think and plan before acting",
   };
 
-  const sameTriadInsight = `${nameA} and ${nameB} both operate from the ${triadA} center — ${triadDescriptions[triadA]}. This creates natural kinship and mutual understanding of each other's core drives, though your shared blind spots may need a third perspective to illuminate.`;
+  const sameTriadInsight = `${nameA} and ${nameB} both operate from the ${triadA} center. ${triadDescriptions[triadA]}. This creates natural kinship and mutual understanding of each other's core drives, though your shared blind spots may need a third perspective to illuminate.`;
 
   const crossTriadInsight = `${nameA} operates from the ${triadA} center (${triadDescriptions[triadA]}), while ${nameB} operates from the ${triadB} center (${triadDescriptions[triadB]}). This difference is one of the richest sources of both complementarity and misunderstanding between you.`;
 
@@ -636,13 +636,13 @@ function generateFallback(a: number, b: number): CompatibilityData {
           `Your similarities create a safe foundation for genuine honesty`,
         ]
       : [
-          `Your different centers offer each other perspectives that feel genuinely foreign — and genuinely valuable`,
+          `Your different centers offer each other perspectives that feel genuinely foreign. and genuinely valuable`,
           `${nameA}'s ${triadA.toLowerCase()} wisdom balances ${nameB}'s ${triadB.toLowerCase()} approach`,
           `Cross-triad pairings often accelerate growth by making each person's blind spots visible`,
         ],
     edges: sameTriad
       ? [
-          `Shared patterns can amplify — especially the defensive ones`,
+          `Shared patterns can amplify. especially the defensive ones`,
           `Both may avoid the same territory, which means no one maps it`,
           `Without differences to create friction, growth requires more deliberate intention`,
         ]
@@ -652,7 +652,7 @@ function generateFallback(a: number, b: number): CompatibilityData {
           `Under stress, your different centers drive you in opposite directions`,
         ],
     tip: sameTriad
-      ? `Actively seek out perspectives from the other two centers — a friend, a book, a conversation — to develop your shared blind spots.`
+      ? `Actively seek out perspectives from the other two centers. a friend, a book, a conversation. to develop your shared blind spots.`
       : `When you feel most misunderstood, name which center you're operating from: 'I'm reacting from my ${triadA.toLowerCase()} right now.' It builds the bridge.`,
   };
 }
@@ -749,7 +749,7 @@ export default function CompatibilityPage() {
 
       awardShareTokens();
     } catch (err: unknown) {
-      // User cancelled share — that's fine, still try download fallback if it's not an abort
+      // User cancelled share. that's fine, still try download fallback if it's not an abort
       if (err instanceof Error && err.name !== "AbortError") {
         try {
           const dataUrl = await toPng(cardRef.current, { cacheBust: true, pixelRatio: 2 });
@@ -833,7 +833,7 @@ export default function CompatibilityPage() {
             </div>
           ) : (
             <p className="text-sm" style={{ color: "rgba(255,255,255,0.4)" }}>
-              No type found — complete an assessment first.
+              No type found. complete an assessment first.
             </p>
           )}
         </div>
@@ -857,7 +857,7 @@ export default function CompatibilityPage() {
                   border: `1px solid ${friendType === t ? TYPE_COLORS[t] + "88" : "rgba(255,255,255,0.08)"}`,
                   transform: friendType === t ? "scale(1.05)" : "scale(1)",
                 }}
-                aria-label={`Select type ${t} — ${TYPE_NAMES[t]}`}
+                aria-label={`Select type ${t}. ${TYPE_NAMES[t]}`}
                 aria-pressed={friendType === t}
               >
                 <span
@@ -1034,7 +1034,7 @@ export default function CompatibilityPage() {
                     Friend hasn't tried Thyself yet?
                   </p>
                   <p className="text-xs mt-0.5" style={{ color: "rgba(255,255,255,0.4)" }}>
-                    Invite them to find their type — it's free
+                    Invite them to find their type. it's free
                   </p>
                 </div>
                 <button
@@ -1294,7 +1294,7 @@ const ShareCard = React.forwardRef<
       {/* CTA */}
       <div style={{ textAlign: "center" }}>
         <p style={{ fontSize: 12, color: "rgba(255,255,255,0.35)", marginBottom: 4 }}>
-          Discover your Enneagram type — free
+          Discover your Enneagram type. free
         </p>
         <p
           style={{

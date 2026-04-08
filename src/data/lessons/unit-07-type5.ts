@@ -403,7 +403,7 @@ const lesson2: Lesson = {
         prompt: "In your own words, describe why Type 5s withdraw. What are they protecting and what do they fear?",
         keyTerms: ["energy", "depletion", "overwhelm", "privacy", "competence", "intrusion", "resources"],
         minWords: 15,
-        modelAnswer: "Type 5s withdraw because they experience the world as deeply draining. Their core fear is that they don't have enough inner resources — energy, time, knowledge — to meet the demands that others and life will place on them. By retreating into privacy and observation, they protect what little they have. They fear being intruded upon, overwhelmed, or forced to engage before they feel sufficiently prepared or competent. Withdrawal is a conservation strategy: if they can limit what goes out, they might have enough left to function. The tragedy is that this aloofness prevents the very connection that might replenish them.",
+        modelAnswer: "Type 5s withdraw because they experience the world as deeply draining. Their core fear is that they don't have enough inner resources. energy, time, knowledge. to meet the demands that others and life will place on them. By retreating into privacy and observation, they protect what little they have. They fear being intruded upon, overwhelmed, or forced to engage before they feel sufficiently prepared or competent. Withdrawal is a conservation strategy: if they can limit what goes out, they might have enough left to function. The tragedy is that this aloofness prevents the very connection that might replenish them.",
       } as FreeRecallContent,
     },
   ],
@@ -826,7 +826,7 @@ const lesson4: Lesson = {
       difficulty: 3,
       content: {
         type: "interleaving",
-        title: "Types 5, 1 & 4 — Identify the motivation",
+        title: "Types 5, 1 & 4. Identify the motivation",
         typeNumbers: [5, 1, 4],
         items: [
           {
@@ -835,7 +835,7 @@ const lesson4: Lesson = {
             explanation: "The Five conserves resources. Unplanned demands feel like intrusions that threaten their limited supply of inner energy.",
           },
           {
-            statement: "Crafts a lengthy response to an email to make sure every nuance is precisely worded — because an imprecise reply would feel like a failure of their own standards.",
+            statement: "Crafts a lengthy response to an email to make sure every nuance is precisely worded. because an imprecise reply would feel like a failure of their own standards.",
             correctType: 1,
             explanation: "The One's precision comes from an internalized standard of correctness. Getting it right matters in principle.",
           },
@@ -850,7 +850,7 @@ const lesson4: Lesson = {
   ],
 };
 
-// ── Lesson 5: Near-Neighbor Discrimination — Type 5 vs Type 9 ─────────────
+// ── Lesson 5: Near-Neighbor Discrimination. Type 5 vs Type 9 ─────────────
 
 const lesson5: Lesson = {
   id: "u7-l5",
@@ -867,7 +867,7 @@ const lesson5: Lesson = {
       content: {
         type: "concept-intro",
         title: "Why 5 and 9 Are Confused",
-        body: "Both Type 5 and Type 9 are withdrawn and private. The difference: Type 5 withdraws deliberately to conserve energy and protect inner resources. Type 9 fades into the background through a dissolution of self — they don't withdraw so much as disappear.",
+        body: "Both Type 5 and Type 9 are withdrawn and private. The difference: Type 5 withdraws deliberately to conserve energy and protect inner resources. Type 9 fades into the background through a dissolution of self. they don't withdraw so much as disappear.",
         highlight: "energy conservation vs. self-dissolution",
       },
     },
@@ -881,22 +881,22 @@ const lesson5: Lesson = {
         prompt: "Each statement below belongs to either Type 5 (The Investigator) or Type 9 (The Peacemaker). Tap the correct type for each.",
         items: [
           {
-            text: "Experiences social interaction as depleting — needs time alone afterward to process and restore, even when the interaction was pleasant.",
+            text: "Experiences social interaction as depleting. needs time alone afterward to process and restore, even when the interaction was pleasant.",
             answer: "A",
             explanation: "Type 5 experiences the world as demanding more than they can give. Social contact is energetically costly.",
           },
           {
-            text: "Loses track of their own wants and needs when around others — other people's presence dilutes their sense of self.",
+            text: "Loses track of their own wants and needs when around others. other people's presence dilutes their sense of self.",
             answer: "B",
-            explanation: "Type 9 merges with the field of others. This is not introversion — it is a dissolution of self-boundary.",
+            explanation: "Type 9 merges with the field of others. This is not introversion. it is a dissolution of self-boundary.",
           },
           {
-            text: "Compartmentalizes life carefully — keeps different domains separate and reveals only what is necessary in each context.",
+            text: "Compartmentalizes life carefully. keeps different domains separate and reveals only what is necessary in each context.",
             answer: "A",
             explanation: "Type 5's compartmentalization is resource-management. Each domain gets only its allotted portion.",
           },
           {
-            text: "Agrees to things without accessing their actual preference — then feels quietly resentful about situations they technically consented to.",
+            text: "Agrees to things without accessing their actual preference. then feels quietly resentful about situations they technically consented to.",
             answer: "B",
             explanation: "Type 9's passive resistance emerges when suppressed preferences finally surface as resentment. They said yes without accessing their no.",
           },
@@ -916,7 +916,7 @@ const lesson5: Lesson = {
           "Type 9 is more analytical during withdrawal than Type 5",
         ],
         correctIndex: 1,
-        explanation: "Type 5's withdrawal is an active, boundaried strategy to protect limited energy. Type 9's disappearing is a passive merging — their presence simply diminishes as others fill the space.",
+        explanation: "Type 5's withdrawal is an active, boundaried strategy to protect limited energy. Type 9's disappearing is a passive merging. their presence simply diminishes as others fill the space.",
       },
     },
   ],

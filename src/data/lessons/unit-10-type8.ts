@@ -418,7 +418,7 @@ const lesson2: Lesson = {
         prompt: "In your own words, explain what vulnerability means to a Type 8 and why they avoid it so fiercely.",
         keyTerms: ["control", "betrayal", "weakness", "trust", "armor", "tender", "protection"],
         minWords: 15,
-        modelAnswer: "For a Type 8, vulnerability is not just uncomfortable — it feels genuinely dangerous. At the core is a belief that being soft or open gives others power over you, and that this will inevitably lead to betrayal or harm. Often stemming from early experiences where trust was violated, Eights developed armor: project strength, maintain control, never let anyone see the tender interior that could be exploited. What's beneath that armor is usually a surprisingly soft, even childlike core that the Eight has decided must be protected at all costs. The deepest growth for an Eight is learning that genuine strength includes the capacity to trust — and to be touched.",
+        modelAnswer: "For a Type 8, vulnerability is not just uncomfortable. it feels genuinely dangerous. At the core is a belief that being soft or open gives others power over you, and that this will inevitably lead to betrayal or harm. Often stemming from early experiences where trust was violated, Eights developed armor: project strength, maintain control, never let anyone see the tender interior that could be exploited. What's beneath that armor is usually a surprisingly soft, even childlike core that the Eight has decided must be protected at all costs. The deepest growth for an Eight is learning that genuine strength includes the capacity to trust. and to be touched.",
       } as FreeRecallContent,
     },
   ],
@@ -818,21 +818,21 @@ const lesson4: Lesson = {
       difficulty: 3,
       content: {
         type: "interleaving",
-        title: "Types 8, 3 & 6 — Identify the motivation",
+        title: "Types 8, 3 & 6. Identify the motivation",
         typeNumbers: [8, 3, 6],
         items: [
           {
-            statement: "Takes charge of a chaotic situation immediately — not to impress anyone, but because surrendering control feels genuinely dangerous.",
+            statement: "Takes charge of a chaotic situation immediately. not to impress anyone, but because surrendering control feels genuinely dangerous.",
             correctType: 8,
             explanation: "The Eight asserts control because vulnerability is a threat. Power is protection, not performance.",
           },
           {
-            statement: "Stays late to solve a problem at work — primarily because resolving it will position them as the indispensable person who saves the day.",
+            statement: "Stays late to solve a problem at work. primarily because resolving it will position them as the indispensable person who saves the day.",
             correctType: 3,
             explanation: "The Three acts for impact and recognition. Their effort is audience-aware.",
           },
           {
-            statement: "Defers to the official procedure even when they disagree with it — because following the established structure feels safer than acting on their own judgment.",
+            statement: "Defers to the official procedure even when they disagree with it. because following the established structure feels safer than acting on their own judgment.",
             correctType: 6,
             explanation: "The Six uses external structures to manage anxiety. The authority of the procedure provides safety.",
           },

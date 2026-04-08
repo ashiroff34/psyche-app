@@ -42,7 +42,7 @@ const WHEEL_SPOKES = [
 ] as const;
 
 
-// ── Persistent bottom tab bar — 1-tap navigation, always highlighted ──────────
+// ── Persistent bottom tab bar. 1-tap navigation, always highlighted ──────────
 function BottomTabBar({
   pathname,
   onNavClick,
@@ -145,7 +145,7 @@ function BottomTabBar({
   );
 }
 
-// ── "More" items — grouped into 3 sections ─────────────────────────────────
+// ── "More" items. grouped into 3 sections ─────────────────────────────────
 // Items are gated by account age (progressive disclosure):
 //   Day 0-6:  Core only (Curriculum Map, Progress, Assessments, Enneagram, Cognitive)
 //   Day 7+:   + Inner Work, Compare Types, Correlations
@@ -201,7 +201,7 @@ function MoreMenu({ pathname }: { pathname: string }) {
     } catch {}
   }, []);
 
-  // Filter groups by account age — items without unlocksDay are always shown
+  // Filter groups by account age. items without unlocksDay are always shown
   const moreGroups = ALL_MORE_GROUPS.map(group => ({
     ...group,
     items: group.items.filter(item => !item.unlocksDay || daysSinceCreated >= item.unlocksDay),
@@ -465,7 +465,7 @@ export default function Navigation() {
       {/* ── Swipe detection for tab navigation ─────────────────────────── */}
       {!hideChrome && <SwipeNavigator />}
 
-      {/* ── Top Bar (minimal — logo, back, level, more) ───────────────────── */}
+      {/* ── Top Bar (minimal. logo, back, level, more) ───────────────────── */}
       <nav className="fixed top-0 left-0 right-0 z-50 glass-strong">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-14">
@@ -522,7 +522,7 @@ export default function Navigation() {
         </div>
       </nav>
 
-      {/* ── Bottom Tab Bar — persistent, 1-tap navigation ─────────────── */}
+      {/* ── Bottom Tab Bar. persistent, 1-tap navigation ─────────────── */}
       {!hideChrome && (
         <BottomTabBar
           pathname={pathname}

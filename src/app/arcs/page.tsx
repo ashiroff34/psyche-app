@@ -33,41 +33,41 @@ interface Arc {
 // ─── Seed Data ────────────────────────────────────────────────────────────────
 
 const ARC_1_PROMPTS: string[] = [
-  // Week 1 — Naming the Longing
+  // Week 1. Naming the Longing
   "Name one thing you've been longing for. Write it down without judging it.",
   "Take that longing and ask: what is one small, concrete step toward it?",
   "Notice your inner critic today. When it speaks, write down exactly what it says.",
   "Sit with an emotion you've been avoiding. Name it in one word, then three.",
-  "What creative act have you been postponing? Spend 10 minutes on it — imperfectly.",
+  "What creative act have you been postponing? Spend 10 minutes on it. imperfectly.",
   "Write about a time you felt deeply seen. What made that possible?",
   "List three things you do beautifully that you tend to dismiss.",
-  // Week 2 — Turning Toward Craft
+  // Week 2. Turning Toward Craft
   "Choose one longing from Day 1. Describe what it would look, feel, and sound like if it were real.",
   "What is the smallest possible version of that dream you could build today?",
-  "Your inner critic returns. This time, respond to it like a craftsperson — methodically, not defensively.",
+  "Your inner critic returns. This time, respond to it like a craftsperson. methodically, not defensively.",
   "What discipline or practice makes you feel most alive? Do 20 minutes of it now.",
   "Write about the difference between what you feel and what you make.",
   "Notice when you romanticise suffering today. Write it down without self-judgment.",
   "Take one concrete, unsexy task that moves you forward. Do it first.",
-  // Week 3 — The Discipline of Beauty
+  // Week 3. The Discipline of Beauty
   "What does 'good enough' mean to you? Where do you over-demand perfection?",
-  "Design a morning ritual — even five minutes — that honours both feeling and doing.",
+  "Design a morning ritual. even five minutes. that honours both feeling and doing.",
   "Write a letter to your inner critic. Thank it for trying to protect you. Then redirect it.",
-  "Complete one creative act and share it — with one person, or publicly. Notice the fear.",
+  "Complete one creative act and share it. with one person, or publicly. Notice the fear.",
   "Identify where you idealise rather than act. Write what action would look like instead.",
-  "Describe your dream creative life in concrete, practical terms — not poetic ones.",
+  "Describe your dream creative life in concrete, practical terms. not poetic ones.",
   "Do one thing today purely for craft, with no audience in mind.",
-  // Week 4 — Integration
+  // Week 4. Integration
   "Write about a longing that has quietly become a skill.",
   "Where have you traded depth for precision, or precision for depth? Which do you need more of now?",
   "List three daily habits that channel your intensity into craft.",
   "Write about someone you admire for their discipline. What can you borrow from them?",
   "Notice a moment today when you felt both feeling and function at once. Describe it.",
   "Revisit your Day 1 longing. What has shifted? What is clearer?",
-  "Write a short manifesto — three sentences — about what you are building and why.",
-  // Days 29-30 — Completion
+  "Write a short manifesto. three sentences. about what you are building and why.",
+  // Days 29-30. Completion
   "Look back over this arc. What surprised you most about yourself?",
-  "You have turned longing into craft. Name the one thing you will keep making — and commit to it in writing.",
+  "You have turned longing into craft. Name the one thing you will keep making. and commit to it in writing.",
 ];
 
 const ARCS: Arc[] = [
@@ -77,7 +77,7 @@ const ARCS: Arc[] = [
     subtitle: "Turning Longing into Craft",
     theme: { from: "#9B59B6", to: "#E74C3C" },
     teaser:
-      "A 30-day journey from the depth of feeling into the precision of form. Type 4 learns from Type 1's gift: that discipline is not the enemy of beauty — it is its architecture.",
+      "A 30-day journey from the depth of feeling into the precision of form. Type 4 learns from Type 1's gift: that discipline is not the enemy of beauty. it is its architecture.",
     prompts: ARC_1_PROMPTS,
   },
   {
@@ -86,7 +86,7 @@ const ARCS: Arc[] = [
     subtitle: "From Peace to Purpose",
     theme: { from: "#95A5A6", to: "#F39C12" },
     teaser:
-      "The 9's capacity for harmony meets the 3's drive for achievement. This arc guides the peacemaker to discover that showing up fully — and being seen — is its own kind of serenity.",
+      "The 9's capacity for harmony meets the 3's drive for achievement. This arc guides the peacemaker to discover that showing up fully. and being seen. is its own kind of serenity.",
   },
   {
     id: "arc-5-8",
@@ -94,7 +94,7 @@ const ARCS: Arc[] = [
     subtitle: "From Mind to Action",
     theme: { from: "#2980B9", to: "#E67E22" },
     teaser:
-      "The 5's vast inner world takes its first steps into the arena. This arc helps the observer learn to act before they feel ready — and discover the power waiting on the other side of the threshold.",
+      "The 5's vast inner world takes its first steps into the arena. This arc helps the observer learn to act before they feel ready. and discover the power waiting on the other side of the threshold.",
   },
 ];
 

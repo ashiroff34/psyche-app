@@ -83,7 +83,7 @@ export default function QuizFullscreen({
   const router = useRouter();
   const q = questions[currentIdx];
 
-  // Stable shuffle of options per question — correct answer position is randomized
+  // Stable shuffle of options per question. correct answer position is randomized
   // but stable across re-renders. We build a shuffledToOriginal map so the parent's
   // correctness check (which uses original indices) still works.
   const { shuffledOpts, shuffledAns, shuffledToOriginal } = useMemo(() => {
@@ -476,7 +476,7 @@ export default function QuizFullscreen({
           </motion.h2>
           <p className="text-base mb-6" style={{ color: "rgba(255,255,255,0.5)" }}>{moduleName}</p>
 
-          {/* Score row — count-up numbers */}
+          {/* Score row. count-up numbers */}
           <div className="flex items-center gap-6 mb-5">
             <div className="flex flex-col items-center">
               <span className="text-4xl font-bold" style={{ color: "rgba(255,255,255,0.93)" }}>
@@ -563,7 +563,7 @@ export default function QuizFullscreen({
             </motion.div>
           )}
 
-          {/* Keep Going card — only after warmup, only if there's a next node */}
+          {/* Keep Going card. only after warmup, only if there's a next node */}
           {moduleName === "Warm-Up" && nextNode && onKeepGoing ? (
             <KeepGoingCard
               nextNode={nextNode}
@@ -651,7 +651,7 @@ export default function QuizFullscreen({
           )}
 
           <p className="text-sm mb-6 max-w-xs leading-relaxed" style={{ color: "rgba(255,255,255,0.5)" }}>
-            Hearts refill 1 every 10 minutes. You can browse your curriculum path while you wait — hearts refill in the background!
+            Hearts refill 1 every 10 minutes. You can browse your curriculum path while you wait. hearts refill in the background!
           </p>
 
           <div className="flex flex-col gap-3 w-full">

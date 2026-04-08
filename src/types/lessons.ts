@@ -68,7 +68,7 @@ export interface FreeRecallContent {
   prompt: string;           // e.g. "In your own words, describe what drives a Type 5"
   keyTerms: string[];       // terms that count as a "good" answer if mentioned
   minWords: number;         // minimum word count (e.g. 15)
-  modelAnswer: string;      // shown after submission — the ideal answer
+  modelAnswer: string;      // shown after submission. the ideal answer
 }
 
 export interface SocraticPromptContent {
@@ -113,10 +113,10 @@ export interface Exercise {
 
 export type ScaffoldStep = 1 | 2 | 3 | 4;
 export const SCAFFOLD_LABELS: Record<ScaffoldStep, { label: string; color: string }> = {
-  1: { label: "Portrait",    color: "#6366f1" }, // indigo — external view
-  2: { label: "Core",        color: "#a855f7" }, // purple — internal structure
-  3: { label: "Distinguish", color: "#f59e0b" }, // amber — discrimination
-  4: { label: "Apply",       color: "#22c55e" }, // green — growth/application
+  1: { label: "Portrait",    color: "#6366f1" }, // indigo. external view
+  2: { label: "Core",        color: "#a855f7" }, // purple. internal structure
+  3: { label: "Distinguish", color: "#f59e0b" }, // amber. discrimination
+  4: { label: "Apply",       color: "#22c55e" }, // green. growth/application
 };
 
 export interface Lesson {

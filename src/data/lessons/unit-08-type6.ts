@@ -26,7 +26,7 @@ const lesson1: Lesson = {
         reflection: "Sit with that uncertainty. What would you do to protect yourself? What would you start to look for in people?",
         revealLabel: "See the insight",
         conceptTitle: "The Question That Never Resolves",
-        conceptBody: "Sixes live in chronic uncertainty about whether they can trust — their environment, other people, and especially themselves. This isn't paranoia; it's a learned vigilance from early experiences where the ground shifted. The Six compensates by seeking certainty in structures, authorities, and systems — anything that promises to be reliably there.",
+        conceptBody: "Sixes live in chronic uncertainty about whether they can trust. their environment, other people, and especially themselves. This isn't paranoia; it's a learned vigilance from early experiences where the ground shifted. The Six compensates by seeking certainty in structures, authorities, and systems. anything that promises to be reliably there.",
         highlight: "learned vigilance",
       } as SocraticPromptContent,
     },
@@ -809,21 +809,21 @@ const lesson4: Lesson = {
       difficulty: 3,
       content: {
         type: "interleaving",
-        title: "Types 6, 1 & 5 — Identify the motivation",
+        title: "Types 6, 1 & 5. Identify the motivation",
         typeNumbers: [6, 1, 5],
         items: [
           {
-            statement: "Fact-checks an authority's claim — not from intellectual curiosity, but from an undercurrent of vigilance about whether this person should actually be trusted.",
+            statement: "Fact-checks an authority's claim. not from intellectual curiosity, but from an undercurrent of vigilance about whether this person should actually be trusted.",
             correctType: 6,
             explanation: "The Six's questioning is threat-detection. They scan authorities for hidden agendas or signs of untrustworthiness.",
           },
           {
-            statement: "Researches a topic exhaustively before forming an opinion — needing to understand it fully from the inside before feeling qualified to say anything.",
+            statement: "Researches a topic exhaustively before forming an opinion. needing to understand it fully from the inside before feeling qualified to say anything.",
             correctType: 5,
             explanation: "The Five builds knowledge as a resource and protective buffer. Competence before engagement.",
           },
           {
-            statement: "Corrects a colleague's minor word choice in a meeting — not to embarrass them, but because using the wrong term feels like a violation of accuracy.",
+            statement: "Corrects a colleague's minor word choice in a meeting. not to embarrass them, but because using the wrong term feels like a violation of accuracy.",
             correctType: 1,
             explanation: "The One corrects from principle. Inaccuracy itself is the problem.",
           },
@@ -833,7 +833,7 @@ const lesson4: Lesson = {
   ],
 };
 
-// ── Lesson 5: Near-Neighbor Discrimination — Type 6 vs Type 1 ─────────────
+// ── Lesson 5: Near-Neighbor Discrimination. Type 6 vs Type 1 ─────────────
 
 const lesson5: Lesson = {
   id: "u8-l5",
@@ -869,19 +869,19 @@ const lesson5: Lesson = {
             explanation: "Type 6 uses rules as an external anchor against anxiety. They need to know what is expected so they feel safe.",
           },
           {
-            text: "Holds themselves to the same ethical standard they hold others to — often their own harshest judge.",
+            text: "Holds themselves to the same ethical standard they hold others to. often their own harshest judge.",
             answer: "B",
             explanation: "Type 1's inner critic applies most intensely to themselves. Their standards are self-referential, not just socially derived.",
           },
           {
-            text: "Questions whether authorities and institutions can be trusted — looks for evidence of hidden motives or unreliability before committing.",
+            text: "Questions whether authorities and institutions can be trusted. looks for evidence of hidden motives or unreliability before committing.",
             answer: "A",
             explanation: "Type 6's vigilance is fundamentally about trustworthiness. Questioning authority is how they evaluate safety.",
           },
           {
-            text: "Experiences resentment when others fail to uphold ethical standards — feels it as a moral offense, not a personal betrayal.",
+            text: "Experiences resentment when others fail to uphold ethical standards. feels it as a moral offense, not a personal betrayal.",
             answer: "B",
-            explanation: "Type 1's resentment is moral, not relational. The standard was violated — that is the problem, independent of who violated it.",
+            explanation: "Type 1's resentment is moral, not relational. The standard was violated. that is the problem, independent of who violated it.",
           },
         ],
       } as DiscriminationContent) as unknown as ExerciseContent,
@@ -896,7 +896,7 @@ const lesson5: Lesson = {
           "The Type 6 is more concerned with praise, the Type 1 with accuracy",
           "The Type 6 follows procedures to manage anxiety; the Type 1 follows them because they reflect what is right",
           "The Type 1 is more anxious about consequences; the Type 6 is more moralistic",
-          "There is no meaningful difference — both are equally rule-oriented for the same reasons",
+          "There is no meaningful difference. both are equally rule-oriented for the same reasons",
         ],
         correctIndex: 1,
         explanation: "Same behavior, different engines. Type 6: rule-following reduces anxiety about what happens if rules are broken. Type 1: rule-following expresses their internal standard of goodness.",

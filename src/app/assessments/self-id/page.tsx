@@ -123,7 +123,7 @@ function IntroScreen({ onBegin }: { onBegin: () => void }) {
         >
           Professional typologists agree: the most accurate way to find your Enneagram type is to read
           all nine descriptions and recognize yourself from the inside. Behavior alone won&apos;t reveal
-          your type — two people can act identically but be completely different types.
+          your type. two people can act identically but be completely different types.
         </p>
 
         <p
@@ -134,8 +134,8 @@ function IntroScreen({ onBegin }: { onBegin: () => void }) {
             marginBottom: 28,
           }}
         >
-          Look for the one that describes your <em style={{ color: "rgba(167,139,250,0.85)", fontStyle: "italic" }}>inner world</em> — your
-          fears, your motivations — not just what you do.
+          Look for the one that describes your <em style={{ color: "rgba(167,139,250,0.85)", fontStyle: "italic" }}>inner world</em>. your
+          fears, your motivations. not just what you do.
         </p>
 
         {/* Recommended by */}
@@ -273,7 +273,7 @@ function ConfirmOverlay({
                 lineHeight: 1.2,
               }}
             >
-              Type {typeNumber} — {typeName}
+              Type {typeNumber}. {typeName}
             </div>
           </div>
         </div>
@@ -375,7 +375,7 @@ function TypeCard({
         transition: "border 0.3s, box-shadow 0.3s",
       }}
     >
-      {/* Card header — always visible */}
+      {/* Card header. always visible */}
       <button
         onClick={onToggleExpand}
         style={{
@@ -932,7 +932,7 @@ export default function SelfIdPage() {
                 <span style={{ color: "rgba(255,255,255,0.70)", fontWeight: 600 }}>
                   {readCount} of 9
                 </span>{" "}
-                types read — keep reading for best accuracy
+                types read. keep reading for best accuracy
               </div>
             )}
           </motion.div>

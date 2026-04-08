@@ -1378,7 +1378,7 @@ export const newQType9: TypeQuizQuestion[] = [
   },
 
   // ============================================================
-  // DIFFICULTY 5 — Expert/Mastery (IDs 1331-1350)
+  // DIFFICULTY 5. Expert/Mastery (IDs 1331-1350)
   // ============================================================
   {
     id: 1331,

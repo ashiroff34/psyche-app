@@ -309,7 +309,7 @@ function TypeCard({
             </div>
           )}
           <div className="font-serif font-bold" style={{ color: isPrimary ? "rgba(255,255,255,0.95)" : "rgba(255,255,255,0.7)", fontSize: isPrimary ? "1.1rem" : "1rem" }}>
-            Type {typeNum} — {info.name}
+            Type {typeNum}. {info.name}
           </div>
           <div className="text-xs mt-0.5" style={{ color: "rgba(255,255,255,0.4)" }}>
             {info.tagline}

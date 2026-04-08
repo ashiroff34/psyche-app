@@ -1,7 +1,7 @@
 import { ImageResponse } from 'next/og'
 
 export const dynamic = 'force-static'
-export const alt = 'Thyself — Know thyself.'
+export const alt = 'Thyself. Know thyself.'
 export const size = { width: 1200, height: 630 }
 export const contentType = 'image/png'
 
@@ -46,7 +46,7 @@ export default async function Image() {
           display: 'flex',
         }} />
 
-        {/* ── Enneagram rings — right side ── */}
+        {/* ── Enneagram rings. right side ── */}
         {/* Outermost ring */}
         <div style={{
           position: 'absolute', right: '40px', top: '50%', marginTop: '-270px',
@@ -188,7 +188,7 @@ export default async function Image() {
             </span>
           </div>
 
-          {/* Tagline — "Know thyself." */}
+          {/* Tagline. "Know thyself." */}
           <div style={{
             display: 'flex', flexDirection: 'column', gap: '8px', marginBottom: '44px',
           }}>

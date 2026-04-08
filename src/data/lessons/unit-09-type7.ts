@@ -25,7 +25,7 @@ const lesson1: Lesson = {
         reflection: "Imagine the stillness. What might come up if there were no next thing to plan, no escape hatch, no open future to run toward?",
         revealLabel: "See the insight",
         conceptTitle: "The Open Future as Defense",
-        conceptBody: "Sevens keep the future full of possibility as a defense against the present — specifically against pain, limitation, and the felt sense of deprivation. The constant forward motion isn't enthusiasm for life (though it looks like that) — it's anxiety managed through options. If there's always something better coming, you never have to fully feel what's here.",
+        conceptBody: "Sevens keep the future full of possibility as a defense against the present. specifically against pain, limitation, and the felt sense of deprivation. The constant forward motion isn't enthusiasm for life (though it looks like that). it's anxiety managed through options. If there's always something better coming, you never have to fully feel what's here.",
         highlight: "anxiety managed through options",
       } as SocraticPromptContent,
     },
@@ -815,21 +815,21 @@ const lesson4: Lesson = {
       difficulty: 3,
       content: {
         type: "interleaving",
-        title: "Types 7, 3 & 2 — Identify the motivation",
+        title: "Types 7, 3 & 2. Identify the motivation",
         typeNumbers: [7, 3, 2],
         items: [
           {
-            statement: "Reframes a difficult situation almost immediately into what can be learned from it — not to process it, but to escape the weight of the feeling.",
+            statement: "Reframes a difficult situation almost immediately into what can be learned from it. not to process it, but to escape the weight of the feeling.",
             correctType: 7,
             explanation: "The Seven uses positive reframing as a flight from pain. The move to 'silver lining' is anxiety management.",
           },
           {
-            statement: "Offers help to a struggling colleague because seeing them struggle makes them feel needed — and being needed feels like a guarantee of connection.",
+            statement: "Offers help to a struggling colleague because seeing them struggle makes them feel needed. and being needed feels like a guarantee of connection.",
             correctType: 2,
             explanation: "The Two is moved by the prospect of being indispensable, not just by generosity.",
           },
           {
-            statement: "Announces a new project before it's finished — motivated more by wanting to be seen as innovative and ahead of the curve than by the project itself.",
+            statement: "Announces a new project before it's finished. motivated more by wanting to be seen as innovative and ahead of the curve than by the project itself.",
             correctType: 3,
             explanation: "The Three performs for admiration. The announcement is about image, not just enthusiasm.",
           },

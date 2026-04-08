@@ -21,7 +21,7 @@ export function shuffleOptions<T>(
 }
 
 /**
- * Stable shuffle — same question always shuffles the same way
+ * Stable shuffle. same question always shuffles the same way
  * (so re-renders don't re-shuffle). Uses a string seed (e.g. exercise ID).
  * Uses a seeded LCG (linear congruential generator).
  */
