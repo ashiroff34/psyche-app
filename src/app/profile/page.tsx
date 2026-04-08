@@ -1859,10 +1859,14 @@ export default function ProfilePage() {
 
 // ─── Referral Block ───────────────────────────────────────────────────────────
 
+const REFERRAL_SHARE_TOKEN_KEY = "psyche-referral-share-rewarded";
+const REFERRAL_SHARE_TOKENS = 25;
+
 function ReferralBlock() {
-  // Must use useEffect — localStorage is not available during SSR
   const [code, setCode] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
+  const [shared, setShared] = useState(false);
+  const [tokensAwarded, setTokensAwarded] = useState(false);
 
   useEffect(() => {
     try {
@@ -1872,6 +1876,7 @@ function ReferralBlock() {
         localStorage.setItem("psyche-my-referral-code", c);
       }
       setCode(c);
+      setTokensAwarded(localStorage.getItem(REFERRAL_SHARE_TOKEN_KEY) === "true");
     } catch {
       setCode("THYSELF");
     }
@@ -1879,11 +1884,40 @@ function ReferralBlock() {
 
   const link = `https://thyself.app/r?code=${code ?? "...loading"}`;
 
+  const awardReferralShareTokens = () => {
+    if (tokensAwarded) return;
+    try {
+      const gs = JSON.parse(localStorage.getItem("psyche-game-state") || "{}");
+      gs.tokens = (gs.tokens ?? 0) + REFERRAL_SHARE_TOKENS;
+      localStorage.setItem("psyche-game-state", JSON.stringify(gs));
+      localStorage.setItem(REFERRAL_SHARE_TOKEN_KEY, "true");
+      setTokensAwarded(true);
+    } catch {}
+  };
+
   const copyLink = async () => {
     try {
       await navigator.clipboard.writeText(link);
       setCopied(true);
+      setShared(true);
+      awardReferralShareTokens();
       setTimeout(() => setCopied(false), 2200);
+    } catch {}
+  };
+
+  const nativeShare = async () => {
+    try {
+      if (navigator.share) {
+        await navigator.share({
+          title: "Discover your Enneagram type — free",
+          text: "I use Thyself to understand myself better. Find your Enneagram type, instinct, tritype, and cognitive style — it's free.",
+          url: link,
+        });
+        setShared(true);
+        awardReferralShareTokens();
+      } else {
+        await copyLink();
+      }
     } catch {}
   };
 
@@ -1896,15 +1930,18 @@ function ReferralBlock() {
       }}
     >
       <div className="flex items-start gap-3 mb-3">
-        <span className="text-sm font-mono font-bold mt-0.5 shrink-0" style={{ color: "#fbbf24" }}>(+)</span>
+        <Zap className="w-4 h-4 mt-0.5 shrink-0 text-amber-400" />
         <div>
           <p className="text-sm font-bold text-white">Invite a friend</p>
           <p className="text-xs mt-0.5 leading-relaxed" style={{ color: "rgba(255,255,255,0.45)" }}>
-            They get +25 tokens on their first assessment. Share your link.
+            They get <span className="font-bold text-amber-300">+50 tokens</span> on their first assessment.
+            You get <span className="font-bold text-amber-300">+{REFERRAL_SHARE_TOKENS} tokens</span> for sharing.
           </p>
         </div>
       </div>
-      <div className="flex items-center gap-2">
+
+      {/* Link row */}
+      <div className="flex items-center gap-2 mb-2">
         <div
           className="flex-1 px-3 py-2 rounded-xl text-xs font-mono truncate"
           style={{
@@ -1924,9 +1961,39 @@ function ReferralBlock() {
             color: copied ? "#34d399" : "#fbbf24",
           }}
         >
-          {copied ? "Copied!" : "Copy link"}
+          {copied ? "Copied!" : "Copy"}
         </button>
       </div>
+
+      {/* Native share button */}
+      <button
+        onClick={nativeShare}
+        className="w-full py-2.5 rounded-xl text-xs font-bold flex items-center justify-center gap-2 transition-all active:scale-95"
+        style={{
+          background: "linear-gradient(135deg, rgba(124,58,237,0.25), rgba(217,70,239,0.25))",
+          border: "1px solid rgba(139,92,246,0.3)",
+          color: "rgba(167,139,250,0.9)",
+        }}
+      >
+        Share invite link
+      </button>
+
+      {/* Token awarded confirmation */}
+      <AnimatePresence>
+        {tokensAwarded && (
+          <motion.div
+            initial={{ opacity: 0, y: 4 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0 }}
+            className="flex items-center justify-center gap-1.5 mt-2"
+          >
+            <Zap className="w-3 h-3 text-amber-400" />
+            <span className="text-xs font-bold" style={{ color: "#fbbf24" }}>
+              +{REFERRAL_SHARE_TOKENS} tokens earned for sharing
+            </span>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

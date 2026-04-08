@@ -320,7 +320,7 @@ export function useProfile() {
             const gsRaw = localStorage.getItem("psyche-game-state");
             if (gsRaw) {
               const gs = JSON.parse(gsRaw);
-              gs.tokens = (gs.tokens ?? 0) + 25;
+              gs.tokens = (gs.tokens ?? 0) + 50;
               localStorage.setItem("psyche-game-state", JSON.stringify(gs));
             }
           }

@@ -4,7 +4,7 @@ import { useEffect, useState, Suspense } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 
-const REFERRAL_TOKEN_REWARD = 25;
+const REFERRAL_TOKEN_REWARD = 50;
 
 function ReferralContent() {
   const searchParams = useSearchParams();

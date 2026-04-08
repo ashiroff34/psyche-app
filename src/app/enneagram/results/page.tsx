@@ -479,21 +479,27 @@ function ResultsInner() {
               </div>
             </div>
 
-            {/* Share CTA */}
-            <div className="mt-5">
-              <button
-                onClick={() => setShowTypeCard(true)}
-                className="w-full py-3 rounded-2xl font-bold text-sm flex items-center justify-center gap-2 transition-all"
-                style={{
-                  background: "linear-gradient(135deg, #7c3aed, #d946ef)",
-                  boxShadow: "0 4px 20px rgba(124,58,237,0.35)",
-                  color: "white",
-                }}
-              >
-                <Share2 className="w-4 h-4" />
-                Share your type
-              </button>
-            </div>
+            {/* Share CTA — TikTok / Instagram viral card */}
+            <motion.div
+              className="mt-6 rounded-2xl overflow-hidden cursor-pointer"
+              style={{ border: "1px solid rgba(139,92,246,0.3)", background: "linear-gradient(135deg, rgba(124,58,237,0.15), rgba(217,70,239,0.12))" }}
+              whileTap={{ scale: 0.98 }}
+              onClick={() => setShowTypeCard(true)}
+            >
+              <div className="px-5 py-4 flex items-center gap-4">
+                <div className="w-12 h-12 rounded-2xl flex items-center justify-center flex-shrink-0"
+                  style={{ background: "linear-gradient(135deg, #7c3aed, #d946ef)", boxShadow: "0 4px 16px rgba(124,58,237,0.5)" }}>
+                  <Share2 className="w-5 h-5 text-white" />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <p className="text-sm font-bold text-white">Share to TikTok / Instagram</p>
+                  <p className="text-xs mt-0.5 leading-relaxed" style={{ color: "rgba(255,255,255,0.45)" }}>
+                    Generate your type card · earn +15 tokens
+                  </p>
+                </div>
+                <ChevronRight className="w-4 h-4 flex-shrink-0" style={{ color: "rgba(255,255,255,0.35)" }} />
+              </div>
+            </motion.div>
           </div>
         </motion.div>
 
