@@ -764,6 +764,7 @@ export default function WrappedPage() {
   const [data, setData] = useState<WrappedData | null>(null);
   const [sharing, setSharing] = useState(false);
   const [shareSuccess, setShareSuccess] = useState(false);
+  const [shareTokenToast, setShareTokenToast] = useState(0);
   const cardRef = useRef<HTMLDivElement | null>(null);
   const containerRef = useRef<HTMLDivElement | null>(null);
 
@@ -805,22 +806,44 @@ export default function WrappedPage() {
           files: [file],
         };
 
+        let shared = false;
         if (navigator.canShare && navigator.canShare(shareData)) {
           await navigator.share(shareData);
+          shared = true;
         } else if (navigator.share) {
           await navigator.share({ title: shareData.title, text: shareData.text });
+          shared = true;
         } else {
           const a = document.createElement("a");
           a.href = dataUrl;
           a.download = "thyself-wrapped.png";
           a.click();
         }
-        setShareSuccess(true);
-        setTimeout(() => setShareSuccess(false), 2500);
+
+        if (shared) {
+          setShareSuccess(true);
+          setTimeout(() => setShareSuccess(false), 2500);
+          // Award tokens — verified by navigator.share() resolution
+          try {
+            const key = "psyche-share-verified-wrapped";
+            const prev = localStorage.getItem(key);
+            const eligible = !prev || Date.now() - JSON.parse(prev).lastAwardedAt > 24 * 60 * 60 * 1000;
+            if (eligible) {
+              const gs = JSON.parse(localStorage.getItem("psyche-game-state") || "{}");
+              gs.tokens = (gs.tokens ?? 0) + 30;
+              localStorage.setItem("psyche-game-state", JSON.stringify(gs));
+              localStorage.setItem(key, JSON.stringify({ lastAwardedAt: Date.now() }));
+              window.dispatchEvent(new CustomEvent("psyche-profile-change"));
+              setShareTokenToast(30);
+              setTimeout(() => setShareTokenToast(0), 2800);
+            }
+          } catch {}
+        }
       }
-    } catch (err) {
-      // user cancelled or error. silent fail
-      console.warn("Share failed:", err);
+    } catch (err: unknown) {
+      const isAbort = err instanceof Error && (err.name === "AbortError" || err.message?.includes("cancel"));
+      if (!isAbort) console.warn("Share failed:", err);
+      // AbortError = user cancelled, no tokens
     } finally {
       setSharing(false);
     }
@@ -924,28 +947,48 @@ export default function WrappedPage() {
       </div>
 
       {/* Bottom bar. share button on last slide */}
-      <div className="relative z-20 pb-10 px-6 flex justify-center">
+      <div className="relative z-20 pb-10 px-6 flex flex-col items-center gap-2">
         {currentSlide === TOTAL_SLIDES - 1 && (
-          <motion.button
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.8 }}
-            onClick={handleShare}
-            disabled={sharing}
-            className="flex items-center gap-2 px-6 py-3 rounded-xl font-semibold text-white text-sm"
-            style={{
-              background: shareSuccess
-                ? "linear-gradient(135deg, #27AE60, #1ABC9C)"
-                : "linear-gradient(135deg, #7C3AED88, #4F46E588)",
-              border: "1px solid rgba(255,255,255,0.12)",
-              opacity: sharing ? 0.7 : 1,
-            }}
-            whileHover={{ scale: 1.04 }}
-            whileTap={{ scale: 0.97 }}
-          >
-            <Share2 size={16} />
-            {shareSuccess ? "Shared!" : sharing ? "Generating..." : "Share your Wrapped"}
-          </motion.button>
+          <>
+            <motion.button
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.8 }}
+              onClick={handleShare}
+              disabled={sharing}
+              className="flex items-center gap-2 px-6 py-3 rounded-xl font-semibold text-white text-sm"
+              style={{
+                background: shareSuccess
+                  ? "linear-gradient(135deg, #27AE60, #1ABC9C)"
+                  : "linear-gradient(135deg, #7C3AED88, #4F46E588)",
+                border: "1px solid rgba(255,255,255,0.12)",
+                opacity: sharing ? 0.7 : 1,
+              }}
+              whileHover={{ scale: 1.04 }}
+              whileTap={{ scale: 0.97 }}
+            >
+              <Share2 size={16} />
+              {shareSuccess ? "Shared!" : sharing ? "Generating..." : (
+                <span className="flex items-center gap-2">
+                  Share your Wrapped
+                  <span className="text-[10px] font-bold px-1.5 py-0.5 rounded-full" style={{ background: "rgba(251,191,36,0.2)", color: "#fbbf24" }}>+30t</span>
+                </span>
+              )}
+            </motion.button>
+            <AnimatePresence>
+              {shareTokenToast > 0 && (
+                <motion.p
+                  initial={{ opacity: 0, y: 6 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0 }}
+                  className="text-xs font-bold text-amber-300 flex items-center gap-1"
+                >
+                  <Zap size={12} className="text-amber-400" />
+                  +{shareTokenToast} tokens earned for sharing!
+                </motion.p>
+              )}
+            </AnimatePresence>
+          </>
         )}
       </div>
 

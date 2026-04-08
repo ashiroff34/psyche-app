@@ -10,7 +10,10 @@ import {
   Calendar,
   Trophy,
   Flame,
+  Share2,
+  Zap,
 } from "lucide-react";
+import { useVerifiedShare } from "@/hooks/useVerifiedShare";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -391,6 +394,14 @@ export default function ArcsPage() {
   const [justCompleted, setJustCompleted] = useState(false);
   const [showArcBadge, setShowArcBadge] = useState(false);
 
+  const arcShareHook = useVerifiedShare({
+    shareId: "arc-complete-4-1",
+    tokensPerShare: 20,
+    title: "I completed a 30-day growth arc on Thyself",
+    text: "Just finished the Longing into Craft arc. 30 days of inner work. Know thyself at thyself.app",
+    url: "https://thyself.app/arcs",
+  });
+
   // Load or init progress
   useEffect(() => {
     let stored = getStoredProgress();
@@ -708,9 +719,29 @@ export default function ArcsPage() {
                 >
                   <Trophy size={13} /> +100 bonus tokens
                 </div>
+                {/* Share for +20 tokens */}
+                <button
+                  onClick={arcShareHook.share}
+                  disabled={arcShareHook.isSharing}
+                  className="w-full py-3 rounded-xl text-sm font-bold text-white flex items-center justify-center gap-2 transition-all active:scale-[0.98] disabled:opacity-60"
+                  style={{
+                    background: arcShareHook.isVerified
+                      ? "linear-gradient(90deg, #fbbf24, #f97316)"
+                      : "rgba(255,255,255,0.08)",
+                    border: "1px solid rgba(255,255,255,0.12)",
+                    color: arcShareHook.isVerified ? "#fff" : "rgba(255,255,255,0.7)",
+                  }}
+                >
+                  {arcShareHook.isVerified ? (
+                    <><Zap size={15} /> +20 tokens earned!</>
+                  ) : (
+                    <><Share2 size={15} /> Share achievement (+20t)</>
+                  )}
+                </button>
+
                 <button
                   onClick={() => setShowArcBadge(false)}
-                  className="w-full py-3 rounded-xl text-sm font-bold text-white mt-2"
+                  className="w-full py-3 rounded-xl text-sm font-bold text-white"
                   style={{
                     background: `linear-gradient(90deg, ${ACTIVE_ARC.theme.from}, ${ACTIVE_ARC.theme.to})`,
                   }}

@@ -3,7 +3,8 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
-import { Flame, Zap, Heart, ArrowRight, Sparkles, BookOpen, CheckCircle, Target, Star, Clock, Lock, ChevronRight, Coins, Brain, Trophy } from "lucide-react";
+import { Flame, Zap, Heart, ArrowRight, Sparkles, BookOpen, CheckCircle, Target, Star, Clock, Lock, ChevronRight, Coins, Brain, Trophy, Share2, X } from "lucide-react";
+import { useVerifiedShare } from "@/hooks/useVerifiedShare";
 
 // ─── Type-match preview cards (subset for daily challenge) ────────────────────
 const DAILY_CHALLENGE_CARDS = [
@@ -218,6 +219,23 @@ export default function HubView({
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [tokens]);
+
+  // Daily-complete share prompt — shows once per day when all nodes are done
+  const DAILY_SHARE_DISMISS_KEY = `psyche-daily-share-dismissed-${getDateKey()}`;
+  const allDoneToday = completedToday >= totalNodes && totalNodes > 0;
+  const [shareDismissed, setShareDismissed] = useState(() => {
+    try { return typeof window !== "undefined" && !!localStorage.getItem(DAILY_SHARE_DISMISS_KEY); }
+    catch { return false; }
+  });
+  const showDailySharePrompt = allDoneToday && !shareDismissed;
+
+  const dailyShareHook = useVerifiedShare({
+    shareId: `daily-complete-${getDateKey()}`,
+    tokensPerShare: 10,
+    title: "I just finished today's practice on Thyself",
+    text: `Day ${streak > 0 ? streak : 1} done. Know thyself. thyself.app`,
+    url: "https://thyself.app",
+  });
 
   return (
     <div
@@ -495,6 +513,87 @@ export default function HubView({
                 </p>
                 <p className="text-xs text-orange-500 mt-0.5">Don't let your streak break tonight.</p>
               </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        {/* ── Daily-complete share prompt ── */}
+        <AnimatePresence>
+          {showDailySharePrompt && (
+            <motion.div
+              key="daily-share-prompt"
+              initial={{ opacity: 0, y: 10, scale: 0.97 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: -8, scale: 0.97 }}
+              transition={{ type: "spring" as const, stiffness: 280, damping: 22 }}
+              className="mb-5 rounded-2xl overflow-hidden"
+              style={{ background: "rgba(52,211,153,0.1)", border: "1px solid rgba(52,211,153,0.25)", boxShadow: "0 4px 20px rgba(52,211,153,0.12)" }}
+            >
+              <div className="px-4 py-3.5 flex items-center gap-3">
+                {/* Chibi or check icon */}
+                {enneagramType > 0 ? (
+                  <div className="shrink-0">
+                    <ChibiSprite type={enneagramType} instinct={instinct} state="happy" size={40} />
+                  </div>
+                ) : (
+                  <div className="w-9 h-9 rounded-xl flex items-center justify-center shrink-0" style={{ background: "rgba(52,211,153,0.2)" }}>
+                    <CheckCircle className="w-5 h-5" style={{ color: "#34d399" }} />
+                  </div>
+                )}
+
+                <div className="flex-1 min-w-0">
+                  <p className="text-sm font-bold leading-tight" style={{ color: "#34d399" }}>
+                    Practice complete!
+                  </p>
+                  <p className="text-xs mt-0.5" style={{ color: "rgba(52,211,153,0.75)" }}>
+                    Share your streak and earn{" "}
+                    <span className="font-bold text-emerald-300">+10 tokens</span>
+                  </p>
+                </div>
+
+                {/* Share button */}
+                <button
+                  onClick={dailyShareHook.share}
+                  disabled={dailyShareHook.isSharing}
+                  className="shrink-0 flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold text-white transition-all active:scale-95 disabled:opacity-60"
+                  style={{ background: "linear-gradient(135deg, #10b981, #059669)", boxShadow: "0 2px 10px rgba(16,185,129,0.35)" }}
+                >
+                  {dailyShareHook.isVerified ? (
+                    <><Zap className="w-3.5 h-3.5" />+10t!</>
+                  ) : dailyShareHook.isSharing ? (
+                    "..."
+                  ) : (
+                    <><Share2 className="w-3.5 h-3.5" />Share</>
+                  )}
+                </button>
+
+                {/* Dismiss */}
+                <button
+                  onClick={() => {
+                    setShareDismissed(true);
+                    try { localStorage.setItem(DAILY_SHARE_DISMISS_KEY, "1"); } catch {}
+                  }}
+                  className="shrink-0 ml-1"
+                  style={{ color: "rgba(52,211,153,0.5)" }}
+                >
+                  <X className="w-4 h-4" />
+                </button>
+              </div>
+
+              {/* Token awarded confirmation */}
+              <AnimatePresence>
+                {dailyShareHook.isVerified && (
+                  <motion.div
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{ height: "auto", opacity: 1 }}
+                    exit={{ height: 0, opacity: 0 }}
+                    className="px-4 pb-3 flex items-center gap-2"
+                  >
+                    <Zap className="w-3.5 h-3.5 text-amber-400" />
+                    <span className="text-xs font-bold text-amber-300">+10 tokens earned!</span>
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </motion.div>
           )}
         </AnimatePresence>

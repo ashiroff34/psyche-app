@@ -731,33 +731,38 @@ export default function CompatibilityPage() {
         files: [file],
       };
 
+      let shared = false;
       if (navigator.canShare && navigator.canShare(shareData)) {
         await navigator.share(shareData);
+        shared = true; // resolved = OS-confirmed share
       } else if (navigator.share) {
         await navigator.share({
           title: shareData.title,
           text: shareData.text,
           url: "https://thyself.app",
         });
+        shared = true;
       } else {
-        // Download fallback
+        // Download fallback (no share API, so no verification possible)
         const a = document.createElement("a");
         a.href = dataUrl;
         a.download = "thyself-compatibility.png";
         a.click();
       }
 
-      awardShareTokens();
+      // Only award tokens when navigator.share() actually resolved
+      if (shared) awardShareTokens();
     } catch (err: unknown) {
-      // User cancelled share. that's fine, still try download fallback if it's not an abort
-      if (err instanceof Error && err.name !== "AbortError") {
+      const isAbort = err instanceof Error && err.name === "AbortError";
+      // AbortError = user cancelled share sheet. No tokens.
+      if (!isAbort) {
         try {
           const dataUrl = await toPng(cardRef.current, { cacheBust: true, pixelRatio: 2 });
           const a = document.createElement("a");
           a.href = dataUrl;
           a.download = "thyself-compatibility.png";
           a.click();
-          awardShareTokens();
+          // Download fallback — no token award (unverified);
         } catch {
           // give up silently
         }

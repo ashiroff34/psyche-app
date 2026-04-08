@@ -3,8 +3,9 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence, useMotionValue, useTransform, animate } from "framer-motion";
 import { useDrag } from "@use-gesture/react";
-import { Check, ChevronDown, BookOpen, Zap, SkipForward } from "lucide-react";
+import { Check, ChevronDown, BookOpen, Zap, SkipForward, Share2 } from "lucide-react";
 import ChibiSprite from "@/components/ChibiSprite";
+import { useVerifiedShare } from "@/hooks/useVerifiedShare";
 
 // ─── Quiz save/resume key ─────────────────────────────────────────────────────
 const QUIZ_SAVE_KEY = "psyche-quiz-progress-quick";
@@ -625,6 +626,17 @@ export default function QuickTypeAssessment({
     } catch { return 0; }
   });
 
+  // ── Share hook for result screen (+20 tokens) ─────────────────────────────
+  const resultShareHook = useVerifiedShare({
+    shareId: `quiz-result-${result?.type ?? 0}`,
+    tokensPerShare: 20,
+    title: `I'm a Type ${result?.type ?? ""} on the Enneagram`,
+    text: result
+      ? `I just took the Thyself quiz and discovered I'm a ${typeNames[result.type]}. Know thyself at thyself.app`
+      : "Know thyself. thyself.app",
+    url: "https://thyself.app",
+  });
+
   // ── Persist progress to localStorage on every question advance ───────────
   useEffect(() => {
     if (phase === "result" || phase === "subtype") {
@@ -757,8 +769,46 @@ export default function QuickTypeAssessment({
             </div>
           )}
 
+          {/* Share result for tokens */}
+          <motion.div
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.6 }}
+            className="mb-4 rounded-2xl px-4 py-3 flex items-center gap-3"
+            style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.09)" }}
+          >
+            <div className="flex-1 min-w-0 text-left">
+              <p className="text-xs font-semibold leading-tight" style={{ color: "rgba(255,255,255,0.7)" }}>
+                Share your type
+              </p>
+              <p className="text-xs mt-0.5" style={{ color: "rgba(255,255,255,0.35)" }}>
+                {resultShareHook.isVerified
+                  ? "+20 tokens earned!"
+                  : resultShareHook.canEarn
+                    ? "earn +20 tokens"
+                    : "already earned today"}
+              </p>
+            </div>
+            <button
+              onClick={resultShareHook.share}
+              disabled={resultShareHook.isSharing}
+              className="shrink-0 flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold text-white transition-all active:scale-95 disabled:opacity-60"
+              style={{
+                background: resultShareHook.isVerified
+                  ? "linear-gradient(135deg, #fbbf24, #f97316)"
+                  : `linear-gradient(135deg, ${typeColors[result.type]}, ${typeColors[result.type]}aa)`,
+              }}
+            >
+              {resultShareHook.isVerified ? (
+                <><Zap className="w-3.5 h-3.5" />+20t!</>
+              ) : (
+                <><Share2 className="w-3.5 h-3.5" />Share</>
+              )}
+            </button>
+          </motion.div>
+
           <p className="text-xs mb-5" style={{ color: "rgba(255,255,255,0.35)" }}>
-            Choose your instinct on the next screen to unlock your personalized avatar ↓
+            Choose your instinct on the next screen to unlock your personalized avatar
           </p>
 
           <button
@@ -767,7 +817,7 @@ export default function QuickTypeAssessment({
             style={{ background: `linear-gradient(135deg, ${typeColors[result.type]}, ${typeColors[result.type]}aa)` }}
           >
             <Check className="w-4 h-4" />
-            Unlock my avatar →
+            Unlock my avatar
           </button>
         </motion.div>
       </motion.div>

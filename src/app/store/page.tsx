@@ -290,6 +290,41 @@ function GrowthPathSection({ tokenBalance }: { tokenBalance: number | null }) {
   );
 }
 
+// ─── Checkout helper ─────────────────────────────────────────────────────────
+
+function getOrCreateDeviceId(): string {
+  try {
+    const KEY = "psyche-device-id";
+    let id = localStorage.getItem(KEY);
+    if (!id) { id = crypto.randomUUID(); localStorage.setItem(KEY, id); }
+    return id;
+  } catch { return "anon"; }
+}
+
+async function startCheckout(packId: string, setPurchaseToast: (m: string | null) => void) {
+  try {
+    const userId = getOrCreateDeviceId();
+    const res = await fetch("/api/checkout", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ packId, userId }),
+    });
+    const data = await res.json() as { url?: string; error?: string };
+    if (data.url) {
+      window.location.href = data.url;
+    } else {
+      // Stripe not configured yet (no price IDs) — show friendly notice
+      setPurchaseToast(data.error?.includes("not configured")
+        ? "Payment coming soon! Check back shortly."
+        : (data.error ?? "Something went wrong. Please try again."));
+      setTimeout(() => setPurchaseToast(null), 3500);
+    }
+  } catch {
+    setPurchaseToast("Could not connect to payment server. Please try again.");
+    setTimeout(() => setPurchaseToast(null), 3500);
+  }
+}
+
 // ─── Main Component ───────────────────────────────────────────────────────────
 
 export default function StorePage() {
@@ -298,6 +333,7 @@ export default function StorePage() {
   const [tokenBalance, setTokenBalance] = useState<number | null>(null);
   const [mounted, setMounted] = useState(false);
   const [proUnlocked, setProUnlocked] = useState(false);
+  const [checkingOut, setCheckingOut] = useState<string | null>(null);
 
   useEffect(() => {
     try {
@@ -309,21 +345,29 @@ export default function StorePage() {
       setTokenBalance(0);
     }
     setMounted(true);
+
+    // Show cancelled notice if Stripe redirected back with ?cancelled=1
+    if (typeof window !== "undefined" && window.location.search.includes("cancelled=1")) {
+      setPurchaseToast("Purchase cancelled. No charge was made.");
+      setTimeout(() => setPurchaseToast(null), 3500);
+      // Clean up the URL param
+      const url = new URL(window.location.href);
+      url.searchParams.delete("cancelled");
+      window.history.replaceState({}, "", url.toString());
+    }
   }, []);
 
-  const handleProPurchase = () => {
-    try {
-      localStorage.setItem(PRO_UNLOCK_KEY, "true");
-      // Also give Pro's 500 monthly bonus tokens
-      const raw = localStorage.getItem("psyche-game-state");
-      const gs = raw ? JSON.parse(raw) : {};
-      gs.tokens = (gs.tokens ?? 0) + 500;
-      localStorage.setItem("psyche-game-state", JSON.stringify(gs));
-      setProUnlocked(true);
-      setTokenBalance((gs.tokens as number) ?? 0);
-      setPurchaseToast("Thyself Pro unlocked! Inner Work Lab is now open.");
-      setTimeout(() => setPurchaseToast(null), 3500);
-    } catch {}
+  const handleTokenPackPurchase = async (packId: string) => {
+    setCheckingOut(packId);
+    await startCheckout(packId, setPurchaseToast);
+    setCheckingOut(null);
+  };
+
+  const handleProPurchase = async () => {
+    const packId = billingCycle === "monthly" ? "pro_monthly" : "pro_annual";
+    setCheckingOut(packId);
+    await startCheckout(packId, setPurchaseToast);
+    setCheckingOut(null);
   };
 
   if (!mounted) return (
@@ -516,14 +560,14 @@ export default function StorePage() {
                 <div className="flex items-center justify-between mt-auto pt-3" style={{ borderTop: "1px solid rgba(255,255,255,0.08)" }}>
                   <span className="text-xl font-bold" style={{ color: "rgba(255,255,255,0.9)" }}>{pack.price}</span>
                   <button
-                    onClick={() => {
-                      setPurchaseToast(`${pack.name}, payment integration coming soon!`);
-                      setTimeout(() => setPurchaseToast(null), 3000);
-                    }}
-                    className={`px-5 py-2 rounded-xl bg-gradient-to-r ${pack.color} text-white text-sm font-bold transition-all active:scale-95`}
-                    style={{ boxShadow: "0 4px 12px rgba(0,0,0,0.3)" }}
+                    onClick={() => handleTokenPackPurchase(pack.id)}
+                    disabled={checkingOut === pack.id}
+                    className={`px-5 py-2 rounded-xl bg-gradient-to-r ${pack.color} text-white text-sm font-bold transition-all active:scale-95 disabled:opacity-70`}
+                    style={{ boxShadow: "0 4px 12px rgba(0,0,0,0.3)", minWidth: 64 }}
                   >
-                    Buy
+                    {checkingOut === pack.id ? (
+                      <span className="flex items-center gap-1.5"><Gamepad2 className="w-3.5 h-3.5 animate-spin" />...</span>
+                    ) : "Buy"}
                   </button>
                 </div>
               </motion.div>
@@ -617,11 +661,17 @@ export default function StorePage() {
                 </div>
                 <button
                   onClick={handleProPurchase}
-                  disabled={proUnlocked}
+                  disabled={proUnlocked || checkingOut === "pro_monthly" || checkingOut === "pro_annual"}
                   className="w-full sm:w-auto px-8 py-3.5 rounded-2xl text-white font-bold text-base transition-all active:scale-[0.97] disabled:opacity-60"
                   style={{ background: "linear-gradient(135deg, #6366f1, #7c3aed)", boxShadow: "0 8px 24px rgba(99,102,241,0.4)" }}
                 >
-                  {proUnlocked ? "✓ Pro Active" : billingCycle === "monthly" ? "Subscribe Monthly" : "Subscribe Annually (Save 33%)"}
+                  {proUnlocked
+                    ? "Pro Active"
+                    : (checkingOut === "pro_monthly" || checkingOut === "pro_annual")
+                      ? "Redirecting..."
+                      : billingCycle === "monthly"
+                        ? "Subscribe Monthly"
+                        : "Subscribe Annually (Save 33%)"}
                 </button>
               </div>
             </div>
