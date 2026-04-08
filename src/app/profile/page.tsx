@@ -23,6 +23,7 @@ import {
   RefreshCw,
   Wand2,
   Flame,
+  Trophy,
 } from "lucide-react";
 import { cognitiveFunctions, mbtiTypes } from "@/data/cognitive-functions";
 import { enneagramTypes } from "@/data/enneagram";
@@ -1842,6 +1843,9 @@ export default function ProfilePage() {
         {/* Referral Block */}
         {hasProfile && !isEditing && <ReferralBlock />}
 
+        {/* Referral Leaderboard */}
+        {hasProfile && !isEditing && <ReferralLeaderboard />}
+
         {/* Next Step guidance */}
         {hasProfile && !isEditing && (
           <NextStepBanner
@@ -2090,5 +2094,182 @@ function ReferralBlock() {
         )}
       </AnimatePresence>
     </div>
+  );
+}
+
+// ─── Referral Leaderboard ─────────────────────────────────────────────────────
+
+const TYPE_COLORS: Record<string, string> = {
+  "1": "#a78bfa",
+  "2": "#f472b6",
+  "3": "#fbbf24",
+  "4": "#34d399",
+  "5": "#60a5fa",
+  "6": "#fb923c",
+  "7": "#4ade80",
+  "8": "#f87171",
+  "9": "#94a3b8",
+};
+
+const EXTENDED_MILESTONES = [
+  { count: 3, reward: "Exclusive chibi variant", icon: "🎭" },
+  { count: 5, reward: "50 bonus tokens", icon: "⚡" },
+  { count: 10, reward: "Discord Philosopher role", icon: "🔮" },
+  { count: 25, reward: "Lifetime Pro unlock", icon: "♾️" },
+];
+
+function ReferralLeaderboard() {
+  const [shareCount, setShareCount] = useState(0);
+
+  useEffect(() => {
+    try {
+      const stored = parseInt(localStorage.getItem("psyche-referral-share-count") ?? "0", 10);
+      setShareCount(isNaN(stored) ? 0 : stored);
+    } catch {
+      setShareCount(0);
+    }
+  }, []);
+
+  // Seed fixed mock entries (not the user)
+  const mockEntries = [
+    { label: "Type 3", typeKey: "3", shares: 47 },
+    { label: "Type 7", typeKey: "7", shares: 31 },
+    { label: "Type 8", typeKey: "8", shares: 28 },
+    { label: "Type 2", typeKey: "2", shares: 19 },
+  ];
+
+  // Build leaderboard: insert the user at correct rank position
+  const userEntry = { label: "You", typeKey: "you", shares: shareCount, isUser: true };
+  const combined = [
+    ...mockEntries.map((e) => ({ ...e, isUser: false })),
+    userEntry,
+  ].sort((a, b) => b.shares - a.shares);
+
+  const top5 = combined.slice(0, 5);
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 8 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.35, ease: "easeOut" }}
+      className="mt-4 p-4 rounded-2xl"
+      style={{
+        background: "rgba(15,10,30,0.6)",
+        border: "1px solid rgba(245,158,11,0.14)",
+        backdropFilter: "blur(12px)",
+      }}
+    >
+      {/* Header */}
+      <div className="flex items-center gap-2 mb-3">
+        <Trophy className="w-4 h-4 text-amber-400 shrink-0" />
+        <span className="text-sm font-bold text-white">Top Referrers</span>
+      </div>
+
+      {/* Leaderboard rows */}
+      <div className="flex flex-col gap-1.5 mb-4">
+        {top5.map((entry, idx) => {
+          const rank = idx + 1;
+          const rankColor =
+            rank === 1 ? "#fbbf24" : rank === 2 ? "#cbd5e1" : rank === 3 ? "#fb923c" : "rgba(255,255,255,0.35)";
+          const dotColor = entry.isUser ? "#fbbf24" : (TYPE_COLORS[entry.typeKey] ?? "rgba(255,255,255,0.4)");
+
+          return (
+            <motion.div
+              key={entry.label + idx}
+              initial={{ opacity: 0, x: -6 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: idx * 0.06, duration: 0.28, ease: "easeOut" }}
+              className="flex items-center gap-3 px-3 py-2 rounded-xl"
+              style={{
+                background: entry.isUser
+                  ? "rgba(245,158,11,0.09)"
+                  : "rgba(255,255,255,0.03)",
+                border: entry.isUser
+                  ? "1px solid rgba(245,158,11,0.35)"
+                  : "1px solid rgba(255,255,255,0.06)",
+              }}
+            >
+              {/* Rank */}
+              <span
+                className="text-xs font-bold w-5 text-center shrink-0"
+                style={{ color: rankColor }}
+              >
+                #{rank}
+              </span>
+
+              {/* Type dot */}
+              <div
+                className="w-6 h-6 rounded-full flex items-center justify-center shrink-0 text-xs font-bold"
+                style={{
+                  background: `${dotColor}22`,
+                  border: `1.5px solid ${dotColor}55`,
+                  color: dotColor,
+                }}
+              >
+                {entry.isUser ? "✦" : entry.typeKey}
+              </div>
+
+              {/* Label */}
+              <span
+                className="flex-1 text-xs font-semibold"
+                style={{ color: entry.isUser ? "#fbbf24" : "rgba(255,255,255,0.75)" }}
+              >
+                {entry.label}
+                {entry.isUser && (
+                  <span className="ml-1.5 text-[10px] font-normal" style={{ color: "rgba(251,191,36,0.55)" }}>
+                    (you)
+                  </span>
+                )}
+              </span>
+
+              {/* Share count */}
+              <span
+                className="text-xs font-bold shrink-0"
+                style={{ color: entry.isUser ? "#fbbf24" : "rgba(255,255,255,0.4)" }}
+              >
+                {entry.shares} shares
+              </span>
+            </motion.div>
+          );
+        })}
+      </div>
+
+      {/* Extended milestone tiers */}
+      <div className="mb-3">
+        <p className="text-[10px] font-bold uppercase tracking-wider mb-2" style={{ color: "rgba(245,158,11,0.5)" }}>
+          Milestones
+        </p>
+        <div className="flex flex-col gap-1">
+          {EXTENDED_MILESTONES.map((m) => {
+            const unlocked = shareCount >= m.count;
+            return (
+              <div key={m.count} className="flex items-center gap-2.5">
+                <span className="text-sm">{m.icon}</span>
+                <span
+                  className="flex-1 text-xs"
+                  style={{ color: unlocked ? "rgba(255,255,255,0.75)" : "rgba(255,255,255,0.32)" }}
+                >
+                  {m.reward}
+                </span>
+                <span className="text-[10px] font-bold" style={{ color: unlocked ? "#34d399" : "rgba(255,255,255,0.2)" }}>
+                  {m.count}×
+                </span>
+                <span
+                  className="text-xs shrink-0"
+                  style={{ color: unlocked ? "#34d399" : "rgba(255,255,255,0.2)" }}
+                >
+                  {unlocked ? "✓" : "🔒"}
+                </span>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* Footer note */}
+      <p className="text-[10px] text-center leading-relaxed" style={{ color: "rgba(255,255,255,0.25)" }}>
+        Leaderboard resets monthly · Top referrer gets 500 bonus tokens
+      </p>
+    </motion.div>
   );
 }
