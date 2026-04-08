@@ -1935,7 +1935,8 @@ function ReferralBlock() {
     try {
       await navigator.clipboard.writeText(link);
       setCopied(true);
-      recordShare();
+      // Clipboard copy is not verified — no token award.
+      // Token is awarded only when navigator.share() resolves (see nativeShare above).
       setTimeout(() => setCopied(false), 2200);
     } catch {}
   };
@@ -1945,25 +1946,36 @@ function ReferralBlock() {
     try {
       await navigator.clipboard.writeText(discordText);
       setDiscordCopied(true);
-      recordShare();
+      // Clipboard copy is not verified — no token award.
       setTimeout(() => setDiscordCopied(false), 2200);
     } catch {}
   };
 
   const nativeShare = async () => {
+    if (!navigator.share) {
+      await copyLink();
+      return;
+    }
     try {
-      if (navigator.share) {
-        await navigator.share({
-          title: "Discover your Enneagram type. free",
-          text: "I use Thyself to understand myself better. Find your Enneagram type, instinct, tritype, and cognitive style. it's free.",
-          url: link,
-        });
-        recordShare();
-      } else {
+      await navigator.share({
+        title: "Discover your Enneagram type. free",
+        text: "I use Thyself to understand myself better. Find your Enneagram type, instinct, tritype, and cognitive style. it's free.",
+        url: link,
+      });
+      // navigator.share() resolved — OS confirmed actual share happened
+      recordShare();
+    } catch (err: unknown) {
+      // AbortError = user cancelled share sheet. No tokens.
+      const isAbort = err instanceof Error && (err.name === "AbortError" || err.message?.includes("cancel"));
+      if (!isAbort) {
+        // Unexpected error — fall back to copy
         await copyLink();
       }
-    } catch {}
+    }
   };
+
+  // Clipboard copy never awards tokens — unverifiable.
+  // We show a "Share to confirm and earn tokens" nudge after copy.
 
   const milestoneFilled = Math.min(shareCount, REFERRAL_MILESTONE_COUNT);
 
@@ -2048,17 +2060,19 @@ function ReferralBlock() {
 
       {/* Share buttons row */}
       <div className="flex gap-2 mb-0">
-        {/* Native share */}
+        {/* Native share — the verified path, tokens awarded here */}
         <button
           onClick={nativeShare}
           className="flex-1 py-2.5 rounded-xl text-xs font-bold flex items-center justify-center gap-2 transition-all active:scale-95"
           style={{
-            background: "linear-gradient(135deg, rgba(124,58,237,0.25), rgba(217,70,239,0.25))",
-            border: "1px solid rgba(139,92,246,0.3)",
-            color: "rgba(167,139,250,0.9)",
+            background: "linear-gradient(135deg, rgba(124,58,237,0.3), rgba(217,70,239,0.3))",
+            border: "1px solid rgba(139,92,246,0.4)",
+            color: "rgba(200,180,255,0.95)",
+            boxShadow: "0 0 16px rgba(124,58,237,0.2)",
           }}
         >
-          Share invite link
+          <Zap className="w-3 h-3 text-amber-400" />
+          Share and earn tokens
         </button>
 
         {/* Discord copy */}
@@ -2073,9 +2087,24 @@ function ReferralBlock() {
           }}
           title="Copy Discord-formatted message"
         >
-          {discordCopied ? "✓ Copied" : "Discord"}
+          {discordCopied ? "Copied" : "Discord"}
         </button>
       </div>
+
+      {/* After clipboard copy: nudge to use the share button for tokens */}
+      <AnimatePresence>
+        {copied && (
+          <motion.p
+            initial={{ opacity: 0, y: 4 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0 }}
+            className="text-center text-xs mt-2"
+            style={{ color: "rgba(245,158,11,0.7)" }}
+          >
+            Link copied. Use the share button above to confirm and earn +{REFERRAL_SHARE_TOKENS} tokens.
+          </motion.p>
+        )}
+      </AnimatePresence>
 
       {/* Token awarded confirmation */}
       <AnimatePresence>

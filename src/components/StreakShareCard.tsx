@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Flame, X, Share2, Copy, Check, Zap, Crown } from "lucide-react";
 import { assetPath } from "@/lib/assetPath";
 import ChibiSprite from "@/components/ChibiSprite";
+import { useVerifiedShare } from "@/hooks/useVerifiedShare";
 
 interface Props {
   streak: number;
@@ -52,7 +53,7 @@ export default function StreakShareCard({
   onClose,
 }: Props) {
   const [copied, setCopied] = useState(false);
-  const [shared, setShared] = useState(false);
+  const [tokenToast, setTokenToast] = useState(0);
 
   const typeColor = enneagramType ? TYPE_COLORS[enneagramType] : null;
   const gradFrom = typeColor?.from ?? "#6366f1";
@@ -61,9 +62,9 @@ export default function StreakShareCard({
   const leagueLabel = LEAGUE_LABELS[league] ?? league;
 
   const shareText = [
-    `★ ${streak}-day streak on Thyself!`,
+    `${streak}-day streak on Thyself!`,
     cognitiveType && enneagramType
-      ? `I'm a ${cognitiveType} · Type ${enneagramType}, Level ${level} ${leagueLabel} league`
+      ? `${cognitiveType}, Type ${enneagramType}, Level ${level} ${leagueLabel}`
       : `Level ${level} in the ${leagueLabel} league`,
     `${totalXP.toLocaleString()} XP earned`,
     "",
@@ -73,27 +74,28 @@ export default function StreakShareCard({
     .filter(Boolean)
     .join("\n");
 
-  const handleShare = async () => {
-    if (navigator.share) {
-      try {
-        await navigator.share({ text: shareText, url: "https://thyself.app" });
-        setShared(true);
-        setTimeout(() => setShared(false), 2000);
-      } catch {
-        // user cancelled, do nothing
+  const { share: verifiedShare, copy: verifiedCopy, status: shareStatus, tokensAwarded } = useVerifiedShare({
+    shareId: `streak-card-${streak}`,
+    tokensPerShare: 15,
+    title: `${streak}-day streak on Thyself!`,
+    text: shareText,
+    url: "https://thyself.app",
+    onVerified: (t) => {
+      if (t > 0) {
+        setTokenToast(t);
+        setTimeout(() => setTokenToast(0), 2800);
       }
-    } else {
-      handleCopy();
-    }
-  };
-
-  const handleCopy = async () => {
-    try {
-      await navigator.clipboard.writeText(shareText);
+    },
+    onCopy: () => {
       setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    } catch {}
-  };
+      setTimeout(() => setCopied(false), 2200);
+    },
+  });
+
+  void tokensAwarded; // used via onVerified callback
+
+  const handleShare = verifiedShare;
+  const handleCopy = verifiedCopy;
 
   return (
     <AnimatePresence>
@@ -226,12 +228,16 @@ export default function StreakShareCard({
           <div className="flex gap-3 mt-4">
             <button
               onClick={handleShare}
-              className="flex-1 flex items-center justify-center gap-2 py-3.5 rounded-2xl bg-white text-slate-800 font-semibold text-sm shadow-lg hover:shadow-xl active:scale-95 transition-all"
+              className="flex-1 flex items-center justify-center gap-2 py-3.5 rounded-2xl font-semibold text-sm shadow-lg hover:shadow-xl active:scale-95 transition-all"
+              style={{ background: "#fff", color: "#1e1b4b" }}
             >
-              {shared ? (
+              {shareStatus === "verified" ? (
                 <><Check className="w-4 h-4 text-emerald-500" /> Shared!</>
               ) : (
-                <><Share2 className="w-4 h-4" /> Share</>
+                <>
+                  <Share2 className="w-4 h-4" /> Share
+                  <span className="text-[10px] font-bold px-1.5 py-0.5 rounded-full" style={{ background: "rgba(245,158,11,0.15)", color: "#b45309" }}>+15t</span>
+                </>
               )}
             </button>
             <button
@@ -246,9 +252,26 @@ export default function StreakShareCard({
             </button>
           </div>
 
-          <p className="text-center text-white/40 text-xs mt-3">
-            Screenshot this card to share on Instagram or Stories
-          </p>
+          {/* Token award toast */}
+          <AnimatePresence>
+            {tokenToast > 0 && (
+              <motion.div
+                initial={{ opacity: 0, y: 6 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -4 }}
+                className="flex items-center justify-center gap-1.5 mt-3"
+              >
+                <Zap className="w-3.5 h-3.5 text-amber-400" />
+                <span className="text-xs font-bold text-amber-300">+{tokenToast} tokens earned for sharing!</span>
+              </motion.div>
+            )}
+          </AnimatePresence>
+
+          {!tokenToast && (
+            <p className="text-center text-white/40 text-xs mt-3">
+              Screenshot this card to share on Instagram or Stories
+            </p>
+          )}
         </motion.div>
       </motion.div>
     </AnimatePresence>
