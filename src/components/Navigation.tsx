@@ -21,6 +21,7 @@ import {
   MoreHorizontal,
   Heart,
   MessageCircle,
+  ShoppingBag,
 } from "lucide-react";
 import OuroborosLogo from "@/components/OuroborosLogo";
 import SearchComponent from "@/components/Search";
@@ -33,11 +34,11 @@ import SearchComponent from "@/components/Search";
 // Labels match the BRIEFING redesign: Know / Learn / Practice / Explore / Grow / You
 
 const WHEEL_SPOKES = [
-  { href: "/assessments", label: "Know",     icon: Target,     color: "#8b5cf6" },
-  { href: "/daily",       label: "Practice", icon: Flame,      color: "#d946ef" },
-  { href: "/enneagram",   label: "Explore",  icon: Compass,    color: "#0ea5e9" },
-  { href: "/journal",     label: "Grow",     icon: Sprout,     color: "#10b981" },
-  { href: "/profile",     label: "You",      icon: UserCircle, color: "#a78bfa" },
+  { href: "/assessments", label: "Know",     icon: Target,      color: "#8b5cf6" },
+  { href: "/daily",       label: "Practice", icon: Flame,       color: "#d946ef" },
+  { href: "/enneagram",   label: "Explore",  icon: Compass,     color: "#0ea5e9" },
+  { href: "/store",       label: "Store",    icon: ShoppingBag, color: "#fbbf24" },
+  { href: "/profile",     label: "You",      icon: UserCircle,  color: "#a78bfa" },
 ] as const;
 
 
@@ -45,9 +46,11 @@ const WHEEL_SPOKES = [
 function BottomTabBar({
   pathname,
   onNavClick,
+  tokenCount,
 }: {
   pathname: string;
   onNavClick: (e: React.MouseEvent, href: string) => void;
+  tokenCount: number;
 }) {
   const router = useRouter();
 
@@ -113,6 +116,15 @@ function BottomTabBar({
                     height: isPractice ? "1.5rem" : "1.25rem",
                   }}
                 />
+                {/* Token count badge on Store tab */}
+                {spoke.href === "/store" && tokenCount >= 50 && !isActive && (
+                  <span
+                    className="absolute -top-1 -right-1 min-w-[16px] h-4 px-1 rounded-full text-[9px] font-black flex items-center justify-center animate-pulse"
+                    style={{ background: "#fbbf24", color: "#000", lineHeight: 1 }}
+                  >
+                    {tokenCount >= 1000 ? `${Math.floor(tokenCount / 1000)}k` : tokenCount}
+                  </span>
+                )}
               </div>
 
               {/* Label */}
@@ -322,7 +334,7 @@ function SwipeNavigator() {
   const touchStartX = useRef(0);
   const touchStartY = useRef(0);
 
-  const tabOrder = ["/", "/daily", "/avatar", "/store", "/profile"];
+  const tabOrder = ["/assessments", "/daily", "/enneagram", "/store", "/profile"];
 
   useEffect(() => {
     const onTouchStart = (e: TouchEvent) => {
@@ -377,19 +389,28 @@ export default function Navigation() {
   const [hasPrevPage, setHasPrevPage] = useState(false);
   const [storeUnlocked, setStoreUnlocked] = useState(false);
   const [storeLockToast, setStoreLockToast] = useState(false);
+  const [tokenCount, setTokenCount] = useState(0);
 
   useEffect(() => {
-    try {
-      const raw = localStorage.getItem("psyche-game-state");
-      if (!raw) return;
-      const gs = JSON.parse(raw);
-      const tokens = (gs.tokens as number) ?? 0;
-      let days = 999;
-      if (gs.accountCreated) {
-        days = Math.floor((Date.now() - new Date(gs.accountCreated).getTime()) / 86400000);
-      }
-      setStoreUnlocked(tokens > 0 || days >= 2);
-    } catch {}
+    function readTokens() {
+      try {
+        const raw = localStorage.getItem("psyche-game-state");
+        if (!raw) return;
+        const gs = JSON.parse(raw);
+        const tokens = (gs.tokens as number) ?? 0;
+        setTokenCount(tokens);
+        let days = 999;
+        if (gs.accountCreated) {
+          days = Math.floor((Date.now() - new Date(gs.accountCreated).getTime()) / 86400000);
+        }
+        setStoreUnlocked(tokens > 0 || days >= 2);
+      } catch {}
+    }
+    readTokens();
+    // Re-read whenever game state changes (e.g. after earning tokens)
+    const handler = () => readTokens();
+    window.addEventListener("psyche-profile-change", handler);
+    return () => window.removeEventListener("psyche-profile-change", handler);
   }, [pathname]);
 
   // Store page history in localStorage so back button always works
@@ -475,14 +496,24 @@ export default function Navigation() {
             <div className="flex items-center gap-1.5">
               <Link
                 href="/store"
-                className="flex items-center gap-1.5 px-3 py-1.5 rounded-full transition-all"
+                className="relative flex items-center gap-1.5 px-3 py-1.5 rounded-full transition-all active:scale-95"
                 style={{
-                  background: "rgba(251,191,36,0.12)",
-                  border: "1px solid rgba(251,191,36,0.28)",
+                  background: tokenCount >= 50 ? "rgba(251,191,36,0.18)" : "rgba(251,191,36,0.09)",
+                  border: tokenCount >= 50 ? "1px solid rgba(251,191,36,0.45)" : "1px solid rgba(251,191,36,0.22)",
+                  boxShadow: tokenCount >= 100 ? "0 0 14px rgba(251,191,36,0.25)" : "none",
                 }}
               >
                 <Coins className="w-3.5 h-3.5" style={{ color: "#fbbf24" }} />
-                <span className="text-xs font-bold" style={{ color: "#fbbf24" }}>Store</span>
+                <span className="text-xs font-bold tabular-nums" style={{ color: "#fbbf24" }}>
+                  {tokenCount > 0 ? tokenCount.toLocaleString() : "Shop"}
+                </span>
+                {/* Pulsing badge when enough to spend */}
+                {tokenCount >= 50 && (
+                  <span
+                    className="absolute -top-1 -right-1 w-2.5 h-2.5 rounded-full animate-pulse"
+                    style={{ background: "#fbbf24", boxShadow: "0 0 6px rgba(251,191,36,0.8)" }}
+                  />
+                )}
               </Link>
               <SearchComponent />
               <MoreMenu pathname={pathname} />
@@ -496,6 +527,7 @@ export default function Navigation() {
         <BottomTabBar
           pathname={pathname}
           onNavClick={handleNavClick}
+          tokenCount={tokenCount}
         />
       )}
 
