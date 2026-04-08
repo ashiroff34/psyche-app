@@ -222,7 +222,7 @@ export default function HubView({
         background: "#0f0a1e",
       }}
     >
-      <div className="max-w-2xl mx-auto px-4 pt-10 pb-32">
+      <div className="max-w-2xl mx-auto px-4 pt-20 pb-32">
 
         {/* ── Endowed progress banner ── */}
         <AnimatePresence>
@@ -245,7 +245,7 @@ export default function HubView({
           initial={{ opacity: 1, scale: 1 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.1 }}
-          className="flex flex-col items-center mb-6"
+          className="flex flex-col items-center mb-12"
         >
           <div className="relative">
             {/* Outer glow */}

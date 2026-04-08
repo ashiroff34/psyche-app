@@ -1,9 +1,10 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
-import { Sparkles, ChevronRight, RefreshCw, Check, ArrowRight, Leaf, Lock, Zap } from "lucide-react";
+import { Sparkles, ChevronRight, RefreshCw, Check, ArrowRight, ArrowLeft, Leaf, Lock, Zap } from "lucide-react";
 import { enneagramTypes } from "@/data/enneagram";
 import PetCompanion from "@/components/PetCompanion";
 
@@ -155,6 +156,7 @@ function EnneagramGrowthGate({ children }: { children: React.ReactNode }) {
 // ─── Component ────────────────────────────────────────────────────────────────
 
 export default function GrowthPage() {
+  const router = useRouter();
   const [userType, setUserType] = useState<number | null>(null);
   const [selectedType, setSelectedType] = useState<number | null>(null);
   const [promptIdx, setPromptIdx] = useState(0);
@@ -205,6 +207,14 @@ export default function GrowthPage() {
     <EnneagramGrowthGate>
     <div className="min-h-screen px-4 py-10" style={{ background: "#0f0a1e" }}>
       <div className="max-w-2xl mx-auto">
+        {/* Back button */}
+        <button
+          onClick={() => router.back()}
+          className="flex items-center gap-1 text-sm mb-4 transition-colors"
+          style={{ color: "rgba(255,255,255,0.35)" }}
+        >
+          <ArrowLeft className="w-4 h-4" /> Back
+        </button>
         {/* Header */}
         <div className="text-center mb-8">
           <div className={`inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-gradient-to-br ${gradient} shadow-lg mb-4`}>

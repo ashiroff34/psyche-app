@@ -234,14 +234,7 @@ function TypeRevealScreen({
     return () => clearTimeout(t);
   }, []);
 
-  // Auto-advance after 2.5 s if user doesn't tap
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  useEffect(() => {
-    timerRef.current = setTimeout(() => {
-      onContinue();
-    }, 2500);
-    return () => { if (timerRef.current) clearTimeout(timerRef.current); };
-  }, [onContinue]);
 
   const handleContinue = () => {
     if (timerRef.current) clearTimeout(timerRef.current);
@@ -555,10 +548,7 @@ function StepAllSet({
   const typeData = enneagramTypes.find((t) => t.number === result.type);
   const typeColor = typeData?.color ?? "#a78bfa";
 
-  useEffect(() => {
-    const timer = setTimeout(onStart, 3200);
-    return () => clearTimeout(timer);
-  }, [onStart]);
+  // No auto-advance — user must tap to enter the app
 
   return (
     <div
@@ -624,7 +614,7 @@ function StepAllSet({
           className="text-xs"
           style={{ color: "rgba(255,255,255,0.18)" }}
         >
-          Starting automatically...
+          +50 tokens awarded for completing onboarding
         </motion.p>
       </motion.div>
     </div>
@@ -911,11 +901,11 @@ function OnboardingPageInner() {
   // 0=welcome, 1=name, 2=preview, 3=assessment, 4=type reveal, 5=subtype, 6=email gate, 7=all set, 8=manual picker
   const [step, setStep] = useState(0);
   const [displayName, setDisplayName] = useState("");
-  const [selectedSubtype, setSelectedSubtype] = useState<string | null>(null);
   const [assessmentResult, setAssessmentResult] = useState<{
     type: number;
     confidence: number;
     runnerUp: number;
+    instinct?: string;
   } | null>(null);
 
   useEffect(() => {
@@ -951,13 +941,22 @@ function OnboardingPageInner() {
     type: number;
     confidence: number;
     runnerUp: number;
+    instinct?: string;
   }) => {
     setAssessmentResult(result);
+    // Save instinct immediately if selected in quiz
+    if (result.instinct) {
+      try {
+        const raw = localStorage.getItem("psyche-profile");
+        const p = raw ? JSON.parse(raw) : {};
+        localStorage.setItem("psyche-profile", JSON.stringify({ ...p, instinctualStacking: result.instinct }));
+      } catch {}
+    }
     setStep(4); // go to type reveal
   };
 
   const handleRevealContinue = () => {
-    setStep(5); // go to email gate
+    setStep(6); // skip subtype step (now in quiz) → go to email gate
   };
 
   const handleRunnerUpExplore = () => {
@@ -1170,33 +1169,6 @@ function OnboardingPageInner() {
               displayName={displayName}
               onContinue={handleRevealContinue}
               onExploreRunnerUp={handleRunnerUpExplore}
-            />
-          </motion.div>
-        )}
-
-        {/* Step 5: Subtype unlock */}
-        {step === 5 && assessmentResult && (
-          <motion.div
-            key="subtype"
-            initial={{ opacity: 0, x: 40 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -40 }}
-            transition={{ duration: 0.22 }}
-            className="min-h-screen flex items-center justify-center px-4 py-16"
-          >
-            <StepSubtype
-              enneagramType={assessmentResult.type}
-              typeColor={enneagramTypes.find(t => t.number === assessmentResult.type)?.color ?? "#a78bfa"}
-              onNext={(stacking) => {
-                setSelectedSubtype(stacking);
-                try {
-                  const raw = localStorage.getItem("psyche-profile");
-                  const p = raw ? JSON.parse(raw) : {};
-                  localStorage.setItem("psyche-profile", JSON.stringify({ ...p, instinctualStacking: stacking }));
-                } catch {}
-                setStep(6);
-              }}
-              onSkip={() => setStep(6)}
             />
           </motion.div>
         )}

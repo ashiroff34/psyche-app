@@ -320,7 +320,8 @@ export function useProfile() {
             const gsRaw = localStorage.getItem("psyche-game-state");
             if (gsRaw) {
               const gs = JSON.parse(gsRaw);
-              gs.tokens = (gs.tokens ?? 0) + 50;
+              const limitedBonus = localStorage.getItem("psyche-referral-limited-bonus") === "true" ? 100 : 0;
+              gs.tokens = (gs.tokens ?? 0) + 50 + limitedBonus;
               localStorage.setItem("psyche-game-state", JSON.stringify(gs));
             }
           }

@@ -2,9 +2,9 @@
 
 import { useState, useEffect, Suspense } from "react";
 import Link from "next/link";
-import { useSearchParams } from "next/navigation";
+import { useSearchParams, useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronDown, ChevronUp, TrendingUp, TrendingDown, Heart, AlertTriangle, Lightbulb, Feather, Flame, Users, Shield, Zap, Layers, Star, Brain, Eye, Swords, Lock, Sparkles, BookOpen, Info } from "lucide-react";
+import { ChevronDown, ChevronUp, TrendingUp, TrendingDown, Heart, AlertTriangle, Lightbulb, Feather, Flame, Users, Shield, Zap, Layers, Star, Brain, Eye, Swords, Lock, Sparkles, BookOpen, Info, ArrowLeft } from "lucide-react";
 import { enneagramTypes, type EnneagramType } from "@/data/enneagram";
 import { subtypes, instinctualVariants, instinctualStackings } from "@/data/subtypes";
 import { tritypes, tritypeCenters } from "@/data/tritypes";
@@ -785,6 +785,7 @@ function TypeDetail({ type }: { type: EnneagramType }) {
 
 function LearnContent() {
   const searchParams = useSearchParams();
+  const router = useRouter();
   const typeParam = searchParams.get("type");
   const [selectedType, setSelectedType] = useState<number | null>(typeParam ? parseInt(typeParam) : null);
   const [learnTab, setLearnTab] = useState<"types" | "instincts" | "stackings" | "tritypes" | "deepsystems">("types");
@@ -820,6 +821,14 @@ function LearnContent() {
   return (
     <div className="min-h-screen py-12" style={{ background: "#0f0a1e" }}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Back button */}
+        <button
+          onClick={() => router.back()}
+          className="flex items-center gap-1 text-sm mb-4 transition-colors"
+          style={{ color: "rgba(255,255,255,0.35)" }}
+        >
+          <ArrowLeft className="w-4 h-4" /> Back
+        </button>
         <div className="mb-8">
           <div className="flex items-center justify-between flex-wrap gap-4">
             <div>

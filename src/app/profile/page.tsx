@@ -1861,12 +1861,19 @@ export default function ProfilePage() {
 
 const REFERRAL_SHARE_TOKEN_KEY = "psyche-referral-share-rewarded";
 const REFERRAL_SHARE_TOKENS = 25;
+const REFERRAL_SHARE_COUNT_KEY = "psyche-referral-share-count";
+const REFERRAL_MILESTONE_KEY = "psyche-referral-milestone-rewarded";
+const REFERRAL_MILESTONE_COUNT = 5;
+const REFERRAL_MILESTONE_TOKENS = 50;
 
 function ReferralBlock() {
   const [code, setCode] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
-  const [shared, setShared] = useState(false);
+  const [discordCopied, setDiscordCopied] = useState(false);
   const [tokensAwarded, setTokensAwarded] = useState(false);
+  const [shareCount, setShareCount] = useState(0);
+  const [milestoneReached, setMilestoneReached] = useState(false);
+  const [latestAward, setLatestAward] = useState<number | null>(null);
 
   useEffect(() => {
     try {
@@ -1877,6 +1884,8 @@ function ReferralBlock() {
       }
       setCode(c);
       setTokensAwarded(localStorage.getItem(REFERRAL_SHARE_TOKEN_KEY) === "true");
+      setShareCount(parseInt(localStorage.getItem(REFERRAL_SHARE_COUNT_KEY) ?? "0", 10));
+      setMilestoneReached(localStorage.getItem(REFERRAL_MILESTONE_KEY) === "true");
     } catch {
       setCode("THYSELF");
     }
@@ -1884,14 +1893,32 @@ function ReferralBlock() {
 
   const link = `https://thyself.app/r?code=${code ?? "...loading"}`;
 
-  const awardReferralShareTokens = () => {
-    if (tokensAwarded) return;
+  const recordShare = () => {
     try {
+      const newCount = shareCount + 1;
+      setShareCount(newCount);
+      localStorage.setItem(REFERRAL_SHARE_COUNT_KEY, String(newCount));
+
       const gs = JSON.parse(localStorage.getItem("psyche-game-state") || "{}");
-      gs.tokens = (gs.tokens ?? 0) + REFERRAL_SHARE_TOKENS;
+
+      // First share reward
+      if (!tokensAwarded) {
+        gs.tokens = (gs.tokens ?? 0) + REFERRAL_SHARE_TOKENS;
+        localStorage.setItem(REFERRAL_SHARE_TOKEN_KEY, "true");
+        setTokensAwarded(true);
+        setLatestAward(REFERRAL_SHARE_TOKENS);
+      }
+
+      // 5-share milestone
+      if (newCount >= REFERRAL_MILESTONE_COUNT && !milestoneReached) {
+        gs.tokens = (gs.tokens ?? 0) + REFERRAL_MILESTONE_TOKENS;
+        localStorage.setItem(REFERRAL_MILESTONE_KEY, "true");
+        setMilestoneReached(true);
+        setLatestAward(REFERRAL_MILESTONE_TOKENS);
+      }
+
       localStorage.setItem("psyche-game-state", JSON.stringify(gs));
-      localStorage.setItem(REFERRAL_SHARE_TOKEN_KEY, "true");
-      setTokensAwarded(true);
+      setTimeout(() => setLatestAward(null), 2800);
     } catch {}
   };
 
@@ -1899,9 +1926,18 @@ function ReferralBlock() {
     try {
       await navigator.clipboard.writeText(link);
       setCopied(true);
-      setShared(true);
-      awardReferralShareTokens();
+      recordShare();
       setTimeout(() => setCopied(false), 2200);
+    } catch {}
+  };
+
+  const copyDiscord = async () => {
+    const discordText = `🔮 Just mapped my Enneagram type, instinct, and tritype on Thyself — it's actually accurate. Find your type free: ${link}`;
+    try {
+      await navigator.clipboard.writeText(discordText);
+      setDiscordCopied(true);
+      recordShare();
+      setTimeout(() => setDiscordCopied(false), 2200);
     } catch {}
   };
 
@@ -1913,13 +1949,14 @@ function ReferralBlock() {
           text: "I use Thyself to understand myself better. Find your Enneagram type, instinct, tritype, and cognitive style — it's free.",
           url: link,
         });
-        setShared(true);
-        awardReferralShareTokens();
+        recordShare();
       } else {
         await copyLink();
       }
     } catch {}
   };
+
+  const milestoneFilled = Math.min(shareCount, REFERRAL_MILESTONE_COUNT);
 
   return (
     <div
@@ -1934,11 +1971,46 @@ function ReferralBlock() {
         <div>
           <p className="text-sm font-bold text-white">Invite a friend</p>
           <p className="text-xs mt-0.5 leading-relaxed" style={{ color: "rgba(255,255,255,0.45)" }}>
-            They get <span className="font-bold text-amber-300">+50 tokens</span> on their first assessment.
-            You get <span className="font-bold text-amber-300">+{REFERRAL_SHARE_TOKENS} tokens</span> for sharing.
+            They get <span className="font-bold text-amber-300">+50 tokens</span> on first assessment.
+            You get <span className="font-bold text-amber-300">+{REFERRAL_SHARE_TOKENS}</span> for sharing
+            {!milestoneReached && <> · <span className="font-bold text-amber-300">+{REFERRAL_MILESTONE_TOKENS}</span> when you share {REFERRAL_MILESTONE_COUNT}×</>}.
           </p>
         </div>
       </div>
+
+      {/* 5-share milestone progress */}
+      {!milestoneReached && (
+        <div className="mb-3">
+          <div className="flex items-center justify-between mb-1">
+            <span className="text-xs font-bold" style={{ color: "rgba(245,158,11,0.7)" }}>
+              Share milestone: {milestoneFilled}/{REFERRAL_MILESTONE_COUNT}
+            </span>
+            <span className="text-xs font-bold" style={{ color: "#fbbf24" }}>
+              +{REFERRAL_MILESTONE_TOKENS} tokens at {REFERRAL_MILESTONE_COUNT}×
+            </span>
+          </div>
+          <div className="flex gap-1">
+            {Array.from({ length: REFERRAL_MILESTONE_COUNT }).map((_, i) => (
+              <div
+                key={i}
+                className="flex-1 h-1.5 rounded-full transition-all"
+                style={{
+                  background: i < milestoneFilled
+                    ? "linear-gradient(90deg, #f59e0b, #fbbf24)"
+                    : "rgba(255,255,255,0.1)",
+                }}
+              />
+            ))}
+          </div>
+        </div>
+      )}
+
+      {milestoneReached && (
+        <div className="flex items-center gap-1.5 mb-3 px-3 py-1.5 rounded-lg" style={{ background: "rgba(52,211,153,0.1)", border: "1px solid rgba(52,211,153,0.2)" }}>
+          <Zap className="w-3 h-3 text-emerald-400" />
+          <span className="text-xs font-bold text-emerald-300">Milestone reached — +{REFERRAL_MILESTONE_TOKENS} tokens earned!</span>
+        </div>
+      )}
 
       {/* Link row */}
       <div className="flex items-center gap-2 mb-2">
@@ -1965,22 +2037,40 @@ function ReferralBlock() {
         </button>
       </div>
 
-      {/* Native share button */}
-      <button
-        onClick={nativeShare}
-        className="w-full py-2.5 rounded-xl text-xs font-bold flex items-center justify-center gap-2 transition-all active:scale-95"
-        style={{
-          background: "linear-gradient(135deg, rgba(124,58,237,0.25), rgba(217,70,239,0.25))",
-          border: "1px solid rgba(139,92,246,0.3)",
-          color: "rgba(167,139,250,0.9)",
-        }}
-      >
-        Share invite link
-      </button>
+      {/* Share buttons row */}
+      <div className="flex gap-2 mb-0">
+        {/* Native share */}
+        <button
+          onClick={nativeShare}
+          className="flex-1 py-2.5 rounded-xl text-xs font-bold flex items-center justify-center gap-2 transition-all active:scale-95"
+          style={{
+            background: "linear-gradient(135deg, rgba(124,58,237,0.25), rgba(217,70,239,0.25))",
+            border: "1px solid rgba(139,92,246,0.3)",
+            color: "rgba(167,139,250,0.9)",
+          }}
+        >
+          Share invite link
+        </button>
+
+        {/* Discord copy */}
+        <button
+          onClick={copyDiscord}
+          className="px-3 py-2.5 rounded-xl text-xs font-bold flex items-center justify-center gap-1.5 transition-all active:scale-95"
+          style={{
+            background: discordCopied ? "rgba(52,211,153,0.15)" : "rgba(88,101,242,0.18)",
+            border: discordCopied ? "1px solid rgba(52,211,153,0.3)" : "1px solid rgba(88,101,242,0.35)",
+            color: discordCopied ? "#34d399" : "#8b9cf4",
+            whiteSpace: "nowrap",
+          }}
+          title="Copy Discord-formatted message"
+        >
+          {discordCopied ? "✓ Copied" : "Discord"}
+        </button>
+      </div>
 
       {/* Token awarded confirmation */}
       <AnimatePresence>
-        {tokensAwarded && (
+        {latestAward !== null && (
           <motion.div
             initial={{ opacity: 0, y: 4 }}
             animate={{ opacity: 1, y: 0 }}
@@ -1989,7 +2079,7 @@ function ReferralBlock() {
           >
             <Zap className="w-3 h-3 text-amber-400" />
             <span className="text-xs font-bold" style={{ color: "#fbbf24" }}>
-              +{REFERRAL_SHARE_TOKENS} tokens earned for sharing
+              +{latestAward} tokens earned!
             </span>
           </motion.div>
         )}

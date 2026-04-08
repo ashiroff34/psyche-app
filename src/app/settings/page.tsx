@@ -26,6 +26,7 @@ import {
   Check,
   AlertTriangle,
   Info,
+  ArrowLeft,
 } from "lucide-react";
 import { useProfile, notifyProfileChanged } from "@/hooks/useProfile";
 
@@ -486,6 +487,14 @@ export default function SettingsPage() {
   return (
     <div className="min-h-screen pt-20 pb-32 px-4" style={{ background: "#0f0a1e" }}>
       <div className="max-w-lg mx-auto space-y-4">
+        {/* Back button */}
+        <button
+          onClick={() => router.back()}
+          className="flex items-center gap-1 text-sm mb-4 transition-colors"
+          style={{ color: "rgba(255,255,255,0.35)" }}
+        >
+          <ArrowLeft className="w-4 h-4" /> Back
+        </button>
         {/* Header */}
         <div className="text-center mb-6">
           <h1 className="text-2xl font-serif font-bold" style={{ color: "rgba(255,255,255,0.93)" }}>

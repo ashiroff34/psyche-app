@@ -40,6 +40,7 @@ function CurriculumNode({
   instinct,
   onClick,
   palette,
+  nodeId,
 }: {
   lesson: LessonWithStatus;
   xPct: number;
@@ -50,6 +51,7 @@ function CurriculumNode({
   instinct: string;
   onClick: () => void;
   palette: (typeof UNIT_PALETTES)[0];
+  nodeId?: string;
 }) {
   const isCurrent = lesson.status === "current";
   const isCompleted = lesson.status === "completed";
@@ -88,7 +90,7 @@ function CurriculumNode({
     : "#374151";
 
   return (
-    <div className="relative" style={{ height: rowHeight }}>
+    <div id={nodeId} className="relative" style={{ height: rowHeight }}>
       {/* SVG connector from previous node */}
       {rowIndex > 0 && prevXPct !== null && (
         <svg
@@ -356,6 +358,7 @@ export default function UnitSection({ unit, onNodeTap, index, enneagramType = 4,
                 instinct={instinct}
                 onClick={() => onNodeTap(lesson)}
                 palette={palette}
+                nodeId={lesson.status === "current" ? "current-lesson-node" : undefined}
               />
             );
           })}

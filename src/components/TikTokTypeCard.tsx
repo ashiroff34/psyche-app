@@ -178,6 +178,21 @@ export default function TikTokTypeCard({
     awardShareTokens();
   }, [awardShareTokens]);
 
+  const [discordCopied, setDiscordCopied] = useState(false);
+  const referralCode = typeof window !== "undefined" ? (localStorage.getItem("psyche-my-referral-code") ?? "") : "";
+  const referralLink = referralCode ? `https://thyself.app/r?code=${referralCode}` : "https://thyself.app";
+  const discordMessage = `🔮 ${TYPE_SHARE_HOOKS[enneagramType] ?? `I'm Enneagram Type ${enneagramType}`}\n\nFind your type free: ${referralLink}`;
+
+  const copyDiscordMessage = useCallback(async () => {
+    try {
+      await navigator.clipboard.writeText(discordMessage);
+      setDiscordCopied(true);
+      setShared(true);
+      awardShareTokens();
+      setTimeout(() => setDiscordCopied(false), 2200);
+    } catch {}
+  }, [discordMessage, awardShareTokens]);
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -322,15 +337,29 @@ export default function TikTokTypeCard({
           {sharing ? "Generating..." : "Share to TikTok"}
         </motion.button>
 
-        {/* Download fallback */}
-        <button
-          onClick={handleDownload}
-          className="w-full py-2.5 rounded-2xl text-xs font-semibold flex items-center justify-center gap-2"
-          style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.09)", color: "rgba(255,255,255,0.5)" }}
-        >
-          <Download className="w-3.5 h-3.5" />
-          Save image
-        </button>
+        {/* Download + Discord row */}
+        <div className="w-full flex gap-2">
+          <button
+            onClick={handleDownload}
+            className="flex-1 py-2.5 rounded-2xl text-xs font-semibold flex items-center justify-center gap-2"
+            style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.09)", color: "rgba(255,255,255,0.5)" }}
+          >
+            <Download className="w-3.5 h-3.5" />
+            Save image
+          </button>
+          <button
+            onClick={copyDiscordMessage}
+            className="flex-1 py-2.5 rounded-2xl text-xs font-bold flex items-center justify-center gap-1.5 transition-all"
+            style={{
+              background: discordCopied ? "rgba(52,211,153,0.15)" : "rgba(88,101,242,0.18)",
+              border: discordCopied ? "1px solid rgba(52,211,153,0.3)" : "1px solid rgba(88,101,242,0.35)",
+              color: discordCopied ? "#34d399" : "#8b9cf4",
+            }}
+            title="Copy for Discord"
+          >
+            {discordCopied ? "✓ Copied!" : "📋 Discord"}
+          </button>
+        </div>
 
         {/* Token reward state */}
         <AnimatePresence>

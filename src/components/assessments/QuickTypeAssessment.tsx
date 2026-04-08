@@ -527,15 +527,25 @@ function SwipeOption({
 
 // ─── Component ───────────────────────────────────────────────────────────────
 
+const INSTINCT_OPTIONS = [
+  { code: "sp/sx", label: "sp / sx", desc: "Build security first, then seek depth — private and selective" },
+  { code: "sp/so", label: "sp / so", desc: "Practical and community-minded — steady, reliable, a builder" },
+  { code: "sx/sp", label: "sx / sp", desc: "Intense but grounded — magnetic, self-contained, passionate" },
+  { code: "sx/so", label: "sx / so", desc: "Charismatic and connected — bring intensity into group settings" },
+  { code: "so/sp", label: "so / sp", desc: "Social architect — responsible, institutional, purpose-driven" },
+  { code: "so/sx", label: "so / sx", desc: "Passionate connector — charismatic presence, seek deep belonging" },
+];
+
 export default function QuickTypeAssessment({
   onComplete,
 }: {
-  onComplete: (result: { type: number; confidence: number; runnerUp: number }) => void;
+  onComplete: (result: { type: number; confidence: number; runnerUp: number; instinct?: string }) => void;
 }) {
   const [triadScores, setTriadScores] = useState<Record<string, number>>({ gut: 0, heart: 0, head: 0 });
   const [typeScores, setTypeScores] = useState<Record<number, number>>({});
-  const [phase, setPhase] = useState<"triage" | "gut" | "heart" | "head" | "result">("triage");
+  const [phase, setPhase] = useState<"triage" | "gut" | "heart" | "head" | "result" | "subtype">("triage");
   const [qIdx, setQIdx] = useState(0);
+  const [selectedInstinct, setSelectedInstinct] = useState<string | null>(null);
   const [selectedOption, setSelectedOption] = useState<number | null>(null);
   const [expandedLearn, setExpandedLearn] = useState<number | null>(null);
   const [result, setResult] = useState<{ type: number; confidence: number; runnerUp: number } | null>(null);
@@ -630,14 +640,87 @@ export default function QuickTypeAssessment({
           </div>
 
           <button
-            onClick={() => onComplete(result)}
+            onClick={() => setPhase("subtype")}
             className="w-full py-4 rounded-2xl font-semibold text-white text-sm flex items-center justify-center gap-2 shadow-xl"
             style={{ background: `linear-gradient(135deg, ${typeColors[result.type]}, ${typeColors[result.type]}aa)` }}
           >
             <Check className="w-4 h-4" />
-            Save My Type &amp; See Profile
+            Continue →
           </button>
         </motion.div>
+      </motion.div>
+    );
+  }
+
+  // ── Subtype screen ──────────────────────────────────────────────────────────
+  if (phase === "subtype" && result) {
+    const typeColor = typeColors[result.type];
+    return (
+      <motion.div
+        initial={{ opacity: 0, x: 40 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.25 }}
+        className="max-w-lg mx-auto py-10 px-4"
+      >
+        <div className="text-center mb-7">
+          <div
+            className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold mb-5"
+            style={{ background: `${typeColor}18`, border: `1px solid ${typeColor}35`, color: typeColor }}
+          >
+            Type {result.type} — Subtype
+          </div>
+          <h2 className="text-2xl font-serif font-bold mb-2" style={{ color: "rgba(255,255,255,0.93)" }}>
+            Unlock your avatar
+          </h2>
+          <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.4)" }}>
+            Your instinctual subtype shapes how your type shows up in the world — and unlocks your personalized chibi.
+          </p>
+        </div>
+
+        <div className="space-y-2 mb-6">
+          {INSTINCT_OPTIONS.map(({ code, label, desc }) => {
+            const isSelected = selectedInstinct === code;
+            return (
+              <button
+                key={code}
+                onClick={() => setSelectedInstinct(code)}
+                className="w-full text-left px-4 py-3.5 rounded-2xl transition-all active:scale-[0.98]"
+                style={{
+                  background: isSelected ? "rgba(124,58,237,0.18)" : "rgba(255,255,255,0.05)",
+                  border: isSelected ? "1px solid rgba(167,139,250,0.45)" : "1px solid rgba(255,255,255,0.09)",
+                }}
+              >
+                <div className="flex items-center gap-3">
+                  <span className="text-xs font-bold font-mono shrink-0" style={{ color: isSelected ? "#c4b5fd" : "rgba(255,255,255,0.5)", minWidth: "3.5rem" }}>
+                    {label}
+                  </span>
+                  <span className="text-xs leading-snug" style={{ color: isSelected ? "rgba(255,255,255,0.78)" : "rgba(255,255,255,0.38)" }}>
+                    {desc}
+                  </span>
+                </div>
+              </button>
+            );
+          })}
+        </div>
+
+        <button
+          onClick={() => onComplete({ ...result, instinct: selectedInstinct ?? undefined })}
+          disabled={!selectedInstinct}
+          className="w-full py-3.5 rounded-2xl text-sm font-bold text-white transition-all active:scale-[0.98] disabled:opacity-35 mb-3"
+          style={{
+            background: selectedInstinct ? "linear-gradient(135deg, #7c3aed, #4f46e5)" : "rgba(255,255,255,0.08)",
+            boxShadow: selectedInstinct ? "0 8px 24px rgba(124,58,237,0.45)" : "none",
+          }}
+        >
+          Unlock my avatar →
+        </button>
+        <button
+          onClick={() => onComplete(result)}
+          className="w-full text-xs py-2 transition-colors text-center"
+          style={{ color: "rgba(255,255,255,0.22)" }}
+        >
+          Skip for now
+        </button>
       </motion.div>
     );
   }

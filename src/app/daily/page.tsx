@@ -3,6 +3,7 @@
 import { useState, useEffect, useCallback, useMemo, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import {
   Flame, Zap, Star, CheckCircle, XCircle, Trophy, Lightbulb,
   Target, ChevronRight, ChevronDown, Brain, Compass, Clock,
@@ -34,6 +35,7 @@ import DailyReading from "@/components/daily/DailyReading";
 import { getDailyReading } from "@/data/dailyReadings";
 import MilestoneModal from "@/components/MilestoneModal";
 import MorningObservation, { shouldShowMorningObservation } from "@/components/daily/MorningObservation";
+import ShadowReengagement, { shouldShowShadowReengagement, markActive } from "@/components/ShadowReengagement";
 import { cognitiveGrowthEdges } from "@/data/cognitiveGrowthEdges";
 import { typeQuizQuestions } from "@/data/type-quizzes";
 import { introQuestions } from "@/data/intro-questions";
@@ -536,10 +538,14 @@ function srSelectQuestions(pool: Question[], n: number, stats: Record<string, QS
    MAIN PAGE COMPONENT
    ═══════════════════════════════════════════════════════════════════════════ */
 export default function DailyPage() {
+  const router = useRouter();
   const { profile, loaded, trackVisit, markQuizComplete, addXP } = useProfile();
   const { state: gameStateRaw, earnXP: gameEarnXP, loseHeart, buyHearts, xpGainAnimation, completeReading, recordTokenDrop, bumpSessionCount, weeklyChallenge, claimWeeklyReward } = useGameState();
   const enneagramTypeForPet = profile.enneagramType ?? profile.enneagramCore ?? undefined;
   const { petState: livePetState, awardDailyGoalXP } = usePetState(enneagramTypeForPet);
+
+  // ── Shadow re-engagement modal ──
+  const [showShadowModal, setShowShadowModal] = useState(false);
 
   // ── Morning observation interstitial ──
   const [showMorningObservation, setShowMorningObservation] = useState(false);
@@ -547,6 +553,17 @@ export default function DailyPage() {
     if (!loaded) return;
     const type = profile.enneagramType ?? profile.enneagramCore;
     if (!type) return;
+    // Don't show on day 1 — let user get oriented first
+    try {
+      const onboardingDate = localStorage.getItem("psyche-onboarding-complete-date");
+      if (!onboardingDate) {
+        // First time — record today's date and skip morning observation
+        localStorage.setItem("psyche-onboarding-complete-date", new Date().toISOString().slice(0, 10));
+        return;
+      }
+      const today = new Date().toISOString().slice(0, 10);
+      if (onboardingDate === today) return; // still day 1
+    } catch {}
     if (shouldShowMorningObservation()) setShowMorningObservation(true);
   }, [loaded, profile.enneagramType, profile.enneagramCore]);
 
@@ -649,6 +666,18 @@ export default function DailyPage() {
   const [view, setView] = useState<"hub" | "path" | "quiz" | "lesson" | "reading">("path");
   const [statsCollapsed, setStatsCollapsed] = useState(true);
   const [pathExpanded, setPathExpanded] = useState(false);
+
+  // ── Auto-scroll to current lesson when path view mounts ──
+  useEffect(() => {
+    if (view !== "path") return;
+    const timer = setTimeout(() => {
+      const el = document.getElementById("current-lesson-node");
+      if (el) {
+        el.scrollIntoView({ behavior: "smooth", block: "center" });
+      }
+    }, 400);
+    return () => clearTimeout(timer);
+  }, [view]);
   const [bottomSheetNode, setBottomSheetNode] = useState<PathNodeConfig | null>(null);
   const [quizSourceNode, setQuizSourceNode] = useState<PathNodeConfig | null>(null);
   const [pendingQuizNode, setPendingQuizNode] = useState<PathNodeConfig | null>(null);
@@ -833,6 +862,10 @@ export default function DailyPage() {
         }
       }
     } catch {}
+
+    // ── Shadow re-engagement check ──
+    if (shouldShowShadowReengagement()) setShowShadowModal(true);
+    markActive();
   }, [loaded]);
 
   // ── Save progress helper ──
@@ -1310,6 +1343,17 @@ export default function DailyPage() {
       </div>
     </div>
   );
+
+  // Shadow re-engagement modal — shown before morning observation
+  if (showShadowModal && profile.enneagramType) {
+    return (
+      <ShadowReengagement
+        typeNumber={profile.enneagramType}
+        onBeginSession={() => { setShowShadowModal(false); router.push("/journal"); }}
+        onDismiss={() => setShowShadowModal(false)}
+      />
+    );
+  }
 
   // Morning observation interstitial — full-screen gate before any view
   if (showMorningObservation && profile.enneagramType) {

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
+import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { motion, AnimatePresence } from "framer-motion";
 import {
@@ -30,6 +31,7 @@ import {
   ChevronDown,
   Sparkles,
   MessageSquare,
+  ArrowLeft,
 } from "lucide-react";
 import { cognitiveFunctions, mbtiTypes } from "@/data/cognitive-functions";
 import NextStepBanner from "@/components/NextStepBanner";
@@ -2405,6 +2407,7 @@ function ProGate({ children }: { children: React.ReactNode }) {
 }
 
 export default function InnerWorkLabPage() {
+  const router = useRouter();
   const [activeTab, setActiveTab] = useState<TabId>("shadow");
   const [enneagramType, setEnneagramType] = useState<number>(4);
 
@@ -2422,6 +2425,14 @@ export default function InnerWorkLabPage() {
     <ProGate>
     <div className="min-h-screen py-12 sm:py-16" style={{ background: "linear-gradient(160deg, #160f38 0%, #0f0a1e 100%)" }}>
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Back button */}
+        <button
+          onClick={() => router.back()}
+          className="flex items-center gap-1 text-sm mb-4 transition-colors"
+          style={{ color: "rgba(255,255,255,0.35)" }}
+        >
+          <ArrowLeft className="w-4 h-4" /> Back
+        </button>
         {/* Header */}
         <motion.div
           initial={{ opacity: 1, y: 0 }}

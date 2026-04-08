@@ -5,6 +5,8 @@ import { useSearchParams, useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 
 const REFERRAL_TOKEN_REWARD = 50;
+const LIMITED_TIME_BONUS = 100;
+const TOTAL_REWARD = REFERRAL_TOKEN_REWARD + LIMITED_TIME_BONUS;
 
 function ReferralContent() {
   const searchParams = useSearchParams();
@@ -18,6 +20,8 @@ function ReferralContent() {
       if (!existing) {
         localStorage.setItem("psyche-referral-code", code);
         localStorage.setItem("psyche-referral-at", new Date().toISOString());
+        // Flag limited-time bonus so useProfile can award it
+        localStorage.setItem("psyche-referral-limited-bonus", "true");
       }
     } catch {}
   }, [code]);
@@ -38,6 +42,22 @@ function ReferralContent() {
         transition={{ type: "spring", damping: 20, stiffness: 260 }}
         className="relative max-w-sm w-full flex flex-col items-center gap-6"
       >
+        {/* Limited time banner */}
+        <motion.div
+          initial={{ opacity: 0, y: -8 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.1 }}
+          className="w-full px-4 py-2 rounded-xl text-center"
+          style={{ background: "linear-gradient(90deg, rgba(239,68,68,0.15), rgba(245,158,11,0.15))", border: "1px solid rgba(239,68,68,0.3)" }}
+        >
+          <span className="text-xs font-black uppercase tracking-wider" style={{ color: "#f87171" }}>
+            ⚡ Limited time offer
+          </span>
+          <span className="text-xs font-bold ml-2" style={{ color: "rgba(255,255,255,0.6)" }}>
+            — new users get +{TOTAL_REWARD} tokens today
+          </span>
+        </motion.div>
+
         <div
           className="w-16 h-16 rounded-2xl flex items-center justify-center text-2xl font-black font-mono"
           style={{
@@ -65,13 +85,26 @@ function ReferralContent() {
           initial={{ scale: 0.85, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           transition={{ delay: 0.25, type: "spring", damping: 14, stiffness: 240 }}
-          className="flex items-center gap-2 px-4 py-2.5 rounded-full"
-          style={{ background: "rgba(245,158,11,0.12)", border: "1px solid rgba(245,158,11,0.28)" }}
+          className="w-full flex flex-col gap-1.5 px-4 py-3 rounded-2xl"
+          style={{ background: "rgba(245,158,11,0.1)", border: "1px solid rgba(245,158,11,0.25)" }}
         >
-          <span className="text-sm font-mono font-bold" style={{ color: "#fbbf24" }}>(+)</span>
-          <span className="text-sm font-bold" style={{ color: "#fbbf24" }}>
-            +{REFERRAL_TOKEN_REWARD} bonus tokens when you complete your first type assessment
-          </span>
+          <div className="flex items-center justify-center gap-2">
+            <span className="text-sm font-mono font-bold" style={{ color: "#fbbf24" }}>(+)</span>
+            <span className="text-sm font-bold" style={{ color: "#fbbf24" }}>
+              +{REFERRAL_TOKEN_REWARD} tokens — friend referral bonus
+            </span>
+          </div>
+          <div className="flex items-center justify-center gap-2">
+            <span className="text-sm font-mono font-bold" style={{ color: "#f87171" }}>(+)</span>
+            <span className="text-sm font-bold" style={{ color: "#f87171" }}>
+              +{LIMITED_TIME_BONUS} tokens — limited time bonus
+            </span>
+          </div>
+          <div className="mt-1 pt-1.5" style={{ borderTop: "1px solid rgba(245,158,11,0.2)" }}>
+            <span className="text-base font-black" style={{ color: "#fbbf24" }}>
+              = +{TOTAL_REWARD} tokens total on first assessment
+            </span>
+          </div>
         </motion.div>
 
         <div className="w-full space-y-2.5">

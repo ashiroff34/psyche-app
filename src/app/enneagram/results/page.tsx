@@ -1,7 +1,7 @@
 "use client";
 
 import { Suspense, useEffect, useState } from "react";
-import { useSearchParams } from "next/navigation";
+import { useSearchParams, useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import {
@@ -11,6 +11,7 @@ import {
   ChevronUp,
   CheckCircle,
   ArrowRight,
+  ArrowLeft,
   TrendingUp,
   TrendingDown,
   User,
@@ -274,6 +275,7 @@ function NextAssessmentPrompt({ taken }: { taken: string[] }) {
 // ── Main inner component ──────────────────────────────────────────────────
 function ResultsInner() {
   const searchParams = useSearchParams();
+  const router = useRouter();
   const { profile, loaded, updateProfile } = useProfile();
   const [activeTab, setActiveTab] = useState(0);
   const [showTypeCard, setShowTypeCard] = useState(false);
@@ -376,6 +378,15 @@ function ResultsInner() {
         )}
       </AnimatePresence>
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+
+        {/* Back button */}
+        <button
+          onClick={() => router.back()}
+          className="flex items-center gap-1 text-sm mb-4 transition-colors"
+          style={{ color: "rgba(255,255,255,0.35)" }}
+        >
+          <ArrowLeft className="w-4 h-4" /> Back
+        </button>
 
         {/* Hero Header */}
         <motion.div initial={{ opacity: 1, y: 0 }} animate={{ opacity: 1, y: 0 }} className="mb-8">
