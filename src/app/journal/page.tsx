@@ -85,35 +85,59 @@ function ShadowWorkGate({ children }: { children: React.ReactNode }) {
   if (unlocked) return <>{children}</>;
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 12 }}
-      animate={{ opacity: 1, y: 0 }}
-      className="flex flex-col items-center text-center px-6 py-12 max-w-sm mx-auto"
-    >
-      <div className="w-16 h-16 rounded-2xl flex items-center justify-center mb-5"
-        style={{ background: "rgba(139,92,246,0.15)", border: "1px solid rgba(139,92,246,0.3)" }}>
-        <Lock className="w-7 h-7" style={{ color: "#a78bfa" }} />
-      </div>
-      <h2 className="text-xl font-serif font-black text-white mb-2">Shadow Work</h2>
-      <p className="text-sm leading-relaxed mb-6" style={{ color: "rgba(255,255,255,0.55)" }}>
-        Explore your cognitive shadow stack, grip states, and active imagination dialogues. Unlock once to access forever.
-      </p>
-      <div className="flex items-center gap-2 mb-6 px-4 py-2.5 rounded-full"
-        style={{ background: "rgba(251,191,36,0.12)", border: "1px solid rgba(251,191,36,0.25)" }}>
-        <Zap className="w-4 h-4 text-amber-400" />
-        <span className="text-sm font-bold text-amber-300">{SHADOW_UNLOCK_COST} tokens</span>
-        <span className="text-xs" style={{ color: "rgba(255,255,255,0.35)" }}>· you have {tokens}</span>
-      </div>
-      {err && <p className="text-xs text-red-400 mb-3">{err}</p>}
-      <button
-        onClick={handleUnlock}
-        disabled={spending || tokens < SHADOW_UNLOCK_COST}
-        className="w-full py-3.5 rounded-2xl font-bold text-white text-sm transition-all active:scale-95 disabled:opacity-50"
-        style={{ background: "linear-gradient(135deg, #7c3aed, #d946ef)", boxShadow: "0 4px 20px rgba(124,58,237,0.4)" }}
+    <div className="relative">
+      {/* Blurred preview of actual content */}
+      <div
+        aria-hidden="true"
+        style={{
+          filter: "blur(5px)",
+          opacity: 0.2,
+          pointerEvents: "none",
+          userSelect: "none",
+          maxHeight: "460px",
+          overflow: "hidden",
+          maskImage: "linear-gradient(to bottom, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0) 88%)",
+          WebkitMaskImage: "linear-gradient(to bottom, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0) 88%)",
+        }}
       >
-        {spending ? "Unlocking…" : tokens >= SHADOW_UNLOCK_COST ? "Unlock Shadow Work" : "Not enough tokens yet"}
-      </button>
-    </motion.div>
+        {children}
+      </div>
+
+      {/* Lock overlay */}
+      <motion.div
+        initial={{ opacity: 0, y: 12 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="absolute inset-x-0 flex flex-col items-center text-center px-6 pb-8"
+        style={{ top: "80px" }}
+      >
+        <div className="w-16 h-16 rounded-2xl flex items-center justify-center mb-4"
+          style={{ background: "rgba(139,92,246,0.18)", border: "1px solid rgba(139,92,246,0.38)", backdropFilter: "blur(12px)" }}>
+          <Lock className="w-7 h-7" style={{ color: "#a78bfa" }} />
+        </div>
+        <h2 className="text-xl font-serif font-black text-white mb-2">Shadow Work</h2>
+        <p className="text-sm leading-relaxed mb-5 max-w-xs" style={{ color: "rgba(255,255,255,0.55)" }}>
+          Explore your cognitive shadow stack, grip states, and active imagination dialogues. Unlock once to access forever.
+        </p>
+        <div className="flex items-center gap-2 mb-5 px-4 py-2.5 rounded-full"
+          style={{ background: "rgba(251,191,36,0.12)", border: "1px solid rgba(251,191,36,0.28)", backdropFilter: "blur(8px)" }}>
+          <Zap className="w-4 h-4 text-amber-400" />
+          <span className="text-sm font-bold text-amber-300">{SHADOW_UNLOCK_COST} tokens</span>
+          <span className="text-xs" style={{ color: "rgba(255,255,255,0.35)" }}>you have {tokens}</span>
+        </div>
+        {err && <p className="text-xs text-red-400 mb-3">{err}</p>}
+        <button
+          onClick={handleUnlock}
+          disabled={spending || tokens < SHADOW_UNLOCK_COST}
+          className="w-full max-w-xs py-3.5 rounded-2xl font-bold text-white text-sm transition-all active:scale-95 disabled:opacity-50"
+          style={{ background: "linear-gradient(135deg, #7c3aed, #d946ef)", boxShadow: "0 4px 24px rgba(124,58,237,0.45)" }}
+        >
+          {spending ? "Unlocking…" : tokens >= SHADOW_UNLOCK_COST ? "Unlock Shadow Work" : "Not enough tokens yet"}
+        </button>
+      </motion.div>
+
+      {/* Space for the overlay */}
+      <div style={{ height: "380px" }} />
+    </div>
   );
 }
 

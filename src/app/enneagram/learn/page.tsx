@@ -53,35 +53,64 @@ function AdvancedContentGate({ children }: { children: React.ReactNode }) {
   if (unlocked) return <>{children}</>;
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 12 }}
-      animate={{ opacity: 1, y: 0 }}
-      className="max-w-sm mx-auto mt-8 flex flex-col items-center text-center px-4"
-    >
-      <div className="w-16 h-16 rounded-2xl flex items-center justify-center mb-5"
-        style={{ background: "rgba(139,92,246,0.15)", border: "1px solid rgba(139,92,246,0.3)" }}>
-        <Lock className="w-7 h-7" style={{ color: "#a78bfa" }} />
-      </div>
-      <h2 className="text-xl font-serif font-bold mb-2" style={{ color: "rgba(255,255,255,0.92)" }}>Advanced Enneagram</h2>
-      <p className="text-sm mb-6 max-w-xs" style={{ color: "rgba(255,255,255,0.45)" }}>
-        Unlock Instinctual Stackings, Tritypes, and Deep Systems — the full depth of the Enneagram beyond type.
-      </p>
-      <div className="flex items-center gap-2 mb-6 px-4 py-2.5 rounded-full"
-        style={{ background: "rgba(251,191,36,0.12)", border: "1px solid rgba(251,191,36,0.25)" }}>
-        <Zap className="w-4 h-4 text-amber-400" />
-        <span className="text-sm font-bold text-amber-300">{ENNEAGRAM_ADV_UNLOCK_COST} tokens</span>
-        <span className="text-xs" style={{ color: "rgba(255,255,255,0.35)" }}>· you have {tokens}</span>
-      </div>
-      {err && <p className="text-xs text-red-400 mb-3">{err}</p>}
-      <button
-        onClick={handleUnlock}
-        disabled={spending || tokens < ENNEAGRAM_ADV_UNLOCK_COST}
-        className="w-full py-3.5 rounded-2xl font-bold text-white text-sm transition-all active:scale-95 disabled:opacity-50"
-        style={{ background: "linear-gradient(135deg, #7c3aed, #d946ef)", boxShadow: "0 4px 20px rgba(124,58,237,0.4)" }}
+    <div className="relative">
+      {/* Blurred preview of actual content */}
+      <div
+        aria-hidden="true"
+        style={{
+          filter: "blur(5px)",
+          opacity: 0.22,
+          pointerEvents: "none",
+          userSelect: "none",
+          maxHeight: "480px",
+          overflow: "hidden",
+          maskImage: "linear-gradient(to bottom, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0) 90%)",
+          WebkitMaskImage: "linear-gradient(to bottom, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0) 90%)",
+        }}
       >
-        {spending ? "Unlocking…" : tokens >= ENNEAGRAM_ADV_UNLOCK_COST ? "Unlock Advanced Content" : "Not enough tokens yet"}
-      </button>
-    </motion.div>
+        {children}
+      </div>
+
+      {/* Lock overlay — floats centered over the preview */}
+      <motion.div
+        initial={{ opacity: 0, y: 12 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="absolute inset-x-0 flex flex-col items-center text-center px-4 pt-8 pb-12"
+        style={{ top: "60px" }}
+      >
+        <div className="w-16 h-16 rounded-2xl flex items-center justify-center mb-4"
+          style={{ background: "rgba(139,92,246,0.2)", border: "1px solid rgba(139,92,246,0.4)", backdropFilter: "blur(12px)" }}>
+          <Lock className="w-7 h-7" style={{ color: "#a78bfa" }} />
+        </div>
+        <h2 className="text-xl font-serif font-bold mb-2" style={{ color: "rgba(255,255,255,0.95)" }}>Advanced Enneagram</h2>
+        <p className="text-sm mb-5 max-w-xs" style={{ color: "rgba(255,255,255,0.5)" }}>
+          Unlock the full depth — Instinctual Stackings, Tritypes, and Deep Systems.
+        </p>
+        <div className="flex items-center gap-2 mb-5 px-4 py-2.5 rounded-full"
+          style={{ background: "rgba(251,191,36,0.14)", border: "1px solid rgba(251,191,36,0.3)", backdropFilter: "blur(8px)" }}>
+          <Zap className="w-4 h-4 text-amber-400" />
+          <span className="text-sm font-bold text-amber-300">{ENNEAGRAM_ADV_UNLOCK_COST} tokens</span>
+          <span className="text-xs" style={{ color: "rgba(255,255,255,0.4)" }}>· you have {tokens}</span>
+        </div>
+        {err && <p className="text-xs text-red-400 mb-3">{err}</p>}
+        <button
+          onClick={handleUnlock}
+          disabled={spending || tokens < ENNEAGRAM_ADV_UNLOCK_COST}
+          className="w-full max-w-xs py-3.5 rounded-2xl font-bold text-white text-sm transition-all active:scale-95 disabled:opacity-50"
+          style={{ background: "linear-gradient(135deg, #7c3aed, #d946ef)", boxShadow: "0 4px 24px rgba(124,58,237,0.5)" }}
+        >
+          {spending ? "Unlocking…" : tokens >= ENNEAGRAM_ADV_UNLOCK_COST ? "Unlock Advanced Content" : "Not enough tokens yet"}
+        </button>
+        {tokens < ENNEAGRAM_ADV_UNLOCK_COST && (
+          <p className="text-xs mt-3" style={{ color: "rgba(255,255,255,0.28)" }}>
+            Earn tokens through daily practice · {ENNEAGRAM_ADV_UNLOCK_COST - tokens} more needed
+          </p>
+        )}
+      </motion.div>
+
+      {/* Extra space so the overlay has room */}
+      <div style={{ height: "360px" }} />
+    </div>
   );
 }
 
@@ -101,30 +130,60 @@ function ProSelfWorkGate({ children }: { children: React.ReactNode }) {
   if (unlocked) return <>{children}</>;
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 12 }}
-      animate={{ opacity: 1, y: 0 }}
-      className="max-w-sm mx-auto mt-8 flex flex-col items-center text-center px-4"
-    >
-      <div className="w-16 h-16 rounded-2xl flex items-center justify-center mb-5"
-        style={{ background: "rgba(251,191,36,0.12)", border: "1px solid rgba(251,191,36,0.3)" }}>
-        <Lock className="w-7 h-7" style={{ color: "#fcd34d" }} />
-      </div>
-      <h2 className="text-xl font-serif font-bold mb-2" style={{ color: "rgba(255,255,255,0.92)" }}>Type Self Work</h2>
-      <p className="text-sm mb-6 max-w-xs" style={{ color: "rgba(255,255,255,0.45)" }}>
-        Integration practices, type-specific journaling prompts, and growth exercises — personalized to your type.
-      </p>
-      <Link
-        href="/store"
-        className="w-full py-3.5 rounded-2xl font-bold text-white text-sm transition-all active:scale-95 text-center block mb-4"
-        style={{ background: "linear-gradient(135deg, #d97706, #f59e0b)", boxShadow: "0 4px 20px rgba(245,158,11,0.35)" }}
+    <div className="relative">
+      {/* Blurred preview of actual content */}
+      <div
+        aria-hidden="true"
+        style={{
+          filter: "blur(5px)",
+          opacity: 0.22,
+          pointerEvents: "none",
+          userSelect: "none",
+          maxHeight: "520px",
+          overflow: "hidden",
+          maskImage: "linear-gradient(to bottom, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0) 85%)",
+          WebkitMaskImage: "linear-gradient(to bottom, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0) 85%)",
+        }}
       >
-        Get Pro →
-      </Link>
-      <p className="text-xs" style={{ color: "rgba(255,255,255,0.3)" }}>
-        Already a token holder? Earn Pro access through 25+ referrals.
-      </p>
-    </motion.div>
+        {children}
+      </div>
+
+      {/* Lock overlay */}
+      <motion.div
+        initial={{ opacity: 0, y: 12 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="absolute inset-x-0 flex flex-col items-center text-center px-4 pt-8 pb-12"
+        style={{ top: "80px" }}
+      >
+        <div
+          className="w-14 h-14 rounded-2xl flex items-center justify-center mb-4"
+          style={{ background: "rgba(251,191,36,0.15)", border: "1px solid rgba(251,191,36,0.4)", backdropFilter: "blur(12px)" }}
+        >
+          <Lock className="w-6 h-6" style={{ color: "#fcd34d" }} />
+        </div>
+        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold mb-3"
+          style={{ background: "rgba(251,191,36,0.12)", border: "1px solid rgba(251,191,36,0.25)", color: "#fbbf24" }}>
+          ✦ Pro Feature
+        </div>
+        <h2 className="text-xl font-serif font-bold mb-2" style={{ color: "rgba(255,255,255,0.95)" }}>Type Self Work</h2>
+        <p className="text-sm mb-5 max-w-xs leading-relaxed" style={{ color: "rgba(255,255,255,0.5)" }}>
+          Integration practices, shadow prompts, growth arrows, and weekly challenges — tailored to your specific type.
+        </p>
+        <Link
+          href="/store"
+          className="w-full max-w-xs py-3.5 rounded-2xl font-bold text-white text-sm transition-all active:scale-95 text-center block mb-3"
+          style={{ background: "linear-gradient(135deg, #d97706, #f59e0b)", boxShadow: "0 4px 24px rgba(245,158,11,0.45)" }}
+        >
+          Get Pro — Unlock Self Work →
+        </Link>
+        <p className="text-xs" style={{ color: "rgba(255,255,255,0.28)" }}>
+          Earn Pro access through 25+ referrals · already a member? <Link href="/store" style={{ color: "rgba(251,191,36,0.6)" }}>restore</Link>
+        </p>
+      </motion.div>
+
+      {/* Extra space for overlay */}
+      <div style={{ height: "400px" }} />
+    </div>
   );
 }
 

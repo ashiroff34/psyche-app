@@ -117,38 +117,58 @@ function EnneagramGrowthGate({ children }: { children: React.ReactNode }) {
   if (unlocked) return <>{children}</>;
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center px-6 text-center" style={{ background: "#0f0a1e" }}>
-      <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} className="max-w-sm w-full">
-        <div className="w-16 h-16 rounded-2xl flex items-center justify-center mb-5 mx-auto"
-          style={{ background: "rgba(16,185,129,0.15)", border: "1px solid rgba(16,185,129,0.3)" }}>
-          <Leaf className="w-7 h-7" style={{ color: "#34d399" }} />
-        </div>
-        <h1 className="text-2xl font-serif font-bold mb-2" style={{ color: "rgba(255,255,255,0.93)" }}>Enneagram Growth Path</h1>
-        <p className="text-sm leading-relaxed mb-2" style={{ color: "rgba(255,255,255,0.5)" }}>
-          Type-specific growth prompts, integration practices, and daily reflection — rooted in the Enneagram tradition.
-        </p>
-        <p className="text-xs mb-6" style={{ color: "rgba(255,255,255,0.3)" }}>
-          No subscription needed. Unlock once with tokens earned through daily practice.
-        </p>
-        <div className="flex items-center justify-center gap-2 mb-5 px-4 py-2.5 rounded-full"
-          style={{ background: "rgba(16,185,129,0.12)", border: "1px solid rgba(16,185,129,0.25)" }}>
-          <Zap className="w-4 h-4 text-emerald-400" />
-          <span className="text-sm font-bold text-emerald-300">{ENNEAGRAM_GROWTH_UNLOCK_COST} tokens</span>
-          <span className="text-xs" style={{ color: "rgba(255,255,255,0.35)" }}>· you have {tokens}</span>
-        </div>
-        {err && <p className="text-xs text-red-400 mb-3">{err}</p>}
-        <button
-          onClick={handleUnlock}
-          disabled={spending || tokens < ENNEAGRAM_GROWTH_UNLOCK_COST}
-          className="w-full py-3.5 rounded-2xl font-bold text-white text-sm transition-all active:scale-95 disabled:opacity-50 mb-3"
-          style={{ background: "linear-gradient(135deg, #10b981, #0d9488)", boxShadow: "0 4px 20px rgba(16,185,129,0.35)" }}
-        >
-          {spending ? "Unlocking…" : tokens >= ENNEAGRAM_GROWTH_UNLOCK_COST ? "Unlock Enneagram Growth Path" : "Not enough tokens yet"}
-        </button>
-        <Link href="/daily" className="block text-xs underline underline-offset-2" style={{ color: "rgba(255,255,255,0.3)" }}>
-          Earn tokens through daily practice →
-        </Link>
-      </motion.div>
+    <div className="relative min-h-screen overflow-hidden" style={{ background: "#0f0a1e" }}>
+      {/* Blurred preview of actual content */}
+      <div
+        aria-hidden="true"
+        style={{
+          filter: "blur(6px)",
+          opacity: 0.2,
+          pointerEvents: "none",
+          userSelect: "none",
+          position: "absolute",
+          inset: 0,
+          maskImage: "linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0) 80%)",
+          WebkitMaskImage: "linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0) 80%)",
+        }}
+      >
+        {children}
+      </div>
+
+      {/* Lock overlay */}
+      <div className="relative z-10 min-h-screen flex flex-col items-center justify-center px-6 text-center">
+        <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} className="max-w-sm w-full">
+          <div className="w-16 h-16 rounded-2xl flex items-center justify-center mb-5 mx-auto"
+            style={{ background: "rgba(16,185,129,0.15)", border: "1px solid rgba(16,185,129,0.35)", backdropFilter: "blur(12px)" }}>
+            <Leaf className="w-7 h-7" style={{ color: "#34d399" }} />
+          </div>
+          <h1 className="text-2xl font-serif font-bold mb-2" style={{ color: "rgba(255,255,255,0.95)" }}>Enneagram Growth Path</h1>
+          <p className="text-sm leading-relaxed mb-2" style={{ color: "rgba(255,255,255,0.52)" }}>
+            Type-specific growth prompts, integration practices, and daily reflection — rooted in the Enneagram tradition.
+          </p>
+          <p className="text-xs mb-6" style={{ color: "rgba(255,255,255,0.3)" }}>
+            No subscription needed. Unlock once with tokens earned through daily practice.
+          </p>
+          <div className="flex items-center justify-center gap-2 mb-5 px-4 py-2.5 rounded-full"
+            style={{ background: "rgba(16,185,129,0.12)", border: "1px solid rgba(16,185,129,0.28)", backdropFilter: "blur(8px)" }}>
+            <Zap className="w-4 h-4 text-emerald-400" />
+            <span className="text-sm font-bold text-emerald-300">{ENNEAGRAM_GROWTH_UNLOCK_COST} tokens</span>
+            <span className="text-xs" style={{ color: "rgba(255,255,255,0.35)" }}>· you have {tokens}</span>
+          </div>
+          {err && <p className="text-xs text-red-400 mb-3">{err}</p>}
+          <button
+            onClick={handleUnlock}
+            disabled={spending || tokens < ENNEAGRAM_GROWTH_UNLOCK_COST}
+            className="w-full py-3.5 rounded-2xl font-bold text-white text-sm transition-all active:scale-95 disabled:opacity-50 mb-3"
+            style={{ background: "linear-gradient(135deg, #10b981, #0d9488)", boxShadow: "0 4px 24px rgba(16,185,129,0.45)" }}
+          >
+            {spending ? "Unlocking…" : tokens >= ENNEAGRAM_GROWTH_UNLOCK_COST ? "Unlock Enneagram Growth Path" : "Not enough tokens yet"}
+          </button>
+          <Link href="/daily" className="block text-xs underline underline-offset-2" style={{ color: "rgba(255,255,255,0.3)" }}>
+            Earn tokens through daily practice →
+          </Link>
+        </motion.div>
+      </div>
     </div>
   );
 }
