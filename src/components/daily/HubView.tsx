@@ -49,6 +49,7 @@ const TYPE_NAMES: Record<number, string> = {
 };
 import WeeklyChallengeCard from "./WeeklyChallengeCard";
 import IntegrationCompanion from "./IntegrationCompanion";
+import DailyInsightCard from "@/components/DailyInsightCard";
 import PetSprite from "@/components/PetSprite";
 import ChibiSprite from "@/components/ChibiSprite";
 import type { PathNodeConfig } from "./NodeBottomSheet";
@@ -145,6 +146,7 @@ interface Props {
     progress: number; completed: boolean; rewardClaimed: boolean;
   };
   onClaimWeeklyReward?: () => void;
+  onStreakShop?: () => void;
 }
 
 export default function HubView({
@@ -179,7 +181,9 @@ export default function HubView({
   name,
   weeklyChallenge,
   onClaimWeeklyReward,
+  onStreakShop,
 }: Props) {
+  const TYPE_COLORS: Record<number, string> = { 1: "#E74C3C", 2: "#E91E8C", 3: "#F39C12", 4: "#9B59B6", 5: "#2980B9", 6: "#27AE60", 7: "#1ABC9C", 8: "#E67E22", 9: "#95A5A6" };
   const overallProgress = Math.round((completedToday / Math.max(totalNodes, 1)) * 100);
   const ringCircumference = 2 * Math.PI * 52;
   const countdown = useMidnightCountdown();
@@ -380,6 +384,15 @@ export default function HubView({
                 <span className="text-white text-[9px] font-bold">{streakFreezes}</span>
               </div>
             )}
+            {onStreakShop && (
+              <button
+                onClick={(e) => { e.stopPropagation(); onStreakShop(); }}
+                className="mt-1.5 flex items-center gap-0.5 px-1.5 py-0.5 rounded-full text-[9px] font-bold transition-all active:scale-95"
+                style={{ background: "rgba(14,165,233,0.12)", color: "#38bdf8", border: "1px solid rgba(14,165,233,0.25)" }}
+              >
+                🛡️ Protect
+              </button>
+            )}
           </div>
 
           {/* XP */}
@@ -489,6 +502,13 @@ export default function HubView({
         {/* ── Integration Companion ── */}
         {enneagramType > 0 && (
           <IntegrationCompanion userType={enneagramType} />
+        )}
+
+        {/* ── Daily Insight Card ── */}
+        {enneagramType >= 1 && enneagramType <= 9 && (
+          <div className="px-4 mb-4">
+            <DailyInsightCard typeNumber={enneagramType} typeColor={TYPE_COLORS[enneagramType]} />
+          </div>
         )}
 
         {/* ══════════════════════════════════════════════════════════════

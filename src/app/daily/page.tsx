@@ -35,6 +35,7 @@ import DailyReading from "@/components/daily/DailyReading";
 import { getDailyReading } from "@/data/dailyReadings";
 import MilestoneModal from "@/components/MilestoneModal";
 import MorningObservation, { shouldShowMorningObservation } from "@/components/daily/MorningObservation";
+import StreakFreezeShop from "@/components/StreakFreezeShop";
 import ShadowReengagement, { shouldShowShadowReengagement, markActive } from "@/components/ShadowReengagement";
 import { cognitiveGrowthEdges } from "@/data/cognitiveGrowthEdges";
 import { typeQuizQuestions } from "@/data/type-quizzes";
@@ -616,6 +617,9 @@ export default function DailyPage() {
     setSelectedLessonUnit(unit);
   };
 
+  // ── Streak shop ──
+  const [showStreakShop, setShowStreakShop] = useState(false);
+
   // ── Streak repair prompt ──
   const [streakRepairPrompt, setStreakRepairPrompt] = useState(false);
   const [streakDeclined, setStreakDeclined] = useState(false);
@@ -665,7 +669,6 @@ export default function DailyPage() {
   // ── View state (hub / path / quiz) ──
   const [view, setView] = useState<"hub" | "path" | "quiz" | "lesson" | "reading">("path");
   const [statsCollapsed, setStatsCollapsed] = useState(true);
-  const [pathExpanded, setPathExpanded] = useState(false);
 
   // ── Auto-scroll to current lesson when path view mounts ──
   useEffect(() => {
@@ -1563,6 +1566,7 @@ export default function DailyPage() {
           name={profile.displayName}
           weeklyChallenge={weeklyChallenge}
           onClaimWeeklyReward={() => { claimWeeklyReward(); setShowWeeklyCelebration(true); }}
+          onStreakShop={() => setShowStreakShop(true)}
         />
         <NodeBottomSheet
           node={bottomSheetNode}
@@ -1590,6 +1594,13 @@ export default function DailyPage() {
           streakCount={streak}
           enneagramType={profile.enneagramType ?? null}
         />
+
+        {/* Streak Freeze Shop Modal */}
+        <AnimatePresence>
+          {showStreakShop && (
+            <StreakFreezeShop onClose={() => setShowStreakShop(false)} />
+          )}
+        </AnimatePresence>
       </div>
     );
   }
@@ -1927,35 +1938,18 @@ export default function DailyPage() {
           );
         })()}
         {/* ─── Curriculum Path ─────────────────────────────────────────── */}
-        <div className="max-w-md mx-auto px-4 pt-3 pb-2">
-          <button
-            onClick={() => setPathExpanded(p => !p)}
-            className="w-full flex items-center justify-between px-4 py-2.5 rounded-2xl transition-all"
-            style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.07)" }}
-          >
-            <span className="text-xs font-bold uppercase tracking-widest" style={{ color: "rgba(255,255,255,0.4)" }}>
-              {pathExpanded ? "Hide curriculum" : "View full curriculum"}
-            </span>
-            <ChevronDown
-              className="w-4 h-4 transition-transform"
-              style={{ color: "rgba(255,255,255,0.3)", transform: pathExpanded ? "rotate(180deg)" : "rotate(0deg)" }}
+        <div className="max-w-md mx-auto pt-1 pb-8">
+          {unitsWithStatus.map((unit, i) => (
+            <UnitSection
+              key={unit.id}
+              unit={unit}
+              index={i}
+              enneagramType={enneagramTypeForPet}
+              instinct={profile.instinctualStacking ?? "sp"}
+              onNodeTap={(lesson) => handleLessonNodeTap(lesson, unit)}
             />
-          </button>
+          ))}
         </div>
-        {pathExpanded && (
-          <div className="max-w-md mx-auto pt-1 pb-8">
-            {unitsWithStatus.map((unit, i) => (
-              <UnitSection
-                key={unit.id}
-                unit={unit}
-                index={i}
-                enneagramType={enneagramTypeForPet}
-                instinct={profile.instinctualStacking ?? "sp"}
-                onNodeTap={(lesson) => handleLessonNodeTap(lesson, unit)}
-              />
-            ))}
-          </div>
-        )}
 
         {/* ─── Lesson node bottom sheet ────────────────────────────────── */}
         <NodeSheet

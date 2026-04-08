@@ -19,6 +19,8 @@ import {
   Target,
   Sprout,
   MoreHorizontal,
+  Heart,
+  MessageCircle,
 } from "lucide-react";
 import OuroborosLogo from "@/components/OuroborosLogo";
 import SearchComponent from "@/components/Search";
@@ -141,6 +143,14 @@ type MoreItem = { href: string; label: string; icon: React.ElementType; unlocksD
 type MoreGroup = { label: string; items: MoreItem[] };
 
 const ALL_MORE_GROUPS: MoreGroup[] = [
+  {
+    label: "Explore",
+    items: [
+      { href: "/compatibility", label: "Compare Types", icon: Heart },
+      { href: "/confessions", label: "Type Confessions", icon: MessageCircle },
+      { href: "/arcs", label: "Growth Arcs", icon: Flame },
+    ],
+  },
   {
     label: "App",
     items: [

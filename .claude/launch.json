@@ -2,10 +2,10 @@
   "version": "0.0.1",
   "configurations": [
     {
-      "name": "thyself-dev",
-      "runtimeExecutable": "npm",
-      "runtimeArgs": ["run", "dev"],
-      "port": 3003
+      "name": "psyche-app",
+      "runtimeExecutable": "/bin/bash",
+      "runtimeArgs": ["-c", "cd '/Users/ariannashiroff/Documents/Thyself/psyche-app 2' && /Users/ariannashiroff/.nvm/versions/node/v24.14.0/bin/node node_modules/.bin/next dev --port 3000"],
+      "port": 3000
     }
   ]
 }

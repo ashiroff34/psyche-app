@@ -132,6 +132,25 @@ function broadcastProfileChange(updated: PsycheProfile) {
   }
 }
 
+// Check whether a streak freeze is currently active.
+// Returns true if the freeze covers today, cleans up expired keys, and returns false otherwise.
+export function checkStreakFreeze(): boolean {
+  if (typeof window === "undefined") return false;
+  try {
+    const active = localStorage.getItem("psyche-streak-freeze-active");
+    const expires = localStorage.getItem("psyche-streak-freeze-expires");
+    if (active !== "true" || !expires) return false;
+    const today = new Intl.DateTimeFormat("en-CA").format(new Date());
+    if (expires >= today) return true;
+    // Expired — clean up
+    localStorage.removeItem("psyche-streak-freeze-active");
+    localStorage.removeItem("psyche-streak-freeze-expires");
+    return false;
+  } catch {
+    return false;
+  }
+}
+
 // Helper used by external code (e.g. results pages) that write directly to
 // localStorage without going through useProfile, call this after the write.
 export function notifyProfileChanged() {
