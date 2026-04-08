@@ -29,6 +29,88 @@ import { useProfile } from "@/hooks/useProfile";
 import { typeVignettes } from "@/data/vignettes";
 import TypeVignetteSection from "@/components/TypeVignette";
 import { relationshipDynamics } from "@/data/relationshipDynamics";
+import { Lock } from "lucide-react";
+
+// ─── Self-Work content gate ────────────────────────────────────────────────────
+// Journal prompts, daily practices, and myths are Pro-level self-work content.
+
+function TypeSelfWorkGate({
+  children,
+  accent,
+}: {
+  children: React.ReactNode;
+  accent: string;
+}) {
+  const [unlocked, setUnlocked] = useState<boolean | null>(null);
+
+  useEffect(() => {
+    try {
+      setUnlocked(localStorage.getItem("psyche-pro-unlocked") === "true");
+    } catch { setUnlocked(false); }
+  }, []);
+
+  if (unlocked === null) return null;
+  if (unlocked) return <>{children}</>;
+
+  return (
+    <div className="relative rounded-2xl overflow-hidden" style={{ border: "1px solid rgba(255,255,255,0.07)" }}>
+      {/* Blurred preview */}
+      <div
+        aria-hidden="true"
+        style={{
+          filter: "blur(4px)",
+          opacity: 0.18,
+          pointerEvents: "none",
+          userSelect: "none",
+          maxHeight: "280px",
+          overflow: "hidden",
+          maskImage: "linear-gradient(to bottom, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0) 80%)",
+          WebkitMaskImage: "linear-gradient(to bottom, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0) 80%)",
+        }}
+      >
+        {children}
+      </div>
+
+      {/* Lock overlay */}
+      <motion.div
+        initial={{ opacity: 0, y: 8 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="absolute inset-x-0 flex flex-col items-center text-center px-4 pt-6 pb-8"
+        style={{ top: "40px" }}
+      >
+        <div
+          className="w-12 h-12 rounded-2xl flex items-center justify-center mb-3"
+          style={{
+            background: `${accent}22`,
+            border: `1px solid ${accent}55`,
+            backdropFilter: "blur(12px)",
+          }}
+        >
+          <Lock className="w-5 h-5" style={{ color: accent }} />
+        </div>
+        <div
+          className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold mb-2"
+          style={{ background: `${accent}18`, border: `1px solid ${accent}40`, color: accent }}
+        >
+          Pro Feature
+        </div>
+        <p className="text-sm mb-4 max-w-xs leading-relaxed" style={{ color: "rgba(255,255,255,0.5)" }}>
+          Journal prompts, daily practices, and growth exercises for your type.
+        </p>
+        <Link
+          href="/store"
+          className="px-6 py-2.5 rounded-xl font-bold text-white text-sm transition-all active:scale-95"
+          style={{
+            background: `linear-gradient(135deg, ${accent}, ${accent}bb)`,
+            boxShadow: `0 4px 20px ${accent}44`,
+          }}
+        >
+          Get Pro to unlock
+        </Link>
+      </motion.div>
+    </div>
+  );
+}
 
 // ─── Famous examples data per type ───────────────────────────────────────────
 const famousExamples: Record<
@@ -1742,7 +1824,8 @@ export default function TypeDeepDivePage() {
                   </div>
                 </div>
 
-                {/* Daily Practices */}
+                {/* Daily Practices — Pro gate */}
+                <TypeSelfWorkGate accent={accent}>
                 <div className="p-6 rounded-2xl shadow-sm" style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.09)" }}>
                   <div className="flex items-center gap-3 mb-4">
                     <Lightbulb className="w-5 h-5" style={{ color: accent }} />
@@ -1836,6 +1919,7 @@ export default function TypeDeepDivePage() {
                     })}
                   </div>
                 </div>
+                </TypeSelfWorkGate>
               </div>
             </motion.div>
           )}
