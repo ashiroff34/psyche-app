@@ -1877,7 +1877,7 @@ function ReferralBlock() {
     }
   }, []);
 
-  const link = `https://thyself.app/r/${code ?? "...loading"}`;
+  const link = `https://thyself.app/r?code=${code ?? "...loading"}`;
 
   const copyLink = async () => {
     try {

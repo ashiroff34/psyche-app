@@ -1,37 +1,32 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+import { useEffect, useState, Suspense } from "react";
+import { useSearchParams, useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 
 const REFERRAL_TOKEN_REWARD = 25;
 
-export default function ReferralClient({ initialCode }: { initialCode: string }) {
+function ReferralContent() {
+  const searchParams = useSearchParams();
   const router = useRouter();
-  const [claimed, setClaimed] = useState(false);
+  const code = searchParams.get("code") ?? "";
 
   useEffect(() => {
-    if (!initialCode) return;
+    if (!code) return;
     try {
       const existing = localStorage.getItem("psyche-referral-code");
       if (!existing) {
-        localStorage.setItem("psyche-referral-code", initialCode);
+        localStorage.setItem("psyche-referral-code", code);
         localStorage.setItem("psyche-referral-at", new Date().toISOString());
       }
     } catch {}
-    setClaimed(true);
-  }, [initialCode]);
-
-  const handleStart = () => {
-    router.push("/assessments/quick");
-  };
+  }, [code]);
 
   return (
     <div
       className="min-h-screen flex flex-col items-center justify-center px-6 text-center"
       style={{ background: "linear-gradient(160deg, #0f0a1e 0%, #1a0f38 50%, #0f0a1e 100%)" }}
     >
-      {/* Glow backdrop */}
       <div
         className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 rounded-full pointer-events-none"
         style={{ background: "radial-gradient(circle, rgba(139,92,246,0.18) 0%, transparent 70%)" }}
@@ -43,7 +38,6 @@ export default function ReferralClient({ initialCode }: { initialCode: string })
         transition={{ type: "spring", damping: 20, stiffness: 260 }}
         className="relative max-w-sm w-full flex flex-col items-center gap-6"
       >
-        {/* Logo mark */}
         <div
           className="w-16 h-16 rounded-2xl flex items-center justify-center text-2xl font-black font-mono"
           style={{
@@ -55,7 +49,6 @@ export default function ReferralClient({ initialCode }: { initialCode: string })
           (*)
         </div>
 
-        {/* Headline */}
         <div>
           <p className="text-xs font-bold uppercase tracking-widest mb-2" style={{ color: "rgba(167,139,250,0.6)" }}>
             You were invited
@@ -68,16 +61,12 @@ export default function ReferralClient({ initialCode }: { initialCode: string })
           </p>
         </div>
 
-        {/* Reward pill */}
         <motion.div
           initial={{ scale: 0.85, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           transition={{ delay: 0.25, type: "spring", damping: 14, stiffness: 240 }}
           className="flex items-center gap-2 px-4 py-2.5 rounded-full"
-          style={{
-            background: "rgba(245,158,11,0.12)",
-            border: "1px solid rgba(245,158,11,0.28)",
-          }}
+          style={{ background: "rgba(245,158,11,0.12)", border: "1px solid rgba(245,158,11,0.28)" }}
         >
           <span className="text-sm font-mono font-bold" style={{ color: "#fbbf24" }}>(+)</span>
           <span className="text-sm font-bold" style={{ color: "#fbbf24" }}>
@@ -85,7 +74,6 @@ export default function ReferralClient({ initialCode }: { initialCode: string })
           </span>
         </motion.div>
 
-        {/* Feature bullets */}
         <div className="w-full space-y-2.5">
           {[
             "Core Enneagram type — motivation not just behavior",
@@ -106,13 +94,12 @@ export default function ReferralClient({ initialCode }: { initialCode: string })
           ))}
         </div>
 
-        {/* CTA */}
         <motion.button
           initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.7 }}
           whileTap={{ scale: 0.97 }}
-          onClick={handleStart}
+          onClick={() => router.push("/assessments/quick")}
           className="w-full py-4 rounded-2xl font-black text-white text-base"
           style={{
             background: "linear-gradient(135deg, #7c3aed, #d946ef)",
@@ -127,5 +114,13 @@ export default function ReferralClient({ initialCode }: { initialCode: string })
         </p>
       </motion.div>
     </div>
+  );
+}
+
+export default function ReferralPage() {
+  return (
+    <Suspense>
+      <ReferralContent />
+    </Suspense>
   );
 }
