@@ -26,7 +26,7 @@ export default function ThisOrThatPage() {
       {/* Header */}
       <div className="fixed top-0 left-0 right-0 z-40 px-4 pt-12 pb-3 max-w-lg mx-auto w-full">
         <button
-          onClick={() => router.back()}
+          onClick={() => router.push("/assessments")}
           className="flex items-center gap-1 text-sm"
           style={{ color: "rgba(255,255,255,0.35)" }}
         >

@@ -15,6 +15,77 @@ import NextStepBanner from "@/components/NextStepBanner";
 import { Compass as CompassIcon, Users2 } from "lucide-react";
 
 /* ═══════════════════════════════════════════════════════════════════
+   Advanced Enneagram content paywall
+   ═══════════════════════════════════════════════════════════════════ */
+const ENNEAGRAM_ADV_UNLOCK_KEY = "psyche-enneagram-advanced-unlocked";
+const ENNEAGRAM_ADV_UNLOCK_COST = 100;
+
+function AdvancedContentGate({ children }: { children: React.ReactNode }) {
+  const [unlocked, setUnlocked] = useState<boolean | null>(null);
+  const [tokens, setTokens] = useState(0);
+  const [spending, setSpending] = useState(false);
+  const [err, setErr] = useState("");
+
+  useEffect(() => {
+    try {
+      setUnlocked(localStorage.getItem(ENNEAGRAM_ADV_UNLOCK_KEY) === "true");
+      const gs = JSON.parse(localStorage.getItem("psyche-game-state") || "{}");
+      setTokens(typeof gs.tokens === "number" ? gs.tokens : 0);
+    } catch { setUnlocked(false); }
+  }, []);
+
+  const handleUnlock = () => {
+    if (tokens < ENNEAGRAM_ADV_UNLOCK_COST) {
+      setErr(`You need ${ENNEAGRAM_ADV_UNLOCK_COST - tokens} more tokens. Earn them through daily practice.`);
+      return;
+    }
+    setSpending(true);
+    try {
+      const gs = JSON.parse(localStorage.getItem("psyche-game-state") || "{}");
+      gs.tokens = (typeof gs.tokens === "number" ? gs.tokens : 0) - ENNEAGRAM_ADV_UNLOCK_COST;
+      localStorage.setItem("psyche-game-state", JSON.stringify(gs));
+      localStorage.setItem(ENNEAGRAM_ADV_UNLOCK_KEY, "true");
+      setUnlocked(true);
+    } catch { setErr("Something went wrong."); setSpending(false); }
+  };
+
+  if (unlocked === null) return null;
+  if (unlocked) return <>{children}</>;
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 12 }}
+      animate={{ opacity: 1, y: 0 }}
+      className="max-w-sm mx-auto mt-8 flex flex-col items-center text-center px-4"
+    >
+      <div className="w-16 h-16 rounded-2xl flex items-center justify-center mb-5"
+        style={{ background: "rgba(139,92,246,0.15)", border: "1px solid rgba(139,92,246,0.3)" }}>
+        <Lock className="w-7 h-7" style={{ color: "#a78bfa" }} />
+      </div>
+      <h2 className="text-xl font-serif font-bold mb-2" style={{ color: "rgba(255,255,255,0.92)" }}>Advanced Enneagram</h2>
+      <p className="text-sm mb-6 max-w-xs" style={{ color: "rgba(255,255,255,0.45)" }}>
+        Unlock Instinctual Stackings, Tritypes, and Deep Systems — the full depth of the Enneagram beyond type.
+      </p>
+      <div className="flex items-center gap-2 mb-6 px-4 py-2.5 rounded-full"
+        style={{ background: "rgba(251,191,36,0.12)", border: "1px solid rgba(251,191,36,0.25)" }}>
+        <Zap className="w-4 h-4 text-amber-400" />
+        <span className="text-sm font-bold text-amber-300">{ENNEAGRAM_ADV_UNLOCK_COST} tokens</span>
+        <span className="text-xs" style={{ color: "rgba(255,255,255,0.35)" }}>· you have {tokens}</span>
+      </div>
+      {err && <p className="text-xs text-red-400 mb-3">{err}</p>}
+      <button
+        onClick={handleUnlock}
+        disabled={spending || tokens < ENNEAGRAM_ADV_UNLOCK_COST}
+        className="w-full py-3.5 rounded-2xl font-bold text-white text-sm transition-all active:scale-95 disabled:opacity-50"
+        style={{ background: "linear-gradient(135deg, #7c3aed, #d946ef)", boxShadow: "0 4px 20px rgba(124,58,237,0.4)" }}
+      >
+        {spending ? "Unlocking…" : tokens >= ENNEAGRAM_ADV_UNLOCK_COST ? "Unlock Advanced Content" : "Not enough tokens yet"}
+      </button>
+    </motion.div>
+  );
+}
+
+/* ═══════════════════════════════════════════════════════════════════
    TYPE NUANCE CARD, static deep insights per type
    ═══════════════════════════════════════════════════════════════════ */
 const TYPE_NUANCES: Record<number, string> = {
@@ -717,12 +788,16 @@ function LearnContent() {
   const typeParam = searchParams.get("type");
   const [selectedType, setSelectedType] = useState<number | null>(typeParam ? parseInt(typeParam) : null);
   const [learnTab, setLearnTab] = useState<"types" | "instincts" | "stackings" | "tritypes" | "deepsystems">("types");
+  const [advUnlocked, setAdvUnlocked] = useState(false);
   const { profile } = useProfile();
   const myType = profile.enneagramType ?? null; // reactive, updates when type changes
 
   // Mark "Enneagram Basics" as complete when this page is visited
   useEffect(() => {
     markTopicComplete("enneagram-basics");
+    try {
+      setAdvUnlocked(localStorage.getItem(ENNEAGRAM_ADV_UNLOCK_KEY) === "true");
+    } catch {}
   }, []);
 
   // Auto-load user's type from profile if no URL param
@@ -762,19 +837,20 @@ function LearnContent() {
         {/* Top-level tabs — same for everyone */}
         <div className="flex gap-1 p-1 rounded-xl w-fit mb-8 flex-wrap" style={{ background: "rgba(255,255,255,0.06)" }}>
           {[
-            { key: "types" as const, label: "9 Types" },
-            { key: "instincts" as const, label: "Instinctual Variants" },
-            { key: "stackings" as const, label: "Stackings" },
-            { key: "tritypes" as const, label: "Tritypes" },
-            { key: "deepsystems" as const, label: "Deep Systems" },
+            { key: "types" as const, label: "9 Types", premium: false },
+            { key: "instincts" as const, label: "Instinctual Variants", premium: false },
+            { key: "stackings" as const, label: "Stackings", premium: true },
+            { key: "tritypes" as const, label: "Tritypes", premium: true },
+            { key: "deepsystems" as const, label: "Deep Systems", premium: true },
           ].map((tab) => (
             <button key={tab.key} onClick={() => setLearnTab(tab.key)}
-              className="px-4 py-2 rounded-lg text-sm font-medium transition"
+              className="px-4 py-2 rounded-lg text-sm font-medium transition flex items-center gap-1.5"
               style={learnTab === tab.key
                 ? { background: "rgba(255,255,255,0.12)", color: "rgba(255,255,255,0.92)" }
                 : { color: "rgba(255,255,255,0.45)" }
               }>
               {tab.label}
+              {tab.premium && !advUnlocked && <Lock className="w-3 h-3 opacity-50" />}
             </button>
           ))}
         </div>
@@ -933,6 +1009,7 @@ function LearnContent() {
 
         {/* Stackings Tab */}
         {learnTab === "stackings" && (
+          <AdvancedContentGate>
           <div className="max-w-3xl mx-auto space-y-6">
             <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.55)" }}>
               Your instinctual stacking is the order of priority of your three instincts. Your dominant instinct shapes your primary focus, your secondary supports it, and your blind spot is the instinct you neglect most. There are six possible stackings.
@@ -968,10 +1045,12 @@ function LearnContent() {
               </div>
             ))}
           </div>
+          </AdvancedContentGate>
         )}
 
         {/* Tritypes Tab */}
         {learnTab === "tritypes" && (
+          <AdvancedContentGate>
           <div className="max-w-3xl mx-auto space-y-6">
             <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.55)" }}>
               Katherine Fauvre&apos;s Tritype theory proposes that each person uses one type from each of the three centers of intelligence. Your tritype (e.g., 531) shows your dominant strategy in Head (5/6/7), Heart (2/3/4), and Gut (8/9/1). Combined with your instinctual stacking, this creates a highly specific personality profile (e.g., sx/so 531 INTJ).
@@ -1019,10 +1098,12 @@ function LearnContent() {
               ))}
             </div>
           </div>
+          </AdvancedContentGate>
         )}
 
         {/* Deep Systems Tab */}
         {learnTab === "deepsystems" && (
+          <AdvancedContentGate>
           <div className="max-w-3xl mx-auto space-y-8">
             <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.55)" }}>
               Beyond the 9 types, the Enneagram contains several meta-systems that reveal deeper patterns. These groupings come from Karen Horney&apos;s psychoanalytic framework, Don Riso &amp; Russ Hudson&apos;s research, and object relations theory.
@@ -1288,6 +1369,7 @@ function LearnContent() {
               </div>
             </div>
           </div>
+          </AdvancedContentGate>
         )}
 
         {/* Next Step Banners — shown at the natural end of each tab */}

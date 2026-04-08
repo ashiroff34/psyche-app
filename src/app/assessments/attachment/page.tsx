@@ -373,7 +373,7 @@ export default function AttachmentAssessmentPage() {
       <div className="min-h-screen py-16 px-4" style={{ background: "#0f0a1e" }}>
         <div className="max-w-xl mx-auto">
           <button
-            onClick={() => router.back()}
+            onClick={() => router.push("/assessments")}
             className="flex items-center gap-1.5 text-sm mb-8 transition"
             style={{ color: "rgba(255,255,255,0.4)" }}
           >

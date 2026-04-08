@@ -290,7 +290,7 @@ export default function InstinctualPage() {
       <div className="min-h-screen flex flex-col" style={{ background: "#0f0a1e" }}>
         <div className="max-w-2xl mx-auto px-4 pt-6 w-full">
           <button
-            onClick={() => router.back()}
+            onClick={() => router.push("/assessments")}
             className="flex items-center gap-1 text-sm transition mb-4"
             style={{ color: "rgba(255,255,255,0.5)" }}
           >

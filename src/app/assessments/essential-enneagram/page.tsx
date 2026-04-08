@@ -13,7 +13,7 @@ export default function EssentialEnneagramPage() {
   return (
     <div className="min-h-screen">
       <div className="max-w-3xl mx-auto px-4 pt-6">
-        <button onClick={() => router.back()} className="flex items-center gap-1 text-sm transition mb-4" style={{ color: "rgba(255,255,255,0.5)" }}>
+        <button onClick={() => router.push("/assessments")} className="flex items-center gap-1 text-sm transition mb-4" style={{ color: "rgba(255,255,255,0.5)" }}>
           <ArrowLeft className="w-4 h-4" /> Back
         </button>
         <h1 className="text-2xl font-serif font-bold mb-1" style={{ color: "rgba(255,255,255,0.95)" }}>Essential Enneagram</h1>

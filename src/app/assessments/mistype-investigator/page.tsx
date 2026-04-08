@@ -17,7 +17,7 @@ export default function MistypeInvestigatorPage() {
     return (
       <div className="min-h-screen">
         <div className="max-w-2xl mx-auto px-4 pt-6">
-          <button onClick={() => router.back()} className="flex items-center gap-1 text-sm transition mb-4" style={{ color: "rgba(255,255,255,0.5)" }}>
+          <button onClick={() => router.push("/assessments")} className="flex items-center gap-1 text-sm transition mb-4" style={{ color: "rgba(255,255,255,0.5)" }}>
             <ArrowLeft className="w-4 h-4" /> Back
           </button>
         </div>
@@ -29,7 +29,7 @@ export default function MistypeInvestigatorPage() {
   return (
     <div className="min-h-screen">
       <div className="max-w-3xl mx-auto px-4 pt-6">
-        <button onClick={() => router.back()} className="flex items-center gap-1 text-sm text-slate-400 hover:text-slate-600 transition mb-4">
+        <button onClick={() => router.push("/assessments")} className="flex items-center gap-1 text-sm text-slate-400 hover:text-slate-600 transition mb-4">
           <ArrowLeft className="w-4 h-4" /> Back
         </button>
       </div>

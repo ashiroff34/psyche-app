@@ -14,7 +14,7 @@ export default function QuickAssessmentPage() {
       {/* Header */}
       <div className="max-w-lg mx-auto px-4 pt-20 pb-2">
         <button
-          onClick={() => router.back()}
+          onClick={() => router.push("/assessments")}
           className="flex items-center gap-1 text-sm mb-4"
           style={{ color: "rgba(255,255,255,0.4)" }}
         >

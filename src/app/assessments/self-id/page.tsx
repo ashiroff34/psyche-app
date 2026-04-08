@@ -768,7 +768,7 @@ export default function SelfIdPage() {
         }}
       >
         <button
-          onClick={() => router.back()}
+          onClick={() => router.push("/assessments")}
           style={{
             width: 36,
             height: 36,
