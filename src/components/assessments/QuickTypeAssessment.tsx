@@ -1,10 +1,14 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence, useMotionValue, useTransform, animate } from "framer-motion";
 import { useDrag } from "@use-gesture/react";
-import { Check, ChevronDown, BookOpen } from "lucide-react";
+import { Check, ChevronDown, BookOpen, Zap, SkipForward } from "lucide-react";
 import ChibiSprite from "@/components/ChibiSprite";
+
+// ─── Quiz save/resume key ─────────────────────────────────────────────────────
+const QUIZ_SAVE_KEY = "psyche-quiz-progress-quick";
+const SKIP_COST = 30; // tokens
 
 // ─── Theory ──────────────────────────────────────────────────────────────────
 // Oscar Ichazo (triadic centers, passions, fixations)
@@ -578,15 +582,77 @@ export default function QuickTypeAssessment({
 }: {
   onComplete: (result: { type: number; confidence: number; runnerUp: number; instinct?: string }) => void;
 }) {
-  const [triadScores, setTriadScores] = useState<Record<string, number>>({ gut: 0, heart: 0, head: 0 });
-  const [typeScores, setTypeScores] = useState<Record<number, number>>({});
-  const [phase, setPhase] = useState<"triage" | "gut" | "heart" | "head" | "result" | "subtype">("triage");
-  const [qIdx, setQIdx] = useState(0);
+  // ── Lazy initializers — restore progress from localStorage on first mount ──
+  const [triadScores, setTriadScores] = useState<Record<string, number>>(() => {
+    try {
+      const s = JSON.parse(localStorage.getItem(QUIZ_SAVE_KEY) || "null");
+      if (s?.phase && s.phase !== "result" && s.phase !== "subtype") return s.triadScores ?? { gut: 0, heart: 0, head: 0 };
+    } catch {}
+    return { gut: 0, heart: 0, head: 0 };
+  });
+  const [typeScores, setTypeScores] = useState<Record<number, number>>(() => {
+    try {
+      const s = JSON.parse(localStorage.getItem(QUIZ_SAVE_KEY) || "null");
+      if (s?.phase && s.phase !== "result" && s.phase !== "subtype") return s.typeScores ?? {};
+    } catch {}
+    return {};
+  });
+  const [phase, setPhase] = useState<"triage" | "gut" | "heart" | "head" | "result" | "subtype">(() => {
+    try {
+      const s = JSON.parse(localStorage.getItem(QUIZ_SAVE_KEY) || "null");
+      if (s?.phase && s.phase !== "result" && s.phase !== "subtype") return s.phase;
+    } catch {}
+    return "triage";
+  });
+  const [qIdx, setQIdx] = useState<number>(() => {
+    try {
+      const s = JSON.parse(localStorage.getItem(QUIZ_SAVE_KEY) || "null");
+      if (s?.phase && s.phase !== "result" && s.phase !== "subtype") return s.qIdx ?? 0;
+    } catch {}
+    return 0;
+  });
   const [selectedInstinct, setSelectedInstinct] = useState<string | null>(null);
   const [expandedInstinct, setExpandedInstinct] = useState<string | null>(null);
   const [selectedOption, setSelectedOption] = useState<number | null>(null);
   const [expandedLearn, setExpandedLearn] = useState<number | null>(null);
   const [result, setResult] = useState<{ type: number; confidence: number; runnerUp: number } | null>(null);
+  const [showSkipConfirm, setShowSkipConfirm] = useState(false);
+  const [skipErr, setSkipErr] = useState("");
+  const [tokenBalance, setTokenBalance] = useState<number>(() => {
+    try {
+      const gs = JSON.parse(localStorage.getItem("psyche-game-state") || "{}");
+      return typeof gs.tokens === "number" ? gs.tokens : 0;
+    } catch { return 0; }
+  });
+
+  // ── Persist progress to localStorage on every question advance ───────────
+  useEffect(() => {
+    if (phase === "result" || phase === "subtype") {
+      // Clear save once quiz is done
+      try { localStorage.removeItem(QUIZ_SAVE_KEY); } catch {}
+      return;
+    }
+    try {
+      localStorage.setItem(QUIZ_SAVE_KEY, JSON.stringify({ phase, qIdx, triadScores, typeScores }));
+    } catch {}
+  }, [phase, qIdx, triadScores, typeScores]);
+
+  // ── Skip quiz for 30 tokens ──────────────────────────────────────────────
+  function handleSkipQuiz() {
+    if (tokenBalance < SKIP_COST) {
+      setSkipErr(`Need ${SKIP_COST} tokens. You have ${tokenBalance}.`);
+      return;
+    }
+    try {
+      const gs = JSON.parse(localStorage.getItem("psyche-game-state") || "{}");
+      gs.tokens = (gs.tokens ?? 0) - SKIP_COST;
+      localStorage.setItem("psyche-game-state", JSON.stringify(gs));
+      localStorage.removeItem(QUIZ_SAVE_KEY);
+    } catch {}
+    // Skip to a neutral "Type 5" placeholder (user will self-identify from results)
+    // This just dismisses the quiz — the page's onComplete handler navigates away
+    onComplete({ type: 0, confidence: 0, runnerUp: 0 });
+  }
 
   const phaseQuestions = phase === "gut" ? gutQuestions : phase === "heart" ? heartQuestions : headQuestions;
   const currentQ = phase === "triage" ? triageQuestions[qIdx] : phaseQuestions[qIdx];
@@ -820,16 +886,26 @@ export default function QuickTypeAssessment({
 
   // ── Question screen ────────────────────────────────────────────────────────
   const progressLabel = phase === "triage"
-    ? `Finding your center · ${qIdx + 1} of ${triageQuestions.length}`
-    : `Narrowing your type · ${qIdx + 1} of ${phaseQuestions.length}`;
+    ? `Finding your center (${qIdx + 1} of ${triageQuestions.length})`
+    : `Narrowing your type (${qIdx + 1} of ${phaseQuestions.length})`;
 
   return (
     <div className="max-w-lg mx-auto py-6 px-4">
-      {/* Progress bar */}
+      {/* Progress bar + skip button */}
       <div className="mb-7">
         <div className="flex items-center justify-between text-xs mb-2" style={{ color: "rgba(255,255,255,0.35)" }}>
           <span>{progressLabel}</span>
-          <span>{Math.round(progress)}%</span>
+          <div className="flex items-center gap-3">
+            <span>{Math.round(progress)}%</span>
+            <button
+              onClick={() => { setShowSkipConfirm(!showSkipConfirm); setSkipErr(""); }}
+              className="flex items-center gap-1 px-2 py-0.5 rounded-full transition-all text-[10px] font-semibold"
+              style={{ background: "rgba(251,191,36,0.12)", border: "1px solid rgba(251,191,36,0.25)", color: "#fbbf24" }}
+            >
+              <SkipForward size={10} />
+              Skip ({SKIP_COST}t)
+            </button>
+          </div>
         </div>
         <div className="h-1.5 rounded-full overflow-hidden" style={{ background: "rgba(255,255,255,0.08)" }}>
           <motion.div
@@ -838,6 +914,47 @@ export default function QuickTypeAssessment({
             transition={{ duration: 0.4 }}
           />
         </div>
+        {/* Skip confirmation dropdown */}
+        <AnimatePresence>
+          {showSkipConfirm && (
+            <motion.div
+              initial={{ opacity: 0, y: -6, scale: 0.97 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: -6, scale: 0.97 }}
+              transition={{ duration: 0.15 }}
+              className="mt-2 p-3 rounded-2xl"
+              style={{ background: "rgba(22,12,48,0.95)", border: "1px solid rgba(251,191,36,0.25)" }}
+            >
+              <p className="text-xs mb-2" style={{ color: "rgba(255,255,255,0.6)" }}>
+                Skip this quiz for <span className="text-amber-300 font-bold">{SKIP_COST} tokens</span>? You have {tokenBalance}.
+              </p>
+              {skipErr && <p className="text-xs text-red-400 mb-2">{skipErr}</p>}
+              <div className="flex gap-2">
+                <button
+                  onClick={handleSkipQuiz}
+                  disabled={tokenBalance < SKIP_COST}
+                  className="flex-1 py-1.5 rounded-xl text-xs font-bold transition-all active:scale-95 disabled:opacity-40"
+                  style={{ background: "linear-gradient(135deg, #d97706, #fbbf24)", color: "#000" }}
+                >
+                  <Zap size={10} className="inline mr-1" />
+                  Skip for {SKIP_COST}t
+                </button>
+                <button
+                  onClick={() => setShowSkipConfirm(false)}
+                  className="flex-1 py-1.5 rounded-xl text-xs font-medium transition-all"
+                  style={{ background: "rgba(255,255,255,0.07)", color: "rgba(255,255,255,0.5)" }}
+                >
+                  Keep going
+                </button>
+              </div>
+              {tokenBalance < SKIP_COST && (
+                <p className="text-[10px] mt-2 text-center" style={{ color: "rgba(255,255,255,0.3)" }}>
+                  Earn tokens through daily practice
+                </p>
+              )}
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
 
       <AnimatePresence mode="wait">

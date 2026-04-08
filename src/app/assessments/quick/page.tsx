@@ -35,8 +35,14 @@ export default function QuickAssessmentPage() {
 
       <QuickTypeAssessment
         onComplete={(result) => {
+          // type === 0 means user skipped the quiz
+          if (!result.type) {
+            router.push("/assessments");
+            return;
+          }
           recordAssessment("quick", result.confidence, result.type);
           addXP(50, "quick-assessment-complete");
+          const instinct = (result as { instinct?: string }).instinct ?? "SP";
           const params = new URLSearchParams({
             type: String(result.type),
             scores: JSON.stringify([]),
@@ -44,7 +50,7 @@ export default function QuickAssessmentPage() {
             assessmentLength: "quick",
             showTwo: result.runnerUp !== result.type ? "true" : "false",
             secondType: String(result.runnerUp),
-            instinct: "SP",
+            instinct: instinct.toUpperCase().slice(0, 2),
             instinctScores: JSON.stringify([]),
           });
           router.push(`/enneagram/results?${params.toString()}`);
