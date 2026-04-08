@@ -3,7 +3,7 @@
 //   - /_next/static/** → cache-first (content-hashed filenames, safe forever)
 //   - Everything else  → network-first (always fresh, fall back to cache offline)
 
-const CACHE_NAME = "thyself-static-v2";
+const CACHE_NAME = "thyself-static-v3";
 
 self.addEventListener("install", () => {
   // Activate immediately — don't wait for old tabs to close
