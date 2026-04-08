@@ -3,9 +3,13 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
-import { Sparkles, ChevronRight, RefreshCw, Check, ArrowRight, Leaf } from "lucide-react";
+import { Sparkles, ChevronRight, RefreshCw, Check, ArrowRight, Leaf, Lock, Zap } from "lucide-react";
 import { enneagramTypes } from "@/data/enneagram";
 import PetCompanion from "@/components/PetCompanion";
+
+// ─── Token gate for Enneagram Growth Path ────────────────────────────────────
+const ENNEAGRAM_GROWTH_UNLOCK_KEY = "psyche-enneagram-growth-unlocked";
+const ENNEAGRAM_GROWTH_UNLOCK_COST = 300;
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
@@ -77,6 +81,77 @@ const TYPE_GROWTH_MESSAGES: Record<number, string> = {
   9: "Type 9s grow by showing up for themselves first. You did today.",
 };
 
+// ─── Enneagram Growth Gate ────────────────────────────────────────────────────
+
+function EnneagramGrowthGate({ children }: { children: React.ReactNode }) {
+  const [unlocked, setUnlocked] = useState<boolean | null>(null);
+  const [tokens, setTokens] = useState(0);
+  const [spending, setSpending] = useState(false);
+  const [err, setErr] = useState("");
+
+  useEffect(() => {
+    try {
+      setUnlocked(localStorage.getItem(ENNEAGRAM_GROWTH_UNLOCK_KEY) === "true");
+      const gs = JSON.parse(localStorage.getItem("psyche-game-state") || "{}");
+      setTokens(typeof gs.tokens === "number" ? gs.tokens : 0);
+    } catch { setUnlocked(false); }
+  }, []);
+
+  const handleUnlock = () => {
+    if (tokens < ENNEAGRAM_GROWTH_UNLOCK_COST) {
+      setErr(`You need ${ENNEAGRAM_GROWTH_UNLOCK_COST - tokens} more tokens. Earn them through daily practice.`);
+      return;
+    }
+    setSpending(true);
+    try {
+      const gs = JSON.parse(localStorage.getItem("psyche-game-state") || "{}");
+      gs.tokens = (typeof gs.tokens === "number" ? gs.tokens : 0) - ENNEAGRAM_GROWTH_UNLOCK_COST;
+      localStorage.setItem("psyche-game-state", JSON.stringify(gs));
+      localStorage.setItem(ENNEAGRAM_GROWTH_UNLOCK_KEY, "true");
+      setUnlocked(true);
+    } catch { setErr("Something went wrong."); setSpending(false); }
+  };
+
+  if (unlocked === null) return <div className="min-h-screen" style={{ background: "#0f0a1e" }} />;
+  if (unlocked) return <>{children}</>;
+
+  return (
+    <div className="min-h-screen flex flex-col items-center justify-center px-6 text-center" style={{ background: "#0f0a1e" }}>
+      <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} className="max-w-sm w-full">
+        <div className="w-16 h-16 rounded-2xl flex items-center justify-center mb-5 mx-auto"
+          style={{ background: "rgba(16,185,129,0.15)", border: "1px solid rgba(16,185,129,0.3)" }}>
+          <Leaf className="w-7 h-7" style={{ color: "#34d399" }} />
+        </div>
+        <h1 className="text-2xl font-serif font-bold mb-2" style={{ color: "rgba(255,255,255,0.93)" }}>Enneagram Growth Path</h1>
+        <p className="text-sm leading-relaxed mb-2" style={{ color: "rgba(255,255,255,0.5)" }}>
+          Type-specific growth prompts, integration practices, and daily reflection — rooted in the Enneagram tradition.
+        </p>
+        <p className="text-xs mb-6" style={{ color: "rgba(255,255,255,0.3)" }}>
+          No subscription needed. Unlock once with tokens earned through daily practice.
+        </p>
+        <div className="flex items-center justify-center gap-2 mb-5 px-4 py-2.5 rounded-full"
+          style={{ background: "rgba(16,185,129,0.12)", border: "1px solid rgba(16,185,129,0.25)" }}>
+          <Zap className="w-4 h-4 text-emerald-400" />
+          <span className="text-sm font-bold text-emerald-300">{ENNEAGRAM_GROWTH_UNLOCK_COST} tokens</span>
+          <span className="text-xs" style={{ color: "rgba(255,255,255,0.35)" }}>· you have {tokens}</span>
+        </div>
+        {err && <p className="text-xs text-red-400 mb-3">{err}</p>}
+        <button
+          onClick={handleUnlock}
+          disabled={spending || tokens < ENNEAGRAM_GROWTH_UNLOCK_COST}
+          className="w-full py-3.5 rounded-2xl font-bold text-white text-sm transition-all active:scale-95 disabled:opacity-50 mb-3"
+          style={{ background: "linear-gradient(135deg, #10b981, #0d9488)", boxShadow: "0 4px 20px rgba(16,185,129,0.35)" }}
+        >
+          {spending ? "Unlocking…" : tokens >= ENNEAGRAM_GROWTH_UNLOCK_COST ? "Unlock Enneagram Growth Path" : "Not enough tokens yet"}
+        </button>
+        <Link href="/daily" className="block text-xs underline underline-offset-2" style={{ color: "rgba(255,255,255,0.3)" }}>
+          Earn tokens through daily practice →
+        </Link>
+      </motion.div>
+    </div>
+  );
+}
+
 // ─── Component ────────────────────────────────────────────────────────────────
 
 export default function GrowthPage() {
@@ -127,6 +202,7 @@ export default function GrowthPage() {
   const bgClass = activeType ? TYPE_BG[activeType] : "bg-violet-50 border-violet-100";
 
   return (
+    <EnneagramGrowthGate>
     <div className="min-h-screen px-4 py-10" style={{ background: "#0f0a1e" }}>
       <div className="max-w-2xl mx-auto">
         {/* Header */}
@@ -334,5 +410,6 @@ export default function GrowthPage() {
         </Link>
       </div>
     </div>
+    </EnneagramGrowthGate>
   );
 }

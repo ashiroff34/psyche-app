@@ -111,13 +111,16 @@ const TOKEN_USES = [
 ];
 
 const PRO_FEATURES = [
+  { icon: Brain, label: "Inner Work Lab — Jungian shadow work, type dynamics, cognitive reframing" },
   { icon: Eye, label: "Ad-free experience" },
   { icon: Palette, label: "10 exclusive avatar outfits & backgrounds" },
-  { icon: Brain, label: "Unlimited coaching sessions" },
   { icon: Target, label: "Advanced type analysis reports" },
   { icon: Zap, label: "Priority access to new features" },
   { icon: Coins, label: "500 bonus tokens every month" },
 ];
+
+// localStorage key for Pro unlock (simulated — real payment not wired yet)
+const PRO_UNLOCK_KEY = "psyche-pro-unlocked";
 
 const FREE_EARN = [
   { icon: Flame, label: "Daily practice", tokens: 15, color: "from-orange-400 to-red-500" },
@@ -294,17 +297,34 @@ export default function StorePage() {
   const [purchaseToast, setPurchaseToast] = useState<string | null>(null);
   const [tokenBalance, setTokenBalance] = useState<number | null>(null);
   const [mounted, setMounted] = useState(false);
+  const [proUnlocked, setProUnlocked] = useState(false);
 
   useEffect(() => {
     try {
       const raw = localStorage.getItem("psyche-game-state");
       const gs = raw ? JSON.parse(raw) : {};
       setTokenBalance((gs.tokens as number) ?? 0);
+      setProUnlocked(localStorage.getItem(PRO_UNLOCK_KEY) === "true");
     } catch {
       setTokenBalance(0);
     }
     setMounted(true);
   }, []);
+
+  const handleProPurchase = () => {
+    try {
+      localStorage.setItem(PRO_UNLOCK_KEY, "true");
+      // Also give Pro's 500 monthly bonus tokens
+      const raw = localStorage.getItem("psyche-game-state");
+      const gs = raw ? JSON.parse(raw) : {};
+      gs.tokens = (gs.tokens ?? 0) + 500;
+      localStorage.setItem("psyche-game-state", JSON.stringify(gs));
+      setProUnlocked(true);
+      setTokenBalance((gs.tokens as number) ?? 0);
+      setPurchaseToast("Thyself Pro unlocked! Inner Work Lab is now open.");
+      setTimeout(() => setPurchaseToast(null), 3500);
+    } catch {}
+  };
 
   if (!mounted) return (
     <div className="min-h-screen" style={{ background: "#0f0a1e" }}>
@@ -354,9 +374,28 @@ export default function StorePage() {
               Journey
             </span>
           </h1>
-          <p className="text-lg max-w-2xl mx-auto" style={{ color: "rgba(255,255,255,0.5)" }}>
-            Get tokens to unlock pets, outfits, and streak freezes. Or go Pro for the ultimate Thyself experience.
+          <p className="text-lg max-w-2xl mx-auto mb-6" style={{ color: "rgba(255,255,255,0.5)" }}>
+            Two tiers of content. Enneagram tools unlock with tokens you earn for free. Jungian depth tools require Pro.
           </p>
+          {/* Two-tier explainer */}
+          <div className="flex flex-col sm:flex-row gap-3 max-w-lg mx-auto">
+            <div className="flex-1 flex items-start gap-3 p-3.5 rounded-2xl text-left"
+              style={{ background: "rgba(16,185,129,0.08)", border: "1px solid rgba(16,185,129,0.2)" }}>
+              <Zap className="w-4 h-4 mt-0.5 flex-shrink-0 text-emerald-400" />
+              <div>
+                <p className="text-xs font-bold text-emerald-400 mb-0.5">Enneagram · Tokens</p>
+                <p className="text-xs" style={{ color: "rgba(255,255,255,0.45)" }}>Growth path, advanced learn tabs — earn tokens free through daily practice</p>
+              </div>
+            </div>
+            <div className="flex-1 flex items-start gap-3 p-3.5 rounded-2xl text-left"
+              style={{ background: "rgba(99,102,241,0.08)", border: "1px solid rgba(99,102,241,0.2)" }}>
+              <Crown className="w-4 h-4 mt-0.5 flex-shrink-0" style={{ color: "#818cf8" }} />
+              <div>
+                <p className="text-xs font-bold mb-0.5" style={{ color: "#818cf8" }}>Jungian · Pro</p>
+                <p className="text-xs" style={{ color: "rgba(255,255,255,0.45)" }}>Inner Work Lab, shadow work, type dynamics — requires Pro subscription</p>
+              </div>
+            </div>
+          </div>
         </motion.div>
 
         {/* ── Growth Path Locked Preview ──────────────────────────────────────── */}
@@ -576,8 +615,13 @@ export default function StorePage() {
                     </p>
                   )}
                 </div>
-                <button className="w-full sm:w-auto px-8 py-3.5 rounded-2xl text-white font-bold text-base transition-all active:scale-[0.97]" style={{ background: "linear-gradient(135deg, #6366f1, #7c3aed)", boxShadow: "0 8px 24px rgba(99,102,241,0.4)" }}>
-                  {billingCycle === "monthly" ? "Subscribe Monthly" : "Subscribe Annually (Save 33%)"}
+                <button
+                  onClick={handleProPurchase}
+                  disabled={proUnlocked}
+                  className="w-full sm:w-auto px-8 py-3.5 rounded-2xl text-white font-bold text-base transition-all active:scale-[0.97] disabled:opacity-60"
+                  style={{ background: "linear-gradient(135deg, #6366f1, #7c3aed)", boxShadow: "0 8px 24px rgba(99,102,241,0.4)" }}
+                >
+                  {proUnlocked ? "✓ Pro Active" : billingCycle === "monthly" ? "Subscribe Monthly" : "Subscribe Annually (Save 33%)"}
                 </button>
               </div>
             </div>

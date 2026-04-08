@@ -3,6 +3,7 @@
 import { useRef, useState, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Share2, Download, X, Coins } from "lucide-react";
+import { assetPath } from "@/lib/assetPath";
 
 // ─── Type data ────────────────────────────────────────────────────────────────
 
@@ -30,7 +31,7 @@ const TYPE_TAGLINES: Record<number, string> = {
   9: "Receptive. Reassuring. Agreeable.",
 };
 
-// TikTok hashtags by type — general + type-specific
+// Hashtags by type
 const TYPE_HASHTAGS: Record<number, string[]> = {
   1: ["#enneagram", "#enneagramtype1", "#type1enneagram", "#personalitytype", "#selfawareness"],
   2: ["#enneagram", "#enneagramtype2", "#type2enneagram", "#personalitytype", "#psychology"],
@@ -51,16 +52,17 @@ const GLOBAL_HASHTAGS = [
   "#innergrowth",
 ];
 
+// Invite-style share hooks — designed to make viewers curious about their own type
 const TYPE_SHARE_HOOKS: Record<number, string> = {
-  1: "I correct autocorrect.",
-  2: "I know everyone's coffee order but I have no idea what I actually want.",
-  3: "I reinvent myself every 6 months. The performance never stops.",
-  4: "I've been processing my childhood since 2012.",
-  5: "I researched this for 4 months, made a spreadsheet, and still haven't decided.",
-  6: "I've already planned for 7 different worst-case scenarios today.",
-  7: "I have 43 tabs open and a feeling I'm missing something.",
-  8: "I don't start fights. I finish them.",
-  9: "I have very strong opinions that I keep almost entirely to myself.",
+  1: "I'm an Enneagram Type 1. What's your type? Find out free →",
+  2: "Just found out I'm a Type 2. This explains so much about me. What are you?",
+  3: "Type 3 here. Thyself showed me exactly what's driving me — what's driving you?",
+  4: "I'm a Type 4 on the Enneagram. Find your type at thyself.app — it's free.",
+  5: "Type 5 according to Thyself. Honestly the most accurate thing I've read about myself.",
+  6: "Found my Enneagram type and I can't stop sending it to everyone I know. What's yours?",
+  7: "I'm a Type 7! Thyself mapped my entire personality in minutes. What's your type?",
+  8: "Type 8. This app knows me better than I know myself. Try it — it's free.",
+  9: "Just discovered I'm a Type 9. What are you? thyself.app is free and actually accurate.",
 };
 
 // ─── Props ────────────────────────────────────────────────────────────────────
@@ -226,15 +228,26 @@ export default function TikTokTypeCard({
             </div>
           </div>
 
-          {/* Type number hero */}
-          <div className="mb-1">
+          {/* Chibi mascot + type number */}
+          <div className="flex items-end gap-3 mb-1">
+            <div className="relative">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={assetPath(`/sprites/chibi/${enneagramType}-sp${enneagramType}.png`)}
+                alt={`Type ${enneagramType} chibi`}
+                width={96}
+                height={96}
+                style={{ objectFit: "contain", filter: `drop-shadow(0 4px 16px ${typeColor}60)` }}
+                onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }}
+              />
+            </div>
             <div
               className="font-serif font-black leading-none"
               style={{
-                fontSize: 100,
+                fontSize: 80,
                 lineHeight: 1,
                 color: typeColor,
-                textShadow: `0 0 60px ${typeColor}66`,
+                textShadow: `0 0 40px ${typeColor}66`,
               }}
             >
               {enneagramType}

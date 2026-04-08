@@ -2354,6 +2354,56 @@ function EnneagramJournal() {
 // Main Page
 // ============================================================
 
+// ─── Pro paywall for the entire Inner Work Lab (Jungian content) ─────────────
+const PRO_UNLOCK_KEY = "psyche-pro-unlocked";
+
+function ProGate({ children }: { children: React.ReactNode }) {
+  const [unlocked, setUnlocked] = useState<boolean | null>(null);
+  useEffect(() => {
+    try { setUnlocked(localStorage.getItem(PRO_UNLOCK_KEY) === "true"); }
+    catch { setUnlocked(false); }
+  }, []);
+  if (unlocked === null) return <div className="min-h-screen" style={{ background: "linear-gradient(160deg, #160f38 0%, #0f0a1e 100%)" }} />;
+  if (unlocked) return <>{children}</>;
+  return (
+    <div className="min-h-screen flex flex-col items-center justify-center px-6 text-center" style={{ background: "linear-gradient(160deg, #160f38 0%, #0f0a1e 100%)" }}>
+      <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} className="max-w-sm w-full">
+        <div className="w-16 h-16 rounded-2xl flex items-center justify-center mb-6 mx-auto"
+          style={{ background: "linear-gradient(135deg, rgba(99,102,241,0.3), rgba(124,58,237,0.3))", border: "1px solid rgba(139,92,246,0.4)" }}>
+          <Lock className="w-7 h-7" style={{ color: "#a78bfa" }} />
+        </div>
+        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full mb-4 text-xs font-bold uppercase tracking-wider"
+          style={{ background: "rgba(99,102,241,0.15)", border: "1px solid rgba(99,102,241,0.3)", color: "#818cf8" }}>
+          Thyself Pro
+        </div>
+        <h1 className="text-2xl font-serif font-bold mb-2" style={{ color: "rgba(255,255,255,0.93)" }}>Inner Work Lab</h1>
+        <p className="text-sm leading-relaxed mb-2" style={{ color: "rgba(255,255,255,0.5)" }}>
+          Shadow work, Jungian type dynamics, cognitive reframing, and pattern tracking — based on Carl Jung&apos;s depth psychology.
+        </p>
+        <p className="text-xs leading-relaxed mb-6" style={{ color: "rgba(255,255,255,0.3)" }}>
+          This is premium content. Requires a Thyself Pro subscription.
+        </p>
+        <Link
+          href="/store"
+          className="block w-full py-3.5 rounded-2xl font-bold text-white text-sm mb-3 transition-all active:scale-95"
+          style={{ background: "linear-gradient(135deg, #6366f1, #7c3aed)", boxShadow: "0 4px 20px rgba(99,102,241,0.4)" }}
+        >
+          Get Thyself Pro →
+        </Link>
+        <div className="p-4 rounded-2xl" style={{ background: "rgba(16,185,129,0.08)", border: "1px solid rgba(16,185,129,0.2)" }}>
+          <p className="text-xs font-semibold mb-1" style={{ color: "#34d399" }}>Looking for Enneagram growth?</p>
+          <p className="text-xs mb-2" style={{ color: "rgba(255,255,255,0.4)" }}>
+            Type-specific growth prompts and integration practices are available for tokens — no subscription needed.
+          </p>
+          <Link href="/growth" className="text-xs font-bold underline underline-offset-2" style={{ color: "#34d399" }}>
+            Unlock Enneagram Growth Path →
+          </Link>
+        </div>
+      </motion.div>
+    </div>
+  );
+}
+
 export default function InnerWorkLabPage() {
   const [activeTab, setActiveTab] = useState<TabId>("shadow");
   const [enneagramType, setEnneagramType] = useState<number>(4);
@@ -2369,6 +2419,7 @@ export default function InnerWorkLabPage() {
   }, []);
 
   return (
+    <ProGate>
     <div className="min-h-screen py-12 sm:py-16" style={{ background: "linear-gradient(160deg, #160f38 0%, #0f0a1e 100%)" }}>
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
@@ -2459,5 +2510,6 @@ export default function InnerWorkLabPage() {
         />
       </div>
     </div>
+    </ProGate>
   );
 }
