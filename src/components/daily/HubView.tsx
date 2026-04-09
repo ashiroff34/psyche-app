@@ -53,7 +53,9 @@ import IntegrationCompanion from "./IntegrationCompanion";
 import DailyInsightCard from "@/components/DailyInsightCard";
 import DailyObservationCard from "./DailyObservationCard";
 import MorningPassionCheckIn from "./MorningPassionCheckIn";
+import TheoryPracticeCard from "./TheoryPracticeCard";
 import ChibiSprite from "@/components/ChibiSprite";
+import ChibiScene from "@/components/ChibiScene";
 import type { PathNodeConfig } from "./NodeBottomSheet";
 import type { PathUnit } from "./PathView";
 
@@ -303,30 +305,17 @@ export default function HubView({
             </svg>
           </div>
 
-          {/* Chibi companion — floats below the ring */}
+          {/* Chibi companion — in a soft lit scene so they pop against the dark background */}
           {enneagramType > 0 && (
-            <motion.div
-              className="relative flex flex-col items-center -mt-2"
-              animate={{ y: [0, -6, 0] }}
-              transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-            >
-              {/* Glow behind chibi so it doesn't look transparent on dark bg */}
-              <div
-                className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-24 h-24 rounded-full pointer-events-none"
-                style={{ background: `radial-gradient(circle, ${TYPE_COLORS[enneagramType] ?? "#8b5cf6"}30, transparent 70%)`, filter: "blur(6px)" }}
-              />
-              <ChibiSprite
+            <div className="relative flex flex-col items-center mt-2">
+              <ChibiScene
                 type={enneagramType}
                 instinct={instinct}
-                size={96}
+                size={150}
                 state={warmupDoneToday ? "happy" : "idle"}
+                variant="soft"
               />
-              {/* Soft shadow under chibi */}
-              <div
-                className="w-14 h-2 rounded-full -mt-1"
-                style={{ background: "radial-gradient(ellipse, rgba(139,92,246,0.25), transparent)" }}
-              />
-            </motion.div>
+            </div>
           )}
 
           {/* XP progress bar */}
@@ -529,6 +518,9 @@ export default function HubView({
         {enneagramType > 0 && (
           <MorningPassionCheckIn enneagramType={enneagramType} />
         )}
+
+        {/* ── Today's Concept (theory + practice, collapsed by default) ── */}
+        <TheoryPracticeCard />
 
         {/* ── Daily Observation Card (Day 2+, once per day) ── */}
         {enneagramType > 0 && (

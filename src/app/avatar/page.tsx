@@ -47,6 +47,7 @@ import {
   type OutfitItem,
 } from "@/hooks/usePetState";
 import ChibiSprite from "@/components/ChibiSprite";
+import ChibiScene from "@/components/ChibiScene";
 import AnimatedPet from "@/components/AnimatedPet";
 import NextStepBanner from "@/components/NextStepBanner";
 import FirstVisitTooltip from "@/components/FirstVisitTooltip";
@@ -526,19 +527,19 @@ export default function AvatarPage() {
                   </motion.div>
                 )}
 
-                {/* Chibi image */}
+                {/* Chibi in its lit scene — fixes the low-contrast transparency issue */}
                 <div className="relative z-[5]">
-                  <ChibiSprite
+                  <ChibiScene
                     type={enneagramType}
                     instinct={dominantInstinct}
-                    size={300}
-                    state="idle"
-                    className="drop-shadow-2xl"
+                    size={260}
+                    state={petState?.isAlive && (petStatus?.status === "thriving" || petStatus?.status === "happy") ? "happy" : "idle"}
+                    variant="soft"
                   />
                 </div>
               </motion.div>
 
-              {/* Subtype label */}
+              {/* Subtype label + editable name */}
               <motion.div
                 className="mt-4 text-center"
                 initial={{ opacity: 1 }}
@@ -552,7 +553,121 @@ export default function AvatarPage() {
                   <span className="text-slate-500">|</span>
                   <span className="text-sm text-indigo-300">{subtypeDisplayName ?? `Type ${enneagramType}`}</span>
                 </div>
+                {petState?.name && (
+                  <div className="mt-2 flex items-center justify-center gap-1.5">
+                    {editingName ? (
+                      <div className="flex items-center gap-1">
+                        <input
+                          ref={nameInputRef}
+                          type="text"
+                          value={nameInput}
+                          onChange={(e) => setNameInput(e.target.value)}
+                          onKeyDown={(e) => e.key === "Enter" && handleNameSubmit()}
+                          maxLength={20}
+                          className="bg-slate-700/60 border border-indigo-500/40 rounded-lg px-2 py-1 text-sm text-white w-32 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 text-center"
+                        />
+                        <button onClick={handleNameSubmit} aria-label="Save name" className="p-1 text-emerald-400 hover:text-emerald-300"><Check className="w-4 h-4" /></button>
+                        <button onClick={() => setEditingName(false)} aria-label="Cancel" className="p-1 text-slate-400 hover:text-slate-300"><X className="w-4 h-4" /></button>
+                      </div>
+                    ) : (
+                      <>
+                        <span className="text-sm font-semibold text-white">{petState.name}</span>
+                        <button
+                          onClick={() => { setNameInput(petState.name); setEditingName(true); }}
+                          className="p-0.5 text-slate-500 hover:text-slate-300 transition-colors"
+                        >
+                          <Pencil className="w-3 h-3" />
+                        </button>
+                      </>
+                    )}
+                  </div>
+                )}
               </motion.div>
+
+              {/* Unified care strip — stats + actions in one scene-attached block */}
+              {petState && petState.isAlive && (
+                <motion.div
+                  initial={{ opacity: 0, y: 6 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.35 }}
+                  className="mt-5 w-full max-w-sm rounded-2xl p-4"
+                  style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)" }}
+                >
+                  {/* Mini stat bars */}
+                  <div className="grid grid-cols-3 gap-3 mb-4">
+                    {[
+                      { label: "Health", value: petState.health, color: "#f43f5e", icon: <Heart className="w-3 h-3" /> },
+                      { label: "Joy", value: petState.happiness, color: "#f472b6", icon: <Smile className="w-3 h-3" /> },
+                      { label: "Fed", value: petState.hunger, color: "#fbbf24", icon: <UtensilsCrossed className="w-3 h-3" /> },
+                    ].map((s) => (
+                      <div key={s.label} className="text-center">
+                        <div className="flex items-center justify-center gap-1 text-[10px] uppercase tracking-wider mb-1" style={{ color: s.color }}>
+                          {s.icon}
+                          <span className="font-bold">{s.label}</span>
+                        </div>
+                        <div className="h-1.5 rounded-full overflow-hidden" style={{ background: "rgba(255,255,255,0.08)" }}>
+                          <motion.div
+                            className="h-full rounded-full"
+                            style={{ background: s.color }}
+                            initial={{ width: 0 }}
+                            animate={{ width: `${Math.round((s.value / 100) * 100)}%` }}
+                            transition={{ duration: 0.8, ease: "easeOut" }}
+                          />
+                        </div>
+                        <span className="text-[9px] font-mono" style={{ color: "rgba(255,255,255,0.4)" }}>{s.value}</span>
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* Action buttons — integrated */}
+                  <div className="flex gap-2">
+                    <button
+                      onClick={handleFeed}
+                      className="flex-1 flex items-center justify-center gap-1.5 px-3 py-2.5 rounded-xl text-xs font-bold transition-all active:scale-95"
+                      style={{ background: "linear-gradient(135deg, rgba(251,191,36,0.25), rgba(245,158,11,0.18))", border: "1px solid rgba(251,191,36,0.35)", color: "#fbbf24" }}
+                    >
+                      <UtensilsCrossed className="w-3.5 h-3.5" /> Feed
+                      <span className="text-[9px] opacity-70">{PET_ACTIONS.feed.cost}t</span>
+                    </button>
+                    <button
+                      onClick={handlePlay}
+                      className="flex-1 flex items-center justify-center gap-1.5 px-3 py-2.5 rounded-xl text-xs font-bold transition-all active:scale-95"
+                      style={{ background: "linear-gradient(135deg, rgba(244,114,182,0.25), rgba(236,72,153,0.18))", border: "1px solid rgba(244,114,182,0.35)", color: "#f9a8d4" }}
+                    >
+                      <Gamepad2 className="w-3.5 h-3.5" /> Play
+                      <span className="text-[9px] opacity-70">{PET_ACTIONS.play.cost}t</span>
+                    </button>
+                    {petState.health < 50 && (
+                      <button
+                        onClick={handleMedicine}
+                        className="flex-1 flex items-center justify-center gap-1.5 px-3 py-2.5 rounded-xl text-xs font-bold transition-all active:scale-95"
+                        style={{ background: "linear-gradient(135deg, rgba(52,211,153,0.25), rgba(16,185,129,0.18))", border: "1px solid rgba(52,211,153,0.35)", color: "#6ee7b7" }}
+                      >
+                        <Pill className="w-3.5 h-3.5" /> Heal
+                        <span className="text-[9px] opacity-70">{PET_ACTIONS.medicine.cost}t</span>
+                      </button>
+                    )}
+                  </div>
+
+                  {/* Action feedback */}
+                  <AnimatePresence>
+                    {actionFeedback && (
+                      <motion.div
+                        initial={{ opacity: 0, y: 4 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0 }}
+                        className={`mt-2 text-xs font-semibold text-center px-3 py-1.5 rounded-lg ${
+                          actionFeedback.includes("Not enough")
+                            ? "bg-red-500/20 text-red-300"
+                            : "bg-emerald-500/20 text-emerald-300"
+                        }`}
+                      >
+                        {actionFeedback}
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </motion.div>
+              )}
 
               {/* Equipment Slots */}
               <div className="mt-6 w-full max-w-sm">
@@ -757,13 +872,14 @@ export default function AvatarPage() {
         )}
 
         {/* ══════════════════════════════════════════════════════════════════════ */}
-        {/* ── YOUR PET SECTION ────────────────────────────────────────────────  */}
+        {/* ── REVIVAL SECTION (only shows if companion has passed) ───────────  */}
         {/* ══════════════════════════════════════════════════════════════════════ */}
 
+        {petState && !petState.isAlive && (
         <motion.section {...fadeUp} transition={{ delay: 0.2, duration: 0.5 }}>
           <h2 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
             <Heart className="w-5 h-5 text-pink-400" />
-            Companion Care
+            Companion Revival
           </h2>
 
           {petState && petDef ? (
@@ -971,32 +1087,9 @@ export default function AvatarPage() {
                 </p>
               </div>
             </div>
-          ) : (
-            /* No pet yet */
-            <div className="bg-slate-800/40 border border-slate-700/40 rounded-2xl p-8 flex flex-col items-center gap-4">
-              <div className="opacity-60">
-                {enneagramType ? (
-                  <ChibiSprite type={enneagramType} instinct={dominantInstinct} size={80} state="idle" />
-                ) : (
-                  <span className="text-5xl">&#x1F423;</span>
-                )}
-              </div>
-              <p className="text-sm text-slate-400 text-center">
-                {enneagramType
-                  ? "Your pet is being prepared..."
-                  : "Discover your Enneagram type to unlock your pet companion!"}
-              </p>
-              {!enneagramType && (
-                <Link
-                  href="/enneagram"
-                  className="px-5 py-2 bg-indigo-600 hover:bg-indigo-500 text-white text-sm font-semibold rounded-xl transition-colors flex items-center gap-2"
-                >
-                  Take the Quiz <ArrowRight className="w-4 h-4" />
-                </Link>
-              )}
-            </div>
-          )}
+          ) : null}
         </motion.section>
+        )}
 
         {/* ══════════════════════════════════════════════════════════════════════ */}
         {/* ── OUTFIT SHOP SECTION ─────────────────────────────────────────────  */}

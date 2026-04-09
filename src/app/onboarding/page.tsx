@@ -9,6 +9,7 @@ import OuroborosLogo from "@/components/OuroborosLogo";
 import QuickTypeAssessment from "@/components/assessments/QuickTypeAssessment";
 import { enneagramTypes } from "@/data/enneagram";
 import ChibiSprite from "@/components/ChibiSprite";
+import ChibiScene from "@/components/ChibiScene";
 import { TYPE_WPFA } from "@/data/wound-passion-fixation-armor";
 import dynamic from "next/dynamic";
 const Confetti = dynamic(() => import("react-confetti"), { ssr: false });
@@ -295,12 +296,13 @@ function TypeRevealScreen({
               transform: "scale(0.85) translateY(10%)",
             }}
           />
-          <ChibiSprite
+          <ChibiScene
             type={result.type}
             instinct={result.instinct?.split("/")[0]}
-            size={200}
+            size={220}
             state="happy"
-            className="relative z-10 drop-shadow-2xl"
+            variant="soft"
+            className="relative z-10"
           />
         </motion.div>
 

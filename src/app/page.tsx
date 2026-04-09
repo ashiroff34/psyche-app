@@ -229,17 +229,28 @@ function EnterScreen() {
         <span className="shimmer-text">thyself.</span>
       </motion.h1>
 
-      {/* ── Enneagram explainer ── */}
+      {/* ── Thesis line ── the philosophical heart ── */}
       <motion.p
         initial={{ opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.7, delay: 0.4 }}
-        className="relative text-center leading-relaxed mb-5"
-        style={{ color: "rgba(255,255,255,0.52)", fontSize: "clamp(13px, 3.4vw, 16px)", maxWidth: "340px", zIndex: 10 }}
+        className="relative text-center leading-snug mb-4 font-serif italic"
+        style={{ color: "rgba(255,255,255,0.75)", fontSize: "clamp(15px, 4vw, 19px)", maxWidth: "380px", zIndex: 10 }}
       >
-        The Enneagram maps{" "}
-        <span style={{ color: "rgba(255,255,255,0.82)", fontWeight: 500 }}>9 archetypal personalities</span>
-        {" "}— each driven by a core desire, a core fear, and a distinct pattern of attention.
+        You are not your type.
+        <br />
+        The type is the armor that formed around something.
+      </motion.p>
+
+      {/* ── Sub-line ── the promise ── */}
+      <motion.p
+        initial={{ opacity: 0, y: 8 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.7, delay: 0.5 }}
+        className="relative text-center leading-relaxed mb-6"
+        style={{ color: "rgba(255,255,255,0.45)", fontSize: "clamp(12px, 3.2vw, 14px)", maxWidth: "340px", zIndex: 10 }}
+      >
+        This is a quiet space to notice the armor — and over time, choose when to wear it.
       </motion.p>
 
       {/* ── Proof pills ── */}
@@ -250,7 +261,7 @@ function EnterScreen() {
         className="relative flex items-center gap-2 flex-wrap justify-center mb-7"
         style={{ zIndex: 10 }}
       >
-        {["9 archetypes", "27 subtypes", "Naranjo · Riso-Hudson"].map((pill) => (
+        {["9 archetypes", "27 subtypes", "grounded in research"].map((pill) => (
           <span
             key={pill}
             className="px-3 py-1 rounded-full text-xs font-medium"
