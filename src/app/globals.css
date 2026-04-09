@@ -62,15 +62,6 @@ h1, h2, h3, h4 {
   color: rgba(255, 255, 255, 0.95);
 }
 
-/* ===== Light Mode (opt-in via .light class) ===== */
-html.light body {
-  background-color: #f8fafc;
-  color: #1e293b;
-}
-html.light h1, html.light h2, html.light h3, html.light h4 {
-  color: #0f172a;
-}
-
 /* ===== Dark Mode overrides — map Tailwind slate classes to dark-purple palette ===== */
 /* These fire always now (body is dark by default) */
 [class*="bg-white"] {

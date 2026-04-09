@@ -213,7 +213,7 @@ function TypeRevealScreen({
   onContinue,
   onExploreRunnerUp,
 }: {
-  result: { type: number; confidence: number; runnerUp: number };
+  result: { type: number; confidence: number; runnerUp: number; instinct?: string };
   displayName: string;
   onContinue: () => void;
   onExploreRunnerUp: () => void;
@@ -294,7 +294,13 @@ function TypeRevealScreen({
               transform: "scale(0.85) translateY(10%)",
             }}
           />
-          <ChibiSprite type={result.type} size={200} state="happy" className="relative z-10 drop-shadow-2xl" />
+          <ChibiSprite
+            type={result.type}
+            instinct={result.instinct?.split("/")[0]}
+            size={200}
+            state="happy"
+            className="relative z-10 drop-shadow-2xl"
+          />
         </motion.div>
 
         {/* Type number badge */}
@@ -593,7 +599,7 @@ function StepEmailGate({
   onSave,
   onSkip,
 }: {
-  result: { type: number; confidence: number; runnerUp: number };
+  result: { type: number; confidence: number; runnerUp: number; instinct?: string };
   prefillName?: string;
   onSave: (email: string, name: string) => void;
   onSkip: () => void;
@@ -604,10 +610,9 @@ function StepEmailGate({
   const [touched, setTouched] = useState(false);
 
   const typeData = enneagramTypes.find((t) => t.number === result.type);
-  const confidenceColor =
-    result.confidence >= 70 ? "#22c55e" : result.confidence >= 45 ? "#f59e0b" : "#ef4444";
-  const confidenceLabel =
-    result.confidence >= 70 ? "High confidence" : result.confidence >= 45 ? "Moderate" : "Low confidence";
+  // Always frame as a starting point — no "high confidence" claims
+  const confidenceColor = "#f59e0b";
+  const confidenceLabel = "Starting point";
 
   const handleSave = () => {
     if (!isValidEmail(email)) {
@@ -647,10 +652,7 @@ function StepEmailGate({
             </p>
           </div>
           <div className="flex flex-col items-end flex-shrink-0">
-            <span className="text-2xl font-black leading-none" style={{ color: confidenceColor }}>
-              {result.confidence}%
-            </span>
-            <span className="text-[10px] font-semibold leading-snug" style={{ color: confidenceColor }}>
+            <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-1 rounded-full" style={{ background: `${confidenceColor}22`, color: confidenceColor, border: `1px solid ${confidenceColor}44` }}>
               {confidenceLabel}
             </span>
           </div>

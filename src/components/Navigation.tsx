@@ -12,7 +12,6 @@ import {
   Flame,
   Coins,
   ChevronLeft,
-  Moon,
   Bug,
   Settings,
   BookOpen,
@@ -282,20 +281,6 @@ function MoreMenu({ pathname }: { pathname: string }) {
               ))}
               {/* Utilities */}
               <div className="mt-1 pt-1" style={{ borderTop: "1px solid rgba(255,255,255,0.08)" }}>
-                <button
-                  onClick={() => {
-                    document.documentElement.classList.toggle("light");
-                    try {
-                      const isLight = document.documentElement.classList.contains("light");
-                      localStorage.setItem("psyche-light-mode", isLight ? "true" : "false");
-                    } catch {}
-                  }}
-                  className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm transition-all"
-                  style={{ color: "rgba(255,255,255,0.55)" }}
-                >
-                  <Moon className="w-4 h-4" />
-                  Light Mode
-                </button>
                 <button
                   onClick={() => {
                     setOpen(false);

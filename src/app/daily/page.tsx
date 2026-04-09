@@ -920,7 +920,7 @@ export default function DailyPage() {
   };
 
   // ── Profile data ──
-  const enneagramType = profile.enneagramType ?? 5;
+  const enneagramType = profile.enneagramType ?? profile.enneagramCore ?? 0;
   const cognitiveType = profile.cognitiveType ?? "INTJ";
   // Read streak and XP from psyche-game-state (authoritative); fall back to profile for legacy users
   const streak = gameStreak > 0 ? gameStreak : (profile.streakCount ?? 0);

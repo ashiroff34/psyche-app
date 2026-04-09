@@ -288,8 +288,9 @@ function EnterScreen() {
           </Link>
         )}
 
-        <button
-          onClick={() => router.push("/onboarding?fromEnter=true")}
+        <Link
+          href="/onboarding?fromEnter=true"
+          prefetch
           className="w-full py-4 rounded-2xl font-bold text-white text-base transition-all hover:-translate-y-0.5 active:scale-[0.98] flex items-center justify-center gap-2"
           style={{
             background: "linear-gradient(135deg, #7c3aed, #4f46e5)",
@@ -298,15 +299,16 @@ function EnterScreen() {
         >
           Discover my type
           <ArrowRight className="w-4 h-4" />
-        </button>
+        </Link>
 
-        <button
-          onClick={() => router.push("/onboarding?manual=true")}
+        <Link
+          href="/onboarding?manual=true"
+          prefetch
           className="text-sm transition-opacity hover:opacity-60"
           style={{ color: "rgba(167,139,250,0.38)" }}
         >
           I already know my type →
-        </button>
+        </Link>
       </motion.div>
     </div>
   );
@@ -970,24 +972,10 @@ export default function HomePage() {
   const { state, profile, gameState, dailyProgress } = useHomeState();
   const router = useRouter();
 
-  const touchStartX = useRef(0);
-  const touchStartY = useRef(0);
-
   // Redirect dashboard users to /daily (home is replaced by the daily page)
   useEffect(() => {
     if (state === "dashboard") router.replace("/daily");
   }, [state, router]);
-
-  const onTouchStart = (e: React.TouchEvent) => {
-    touchStartX.current = e.touches[0].clientX;
-    touchStartY.current = e.touches[0].clientY;
-  };
-  const onTouchEnd = (e: React.TouchEvent) => {
-    const deltaX = e.changedTouches[0].clientX - touchStartX.current;
-    const deltaY = e.changedTouches[0].clientY - touchStartY.current;
-    if (Math.abs(deltaX) < 80 || Math.abs(deltaX) < Math.abs(deltaY)) return;
-    if (deltaX < 0) router.push("/daily");
-  };
 
   if (state === "loading" || state === "dashboard") {
     return (
@@ -1003,7 +991,7 @@ export default function HomePage() {
     );
   }
 
-  if (state === "new") return <div onTouchStart={onTouchStart} onTouchEnd={onTouchEnd}><EnterScreen /></div>;
-  if (state === "onboarding") return <div onTouchStart={onTouchStart} onTouchEnd={onTouchEnd}><OnboardingResumeScreen profile={profile} /></div>;
-  return <div onTouchStart={onTouchStart} onTouchEnd={onTouchEnd}><AssessPromptScreen profile={profile} /></div>;
+  if (state === "new") return <EnterScreen />;
+  if (state === "onboarding") return <OnboardingResumeScreen profile={profile} />;
+  return <AssessPromptScreen profile={profile} />;
 }

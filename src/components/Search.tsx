@@ -53,7 +53,11 @@ function matchesQuery(item: SearchItem, query: string): boolean {
   ]
     .join(" ")
     .toLowerCase();
-  return haystack.includes(q);
+  // Direct substring match (works for "5", "type", "perfect", etc.)
+  if (haystack.includes(q)) return true;
+  // Word-boundary match: helps single-digit and short queries match standalone words
+  const words = haystack.split(/[\s.,;:!?\-/()]+/).filter(Boolean);
+  return words.some((w) => w.startsWith(q));
 }
 
 export default function SearchComponent() {
@@ -64,8 +68,8 @@ export default function SearchComponent() {
   const containerRef = useRef<HTMLDivElement>(null);
 
   const results =
-    query.trim().length >= 2
-      ? searchIndex.filter((item) => matchesQuery(item, query)).slice(0, 8)
+    query.trim().length >= 1
+      ? searchIndex.filter((item) => matchesQuery(item, query)).slice(0, 12)
       : [];
 
   const handleOpen = () => {

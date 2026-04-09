@@ -19,7 +19,7 @@ export const searchIndex: SearchItem[] = [
     subtitle: "Enneagram",
     category: "type",
     href: "/enneagram/1",
-    keywords: ["one", "reformer", "perfectionist", "principled", "integrity", "inner critic", "anger", "gut", "resentment", "ichazo", "naranjo"],
+    keywords: ["1", "one", "type 1", "reformer", "perfectionist", "principled", "integrity", "inner critic", "anger", "gut", "resentment", "ichazo", "naranjo", "wound", "passion", "fixation", "armor"],
     preview: "Driven by a bone-deep need to be good and correct. Anger is internalized as a relentless critical inner voice pushing for perfection.",
   },
   {
@@ -28,7 +28,7 @@ export const searchIndex: SearchItem[] = [
     subtitle: "Enneagram",
     category: "type",
     href: "/enneagram/2",
-    keywords: ["two", "helper", "giver", "caring", "pride", "helping", "needed", "love", "heart", "worth"],
+    keywords: ["2", "two", "type 2", "helper", "giver", "caring", "pride", "helping", "needed", "love", "heart", "worth", "wound", "passion", "fixation", "armor"],
     preview: "Orients their entire identity around being needed and loved. Gives freely but struggles to acknowledge their own needs.",
   },
   {
@@ -37,7 +37,7 @@ export const searchIndex: SearchItem[] = [
     subtitle: "Enneagram",
     category: "type",
     href: "/enneagram/3",
-    keywords: ["three", "achiever", "performer", "success", "image", "vanity", "efficiency", "heart", "identity", "adaptable"],
+    keywords: ["3", "three", "type 3", "achiever", "performer", "success", "image", "vanity", "efficiency", "heart", "identity", "adaptable", "wound", "passion", "fixation", "armor"],
     preview: "Masters of becoming whatever version of themselves will be most valued. Identity is built from achievement and recognition rather than from within.",
   },
   {
@@ -46,7 +46,7 @@ export const searchIndex: SearchItem[] = [
     subtitle: "Enneagram",
     category: "type",
     href: "/enneagram/4",
-    keywords: ["four", "individualist", "romantic", "melancholy", "envy", "authenticity", "depth", "heart", "identity", "longing", "missing"],
+    keywords: ["4", "four", "type 4", "individualist", "romantic", "melancholy", "envy", "authenticity", "depth", "heart", "identity", "longing", "missing", "wound", "passion", "fixation", "armor"],
     preview: "Lives in the gap between what is and what could be. Envy is the aching certainty that others possess a wholeness the Four alone seems to lack.",
   },
   {
@@ -55,7 +55,7 @@ export const searchIndex: SearchItem[] = [
     subtitle: "Enneagram",
     category: "type",
     href: "/enneagram/5",
-    keywords: ["five", "investigator", "observer", "knowledge", "avarice", "withdrawal", "head", "thinking", "private", "detached", "energy"],
+    keywords: ["5", "five", "type 5", "investigator", "observer", "knowledge", "avarice", "withdrawal", "head", "thinking", "private", "detached", "energy", "wound", "passion", "fixation", "armor"],
     preview: "Manages the world by retreating from it to conserve inner resources. Hoards energy, attention, and presence against a felt scarcity.",
   },
   {
@@ -64,7 +64,7 @@ export const searchIndex: SearchItem[] = [
     subtitle: "Enneagram",
     category: "type",
     href: "/enneagram/6",
-    keywords: ["six", "loyalist", "skeptic", "security", "anxiety", "fear", "doubt", "cowardice", "head", "loyal", "vigilance", "support"],
+    keywords: ["6", "six", "type 6", "loyalist", "skeptic", "security", "anxiety", "fear", "doubt", "cowardice", "head", "loyal", "vigilance", "support", "wound", "passion", "fixation", "armor"],
     preview: "Scans constantly for threats and seeks reliable allies. The core fear is being without guidance or support in an unsafe world.",
   },
   {
@@ -73,7 +73,7 @@ export const searchIndex: SearchItem[] = [
     subtitle: "Enneagram",
     category: "type",
     href: "/enneagram/7",
-    keywords: ["seven", "enthusiast", "adventurer", "gluttony", "options", "planning", "pain", "pleasure", "head", "freedom", "positive"],
+    keywords: ["7", "seven", "type 7", "enthusiast", "adventurer", "gluttony", "options", "planning", "pain", "pleasure", "head", "freedom", "positive", "wound", "passion", "fixation", "armor"],
     preview: "Reframes everything toward positive possibilities. The core strategy is staying in motion and keeping options open to avoid pain and deprivation.",
   },
   {
@@ -82,7 +82,7 @@ export const searchIndex: SearchItem[] = [
     subtitle: "Enneagram",
     category: "type",
     href: "/enneagram/8",
-    keywords: ["eight", "challenger", "leader", "boss", "lust", "power", "control", "gut", "vulnerability", "intensity", "protect"],
+    keywords: ["8", "eight", "type 8", "challenger", "leader", "boss", "lust", "power", "control", "gut", "vulnerability", "intensity", "protect", "wound", "passion", "fixation", "armor"],
     preview: "Driven by a need to stay in control and resist being controlled. Vulnerability feels threatening; intensity and directness are natural.",
   },
   {
@@ -91,7 +91,7 @@ export const searchIndex: SearchItem[] = [
     subtitle: "Enneagram",
     category: "type",
     href: "/enneagram/9",
-    keywords: ["nine", "peacemaker", "mediator", "sloth", "merge", "conflict", "avoidance", "gut", "harmony", "comfort", "passive"],
+    keywords: ["9", "nine", "type 9", "peacemaker", "mediator", "sloth", "merge", "conflict", "avoidance", "gut", "harmony", "comfort", "passive", "wound", "passion", "fixation", "armor"],
     preview: "Falls asleep to their own anger and merges with others' agendas to maintain peace. The core fear is separation and conflict.",
   },
 

@@ -184,18 +184,24 @@ export default function GrowthPage() {
   const [saved, setSaved] = useState(false);
   const [showAll, setShowAll] = useState(false);
 
-  // Load user type from profile
+  // Load user type from profile + listen for profile changes
   useEffect(() => {
-    try {
-      const raw = localStorage.getItem("psyche-profile");
-      if (raw) {
-        const p = JSON.parse(raw);
-        if (p.enneagramType) {
-          setUserType(p.enneagramType);
-          setSelectedType(p.enneagramType);
+    function loadType() {
+      try {
+        const raw = localStorage.getItem("psyche-profile");
+        if (raw) {
+          const p = JSON.parse(raw);
+          const t = p.enneagramType ?? p.enneagramCore;
+          if (t) {
+            setUserType(t);
+            setSelectedType(t);
+          }
         }
-      }
-    } catch {}
+      } catch {}
+    }
+    loadType();
+    window.addEventListener("psyche-profile-change", loadType);
+    return () => window.removeEventListener("psyche-profile-change", loadType);
   }, []);
 
   const activeType = selectedType ?? userType;
