@@ -52,6 +52,7 @@ import WeeklyChallengeCard from "./WeeklyChallengeCard";
 import IntegrationCompanion from "./IntegrationCompanion";
 import DailyInsightCard from "@/components/DailyInsightCard";
 import DailyObservationCard from "./DailyObservationCard";
+import MorningPassionCheckIn from "./MorningPassionCheckIn";
 import ChibiSprite from "@/components/ChibiSprite";
 import type { PathNodeConfig } from "./NodeBottomSheet";
 import type { PathUnit } from "./PathView";
@@ -523,6 +524,11 @@ export default function HubView({
             </motion.button>
           );
         })()}
+
+        {/* ── Morning Passion Check-In (60-second daily ritual) ── */}
+        {enneagramType > 0 && (
+          <MorningPassionCheckIn enneagramType={enneagramType} />
+        )}
 
         {/* ── Daily Observation Card (Day 2+, once per day) ── */}
         {enneagramType > 0 && (
