@@ -1123,13 +1123,22 @@ export default function QuickTypeAssessment({
           </p>
 
           {result.runnerUp !== result.type && (
-            <div className="flex items-center justify-center mb-5">
+            <div className="flex items-center justify-center mb-3">
               <div className="px-3 py-1.5 rounded-full text-xs font-medium"
                 style={{ background: "rgba(255,255,255,0.07)", color: "rgba(255,255,255,0.45)" }}>
                 Also consider: Type {result.runnerUp}
               </div>
             </div>
           )}
+
+          {/* Deep assessment upsell — soft, one-line */}
+          <a
+            href="/assessments/ieq9-integrative"
+            className="block text-center text-[11px] font-medium mb-5 transition-colors"
+            style={{ color: "rgba(167,139,250,0.55)" }}
+          >
+            Want a deeper, more accurate read? → Take the integrative assessment (175 items, ~25 min)
+          </a>
 
           {/* Share result for tokens */}
           <motion.div

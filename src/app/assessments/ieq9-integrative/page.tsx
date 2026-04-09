@@ -1,17 +1,25 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { ArrowLeft } from "lucide-react";
 import LikertAssessment from "@/components/assessments/LikertAssessment";
 import AssessmentGuide from "@/components/assessments/AssessmentGuide";
 import { coreStatements, wingStatements, instinctStatements, stressGrowthStatements } from "@/data/assessments/ieq9-style";
 import { useProfile } from "@/hooks/useProfile";
+import { posthog, EVENTS, setUserProperty } from "@/lib/posthog";
 
 export default function IEQ9IntegrativePage() {
   const router = useRouter();
   const { updateProfile, addXP } = useProfile();
   const [showGuide, setShowGuide] = useState(true);
+
+  // Analytics: track when users actually start the deep assessment
+  useEffect(() => {
+    if (!showGuide) {
+      try { posthog.capture(EVENTS.QUIZ_STARTED, { assessment: "ieq9_integrative", length: 175 }); } catch {}
+    }
+  }, [showGuide]);
 
   const allItems = useMemo(
     () => [...coreStatements, ...wingStatements, ...instinctStatements, ...stressGrowthStatements].map((s) => ({
@@ -54,8 +62,25 @@ export default function IEQ9IntegrativePage() {
           // Filter out instinct keys (sp, sx, so) to get type scores
           const typeScores = r.allScores.filter((s) => !["sp", "sx", "so"].includes(s.key));
           const topType = typeScores[0]?.key || "9";
+          const instinctKey = r.allScores.find((s) => ["sp", "sx", "so"].includes(s.key))?.key ?? null;
           updateProfile({ enneagramType: parseInt(topType) });
           addXP(100, "ieq9-integrative-complete");
+          // Analytics: deep quiz completed with higher confidence than quick quiz
+          try {
+            posthog.capture(EVENTS.QUIZ_COMPLETED, {
+              assessment: "ieq9_integrative",
+              enneagramType: parseInt(topType),
+              runnerUp: typeScores[1]?.key ? parseInt(typeScores[1].key) : null,
+              instinct: instinctKey,
+              length: 175,
+              source: "deep_assessment",
+            });
+            setUserProperty({
+              enneagramType: parseInt(topType),
+              instinct: instinctKey,
+              hasCompletedDeepAssessment: true,
+            });
+          } catch {}
           const params = new URLSearchParams({
             type: topType,
             scores: JSON.stringify(typeScores),
