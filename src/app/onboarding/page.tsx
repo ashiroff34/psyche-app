@@ -3,7 +3,7 @@
 import { useState, useEffect, Suspense, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useRouter, useSearchParams } from "next/navigation";
-import { ArrowRight, ArrowLeft, Mail, User } from "lucide-react";
+import { ArrowRight, ArrowLeft, Mail, User, ChevronDown, RefreshCw, BookOpen } from "lucide-react";
 import { notifyProfileChanged } from "@/hooks/useProfile";
 import OuroborosLogo from "@/components/OuroborosLogo";
 import QuickTypeAssessment from "@/components/assessments/QuickTypeAssessment";
@@ -229,6 +229,7 @@ function TypeRevealScreen({
   // Mastery progress (endowed. always show a small positive number)
   const masteryPercent = Math.max(4, Math.min(12, Math.round(result.confidence * 0.08 + 2)));
 
+  const [whyWrongOpen, setWhyWrongOpen] = useState(false);
   // Confetti burst on reveal
   const [confetti, setConfetti] = useState(true);
   useEffect(() => {
@@ -358,39 +359,94 @@ function TypeRevealScreen({
           </motion.div>
         )}
 
-        {/* Confidence indicator */}
+        {/* ── Hedge Hard: Visible low-confidence meter ── */}
         <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
+          initial={{ opacity: 0, y: 6 }}
+          animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.52 }}
-          className="flex items-center gap-2 mb-6"
+          className="w-full mb-4 px-4 py-3 rounded-2xl text-left"
+          style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)" }}
         >
-          <div className="w-2 h-2 rounded-full" style={{ background: confidenceColor }} />
-          <span className="text-xs font-semibold" style={{ color: confidenceColor }}>
-            {confidenceLabel}
-          </span>
+          <div className="flex items-center justify-between mb-2">
+            <span className="text-[10px] font-bold uppercase tracking-widest" style={{ color: "rgba(255,255,255,0.5)" }}>
+              Confidence
+            </span>
+            <span className="text-[10px] font-bold" style={{ color: confidenceColor }}>
+              Low — starting point
+            </span>
+          </div>
+          <div className="h-1.5 rounded-full overflow-hidden" style={{ background: "rgba(255,255,255,0.08)" }}>
+            <motion.div
+              initial={{ width: 0 }}
+              animate={{ width: "22%" }}
+              transition={{ duration: 0.9, delay: 0.6 }}
+              className="h-full rounded-full"
+              style={{ background: "linear-gradient(90deg, #f59e0b, #f97316)" }}
+            />
+          </div>
+          <p className="text-[10px] mt-2" style={{ color: "rgba(255,255,255,0.35)" }}>
+            This is one data point from a 12-question quiz. Real confidence comes from weeks of self-observation.
+          </p>
         </motion.div>
 
-        {/* Self-introspection caveat — always recommend further exploration */}
+        {/* ── Hedge Hard: Collapsible "Why this might be wrong" ── */}
         <motion.div
           initial={{ opacity: 0, y: 6 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.65 }}
-          className="mb-4 px-4 py-3 rounded-2xl text-xs leading-relaxed text-left"
-          style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)", color: "rgba(255,255,255,0.55)" }}
+          transition={{ delay: 0.6 }}
+          className="w-full mb-4 rounded-2xl overflow-hidden"
+          style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.07)" }}
         >
-          A 12-question quiz can only point in a direction. Real type discovery happens through self-observation over weeks and months. Read the description below carefully — does it actually feel like <em>you</em>, or just close? You can always re-test or explore other types.
+          <button
+            onClick={() => setWhyWrongOpen(!whyWrongOpen)}
+            className="w-full flex items-center justify-between px-4 py-3 text-left"
+          >
+            <span className="text-xs font-semibold" style={{ color: "rgba(255,255,255,0.6)" }}>
+              Why this might be wrong
+            </span>
+            <ChevronDown
+              className="w-3.5 h-3.5 transition-transform"
+              style={{ color: "rgba(255,255,255,0.4)", transform: whyWrongOpen ? "rotate(180deg)" : "rotate(0deg)" }}
+            />
+          </button>
+          <AnimatePresence>
+            {whyWrongOpen && (
+              <motion.div
+                initial={{ height: 0, opacity: 0 }}
+                animate={{ height: "auto", opacity: 1 }}
+                exit={{ height: 0, opacity: 0 }}
+                transition={{ duration: 0.2 }}
+                className="overflow-hidden"
+              >
+                <div className="px-4 pb-4 text-[11px] leading-relaxed space-y-2" style={{ color: "rgba(255,255,255,0.5)" }}>
+                  <p>• Self-report tests measure who you <em>think</em> you are — not necessarily who you are.</p>
+                  <p>• Stress, mood, and how you were feeling during the quiz can shift your answers.</p>
+                  <p>• Look-alike types (2 vs 7, 6 vs 7, 4 vs 5) fool almost everyone on a short test.</p>
+                  <p>• Read the description above carefully — does it <em>actually</em> feel like you, or just close?</p>
+                  <p className="pt-1" style={{ color: "rgba(255,255,255,0.65)" }}>
+                    The Enneagram is a lifelong self-observation practice. One quiz points a direction. Self-knowledge fills it in.
+                  </p>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </motion.div>
 
-        {/* Endowed progress. delayed appearance */}
+        {/* ── Hedge Hard: Keep exploring footer ── */}
         <motion.div
           initial={{ opacity: 0, y: 6 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.72 }}
-          className="mb-8 px-4 py-2 rounded-full text-xs"
-          style={{ background: `${typeColor}18`, border: `1px solid ${typeColor}30`, color: "rgba(255,255,255,0.55)" }}
+          transition={{ delay: 0.68 }}
+          className="w-full mb-6 px-4 py-3 rounded-2xl text-left"
+          style={{ background: `${typeColor}0c`, border: `1px solid ${typeColor}25` }}
         >
-          Type {result.type} Mastery: {masteryPercent}% · Unlock wings, subtypes &amp; more as you practice
+          <p className="text-[10px] font-bold uppercase tracking-widest mb-1.5" style={{ color: `${typeColor}bb` }}>
+            Not sure yet? That's normal.
+          </p>
+          <div className="text-[11px] leading-relaxed space-y-1" style={{ color: "rgba(255,255,255,0.55)" }}>
+            <p className="flex items-center gap-1.5"><RefreshCw className="w-3 h-3 shrink-0" /> Re-take the quiz in a week to check for consistency</p>
+            <p className="flex items-center gap-1.5"><BookOpen className="w-3 h-3 shrink-0" /> Read the full type descriptions in the Explore tab</p>
+          </div>
         </motion.div>
 
         {/* CTA */}
@@ -408,17 +464,21 @@ function TypeRevealScreen({
           This is me →
         </motion.button>
 
-        {/* Runner-up link */}
+        {/* Runner-up button — prominent, not buried */}
         {result.runnerUp !== result.type && (
           <motion.button
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
+            initial={{ opacity: 0, y: 6 }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.75 }}
             onClick={handleRunnerUp}
-            className="text-xs transition-colors"
-            style={{ color: "rgba(255,255,255,0.35)" }}
+            className="w-full py-3 rounded-2xl text-sm font-semibold transition-all active:scale-[0.98]"
+            style={{
+              background: "rgba(255,255,255,0.05)",
+              border: "1px solid rgba(255,255,255,0.15)",
+              color: "rgba(255,255,255,0.75)",
+            }}
           >
-            Explore further: I might be Type {result.runnerUp}
+            This doesn't feel like me → Try Type {result.runnerUp}
           </motion.button>
         )}
 

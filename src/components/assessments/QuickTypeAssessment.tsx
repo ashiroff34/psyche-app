@@ -3,9 +3,10 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence, useMotionValue, useTransform, animate } from "framer-motion";
 import { useDrag } from "@use-gesture/react";
-import { Check, ChevronDown, BookOpen, Zap, SkipForward, Share2, ArrowLeft } from "lucide-react";
+import { Check, ChevronDown, BookOpen, Zap, SkipForward, Share2, ArrowLeft, AlertCircle } from "lucide-react";
 import ChibiSprite from "@/components/ChibiSprite";
 import { useVerifiedShare } from "@/hooks/useVerifiedShare";
+import { TYPE_WPFA } from "@/data/wound-passion-fixation-armor";
 
 // ─── Quiz save/resume key ─────────────────────────────────────────────────────
 const QUIZ_SAVE_KEY = "psyche-quiz-progress-quick";
@@ -44,24 +45,24 @@ const triageQuestions: Question[] = [
   {
     id: "t1",
     phase: "triage",
-    text: "When life gets hard, what do you most want?",
-    sub: "Go with your gut. Not what you should want.",
+    text: "When life falls apart, which would feel like the WORST?",
+    sub: "First instinct — no wrong answers.",
     options: [
       {
-        text: "To feel safe and prepared",
-        detail: "Knowing what's coming and having a plan",
+        text: "Walking in blind, no plan, no idea what's coming",
+        detail: "The ground under you feeling unknown and uncertain",
         triad: "head",
         learn: "Head types (5, 6, 7) share a background anxiety about safety and certainty. Their wound is about adequacy: Do I have enough inside to handle what's coming? Can I trust what I think I know?",
       },
       {
-        text: "To feel loved and valued",
-        detail: "To know people truly see and appreciate you",
+        text: "Feeling unseen — not wanted, not valued, invisible",
+        detail: "Being dismissed by the people whose approval matters",
         triad: "heart",
         learn: "Heart types (2, 3, 4) share a deep uncertainty about their own worth. Their wound is about identity: Am I lovable? Am I enough? Do I even exist without the performance?",
       },
       {
-        text: "To feel in control and respected",
-        detail: "Not to be pushed around or ignored",
+        text: "Something bigger taking your autonomy away",
+        detail: "Being controlled, pushed around, or made smaller",
         triad: "gut",
         learn: "Gut types (1, 8, 9) share a visceral relationship with anger — whether they redirect it inward, express it outward, or bury it completely. Their wound is about autonomy: being controlled, being bad, or being invisible.",
       },
@@ -70,24 +71,24 @@ const triageQuestions: Question[] = [
   {
     id: "t2",
     phase: "triage",
-    text: "When you make a mistake, what hits first?",
-    sub: "Before you can even think: what do you feel?",
+    text: "You just messed something up. Before you can even think — what lands in your body?",
+    sub: "The felt sense, not the thought.",
     options: [
       {
-        text: "Fear",
-        detail: "Worry about what might go wrong because of it",
+        text: "A racing mind already running scenarios",
+        detail: "Scanning for consequences, risks, what to do next",
         triad: "head",
         learn: "Head types (5, 6, 7) share a background anxiety about safety and certainty. Their wound is about adequacy: Do I have enough inside to handle what's coming? Can I trust what I think I know?",
       },
       {
-        text: "Shame",
-        detail: "A sting of embarrassment about how you look",
+        text: "A hot flush of 'how do I look right now'",
+        detail: "The sting of being seen in a bad light",
         triad: "heart",
         learn: "Heart types (2, 3, 4) share a deep uncertainty about their own worth. Their wound is about identity: Am I lovable? Am I enough? Do I even exist without the performance?",
       },
       {
-        text: "Anger",
-        detail: "Frustration at yourself or the situation",
+        text: "A jolt of frustration — at yourself or the situation",
+        detail: "A body-level 'this isn't right' before words",
         triad: "gut",
         learn: "Gut types (1, 8, 9) share a visceral relationship with anger — whether they redirect it inward, express it outward, or bury it completely. Their wound is about autonomy: being controlled, being bad, or being invisible.",
       },
@@ -96,23 +97,24 @@ const triageQuestions: Question[] = [
   {
     id: "t3",
     phase: "triage",
-    text: "People who know you well would say you're...",
+    text: "Which of these would you defend to the last inch?",
+    sub: "The thing you'd never give up without a fight.",
     options: [
       {
-        text: "Analytical and careful",
-        detail: "You think things through, prepare, and question",
+        text: "Your right to figure things out your own way",
+        detail: "Your inner world, your time, your ability to think clearly",
         triad: "head",
         learn: "Head types (5, 6, 7) share a background anxiety about safety and certainty. Their wound is about adequacy: Do I have enough inside to handle what's coming? Can I trust what I think I know?",
       },
       {
-        text: "Feeling and image-aware",
-        detail: "You notice how things land emotionally and socially",
+        text: "Your worth and place in the lives that matter",
+        detail: "Being seen, needed, or recognized by the people you care about",
         triad: "heart",
         learn: "Heart types (2, 3, 4) share a deep uncertainty about their own worth. Their wound is about identity: Am I lovable? Am I enough? Do I even exist without the performance?",
       },
       {
-        text: "Action-oriented and direct",
-        detail: "You just do. Instinct first, reflect later.",
+        text: "Your solid ground — your integrity, your territory",
+        detail: "Your principles, your autonomy, what you stand for",
         triad: "gut",
         learn: "Gut types (1, 8, 9) share a visceral relationship with anger — whether they redirect it inward, express it outward, or bury it completely. Their wound is about autonomy: being controlled, being bad, or being invisible.",
       },
@@ -120,29 +122,32 @@ const triageQuestions: Question[] = [
   },
 ];
 
+// Center questions now score primary type + partial weight on look-alike types
+// This prevents winner-take-all triage errors — a type 6 trapped in gut phase
+// still gets partial credit for Type 6 via Type 1 option (both have inner critic)
 const gutQuestions: Question[] = [
   {
     id: "g1",
     phase: "gut",
-    text: "Your anger usually shows up as...",
-    sub: "How does frustration show up for you?",
+    text: "Where does the tension live in you?",
+    sub: "When you're pushed to your edge.",
     options: [
       {
-        text: "A quiet inner critic",
-        detail: "Resentment that things aren't how they should be",
-        types: [1], weight: 2,
+        text: "In a loud inner critic — you're hardest on yourself",
+        detail: "Tight jaw, a running tally of what's wrong, and a need to fix it",
+        types: [1, 6], weight: 2,  // 1 primary, 6 look-alike (both have inner critic)
         learn: "Wound: I am only safe if I am good, correct, and beyond criticism.\n\nPassion: constant low hum of anger at everything that falls short — including themselves.\n\nFixation: brain runs the comparison between what is and what should be on loop, automatically.\n\nArmor: the perfectionist — highest standards in the room, holds themselves to it hardest.",
       },
       {
-        text: "Hot and direct",
-        detail: "You confront. You don't hide when you're furious.",
+        text: "In hot, direct force — you don't hide what you feel",
+        detail: "Pushing back hard, taking up space, meeting threat head-on",
         types: [8], weight: 2,
         learn: "Wound: vulnerability gets you hurt, the world takes from the weak, I will never be weak.\n\nPassion: lust — excess of intensity, aggressive aliveness, needs to feel everything at full volume.\n\nFixation: brain always tracking power and violation — who has it, who's using it wrong.\n\nArmor: the protector — buried softness completely, leads with force because force kept them safe when tenderness didn't.",
       },
       {
-        text: "Mostly suppressed",
-        detail: "You go numb, merge, avoid the conflict",
-        types: [9], weight: 2,
+        text: "Underneath, quietly — you merge, deflect, go numb",
+        detail: "Your irritation gets absorbed before anyone notices it",
+        types: [9, 5], weight: 2,  // 9 primary, 5 look-alike (both withdraw)
         learn: "Wound: my presence and needs create problems, safest thing is to disappear.\n\nPassion: sloth — deep numbing of own desire and agenda, chronic forgetting of what they actually want.\n\nFixation: brain drifts toward whatever keeps things comfortable, away from asserting own presence.\n\nArmor: the peacemaker — everyone loves them, no one really knows them, loses the thread of themselves adapting to others.",
       },
     ],
@@ -150,24 +155,25 @@ const gutQuestions: Question[] = [
   {
     id: "g2",
     phase: "gut",
-    text: "What you want most is...",
+    text: "What do you most want to be?",
+    sub: "The self-ideal you keep reaching for.",
     options: [
       {
-        text: "To be good and do the right thing",
-        detail: "To live with integrity and have things be correct",
-        types: [1], weight: 2,
+        text: "Good, principled, and beyond reproach",
+        detail: "Living with integrity even when it costs you",
+        types: [1, 3], weight: 2,  // 1 primary, 3 look-alike (both high standards)
         learn: "Wound: I am only safe if I am good, correct, and beyond criticism.\n\nPassion: constant low hum of anger at everything that falls short — including themselves.\n\nFixation: brain runs the comparison between what is and what should be on loop, automatically.\n\nArmor: the perfectionist — highest standards in the room, holds themselves to it hardest.",
       },
       {
-        text: "To be strong and self-reliant",
-        detail: "To never be controlled, to protect what matters",
-        types: [8], weight: 2,
+        text: "Strong enough that no one can push you around",
+        detail: "Self-reliant, in charge of your own fate, unshakeable",
+        types: [8, 6], weight: 2,  // 8 primary, 6cp look-alike (counterphobic)
         learn: "Wound: vulnerability gets you hurt, the world takes from the weak, I will never be weak.\n\nPassion: lust — excess of intensity, aggressive aliveness, needs to feel everything at full volume.\n\nFixation: brain always tracking power and violation — who has it, who's using it wrong.\n\nArmor: the protector — buried softness completely, leads with force because force kept them safe when tenderness didn't.",
       },
       {
-        text: "To have peace and harmony",
-        detail: "To be okay, to merge, to avoid disruption",
-        types: [9], weight: 2,
+        text: "At peace, unbothered, in harmony with everything",
+        detail: "Where nothing can disturb your inner quiet",
+        types: [9, 2], weight: 2,  // 9 primary, 2 look-alike (both accommodating)
         learn: "Wound: my presence and needs create problems, safest thing is to disappear.\n\nPassion: sloth — deep numbing of own desire and agenda, chronic forgetting of what they actually want.\n\nFixation: brain drifts toward whatever keeps things comfortable, away from asserting own presence.\n\nArmor: the peacemaker — everyone loves them, no one really knows them, loses the thread of themselves adapting to others.",
       },
     ],
@@ -175,23 +181,24 @@ const gutQuestions: Question[] = [
   {
     id: "g3",
     phase: "gut",
-    text: "Your deepest fear is...",
+    text: "What's the single worst thing that could be true about you?",
+    sub: "The thing you work hardest never to be.",
     options: [
       {
-        text: "Being corrupt, wrong, or bad",
-        detail: "Violating your own principles",
+        text: "That you're actually bad, corrupt, or a hypocrite",
+        detail: "That your failings outweigh your intentions",
         types: [1], weight: 3,
         learn: "Wound: I am only safe if I am good, correct, and beyond criticism.\n\nPassion: constant low hum of anger at everything that falls short — including themselves.\n\nFixation: brain runs the comparison between what is and what should be on loop, automatically.\n\nArmor: the perfectionist — highest standards in the room, holds themselves to it hardest.",
       },
       {
-        text: "Being controlled or harmed by others",
-        detail: "Being weak or betrayed",
+        text: "That you're actually weak, used, or at someone's mercy",
+        detail: "That someone could take something from you and you couldn't stop it",
         types: [8], weight: 3,
         learn: "Wound: vulnerability gets you hurt, the world takes from the weak, I will never be weak.\n\nPassion: lust — excess of intensity, aggressive aliveness, needs to feel everything at full volume.\n\nFixation: brain always tracking power and violation — who has it, who's using it wrong.\n\nArmor: the protector — buried softness completely, leads with force because force kept them safe when tenderness didn't.",
       },
       {
-        text: "Loss and separation",
-        detail: "The world falling apart, nothing mattering",
+        text: "That you don't actually matter — no presence, no weight",
+        detail: "That the world would go on unchanged if you weren't in it",
         types: [9], weight: 3,
         learn: "Wound: my presence and needs create problems, safest thing is to disappear.\n\nPassion: sloth — deep numbing of own desire and agenda, chronic forgetting of what they actually want.\n\nFixation: brain drifts toward whatever keeps things comfortable, away from asserting own presence.\n\nArmor: the peacemaker — everyone loves them, no one really knows them, loses the thread of themselves adapting to others.",
       },
@@ -203,25 +210,25 @@ const heartQuestions: Question[] = [
   {
     id: "h1",
     phase: "heart",
-    text: "Your sense of self mostly comes from...",
-    sub: "Where does your sense of self come from?",
+    text: "Where does the pull to 'be enough' live in you?",
+    sub: "The place you quietly keep working to earn your worth.",
     options: [
       {
-        text: "Being needed and appreciated",
-        detail: "Knowing people value you for what you give",
-        types: [2], weight: 2,
+        text: "You earn it by being the one people can always count on",
+        detail: "Your value comes from being needed, loved, remembered",
+        types: [2, 9], weight: 2,  // 2 primary, 9 look-alike (both accommodating)
         learn: "Wound: I am only lovable if I am needed.\n\nPassion: pride in being the one who gives and is depended on — masks terror of own needs.\n\nFixation: brain constantly scans every room for what people need and how to provide it.\n\nArmor: the helper — shows up for everyone, quietly resents no one shows up the same way back.",
       },
       {
-        text: "What you achieve and how you're seen",
-        detail: "Your image, status, and accomplishments",
-        types: [3], weight: 2,
+        text: "You earn it by succeeding — being impressive, efficient, on top",
+        detail: "Your value comes from what you accomplish and how you land",
+        types: [3, 1], weight: 2,  // 3 primary, 1 look-alike (both high performers)
         learn: "Wound: I am only lovable if I am succeeding.\n\nPassion: vanity — deep replacement of actual identity with whatever image gets most approval.\n\nFixation: brain constantly manages perception, constructs the version that lands best in any room.\n\nArmor: the achiever — always on, always impressive, no idea who they are when the room is empty.",
       },
       {
-        text: "Your unique identity and depth",
-        detail: "Being authentic, different, emotionally real",
-        types: [4], weight: 2,
+        text: "You earn it by being genuinely different, deep, real",
+        detail: "Your value comes from not being like everyone else",
+        types: [4, 5], weight: 2,  // 4 primary, 5 look-alike (both withdrawn/depth)
         learn: "Wound: something is fundamentally missing in me that everyone else has naturally.\n\nPassion: envy — chronic painful awareness of the gap between who they are and who they feel they should be.\n\nFixation: brain keeps returning to what's absent, what's lost, what's longed for.\n\nArmor: the depth, the aesthetic intensity — turns pain into something beautiful to make it mean something.",
       },
     ],
@@ -229,23 +236,24 @@ const heartQuestions: Question[] = [
   {
     id: "h2",
     phase: "heart",
-    text: "What would devastate you most?",
+    text: "Which of these would flatten you most?",
+    sub: "The hit that goes all the way to the core.",
     options: [
       {
-        text: "Being seen as selfish or uncaring",
-        detail: "People thinking you only help for yourself",
+        text: "Being called selfish, ungenerous, or cold",
+        detail: "Hearing that your care was actually about you",
         types: [2], weight: 2,
         learn: "Wound: I am only lovable if I am needed.\n\nPassion: pride in being the one who gives and is depended on — masks terror of own needs.\n\nFixation: brain constantly scans every room for what people need and how to provide it.\n\nArmor: the helper — shows up for everyone, quietly resents no one shows up the same way back.",
       },
       {
-        text: "Being exposed as a failure or fraud",
-        detail: "Your accomplishments falling apart publicly",
+        text: "Being exposed as a failure with nothing to show for the effort",
+        detail: "Hearing that the image was hollow underneath",
         types: [3], weight: 2,
         learn: "Wound: I am only lovable if I am succeeding.\n\nPassion: vanity — deep replacement of actual identity with whatever image gets most approval.\n\nFixation: brain constantly manages perception, constructs the version that lands best in any room.\n\nArmor: the achiever — always on, always impressive, no idea who they are when the room is empty.",
       },
       {
-        text: "Having no identity. Being ordinary.",
-        detail: "Being unseen, generic, without depth",
+        text: "Being told you're actually ordinary — generic, no depth, forgettable",
+        detail: "Hearing that nothing sets you apart",
         types: [4], weight: 2,
         learn: "Wound: something is fundamentally missing in me that everyone else has naturally.\n\nPassion: envy — chronic painful awareness of the gap between who they are and who they feel they should be.\n\nFixation: brain keeps returning to what's absent, what's lost, what's longed for.\n\nArmor: the depth, the aesthetic intensity — turns pain into something beautiful to make it mean something.",
       },
@@ -254,24 +262,25 @@ const heartQuestions: Question[] = [
   {
     id: "h3",
     phase: "heart",
-    text: "In relationships, you most naturally...",
+    text: "In close relationships, your instinct is to...",
+    sub: "Not what you've trained yourself to do — what you do first.",
     options: [
       {
-        text: "Focus on what the other person needs",
-        detail: "Tuning in to them, often before yourself",
-        types: [2], weight: 2,
+        text: "Read the other person before reading yourself",
+        detail: "Their needs come into focus before your own do",
+        types: [2, 6], weight: 2,  // 2 primary, 6 look-alike (both attuned to others)
         learn: "Wound: I am only lovable if I am needed.\n\nPassion: pride in being the one who gives and is depended on — masks terror of own needs.\n\nFixation: brain constantly scans every room for what people need and how to provide it.\n\nArmor: the helper — shows up for everyone, quietly resents no one shows up the same way back.",
       },
       {
-        text: "Put your best self forward",
-        detail: "Presenting your competence and appeal",
-        types: [3], weight: 2,
+        text: "Show the version of yourself most likely to impress them",
+        detail: "Lead with competence, charisma, and what you bring",
+        types: [3, 7], weight: 2,  // 3 primary, 7 look-alike (both energetic/appealing)
         learn: "Wound: I am only lovable if I am succeeding.\n\nPassion: vanity — deep replacement of actual identity with whatever image gets most approval.\n\nFixation: brain constantly manages perception, constructs the version that lands best in any room.\n\nArmor: the achiever — always on, always impressive, no idea who they are when the room is empty.",
       },
       {
-        text: "Look for deep, authentic connection",
-        detail: "Or pull back when it feels too surface",
-        types: [4], weight: 2,
+        text: "Test if they can handle your actual depth — then pull back if not",
+        detail: "Go all in or not at all; surface feels like a waste",
+        types: [4, 8], weight: 2,  // 4 primary, 8 look-alike (both intensity-seeking)
         learn: "Wound: something is fundamentally missing in me that everyone else has naturally.\n\nPassion: envy — chronic painful awareness of the gap between who they are and who they feel they should be.\n\nFixation: brain keeps returning to what's absent, what's lost, what's longed for.\n\nArmor: the depth, the aesthetic intensity — turns pain into something beautiful to make it mean something.",
       },
     ],
@@ -282,25 +291,25 @@ const headQuestions: Question[] = [
   {
     id: "hd1",
     phase: "head",
-    text: "When you're anxious, your mind...",
-    sub: "What does your mind do when things feel uncertain?",
+    text: "When something feels uncertain, where does your mind go first?",
+    sub: "The reflex, before you decide what to do.",
     options: [
       {
-        text: "Goes deep on one thing",
-        detail: "Researching, analyzing, pulling away to think",
-        types: [5], weight: 2,
+        text: "Inward — to understand it deeply before engaging",
+        detail: "Researching, analyzing, pulling back until you're sure",
+        types: [5, 4], weight: 2,  // 5 primary, 4 look-alike (both withdraw)
         learn: "Wound: the world is too demanding and I don't have enough inside to meet it.\n\nPassion: avarice — hoarding the self, withholding presence because there might not be enough to go around.\n\nFixation: brain keeps rationing — calculating what can be given and what needs to be kept back.\n\nArmor: the observer — understands everything deeply from a safe distance, only comes out when fully resourced.",
       },
       {
-        text: "Scans for what could go wrong",
-        detail: "Questioning, anticipating threats, seeking reassurance",
-        types: [6], weight: 2,
+        text: "Outward — scanning for what could go wrong and who to trust",
+        detail: "Double-checking, seeking reassurance, preparing for worst case",
+        types: [6, 1], weight: 2,  // 6 primary, 1 look-alike (both anxious rule-followers)
         learn: "Wound: the world is not safe and I cannot trust my own perception of it.\n\nPassion: fear — constant background hum of threat assessment, what could go wrong, who can be trusted.\n\nFixation: brain keeps doubting itself, seeking confirmation, testing the ground before every step.\n\nArmor: either the loyal rule-follower who finds safety in systems, or the counterphobic rebel who attacks the threat first.",
       },
       {
-        text: "Jumps to future possibilities",
-        detail: "Planning, reframing, imagining what's next",
-        types: [7], weight: 2,
+        text: "Forward — to the next thing, the plan, the bright possibility",
+        detail: "Reframing, imagining what's next, moving past the uncomfortable",
+        types: [7, 3], weight: 2,  // 7 primary, 3 look-alike (both forward-motion)
         learn: "Wound: what I need won't be there when I need it, so I have to generate it myself.\n\nPassion: gluttony — insatiable hunger for experience and possibility, stopping means feeling what's underneath.\n\nFixation: brain lives in the future, always planning the next scenario to avoid present pain.\n\nArmor: the enthusiast — reframes everything into a lesson or story, makes pain look like growth before they even feel it.",
       },
     ],
@@ -308,23 +317,24 @@ const headQuestions: Question[] = [
   {
     id: "hd2",
     phase: "head",
-    text: "What do you most protect?",
+    text: "What do you guard most carefully?",
+    sub: "The thing you won't let anyone take from you.",
     options: [
       {
-        text: "I need to thoroughly understand something before I can trust it or invest myself in it. Engaging without enough information feels dangerous.",
-        detail: "Comprehension as a prerequisite for safety",
+        text: "Your inner world — your time, your energy, your right to think",
+        detail: "Your privacy is oxygen; you give yourself carefully",
         types: [5], weight: 2,
         learn: "Wound: the world is too demanding and I don't have enough inside to meet it.\n\nPassion: avarice — hoarding the self, withholding presence because there might not be enough to go around.\n\nFixation: brain keeps rationing — calculating what can be given and what needs to be kept back.\n\nArmor: the observer — understands everything deeply from a safe distance, only comes out when fully resourced.",
       },
       {
-        text: "Your security and trusted alliances",
-        detail: "Knowing who you can count on, having backup plans",
+        text: "Your trusted circle — the people and systems that have your back",
+        detail: "You protect the things that keep the ground stable",
         types: [6], weight: 2,
         learn: "Wound: the world is not safe and I cannot trust my own perception of it.\n\nPassion: fear — constant background hum of threat assessment, what could go wrong, who can be trusted.\n\nFixation: brain keeps doubting itself, seeking confirmation, testing the ground before every step.\n\nArmor: either the loyal rule-follower who finds safety in systems, or the counterphobic rebel who attacks the threat first.",
       },
       {
-        text: "Your freedom and options",
-        detail: "Not being trapped, keeping the future open",
+        text: "Your options — your freedom, your ability to pivot anywhere",
+        detail: "Feeling trapped is the actual nightmare",
         types: [7], weight: 2,
         learn: "Wound: what I need won't be there when I need it, so I have to generate it myself.\n\nPassion: gluttony — insatiable hunger for experience and possibility, stopping means feeling what's underneath.\n\nFixation: brain lives in the future, always planning the next scenario to avoid present pain.\n\nArmor: the enthusiast — reframes everything into a lesson or story, makes pain look like growth before they even feel it.",
       },
@@ -333,23 +343,24 @@ const headQuestions: Question[] = [
   {
     id: "hd3",
     phase: "head",
-    text: "Your deepest fear is...",
+    text: "Which of these would be the most unbearable reality?",
+    sub: "The nightmare scenario at the core.",
     options: [
       {
-        text: "Being incompetent or without resources",
-        detail: "Not knowing enough, being depleted",
+        text: "Being helpless — without knowledge, skills, or inner resources to cope",
+        detail: "Getting caught depleted, exposed, with nothing left inside",
         types: [5], weight: 3,
         learn: "Wound: the world is too demanding and I don't have enough inside to meet it.\n\nPassion: avarice — hoarding the self, withholding presence because there might not be enough to go around.\n\nFixation: brain keeps rationing — calculating what can be given and what needs to be kept back.\n\nArmor: the observer — understands everything deeply from a safe distance, only comes out when fully resourced.",
       },
       {
-        text: "Being without support or guidance",
-        detail: "Being alone in a dangerous world",
+        text: "Being alone — no one reliable, no backup, no one to turn to",
+        detail: "Having to face a dangerous world by yourself, with no certainty",
         types: [6], weight: 3,
         learn: "Wound: the world is not safe and I cannot trust my own perception of it.\n\nPassion: fear — constant background hum of threat assessment, what could go wrong, who can be trusted.\n\nFixation: brain keeps doubting itself, seeking confirmation, testing the ground before every step.\n\nArmor: either the loyal rule-follower who finds safety in systems, or the counterphobic rebel who attacks the threat first.",
       },
       {
-        text: "Being trapped in pain or missing out",
-        detail: "Being limited, bored, or deprived of joy",
+        text: "Being stuck — trapped in pain with no escape and nothing to look forward to",
+        detail: "The absence of possibility; the future going dark",
         types: [7], weight: 3,
         learn: "Wound: what I need won't be there when I need it, so I have to generate it myself.\n\nPassion: gluttony — insatiable hunger for experience and possibility, stopping means feeling what's underneath.\n\nFixation: brain lives in the future, always planning the next scenario to avoid present pain.\n\nArmor: the enthusiast — reframes everything into a lesson or story, makes pain look like growth before they even feel it.",
       },
@@ -649,10 +660,10 @@ export default function QuickTypeAssessment({
     return {};
   });
   const [instinctScores, setInstinctScores] = useState<Record<string, number>>({ sp: 0, sx: 0, so: 0 });
-  const [phase, setPhase] = useState<"triage" | "gut" | "heart" | "head" | "instinct" | "result" | "subtype">(() => {
+  const [phase, setPhase] = useState<"triage" | "gut" | "heart" | "head" | "confirm" | "instinct" | "result" | "subtype">(() => {
     try {
       const s = JSON.parse(localStorage.getItem(QUIZ_SAVE_KEY) || "null");
-      if (s?.phase && s.phase !== "result" && s.phase !== "subtype" && s.phase !== "instinct") return s.phase;
+      if (s?.phase && s.phase !== "result" && s.phase !== "subtype" && s.phase !== "instinct" && s.phase !== "confirm") return s.phase;
     } catch {}
     return "triage";
   });
@@ -748,16 +759,23 @@ export default function QuickTypeAssessment({
         }
       } else {
         const ns = { ...typeScores };
-        (opt.types || []).forEach((t) => { ns[t] = (ns[t] || 0) + (opt.weight || 1); });
+        // Primary type (index 0) gets full weight; look-alikes (index 1+) get half weight
+        // This prevents winner-take-all triage errors: a 6 trapped in gut phase still gets
+        // partial credit for Type 6 via the "inner critic" Type 1 option.
+        (opt.types || []).forEach((t, i) => {
+          const w = opt.weight || 1;
+          const scaled = i === 0 ? w : w * 0.5;
+          ns[t] = (ns[t] || 0) + scaled;
+        });
 
         if (qIdx < phaseQuestions.length - 1) {
           setTypeScores(ns);
           setQIdx(qIdx + 1);
           setSelectedOption(null);
         } else {
+          setTypeScores(ns);
           setResult(computeResult(ns));
-          setPhase("instinct");
-          setQIdx(0);
+          setPhase("confirm");
           setSelectedOption(null);
         }
       }
@@ -767,6 +785,134 @@ export default function QuickTypeAssessment({
   function toggleLearn(e: React.MouseEvent, idx: number) {
     e.stopPropagation();
     setExpandedLearn(expandedLearn === idx ? null : idx);
+  }
+
+  // ── Confirmation phase (Stanford-style: pick which feels more like you) ───
+  if (phase === "confirm" && result) {
+    const topType = result.type;
+    const secondType = result.runnerUp !== result.type ? result.runnerUp : null;
+    const topWpfa = TYPE_WPFA[topType];
+    const secondWpfa = secondType ? TYPE_WPFA[secondType] : null;
+    const topColor = typeColors[topType];
+    const secondColor = secondType ? typeColors[secondType] : "#8b5cf6";
+
+    function confirmChoice(chosen: number) {
+      // If user picks the runner-up, swap it in as the primary result
+      if (chosen !== topType) {
+        setResult({
+          type: chosen,
+          confidence: result!.confidence,
+          runnerUp: topType,
+        });
+      }
+      setPhase("instinct");
+      setQIdx(0);
+      setSelectedOption(null);
+    }
+
+    return (
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        className="max-w-lg mx-auto py-6 px-4"
+      >
+        {/* Header */}
+        <div className="mb-5 text-center">
+          <p className="text-[10px] font-bold uppercase tracking-widest mb-2" style={{ color: "rgba(139,92,246,0.7)" }}>
+            Quick gut check
+          </p>
+          <h2 className="text-xl font-serif font-bold mb-1" style={{ color: "rgba(255,255,255,0.92)" }}>
+            Which one feels more like you?
+          </h2>
+          <p className="text-xs" style={{ color: "rgba(255,255,255,0.4)" }}>
+            Read both. Pick the one that lands in your chest, not the one that sounds better.
+          </p>
+        </div>
+
+        <div className="space-y-3">
+          {/* Top type card */}
+          {topWpfa && (
+            <motion.button
+              whileTap={{ scale: 0.98 }}
+              whileHover={{ y: -2 }}
+              onClick={() => confirmChoice(topType)}
+              className="w-full text-left rounded-2xl p-4 transition-all"
+              style={{
+                background: `linear-gradient(135deg, ${topColor}14, rgba(255,255,255,0.03))`,
+                border: `1.5px solid ${topColor}50`,
+              }}
+            >
+              <div className="flex items-center gap-2 mb-3">
+                <span
+                  className="text-[9px] font-black uppercase tracking-widest px-2 py-0.5 rounded-full"
+                  style={{ background: `${topColor}22`, color: topColor, border: `1px solid ${topColor}44` }}
+                >
+                  Type {topType}
+                </span>
+                <span className="text-xs font-semibold" style={{ color: "rgba(255,255,255,0.85)" }}>
+                  {typeNames[topType]}
+                </span>
+              </div>
+              <div className="space-y-2">
+                {(["wound", "passion", "fixation", "armor"] as const).map((key) => (
+                  <div key={key} className="flex gap-2">
+                    <span className="text-[9px] font-bold uppercase tracking-wide shrink-0 pt-0.5" style={{ color: `${topColor}cc`, minWidth: 52 }}>
+                      {key}
+                    </span>
+                    <span className="text-[12px] leading-snug" style={{ color: "rgba(255,255,255,0.7)" }}>
+                      {topWpfa[key]}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </motion.button>
+          )}
+
+          {/* Second type card */}
+          {secondWpfa && secondType && (
+            <motion.button
+              whileTap={{ scale: 0.98 }}
+              whileHover={{ y: -2 }}
+              onClick={() => confirmChoice(secondType)}
+              className="w-full text-left rounded-2xl p-4 transition-all"
+              style={{
+                background: `linear-gradient(135deg, ${secondColor}14, rgba(255,255,255,0.03))`,
+                border: `1.5px solid ${secondColor}50`,
+              }}
+            >
+              <div className="flex items-center gap-2 mb-3">
+                <span
+                  className="text-[9px] font-black uppercase tracking-widest px-2 py-0.5 rounded-full"
+                  style={{ background: `${secondColor}22`, color: secondColor, border: `1px solid ${secondColor}44` }}
+                >
+                  Type {secondType}
+                </span>
+                <span className="text-xs font-semibold" style={{ color: "rgba(255,255,255,0.85)" }}>
+                  {typeNames[secondType]}
+                </span>
+              </div>
+              <div className="space-y-2">
+                {(["wound", "passion", "fixation", "armor"] as const).map((key) => (
+                  <div key={key} className="flex gap-2">
+                    <span className="text-[9px] font-bold uppercase tracking-wide shrink-0 pt-0.5" style={{ color: `${secondColor}cc`, minWidth: 52 }}>
+                      {key}
+                    </span>
+                    <span className="text-[12px] leading-snug" style={{ color: "rgba(255,255,255,0.7)" }}>
+                      {secondWpfa[key]}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </motion.button>
+          )}
+        </div>
+
+        {/* Soft disclaimer */}
+        <p className="text-[11px] text-center mt-5 leading-relaxed" style={{ color: "rgba(255,255,255,0.35)" }}>
+          Neither feels right? Pick the closest one — you'll keep exploring after.
+        </p>
+      </motion.div>
+    );
   }
 
   // ── Instinct phase (6 forced-choice questions) ─────────────────────────────
