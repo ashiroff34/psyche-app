@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Check, X, Sun } from "lucide-react";
 import { getTodayPassionCheckIn } from "@/data/passion-check-ins";
+import { posthog, EVENTS } from "@/lib/posthog";
 
 function getDateKey(): string {
   return new Intl.DateTimeFormat("en-CA").format(new Date());
@@ -42,6 +43,14 @@ export default function MorningPassionCheckIn({ enneagramType }: Props) {
 
   function handleResponse(r: "caught" | "missed" | "skip") {
     setResponse(r);
+    // Analytics
+    try {
+      posthog.capture(EVENTS.PASSION_CHECKIN_COMPLETED, {
+        enneagramType,
+        response: r,
+        passion: checkIn?.passionWord ?? null,
+      });
+    } catch {}
     try {
       localStorage.setItem(STORAGE_KEY(getDateKey()), r);
       // Track streak

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import {
@@ -11,6 +11,7 @@ import { scorePersonalityFromText, type ScoringResult } from "@/lib/personality-
 import BigFiveRadar from "@/components/BigFiveRadar";
 import { enneagramTypes } from "@/data/enneagram";
 import { TYPE_WPFA } from "@/data/wound-passion-fixation-armor";
+import { posthog, EVENTS } from "@/lib/posthog";
 
 const TYPE_COLORS: Record<number, string> = {
   1: "#E74C3C", 2: "#E91E8C", 3: "#F39C12", 4: "#9B59B6",
@@ -30,6 +31,11 @@ export default function MirrorPage() {
   const [showResearch, setShowResearch] = useState(false);
   const [showHowItWorks, setShowHowItWorks] = useState(false);
 
+  // Analytics: mirror_viewed on first mount
+  useEffect(() => {
+    try { posthog.capture(EVENTS.MIRROR_VIEWED); } catch {}
+  }, []);
+
   const wordCount = text.trim().split(/\s+/).filter(Boolean).length;
 
   function handleAnalyze() {
@@ -40,6 +46,16 @@ export default function MirrorPage() {
       const r = scorePersonalityFromText(text);
       setResult(r);
       setAnalyzing(false);
+      // Analytics: mirror_analyzed with confidence and top type
+      try {
+        posthog.capture(EVENTS.MIRROR_ANALYZED, {
+          wordCount: r.wordCount,
+          confidence: r.confidence,
+          topType: r.enneagramEstimate.topType,
+          topTypeScore: r.enneagramEstimate.topTypeScore,
+          runnerUpType: r.enneagramEstimate.runnerUpType,
+        });
+      } catch {}
     }, 600);
   }
 

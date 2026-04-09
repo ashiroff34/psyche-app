@@ -6,6 +6,7 @@ import { Download, Share2, Copy, RotateCw, Check, Sparkles } from "lucide-react"
 import ChibiScene from "@/components/ChibiScene";
 import { TYPE_WPFA } from "@/data/wound-passion-fixation-armor";
 import { enneagramTypes } from "@/data/enneagram";
+import { posthog, EVENTS } from "@/lib/posthog";
 
 // ─── Type identity card ──────────────────────────────────────────────────
 // Shareable beautiful card showing the user's full type identity.
@@ -65,7 +66,16 @@ export default function TypeIdentityCard({
   const [saving, setSaving] = useState(false);
   const [copied, setCopied] = useState(false);
   const [savedMessage, setSavedMessage] = useState<string | null>(null);
+  const [hasFlipped, setHasFlipped] = useState(false);
   const cardRef = useRef<HTMLDivElement>(null);
+
+  function handleFlip() {
+    setFlipped((v) => !v);
+    if (!hasFlipped) {
+      setHasFlipped(true);
+      try { posthog.capture(EVENTS.IDENTITY_CARD_FLIPPED, { enneagramType: type }); } catch {}
+    }
+  }
 
   const typeData = enneagramTypes.find((t) => t.number === type);
   const typeName = typeData?.name ?? `Type ${type}`;
@@ -93,6 +103,8 @@ export default function TypeIdentityCard({
       link.href = dataUrl;
       link.click();
       setSavedMessage("Downloaded!");
+      // Analytics
+      try { posthog.capture(EVENTS.IDENTITY_CARD_DOWNLOADED, { enneagramType: type, instinct: instinct ?? null }); } catch {}
       setTimeout(() => setSavedMessage(null), 2200);
     } catch (e) {
       console.error("Failed to export card:", e);
@@ -121,6 +133,7 @@ export default function TypeIdentityCard({
 
       const shareText = `I'm ${instinct ? instinct.toUpperCase() + " " : ""}Type ${type} — ${typeName}. Discover your type on thyself.app`;
 
+      let shareMethod: "native_file" | "native_text" | "clipboard" = "clipboard";
       // Try Web Share API with file (modern mobile)
       if (navigator.share && navigator.canShare && navigator.canShare({ files: [file] })) {
         await navigator.share({
@@ -129,6 +142,7 @@ export default function TypeIdentityCard({
           text: shareText,
           url: "https://psyche-app-two.vercel.app",
         });
+        shareMethod = "native_file";
         setSavedMessage("Shared!");
       } else if (navigator.share) {
         // Fallback: share text only
@@ -137,12 +151,21 @@ export default function TypeIdentityCard({
           text: shareText,
           url: "https://psyche-app-two.vercel.app",
         });
+        shareMethod = "native_text";
         setSavedMessage("Shared!");
       } else {
         // Ultimate fallback: copy text to clipboard
         await navigator.clipboard.writeText(shareText + " https://psyche-app-two.vercel.app");
         setSavedMessage("Copied to clipboard");
       }
+      // Analytics
+      try {
+        posthog.capture(EVENTS.IDENTITY_CARD_SHARED, {
+          enneagramType: type,
+          instinct: instinct ?? null,
+          method: shareMethod,
+        });
+      } catch {}
       setTimeout(() => setSavedMessage(null), 2200);
     } catch (e) {
       // User cancelled or failed
@@ -174,7 +197,7 @@ export default function TypeIdentityCard({
           style={{ transformStyle: "preserve-3d" }}
           animate={{ rotateY: flipped ? 180 : 0 }}
           transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-          onClick={() => setFlipped((v) => !v)}
+          onClick={handleFlip}
         >
           {/* ── FRONT of card ── */}
           <div

@@ -6,14 +6,25 @@ import Link from "next/link";
 import { ArrowLeft, Heart } from "lucide-react";
 import TypeIdentityCard from "@/components/TypeIdentityCard";
 import { useProfile } from "@/hooks/useProfile";
+import { posthog, EVENTS } from "@/lib/posthog";
 
 export default function IdentityPage() {
   const { profile, loaded } = useProfile();
   const [ready, setReady] = useState(false);
 
   useEffect(() => {
-    if (loaded) setReady(true);
-  }, [loaded]);
+    if (loaded) {
+      setReady(true);
+      // Analytics: identity_card_viewed with type context
+      try {
+        const t = profile.enneagramType ?? profile.enneagramCore ?? null;
+        posthog.capture(EVENTS.IDENTITY_CARD_VIEWED, {
+          enneagramType: t,
+          has_type: !!t,
+        });
+      } catch {}
+    }
+  }, [loaded, profile]);
 
   const type = profile.enneagramType ?? profile.enneagramCore ?? 0;
   const instinct = profile.instinctualStacking?.split("/")?.[0];

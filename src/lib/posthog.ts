@@ -79,6 +79,17 @@ export const EVENTS = {
   // Daily practice
   DAILY_COMPLETED:          "daily_completed",
   STREAK_MILESTONE:         "streak_milestone",
+  PASSION_CHECKIN_COMPLETED:"passion_checkin_completed",
+
+  // Mirror (client-side personality prediction)
+  MIRROR_VIEWED:            "mirror_viewed",
+  MIRROR_ANALYZED:          "mirror_analyzed",
+
+  // Identity card
+  IDENTITY_CARD_VIEWED:     "identity_card_viewed",
+  IDENTITY_CARD_SHARED:     "identity_card_shared",
+  IDENTITY_CARD_DOWNLOADED: "identity_card_downloaded",
+  IDENTITY_CARD_FLIPPED:    "identity_card_flipped",
 
   // Store / monetisation
   CHECKOUT_INITIATED:       "checkout_initiated",
@@ -93,3 +104,18 @@ export const EVENTS = {
   LESSON_COMPLETED:         "lesson_completed",
   ARC_COMPLETED:            "arc_completed",
 };
+
+/**
+ * Set a user property that persists across all future events.
+ * Use this to tag users with their enneagram type so funnels can segment by type.
+ *
+ * Usage: setUserProperty({ enneagramType: 5, instinct: "sp" });
+ */
+export function setUserProperty(properties: Record<string, unknown>) {
+  if (typeof window === "undefined") return;
+  try {
+    posthog.capture("$set", { $set: properties });
+  } catch {
+    // fail silently — analytics must never break the app
+  }
+}

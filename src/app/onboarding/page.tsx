@@ -12,6 +12,7 @@ import ChibiSprite from "@/components/ChibiSprite";
 import ChibiScene from "@/components/ChibiScene";
 import { TYPE_WPFA } from "@/data/wound-passion-fixation-armor";
 import { resolveTypeAwareCopy } from "@/hooks/useTypeAwareCopy";
+import { posthog, EVENTS, setUserProperty } from "@/lib/posthog";
 import dynamic from "next/dynamic";
 const Confetti = dynamic(() => import("react-confetti"), { ssr: false });
 
@@ -1063,6 +1064,27 @@ function OnboardingPageInner() {
     runnerUp: number;
     instinct?: string;
   }) => {
+    // Analytics: quiz_completed + type_revealed + tag user with their type
+    try {
+      posthog.capture(EVENTS.QUIZ_COMPLETED, {
+        enneagramType: result.type,
+        confidence: result.confidence,
+        runnerUp: result.runnerUp,
+        instinct: result.instinct ?? null,
+        source: "onboarding_quick",
+      });
+      posthog.capture(EVENTS.TYPE_REVEALED, {
+        enneagramType: result.type,
+        instinct: result.instinct ?? null,
+      });
+      // Persist user properties so all future events are segmentable by type
+      setUserProperty({
+        enneagramType: result.type,
+        instinct: result.instinct ?? null,
+        firstTypeDate: new Date().toISOString().slice(0, 10),
+      });
+    } catch {}
+
     setAssessmentResult(result);
     // Save instinct immediately if selected in quiz
     if (result.instinct) {
@@ -1151,6 +1173,16 @@ function OnboardingPageInner() {
       } catch {}
     } catch {}
 
+    // Analytics: onboarding_completed with email path
+    try {
+      posthog.capture(EVENTS.ONBOARDING_COMPLETED, {
+        enneagramType: assessmentResult.type,
+        instinct: assessmentResult.instinct ?? null,
+        email_provided: true,
+        path: "save_and_continue",
+      });
+    } catch {}
+
     setStep(7); // all set → daily
   };
 
@@ -1181,6 +1213,18 @@ function OnboardingPageInner() {
           totalTokensEarned: ((gs.totalTokensEarned as number) ?? 0) + 50,
         }));
       } catch {}
+    } catch {}
+    // Analytics: onboarding_completed via manual path
+    try {
+      posthog.capture(EVENTS.ONBOARDING_COMPLETED, {
+        enneagramType: type,
+        path: "manual",
+        email_provided: false,
+      });
+      setUserProperty({
+        enneagramType: type,
+        firstTypeDate: new Date().toISOString().slice(0, 10),
+      });
     } catch {}
     router.push("/");
   };
@@ -1242,6 +1286,15 @@ function OnboardingPageInner() {
           totalTokensEarned: ((gs.totalTokensEarned as number) ?? 0) + 50,
         }));
       } catch {}
+    } catch {}
+    // Analytics: onboarding_completed via skip-email path
+    try {
+      posthog.capture(EVENTS.ONBOARDING_COMPLETED, {
+        enneagramType: assessmentResult.type,
+        instinct: assessmentResult.instinct ?? null,
+        email_provided: false,
+        path: "skip_email",
+      });
     } catch {}
     setStep(7); // all set → daily
   };
