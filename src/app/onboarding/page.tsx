@@ -848,7 +848,8 @@ function OnboardingPageInner() {
   const fromEnter = searchParams.get("fromEnter") === "true";
   const isManual = searchParams.get("manual") === "true";
 
-  const [acceptedTerms, setAcceptedTerms] = useState(false);
+  // Terms gate removed — not legally needed while localStorage-only
+  const [acceptedTerms, setAcceptedTerms] = useState(true);
   // 0=welcome, 1=name, 2=preview, 3=assessment, 4=type reveal, 5=subtype, 6=email gate, 7=all set, 8=manual picker
   const [step, setStep] = useState(0);
   const [displayName, setDisplayName] = useState("");
@@ -875,22 +876,21 @@ function OnboardingPageInner() {
 
   useEffect(() => {
     try {
-      const termsAccepted = localStorage.getItem("psyche-terms-accepted") === "true";
-      if (termsAccepted) {
-        setAcceptedTerms(true);
-        // Jump to type preview (→ assessment) if coming from enter experience
-        if (fromEnter) setStep(2);
-        // Jump to manual picker if user already knows their type
-        else if (isManual) setStep(8);
-        else {
-          // Restore saved progress for return visitors
-          const savedStep = parseInt(localStorage.getItem("psyche-onboarding-step") ?? "0", 10);
-          const savedName = localStorage.getItem("psyche-onboarding-name") ?? "";
-          if (savedName) setDisplayName(savedName);
-          if (savedStep > 0 && savedStep < 7) setStep(savedStep);
-        }
+      if (localStorage.getItem("psyche-onboarding-complete") === "true") {
+        router.replace("/");
+        return;
       }
-      if (localStorage.getItem("psyche-onboarding-complete") === "true") router.replace("/");
+      // Jump to type preview (→ assessment) if coming from enter experience
+      if (fromEnter) setStep(2);
+      // Jump to manual picker if user already knows their type
+      else if (isManual) setStep(8);
+      else {
+        // Restore saved progress for return visitors
+        const savedStep = parseInt(localStorage.getItem("psyche-onboarding-step") ?? "0", 10);
+        const savedName = localStorage.getItem("psyche-onboarding-name") ?? "";
+        if (savedName) setDisplayName(savedName);
+        if (savedStep > 0 && savedStep < 7) setStep(savedStep);
+      }
     } catch {}
   }, [router, fromEnter, isManual]);
 
