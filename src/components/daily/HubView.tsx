@@ -306,10 +306,15 @@ export default function HubView({
           {/* Chibi companion — floats below the ring */}
           {enneagramType > 0 && (
             <motion.div
-              className="flex flex-col items-center -mt-2"
+              className="relative flex flex-col items-center -mt-2"
               animate={{ y: [0, -6, 0] }}
               transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
             >
+              {/* Glow behind chibi so it doesn't look transparent on dark bg */}
+              <div
+                className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-24 h-24 rounded-full pointer-events-none"
+                style={{ background: `radial-gradient(circle, ${TYPE_COLORS[enneagramType] ?? "#8b5cf6"}30, transparent 70%)`, filter: "blur(6px)" }}
+              />
               <ChibiSprite
                 type={enneagramType}
                 instinct={instinct}
