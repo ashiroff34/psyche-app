@@ -9,6 +9,7 @@ import OuroborosLogo from "@/components/OuroborosLogo";
 import QuickTypeAssessment from "@/components/assessments/QuickTypeAssessment";
 import { enneagramTypes } from "@/data/enneagram";
 import ChibiSprite from "@/components/ChibiSprite";
+import { TYPE_WPFA } from "@/data/wound-passion-fixation-armor";
 import dynamic from "next/dynamic";
 const Confetti = dynamic(() => import("react-confetti"), { ssr: false });
 
@@ -328,6 +329,28 @@ function TypeRevealScreen({
         >
           {revealSentence}
         </motion.p>
+
+        {/* W/P/F/A bullets */}
+        {TYPE_WPFA[result.type] && (
+          <motion.div
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.45 }}
+            className="w-full text-left mb-6 rounded-2xl p-4 space-y-2.5"
+            style={{ background: `${typeColor}0a`, border: `1px solid ${typeColor}20` }}
+          >
+            {(["wound", "passion", "fixation", "armor"] as const).map((key) => (
+              <div key={key}>
+                <span className="text-[10px] font-bold uppercase tracking-widest" style={{ color: `${typeColor}cc` }}>
+                  {key}
+                </span>
+                <p className="text-xs leading-relaxed mt-0.5" style={{ color: "rgba(255,255,255,0.55)" }}>
+                  {TYPE_WPFA[result.type][key]}
+                </p>
+              </div>
+            ))}
+          </motion.div>
+        )}
 
         {/* Confidence indicator */}
         <motion.div

@@ -27,6 +27,7 @@ import { useProfile } from "@/hooks/useProfile";
 import { enneagramTypes } from "@/data/enneagram";
 import EnneagramCircle from "@/components/EnneagramCircle";
 import { Leaf, ArrowRight as ArrowRightIcon } from "lucide-react";
+import { TYPE_WPFA } from "@/data/wound-passion-fixation-armor";
 
 // ─── Growth data (inline — mirrors growth/page.tsx) ──────────────────────────
 
@@ -506,10 +507,10 @@ function GrowthTab({ myType }: { myType: number }) {
         <div key={label} className="px-4 py-3 rounded-xl" style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.07)" }}>
           <p className="text-[10px] font-bold uppercase tracking-widest mb-1" style={{ color: "rgba(255,255,255,0.3)" }}>{label}</p>
           <p className="text-xs leading-relaxed" style={{ color: "rgba(255,255,255,0.5)" }}>
-            {label === "Wound" && WOUND_PASSION[myType]?.wound}
-            {label === "Passion" && WOUND_PASSION[myType]?.passion}
-            {label === "Fixation" && WOUND_PASSION[myType]?.fixation}
-            {label === "Armor" && WOUND_PASSION[myType]?.armor}
+            {label === "Wound" && TYPE_WPFA[myType]?.wound}
+            {label === "Passion" && TYPE_WPFA[myType]?.passion}
+            {label === "Fixation" && TYPE_WPFA[myType]?.fixation}
+            {label === "Armor" && TYPE_WPFA[myType]?.armor}
           </p>
         </div>
       ))}
@@ -526,65 +527,6 @@ function GrowthTab({ myType }: { myType: number }) {
     </div>
   );
 }
-
-// ─── Wound/Passion/Fixation/Armor data ───────────────────────────────────────
-
-const WOUND_PASSION: Record<number, { wound: string; passion: string; fixation: string; armor: string }> = {
-  1: {
-    wound: "I am only safe if I am good, correct, and beyond criticism.",
-    passion: "Constant low hum of anger at everything that falls short — including themselves.",
-    fixation: "Brain runs the comparison between what is and what should be on loop, automatically.",
-    armor: "The perfectionist. Highest standards in the room. Holds themselves to it hardest.",
-  },
-  2: {
-    wound: "I am only lovable if I am needed.",
-    passion: "Pride in being the one who gives and is depended on — masks terror of own needs.",
-    fixation: "Brain constantly scans every room for what people need and how to provide it.",
-    armor: "The helper. Shows up for everyone. Quietly resents no one shows up the same way back.",
-  },
-  3: {
-    wound: "I am only lovable if I am succeeding.",
-    passion: "Vanity — deep replacement of actual identity with whatever image gets the most approval.",
-    fixation: "Brain constantly manages perception, constructs the version that lands best in any room.",
-    armor: "The achiever. Always on, always impressive. No idea who they are when the room is empty.",
-  },
-  4: {
-    wound: "Something is fundamentally missing in me that everyone else has naturally.",
-    passion: "Envy — chronic painful awareness of the gap between who they are and who they feel they should be.",
-    fixation: "Brain keeps returning to what's absent, what's lost, what's longed for.",
-    armor: "The depth, the aesthetic intensity. Turns pain into something beautiful to make it mean something.",
-  },
-  5: {
-    wound: "The world is too demanding and I don't have enough inside to meet it.",
-    passion: "Avarice — hoarding the self, withholding presence because there might not be enough to go around.",
-    fixation: "Brain keeps rationing — calculating what can be given and what needs to be kept back.",
-    armor: "The observer. Understands everything deeply from a safe distance. Only comes out when fully resourced.",
-  },
-  6: {
-    wound: "The world is not safe and I cannot trust my own perception of it.",
-    passion: "Fear — constant background hum of threat assessment. What could go wrong. Who can be trusted.",
-    fixation: "Brain keeps doubting itself, seeking confirmation, testing the ground before every step.",
-    armor: "Either the loyal rule-follower who finds safety in systems, or the counterphobic rebel who attacks the threat first.",
-  },
-  7: {
-    wound: "What I need won't be there when I need it, so I have to generate it myself.",
-    passion: "Gluttony — insatiable hunger for experience and possibility. Stopping means feeling what's underneath.",
-    fixation: "Brain lives in the future, always planning the next scenario to avoid present pain.",
-    armor: "The enthusiast. Reframes everything into a lesson or story. Makes pain look like growth before they even feel it.",
-  },
-  8: {
-    wound: "Vulnerability gets you hurt. The world takes from the weak. I will never be weak.",
-    passion: "Lust — excess of intensity, aggressive aliveness, needs to feel everything at full volume.",
-    fixation: "Brain always tracking power and violation — who has it, who's using it wrong.",
-    armor: "The protector. Buried softness completely. Leads with force because force kept them safe when tenderness didn't.",
-  },
-  9: {
-    wound: "My presence and needs create problems. The safest thing is to disappear.",
-    passion: "Sloth — deep numbing of own desire and agenda, chronic forgetting of what they actually want.",
-    fixation: "Brain drifts toward whatever keeps things comfortable, away from asserting own presence.",
-    armor: "The peacemaker. Everyone loves them, no one really knows them. Loses the thread of themselves adapting to others.",
-  },
-};
 
 // ─── Main page ────────────────────────────────────────────────────────────────
 
