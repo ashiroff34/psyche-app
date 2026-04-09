@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { Flame, Zap, Heart, ArrowRight, Sparkles, BookOpen, CheckCircle, Target, Star, Clock, Lock, ChevronRight, Coins, Brain, Trophy, Share2, X } from "lucide-react";
 import { useVerifiedShare } from "@/hooks/useVerifiedShare";
+import { resolveTypeAwareCopy } from "@/hooks/useTypeAwareCopy";
 
 // ─── Type-match preview cards (subset for daily challenge) ────────────────────
 const DAILY_CHALLENGE_CARDS = [
@@ -458,11 +459,16 @@ export default function HubView({
             );
           }
 
-          let label = "Start today's practice";
-          let sub = "Begin where you left off";
+          // Type-aware base copy (falls back to generic if no type)
+          const awareHeadline = resolveTypeAwareCopy("hub.start.headline", enneagramType || null);
+          const awareSub = resolveTypeAwareCopy("hub.start.sub", enneagramType || null);
+
+          let label = awareHeadline;
+          let sub = awareSub;
           let action = onContinuePath;
           let icon = <Sparkles className="w-5 h-5" />;
 
+          // Override with action-specific copy if there's a clear next step
           if (!warmupDoneToday) {
             label = "Today's warm-up";
             sub = "5 quick questions · ~2 min";

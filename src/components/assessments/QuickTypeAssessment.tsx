@@ -7,6 +7,7 @@ import { Check, ChevronDown, BookOpen, Zap, SkipForward, Share2, ArrowLeft, Aler
 import ChibiSprite from "@/components/ChibiSprite";
 import { useVerifiedShare } from "@/hooks/useVerifiedShare";
 import { TYPE_WPFA } from "@/data/wound-passion-fixation-armor";
+import { resolveTypeAwareCopy } from "@/hooks/useTypeAwareCopy";
 
 // ─── Quiz save/resume key ─────────────────────────────────────────────────────
 const QUIZ_SAVE_KEY = "psyche-quiz-progress-quick";
@@ -1111,11 +1112,14 @@ export default function QuickTypeAssessment({
         </motion.div>
 
         <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.35 }}>
-          <h2 className="text-2xl font-serif font-bold mb-1 mt-4" style={{ color: "rgba(255,255,255,0.92)" }}>
+          <p className="text-[11px] font-bold uppercase tracking-widest mb-1" style={{ color: "rgba(167,139,250,0.7)" }}>
+            {resolveTypeAwareCopy("quiz.complete.headline", result.type)}
+          </p>
+          <h2 className="text-2xl font-serif font-bold mb-1 mt-1" style={{ color: "rgba(255,255,255,0.92)" }}>
             {typeNames[result.type]}
           </h2>
           <p className="text-sm italic mb-5 max-w-sm mx-auto leading-relaxed" style={{ color: "rgba(255,255,255,0.45)" }}>
-            "{typeTaglines[result.type]}"
+            &ldquo;{typeTaglines[result.type]}&rdquo;
           </p>
 
           {result.runnerUp !== result.type && (

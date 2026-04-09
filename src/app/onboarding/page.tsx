@@ -11,6 +11,7 @@ import { enneagramTypes } from "@/data/enneagram";
 import ChibiSprite from "@/components/ChibiSprite";
 import ChibiScene from "@/components/ChibiScene";
 import { TYPE_WPFA } from "@/data/wound-passion-fixation-armor";
+import { resolveTypeAwareCopy } from "@/hooks/useTypeAwareCopy";
 import dynamic from "next/dynamic";
 const Confetti = dynamic(() => import("react-confetti"), { ssr: false });
 
@@ -336,7 +337,7 @@ function TypeRevealScreen({
           className="text-base leading-relaxed mb-6 font-serif italic"
           style={{ color: "rgba(255,255,255,0.72)" }}
         >
-          {revealSentence}
+          {resolveTypeAwareCopy("reveal.welcome", result.type) || revealSentence}
         </motion.p>
 
         {/* W/P/F/A bullets */}
