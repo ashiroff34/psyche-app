@@ -55,6 +55,7 @@ import DailyInsightCard from "@/components/DailyInsightCard";
 import DailyObservationCard from "./DailyObservationCard";
 import MorningPassionCheckIn from "./MorningPassionCheckIn";
 import TheoryPracticeCard from "./TheoryPracticeCard";
+import AudioReflection from "@/components/AudioReflection";
 import ChibiSprite from "@/components/ChibiSprite";
 import ChibiScene from "@/components/ChibiScene";
 import type { PathNodeConfig } from "./NodeBottomSheet";
@@ -527,6 +528,13 @@ export default function HubView({
 
         {/* ── Today's Concept (theory + practice, collapsed by default) ── */}
         <TheoryPracticeCard />
+
+        {/* ── Audio Reflection (opt-in, type-specific read-aloud) ── */}
+        {enneagramType > 0 && (
+          <div className="mb-6">
+            <AudioReflection type={enneagramType} />
+          </div>
+        )}
 
         {/* ── Daily Observation Card (Day 2+, once per day) ── */}
         {enneagramType > 0 && (
