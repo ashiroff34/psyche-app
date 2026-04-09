@@ -3,18 +3,24 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { ArrowLeft, Heart } from "lucide-react";
+import { ArrowLeft, Heart, Gift, Copy, Check } from "lucide-react";
 import TypeIdentityCard from "@/components/TypeIdentityCard";
 import { useProfile } from "@/hooks/useProfile";
 import { posthog, EVENTS } from "@/lib/posthog";
+import { getOrCreateReferralCode, getReferralShareUrl } from "@/lib/referral";
 
 export default function IdentityPage() {
   const { profile, loaded } = useProfile();
   const [ready, setReady] = useState(false);
+  const [refCode, setRefCode] = useState("");
+  const [refUrl, setRefUrl] = useState("");
+  const [refCopied, setRefCopied] = useState(false);
 
   useEffect(() => {
     if (loaded) {
       setReady(true);
+      setRefCode(getOrCreateReferralCode());
+      setRefUrl(getReferralShareUrl());
       // Analytics: identity_card_viewed with type context
       try {
         const t = profile.enneagramType ?? profile.enneagramCore ?? null;
@@ -25,6 +31,14 @@ export default function IdentityPage() {
       } catch {}
     }
   }, [loaded, profile]);
+
+  async function copyRefUrl() {
+    try {
+      await navigator.clipboard.writeText(refUrl);
+      setRefCopied(true);
+      setTimeout(() => setRefCopied(false), 2000);
+    } catch {}
+  }
 
   const type = profile.enneagramType ?? profile.enneagramCore ?? 0;
   const instinct = profile.instinctualStacking?.split("/")?.[0];
@@ -138,6 +152,67 @@ export default function IdentityPage() {
               </p>
             </div>
           </div>
+        </motion.div>
+
+        {/* Invite friends card — the referral loop */}
+        <motion.div
+          initial={{ opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.55 }}
+          className="mt-4 p-4 rounded-2xl overflow-hidden relative"
+          style={{
+            background: "linear-gradient(135deg, rgba(251,191,36,0.1), rgba(245,158,11,0.05))",
+            border: "1px solid rgba(251,191,36,0.25)",
+          }}
+        >
+          <div className="flex items-start gap-3 mb-3">
+            <div
+              className="w-8 h-8 rounded-xl flex items-center justify-center shrink-0"
+              style={{ background: "rgba(251,191,36,0.18)" }}
+            >
+              <Gift className="w-4 h-4" style={{ color: "#fbbf24" }} />
+            </div>
+            <div className="flex-1 min-w-0">
+              <p className="text-xs font-bold mb-1" style={{ color: "#fbbf24" }}>
+                Invite a friend, you both get tokens
+              </p>
+              <p className="text-[11px] leading-relaxed" style={{ color: "rgba(255,255,255,0.55)" }}>
+                When someone joins via your link, they get a welcome bonus and you earn tokens too.
+                The Share and Download buttons above already include your personal referral link.
+              </p>
+            </div>
+          </div>
+
+          {refUrl && (
+            <div
+              className="flex items-center gap-2 px-3 py-2 rounded-xl mt-2"
+              style={{ background: "rgba(0,0,0,0.25)", border: "1px solid rgba(251,191,36,0.2)" }}
+            >
+              <code
+                className="flex-1 text-[10px] font-mono truncate min-w-0"
+                style={{ color: "rgba(255,255,255,0.65)" }}
+              >
+                {refUrl}
+              </code>
+              <button
+                onClick={copyRefUrl}
+                className="shrink-0 flex items-center gap-1 px-2 py-1 rounded-lg text-[10px] font-bold transition-all active:scale-95"
+                style={{
+                  background: refCopied ? "rgba(52,211,153,0.2)" : "rgba(251,191,36,0.18)",
+                  color: refCopied ? "#6ee7b7" : "#fbbf24",
+                  border: refCopied ? "1px solid rgba(52,211,153,0.4)" : "1px solid rgba(251,191,36,0.3)",
+                }}
+              >
+                {refCopied ? <><Check className="w-3 h-3" /> Copied</> : <><Copy className="w-3 h-3" /> Copy</>}
+              </button>
+            </div>
+          )}
+
+          {refCode && (
+            <p className="mt-2 text-[10px] text-center" style={{ color: "rgba(255,255,255,0.35)" }}>
+              Your code: <strong style={{ color: "rgba(251,191,36,0.7)" }}>{refCode}</strong>
+            </p>
+          )}
         </motion.div>
 
         {/* Back link */}

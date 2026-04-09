@@ -373,6 +373,24 @@ export default function SettingsPage() {
     if ("dailyReminders" in updates) {
       showToast(updates.dailyReminders ? "Reminders enabled ✓" : "Reminders turned off");
     }
+
+    // Schedule/cancel Capacitor local notifications on native builds
+    // (no-ops on web; web is handled by service worker above)
+    (async () => {
+      try {
+        const { scheduleDailyReminder, cancelDailyReminder, hourForTimePreset } = await import("@/lib/capacitor-notifications");
+        if (updated.dailyReminders) {
+          await scheduleDailyReminder({
+            hour: hourForTimePreset(updated.reminderTime),
+            minute: 0,
+            title: "Thyself",
+            body: "Your daily check-in is ready. 60 seconds of noticing.",
+          });
+        } else {
+          await cancelDailyReminder();
+        }
+      } catch {}
+    })();
   };
 
   // ── Dark Mode ────────────────────────────────────────────────────────────
@@ -719,9 +737,24 @@ export default function SettingsPage() {
           <Toggle
             checked={notifPrefs.weeklySummary}
             onChange={(val) => updateNotifPrefs({ weeklySummary: val })}
-            label="Weekly progress summary"
-            description="Receive a summary of your weekly activity"
+            label="Weekly reflection email"
+            description="A Sunday digest of what you noticed this week — sent to your email."
           />
+          {notifPrefs.weeklySummary && !email && !profile.email && (
+            <div className="pl-4 pt-1">
+              <p className="text-[11px] flex items-center gap-1" style={{ color: "#fbbf24" }}>
+                <Info className="w-3 h-3 flex-shrink-0" />
+                Add your email above to receive the weekly digest
+              </p>
+            </div>
+          )}
+          {notifPrefs.weeklySummary && (email || profile.email) && (
+            <div className="pl-4 pt-1">
+              <p className="text-[11px]" style={{ color: "rgba(255,255,255,0.4)" }}>
+                We&apos;ll send the first digest on the next Sunday. You can unsubscribe anytime from any email.
+              </p>
+            </div>
+          )}
 
           {/* Native push notification enable */}
           <div className="pt-1">

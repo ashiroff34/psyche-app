@@ -7,6 +7,7 @@ import ChibiScene from "@/components/ChibiScene";
 import { TYPE_WPFA } from "@/data/wound-passion-fixation-armor";
 import { enneagramTypes } from "@/data/enneagram";
 import { posthog, EVENTS } from "@/lib/posthog";
+import { getReferralShareUrl } from "@/lib/referral";
 
 // ─── Type identity card ──────────────────────────────────────────────────
 // Shareable beautiful card showing the user's full type identity.
@@ -131,7 +132,8 @@ export default function TypeIdentityCard({
       const blob = await res.blob();
       const file = new File([blob], `thyself-type-${type}.png`, { type: "image/png" });
 
-      const shareText = `I'm ${instinct ? instinct.toUpperCase() + " " : ""}Type ${type} — ${typeName}. Discover your type on thyself.app`;
+      const referralUrl = getReferralShareUrl();
+      const shareText = `I'm ${instinct ? instinct.toUpperCase() + " " : ""}Type ${type} — ${typeName}.`;
 
       let shareMethod: "native_file" | "native_text" | "clipboard" = "clipboard";
       // Try Web Share API with file (modern mobile)
@@ -140,23 +142,23 @@ export default function TypeIdentityCard({
           files: [file],
           title: "My Thyself Type",
           text: shareText,
-          url: "https://psyche-app-two.vercel.app",
+          url: referralUrl,
         });
         shareMethod = "native_file";
         setSavedMessage("Shared!");
       } else if (navigator.share) {
-        // Fallback: share text only
+        // Fallback: share text only (still includes referral URL)
         await navigator.share({
           title: "My Thyself Type",
           text: shareText,
-          url: "https://psyche-app-two.vercel.app",
+          url: referralUrl,
         });
         shareMethod = "native_text";
         setSavedMessage("Shared!");
       } else {
-        // Ultimate fallback: copy text to clipboard
-        await navigator.clipboard.writeText(shareText + " https://psyche-app-two.vercel.app");
-        setSavedMessage("Copied to clipboard");
+        // Ultimate fallback: copy text + referral link to clipboard
+        await navigator.clipboard.writeText(`${shareText} ${referralUrl}`);
+        setSavedMessage("Copied with your referral link");
       }
       // Analytics
       try {
@@ -179,7 +181,7 @@ export default function TypeIdentityCard({
 
   async function handleCopyLink() {
     try {
-      await navigator.clipboard.writeText("https://psyche-app-two.vercel.app");
+      await navigator.clipboard.writeText(getReferralShareUrl());
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     } catch {}
