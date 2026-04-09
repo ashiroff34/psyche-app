@@ -506,16 +506,33 @@ function TypeRevealScreen({
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.75 }}
             onClick={handleRunnerUp}
-            className="w-full py-3 rounded-2xl text-sm font-semibold transition-all active:scale-[0.98]"
+            className="w-full py-3 rounded-2xl text-sm font-semibold transition-all active:scale-[0.98] mb-3"
             style={{
               background: "rgba(255,255,255,0.05)",
               border: "1px solid rgba(255,255,255,0.15)",
               color: "rgba(255,255,255,0.75)",
             }}
           >
-            This doesn't feel like me → Try Type {result.runnerUp}
+            This doesn&apos;t feel like me → Try Type {result.runnerUp}
           </motion.button>
         )}
+
+        {/* Identity Card share link */}
+        <motion.a
+          href="/identity"
+          initial={{ opacity: 0, y: 6 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.82 }}
+          className="w-full py-3 rounded-2xl text-sm font-semibold transition-all active:scale-[0.98] flex items-center justify-center gap-2"
+          style={{
+            background: "rgba(255,255,255,0.04)",
+            border: "1px solid rgba(255,255,255,0.1)",
+            color: "rgba(255,255,255,0.7)",
+          }}
+        >
+          <Sparkles className="w-3.5 h-3.5" />
+          Get your shareable identity card
+        </motion.a>
 
         {/* Personalized greeting if name provided */}
         {displayName && (

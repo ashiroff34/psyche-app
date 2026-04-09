@@ -261,7 +261,7 @@ function EnterScreen() {
         className="relative flex items-center gap-2 flex-wrap justify-center mb-7"
         style={{ zIndex: 10 }}
       >
-        {["9 archetypes", "27 subtypes", "grounded in research"].map((pill) => (
+        {["9 core patterns", "research-backed", "private & honest"].map((pill) => (
           <span
             key={pill}
             className="px-3 py-1 rounded-full text-xs font-medium"
