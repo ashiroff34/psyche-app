@@ -222,9 +222,9 @@ function TypeRevealScreen({
   const typeColor = typeData?.color ?? "#a78bfa";
   const typeName = typeData?.name ?? `Type ${result.type}`;
   const revealSentence = TYPE_REVEAL_SENTENCES[result.type] ?? "";
-  const isHighConfidence = result.confidence >= 70;
-  const confidenceLabel = isHighConfidence ? "High match" : "Moderate match";
-  const confidenceColor = isHighConfidence ? "#22c55e" : "#f59e0b";
+  // Always frame as "starting point" — encourages further self-exploration over false confidence
+  const confidenceLabel = "Starting point — keep exploring";
+  const confidenceColor = "#f59e0b";
 
   // Mastery progress (endowed. always show a small positive number)
   const masteryPercent = Math.max(4, Math.min(12, Math.round(result.confidence * 0.08 + 2)));
@@ -363,6 +363,17 @@ function TypeRevealScreen({
           <span className="text-xs font-semibold" style={{ color: confidenceColor }}>
             {confidenceLabel}
           </span>
+        </motion.div>
+
+        {/* Self-introspection caveat — always recommend further exploration */}
+        <motion.div
+          initial={{ opacity: 0, y: 6 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.65 }}
+          className="mb-4 px-4 py-3 rounded-2xl text-xs leading-relaxed text-left"
+          style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)", color: "rgba(255,255,255,0.55)" }}
+        >
+          A 12-question quiz can only point in a direction. Real type discovery happens through self-observation over weeks and months. Read the description below carefully — does it actually feel like <em>you</em>, or just close? You can always re-test or explore other types.
         </motion.div>
 
         {/* Endowed progress. delayed appearance */}
@@ -970,15 +981,42 @@ function OnboardingPageInner() {
     try {
       const raw = localStorage.getItem("psyche-profile");
       const p = raw ? JSON.parse(raw) : {};
+      const taken = ["quick"];
+      if (assessmentResult.instinct) taken.push("instinctual");
       const updated = {
         ...p,
         enneagramType: assessmentResult.type,
+        enneagramCore: assessmentResult.type,
         typeConfidence: Math.min(assessmentResult.confidence, 22),
-        assessmentsTaken: ["quick"],
+        assessmentsTaken: taken,
+        ...(assessmentResult.instinct ? {
+          instinctualStacking: assessmentResult.instinct,
+          enneagramSubtype: assessmentResult.instinct.split("/")[0],
+        } : {}),
         email: email.trim(),
         ...(name.trim() ? { displayName: name.trim() } : {}),
       };
       localStorage.setItem("psyche-profile", JSON.stringify(updated));
+      // Initialize pet state so /avatar and HubView work immediately
+      try {
+        const petRaw = localStorage.getItem("psyche-pet-state");
+        if (!petRaw) {
+          const today = new Date().toISOString().slice(0, 10);
+          const PET_NAMES: Record<number, string> = {
+            1: "Athena", 2: "Clover", 3: "Blaze", 4: "Luna",
+            5: "Corvus", 6: "Scout", 7: "Zippy", 8: "Ember", 9: "Mochi",
+          };
+          localStorage.setItem("psyche-pet-state", JSON.stringify({
+            name: PET_NAMES[assessmentResult.type] ?? "Companion",
+            type: assessmentResult.type,
+            health: 100, happiness: 100, hunger: 100,
+            lastFed: today, lastPlayed: today, lastLogin: today,
+            isAlive: true, revivalDaysCompleted: 0, revivalStartDate: null,
+            equippedItems: {}, ownedItems: [], createdAt: today, totalDaysAlive: 0,
+            companionXP: 0, companionLevel: 0, lastCompanionXPDate: "",
+          }));
+        }
+      } catch {}
       localStorage.setItem("psyche-onboarding-complete", "true");
       localStorage.setItem("psyche-onboarding-complete-date", new Date().toISOString().slice(0, 10));
       localStorage.setItem("psyche-tutorial-complete", "true");
@@ -1038,13 +1076,40 @@ function OnboardingPageInner() {
     try {
       const raw = localStorage.getItem("psyche-profile");
       const p = raw ? JSON.parse(raw) : {};
+      const taken = ["quick"];
+      if (assessmentResult.instinct) taken.push("instinctual");
       const updated = {
         ...p,
         enneagramType: assessmentResult.type,
+        enneagramCore: assessmentResult.type,
         typeConfidence: Math.min(assessmentResult.confidence, 22),
-        assessmentsTaken: ["quick"],
+        assessmentsTaken: taken,
+        ...(assessmentResult.instinct ? {
+          instinctualStacking: assessmentResult.instinct,
+          enneagramSubtype: assessmentResult.instinct.split("/")[0],
+        } : {}),
       };
       localStorage.setItem("psyche-profile", JSON.stringify(updated));
+      // Initialize pet state
+      try {
+        const petRaw = localStorage.getItem("psyche-pet-state");
+        if (!petRaw) {
+          const today = new Date().toISOString().slice(0, 10);
+          const PET_NAMES: Record<number, string> = {
+            1: "Athena", 2: "Clover", 3: "Blaze", 4: "Luna",
+            5: "Corvus", 6: "Scout", 7: "Zippy", 8: "Ember", 9: "Mochi",
+          };
+          localStorage.setItem("psyche-pet-state", JSON.stringify({
+            name: PET_NAMES[assessmentResult.type] ?? "Companion",
+            type: assessmentResult.type,
+            health: 100, happiness: 100, hunger: 100,
+            lastFed: today, lastPlayed: today, lastLogin: today,
+            isAlive: true, revivalDaysCompleted: 0, revivalStartDate: null,
+            equippedItems: {}, ownedItems: [], createdAt: today, totalDaysAlive: 0,
+            companionXP: 0, companionLevel: 0, lastCompanionXPDate: "",
+          }));
+        }
+      } catch {}
       localStorage.setItem("psyche-onboarding-complete", "true");
       localStorage.setItem("psyche-onboarding-complete-date", new Date().toISOString().slice(0, 10));
       localStorage.setItem("psyche-tutorial-complete", "true");

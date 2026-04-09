@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence, useMotionValue, useTransform, animate } from "framer-motion";
 import { useDrag } from "@use-gesture/react";
-import { Check, ChevronDown, BookOpen, Zap, SkipForward, Share2 } from "lucide-react";
+import { Check, ChevronDown, BookOpen, Zap, SkipForward, Share2, ArrowLeft } from "lucide-react";
 import ChibiSprite from "@/components/ChibiSprite";
 import { useVerifiedShare } from "@/hooks/useVerifiedShare";
 
@@ -795,49 +795,134 @@ export default function QuickTypeAssessment({
       }
     }
 
+    function instinctBack() {
+      if (qIdx > 0) {
+        // Decrement instinct counter for the last answer (best-effort, may not match)
+        setQIdx(qIdx - 1);
+      } else {
+        // Go back to last type question
+        const lastTypePhase = (Object.entries(triadScores).sort(([, a], [, b]) => b - a)[0]?.[0] ?? "head") as "gut" | "heart" | "head";
+        const lastPhaseQs = lastTypePhase === "gut" ? gutQuestions : lastTypePhase === "heart" ? heartQuestions : headQuestions;
+        setPhase(lastTypePhase);
+        setQIdx(lastPhaseQs.length - 1);
+        setResult(null);
+      }
+    }
+
     return (
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        className="max-w-lg mx-auto py-10 px-4"
+        className="max-w-lg mx-auto py-6 px-4"
       >
-        {/* Progress */}
+        {/* Back button */}
+        <div className="mb-3">
+          <button
+            onClick={instinctBack}
+            className="flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-semibold transition-all"
+            style={{ background: "rgba(255,255,255,0.06)", color: "rgba(255,255,255,0.6)", border: "1px solid rgba(255,255,255,0.1)" }}
+          >
+            <ArrowLeft size={11} />
+            Back
+          </button>
+        </div>
+
+        {/* Progress bar — matches type quiz style */}
         <div className="mb-6">
-          <div className="flex justify-between text-[10px] font-bold uppercase tracking-widest mb-2" style={{ color: "rgba(255,255,255,0.3)" }}>
-            <span>Instinctual drive</span>
-            <span>{qIdx + 1} / {instinctQuestions.length}</span>
+          <div className="flex items-center justify-between mb-2">
+            <span className="text-[10px] font-bold uppercase tracking-widest" style={{ color: "rgba(255,255,255,0.4)" }}>
+              Your drive
+            </span>
+            <span className="text-[10px] font-mono" style={{ color: "rgba(255,255,255,0.4)" }}>
+              {6 + qIdx + 1} / 12
+            </span>
           </div>
           <div className="h-2 rounded-full overflow-hidden" style={{ background: "rgba(255,255,255,0.08)" }}>
             <motion.div
               className="h-full rounded-full"
-              style={{ background: "linear-gradient(90deg, #10b981, #14b8a6)" }}
+              style={{ background: "linear-gradient(90deg, #8b5cf6, #d946ef, #ec4899)" }}
               animate={{ width: `${progress}%` }}
               transition={{ duration: 0.3 }}
             />
           </div>
         </div>
 
-        <p className="text-[11px] uppercase tracking-widest font-bold mb-6" style={{ color: "rgba(16,185,129,0.7)" }}>
-          Which feels more like you?
-        </p>
+        {/* Question prompt — matches type question heading style */}
+        <motion.div
+          key={`q-${qIdx}`}
+          initial={{ opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="mb-6"
+        >
+          <h2 className="text-xl font-serif font-semibold leading-snug" style={{ color: "rgba(255,255,255,0.92)" }}>
+            Which feels more like you?
+          </h2>
+          <p className="text-xs mt-1.5" style={{ color: "rgba(255,255,255,0.4)" }}>
+            Trust your gut — there's no wrong answer.
+          </p>
+        </motion.div>
 
+        {/* Visual icon row — adds visual interest */}
+        <div className="flex items-center justify-center gap-3 mb-6">
+          {(["sp", "sx", "so"] as const).map((inst) => {
+            const isInQuestion = iq.optionA.instinct === inst || iq.optionB.instinct === inst;
+            const labels = { sp: "Survival", sx: "Intensity", so: "Belonging" };
+            const colors = { sp: "#10b981", sx: "#ec4899", so: "#3b82f6" };
+            return (
+              <div
+                key={inst}
+                className="flex flex-col items-center gap-1 transition-opacity"
+                style={{ opacity: isInQuestion ? 1 : 0.18 }}
+              >
+                <div
+                  className="w-8 h-8 rounded-xl flex items-center justify-center text-[10px] font-black uppercase"
+                  style={{
+                    background: isInQuestion ? `${colors[inst]}22` : "rgba(255,255,255,0.05)",
+                    color: colors[inst],
+                    border: `1px solid ${isInQuestion ? colors[inst] + "55" : "rgba(255,255,255,0.08)"}`,
+                  }}
+                >
+                  {inst}
+                </div>
+                <span className="text-[9px] font-semibold uppercase tracking-wide" style={{ color: "rgba(255,255,255,0.4)" }}>
+                  {labels[inst]}
+                </span>
+              </div>
+            );
+          })}
+        </div>
+
+        {/* Cards — match SwipeOption style */}
         <div className="space-y-3">
-          {[iq.optionA, iq.optionB].map((opt, i) => (
-            <motion.button
-              key={i}
-              whileTap={{ scale: 0.98 }}
-              onClick={() => pickInstinct(opt.instinct)}
-              className="w-full text-left p-5 rounded-2xl transition-all"
-              style={{
-                background: "rgba(255,255,255,0.04)",
-                border: "1px solid rgba(255,255,255,0.1)",
-              }}
-            >
-              <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.8)" }}>
-                {opt.text}
-              </p>
-            </motion.button>
-          ))}
+          {[iq.optionA, iq.optionB].map((opt, i) => {
+            const colors = { sp: "#10b981", sx: "#ec4899", so: "#3b82f6" };
+            const color = colors[opt.instinct];
+            return (
+              <motion.button
+                key={i}
+                whileTap={{ scale: 0.97 }}
+                whileHover={{ y: -2 }}
+                onClick={() => pickInstinct(opt.instinct)}
+                className="w-full text-left p-5 rounded-2xl transition-all relative overflow-hidden"
+                style={{
+                  background: `linear-gradient(135deg, ${color}10, rgba(255,255,255,0.03))`,
+                  border: `2px solid ${color}30`,
+                  boxShadow: `0 4px 16px ${color}10`,
+                }}
+              >
+                {/* Decorative corner badge */}
+                <div
+                  className="absolute top-3 right-3 text-[9px] font-black uppercase tracking-widest px-2 py-0.5 rounded-full"
+                  style={{ background: `${color}22`, color, border: `1px solid ${color}44` }}
+                >
+                  {opt.instinct}
+                </div>
+                <p className="text-sm leading-relaxed pr-12" style={{ color: "rgba(255,255,255,0.85)" }}>
+                  {opt.text}
+                </p>
+              </motion.button>
+            );
+          })}
         </div>
       </motion.div>
     );
@@ -875,7 +960,7 @@ export default function QuickTypeAssessment({
             className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold -mt-2 relative z-10"
             style={{ background: `${typeColors[result.type]}25`, color: typeColors[result.type], border: `1px solid ${typeColors[result.type]}40` }}
           >
-            Type {result.type} · {result.confidence}% match
+            Type {result.type} · Starting point
           </motion.div>
         </motion.div>
 
@@ -1068,23 +1153,48 @@ export default function QuickTypeAssessment({
     ? `Finding your center (${qIdx + 1} of ${triageQuestions.length})`
     : `Narrowing your type (${qIdx + 1} of ${phaseQuestions.length})`;
 
+  // Back button: decrement question index (visual only — score stays for simplicity)
+  const canGoBack = qIdx > 0 || phase !== "triage";
+  function handleBack() {
+    setSelectedOption(null);
+    setExpandedLearn(null);
+    if (qIdx > 0) {
+      setQIdx(qIdx - 1);
+    } else if (phase === "gut" || phase === "heart" || phase === "head") {
+      setPhase("triage");
+      setQIdx(triageQuestions.length - 1);
+    }
+  }
+
   return (
     <div className="max-w-lg mx-auto py-6 px-4">
-      {/* Progress bar + skip button */}
+      {/* Top row: back + skip */}
+      <div className="flex items-center justify-between mb-3">
+        <button
+          onClick={handleBack}
+          disabled={!canGoBack}
+          className="flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-semibold transition-all disabled:opacity-30"
+          style={{ background: "rgba(255,255,255,0.06)", color: "rgba(255,255,255,0.6)", border: "1px solid rgba(255,255,255,0.1)" }}
+          aria-label="Previous question"
+        >
+          <ArrowLeft size={11} />
+          Back
+        </button>
+        <button
+          onClick={() => { setShowSkipConfirm(!showSkipConfirm); setSkipErr(""); }}
+          className="flex items-center gap-1 px-2.5 py-1 rounded-full transition-all text-[11px] font-semibold"
+          style={{ background: "rgba(251,191,36,0.12)", border: "1px solid rgba(251,191,36,0.25)", color: "#fbbf24" }}
+        >
+          <SkipForward size={11} />
+          Skip ({SKIP_COST}t)
+        </button>
+      </div>
+
+      {/* Progress bar */}
       <div className="mb-7">
         <div className="flex items-center justify-between text-xs mb-2" style={{ color: "rgba(255,255,255,0.35)" }}>
           <span>{progressLabel}</span>
-          <div className="flex items-center gap-3">
-            <span>{Math.round(progress)}%</span>
-            <button
-              onClick={() => { setShowSkipConfirm(!showSkipConfirm); setSkipErr(""); }}
-              className="flex items-center gap-1 px-2 py-0.5 rounded-full transition-all text-[10px] font-semibold"
-              style={{ background: "rgba(251,191,36,0.12)", border: "1px solid rgba(251,191,36,0.25)", color: "#fbbf24" }}
-            >
-              <SkipForward size={10} />
-              Skip ({SKIP_COST}t)
-            </button>
-          </div>
+          <span>{Math.round(progress)}%</span>
         </div>
         <div className="h-1.5 rounded-full overflow-hidden" style={{ background: "rgba(255,255,255,0.08)" }}>
           <motion.div

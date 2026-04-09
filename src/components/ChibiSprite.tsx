@@ -106,7 +106,8 @@ export default function ChibiSprite({
         alt={`Type ${type} ${inst.toUpperCase()} chibi`}
         width={size}
         height={size}
-        className="object-contain w-full h-full drop-shadow-lg"
+        className="object-contain w-full h-full"
+        style={{ imageRendering: "auto", filter: "drop-shadow(0 2px 8px rgba(0,0,0,0.4))" }}
         draggable={false}
         onError={() => setImgError(true)}
       />
