@@ -2293,9 +2293,21 @@ function EnneagramJournal() {
 
       {/* Entries list */}
       {entries.length === 0 && !showEditor && (
-        <p className="text-sm text-center py-8" style={{ color: "rgba(255,255,255,0.3)" }}>
-          No entries yet. Write your first reflection above.
-        </p>
+        <div className="text-center py-10 px-6 rounded-2xl my-4" style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.07)" }}>
+          <p className="text-sm font-semibold mb-1" style={{ color: "rgba(255,255,255,0.7)" }}>
+            Your journal is empty
+          </p>
+          <p className="text-xs mb-4" style={{ color: "rgba(255,255,255,0.4)" }}>
+            Write your first reflection above, or do today's practice to generate prompts.
+          </p>
+          <a
+            href="/daily"
+            className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-semibold text-white transition-all"
+            style={{ background: "linear-gradient(135deg, #8b5cf6, #d946ef)", boxShadow: "0 4px 16px rgba(139,92,246,0.3)" }}
+          >
+            Go to today's practice →
+          </a>
+        </div>
       )}
 
       {entries.length > 0 && (

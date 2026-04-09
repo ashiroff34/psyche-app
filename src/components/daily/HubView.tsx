@@ -450,6 +450,80 @@ export default function HubView({
           </div>
         </motion.div>
 
+        {/* ── Smart "Start today's practice" CTA ── picks the most-needed action ── */}
+        {(() => {
+          // Decision tree: warmup → reading → next path node → all done
+          const allDone = completedToday >= totalNodes && totalNodes > 0;
+          if (allDone) {
+            return (
+              <motion.div
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="mb-6 p-4 rounded-2xl text-center"
+                style={{ background: "rgba(16,185,129,0.1)", border: "1px solid rgba(16,185,129,0.3)" }}
+              >
+                <p className="text-[10px] font-bold uppercase tracking-widest mb-1" style={{ color: "#34d399" }}>All done today</p>
+                <p className="text-sm" style={{ color: "rgba(255,255,255,0.7)" }}>You've completed today's practice. Come back tomorrow!</p>
+              </motion.div>
+            );
+          }
+
+          let label = "Start today's practice";
+          let sub = "Begin where you left off";
+          let action = onContinuePath;
+          let icon = <Sparkles className="w-5 h-5" />;
+
+          if (!warmupDoneToday) {
+            label = "Today's warm-up";
+            sub = "5 quick questions · ~2 min";
+            icon = <Zap className="w-5 h-5" />;
+          } else if (!readingDoneToday && onStartReading) {
+            label = "Today's reading";
+            sub = "A short reflection from your type";
+            action = onStartReading;
+            icon = <BookOpen className="w-5 h-5" />;
+          } else if (nextNode) {
+            label = `Continue: ${nextNode.label ?? "your path"}`;
+            sub = "Pick up where you left off";
+            icon = <Target className="w-5 h-5" />;
+          }
+
+          return (
+            <motion.button
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.1 }}
+              whileTap={{ scale: 0.98 }}
+              onClick={action}
+              className="w-full mb-6 p-4 rounded-2xl flex items-center gap-3 text-left transition-all active:scale-[0.98]"
+              style={{
+                background: "linear-gradient(135deg, rgba(139,92,246,0.18), rgba(217,70,239,0.12))",
+                border: "1px solid rgba(139,92,246,0.4)",
+                boxShadow: "0 4px 20px rgba(139,92,246,0.18)",
+              }}
+            >
+              <div
+                className="w-12 h-12 rounded-2xl flex items-center justify-center shrink-0 text-white"
+                style={{ background: "linear-gradient(135deg, #8b5cf6, #d946ef)" }}
+              >
+                {icon}
+              </div>
+              <div className="flex-1 min-w-0">
+                <p className="text-[10px] font-bold uppercase tracking-widest mb-0.5" style={{ color: "rgba(255,255,255,0.45)" }}>
+                  Start here
+                </p>
+                <p className="text-sm font-bold truncate" style={{ color: "rgba(255,255,255,0.95)" }}>
+                  {label}
+                </p>
+                <p className="text-xs mt-0.5" style={{ color: "rgba(255,255,255,0.5)" }}>
+                  {sub}
+                </p>
+              </div>
+              <ArrowRight className="w-4 h-4 shrink-0" style={{ color: "rgba(255,255,255,0.5)" }} />
+            </motion.button>
+          );
+        })()}
+
         {/* ── Daily Observation Card (Day 2+, once per day) ── */}
         {enneagramType > 0 && (
           <DailyObservationCard
