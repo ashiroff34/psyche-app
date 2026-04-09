@@ -3,7 +3,7 @@
 import { useState, useEffect, Suspense, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useRouter, useSearchParams } from "next/navigation";
-import { ArrowRight, ArrowLeft, Mail, User, ChevronDown, RefreshCw, BookOpen } from "lucide-react";
+import { ArrowRight, ArrowLeft, Mail, User, ChevronDown, RefreshCw, BookOpen, Sparkles } from "lucide-react";
 import { notifyProfileChanged } from "@/hooks/useProfile";
 import OuroborosLogo from "@/components/OuroborosLogo";
 import QuickTypeAssessment from "@/components/assessments/QuickTypeAssessment";
@@ -450,6 +450,38 @@ function TypeRevealScreen({
             <p className="flex items-center gap-1.5"><BookOpen className="w-3 h-3 shrink-0" /> Read the full type descriptions in the Explore tab</p>
           </div>
         </motion.div>
+
+        {/* ── Clarify with own words — links to Mirror ── */}
+        <motion.a
+          href="/mirror"
+          initial={{ opacity: 0, y: 6 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.78 }}
+          className="w-full mb-4 px-4 py-3 rounded-2xl flex items-center gap-3 transition-all active:scale-[0.98]"
+          style={{
+            background: "linear-gradient(135deg, rgba(139,92,246,0.12), rgba(217,70,239,0.08))",
+            border: "1px solid rgba(139,92,246,0.3)",
+          }}
+        >
+          <div
+            className="w-9 h-9 rounded-xl flex items-center justify-center shrink-0"
+            style={{ background: "linear-gradient(135deg, #8b5cf6, #d946ef)" }}
+          >
+            <Sparkles className="w-4 h-4 text-white" />
+          </div>
+          <div className="flex-1 min-w-0 text-left">
+            <p className="text-[10px] font-bold uppercase tracking-widest" style={{ color: "#c4b5fd" }}>
+              Optional · experimental
+            </p>
+            <p className="text-xs font-semibold" style={{ color: "rgba(255,255,255,0.85)" }}>
+              Clarify your type with your own words
+            </p>
+            <p className="text-[10px] mt-0.5" style={{ color: "rgba(255,255,255,0.5)" }}>
+              Paste something you&apos;ve written — get an independent second opinion
+            </p>
+          </div>
+          <ArrowRight className="w-4 h-4 shrink-0" style={{ color: "rgba(255,255,255,0.4)" }} />
+        </motion.a>
 
         {/* CTA */}
         <motion.button
