@@ -438,43 +438,71 @@ export default function QuizFullscreen({
           transition={{ type: "spring", damping: 20, stiffness: 300 }}
           className="flex flex-col items-center text-center w-full max-w-xs"
         >
-          {/* Trophy */}
-          <div className="relative mb-6">
+          {/* Chibi + speech bubble (replaces trophy) */}
+          <div className="relative mb-4 flex flex-col items-center">
+            {/* Speech bubble */}
             <motion.div
-              animate={isPerfect ? {
-                boxShadow: [
-                  "0 0 0px rgba(251,191,36,0)",
-                  "0 0 32px rgba(251,191,36,0.8)",
-                  "0 0 16px rgba(251,191,36,0.4)",
-                ],
-              } : {}}
-              transition={{ duration: 1.2, repeat: 2, ease: "easeInOut" }}
-              className="w-24 h-24 rounded-full flex items-center justify-center"
-              style={{ background: pct >= 90 ? "linear-gradient(135deg, #fbbf24, #f59e0b)" : pct >= 80 ? "linear-gradient(135deg, #8b5cf6, #d946ef)" : pct >= 60 ? "linear-gradient(135deg, #6366f1, #818cf8)" : "linear-gradient(135deg, #94a3b8, #cbd5e1)" }}
+              initial={{ opacity: 0, y: 8, scale: 0.9 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              transition={{ delay: 0.5, type: "spring", damping: 16 }}
+              className="relative mb-1 px-4 py-2 rounded-2xl text-sm font-bold"
+              style={{
+                background: pct >= 90
+                  ? "linear-gradient(135deg, rgba(251,191,36,0.2), rgba(245,158,11,0.15))"
+                  : "linear-gradient(135deg, rgba(139,92,246,0.2), rgba(217,70,239,0.15))",
+                border: pct >= 90 ? "1px solid rgba(251,191,36,0.35)" : "1px solid rgba(139,92,246,0.35)",
+                color: "rgba(255,255,255,0.9)",
+              }}
             >
-              <Trophy className="w-12 h-12 text-white" />
+              {celebrationText ?? "Complete!"}
+              {/* Bubble tail */}
+              <div
+                className="absolute left-1/2 -bottom-2 w-0 h-0 -translate-x-1/2"
+                style={{
+                  borderLeft: "6px solid transparent",
+                  borderRight: "6px solid transparent",
+                  borderTop: pct >= 90 ? "8px solid rgba(251,191,36,0.35)" : "8px solid rgba(139,92,246,0.35)",
+                }}
+              />
             </motion.div>
+
+            {/* Chibi — bouncy on good scores */}
+            <motion.div
+              animate={
+                pct >= 80
+                  ? { y: [0, -12, 0, -8, 0], scale: [1, 1.07, 1] }
+                  : { y: [0, -4, 0] }
+              }
+              transition={
+                pct >= 80
+                  ? { duration: 0.6, repeat: 3, delay: 0.3 }
+                  : { duration: 2.5, repeat: Infinity, ease: "easeInOut" }
+              }
+            >
+              <ChibiSprite
+                type={enneagramType}
+                instinct={instinct}
+                size={100}
+                state={pct >= 60 ? "happy" : "idle"}
+              />
+            </motion.div>
+
+            {/* Soft shadow */}
+            <div className="w-16 h-2.5 rounded-full -mt-1" style={{ background: "radial-gradient(ellipse, rgba(139,92,246,0.2), transparent)" }} />
+
             {beatPersonalBest && (
               <motion.div
                 initial={{ scale: 0, rotate: -20 }}
                 animate={{ scale: 1, rotate: 0 }}
-                transition={{ delay: 0.4, type: "spring" }}
-                className="absolute -top-2 -right-2 w-9 h-9 rounded-full bg-amber-400 flex items-center justify-center shadow-lg"
+                transition={{ delay: 0.6, type: "spring" }}
+                className="absolute -top-1 -right-4 w-8 h-8 rounded-full bg-amber-400 flex items-center justify-center shadow-lg"
               >
-                <Star className="w-5 h-5 text-white fill-white" />
+                <Star className="w-4 h-4 text-white fill-white" />
               </motion.div>
             )}
           </div>
 
-          <motion.h2
-            animate={pct >= 80 ? { scale: [1, 1.08, 1] } : {}}
-            transition={{ delay: 0.3, duration: 0.5 }}
-            className="text-3xl font-bold mb-2"
-            style={{ color: "rgba(255,255,255,0.95)" }}
-          >
-            {celebrationText ?? "Complete!"}
-          </motion.h2>
-          <p className="text-base mb-6" style={{ color: "rgba(255,255,255,0.5)" }}>{moduleName}</p>
+          <p className="text-sm mb-6" style={{ color: "rgba(255,255,255,0.45)" }}>{moduleName}</p>
 
           {/* Score row. count-up numbers */}
           <div className="flex items-center gap-6 mb-5">

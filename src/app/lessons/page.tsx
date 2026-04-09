@@ -4,15 +4,19 @@ import { useState, useCallback } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import {
-  BookOpen,
-  Lock,
-  CheckCircle,
-  ChevronDown,
-  ChevronUp,
-  Star,
-  Zap,
+  BookOpen, Lock, CheckCircle, ChevronDown, ChevronUp,
+  Target, Scale, Heart, Star, Pencil,
+  Search, Shield, Sparkles, Flame, Wind, Brain, Lightbulb,
+  Compass, Users, Layers, BarChart2, Eye, Shuffle, BookMarked, Zap,
+  type LucideIcon,
 } from "lucide-react";
 import { LESSON_UNITS } from "@/data/lessons";
+
+const UNIT_ICON_MAP: Record<string, LucideIcon> = {
+  BookOpen, Target, Scale, Heart, Star, Pencil,
+  Search, Shield, Sparkles, Flame, Wind, Brain, Lightbulb,
+  Compass, Users, Layers, BarChart2, Eye, Shuffle, BookMarked, Zap,
+};
 import { useLessonProgress } from "@/hooks/useLessonProgress";
 import { useProfile } from "@/hooks/useProfile";
 import PetCompanion from "@/components/PetCompanion";
@@ -211,9 +215,10 @@ function UnitCard({
             <CheckCircle className="w-6 h-6 text-emerald-500" />
           ) : status === "locked" ? (
             <Lock className="w-5 h-5 text-slate-400" />
-          ) : (
-            <span>{unit.icon}</span>
-          )}
+          ) : (() => {
+              const I = unit.icon ? UNIT_ICON_MAP[unit.icon] : null;
+              return I ? <I className="w-5 h-5 text-sky-600" /> : <span className="text-sm font-bold text-sky-600">{unit.order}</span>;
+            })()}
         </div>
 
         {/* Title & subtitle */}

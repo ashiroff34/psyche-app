@@ -51,6 +51,7 @@ const TYPE_NAMES: Record<number, string> = {
 import WeeklyChallengeCard from "./WeeklyChallengeCard";
 import IntegrationCompanion from "./IntegrationCompanion";
 import DailyInsightCard from "@/components/DailyInsightCard";
+import DailyObservationCard from "./DailyObservationCard";
 import PetSprite from "@/components/PetSprite";
 import ChibiSprite from "@/components/ChibiSprite";
 import type { PathNodeConfig } from "./NodeBottomSheet";
@@ -262,24 +263,20 @@ export default function HubView({
           )}
         </AnimatePresence>
 
-        {/* ── Gradient progress ring + chibi (visual hero. top of page) ── */}
+        {/* ── Visual hero: ring + chibi companion ── */}
         <motion.div
-          initial={{ opacity: 1, scale: 1 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: 0.1 }}
-          className="flex flex-col items-center mb-12"
+          initial={{ opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.1, duration: 0.4 }}
+          className="flex flex-col items-center mb-10"
         >
+          {/* Progress ring (no chibi inside — clean ring only) */}
           <div className="relative">
-            {/* Outer glow */}
             <div
-              className="absolute inset-0 rounded-full blur-xl opacity-30"
-              style={{
-                background: "radial-gradient(circle, #8b5cf6, #ec4899)",
-                transform: "scale(1.15)",
-              }}
+              className="absolute inset-0 rounded-full blur-xl opacity-25"
+              style={{ background: "radial-gradient(circle, #8b5cf6, #ec4899)", transform: "scale(1.2)" }}
             />
-
-            <svg width="152" height="152" viewBox="0 0 152 152" className="relative">
+            <svg width="140" height="140" viewBox="0 0 140 140" className="relative">
               <defs>
                 <linearGradient id="hub-ring-grad-top" x1="0%" y1="0%" x2="100%" y2="100%">
                   <stop offset="0%" stopColor="#8b5cf6" />
@@ -287,39 +284,54 @@ export default function HubView({
                   <stop offset="100%" stopColor="#ec4899" />
                 </linearGradient>
               </defs>
-              <circle cx="76" cy="76" r="52" fill="none" stroke="#e9d5ff" strokeWidth="6" />
+              <circle cx="70" cy="70" r="52" fill="none" stroke="rgba(233,213,255,0.12)" strokeWidth="6" />
               <motion.circle
-                cx="76" cy="76" r="52" fill="none"
+                cx="70" cy="70" r="52" fill="none"
                 stroke="url(#hub-ring-grad-top)"
                 strokeWidth="6" strokeLinecap="round"
                 strokeDasharray={ringCircumference}
                 initial={{ strokeDashoffset: ringCircumference }}
                 animate={{ strokeDashoffset: ringCircumference - (ringCircumference * overallProgress) / 100 }}
                 transition={{ duration: 1.2, ease: "easeOut", delay: 0.3 }}
-                style={{ transform: "rotate(-90deg)", transformOrigin: "76px 76px", filter: "drop-shadow(0 0 8px rgba(139,92,246,0.5))" }}
+                style={{ transform: "rotate(-90deg)", transformOrigin: "70px 70px", filter: "drop-shadow(0 0 8px rgba(139,92,246,0.5))" }}
               />
+              {/* Progress % in center */}
+              <text x="70" y="74" textAnchor="middle" dominantBaseline="middle" fontSize="22" fontWeight="700" fill="rgba(255,255,255,0.85)">
+                {overallProgress}%
+              </text>
+              <text x="70" y="90" textAnchor="middle" fontSize="9" fontWeight="600" fill="rgba(255,255,255,0.3)" letterSpacing="2">TODAY</text>
             </svg>
-
-            <div className="absolute inset-0 flex flex-col items-center justify-center">
-              {enneagramType ? (
-                <ChibiSprite type={enneagramType} instinct={instinct} size={64} state={warmupDoneToday ? "happy" : "idle"} />
-              ) : (
-                <div className="flex flex-col items-center">
-                  <span className="text-3xl font-bold text-slate-800">{overallProgress}%</span>
-                  <span className="text-[10px] text-slate-400 uppercase tracking-wide">today</span>
-                </div>
-              )}
-            </div>
           </div>
+
+          {/* Chibi companion — floats below the ring */}
+          {enneagramType > 0 && (
+            <motion.div
+              className="flex flex-col items-center -mt-2"
+              animate={{ y: [0, -6, 0] }}
+              transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+            >
+              <ChibiSprite
+                type={enneagramType}
+                instinct={instinct}
+                size={96}
+                state={warmupDoneToday ? "happy" : "idle"}
+              />
+              {/* Soft shadow under chibi */}
+              <div
+                className="w-14 h-2 rounded-full -mt-1"
+                style={{ background: "radial-gradient(ellipse, rgba(139,92,246,0.25), transparent)" }}
+              />
+            </motion.div>
+          )}
 
           {/* XP progress bar */}
           {xpToNext !== null && nextMilestoneLabel && (
             <div className="mt-4 w-48">
-              <div className="flex justify-between text-[10px] text-slate-400 mb-1">
+              <div className="flex justify-between text-[10px] mb-1" style={{ color: "rgba(255,255,255,0.3)" }}>
                 <span>{xpLabel}</span>
                 <span>{xpToNext} to {nextMilestoneLabel}</span>
               </div>
-              <div className="h-1.5 bg-violet-100 rounded-full overflow-hidden">
+              <div className="h-1.5 rounded-full overflow-hidden" style={{ background: "rgba(255,255,255,0.08)" }}>
                 <motion.div
                   className="h-full rounded-full"
                   style={{ background: "linear-gradient(90deg, #8b5cf6, #ec4899)" }}
@@ -335,12 +347,18 @@ export default function HubView({
           {(enneagramType > 0 || jungianType) && (
             <div className="flex items-center gap-2 mt-3 flex-wrap justify-center">
               {enneagramType > 0 && (
-                <span className="px-2.5 py-1 rounded-full bg-violet-100 text-violet-700 text-[11px] font-bold">
+                <span
+                  className="px-2.5 py-1 rounded-full text-[11px] font-bold"
+                  style={{ background: "rgba(139,92,246,0.2)", color: "#c4b5fd", border: "1px solid rgba(139,92,246,0.3)" }}
+                >
                   Type {enneagramType}
                 </span>
               )}
               {jungianType && (
-                <span className="px-2.5 py-1 rounded-full bg-indigo-100 text-indigo-700 text-[11px] font-bold font-mono">
+                <span
+                  className="px-2.5 py-1 rounded-full text-[11px] font-bold font-mono"
+                  style={{ background: "rgba(99,102,241,0.2)", color: "#a5b4fc", border: "1px solid rgba(99,102,241,0.3)" }}
+                >
                   {jungianType}
                 </span>
               )}
@@ -427,6 +445,14 @@ export default function HubView({
             <span className="text-[9px] text-slate-400 uppercase tracking-wide mt-0.5">done today</span>
           </div>
         </motion.div>
+
+        {/* ── Daily Observation Card (Day 2+, once per day) ── */}
+        {enneagramType > 0 && (
+          <DailyObservationCard
+            enneagramType={enneagramType}
+            typeName={enneagramTypeName}
+          />
+        )}
 
         {/* ── Token balance chip ── always visible ── */}
         <div className="flex justify-center mt-3 mb-6">

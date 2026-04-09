@@ -36,7 +36,7 @@ import SearchComponent from "@/components/Search";
 const WHEEL_SPOKES = [
   { href: "/assessments", label: "Know",     icon: Target,      color: "#8b5cf6" },
   { href: "/daily",       label: "Practice", icon: Flame,       color: "#d946ef" },
-  { href: "/enneagram",   label: "Explore",  icon: Compass,     color: "#0ea5e9" },
+  { href: "/pet",         label: "Pet",      icon: Sprout,      color: "#10b981" },
   { href: "/store",       label: "Store",    icon: ShoppingBag, color: "#fbbf24" },
   { href: "/profile",     label: "You",      icon: UserCircle,  color: "#a78bfa" },
 ] as const;
@@ -67,8 +67,10 @@ function BottomTabBar({
       <div className="flex items-center justify-around max-w-md mx-auto px-2 py-1.5">
         {WHEEL_SPOKES.map((spoke) => {
           const Icon = spoke.icon;
-          // Root "/" and "/dashboard" map to the "Know" (/assessments) tab
-          const effectivePath = (pathname === "/" || pathname === "/dashboard") ? "/assessments" : pathname;
+          // Root "/" and "/dashboard" map to Know; /enneagram routes also map to Know (merged)
+          const effectivePath = (pathname === "/" || pathname === "/dashboard" || pathname.startsWith("/enneagram"))
+            ? "/assessments"
+            : pathname;
           const isActive =
             effectivePath === spoke.href ||
             effectivePath.startsWith(spoke.href + "/") ||
@@ -334,7 +336,7 @@ function SwipeNavigator() {
   const touchStartX = useRef(0);
   const touchStartY = useRef(0);
 
-  const tabOrder = ["/assessments", "/daily", "/enneagram", "/store", "/profile"];
+  const tabOrder = ["/assessments", "/daily", "/pet", "/store", "/profile"];
 
   useEffect(() => {
     const onTouchStart = (e: TouchEvent) => {

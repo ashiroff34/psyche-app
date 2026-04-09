@@ -1,7 +1,18 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Lock, Crown } from "lucide-react";
+import {
+  Lock, Crown, BookOpen, Target, Scale, Heart, Star, Pencil,
+  Search, Shield, Sparkles, Flame, Wind, Brain, Lightbulb,
+  Compass, Users, Layers, BarChart2, Eye, Shuffle, BookMarked, Zap,
+  type LucideIcon,
+} from "lucide-react";
+
+const UNIT_ICON_MAP: Record<string, LucideIcon> = {
+  BookOpen, Target, Scale, Heart, Star, Pencil,
+  Search, Shield, Sparkles, Flame, Wind, Brain, Lightbulb,
+  Compass, Users, Layers, BarChart2, Eye, Shuffle, BookMarked, Zap,
+};
 import type { UnitWithStatus, LessonWithStatus } from "@/hooks/useMergedLearnState";
 import ChibiSprite from "@/components/ChibiSprite";
 
@@ -285,15 +296,20 @@ export default function UnitSection({ unit, onNodeTap, index, enneagramType = 4,
         )}
 
         <div className="flex items-center gap-4 px-4 py-4 pt-5">
-          {/* Big emoji icon */}
+          {/* Unit icon (Lucide) */}
           <div
-            className="w-14 h-14 rounded-2xl flex items-center justify-center text-2xl flex-shrink-0"
+            className="w-14 h-14 rounded-2xl flex items-center justify-center flex-shrink-0"
             style={{
               background: isLocked ? "rgba(255,255,255,0.05)" : `${palette.from}33`,
               border: `1px solid ${isLocked ? "rgba(255,255,255,0.08)" : palette.from + "55"}`,
             }}
           >
-            {isLocked ? "" : unit.icon ?? "(*)"}
+            {!isLocked && (() => {
+              const IconComp = unit.icon ? UNIT_ICON_MAP[unit.icon] : null;
+              return IconComp
+                ? <IconComp className="w-6 h-6" style={{ color: palette.from }} />
+                : <span className="text-sm font-bold" style={{ color: palette.from }}>{unit.order}</span>;
+            })()}
           </div>
 
           <div className="flex-1 min-w-0">
