@@ -52,7 +52,6 @@ import WeeklyChallengeCard from "./WeeklyChallengeCard";
 import IntegrationCompanion from "./IntegrationCompanion";
 import DailyInsightCard from "@/components/DailyInsightCard";
 import DailyObservationCard from "./DailyObservationCard";
-import PetSprite from "@/components/PetSprite";
 import ChibiSprite from "@/components/ChibiSprite";
 import type { PathNodeConfig } from "./NodeBottomSheet";
 import type { PathUnit } from "./PathView";

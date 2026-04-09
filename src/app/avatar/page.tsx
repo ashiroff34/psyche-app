@@ -464,7 +464,7 @@ export default function AvatarPage() {
         <motion.section {...fadeUp} transition={{ delay: 0.1, duration: 0.5 }}>
           <h2 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
             <Sparkles className="w-5 h-5 text-indigo-400" />
-            Your Chibi
+            Your Companion
           </h2>
 
           {enneagramType && chibiPath ? (
@@ -763,7 +763,7 @@ export default function AvatarPage() {
         <motion.section {...fadeUp} transition={{ delay: 0.2, duration: 0.5 }}>
           <h2 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
             <Heart className="w-5 h-5 text-pink-400" />
-            Your Pet
+            Companion Care
           </h2>
 
           {petState && petDef ? (
@@ -779,11 +779,11 @@ export default function AvatarPage() {
                     }`}
                     {...(petState.isAlive ? petBounce : deadPet)}
                   >
-                    <AnimatedPet
+                    <ChibiSprite
                       type={petDef.type}
+                      instinct={dominantInstinct}
                       size={96}
-                      mood={petState.isAlive ? (petStatus?.status as import("@/components/AnimatedPet").PetMood) : "dead"}
-                      equippedItems={petState.equippedItems}
+                      state={petState.isAlive ? (petStatus?.status === "thriving" || petStatus?.status === "happy" ? "happy" : petStatus?.status === "sick" ? "hurt" : "idle") : "hurt"}
                     />
                   </motion.div>
 
@@ -976,7 +976,7 @@ export default function AvatarPage() {
             <div className="bg-slate-800/40 border border-slate-700/40 rounded-2xl p-8 flex flex-col items-center gap-4">
               <div className="opacity-60">
                 {enneagramType ? (
-                  <AnimatedPet type={enneagramType} size={80} />
+                  <ChibiSprite type={enneagramType} instinct={dominantInstinct} size={80} state="idle" />
                 ) : (
                   <span className="text-5xl">&#x1F423;</span>
                 )}
