@@ -1611,7 +1611,7 @@ function OnboardingPageInner() {
           >
             <StepChibiName
               type={assessmentResult.type}
-              onContinue={() => setStep(10)}
+              onContinue={() => setStep(7)}
             />
           </motion.div>
         )}

@@ -11,6 +11,10 @@ import StateCheckIn from "@/components/daily/StateCheckIn";
 import LuckyDropToast from "@/components/daily/LuckyDropToast";
 import ChibiMessage from "@/components/ChibiMessage";
 import BodyMapCheckIn from "@/components/daily/BodyMapCheckIn";
+import ReminderPrompt from "@/components/daily/ReminderPrompt";
+import MorningEvening from "@/components/daily/MorningEvening";
+import PracticeOfOpposite from "@/components/daily/PracticeOfOpposite";
+import QuestionOfWeek from "@/components/daily/QuestionOfWeek";
 import { usePsychometrics } from "@/hooks/usePsychometrics";
 import { pickByFocus } from "@/data/psychometrics/regulatory-focus";
 import { getFreshStartWindow, getFreshStartCopy, getImplementationIntent } from "@/lib/fresh-start";
@@ -638,6 +642,9 @@ export default function HubView({
           );
         })()}
 
+        {/* ── Reminder prompt (shows day 2+ if no reminder set) ── */}
+        <ReminderPrompt />
+
         {/* ── Chibi narration (parasocial voice, Horton & Wohl 1956) ── */}
         {enneagramType > 0 && (
           <div className="mb-4">
@@ -658,6 +665,15 @@ export default function HubView({
           <span className="text-[10px]">🔒</span>
           <p className="text-[10px] opacity-60">Your personality data stays on this device. <a href="/data-usage" className="underline opacity-80">See what we store</a></p>
         </div>
+
+        {/* ── Morning/Evening bookends (Gollwitzer 1999 implementation intentions) ── */}
+        {enneagramType > 0 && <MorningEvening enneagramType={enneagramType} />}
+
+        {/* ── Question of the week (Bjork 1994 desirable difficulty) ── */}
+        {enneagramType > 0 && <QuestionOfWeek enneagramType={enneagramType} />}
+
+        {/* ── Practice of the opposite (exposure-based growth) ── */}
+        {enneagramType > 0 && <PracticeOfOpposite enneagramType={enneagramType} />}
 
         {/* ── Body map check-in (Damasio somatic markers) ── */}
         <BodyMapCheckIn />
