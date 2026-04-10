@@ -920,11 +920,10 @@ export default function QuickTypeAssessment({
   if (phase === "instinct") {
     const iq = instinctQuestions[qIdx];
     if (!iq) {
-      // All instinct questions answered, compute and go to result
+      // All instinct questions answered, skip result screen and go straight to onComplete
       const stacking = computeInstinct(instinctScores);
-      setPhase("result");
-      // Store instinct alongside result for onComplete
       setSelectedInstinct(stacking);
+      if (result) onComplete({ ...result, instinct: stacking });
       return null;
     }
 
@@ -936,9 +935,10 @@ export default function QuickTypeAssessment({
       if (qIdx < instinctQuestions.length - 1) {
         setQIdx(qIdx + 1);
       } else {
+        // Skip result screen, go straight to onComplete
         const stacking = computeInstinct(ns);
         setSelectedInstinct(stacking);
-        setPhase("result");
+        if (result) onComplete({ ...result, instinct: stacking });
       }
     }
 
@@ -994,7 +994,17 @@ export default function QuickTypeAssessment({
           </div>
         </div>
 
-        {/* Question prompt, matches type question heading style */}
+        {/* Type-contextualized header */}
+        {result && qIdx === 0 && (
+          <motion.div initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} className="mb-4 px-4 py-3 rounded-2xl"
+            style={{ background: `${typeColors[result.type]}10`, border: `1px solid ${typeColors[result.type]}30` }}>
+            <p className="text-xs" style={{ color: `${typeColors[result.type]}cc` }}>
+              Now let's figure out how your Type {result.type} shows up. Everyone has all three drives (survival, intensity, belonging), but one leads.
+            </p>
+          </motion.div>
+        )}
+
+        {/* Question prompt */}
         <motion.div
           key={`q-${qIdx}`}
           initial={{ opacity: 0, y: 8 }}
