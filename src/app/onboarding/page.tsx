@@ -983,25 +983,26 @@ function StepChibiName({ type, onContinue }: { type: number; onContinue: () => v
 // general intentions. Capturing a specific anchor doubles daily return rate.
 
 function StepImplementationIntention({ onContinue }: { onContinue: () => void }) {
-  const [anchor, setAnchor] = useState<string | null>(null);
-  const [customAnchor, setCustomAnchor] = useState("");
+  const [time, setTime] = useState("09:00");
   const [submitted, setSubmitted] = useState(false);
 
-  const ANCHORS = [
-    { id: "morning_coffee", label: "After my morning coffee", key: "after-morning-coffee", timeHint: "08:00" },
-    { id: "lunch", label: "After lunch", key: "after-lunch", timeHint: "13:00" },
-    { id: "commute", label: "On my commute", key: "during-commute", timeHint: "17:30" },
-    { id: "bedtime", label: "Before bed", key: "before-bed", timeHint: "22:00" },
-  ];
+  // Derive a friendly label from the time
+  function friendlyLabel(t: string): string {
+    const [h, m] = t.split(":").map(Number);
+    const period = h >= 12 ? "PM" : "AM";
+    const h12 = h === 0 ? 12 : h > 12 ? h - 12 : h;
+    return `${h12}:${m.toString().padStart(2, "0")} ${period}`;
+  }
 
-  function submit(chosen: { id: string; label: string; key: string; timeHint: string } | { id: "custom"; label: string; key: string; timeHint: string }) {
+  function submit() {
+    const label = friendlyLabel(time);
     try {
       localStorage.setItem(
         "psyche-implementation-intention",
-        JSON.stringify({ id: chosen.id, label: chosen.label, key: chosen.key, timeHint: chosen.timeHint, capturedAt: new Date().toISOString() })
+        JSON.stringify({ id: "time-picker", label: `at ${label}`, key: "time-picker", timeHint: time, capturedAt: new Date().toISOString() })
       );
     } catch {}
-    try { posthog.capture("implementation_intention_set", { anchor_id: chosen.id }); } catch {}
+    try { posthog.capture("implementation_intention_set", { time }); } catch {}
     setSubmitted(true);
     setTimeout(onContinue, 700);
   }
@@ -1011,50 +1012,34 @@ function StepImplementationIntention({ onContinue }: { onContinue: () => void })
       <div className="text-center mb-8">
         <h2 className="text-2xl font-bold mb-3">When will you check in?</h2>
         <p className="text-sm opacity-70 leading-relaxed px-4">
-          Pick one moment in your day. Research shows that linking a new practice to an existing routine more than doubles follow-through.
+          Pick a time. This becomes your daily reminder.
         </p>
       </div>
-      <div className="rounded-3xl p-6" style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)" }}>
-        <div className="space-y-2 mb-3">
-          {ANCHORS.map(a => (
-            <button
-              key={a.id}
-              onClick={() => { setAnchor(a.id); submit(a); }}
-              className="w-full text-left py-3 px-4 rounded-xl font-medium transition-all active:scale-[0.98]"
-              style={{
-                background: anchor === a.id ? "rgba(139,92,246,0.22)" : "rgba(255,255,255,0.05)",
-                border: `1px solid ${anchor === a.id ? "rgba(139,92,246,0.6)" : "rgba(255,255,255,0.1)"}`,
-                color: "rgba(255,255,255,0.9)",
-              }}
-              disabled={submitted}
-            >
-              {a.label}
-            </button>
-          ))}
-        </div>
-        <div className="pt-2">
-          <input
-            value={customAnchor}
-            onChange={e => setCustomAnchor(e.target.value)}
-            placeholder="Or write your own anchor..."
-            maxLength={60}
-            className="w-full text-sm py-2.5 px-3 rounded-xl mb-2"
-            style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)", color: "white" }}
-            disabled={submitted}
-          />
-          {customAnchor.trim().length > 2 && (
-            <button
-              onClick={() => submit({ id: "custom", label: customAnchor.trim(), key: "custom", timeHint: "09:00" })}
-              className="w-full py-2.5 text-xs rounded-xl font-semibold"
-              style={{ background: "rgba(139,92,246,0.18)", border: "1px solid rgba(139,92,246,0.35)", color: "#c4b5fd" }}
-              disabled={submitted}
-            >
-              Use "{customAnchor.trim()}"
-            </button>
-          )}
-        </div>
-        <p className="text-[11px] opacity-50 text-center mt-4 leading-snug">
-          This becomes your reminder copy. You can change it any time in settings.
+      <div className="rounded-3xl p-6 flex flex-col items-center" style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)" }}>
+        <input
+          type="time"
+          value={time}
+          onChange={e => setTime(e.target.value)}
+          disabled={submitted}
+          className="text-4xl font-bold text-center py-4 px-6 rounded-2xl mb-4 w-full"
+          style={{
+            background: "rgba(139,92,246,0.08)",
+            border: "1px solid rgba(139,92,246,0.3)",
+            color: "white",
+            colorScheme: "dark",
+          }}
+        />
+        <p className="text-sm opacity-70 mb-6">{friendlyLabel(time)} every day</p>
+        <button
+          onClick={submit}
+          disabled={submitted}
+          className="w-full py-3.5 rounded-2xl font-bold text-white transition-all active:scale-[0.98] disabled:opacity-50"
+          style={{ background: "linear-gradient(135deg,#8b5cf6,#d946ef)" }}
+        >
+          {submitted ? "Saved" : "Set reminder"}
+        </button>
+        <p className="text-[11px] opacity-40 text-center mt-4 leading-snug">
+          You can change this anytime in settings.
         </p>
       </div>
     </div>

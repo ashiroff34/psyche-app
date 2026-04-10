@@ -230,7 +230,6 @@ export default function GrowthPage() {
   const bgClass = activeType ? TYPE_BG[activeType] : "bg-violet-50 border-violet-100";
 
   return (
-    <EnneagramGrowthGate>
     <div className="min-h-screen px-4 py-10" style={{ background: "#0f0a1e" }}>
       <div className="max-w-2xl mx-auto">
         {/* Back button */}
@@ -446,6 +445,5 @@ export default function GrowthPage() {
         </Link>
       </div>
     </div>
-    </EnneagramGrowthGate>
   );
 }
