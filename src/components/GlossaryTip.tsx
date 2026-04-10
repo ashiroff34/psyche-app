@@ -29,7 +29,7 @@ const glossary: Record<string, { title: string; body: string; learnMore?: string
   },
   "cognitive stack": {
     title: "Cognitive Stack",
-    body: "Your cognitive stack is the order in which your 8 cognitive functions operate. Your top 2 are your strongest, you use them naturally. Functions 3–4 are supportive. Functions 5–8 are your 'shadow', less conscious and harder to access.",
+    body: "Your cognitive stack is the order in which your 8 cognitive functions operate. Your top 2 are your strongest, you use them naturally. Functions 3,4 are supportive. Functions 5,8 are your 'shadow', less conscious and harder to access.",
   },
   shadow: {
     title: "Shadow Functions",

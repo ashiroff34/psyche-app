@@ -149,6 +149,6 @@ export const attachmentQuestions: AttachmentQuestion[] = [
 ];
 
 // Thresholds for deriving style from raw dimension scores
-// Each dimension: 10 items, 1–5 scale → min 10, max 50
+// Each dimension: 10 items, 1,5 scale → min 10, max 50
 // Midpoint = 30; "high" = above midpoint
 export const ATTACHMENT_THRESHOLD = 30;

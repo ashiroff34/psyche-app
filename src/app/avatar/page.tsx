@@ -47,7 +47,6 @@ import {
   type OutfitItem,
 } from "@/hooks/usePetState";
 import ChibiSprite from "@/components/ChibiSprite";
-import ChibiScene from "@/components/ChibiScene";
 import AnimatedPet from "@/components/AnimatedPet";
 import NextStepBanner from "@/components/NextStepBanner";
 import FirstVisitTooltip from "@/components/FirstVisitTooltip";
@@ -527,14 +526,13 @@ export default function AvatarPage() {
                   </motion.div>
                 )}
 
-                {/* Chibi in its lit scene — fixes the low-contrast transparency issue */}
+                {/* Chibi sprite */}
                 <div className="relative z-[5]">
-                  <ChibiScene
+                  <ChibiSprite
                     type={enneagramType}
                     instinct={dominantInstinct}
-                    size={260}
+                    size={220}
                     state={petState?.isAlive && (petStatus?.status === "thriving" || petStatus?.status === "happy") ? "happy" : "idle"}
-                    variant="soft"
                   />
                 </div>
               </motion.div>
@@ -584,7 +582,7 @@ export default function AvatarPage() {
                 )}
               </motion.div>
 
-              {/* Unified care strip — stats + actions in one scene-attached block */}
+              {/* Unified care strip, stats + actions in one scene-attached block */}
               {petState && petState.isAlive && (
                 <motion.div
                   initial={{ opacity: 0, y: 6 }}
@@ -619,7 +617,7 @@ export default function AvatarPage() {
                     ))}
                   </div>
 
-                  {/* Action buttons — integrated */}
+                  {/* Action buttons, integrated */}
                   <div className="flex gap-2">
                     <button
                       onClick={handleFeed}

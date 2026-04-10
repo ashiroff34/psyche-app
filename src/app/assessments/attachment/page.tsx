@@ -436,7 +436,7 @@ export default function AttachmentAssessmentPage() {
         {/* Progress */}
         <div className="mb-8">
           <div className="flex justify-between text-xs mb-2" style={{ color: "rgba(255,255,255,0.4)" }}>
-            <span>Questions {currentGroup * 5 + 1}–{Math.min((currentGroup + 1) * 5, 20)} of 20</span>
+            <span>Questions {currentGroup * 5 + 1},{Math.min((currentGroup + 1) * 5, 20)} of 20</span>
             <span>{Math.round(progress)}% complete</span>
           </div>
           <div className="h-1.5 rounded-full overflow-hidden" style={{ background: "rgba(255,255,255,0.1)" }}>

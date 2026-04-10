@@ -83,7 +83,7 @@ export default function RootLayout({
           }}
         />
         <ServiceWorkerRegistrar />
-        {/* OneSignal web push — set NEXT_PUBLIC_ONESIGNAL_APP_ID in env to activate */}
+        {/* OneSignal web push, set NEXT_PUBLIC_ONESIGNAL_APP_ID in env to activate */}
         {process.env.NEXT_PUBLIC_ONESIGNAL_APP_ID && (
           <>
             <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer />

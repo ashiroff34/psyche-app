@@ -31,7 +31,7 @@ function getOrCreateDeviceId(): string {
 }
 
 /**
- * Renders nothing — lives purely for side effects.
+ * Renders nothing, lives purely for side effects.
  * Wrap in <Suspense> in layout.tsx because useSearchParams() needs it.
  */
 export default function PostHogProvider() {

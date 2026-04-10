@@ -1277,7 +1277,7 @@ export const mbtiTypes: MBTIType[] = [
 // ── Assessment Questions (Dichotomy-Based, 24 Questions) ────────────────────
 
 export const cognitiveQuestions: AssessmentQuestion[] = [
-  // ─── Ni vs Se (Questions 1–6) ─────────────────────────────────────────────
+  // ─── Ni vs Se (Questions 1,6) ─────────────────────────────────────────────
   {
     id: 1,
     axis: "Ni-Se",
@@ -1357,7 +1357,7 @@ export const cognitiveQuestions: AssessmentQuestion[] = [
     },
   },
 
-  // ─── Ne vs Si (Questions 7–12) ────────────────────────────────────────────
+  // ─── Ne vs Si (Questions 7,12) ────────────────────────────────────────────
   {
     id: 7,
     axis: "Ne-Si",
@@ -1437,7 +1437,7 @@ export const cognitiveQuestions: AssessmentQuestion[] = [
     },
   },
 
-  // ─── Ti vs Fe (Questions 13–18) ───────────────────────────────────────────
+  // ─── Ti vs Fe (Questions 13,18) ───────────────────────────────────────────
   {
     id: 13,
     axis: "Ti-Fe",
@@ -1517,7 +1517,7 @@ export const cognitiveQuestions: AssessmentQuestion[] = [
     },
   },
 
-  // ─── Te vs Fi (Questions 19–24) ───────────────────────────────────────────
+  // ─── Te vs Fi (Questions 19,24) ───────────────────────────────────────────
   {
     id: 19,
     axis: "Te-Fi",

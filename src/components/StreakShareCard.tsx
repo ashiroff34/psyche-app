@@ -152,7 +152,7 @@ export default function StreakShareCard({
                 <span className="text-white/90 text-sm font-semibold tracking-wide">Thyself</span>
               </div>
 
-              {/* Streak hero — chibi + streak count */}
+              {/* Streak hero, chibi + streak count */}
               <div className="flex items-center gap-4 mb-5">
                 {enneagramType ? (
                   <div className="relative shrink-0">

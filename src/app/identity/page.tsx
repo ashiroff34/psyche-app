@@ -45,7 +45,7 @@ export default function IdentityPage() {
   const tritype = profile.tritype;
   const cognitiveType = profile.cognitiveType ?? profile.mbtiType;
   const displayName = profile.displayName;
-  // enneagramWing comes through as a string like "4" or "4w5" — extract the wing number
+  // enneagramWing comes through as a string like "4" or "4w5", extract the wing number
   const wingNumber = profile.enneagramWing
     ? parseInt(String(profile.enneagramWing).replace(/[^0-9]/g, ""), 10) || undefined
     : undefined;
@@ -72,7 +72,7 @@ export default function IdentityPage() {
           No type yet
         </h1>
         <p className="text-sm mb-6" style={{ color: "rgba(255,255,255,0.5)" }}>
-          Take the quiz to discover your type — then come back to claim your identity card.
+          Take the quiz to discover your type, then come back to claim your identity card.
         </p>
         <Link
           href="/assessments/quick"
@@ -103,7 +103,7 @@ export default function IdentityPage() {
             A card for the parts of you that can&apos;t fit in a sentence
           </h1>
           <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.5)" }}>
-            Your type, your subtype, your cognitive profile — in one shareable piece.
+            Your type, your subtype, your cognitive profile, in one shareable piece.
             Tap the card to see what&apos;s underneath.
           </p>
         </div>
@@ -145,8 +145,8 @@ export default function IdentityPage() {
                 Why share it?
               </p>
               <p className="text-[11px] leading-relaxed" style={{ color: "rgba(255,255,255,0.55)" }}>
-                Most people can&apos;t name the thing that drives them. Naming yours —
-                and letting others see it — is part of how you stop being defined by
+                Most people can&apos;t name the thing that drives them. Naming yours ,
+                and letting others see it, is part of how you stop being defined by
                 the armor. Not because it&apos;s cute to share. Because what you show
                 becomes easier to see clearly in yourself.
               </p>
@@ -154,7 +154,7 @@ export default function IdentityPage() {
           </div>
         </motion.div>
 
-        {/* Invite friends card — the referral loop */}
+        {/* Invite friends card, the referral loop */}
         <motion.div
           initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}

@@ -44,15 +44,15 @@ export function rollTokenDrop(sessionsSince: number): TokenDrop | null {
   const tierRoll = Math.random();
   if (tierRoll < 0.1) {
     // Epic (10%)
-    const amount = Math.floor(Math.random() * 26) + 75; // 75–100
+    const amount = Math.floor(Math.random() * 26) + 75; // 75,100
     return { amount, tier: "epic" };
   } else if (tierRoll < 0.3) {
     // Rare (20%)
-    const amount = Math.floor(Math.random() * 16) + 25; // 25–40
+    const amount = Math.floor(Math.random() * 16) + 25; // 25,40
     return { amount, tier: "rare" };
   } else {
     // Common (70%)
-    const amount = Math.floor(Math.random() * 11) + 5; // 5–15
+    const amount = Math.floor(Math.random() * 11) + 5; // 5,15
     return { amount, tier: "common" };
   }
 }

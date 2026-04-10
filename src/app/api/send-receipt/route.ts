@@ -11,7 +11,7 @@ import { Resend } from "resend";
 export async function POST(req: NextRequest) {
   const apiKey = process.env.RESEND_API_KEY;
   if (!apiKey) {
-    // Email is optional — don't hard-fail if not configured
+    // Email is optional, don't hard-fail if not configured
     console.warn("[send-receipt] RESEND_API_KEY not set, skipping email");
     return NextResponse.json({ sent: false, reason: "not configured" });
   }

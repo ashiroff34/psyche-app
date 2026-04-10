@@ -1,6 +1,6 @@
 // ─── Integration Companion Messages ──────────────────────────────────────────
 //
-// These messages are written from the first-person voice of the INTEGRATION type —
+// These messages are written from the first-person voice of the INTEGRATION type ,
 // the type the user is growing toward (arrow direction in growth on the Enneagram).
 //
 // Integration arrows:

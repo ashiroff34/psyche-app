@@ -70,7 +70,7 @@ function buildTypeDNA(
     return enneagramTypes.map(t => {
       const s = profile.enneagramScores!.find(x => parseInt(x.key) === t.number);
       const pct = s ? Math.round((s.percentage / maxPct) * 100) : 5;
-      return { num: t.number, name: t.name, color: t.color, pct, label: s ? `${s.percentage}%` : "—" };
+      return { num: t.number, name: t.name, color: t.color, pct, label: s ? `${s.percentage}%` : "," };
     });
   }
 
@@ -1935,7 +1935,7 @@ function ReferralBlock() {
     try {
       await navigator.clipboard.writeText(link);
       setCopied(true);
-      // Clipboard copy is not verified — no token award.
+      // Clipboard copy is not verified, no token award.
       // Token is awarded only when navigator.share() resolves (see nativeShare above).
       setTimeout(() => setCopied(false), 2200);
     } catch {}
@@ -1946,7 +1946,7 @@ function ReferralBlock() {
     try {
       await navigator.clipboard.writeText(discordText);
       setDiscordCopied(true);
-      // Clipboard copy is not verified — no token award.
+      // Clipboard copy is not verified, no token award.
       setTimeout(() => setDiscordCopied(false), 2200);
     } catch {}
   };
@@ -1962,19 +1962,19 @@ function ReferralBlock() {
         text: "I use Thyself to understand myself better. Find your Enneagram type, instinct, tritype, and cognitive style. it's free.",
         url: link,
       });
-      // navigator.share() resolved — OS confirmed actual share happened
+      // navigator.share() resolved, OS confirmed actual share happened
       recordShare();
     } catch (err: unknown) {
       // AbortError = user cancelled share sheet. No tokens.
       const isAbort = err instanceof Error && (err.name === "AbortError" || err.message?.includes("cancel"));
       if (!isAbort) {
-        // Unexpected error — fall back to copy
+        // Unexpected error, fall back to copy
         await copyLink();
       }
     }
   };
 
-  // Clipboard copy never awards tokens — unverifiable.
+  // Clipboard copy never awards tokens, unverifiable.
   // We show a "Share to confirm and earn tokens" nudge after copy.
 
   const milestoneFilled = Math.min(shareCount, REFERRAL_MILESTONE_COUNT);
@@ -2060,7 +2060,7 @@ function ReferralBlock() {
 
       {/* Share buttons row */}
       <div className="flex gap-2 mb-0">
-        {/* Native share — the verified path, tokens awarded here */}
+        {/* Native share, the verified path, tokens awarded here */}
         <button
           onClick={nativeShare}
           className="flex-1 py-2.5 rounded-xl text-xs font-bold flex items-center justify-center gap-2 transition-all active:scale-95"

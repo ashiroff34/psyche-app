@@ -823,7 +823,7 @@ export default function WrappedPage() {
         if (shared) {
           setShareSuccess(true);
           setTimeout(() => setShareSuccess(false), 2500);
-          // Award tokens — verified by navigator.share() resolution
+          // Award tokens, verified by navigator.share() resolution
           try {
             const key = "psyche-share-verified-wrapped";
             const prev = localStorage.getItem(key);

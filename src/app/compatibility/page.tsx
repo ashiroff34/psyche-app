@@ -762,7 +762,7 @@ export default function CompatibilityPage() {
           a.href = dataUrl;
           a.download = "thyself-compatibility.png";
           a.click();
-          // Download fallback — no token award (unverified);
+          // Download fallback, no token award (unverified);
         } catch {
           // give up silently
         }

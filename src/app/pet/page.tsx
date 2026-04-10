@@ -52,7 +52,7 @@ export default function PetPage() {
     : health < 30 || hunger < 20 ? "hurt"
     : "idle";
 
-  // Dummy token check — feed/play are free on the pet page
+  // Dummy token check, feed/play are free on the pet page
   const freeSpend = () => true;
 
   function handleFeed() {
@@ -191,7 +191,7 @@ export default function PetPage() {
         >
           <p className="text-[10px] font-bold uppercase tracking-widest mb-2" style={{ color: "rgba(255,255,255,0.25)" }}>About your companion</p>
           <p className="text-xs leading-relaxed" style={{ color: "rgba(255,255,255,0.45)" }}>
-            {petName} reflects your inner life. Complete daily practice to keep them healthy — they thrive when you do. Earn tokens through lessons to unlock accessories and backgrounds in the store.
+            {petName} reflects your inner life. Complete daily practice to keep them healthy, they thrive when you do. Earn tokens through lessons to unlock accessories and backgrounds in the store.
           </p>
         </div>
 

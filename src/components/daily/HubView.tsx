@@ -57,7 +57,6 @@ import MorningPassionCheckIn from "./MorningPassionCheckIn";
 import TheoryPracticeCard from "./TheoryPracticeCard";
 import AudioReflection from "@/components/AudioReflection";
 import ChibiSprite from "@/components/ChibiSprite";
-import ChibiScene from "@/components/ChibiScene";
 import type { PathNodeConfig } from "./NodeBottomSheet";
 import type { PathUnit } from "./PathView";
 
@@ -225,7 +224,7 @@ export default function HubView({
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [tokens]);
 
-  // Daily-complete share prompt — shows once per day when all nodes are done
+  // Daily-complete share prompt, shows once per day when all nodes are done
   const DAILY_SHARE_DISMISS_KEY = `psyche-daily-share-dismissed-${getDateKey()}`;
   const allDoneToday = completedToday >= totalNodes && totalNodes > 0;
   const [shareDismissed, setShareDismissed] = useState(() => {
@@ -274,7 +273,7 @@ export default function HubView({
           transition={{ delay: 0.1, duration: 0.4 }}
           className="flex flex-col items-center mb-10"
         >
-          {/* Progress ring (no chibi inside — clean ring only) */}
+          {/* Progress ring (no chibi inside, clean ring only) */}
           <div className="relative">
             <div
               className="absolute inset-0 rounded-full blur-xl opacity-25"
@@ -307,15 +306,14 @@ export default function HubView({
             </svg>
           </div>
 
-          {/* Chibi companion — in a soft lit scene so they pop against the dark background */}
+          {/* Chibi companion */}
           {enneagramType > 0 && (
             <div className="relative flex flex-col items-center mt-2">
-              <ChibiScene
+              <ChibiSprite
                 type={enneagramType}
                 instinct={instinct}
                 size={150}
                 state={warmupDoneToday ? "happy" : "idle"}
-                variant="soft"
               />
             </div>
           )}

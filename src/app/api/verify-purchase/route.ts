@@ -15,7 +15,7 @@ function getStripe() {
  * can credit tokens to localStorage.
  *
  * Note: We only return data on a genuine paid session (payment_status = "paid"
- * or subscription status = "active"). No tokens are stored server-side —
+ * or subscription status = "active"). No tokens are stored server-side ,
  * the client immediately writes to localStorage. For a future server-side
  * wallet the webhook at /api/webhook should be used instead.
  */

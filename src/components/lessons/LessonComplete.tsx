@@ -6,7 +6,7 @@ import { Trophy, Star, Zap, ArrowRight } from "lucide-react";
 import { useRewards } from "@/components/Rewards";
 
 interface Props {
-  score: number; // 0–100
+  score: number; // 0,100
   xpEarned: number;
   perfectRun: boolean;
   lessonTitle: string;

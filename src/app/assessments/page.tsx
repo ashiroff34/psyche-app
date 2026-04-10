@@ -29,18 +29,18 @@ import EnneagramCircle from "@/components/EnneagramCircle";
 import { Leaf, ArrowRight as ArrowRightIcon } from "lucide-react";
 import { TYPE_WPFA } from "@/data/wound-passion-fixation-armor";
 
-// ─── Growth data (inline — mirrors growth/page.tsx) ──────────────────────────
+// ─── Growth data (inline, mirrors growth/page.tsx) ──────────────────────────
 
 const GROWTH_THEMES: Record<number, { theme: string; shortDesc: string; integrationNote: string }> = {
-  1: { theme: "Serenity", shortDesc: "Release the inner critic. Practice 'good enough.'", integrationNote: "Integrate toward Type 7 — allow joy and spontaneity" },
-  2: { theme: "Humility", shortDesc: "Identify and express your own needs without apology.", integrationNote: "Integrate toward Type 4 — connect with your own emotional depth" },
-  3: { theme: "Authenticity", shortDesc: "Pause performing. Ask: who am I when no one's watching?", integrationNote: "Integrate toward Type 6 — build genuine trust and cooperation" },
-  4: { theme: "Equanimity", shortDesc: "Notice what IS present, not just what's missing.", integrationNote: "Integrate toward Type 1 — take disciplined action without waiting for inspiration" },
-  5: { theme: "Engagement", shortDesc: "Move from observer to participant. Trust your adequacy.", integrationNote: "Integrate toward Type 8 — take decisive, embodied action" },
-  6: { theme: "Courage", shortDesc: "Trust your inner knowing. Act without needing certainty.", integrationNote: "Integrate toward Type 9 — find inner peace without suppressing real experience" },
-  7: { theme: "Sobriety", shortDesc: "Stay with what is. Let difficult feelings complete themselves.", integrationNote: "Integrate toward Type 5 — develop focused depth and stillness" },
-  8: { theme: "Openness", shortDesc: "Vulnerability is not weakness. Open where you protect.", integrationNote: "Integrate toward Type 2 — lead with warmth and generosity" },
-  9: { theme: "Presence", shortDesc: "Your perspective matters. Practice saying what you want.", integrationNote: "Integrate toward Type 3 — develop your own goals and act on them" },
+  1: { theme: "Serenity", shortDesc: "Release the inner critic. Practice 'good enough.'", integrationNote: "Integrate toward Type 7, allow joy and spontaneity" },
+  2: { theme: "Humility", shortDesc: "Identify and express your own needs without apology.", integrationNote: "Integrate toward Type 4, connect with your own emotional depth" },
+  3: { theme: "Authenticity", shortDesc: "Pause performing. Ask: who am I when no one's watching?", integrationNote: "Integrate toward Type 6, build genuine trust and cooperation" },
+  4: { theme: "Equanimity", shortDesc: "Notice what IS present, not just what's missing.", integrationNote: "Integrate toward Type 1, take disciplined action without waiting for inspiration" },
+  5: { theme: "Engagement", shortDesc: "Move from observer to participant. Trust your adequacy.", integrationNote: "Integrate toward Type 8, take decisive, embodied action" },
+  6: { theme: "Courage", shortDesc: "Trust your inner knowing. Act without needing certainty.", integrationNote: "Integrate toward Type 9, find inner peace without suppressing real experience" },
+  7: { theme: "Sobriety", shortDesc: "Stay with what is. Let difficult feelings complete themselves.", integrationNote: "Integrate toward Type 5, develop focused depth and stillness" },
+  8: { theme: "Openness", shortDesc: "Vulnerability is not weakness. Open where you protect.", integrationNote: "Integrate toward Type 2, lead with warmth and generosity" },
+  9: { theme: "Presence", shortDesc: "Your perspective matters. Practice saying what you want.", integrationNote: "Integrate toward Type 3, develop your own goals and act on them" },
 };
 
 // ─── Dimension definitions ────────────────────────────────────────────────────

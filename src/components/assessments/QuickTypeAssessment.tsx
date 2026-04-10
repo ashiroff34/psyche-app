@@ -47,7 +47,7 @@ const triageQuestions: Question[] = [
     id: "t1",
     phase: "triage",
     text: "When life falls apart, which would feel like the WORST?",
-    sub: "First instinct — no wrong answers.",
+    sub: "First instinct, no wrong answers.",
     options: [
       {
         text: "Walking in blind, no plan, no idea what's coming",
@@ -56,7 +56,7 @@ const triageQuestions: Question[] = [
         learn: "Head types (5, 6, 7) share a background anxiety about safety and certainty. Their wound is about adequacy: Do I have enough inside to handle what's coming? Can I trust what I think I know?",
       },
       {
-        text: "Feeling unseen — not wanted, not valued, invisible",
+        text: "Feeling unseen, not wanted, not valued, invisible",
         detail: "Being dismissed by the people whose approval matters",
         triad: "heart",
         learn: "Heart types (2, 3, 4) share a deep uncertainty about their own worth. Their wound is about identity: Am I lovable? Am I enough? Do I even exist without the performance?",
@@ -65,14 +65,14 @@ const triageQuestions: Question[] = [
         text: "Something bigger taking your autonomy away",
         detail: "Being controlled, pushed around, or made smaller",
         triad: "gut",
-        learn: "Gut types (1, 8, 9) share a visceral relationship with anger — whether they redirect it inward, express it outward, or bury it completely. Their wound is about autonomy: being controlled, being bad, or being invisible.",
+        learn: "Gut types (1, 8, 9) share a visceral relationship with anger, whether they redirect it inward, express it outward, or bury it completely. Their wound is about autonomy: being controlled, being bad, or being invisible.",
       },
     ],
   },
   {
     id: "t2",
     phase: "triage",
-    text: "You just messed something up. Before you can even think — what lands in your body?",
+    text: "You just messed something up. Before you can even think, what lands in your body?",
     sub: "The felt sense, not the thought.",
     options: [
       {
@@ -88,10 +88,10 @@ const triageQuestions: Question[] = [
         learn: "Heart types (2, 3, 4) share a deep uncertainty about their own worth. Their wound is about identity: Am I lovable? Am I enough? Do I even exist without the performance?",
       },
       {
-        text: "A jolt of frustration — at yourself or the situation",
+        text: "A jolt of frustration, at yourself or the situation",
         detail: "A body-level 'this isn't right' before words",
         triad: "gut",
-        learn: "Gut types (1, 8, 9) share a visceral relationship with anger — whether they redirect it inward, express it outward, or bury it completely. Their wound is about autonomy: being controlled, being bad, or being invisible.",
+        learn: "Gut types (1, 8, 9) share a visceral relationship with anger, whether they redirect it inward, express it outward, or bury it completely. Their wound is about autonomy: being controlled, being bad, or being invisible.",
       },
     ],
   },
@@ -114,17 +114,17 @@ const triageQuestions: Question[] = [
         learn: "Heart types (2, 3, 4) share a deep uncertainty about their own worth. Their wound is about identity: Am I lovable? Am I enough? Do I even exist without the performance?",
       },
       {
-        text: "Your solid ground — your integrity, your territory",
+        text: "Your solid ground, your integrity, your territory",
         detail: "Your principles, your autonomy, what you stand for",
         triad: "gut",
-        learn: "Gut types (1, 8, 9) share a visceral relationship with anger — whether they redirect it inward, express it outward, or bury it completely. Their wound is about autonomy: being controlled, being bad, or being invisible.",
+        learn: "Gut types (1, 8, 9) share a visceral relationship with anger, whether they redirect it inward, express it outward, or bury it completely. Their wound is about autonomy: being controlled, being bad, or being invisible.",
       },
     ],
   },
 ];
 
 // Center questions now score primary type + partial weight on look-alike types
-// This prevents winner-take-all triage errors — a type 6 trapped in gut phase
+// This prevents winner-take-all triage errors, a type 6 trapped in gut phase
 // still gets partial credit for Type 6 via Type 1 option (both have inner critic)
 const gutQuestions: Question[] = [
   {
@@ -134,22 +134,22 @@ const gutQuestions: Question[] = [
     sub: "When you're pushed to your edge.",
     options: [
       {
-        text: "In a loud inner critic — you're hardest on yourself",
+        text: "In a loud inner critic, you're hardest on yourself",
         detail: "Tight jaw, a running tally of what's wrong, and a need to fix it",
         types: [1, 6], weight: 2,  // 1 primary, 6 look-alike (both have inner critic)
-        learn: "Wound: I am only safe if I am good, correct, and beyond criticism.\n\nPassion: constant low hum of anger at everything that falls short — including themselves.\n\nFixation: brain runs the comparison between what is and what should be on loop, automatically.\n\nArmor: the perfectionist — highest standards in the room, holds themselves to it hardest.",
+        learn: "Wound: I am only safe if I am good, correct, and beyond criticism.\n\nPassion: constant low hum of anger at everything that falls short, including themselves.\n\nFixation: brain runs the comparison between what is and what should be on loop, automatically.\n\nArmor: the perfectionist, highest standards in the room, holds themselves to it hardest.",
       },
       {
-        text: "In hot, direct force — you don't hide what you feel",
+        text: "In hot, direct force, you don't hide what you feel",
         detail: "Pushing back hard, taking up space, meeting threat head-on",
         types: [8], weight: 2,
-        learn: "Wound: vulnerability gets you hurt, the world takes from the weak, I will never be weak.\n\nPassion: lust — excess of intensity, aggressive aliveness, needs to feel everything at full volume.\n\nFixation: brain always tracking power and violation — who has it, who's using it wrong.\n\nArmor: the protector — buried softness completely, leads with force because force kept them safe when tenderness didn't.",
+        learn: "Wound: vulnerability gets you hurt, the world takes from the weak, I will never be weak.\n\nPassion: lust, excess of intensity, aggressive aliveness, needs to feel everything at full volume.\n\nFixation: brain always tracking power and violation, who has it, who's using it wrong.\n\nArmor: the protector, buried softness completely, leads with force because force kept them safe when tenderness didn't.",
       },
       {
-        text: "Underneath, quietly — you merge, deflect, go numb",
+        text: "Underneath, quietly, you merge, deflect, go numb",
         detail: "Your irritation gets absorbed before anyone notices it",
         types: [9, 5], weight: 2,  // 9 primary, 5 look-alike (both withdraw)
-        learn: "Wound: my presence and needs create problems, safest thing is to disappear.\n\nPassion: sloth — deep numbing of own desire and agenda, chronic forgetting of what they actually want.\n\nFixation: brain drifts toward whatever keeps things comfortable, away from asserting own presence.\n\nArmor: the peacemaker — everyone loves them, no one really knows them, loses the thread of themselves adapting to others.",
+        learn: "Wound: my presence and needs create problems, safest thing is to disappear.\n\nPassion: sloth, deep numbing of own desire and agenda, chronic forgetting of what they actually want.\n\nFixation: brain drifts toward whatever keeps things comfortable, away from asserting own presence.\n\nArmor: the peacemaker, everyone loves them, no one really knows them, loses the thread of themselves adapting to others.",
       },
     ],
   },
@@ -163,19 +163,19 @@ const gutQuestions: Question[] = [
         text: "Good, principled, and beyond reproach",
         detail: "Living with integrity even when it costs you",
         types: [1, 3], weight: 2,  // 1 primary, 3 look-alike (both high standards)
-        learn: "Wound: I am only safe if I am good, correct, and beyond criticism.\n\nPassion: constant low hum of anger at everything that falls short — including themselves.\n\nFixation: brain runs the comparison between what is and what should be on loop, automatically.\n\nArmor: the perfectionist — highest standards in the room, holds themselves to it hardest.",
+        learn: "Wound: I am only safe if I am good, correct, and beyond criticism.\n\nPassion: constant low hum of anger at everything that falls short, including themselves.\n\nFixation: brain runs the comparison between what is and what should be on loop, automatically.\n\nArmor: the perfectionist, highest standards in the room, holds themselves to it hardest.",
       },
       {
         text: "Strong enough that no one can push you around",
         detail: "Self-reliant, in charge of your own fate, unshakeable",
         types: [8, 6], weight: 2,  // 8 primary, 6cp look-alike (counterphobic)
-        learn: "Wound: vulnerability gets you hurt, the world takes from the weak, I will never be weak.\n\nPassion: lust — excess of intensity, aggressive aliveness, needs to feel everything at full volume.\n\nFixation: brain always tracking power and violation — who has it, who's using it wrong.\n\nArmor: the protector — buried softness completely, leads with force because force kept them safe when tenderness didn't.",
+        learn: "Wound: vulnerability gets you hurt, the world takes from the weak, I will never be weak.\n\nPassion: lust, excess of intensity, aggressive aliveness, needs to feel everything at full volume.\n\nFixation: brain always tracking power and violation, who has it, who's using it wrong.\n\nArmor: the protector, buried softness completely, leads with force because force kept them safe when tenderness didn't.",
       },
       {
         text: "At peace, unbothered, in harmony with everything",
         detail: "Where nothing can disturb your inner quiet",
         types: [9, 2], weight: 2,  // 9 primary, 2 look-alike (both accommodating)
-        learn: "Wound: my presence and needs create problems, safest thing is to disappear.\n\nPassion: sloth — deep numbing of own desire and agenda, chronic forgetting of what they actually want.\n\nFixation: brain drifts toward whatever keeps things comfortable, away from asserting own presence.\n\nArmor: the peacemaker — everyone loves them, no one really knows them, loses the thread of themselves adapting to others.",
+        learn: "Wound: my presence and needs create problems, safest thing is to disappear.\n\nPassion: sloth, deep numbing of own desire and agenda, chronic forgetting of what they actually want.\n\nFixation: brain drifts toward whatever keeps things comfortable, away from asserting own presence.\n\nArmor: the peacemaker, everyone loves them, no one really knows them, loses the thread of themselves adapting to others.",
       },
     ],
   },
@@ -189,19 +189,19 @@ const gutQuestions: Question[] = [
         text: "That you're actually bad, corrupt, or a hypocrite",
         detail: "That your failings outweigh your intentions",
         types: [1], weight: 3,
-        learn: "Wound: I am only safe if I am good, correct, and beyond criticism.\n\nPassion: constant low hum of anger at everything that falls short — including themselves.\n\nFixation: brain runs the comparison between what is and what should be on loop, automatically.\n\nArmor: the perfectionist — highest standards in the room, holds themselves to it hardest.",
+        learn: "Wound: I am only safe if I am good, correct, and beyond criticism.\n\nPassion: constant low hum of anger at everything that falls short, including themselves.\n\nFixation: brain runs the comparison between what is and what should be on loop, automatically.\n\nArmor: the perfectionist, highest standards in the room, holds themselves to it hardest.",
       },
       {
         text: "That you're actually weak, used, or at someone's mercy",
         detail: "That someone could take something from you and you couldn't stop it",
         types: [8], weight: 3,
-        learn: "Wound: vulnerability gets you hurt, the world takes from the weak, I will never be weak.\n\nPassion: lust — excess of intensity, aggressive aliveness, needs to feel everything at full volume.\n\nFixation: brain always tracking power and violation — who has it, who's using it wrong.\n\nArmor: the protector — buried softness completely, leads with force because force kept them safe when tenderness didn't.",
+        learn: "Wound: vulnerability gets you hurt, the world takes from the weak, I will never be weak.\n\nPassion: lust, excess of intensity, aggressive aliveness, needs to feel everything at full volume.\n\nFixation: brain always tracking power and violation, who has it, who's using it wrong.\n\nArmor: the protector, buried softness completely, leads with force because force kept them safe when tenderness didn't.",
       },
       {
-        text: "That you don't actually matter — no presence, no weight",
+        text: "That you don't actually matter, no presence, no weight",
         detail: "That the world would go on unchanged if you weren't in it",
         types: [9], weight: 3,
-        learn: "Wound: my presence and needs create problems, safest thing is to disappear.\n\nPassion: sloth — deep numbing of own desire and agenda, chronic forgetting of what they actually want.\n\nFixation: brain drifts toward whatever keeps things comfortable, away from asserting own presence.\n\nArmor: the peacemaker — everyone loves them, no one really knows them, loses the thread of themselves adapting to others.",
+        learn: "Wound: my presence and needs create problems, safest thing is to disappear.\n\nPassion: sloth, deep numbing of own desire and agenda, chronic forgetting of what they actually want.\n\nFixation: brain drifts toward whatever keeps things comfortable, away from asserting own presence.\n\nArmor: the peacemaker, everyone loves them, no one really knows them, loses the thread of themselves adapting to others.",
       },
     ],
   },
@@ -218,19 +218,19 @@ const heartQuestions: Question[] = [
         text: "You earn it by being the one people can always count on",
         detail: "Your value comes from being needed, loved, remembered",
         types: [2, 9], weight: 2,  // 2 primary, 9 look-alike (both accommodating)
-        learn: "Wound: I am only lovable if I am needed.\n\nPassion: pride in being the one who gives and is depended on — masks terror of own needs.\n\nFixation: brain constantly scans every room for what people need and how to provide it.\n\nArmor: the helper — shows up for everyone, quietly resents no one shows up the same way back.",
+        learn: "Wound: I am only lovable if I am needed.\n\nPassion: pride in being the one who gives and is depended on, masks terror of own needs.\n\nFixation: brain constantly scans every room for what people need and how to provide it.\n\nArmor: the helper, shows up for everyone, quietly resents no one shows up the same way back.",
       },
       {
-        text: "You earn it by succeeding — being impressive, efficient, on top",
+        text: "You earn it by succeeding, being impressive, efficient, on top",
         detail: "Your value comes from what you accomplish and how you land",
         types: [3, 1], weight: 2,  // 3 primary, 1 look-alike (both high performers)
-        learn: "Wound: I am only lovable if I am succeeding.\n\nPassion: vanity — deep replacement of actual identity with whatever image gets most approval.\n\nFixation: brain constantly manages perception, constructs the version that lands best in any room.\n\nArmor: the achiever — always on, always impressive, no idea who they are when the room is empty.",
+        learn: "Wound: I am only lovable if I am succeeding.\n\nPassion: vanity, deep replacement of actual identity with whatever image gets most approval.\n\nFixation: brain constantly manages perception, constructs the version that lands best in any room.\n\nArmor: the achiever, always on, always impressive, no idea who they are when the room is empty.",
       },
       {
         text: "You earn it by being genuinely different, deep, real",
         detail: "Your value comes from not being like everyone else",
         types: [4, 5], weight: 2,  // 4 primary, 5 look-alike (both withdrawn/depth)
-        learn: "Wound: something is fundamentally missing in me that everyone else has naturally.\n\nPassion: envy — chronic painful awareness of the gap between who they are and who they feel they should be.\n\nFixation: brain keeps returning to what's absent, what's lost, what's longed for.\n\nArmor: the depth, the aesthetic intensity — turns pain into something beautiful to make it mean something.",
+        learn: "Wound: something is fundamentally missing in me that everyone else has naturally.\n\nPassion: envy, chronic painful awareness of the gap between who they are and who they feel they should be.\n\nFixation: brain keeps returning to what's absent, what's lost, what's longed for.\n\nArmor: the depth, the aesthetic intensity, turns pain into something beautiful to make it mean something.",
       },
     ],
   },
@@ -244,19 +244,19 @@ const heartQuestions: Question[] = [
         text: "Being called selfish, ungenerous, or cold",
         detail: "Hearing that your care was actually about you",
         types: [2], weight: 2,
-        learn: "Wound: I am only lovable if I am needed.\n\nPassion: pride in being the one who gives and is depended on — masks terror of own needs.\n\nFixation: brain constantly scans every room for what people need and how to provide it.\n\nArmor: the helper — shows up for everyone, quietly resents no one shows up the same way back.",
+        learn: "Wound: I am only lovable if I am needed.\n\nPassion: pride in being the one who gives and is depended on, masks terror of own needs.\n\nFixation: brain constantly scans every room for what people need and how to provide it.\n\nArmor: the helper, shows up for everyone, quietly resents no one shows up the same way back.",
       },
       {
         text: "Being exposed as a failure with nothing to show for the effort",
         detail: "Hearing that the image was hollow underneath",
         types: [3], weight: 2,
-        learn: "Wound: I am only lovable if I am succeeding.\n\nPassion: vanity — deep replacement of actual identity with whatever image gets most approval.\n\nFixation: brain constantly manages perception, constructs the version that lands best in any room.\n\nArmor: the achiever — always on, always impressive, no idea who they are when the room is empty.",
+        learn: "Wound: I am only lovable if I am succeeding.\n\nPassion: vanity, deep replacement of actual identity with whatever image gets most approval.\n\nFixation: brain constantly manages perception, constructs the version that lands best in any room.\n\nArmor: the achiever, always on, always impressive, no idea who they are when the room is empty.",
       },
       {
-        text: "Being told you're actually ordinary — generic, no depth, forgettable",
+        text: "Being told you're actually ordinary, generic, no depth, forgettable",
         detail: "Hearing that nothing sets you apart",
         types: [4], weight: 2,
-        learn: "Wound: something is fundamentally missing in me that everyone else has naturally.\n\nPassion: envy — chronic painful awareness of the gap between who they are and who they feel they should be.\n\nFixation: brain keeps returning to what's absent, what's lost, what's longed for.\n\nArmor: the depth, the aesthetic intensity — turns pain into something beautiful to make it mean something.",
+        learn: "Wound: something is fundamentally missing in me that everyone else has naturally.\n\nPassion: envy, chronic painful awareness of the gap between who they are and who they feel they should be.\n\nFixation: brain keeps returning to what's absent, what's lost, what's longed for.\n\nArmor: the depth, the aesthetic intensity, turns pain into something beautiful to make it mean something.",
       },
     ],
   },
@@ -264,25 +264,25 @@ const heartQuestions: Question[] = [
     id: "h3",
     phase: "heart",
     text: "In close relationships, your instinct is to...",
-    sub: "Not what you've trained yourself to do — what you do first.",
+    sub: "Not what you've trained yourself to do, what you do first.",
     options: [
       {
         text: "Read the other person before reading yourself",
         detail: "Their needs come into focus before your own do",
         types: [2, 6], weight: 2,  // 2 primary, 6 look-alike (both attuned to others)
-        learn: "Wound: I am only lovable if I am needed.\n\nPassion: pride in being the one who gives and is depended on — masks terror of own needs.\n\nFixation: brain constantly scans every room for what people need and how to provide it.\n\nArmor: the helper — shows up for everyone, quietly resents no one shows up the same way back.",
+        learn: "Wound: I am only lovable if I am needed.\n\nPassion: pride in being the one who gives and is depended on, masks terror of own needs.\n\nFixation: brain constantly scans every room for what people need and how to provide it.\n\nArmor: the helper, shows up for everyone, quietly resents no one shows up the same way back.",
       },
       {
         text: "Show the version of yourself most likely to impress them",
         detail: "Lead with competence, charisma, and what you bring",
         types: [3, 7], weight: 2,  // 3 primary, 7 look-alike (both energetic/appealing)
-        learn: "Wound: I am only lovable if I am succeeding.\n\nPassion: vanity — deep replacement of actual identity with whatever image gets most approval.\n\nFixation: brain constantly manages perception, constructs the version that lands best in any room.\n\nArmor: the achiever — always on, always impressive, no idea who they are when the room is empty.",
+        learn: "Wound: I am only lovable if I am succeeding.\n\nPassion: vanity, deep replacement of actual identity with whatever image gets most approval.\n\nFixation: brain constantly manages perception, constructs the version that lands best in any room.\n\nArmor: the achiever, always on, always impressive, no idea who they are when the room is empty.",
       },
       {
-        text: "Test if they can handle your actual depth — then pull back if not",
+        text: "Test if they can handle your actual depth, then pull back if not",
         detail: "Go all in or not at all; surface feels like a waste",
         types: [4, 8], weight: 2,  // 4 primary, 8 look-alike (both intensity-seeking)
-        learn: "Wound: something is fundamentally missing in me that everyone else has naturally.\n\nPassion: envy — chronic painful awareness of the gap between who they are and who they feel they should be.\n\nFixation: brain keeps returning to what's absent, what's lost, what's longed for.\n\nArmor: the depth, the aesthetic intensity — turns pain into something beautiful to make it mean something.",
+        learn: "Wound: something is fundamentally missing in me that everyone else has naturally.\n\nPassion: envy, chronic painful awareness of the gap between who they are and who they feel they should be.\n\nFixation: brain keeps returning to what's absent, what's lost, what's longed for.\n\nArmor: the depth, the aesthetic intensity, turns pain into something beautiful to make it mean something.",
       },
     ],
   },
@@ -296,22 +296,22 @@ const headQuestions: Question[] = [
     sub: "The reflex, before you decide what to do.",
     options: [
       {
-        text: "Inward — to understand it deeply before engaging",
+        text: "Inward, to understand it deeply before engaging",
         detail: "Researching, analyzing, pulling back until you're sure",
         types: [5, 4], weight: 2,  // 5 primary, 4 look-alike (both withdraw)
-        learn: "Wound: the world is too demanding and I don't have enough inside to meet it.\n\nPassion: avarice — hoarding the self, withholding presence because there might not be enough to go around.\n\nFixation: brain keeps rationing — calculating what can be given and what needs to be kept back.\n\nArmor: the observer — understands everything deeply from a safe distance, only comes out when fully resourced.",
+        learn: "Wound: the world is too demanding and I don't have enough inside to meet it.\n\nPassion: avarice, hoarding the self, withholding presence because there might not be enough to go around.\n\nFixation: brain keeps rationing, calculating what can be given and what needs to be kept back.\n\nArmor: the observer, understands everything deeply from a safe distance, only comes out when fully resourced.",
       },
       {
-        text: "Outward — scanning for what could go wrong and who to trust",
+        text: "Outward, scanning for what could go wrong and who to trust",
         detail: "Double-checking, seeking reassurance, preparing for worst case",
         types: [6, 1], weight: 2,  // 6 primary, 1 look-alike (both anxious rule-followers)
-        learn: "Wound: the world is not safe and I cannot trust my own perception of it.\n\nPassion: fear — constant background hum of threat assessment, what could go wrong, who can be trusted.\n\nFixation: brain keeps doubting itself, seeking confirmation, testing the ground before every step.\n\nArmor: either the loyal rule-follower who finds safety in systems, or the counterphobic rebel who attacks the threat first.",
+        learn: "Wound: the world is not safe and I cannot trust my own perception of it.\n\nPassion: fear, constant background hum of threat assessment, what could go wrong, who can be trusted.\n\nFixation: brain keeps doubting itself, seeking confirmation, testing the ground before every step.\n\nArmor: either the loyal rule-follower who finds safety in systems, or the counterphobic rebel who attacks the threat first.",
       },
       {
-        text: "Forward — to the next thing, the plan, the bright possibility",
+        text: "Forward, to the next thing, the plan, the bright possibility",
         detail: "Reframing, imagining what's next, moving past the uncomfortable",
         types: [7, 3], weight: 2,  // 7 primary, 3 look-alike (both forward-motion)
-        learn: "Wound: what I need won't be there when I need it, so I have to generate it myself.\n\nPassion: gluttony — insatiable hunger for experience and possibility, stopping means feeling what's underneath.\n\nFixation: brain lives in the future, always planning the next scenario to avoid present pain.\n\nArmor: the enthusiast — reframes everything into a lesson or story, makes pain look like growth before they even feel it.",
+        learn: "Wound: what I need won't be there when I need it, so I have to generate it myself.\n\nPassion: gluttony, insatiable hunger for experience and possibility, stopping means feeling what's underneath.\n\nFixation: brain lives in the future, always planning the next scenario to avoid present pain.\n\nArmor: the enthusiast, reframes everything into a lesson or story, makes pain look like growth before they even feel it.",
       },
     ],
   },
@@ -322,22 +322,22 @@ const headQuestions: Question[] = [
     sub: "The thing you won't let anyone take from you.",
     options: [
       {
-        text: "Your inner world — your time, your energy, your right to think",
+        text: "Your inner world, your time, your energy, your right to think",
         detail: "Your privacy is oxygen; you give yourself carefully",
         types: [5], weight: 2,
-        learn: "Wound: the world is too demanding and I don't have enough inside to meet it.\n\nPassion: avarice — hoarding the self, withholding presence because there might not be enough to go around.\n\nFixation: brain keeps rationing — calculating what can be given and what needs to be kept back.\n\nArmor: the observer — understands everything deeply from a safe distance, only comes out when fully resourced.",
+        learn: "Wound: the world is too demanding and I don't have enough inside to meet it.\n\nPassion: avarice, hoarding the self, withholding presence because there might not be enough to go around.\n\nFixation: brain keeps rationing, calculating what can be given and what needs to be kept back.\n\nArmor: the observer, understands everything deeply from a safe distance, only comes out when fully resourced.",
       },
       {
-        text: "Your trusted circle — the people and systems that have your back",
+        text: "Your trusted circle, the people and systems that have your back",
         detail: "You protect the things that keep the ground stable",
         types: [6], weight: 2,
-        learn: "Wound: the world is not safe and I cannot trust my own perception of it.\n\nPassion: fear — constant background hum of threat assessment, what could go wrong, who can be trusted.\n\nFixation: brain keeps doubting itself, seeking confirmation, testing the ground before every step.\n\nArmor: either the loyal rule-follower who finds safety in systems, or the counterphobic rebel who attacks the threat first.",
+        learn: "Wound: the world is not safe and I cannot trust my own perception of it.\n\nPassion: fear, constant background hum of threat assessment, what could go wrong, who can be trusted.\n\nFixation: brain keeps doubting itself, seeking confirmation, testing the ground before every step.\n\nArmor: either the loyal rule-follower who finds safety in systems, or the counterphobic rebel who attacks the threat first.",
       },
       {
-        text: "Your options — your freedom, your ability to pivot anywhere",
+        text: "Your options, your freedom, your ability to pivot anywhere",
         detail: "Feeling trapped is the actual nightmare",
         types: [7], weight: 2,
-        learn: "Wound: what I need won't be there when I need it, so I have to generate it myself.\n\nPassion: gluttony — insatiable hunger for experience and possibility, stopping means feeling what's underneath.\n\nFixation: brain lives in the future, always planning the next scenario to avoid present pain.\n\nArmor: the enthusiast — reframes everything into a lesson or story, makes pain look like growth before they even feel it.",
+        learn: "Wound: what I need won't be there when I need it, so I have to generate it myself.\n\nPassion: gluttony, insatiable hunger for experience and possibility, stopping means feeling what's underneath.\n\nFixation: brain lives in the future, always planning the next scenario to avoid present pain.\n\nArmor: the enthusiast, reframes everything into a lesson or story, makes pain look like growth before they even feel it.",
       },
     ],
   },
@@ -348,22 +348,22 @@ const headQuestions: Question[] = [
     sub: "The nightmare scenario at the core.",
     options: [
       {
-        text: "Being helpless — without knowledge, skills, or inner resources to cope",
+        text: "Being helpless, without knowledge, skills, or inner resources to cope",
         detail: "Getting caught depleted, exposed, with nothing left inside",
         types: [5], weight: 3,
-        learn: "Wound: the world is too demanding and I don't have enough inside to meet it.\n\nPassion: avarice — hoarding the self, withholding presence because there might not be enough to go around.\n\nFixation: brain keeps rationing — calculating what can be given and what needs to be kept back.\n\nArmor: the observer — understands everything deeply from a safe distance, only comes out when fully resourced.",
+        learn: "Wound: the world is too demanding and I don't have enough inside to meet it.\n\nPassion: avarice, hoarding the self, withholding presence because there might not be enough to go around.\n\nFixation: brain keeps rationing, calculating what can be given and what needs to be kept back.\n\nArmor: the observer, understands everything deeply from a safe distance, only comes out when fully resourced.",
       },
       {
-        text: "Being alone — no one reliable, no backup, no one to turn to",
+        text: "Being alone, no one reliable, no backup, no one to turn to",
         detail: "Having to face a dangerous world by yourself, with no certainty",
         types: [6], weight: 3,
-        learn: "Wound: the world is not safe and I cannot trust my own perception of it.\n\nPassion: fear — constant background hum of threat assessment, what could go wrong, who can be trusted.\n\nFixation: brain keeps doubting itself, seeking confirmation, testing the ground before every step.\n\nArmor: either the loyal rule-follower who finds safety in systems, or the counterphobic rebel who attacks the threat first.",
+        learn: "Wound: the world is not safe and I cannot trust my own perception of it.\n\nPassion: fear, constant background hum of threat assessment, what could go wrong, who can be trusted.\n\nFixation: brain keeps doubting itself, seeking confirmation, testing the ground before every step.\n\nArmor: either the loyal rule-follower who finds safety in systems, or the counterphobic rebel who attacks the threat first.",
       },
       {
-        text: "Being stuck — trapped in pain with no escape and nothing to look forward to",
+        text: "Being stuck, trapped in pain with no escape and nothing to look forward to",
         detail: "The absence of possibility; the future going dark",
         types: [7], weight: 3,
-        learn: "Wound: what I need won't be there when I need it, so I have to generate it myself.\n\nPassion: gluttony — insatiable hunger for experience and possibility, stopping means feeling what's underneath.\n\nFixation: brain lives in the future, always planning the next scenario to avoid present pain.\n\nArmor: the enthusiast — reframes everything into a lesson or story, makes pain look like growth before they even feel it.",
+        learn: "Wound: what I need won't be there when I need it, so I have to generate it myself.\n\nPassion: gluttony, insatiable hunger for experience and possibility, stopping means feeling what's underneath.\n\nFixation: brain lives in the future, always planning the next scenario to avoid present pain.\n\nArmor: the enthusiast, reframes everything into a lesson or story, makes pain look like growth before they even feel it.",
       },
     ],
   },
@@ -582,7 +582,7 @@ const instinctQuestions: InstinctQ[] = [
   },
   {
     id: "i6",
-    optionA: { text: "I bring intensity and charge into my close relationships — everything feels personal.", instinct: "sx" },
+    optionA: { text: "I bring intensity and charge into my close relationships, everything feels personal.", instinct: "sx" },
     optionB: { text: "I naturally read group dynamics and position myself within social structures.", instinct: "so" },
   },
 ];
@@ -645,7 +645,7 @@ export default function QuickTypeAssessment({
 }: {
   onComplete: (result: { type: number; confidence: number; runnerUp: number; instinct?: string }) => void;
 }) {
-  // ── Lazy initializers — restore progress from localStorage on first mount ──
+  // ── Lazy initializers, restore progress from localStorage on first mount ──
   const [triadScores, setTriadScores] = useState<Record<string, number>>(() => {
     try {
       const s = JSON.parse(localStorage.getItem(QUIZ_SAVE_KEY) || "null");
@@ -725,7 +725,7 @@ export default function QuickTypeAssessment({
       localStorage.removeItem(QUIZ_SAVE_KEY);
     } catch {}
     // Skip to a neutral "Type 5" placeholder (user will self-identify from results)
-    // This just dismisses the quiz — the page's onComplete handler navigates away
+    // This just dismisses the quiz, the page's onComplete handler navigates away
     onComplete({ type: 0, confidence: 0, runnerUp: 0 });
   }
 
@@ -910,7 +910,7 @@ export default function QuickTypeAssessment({
 
         {/* Soft disclaimer */}
         <p className="text-[11px] text-center mt-5 leading-relaxed" style={{ color: "rgba(255,255,255,0.35)" }}>
-          Neither feels right? Pick the closest one — you'll keep exploring after.
+          Neither feels right? Pick the closest one, you'll keep exploring after.
         </p>
       </motion.div>
     );
@@ -920,7 +920,7 @@ export default function QuickTypeAssessment({
   if (phase === "instinct") {
     const iq = instinctQuestions[qIdx];
     if (!iq) {
-      // All instinct questions answered — compute and go to result
+      // All instinct questions answered, compute and go to result
       const stacking = computeInstinct(instinctScores);
       setPhase("result");
       // Store instinct alongside result for onComplete
@@ -974,7 +974,7 @@ export default function QuickTypeAssessment({
           </button>
         </div>
 
-        {/* Progress bar — matches type quiz style */}
+        {/* Progress bar, matches type quiz style */}
         <div className="mb-6">
           <div className="flex items-center justify-between mb-2">
             <span className="text-[10px] font-bold uppercase tracking-widest" style={{ color: "rgba(255,255,255,0.4)" }}>
@@ -994,7 +994,7 @@ export default function QuickTypeAssessment({
           </div>
         </div>
 
-        {/* Question prompt — matches type question heading style */}
+        {/* Question prompt, matches type question heading style */}
         <motion.div
           key={`q-${qIdx}`}
           initial={{ opacity: 0, y: 8 }}
@@ -1005,11 +1005,11 @@ export default function QuickTypeAssessment({
             Which feels more like you?
           </h2>
           <p className="text-xs mt-1.5" style={{ color: "rgba(255,255,255,0.4)" }}>
-            Trust your gut — there's no wrong answer.
+            Trust your gut, there's no wrong answer.
           </p>
         </motion.div>
 
-        {/* Visual icon row — adds visual interest */}
+        {/* Visual icon row, adds visual interest */}
         <div className="flex items-center justify-center gap-3 mb-6">
           {(["sp", "sx", "so"] as const).map((inst) => {
             const isInQuestion = iq.optionA.instinct === inst || iq.optionB.instinct === inst;
@@ -1039,7 +1039,7 @@ export default function QuickTypeAssessment({
           })}
         </div>
 
-        {/* Cards — match SwipeOption style */}
+        {/* Cards, match SwipeOption style */}
         <div className="space-y-3">
           {[iq.optionA, iq.optionB].map((opt, i) => {
             const colors = { sp: "#10b981", sx: "#ec4899", so: "#3b82f6" };
@@ -1131,7 +1131,7 @@ export default function QuickTypeAssessment({
             </div>
           )}
 
-          {/* Deep assessment upsell — soft, one-line */}
+          {/* Deep assessment upsell, soft, one-line */}
           <a
             href="/assessments/ieq9-integrative"
             className="block text-center text-[11px] font-medium mb-5 transition-colors"
@@ -1312,7 +1312,7 @@ export default function QuickTypeAssessment({
     ? `Finding your center (${qIdx + 1} of ${triageQuestions.length})`
     : `Narrowing your type (${qIdx + 1} of ${phaseQuestions.length})`;
 
-  // Back button: decrement question index (visual only — score stays for simplicity)
+  // Back button: decrement question index (visual only, score stays for simplicity)
   const canGoBack = qIdx > 0 || phase !== "triage";
   function handleBack() {
     setSelectedOption(null);

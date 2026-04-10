@@ -37,7 +37,7 @@ interface Props {
   sessionXP: number;
   completed?: boolean;
   // Engagement features
-  hearts?: number;          // real game-state hearts (0–5); falls back to session calc if omitted
+  hearts?: number;          // real game-state hearts (0,5); falls back to session calc if omitted
   maxHearts?: number;       // default 5
   heartsRefillTime?: string | null; // ISO timestamp when refill timer started
   xpBonusLabel?: string | null; // e.g. "2x BONUS!" shown as a flash
@@ -466,7 +466,7 @@ export default function QuizFullscreen({
               />
             </motion.div>
 
-            {/* Chibi — bouncy on good scores */}
+            {/* Chibi, bouncy on good scores */}
             <motion.div
               animate={
                 pct >= 80

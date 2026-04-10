@@ -3,7 +3,7 @@
 import { useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Download, Share2, Copy, RotateCw, Check, Sparkles } from "lucide-react";
-import ChibiScene from "@/components/ChibiScene";
+import ChibiSprite from "@/components/ChibiSprite";
 import { TYPE_WPFA } from "@/data/wound-passion-fixation-armor";
 import { enneagramTypes } from "@/data/enneagram";
 import { posthog, EVENTS } from "@/lib/posthog";
@@ -109,7 +109,7 @@ export default function TypeIdentityCard({
       setTimeout(() => setSavedMessage(null), 2200);
     } catch (e) {
       console.error("Failed to export card:", e);
-      setSavedMessage("Failed — try again");
+      setSavedMessage("Failed, try again");
       setTimeout(() => setSavedMessage(null), 2200);
     } finally {
       setSaving(false);
@@ -133,7 +133,7 @@ export default function TypeIdentityCard({
       const file = new File([blob], `thyself-type-${type}.png`, { type: "image/png" });
 
       const referralUrl = getReferralShareUrl();
-      const shareText = `I'm ${instinct ? instinct.toUpperCase() + " " : ""}Type ${type} — ${typeName}.`;
+      const shareText = `I'm ${instinct ? instinct.toUpperCase() + " " : ""}Type ${type}, ${typeName}.`;
 
       let shareMethod: "native_file" | "native_text" | "clipboard" = "clipboard";
       // Try Web Share API with file (modern mobile)
@@ -237,14 +237,13 @@ export default function TypeIdentityCard({
               </span>
             </div>
 
-            {/* Chibi — the hero */}
+            {/* Chibi, the hero */}
             <div className="absolute top-12 left-1/2 -translate-x-1/2 z-10">
-              <ChibiScene
+              <ChibiSprite
                 type={type}
                 instinct={instinct}
                 size={170}
                 state="happy"
-                variant="soft"
               />
             </div>
 
@@ -343,7 +342,7 @@ export default function TypeIdentityCard({
             </div>
           </div>
 
-          {/* ── BACK of card — W/P/F/A depth ── */}
+          {/* ── BACK of card, W/P/F/A depth ── */}
           <div
             className="absolute inset-0 rounded-3xl overflow-hidden p-6"
             style={{

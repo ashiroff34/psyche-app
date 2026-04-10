@@ -5,7 +5,7 @@
 // (Pennebaker et al.) and Empath categories (Stanford, Fast et al. 2016).
 //
 // Each category contains ~20-50 high-frequency, prototype words.
-// This is intentionally a coarse approximation — full LIWC has 6,400+
+// This is intentionally a coarse approximation, full LIWC has 6,400+
 // words across 66 categories. We cover the ~20 categories that have
 // published correlations with Big Five traits (per Yarkoni 2010).
 //

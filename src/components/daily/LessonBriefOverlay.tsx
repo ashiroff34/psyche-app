@@ -196,7 +196,7 @@ function getCards(moduleId: string, enneagramType?: number): BriefCard[] {
     },
     {
       icon: "compass" as const,
-      title: "Common Type–Function Pairings",
+      title: "Common Type,Function Pairings",
       body: "While no type perfectly predicts a cognitive type, patterns exist. Type 5 often shows Ti or Ni dominance. Type 3 often shows Te or Se. Type 4 often shows Fi or Ni.",
       highlight: "patterns exist",
       learnMore: {
@@ -444,7 +444,7 @@ function renderLearnContent(raw: string) {
               }
 
               // ── Function badge lines: "Ne, description" or "Fi, description" ──
-              const funcMatch = line.match(/^([A-Z][a-z]?) [—–] (.+)/);
+              const funcMatch = line.match(/^([A-Z][a-z]?) [,,] (.+)/);
               if (funcMatch) {
                 const fn = funcMatch[1];
                 const desc = funcMatch[2];

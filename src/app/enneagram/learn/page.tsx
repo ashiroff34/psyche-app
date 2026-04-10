@@ -701,7 +701,7 @@ function TypeDetail({ type }: { type: EnneagramType }) {
         <ExpandableSection title="Levels of Development" icon={TrendingUp}>
           <div className="space-y-4">
             <p className="text-xs leading-relaxed mb-2" style={{ color: "rgba(255,255,255,0.4)" }}>
-              Riso &amp; Hudson identified 9 levels for each type, from healthiest (Level 1) to most destructive (Level 9). Most people operate between Levels 3–7. These traits show how the type looks at each range.
+              Riso &amp; Hudson identified 9 levels for each type, from healthiest (Level 1) to most destructive (Level 9). Most people operate between Levels 3,7. These traits show how the type looks at each range.
             </p>
             <div>
               <div className="text-xs font-medium text-emerald-400 mb-2 flex items-center gap-1"><TrendingUp className="w-3 h-3" /> Healthy</div>

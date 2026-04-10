@@ -124,140 +124,123 @@ function EnterScreen() {
       className="fixed inset-0 flex flex-col items-center justify-center overflow-hidden"
       style={{ background: "#08031a" }}
     >
-      {/* ── Layer 1: Dot grid with radial fade ── */}
+      {/* Static radial glow (pure CSS, no animation, zero render cost after paint) */}
       <div
         aria-hidden
+        className="absolute inset-0 pointer-events-none"
         style={{
-          position: "absolute", inset: 0, pointerEvents: "none",
-          backgroundImage: "radial-gradient(circle, rgba(139,92,246,0.2) 1px, transparent 1px)",
-          backgroundSize: "34px 34px",
-          WebkitMaskImage: "radial-gradient(ellipse 85% 65% at 50% 38%, black 25%, transparent 80%)",
-          maskImage: "radial-gradient(ellipse 85% 65% at 50% 38%, black 25%, transparent 80%)",
+          background:
+            "radial-gradient(ellipse 60% 45% at 50% 40%, rgba(124,58,237,0.28) 0%, rgba(79,70,229,0.12) 35%, transparent 70%)",
         }}
       />
 
-      {/* ── Layer 2: Drifting aurora blobs (CSS-only) ── */}
-      <motion.div aria-hidden
-        animate={{ x: [0, 55, -20, 0], y: [0, -35, 15, 0] }}
-        transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
-        style={{
-          position: "absolute", top: "-18%", left: "18%",
-          width: 650, height: 650, borderRadius: "50%", filter: "blur(50px)", pointerEvents: "none",
-          background: "radial-gradient(circle, rgba(124,58,237,0.24) 0%, transparent 60%)",
-        }}
-      />
-      <motion.div aria-hidden
-        animate={{ x: [0, -45, 30, 0], y: [0, 40, -20, 0] }}
-        transition={{ duration: 26, repeat: Infinity, ease: "easeInOut" }}
-        style={{
-          position: "absolute", bottom: "-8%", right: "8%",
-          width: 500, height: 500, borderRadius: "50%", filter: "blur(45px)", pointerEvents: "none",
-          background: "radial-gradient(circle, rgba(79,70,229,0.2) 0%, transparent 60%)",
-        }}
-      />
-
-      {/* ── Layer 3: Concentric pulse rings ── */}
-      <div
-        aria-hidden
-        className="absolute pointer-events-none"
-        style={{ top: "50%", left: "50%", transform: "translate(-50%, calc(-50% - 80px))" }}
-      >
-        {[380, 270, 175].map((size, i) => (
-          <motion.div
-            key={size}
-            style={{
-              position: "absolute",
-              top: "50%", left: "50%",
-              width: size, height: size,
-              marginLeft: -size / 2, marginTop: -size / 2,
-              borderRadius: "50%",
-              border: `1px solid rgba(139,92,246,${0.04 + i * 0.035})`,
-            }}
-            animate={{ scale: [1, 1.04, 1], opacity: [0.45, 0.8, 0.45] }}
-            transition={{ duration: 4.5 + i * 1.4, repeat: Infinity, delay: i * 1.1, ease: "easeInOut" }}
-          />
-        ))}
-      </div>
-
-      {/* ── CENTER: Stationary purple icon + rotating snake overlay ── */}
+      {/* ONE slow-drifting aurora (down from 2) */}
       <motion.div
-        initial={{ opacity: 0, scale: 0.7 }}
+        aria-hidden
+        animate={{ x: [0, 30, 0], y: [0, -20, 0] }}
+        transition={{ duration: 28, repeat: Infinity, ease: "easeInOut" }}
+        style={{
+          position: "absolute",
+          top: "-10%",
+          left: "20%",
+          width: 560,
+          height: 560,
+          borderRadius: "50%",
+          filter: "blur(60px)",
+          pointerEvents: "none",
+          background: "radial-gradient(circle, rgba(124,58,237,0.22) 0%, transparent 65%)",
+          willChange: "transform",
+        }}
+      />
+
+      {/* CENTER: Purple icon (static, no pulsing glow) */}
+      <motion.div
+        initial={{ opacity: 0, scale: 0.85 }}
         animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 1.1, ease: [0.22, 1, 0.36, 1] }}
+        transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
         className="relative flex-shrink-0"
-        style={{ width: 210, height: 210, marginBottom: 28, zIndex: 10 }}
+        style={{ width: 180, height: 180, marginBottom: 24, zIndex: 10, willChange: "transform" }}
       >
-        {/* Deep glow */}
-        <motion.div
-          animate={{ opacity: [0.4, 0.75, 0.4], scale: [1, 1.08, 1] }}
-          transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+        {/* Stationary purple background square */}
+        <div
           style={{
-            position: "absolute", inset: -36, borderRadius: "50%", pointerEvents: "none",
-            background: "radial-gradient(circle, rgba(124,58,237,0.42) 0%, transparent 65%)",
+            position: "absolute",
+            inset: 0,
+            borderRadius: "22%",
+            background: "linear-gradient(135deg, #5b21b6 0%, #7c3aed 50%, #4f46e5 100%)",
+            boxShadow: "0 0 60px rgba(124,58,237,0.45)",
           }}
         />
 
-        {/* Stationary purple background square */}
-        <div style={{
-          position: "absolute", inset: 0, borderRadius: "22%",
-          background: "linear-gradient(135deg, #5b21b6 0%, #7c3aed 50%, #4f46e5 100%)",
-          boxShadow: "0 0 80px rgba(124,58,237,0.55), 0 0 32px rgba(167,139,250,0.3)",
-        }} />
-
-        {/* Counter-clockwise rotating snake only (transparent background) */}
+        {/* Rotating snake (kept, signature animation) */}
         <motion.img
           src="/thyself-snake-only.svg"
           alt="Ouroboros"
           animate={{ rotate: -360 }}
-          transition={{ duration: 46, repeat: Infinity, ease: "linear" }}
+          transition={{ duration: 60, repeat: Infinity, ease: "linear" }}
           style={{
-            position: "absolute", inset: 0,
-            width: "100%", height: "100%", display: "block",
+            position: "absolute",
+            inset: 0,
+            width: "100%",
+            height: "100%",
+            display: "block",
+            willChange: "transform",
           }}
         />
       </motion.div>
 
-      {/* ── Headline ── */}
+      {/* Headline (entrance only, no filter blur for perf) */}
       <motion.h1
-        initial={{ opacity: 0, y: 20, filter: "blur(6px)" }}
-        animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-        transition={{ duration: 0.75, delay: 0.25, ease: [0.22, 1, 0.36, 1] }}
-        className="relative font-serif font-bold text-center tracking-tight mb-4"
-        style={{ fontSize: "clamp(38px, 11vw, 62px)", lineHeight: 1.05, color: "rgba(255,255,255,0.96)", zIndex: 10 }}
-      >
-        Know{" "}
-        <span className="shimmer-text">thyself.</span>
-      </motion.h1>
-
-      {/* ── Thesis line ── the philosophical heart ── */}
-      <motion.p
         initial={{ opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.7, delay: 0.4 }}
+        transition={{ duration: 0.6, delay: 0.15 }}
+        className="relative font-serif font-bold text-center tracking-tight mb-4"
+        style={{
+          fontSize: "clamp(38px, 11vw, 62px)",
+          lineHeight: 1.05,
+          color: "rgba(255,255,255,0.96)",
+          zIndex: 10,
+        }}
+      >
+        Know <span className="shimmer-text">thyself.</span>
+      </motion.h1>
+
+      {/* Thesis line */}
+      <motion.p
+        initial={{ opacity: 0, y: 8 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, delay: 0.3 }}
         className="relative text-center leading-snug mb-4 font-serif italic"
-        style={{ color: "rgba(255,255,255,0.75)", fontSize: "clamp(15px, 4vw, 19px)", maxWidth: "380px", zIndex: 10 }}
+        style={{
+          color: "rgba(255,255,255,0.75)",
+          fontSize: "clamp(15px, 4vw, 19px)",
+          maxWidth: "380px",
+          zIndex: 10,
+        }}
       >
         You are not your type.
         <br />
         The type is the armor that formed around something.
       </motion.p>
 
-      {/* ── Sub-line ── the promise ── */}
+      {/* Sub-line */}
       <motion.p
-        initial={{ opacity: 0, y: 8 }}
+        initial={{ opacity: 0, y: 6 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.7, delay: 0.5 }}
+        transition={{ duration: 0.6, delay: 0.4 }}
         className="relative text-center leading-relaxed mb-6"
-        style={{ color: "rgba(255,255,255,0.45)", fontSize: "clamp(12px, 3.2vw, 14px)", maxWidth: "340px", zIndex: 10 }}
+        style={{
+          color: "rgba(255,255,255,0.45)",
+          fontSize: "clamp(12px, 3.2vw, 14px)",
+          maxWidth: "340px",
+          zIndex: 10,
+        }}
       >
-        This is a quiet space to notice the armor — and over time, choose when to wear it.
+        A quiet space to notice the armor, and over time, choose when to wear it.
       </motion.p>
 
-      {/* ── Proof pills ── */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.6, delay: 0.52 }}
+      {/* Proof pills (no motion) */}
+      <div
         className="relative flex items-center gap-2 flex-wrap justify-center mb-7"
         style={{ zIndex: 10 }}
       >
@@ -274,21 +257,21 @@ function EnterScreen() {
             {pill}
           </span>
         ))}
-      </motion.div>
+      </div>
 
-      {/* ── CTAs ── */}
+      {/* CTAs */}
       <motion.div
-        initial={{ opacity: 0, y: 18 }}
+        initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.65, delay: 0.64 }}
-        className="relative flex flex-col items-center gap-4 w-full px-6"
-        style={{ maxWidth: "340px", zIndex: 10 }}
+        transition={{ duration: 0.6, delay: 0.5 }}
+        className="relative flex flex-col items-center gap-3 w-full px-6"
+        style={{ maxWidth: "360px", zIndex: 10 }}
       >
-        {/* Resume button. shown only when the user has in-progress onboarding */}
+        {/* Resume button (only when there's in-progress onboarding) */}
         {resumeStep !== null && (
           <Link
             href="/onboarding"
-            className="w-full py-4 rounded-2xl font-bold text-base transition-all hover:-translate-y-0.5 active:scale-[0.98] flex items-center justify-center gap-2 animate-pulse"
+            className="w-full py-4 rounded-2xl font-bold text-base transition-all active:scale-[0.98] flex items-center justify-center gap-2 animate-pulse"
             style={{
               background: "linear-gradient(135deg, rgba(245,158,11,0.2), rgba(217,119,6,0.2))",
               border: "1px solid rgba(245,158,11,0.4)",
@@ -299,26 +282,33 @@ function EnterScreen() {
           </Link>
         )}
 
+        {/* Primary CTA */}
         <Link
           href="/onboarding?fromEnter=true"
           prefetch
-          className="w-full py-4 rounded-2xl font-bold text-white text-base transition-all hover:-translate-y-0.5 active:scale-[0.98] flex items-center justify-center gap-2"
+          className="w-full py-4 rounded-2xl font-bold text-white text-base transition-all active:scale-[0.98] flex items-center justify-center gap-2"
           style={{
             background: "linear-gradient(135deg, #7c3aed, #4f46e5)",
-            boxShadow: "0 8px 40px rgba(124,58,237,0.65)",
+            boxShadow: "0 8px 32px rgba(124,58,237,0.5)",
           }}
         >
           Discover my type
           <ArrowRight className="w-4 h-4" />
         </Link>
 
+        {/* Secondary CTA (made prominent as a real button) */}
         <Link
           href="/onboarding?manual=true"
           prefetch
-          className="text-sm transition-opacity hover:opacity-60"
-          style={{ color: "rgba(167,139,250,0.38)" }}
+          className="w-full py-3.5 rounded-2xl font-semibold text-sm transition-all active:scale-[0.98] flex items-center justify-center gap-2"
+          style={{
+            background: "rgba(255,255,255,0.06)",
+            border: "1px solid rgba(167,139,250,0.35)",
+            color: "rgba(255,255,255,0.85)",
+          }}
         >
-          I already know my type →
+          I already know my type
+          <ArrowRight className="w-3.5 h-3.5" />
         </Link>
       </motion.div>
     </div>

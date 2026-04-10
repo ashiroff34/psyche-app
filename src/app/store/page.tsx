@@ -215,7 +215,7 @@ function GrowthPathSection({ tokenBalance }: { tokenBalance: number | null }) {
               <Check className="w-3.5 h-3.5" style={{ color: "#34d399" }} />
             </div>
             <div>
-              <p className="text-xs font-semibold uppercase tracking-wider mb-0.5" style={{ color: "rgba(255,255,255,0.35)" }}>Week 1–3 · Foundation</p>
+              <p className="text-xs font-semibold uppercase tracking-wider mb-0.5" style={{ color: "rgba(255,255,255,0.35)" }}>Week 1,3 · Foundation</p>
               <p className="text-sm font-medium" style={{ color: "rgba(255,255,255,0.82)" }}>{week13Desc}</p>
             </div>
           </div>
@@ -226,7 +226,7 @@ function GrowthPathSection({ tokenBalance }: { tokenBalance: number | null }) {
               <Check className="w-3.5 h-3.5" style={{ color: "#34d399" }} />
             </div>
             <div>
-              <p className="text-xs font-semibold uppercase tracking-wider mb-0.5" style={{ color: "rgba(255,255,255,0.35)" }}>Week 4–6 · Integration</p>
+              <p className="text-xs font-semibold uppercase tracking-wider mb-0.5" style={{ color: "rgba(255,255,255,0.35)" }}>Week 4,6 · Integration</p>
               <p className="text-sm font-medium" style={{ color: "rgba(255,255,255,0.82)" }}>{week46Desc}</p>
             </div>
           </div>
@@ -238,7 +238,7 @@ function GrowthPathSection({ tokenBalance }: { tokenBalance: number | null }) {
               <Lock className="w-3.5 h-3.5" style={{ color: "#a78bfa" }} />
             </div>
             <div className="relative">
-              <p className="text-xs font-semibold uppercase tracking-wider mb-0.5" style={{ color: "rgba(255,255,255,0.35)" }}>Week 7–12 · Shadow Work</p>
+              <p className="text-xs font-semibold uppercase tracking-wider mb-0.5" style={{ color: "rgba(255,255,255,0.35)" }}>Week 7,12 · Shadow Work</p>
               <p className="text-sm font-medium" style={{ color: "rgba(255,255,255,0.5)" }}>Disintegration awareness &amp; pattern interruption</p>
             </div>
           </div>
@@ -313,7 +313,7 @@ async function startCheckout(packId: string, setPurchaseToast: (m: string | null
     if (data.url) {
       window.location.href = data.url;
     } else {
-      // Stripe not configured yet (no price IDs) — show friendly notice
+      // Stripe not configured yet (no price IDs), show friendly notice
       setPurchaseToast(data.error?.includes("not configured")
         ? "Payment coming soon! Check back shortly."
         : (data.error ?? "Something went wrong. Please try again."));

@@ -1094,7 +1094,7 @@ function ResultsInner() {
                             style={{ overflow: "hidden" }}
                           >
                             <p className="mt-3 text-xs leading-relaxed" style={{ color: "rgba(255,255,255,0.5)" }}>
-                              Original Ichazo term: {naranjo.passion.split("–")[0].split("-")[0].trim()}. In integration (growth), this passion transforms into the type's virtue through self-awareness. The passion is not a flaw but an excess of a quality. it becomes the gift when balanced.
+                              Original Ichazo term: {naranjo.passion.split(",")[0].split("-")[0].trim()}. In integration (growth), this passion transforms into the type's virtue through self-awareness. The passion is not a flaw but an excess of a quality. it becomes the gift when balanced.
                             </p>
                           </motion.div>
                         )}

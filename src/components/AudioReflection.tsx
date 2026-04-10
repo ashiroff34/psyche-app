@@ -11,7 +11,7 @@ interface Props {
   onClose?: () => void;
 }
 
-// Web Speech API wrapper — reads text aloud using browser's built-in TTS.
+// Web Speech API wrapper, reads text aloud using browser's built-in TTS.
 // Falls back gracefully if speech synthesis isn't supported.
 
 export default function AudioReflection({ type, onClose }: Props) {

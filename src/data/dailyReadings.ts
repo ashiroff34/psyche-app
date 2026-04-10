@@ -1,9 +1,9 @@
 // ─── Daily Readings ───────────────────────────────────────────────────────────
 //
-// Rotating reading pool. Each reading is ~2–3 min at normal pace.
+// Rotating reading pool. Each reading is ~2,3 min at normal pace.
 // Organized into stages:
-//   stage 1 (days 1–7):  Your own type deep-dives
-//   stage 2 (days 8–14): Wings and instinct variants
+//   stage 1 (days 1,7):  Your own type deep-dives
+//   stage 2 (days 8,14): Wings and instinct variants
 //   stage 3 (days 15+):  Cross-type, cognitive stack, growth
 //
 // Each entry has a `typeFilter` array: which Enneagram types it's shown to.

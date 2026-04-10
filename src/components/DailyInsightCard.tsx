@@ -43,7 +43,7 @@ export default function DailyInsightCard({
   }, [tokensAwarded, shareKey]);
 
   const handleShare = useCallback(async () => {
-    const shareText = `"${insight.text}"\n\n— thyself.app`;
+    const shareText = `"${insight.text}"\n\n, thyself.app`;
     try {
       await navigator.clipboard.writeText(shareText);
       setCopyState("copied");

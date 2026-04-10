@@ -18,7 +18,7 @@ const TYPE_COLORS: Record<number, string> = {
   5: "#2980B9", 6: "#27AE60", 7: "#1ABC9C", 8: "#E67E22", 9: "#95A5A6",
 };
 
-const EXAMPLE_TEXT = `I don't know why I did it that way. Thinking back, there was probably a better path — but in the moment I just moved. I've always trusted my gut more than my head, which has cost me a few times but also saved me more than I can count.
+const EXAMPLE_TEXT = `I don't know why I did it that way. Thinking back, there was probably a better path, but in the moment I just moved. I've always trusted my gut more than my head, which has cost me a few times but also saved me more than I can count.
 
 What's weird is I can explain the reasoning after the fact. Like the explanation shows up once it's safe to think about it. My friends say I'm "decisive" but from the inside it feels less like a choice and more like an alignment. I feel the right thing and move toward it.
 
@@ -89,7 +89,7 @@ export default function MirrorPage() {
             What your own words say about you
           </h1>
           <p className="text-sm max-w-lg mx-auto leading-relaxed" style={{ color: "rgba(255,255,255,0.55)" }}>
-            Paste something you&apos;ve written — a journal entry, an email, an old message. Your language contains patterns that quizzes can&apos;t catch. This tool reads those patterns and offers an <em>independent</em> second opinion on your type.
+            Paste something you&apos;ve written, a journal entry, an email, an old message. Your language contains patterns that quizzes can&apos;t catch. This tool reads those patterns and offers an <em>independent</em> second opinion on your type.
           </p>
         </div>
 
@@ -106,7 +106,7 @@ export default function MirrorPage() {
           </div>
           <div className="flex-1 text-xs leading-relaxed" style={{ color: "rgba(255,255,255,0.7)" }}>
             <p className="font-bold mb-0.5" style={{ color: "#6ee7b7" }}>Your text never leaves your browser.</p>
-            <p>Everything runs on your device — no servers, no uploads, no API calls. Close this tab and the text is gone. We don&apos;t see it. No one does.</p>
+            <p>Everything runs on your device, no servers, no uploads, no API calls. Close this tab and the text is gone. We don&apos;t see it. No one does.</p>
           </div>
         </div>
 
@@ -313,7 +313,7 @@ export default function MirrorPage() {
                               Closest match
                             </p>
                             <p className="text-sm font-serif font-bold" style={{ color: "rgba(255,255,255,0.9)" }}>
-                              Type {topType} — {topTypeData?.name}
+                              Type {topType}, {topTypeData?.name}
                             </p>
                           </div>
                           <div className="text-right">
@@ -347,7 +347,7 @@ export default function MirrorPage() {
                             runner-up
                           </p>
                           <p className="text-xs" style={{ color: "rgba(255,255,255,0.65)" }}>
-                            Type {runnerUp} — {runnerUpData?.name}
+                            Type {runnerUp}, {runnerUpData?.name}
                           </p>
                         </div>
                         <span className="text-xs font-bold" style={{ color: "rgba(255,255,255,0.45)" }}>
@@ -438,13 +438,13 @@ export default function MirrorPage() {
               <ChevronDown className="w-3.5 h-3.5 transition-transform" style={{ transform: showHowItWorks ? "rotate(180deg)" : "none" }} />
             </summary>
             <div className="px-4 pb-4 text-xs leading-relaxed space-y-2" style={{ color: "rgba(255,255,255,0.65)" }}>
-              <p>• This is a <strong>lightweight approximation</strong> of a model type personality researchers use — not the real thing. It runs on ~30 word categories. Real LIWC uses 6,400+.</p>
-              <p>• Expected accuracy is around <strong>40–55%</strong>. Even state-of-the-art deep-learning models on the same task top out around 60–70%.</p>
+              <p>• This is a <strong>lightweight approximation</strong> of a model type personality researchers use, not the real thing. It runs on ~30 word categories. Real LIWC uses 6,400+.</p>
+              <p>• Expected accuracy is around <strong>40,55%</strong>. Even state-of-the-art deep-learning models on the same task top out around 60,70%.</p>
               <p>• <strong>Short texts are noise.</strong> Under 250 words = unreliable. Under 100 = meaningless.</p>
               <p>• <strong>Language bias</strong>: the published correlations are from English blog text by college-aged Americans. If you write in another style, the model will miss.</p>
               <p>• <strong>State-dependent:</strong> if you wrote the text on a particularly bad day, the model will read your mood, not your personality.</p>
               <p className="font-semibold pt-1" style={{ color: "rgba(255,255,255,0.8)" }}>
-                Treat this as a second opinion — not a verdict. Read the type descriptions and trust your own recognition more than any algorithm.
+                Treat this as a second opinion, not a verdict. Read the type descriptions and trust your own recognition more than any algorithm.
               </p>
             </div>
           </details>
@@ -484,7 +484,7 @@ export default function MirrorPage() {
             <summary className="px-4 py-3 cursor-pointer flex items-center justify-between text-xs font-semibold" style={{ color: "#6ee7b7" }}>
               <span className="flex items-center gap-2">
                 <Shield className="w-3.5 h-3.5" />
-                Privacy — where your text goes
+                Privacy, where your text goes
               </span>
               <ChevronDown className="w-3.5 h-3.5" style={{ transform: showResearch ? "rotate(180deg)" : "none" }} />
             </summary>
@@ -493,7 +493,7 @@ export default function MirrorPage() {
                 <strong>Nothing is uploaded.</strong> Your text is tokenized and scored by JavaScript running in your browser. There are no network requests, no telemetry, no analytics on what you paste.
               </p>
               <p>
-                When you close this tab or navigate away, the text is gone from memory. Nothing is stored in localStorage either — the only thing saved is the Big Five / Enneagram score result, if you choose to save it.
+                When you close this tab or navigate away, the text is gone from memory. Nothing is stored in localStorage either, the only thing saved is the Big Five / Enneagram score result, if you choose to save it.
               </p>
               <p>
                 This is the opposite of Cambridge Analytica. Your data stays yours. The only beneficiary of this analysis is you.

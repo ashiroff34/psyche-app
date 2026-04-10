@@ -9,7 +9,6 @@ import OuroborosLogo from "@/components/OuroborosLogo";
 import QuickTypeAssessment from "@/components/assessments/QuickTypeAssessment";
 import { enneagramTypes } from "@/data/enneagram";
 import ChibiSprite from "@/components/ChibiSprite";
-import ChibiScene from "@/components/ChibiScene";
 import { TYPE_WPFA } from "@/data/wound-passion-fixation-armor";
 import { resolveTypeAwareCopy } from "@/hooks/useTypeAwareCopy";
 import { posthog, EVENTS, setUserProperty } from "@/lib/posthog";
@@ -124,7 +123,7 @@ function StepWelcome({ onNext }: { onNext: () => void }) {
       <p className="text-base leading-relaxed mb-3" style={{ color: "rgba(255,255,255,0.55)" }}>
         The Enneagram is an archetypal system mapping{" "}
         <span style={{ color: "rgba(255,255,255,0.82)", fontWeight: 500 }}>9 personality types</span>
-        {" "}— each defined by a core desire, a core fear, and a pattern of attention that shapes everything you do.
+        {" "}, each defined by a core desire, a core fear, and a pattern of attention that shapes everything you do.
       </p>
       <p className="text-sm mb-8" style={{ color: "rgba(255,255,255,0.32)" }}>
         8 questions · ~3 minutes · Instant result
@@ -225,8 +224,8 @@ function TypeRevealScreen({
   const typeColor = typeData?.color ?? "#a78bfa";
   const typeName = typeData?.name ?? `Type ${result.type}`;
   const revealSentence = TYPE_REVEAL_SENTENCES[result.type] ?? "";
-  // Always frame as "starting point" — encourages further self-exploration over false confidence
-  const confidenceLabel = "Starting point — keep exploring";
+  // Always frame as "starting point", encourages further self-exploration over false confidence
+  const confidenceLabel = "Starting point, keep exploring";
   const confidenceColor = "#f59e0b";
 
   // Mastery progress (endowed. always show a small positive number)
@@ -298,13 +297,12 @@ function TypeRevealScreen({
               transform: "scale(0.85) translateY(10%)",
             }}
           />
-          <ChibiScene
+          <ChibiSprite
             type={result.type}
             instinct={result.instinct?.split("/")[0]}
-            size={220}
+            size={200}
             state="happy"
-            variant="soft"
-            className="relative z-10"
+            className="relative z-10 drop-shadow-2xl"
           />
         </motion.div>
 
@@ -376,7 +374,7 @@ function TypeRevealScreen({
               Confidence
             </span>
             <span className="text-[10px] font-bold" style={{ color: confidenceColor }}>
-              Low — starting point
+              Low, starting point
             </span>
           </div>
           <div className="h-1.5 rounded-full overflow-hidden" style={{ background: "rgba(255,255,255,0.08)" }}>
@@ -423,10 +421,10 @@ function TypeRevealScreen({
                 className="overflow-hidden"
               >
                 <div className="px-4 pb-4 text-[11px] leading-relaxed space-y-2" style={{ color: "rgba(255,255,255,0.5)" }}>
-                  <p>• Self-report tests measure who you <em>think</em> you are — not necessarily who you are.</p>
+                  <p>• Self-report tests measure who you <em>think</em> you are, not necessarily who you are.</p>
                   <p>• Stress, mood, and how you were feeling during the quiz can shift your answers.</p>
                   <p>• Look-alike types (2 vs 7, 6 vs 7, 4 vs 5) fool almost everyone on a short test.</p>
-                  <p>• Read the description above carefully — does it <em>actually</em> feel like you, or just close?</p>
+                  <p>• Read the description above carefully, does it <em>actually</em> feel like you, or just close?</p>
                   <p className="pt-1" style={{ color: "rgba(255,255,255,0.65)" }}>
                     The Enneagram is a lifelong self-observation practice. One quiz points a direction. Self-knowledge fills it in.
                   </p>
@@ -453,7 +451,7 @@ function TypeRevealScreen({
           </div>
         </motion.div>
 
-        {/* ── Clarify with own words — links to Mirror ── */}
+        {/* ── Clarify with own words, links to Mirror ── */}
         <motion.a
           href="/mirror"
           initial={{ opacity: 0, y: 6 }}
@@ -479,7 +477,7 @@ function TypeRevealScreen({
               Clarify your type with your own words
             </p>
             <p className="text-[10px] mt-0.5" style={{ color: "rgba(255,255,255,0.5)" }}>
-              Paste something you&apos;ve written — get an independent second opinion
+              Paste something you&apos;ve written, get an independent second opinion
             </p>
           </div>
           <ArrowRight className="w-4 h-4 shrink-0" style={{ color: "rgba(255,255,255,0.4)" }} />
@@ -500,7 +498,7 @@ function TypeRevealScreen({
           This is me →
         </motion.button>
 
-        {/* Runner-up button — prominent, not buried */}
+        {/* Runner-up button, prominent, not buried */}
         {result.runnerUp !== result.type && (
           <motion.button
             initial={{ opacity: 0, y: 6 }}
@@ -723,7 +721,7 @@ function StepEmailGate({
   const [touched, setTouched] = useState(false);
 
   const typeData = enneagramTypes.find((t) => t.number === result.type);
-  // Always frame as a starting point — no "high confidence" claims
+  // Always frame as a starting point, no "high confidence" claims
   const confidenceColor = "#f59e0b";
   const confidenceLabel = "Starting point";
 
@@ -997,7 +995,7 @@ function OnboardingPageInner() {
   const fromEnter = searchParams.get("fromEnter") === "true";
   const isManual = searchParams.get("manual") === "true";
 
-  // Terms gate removed — not legally needed while localStorage-only
+  // Terms gate removed, not legally needed while localStorage-only
   const [acceptedTerms, setAcceptedTerms] = useState(true);
   // 0=welcome, 1=name, 2=preview, 3=assessment, 4=type reveal, 5=subtype, 6=email gate, 7=all set, 8=manual picker
   const [step, setStep] = useState(0);

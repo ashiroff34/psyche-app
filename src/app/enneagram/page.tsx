@@ -45,7 +45,7 @@ function BeginnerIntro() {
           >
             <div className="px-5 pb-5 space-y-4 text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.6)" }}>
               <p>The Enneagram describes <strong style={{ color: "rgba(255,255,255,0.85)" }}>9 core personality types</strong>, each defined by a central motivation, fear, and pattern of attention. Unlike simpler systems, it focuses on the <em>why</em> behind what you do, not just surface traits.</p>
-              <p>Each type has a number (1–9), a name, and rich psychological layers: wings, integration lines, instinctual subtypes, and developmental levels.</p>
+              <p>Each type has a number (1,9), a name, and rich psychological layers: wings, integration lines, instinctual subtypes, and developmental levels.</p>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
                 {[
                   { title: "Core Motivations", text: "Each type is driven by a fundamental desire that shapes all behavior and decisions." },

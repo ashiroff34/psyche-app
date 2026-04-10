@@ -6,7 +6,7 @@ import { ChevronDown, Lightbulb, Footprints } from "lucide-react";
 import { getTodayTheoryPracticePair } from "@/data/theory-practice-pairs";
 
 // Theory + Practice Card
-// The midday pause — one philosophical concept + one thing to try.
+// The midday pause, one philosophical concept + one thing to try.
 // Collapsed by default (drop-down) so it never overwhelms.
 
 export default function TheoryPracticeCard() {

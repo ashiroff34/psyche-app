@@ -738,7 +738,7 @@ export default function SettingsPage() {
             checked={notifPrefs.weeklySummary}
             onChange={(val) => updateNotifPrefs({ weeklySummary: val })}
             label="Weekly reflection email"
-            description="A Sunday digest of what you noticed this week — sent to your email."
+            description="A Sunday digest of what you noticed this week, sent to your email."
           />
           {notifPrefs.weeklySummary && !email && !profile.email && (
             <div className="pl-4 pt-1">

@@ -13,12 +13,12 @@ export interface KeirseyTemperament {
   color: string;
   bg: string;
   border: string;
-  description: string; // 150–200 words grounded in Keirsey's Please Understand Me
+  description: string; // 150,200 words grounded in Keirsey's Please Understand Me
   coreNeed: string;
   coreValue: string;
   coreFeeling: string; // what they most want to feel about themselves
   types: string[]; // MBTI types in this temperament
-  enneagramCorrelations: string; // 2–3 sentences on Enneagram overlap
+  enneagramCorrelations: string; // 2,3 sentences on Enneagram overlap
 }
 
 export const keirseyTemperaments: KeirseyTemperament[] = [
