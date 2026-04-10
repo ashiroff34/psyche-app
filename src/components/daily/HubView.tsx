@@ -198,7 +198,11 @@ export default function HubView({
   onStreakShop,
 }: Props) {
   const subtypeCopy = useSubtypeAwareCopy();
-  const subtypeGreeting = enneagramType > 0 ? subtypeCopy("hub.subtype.greeting") : "";
+  // Alternate between regular greeting and philosophical provocation (even/odd days)
+  const isPhilosophyDay = new Date().getDate() % 2 === 0;
+  const subtypeGreeting = enneagramType > 0
+    ? (isPhilosophyDay ? subtypeCopy("daily.philosophical.provocation") : subtypeCopy("hub.subtype.greeting"))
+    : "";
   const subtypeGrowthFocus = enneagramType > 0 ? subtypeCopy("growth.focus") : "";
   const { regFocus } = usePsychometrics();
   const focusedStartLabel = pickByFocus(regFocus?.dominant, {

@@ -186,25 +186,27 @@ export default function ComebackModal() {
   const subtextEl =
     segment === "gentle" ? (
       <p className="text-sm" style={{ color: "rgba(255,255,255,0.5)" }}>
-        You were away for {daysSince === 1 ? "1 day" : `${daysSince} days`}. let&apos;s pick up where you left off.
+        {daysSince === 1
+          ? "One day away. The practice does not require perfection. It requires return."
+          : `${daysSince} days. You left and came back. That is not failure. It is the oldest rhythm there is.`}
       </p>
     ) : segment === "freshStart" ? (
       <p className="text-sm" style={{ color: "rgba(255,255,255,0.5)" }}>
-        It&apos;s been {daysSince} days. That&apos;s a long break, and that&apos;s okay. Research shows returning after a long absence is a temporal landmark, a fresh start window. You can begin again, clean. No streak pressure.
+        {daysSince} days. That is a real absence, and it is okay. The pattern didn&apos;t change while you were gone. It never does. What changes is your awareness of it, and awareness can restart in a single moment. This is that moment.
       </p>
     ) : segment === "empathetic" ? (
       <p className="text-sm" style={{ color: "rgba(255,255,255,0.5)" }}>
-        {daysSince} days. Life takes over sometimes. Nothing you built here went away. Your type is still yours, and what you learned is still there. Come back at your pace.
+        {daysSince} days. Life pulls you away. That is not a failure of discipline. It is the condition of being human. Nothing you built here disappeared. Your type is still yours, the observer is still watching, and the practice does not require consistency. It requires honesty.
       </p>
     ) : isLongAway ? (
       <p className="text-sm" style={{ color: "rgba(255,255,255,0.5)" }}>
-        You&apos;ve been away {daysSince} days.{data.userType ? ` ${data.userType}s` : " People"} who return after a break often have the deepest breakthroughs.
+        You&apos;ve been away {daysSince} days. The people who return after a real break often see more clearly than the people who never left. Distance creates perspective. You are not behind. You are here.
       </p>
     ) : (
       <p className="text-sm" style={{ color: "rgba(255,255,255,0.5)" }}>
         {daysSince === 1
-          ? "You were away for 1 day. come back strong."
-          : `You were away for ${daysSince} days. Your chibi is still here waiting.`}
+          ? "One day. Your chibi kept your place. The practice is still here."
+          : `${daysSince} days away. The pattern waited. So did your chibi. No judgment, just glad you're back.`}
       </p>
     );
 

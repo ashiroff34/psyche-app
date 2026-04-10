@@ -89,6 +89,93 @@ export const THEORY_PRACTICE_PAIRS: TheoryPracticePair[] = [
     practice: "Today, don't try to change anything about yourself. Just notice, whatever you notice. That's the whole practice. Trust that the noticing is the work.",
     practiceDuration: "today",
   },
+
+  // ─── Philosophical expansion (concepts only, no tradition labels) ────────
+
+  {
+    id: "defense-was-wound",
+    concept: "Your defense was the wound all along",
+    theory: "The personality structure you built to protect yourself from pain is also the thing that creates the most pain. The 1's perfectionism both protects and punishes. The 8's armor both shields and isolates. This is not a design flaw. It is how defense structures work: they were built in a context where they made sense, and they kept running after the context changed. Seeing this clearly is not an attack on the defense. It is a thank-you note with a gentle question: do we still need this at full strength?",
+    practice: "Name one defense you relied on this week. Thank it for what it did. Then ask: what would I lose if I loosened this by 10%?",
+    practiceDuration: "this week",
+  },
+  {
+    id: "meaning-maker",
+    concept: "You are the meaning-maker",
+    theory: "Events do not come pre-labeled as meaningful or meaningless. You assign meaning through attention, interpretation, and story. A Tuesday afternoon can be empty or profound depending entirely on how present you are to it. This is not nihilism. It is the opposite: if meaning is made, you are the maker. If the story shapes the life, you are the author. Your type gives you a default genre. You can choose a different one.",
+    practice: "Pick one ordinary moment today, a meal, a walk, a conversation, and deliberately assign it meaning. Not fake meaning. Real attention. See what shifts.",
+    practiceDuration: "once today",
+  },
+  {
+    id: "pain-vs-suffering",
+    concept: "The signal and the story",
+    theory: "Pain is a signal: something happened that matters. Suffering is the narrative you wrap around it. Pain says: this hurts. Suffering says: this should not be happening, I cannot handle this, this means something about who I am. Pain lasts minutes. The story can last years. People across many cultures and centuries have noticed: the story is optional in a way the pain is not. This does not mean suppressing. It means noticing where the signal ends and the narration begins.",
+    practice: "Next time you feel something painful, try to separate the raw sensation from the story. Name the sensation ('tightness in my chest'). Then notice the story ('this always happens to me'). See if you can stay with just the sensation for 30 seconds.",
+    practiceDuration: "this week",
+  },
+  {
+    id: "holding-paradox",
+    concept: "Two contradictory things can both be true",
+    theory: "You are a specific type AND you are more than any label. Your defenses hurt AND they once saved you. You want to change AND you are already enough. Young thinking wants one answer. Mature thinking holds the tension between two answers and does not rush to collapse it. This is not wishy-washy. It takes more precision to hold a paradox than to pick a side. Every Enneagram type has a central paradox. Learning to hold it without resolving it is the practice.",
+    practice: "Name one paradox in your own life, two things that are both true and seem to contradict each other. Sit with both for 5 minutes without trying to resolve it. Just hold them.",
+    practiceDuration: "once today",
+  },
+  {
+    id: "the-narrator-agenda",
+    concept: "Your inner narrator has an agenda",
+    theory: "There is a voice in your head that comments on everything you do. It evaluates, compares, warns, judges. This voice feels like 'you' but it is a specific part of your personality structure doing a specific job: trying to keep you safe in a way that made sense when it was first installed. Every type has a characteristic narrator: the 1's corrects, the 6's scans for danger, the 3's tracks whether you're winning. Knowing your narrator's script is the beginning of not being scripted by it.",
+    practice: "For one hour today, notice every time the internal narrator speaks. Don't argue with it. Don't agree. Just note: 'the narrator said ___.' See how often it talks, and what it talks about.",
+    practiceDuration: "for an hour",
+  },
+  {
+    id: "river-not-rock",
+    concept: "You are a river, not a rock",
+    theory: "You are not the same person you were five years ago. Your values shifted, your relationships changed, your understanding deepened. But your core type stayed. The type is the riverbed. The water, your behaviors, moods, and growth, flows over it. The bed shapes the flow. The flow shapes the bed. Neither is truly fixed. Growth is not becoming a different type. It is becoming more fluid within the shape you already have.",
+    practice: "Think about who you were at 18. List three things that changed and one thing that stayed. The thing that stayed is probably close to your core pattern. Notice how your relationship to it changed even though the pattern didn't.",
+    practiceDuration: "this week",
+  },
+  {
+    id: "compassion-for-armor",
+    concept: "Thanking the thing you want to outgrow",
+    theory: "Your personality structure is not a mistake. It is a survival strategy that worked. The 2 learned that being helpful kept them safe. The 5 learned that retreating to the mind prevented overwhelm. The 9 learned that disappearing prevented conflict. These are not pathologies. They are intelligent adaptations to real conditions. The question now is not 'how do I get rid of this?' It is 'do I still need this at full strength?' You can thank a defense and still loosen it.",
+    practice: "Write a short sentence to your defense, as if it were a person: 'Thank you for ___. You can relax about ___.' See how it feels to relate to your pattern as something you HAVE rather than something you ARE.",
+    practiceDuration: "once today",
+  },
+  {
+    id: "examined-life-daily",
+    concept: "Self-knowledge as daily practice, not destination",
+    theory: "There is no moment where you 'arrive' at self-knowledge. There is no final insight that completes the picture. The Enneagram type does not get solved. The cognitive function stack does not get mastered. What happens instead is something quieter: you get slightly faster at catching yourself, slightly more honest about what you see, and slightly more compassionate about the whole messy structure. This is what progress looks like. Not a straight line. A widening spiral.",
+    practice: "At the end of today, take 60 seconds to ask: 'What did I notice about myself that I didn't notice yesterday?' One thing. That's the whole practice. Do it again tomorrow.",
+    practiceDuration: "tonight",
+  },
+  {
+    id: "freedom-within-constraint",
+    concept: "The shape that makes music possible",
+    theory: "A sonnet has 14 lines, a fixed rhyme scheme, and iambic pentameter. Within those constraints, Shakespeare wrote some of the most free and expressive language in history. Constraints do not kill freedom. They give it a shape. Your type is a constraint. Your cognitive stack is a constraint. But within those constraints, there is enormous range. The healthy 8 and the unhealthy 8 share the same structure. The difference is what they do inside it.",
+    practice: "Pick one constraint in your life, a rule you follow, a pattern you can't seem to break, a limitation you resent. Ask: what is this constraint making possible? What could I create inside it instead of against it?",
+    practiceDuration: "this week",
+  },
+  {
+    id: "impermanence-freedom",
+    concept: "Everything changes. That is not only loss.",
+    theory: "The feeling that will not go away will go away. The situation that feels permanent is not. The version of yourself you are clinging to, or fleeing from, is already changing. This sounds like a platitude until you actually sit with it. Impermanence means loss, yes. But it also means: the suffering that feels like forever is not forever. The pattern that feels permanent can loosen. The mood that grips you will release. Change is not only threat. It is also the door.",
+    practice: "Notice one thing today that used to bother you intensely but doesn't anymore. How did it change? You probably didn't 'fix' it. You changed around it. That is impermanence working in your favor.",
+    practiceDuration: "once today",
+  },
+  {
+    id: "question-behind-question",
+    concept: "The question behind the question",
+    theory: "When you ask 'Am I good enough?' the real question is often 'Am I safe?' When you ask 'Does this person like me?' the real question is often 'Will I be abandoned?' When you ask 'What should I do?' the real question is often 'Can I trust myself?' Your type generates surface questions that mask deeper ones. The surface question is answerable but unsatisfying. The deeper question is harder to answer but much more useful. The practice is learning to hear the question behind the question.",
+    practice: "The next time you catch yourself asking a question internally, ask: 'What is the question behind this question?' Write down both. Notice which one you'd rather avoid answering.",
+    practiceDuration: "this week",
+  },
+  {
+    id: "dis-identification",
+    concept: "You are not your type. You are the one who sees it.",
+    theory: "Here is the final move in self-knowledge: you are not the pattern. You are the awareness that notices the pattern. The 4 is not their longing. They are the one who sees the longing arise. The 8 is not their anger. They are the one who watches the anger form. This distinction is tiny and enormous at the same time. When you are the pattern, it runs you. When you are the one watching the pattern, you have a choice. The type doesn't disappear. Your identification with it loosens.",
+    practice: "The next time your type's signature move fires, try saying: 'I notice my [type] pattern is running.' Not 'I am [anxious/angry/performing/retreating]' but 'I notice [anxiety/anger/performance/retreat] is happening.' See what shifts in that one word change.",
+    practiceDuration: "this week",
+  },
 ];
 
 export function getTodayTheoryPracticePair(): TheoryPracticePair {

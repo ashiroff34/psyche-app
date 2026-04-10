@@ -54,4 +54,20 @@ export const streakMilestones: StreakMilestone[] = [
       9: "Two months of showing up. Nines often lose themselves in other people's rhythms. This streak is evidence of something directed inward. yours. What have you noticed about yourself that you couldn't have seen before? And what do you want to do with what you now know?",
     },
   },
+  {
+    days: 90,
+    title: "The Pattern Sees Itself",
+    genericMessage: "Ninety days. Something shifted and you may not be able to name exactly what. The pattern hasn't changed. You are still the same type, the same core motivation, the same fear underneath it all. But your relationship to the pattern has changed. You catch it faster. You hold it lighter. The defense that once ran you is now something you see. Seeing it is the whole practice.",
+    messages: {
+      1: "Ninety days. Your inner critic is still here. it will always be here. But somewhere in the last three months, you started hearing it as a voice instead of as the truth. That distinction, the moment you notice it's a voice rather than reality, is the entire practice. The pattern stays. The grip loosens.",
+      2: "Three months. The impulse to give before being asked is still there. It will always be there. But you've spent ninety days learning to see it happen in real time. That seeing is not a cure. It is something better: awareness. You still care deeply. You just know more about what the caring is doing.",
+      3: "Ninety days of practice that no one can see. For you, that's the hardest kind. The performance instinct is still there. It will always be there. But you've been doing this without an audience for three months, and that is evidence of something your pattern says doesn't exist: intrinsic worth.",
+      4: "Three months. The longing hasn't disappeared. It won't. But something about how you hold it has shifted. You can feel the pull toward 'somewhere else, something more' and recognize it as a pattern, not a prophecy. The depth you sought was here all along. You just needed ninety days to slow down enough to see it.",
+      5: "Ninety days. The retreat to the mind is still your first move under pressure. It always will be. But you have spent three months practicing the return, stepping back into contact after withdrawing. That return is the growth, not the retreat. The pattern stays. The recovery gets faster.",
+      6: "Three months. The scanning is still happening. It will always happen. But somewhere in the last ninety days, you started catching the scan before it completed. That catch, the moment you notice you're looking for danger that isn't there, is everything. Trust doesn't mean the doubt stops. It means you act anyway.",
+      7: "Ninety days. The pull toward the next thing is still there. It will always be there. But you have stayed with one practice for three months, and that is a kind of proof your pattern says is impossible: depth from repetition. The freedom you sought in variety was hiding in stillness all along.",
+      8: "Three months of looking inward. The armor is still there. It will always be there. But you've spent ninety days practicing something your pattern calls weakness: being open without being threatened. That practice hasn't made you weaker. It has made your strength more precise.",
+      9: "Ninety days. The merging impulse is still there. It will always be there. But you have spent three months directing attention inward, toward your own preferences, your own voice. That voice hasn't gotten louder. It has gotten clearer. The difference is everything.",
+    },
+  },
 ];

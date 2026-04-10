@@ -137,6 +137,41 @@ export const SUBTYPE_AWARE_COPY: Record<string, SubtypeAwareCopyEntry> = {
     "9-sx": "Distinguishing self from other.",
     "9-so": "Speaking dissent.",
   }),
+  // ─────────────────────────────────────────────────────────────────────
+  // Philosophical provocations (type-level, not subtype-level)
+  // These rotate into the daily view as a deeper alternative to the
+  // growth prompt. Conceptual only, no tradition labels. Designed to
+  // make users stop and think.
+  // ─────────────────────────────────────────────────────────────────────
+  "daily.philosophical.provocation": build("What would change if you saw the pattern instead of being it?", {
+    "1-sp": "Your inner critic learned your voice so well you think it's yours.",
+    "1-sx": "Perfection is the most creative form of avoidance.",
+    "1-so": "What if 'should' is not the voice of conscience but the voice of fear?",
+    "2-sp": "Giving without being asked is sometimes taking in disguise.",
+    "2-sx": "Your needs don't disappear when you stop naming them.",
+    "2-so": "Who are you when no one needs you? That person is real.",
+    "3-sp": "Efficiency is a beautiful way to avoid being present.",
+    "3-sx": "The mask fits so well you forgot you put it on.",
+    "3-so": "What would you do if no one could see you doing it?",
+    "4-sp": "The ordinary moment you dismiss contains everything you search for.",
+    "4-sx": "Longing can become a home you never have to leave. That is the trap.",
+    "4-so": "What if you're already who you're becoming?",
+    "5-sp": "Knowledge hoarded is wisdom refused.",
+    "5-sx": "Understanding something is not the same as letting it touch you.",
+    "5-so": "The boundary that protects you is also the wall.",
+    "6-sp": "Your worst-case rehearsal is loyalty to a danger that already passed.",
+    "6-sx": "The courage you perform is still powered by the fear underneath.",
+    "6-so": "You already know the answer. You scan for authorities because trusting yourself feels like free fall.",
+    "7-sp": "The next experience can't give you what this moment is offering.",
+    "7-sx": "Depth requires the boredom you keep escaping.",
+    "7-so": "Freedom that avoids pain is its own cage.",
+    "8-sp": "Control is vulnerability's most convincing costume.",
+    "8-sx": "The softness you protect is the strongest thing about you.",
+    "8-so": "You guard the door to a room you've never entered.",
+    "9-sp": "Disappearing is not the same as peace.",
+    "9-sx": "Your harmony has a price and someone else is paying it.",
+    "9-so": "The anger you buried didn't leave. It just went quiet.",
+  }),
 };
 
 /**
