@@ -1,5 +1,6 @@
 "use client";
 
+import { recordFeatureSkipped } from "@/lib/behavioral-signals";
 // Body Map Check-In (Damasio somatic markers + Craig interoception)
 //
 // Quick somatic awareness exercise embedded in the daily practice.
@@ -103,7 +104,7 @@ export default function BodyMapCheckIn() {
           <Activity className="w-4 h-4 text-emerald-400" />
           <p className="text-xs uppercase tracking-widest text-emerald-300 font-bold">Body check</p>
         </div>
-        <button onClick={() => setDismissed(true)} className="text-[11px] opacity-50 hover:opacity-80">Skip</button>
+        <button onClick={() => { recordFeatureSkipped("body-map"); setDismissed(true); }} className="text-[11px] opacity-50 hover:opacity-80">Skip</button>
       </div>
       <AnimatePresence mode="wait">
         <motion.div key={idx} initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -6 }}>

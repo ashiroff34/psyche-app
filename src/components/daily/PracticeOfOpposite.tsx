@@ -1,5 +1,6 @@
 "use client";
 
+import { recordFeatureSkipped } from "@/lib/behavioral-signals";
 // Practice of the Opposite (exposure-based growth)
 //
 // Daily micro-challenge: do the thing your type avoids.
@@ -111,7 +112,7 @@ export default function PracticeOfOpposite({ enneagramType }: { enneagramType: n
           <Zap className="w-4 h-4 text-fuchsia-400" />
           <p className="text-xs uppercase tracking-widest text-fuchsia-300 font-bold">Practice the opposite</p>
         </div>
-        <button onClick={() => setDismissed(true)} className="text-[11px] opacity-40">Skip</button>
+        <button onClick={() => { recordFeatureSkipped("practice-opposite"); setDismissed(true); }} className="text-[11px] opacity-40">Skip</button>
       </div>
       <p className="text-sm leading-relaxed mb-3" style={{ color: "rgba(255,255,255,0.88)" }}>{challenge}</p>
       <button onClick={complete}

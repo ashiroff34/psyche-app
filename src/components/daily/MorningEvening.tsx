@@ -1,5 +1,6 @@
 "use client";
 
+import { recordFeatureSkipped } from "@/lib/behavioral-signals";
 // Morning Intention + Evening Reflection Bookends
 //
 // Gollwitzer 1999: implementation intentions 2-3x follow-through.
@@ -101,7 +102,7 @@ export default function MorningEvening({ enneagramType }: { enneagramType: numbe
           <Icon className="w-4 h-4" style={{ color }} />
           <p className="text-xs uppercase tracking-widest font-bold" style={{ color }}>{label}</p>
         </div>
-        <button onClick={() => setDismissed(true)} className="text-[11px] opacity-40">Skip</button>
+        <button onClick={() => { recordFeatureSkipped(isMorning ? "morning-intention" : "evening-reflection"); setDismissed(true); }} className="text-[11px] opacity-40">Skip</button>
       </div>
       <p className="text-sm mb-3 leading-relaxed" style={{ color: "rgba(255,255,255,0.88)" }}>{prompt}</p>
       <div className="flex gap-2">

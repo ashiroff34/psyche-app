@@ -20,6 +20,8 @@ import { pickByFocus } from "@/data/psychometrics/regulatory-focus";
 import { getFreshStartWindow, getFreshStartCopy, getImplementationIntent } from "@/lib/fresh-start";
 import { isBonusDayToday } from "@/lib/variable-rewards";
 import { getTodaysNorm } from "@/data/descriptive-norms";
+import { recordSessionStart, recordSessionEnd, recordFeatureOffered } from "@/lib/behavioral-signals";
+import ReactionTimeGame from "@/components/daily/ReactionTimeGame";
 
 // ─── Type-match preview cards (subset for daily challenge) ────────────────────
 const DAILY_CHALLENGE_CARDS = [
@@ -231,6 +233,28 @@ export default function HubView({
   const implementationIntent = typeof window !== "undefined" ? getImplementationIntent() : null;
   const bonusDay = typeof window !== "undefined" ? isBonusDayToday() : false;
   const todaysNorm = getTodaysNorm(enneagramType || null);
+
+  // Session tracking (behavioral signals)
+  useEffect(() => {
+    recordSessionStart();
+    const handleUnload = () => recordSessionEnd();
+    window.addEventListener("beforeunload", handleUnload);
+    document.addEventListener("visibilitychange", () => {
+      if (document.visibilityState === "hidden") recordSessionEnd();
+    });
+    // Track which features are offered
+    if (enneagramType > 0) {
+      recordFeatureOffered("morning-intention");
+      recordFeatureOffered("practice-opposite");
+      recordFeatureOffered("body-map");
+      recordFeatureOffered("state-checkin");
+      recordFeatureOffered("question-of-week");
+    }
+    return () => {
+      window.removeEventListener("beforeunload", handleUnload);
+      recordSessionEnd();
+    };
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
   const TYPE_COLORS: Record<number, string> = { 1: "#E74C3C", 2: "#E91E8C", 3: "#F39C12", 4: "#9B59B6", 5: "#2980B9", 6: "#27AE60", 7: "#1ABC9C", 8: "#E67E22", 9: "#95A5A6" };
   const overallProgress = Math.round((completedToday / Math.max(totalNodes, 1)) * 100);
   const ringCircumference = 2 * Math.PI * 52;
@@ -674,6 +698,9 @@ export default function HubView({
 
         {/* ── Practice of the opposite (exposure-based growth) ── */}
         {enneagramType > 0 && <PracticeOfOpposite enneagramType={enneagramType} />}
+
+        {/* ── Reaction time game (Greenwald IAT 1998) ── */}
+        {enneagramType > 0 && <ReactionTimeGame enneagramType={enneagramType} />}
 
         {/* ── Body map check-in (Damasio somatic markers) ── */}
         <BodyMapCheckIn />

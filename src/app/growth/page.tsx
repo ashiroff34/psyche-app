@@ -11,6 +11,7 @@ import { getTodaysPerspectiveSwap, INTEGRATION_TYPE } from "@/data/perspective-s
 import { TYPE_GROWTH_EDGES } from "@/data/growth-edges";
 import { getWeeklyWisdom } from "@/data/type-wisdom";
 import { getPrediction, SITUATION_CATEGORIES, type SituationCategory } from "@/data/predictive-self";
+import { generateAvoidanceInsight, getTimingInsights } from "@/lib/behavioral-signals";
 import { getDialogue, DIALOGUE_INTEGRATION_TYPE } from "@/data/shadow-dialogue";
 import { TYPE_FORMATION } from "@/data/formation-map";
 
@@ -634,6 +635,36 @@ export default function GrowthPage() {
                         This is a generalized hypothesis based on Enneagram developmental theory. Your actual experience may differ. If this brings up difficult feelings, that is normal. Reach out to a trusted person or professional if needed.
                       </p>
                     </motion.div>
+                  )}
+                </div>
+              );
+            })()}
+
+            {/* ── Behavioral Insights (avoidance + timing) ── */}
+            {activeType && (() => {
+              const avoidanceInsight = generateAvoidanceInsight(activeType);
+              const timing = getTimingInsights();
+              if (!avoidanceInsight && !timing) return null;
+              return (
+                <div className="rounded-3xl p-5 mb-5" style={{ background: "rgba(244,63,94,0.06)", border: "1px solid rgba(244,63,94,0.18)" }}>
+                  <h3 className="text-xs font-bold uppercase tracking-widest mb-3" style={{ color: "#fda4af" }}>What your behavior reveals</h3>
+                  <p className="text-[11px] opacity-50 mb-3">These insights come from how you USE the app, not from what you say about yourself.</p>
+                  {avoidanceInsight && (
+                    <div className="p-3 rounded-xl mb-2" style={{ background: "rgba(244,63,94,0.06)", border: "1px solid rgba(244,63,94,0.12)" }}>
+                      <p className="text-[10px] uppercase tracking-widest opacity-50 mb-1">Feature avoidance</p>
+                      <p className="text-xs leading-relaxed" style={{ color: "rgba(255,255,255,0.82)" }}>{avoidanceInsight}</p>
+                    </div>
+                  )}
+                  {timing && (
+                    <div className="p-3 rounded-xl" style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.06)" }}>
+                      <p className="text-[10px] uppercase tracking-widest opacity-50 mb-1">Usage patterns</p>
+                      <p className="text-xs opacity-75">
+                        Peak hour: {timing.peakHour > 12 ? timing.peakHour - 12 : timing.peakHour}{timing.peakHour >= 12 ? "pm" : "am"} ·
+                        Peak day: {timing.peakDay} ·
+                        Avg session: {timing.avgSessionMinutes} min ·
+                        {timing.totalSessions} sessions logged
+                      </p>
+                    </div>
                   )}
                 </div>
               );

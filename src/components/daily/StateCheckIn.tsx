@@ -1,5 +1,6 @@
 "use client";
 
+import { recordFeatureSkipped } from "@/lib/behavioral-signals";
 // Daily state-vs-trait micro-check. 5 rotating items, ~30 seconds.
 //
 // Fleeson (2001) and Rauthmann et al. (2019) showed that personality is best
@@ -140,7 +141,7 @@ export default function StateCheckIn() {
           <Sparkles className="w-4 h-4 text-violet-300" />
           <p className="text-xs uppercase tracking-widest text-violet-300 font-bold">Today vs usually</p>
         </div>
-        <button onClick={() => setDismissed(true)} className="text-[11px] opacity-50 hover:opacity-80">Skip</button>
+        <button onClick={() => { recordFeatureSkipped("state-checkin"); setDismissed(true); }} className="text-[11px] opacity-50 hover:opacity-80">Skip</button>
       </div>
       <div className="h-1 rounded-full overflow-hidden mb-4" style={{ background: "rgba(255,255,255,0.08)" }}>
         <motion.div className="h-full" style={{ background: "linear-gradient(90deg,#8b5cf6,#d946ef)" }} animate={{ width: `${progress}%` }} />
