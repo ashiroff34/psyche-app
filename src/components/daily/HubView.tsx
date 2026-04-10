@@ -431,7 +431,7 @@ export default function HubView({
                 ? "bg-red-50 border border-red-200"
                 : streakAtRisk && countdown.isUrgent
                 ? "bg-orange-50 border border-orange-200"
-                : "bg-white/80 border border-orange-100"
+                : "bg-white/80 border border-orange-500/20"
             }`}
           >
             <Flame
@@ -444,7 +444,7 @@ export default function HubView({
               }`}
             />
             <span className="text-xl font-bold text-slate-800 leading-none">{streak}</span>
-            <span className="text-[9px] text-slate-400 uppercase tracking-wide mt-0.5">streak</span>
+            <span className="text-[9px] text-white/40 uppercase tracking-wide mt-0.5">streak</span>
 
             {streakAtRisk && (
               <div
@@ -453,7 +453,7 @@ export default function HubView({
                     ? "bg-red-100 text-red-600"
                     : countdown.isUrgent
                     ? "bg-orange-100 text-orange-700"
-                    : "bg-amber-50 text-amber-600"
+                    : "bg-amber-900/20 text-amber-400"
                 }`}
               >
                 <Clock className="w-2.5 h-2.5" />
@@ -462,7 +462,7 @@ export default function HubView({
             )}
 
             {longestStreak > streak && longestStreak > 0 && (
-              <span className="text-[8px] text-amber-500 font-medium mt-0.5">best: {longestStreak}</span>
+              <span className="text-[8px] text-amber-400 font-medium mt-0.5">best: {longestStreak}</span>
             )}
             {streak > 0 && streak >= longestStreak && longestStreak > 0 && (
               <Star className="absolute -top-1.5 -left-1.5 w-4 h-4 text-amber-400 fill-amber-400" />
@@ -484,17 +484,17 @@ export default function HubView({
           </div>
 
           {/* XP */}
-          <div className="flex flex-col items-center px-4 py-2.5 rounded-2xl bg-white/80 backdrop-blur-sm shadow-sm border border-amber-100">
-            <Zap className="w-5 h-5 text-amber-500 mb-0.5" />
+          <div className="flex flex-col items-center px-4 py-2.5 rounded-2xl rounded-2xl border border-amber-500/20">
+            <Zap className="w-5 h-5 text-amber-400 mb-0.5" />
             <span className="text-xl font-bold text-slate-800 leading-none">{totalXP.toLocaleString()}</span>
-            <span className="text-[9px] text-slate-400 tracking-wide mt-0.5">{xpLabel}</span>
+            <span className="text-[9px] text-white/40 tracking-wide mt-0.5">{xpLabel}</span>
           </div>
 
           {/* Hearts / daily done */}
-          <div className="flex flex-col items-center px-4 py-2.5 rounded-2xl bg-white/80 backdrop-blur-sm shadow-sm border border-rose-100">
+          <div className="flex flex-col items-center px-4 py-2.5 rounded-2xl rounded-2xl border border-rose-500/20">
             <Heart className="w-5 h-5 text-rose-500 mb-0.5" />
             <span className="text-xl font-bold text-slate-800 leading-none">{completedToday}/{totalNodes}</span>
-            <span className="text-[9px] text-slate-400 uppercase tracking-wide mt-0.5">done today</span>
+            <span className="text-[9px] text-white/40 uppercase tracking-wide mt-0.5">done today</span>
           </div>
         </motion.div>
 
@@ -724,7 +724,7 @@ export default function HubView({
                     setShowTokenTooltip(false);
                     try { localStorage.setItem("psyche-token-tooltip-seen", "true"); } catch {}
                   }}
-                  className="text-amber-500 hover:text-amber-700 text-lg leading-none shrink-0 mt-0.5"
+                  className="text-amber-400 hover:text-amber-300 text-lg leading-none shrink-0 mt-0.5"
                 >
                   ×
                 </button>
@@ -929,7 +929,7 @@ export default function HubView({
                   </div>
                   <div className="relative flex items-center gap-2">
                     {isAllLocked ? (
-                      <Lock className="w-5 h-5 text-slate-400" />
+                      <Lock className="w-5 h-5 text-white/40" />
                     ) : isFullyDone ? (
                       <CheckCircle className="w-6 h-6 text-white" />
                     ) : (
@@ -1043,7 +1043,7 @@ export default function HubView({
                                     : "linear-gradient(135deg,#f59e0b,#f97316)",
                                 }}
                               >
-                                {node.status === "locked" && <Lock className="text-slate-400" style={{ width: SIZE*0.28, height: SIZE*0.28 }} />}
+                                {node.status === "locked" && <Lock className="text-white/40" style={{ width: SIZE*0.28, height: SIZE*0.28 }} />}
                                 {node.status === "completed" && <CheckCircle className="text-white" style={{ width: SIZE*0.32, height: SIZE*0.32 }} />}
                                 {node.status === "current" && <Star className="text-white fill-white" style={{ width: SIZE*0.3, height: SIZE*0.3 }} />}
                               </div>
@@ -1064,12 +1064,12 @@ export default function HubView({
                             <div className="text-center max-w-[90px]">
                               <p className={`text-[11px] font-semibold leading-snug ${
                                 node.status === "current" ? "text-orange-600 font-bold" :
-                                node.status === "completed" ? "text-violet-600" : "text-slate-400"
+                                node.status === "completed" ? "text-violet-600" : "text-white/40"
                               }`}>
                                 {node.label}
                               </p>
                               {node.sublabel && (
-                                <p className="text-[10px] text-slate-400 leading-tight mt-0.5">{node.sublabel}</p>
+                                <p className="text-[10px] text-white/40 leading-tight mt-0.5">{node.sublabel}</p>
                               )}
                             </div>
                           </div>
@@ -1088,11 +1088,11 @@ export default function HubView({
           initial={{ opacity: 1, y: 0 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.37 }}
-          className="mb-6 p-4 rounded-2xl bg-white/80 backdrop-blur-sm shadow-sm border border-white"
+          className="mb-6 p-4 rounded-2xl rounded-2xl border border-white/10"
         >
           <div className="flex items-center gap-2 mb-3">
             <Target className="w-4 h-4 text-violet-500" />
-            <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Today&apos;s Quests</p>
+            <p className="text-[10px] font-bold text-white/40 uppercase tracking-widest">Today&apos;s Quests</p>
           </div>
           {[
             {
@@ -1126,12 +1126,12 @@ export default function HubView({
           ].map((quest, i) => (
             <div key={i} className={`flex items-center gap-3 py-2 ${i < 3 ? "border-b border-slate-50" : ""}`}>
               <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center shrink-0 transition-colors ${
-                quest.done ? "border-emerald-400 bg-emerald-400" : "border-slate-200 bg-white"
+                quest.done ? "border-emerald-400 bg-emerald-500" : "border-white/15 bg-white/5"
               }`}>
                 {quest.done && <CheckCircle className="w-3.5 h-3.5 text-white" />}
               </div>
               <div className="flex-1 min-w-0">
-                <p className={`text-sm font-medium leading-tight ${quest.done ? "text-slate-400 line-through" : "text-slate-700"}`}>
+                <p className={`text-sm font-medium leading-tight ${quest.done ? "text-white/40 line-through" : "text-slate-700"}`}>
                   {quest.label}
                 </p>
                 {!quest.done && quest.total > 1 && (
@@ -1143,7 +1143,7 @@ export default function HubView({
                   </div>
                 )}
               </div>
-              <span className={`text-xs font-medium shrink-0 ${quest.done ? "text-emerald-500" : "text-amber-500"}`}>
+              <span className={`text-xs font-medium shrink-0 ${quest.done ? "text-emerald-500" : "text-amber-400"}`}>
                 {quest.reward}
               </span>
             </div>
@@ -1154,14 +1154,14 @@ export default function HubView({
             const allDone = questionsAnsweredToday >= 5 && warmupDoneToday && dailyXPEarned >= 50 && readingDoneToday;
             return (
               <div className={`mt-3 pt-3 border-t border-slate-100 flex items-center gap-3 rounded-xl px-3 py-2.5 transition-colors ${
-                allDone ? "bg-amber-50" : "bg-slate-50/60"
+                allDone ? "bg-amber-900/20" : "bg-white/5"
               }`}>
-                <Star className={`w-4 h-4 shrink-0 ${allDone ? "text-amber-500" : "text-slate-300"}`} />
+                <Star className={`w-4 h-4 shrink-0 ${allDone ? "text-amber-400" : "text-white/30"}`} />
                 <div className="flex-1">
-                  <p className={`text-xs font-semibold ${allDone ? "text-amber-700" : "text-slate-400"}`}>Full Day Bonus</p>
-                  <p className="text-[10px] text-slate-400">Complete all 4 quests for a bonus reward</p>
+                  <p className={`text-xs font-semibold ${allDone ? "text-amber-300" : "text-white/40"}`}>Full Day Bonus</p>
+                  <p className="text-[10px] text-white/40">Complete all 4 quests for a bonus reward</p>
                 </div>
-                <span className={`text-xs font-bold ${allDone ? "text-amber-600" : "text-slate-300"}`}>+20 tokens</span>
+                <span className={`text-xs font-bold ${allDone ? "text-amber-400" : "text-white/30"}`}>+20 tokens</span>
               </div>
             );
           })()}
@@ -1311,7 +1311,7 @@ export default function HubView({
               className={`w-full text-left p-4 rounded-2xl border transition-all ${
                 readingDoneToday
                   ? "bg-emerald-50 border-emerald-200"
-                  : "bg-white/80 backdrop-blur-sm border-indigo-100/60 shadow-sm hover:shadow-md"
+                  : "border-violet-500/20 hover:border-violet-500/40"
               }`}
             >
               <div className="flex items-center gap-3">
@@ -1331,7 +1331,7 @@ export default function HubView({
                       Today&apos;s Reading
                     </span>
                     {!readingDoneToday && (
-                      <span className="px-1.5 py-0.5 text-[9px] font-semibold rounded-full bg-amber-100 text-amber-700">+25 tokens</span>
+                      <span className="px-1.5 py-0.5 text-[9px] font-semibold rounded-full bg-amber-100 text-amber-300">+25 tokens</span>
                     )}
                   </div>
                   <p className={`text-sm font-medium ${readingDoneToday ? "text-emerald-700" : "text-slate-700"}`}>
@@ -1339,7 +1339,7 @@ export default function HubView({
                   </p>
                 </div>
                 {!readingDoneToday && (
-                  <ArrowRight className="w-4 h-4 text-slate-400 shrink-0" />
+                  <ArrowRight className="w-4 h-4 text-white/40 shrink-0" />
                 )}
               </div>
             </button>
@@ -1352,7 +1352,7 @@ export default function HubView({
             initial={{ opacity: 1, y: 0 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.35 }}
-            className="relative overflow-hidden p-5 rounded-2xl bg-white/80 backdrop-blur-sm shadow-sm border border-indigo-100/60"
+            className="relative overflow-hidden p-5 rounded-2xl border border-violet-500/20"
           >
             <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-bl from-violet-100/40 to-transparent rounded-bl-full" />
             <div className="relative">
@@ -1367,13 +1367,13 @@ export default function HubView({
                   <div className="text-[10px] font-bold text-violet-600 uppercase tracking-wide flex items-center gap-1">
                     <Sparkles className="w-3 h-3" /> Today&apos;s Insight
                   </div>
-                  <div className="text-[9px] text-slate-400 capitalize">{insightData.category}</div>
+                  <div className="text-[9px] text-white/40 capitalize">{insightData.category}</div>
                 </div>
               </div>
               <p className="text-slate-700 leading-relaxed font-serif text-[14px] italic mb-1.5">
                 &ldquo;{insightData.quote}&rdquo;
               </p>
-              <p className="text-xs text-slate-400 mb-2">{insightData.author}</p>
+              <p className="text-xs text-white/40 mb-2">{insightData.author}</p>
               <p className="text-slate-600 text-sm leading-relaxed">{insightData.reflection}</p>
             </div>
           </motion.div>

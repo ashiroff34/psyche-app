@@ -69,10 +69,10 @@ export default function LessonComplete({ score, xpEarned, perfectRun, lessonTitl
         maxWidth: 640,
         margin: "0 auto",
         background: perfectRun
-          ? "linear-gradient(180deg, #fffbeb 0%, #ffffff 40%)"
+          ? "linear-gradient(180deg, rgba(251,191,36,0.08) 0%, #0f0a1e 40%)"
           : passed
-          ? "linear-gradient(180deg, #f0fdf4 0%, #ffffff 40%)"
-          : "white",
+          ? "linear-gradient(180deg, rgba(16,185,129,0.08) 0%, #0f0a1e 40%)"
+          : "#0f0a1e",
       }}
     >
       <motion.div
@@ -90,7 +90,7 @@ export default function LessonComplete({ score, xpEarned, perfectRun, lessonTitl
               cy={ringSize / 2}
               r={radius}
               fill="none"
-              stroke="#e2e8f0"
+              stroke="rgba(255,255,255,0.12)"
               strokeWidth={strokeWidth}
             />
             {/* Progress ring */}
@@ -125,7 +125,7 @@ export default function LessonComplete({ score, xpEarned, perfectRun, lessonTitl
 
           {/* Score text in center */}
           <div className="absolute inset-0 flex flex-col items-center justify-center">
-            <span className="text-3xl font-bold text-slate-900">
+            <span className="text-3xl font-bold text-white">
               {countedScore}%
             </span>
           </div>
@@ -148,23 +148,23 @@ export default function LessonComplete({ score, xpEarned, perfectRun, lessonTitl
         <motion.h2
           animate={perfectRun && countDone ? { scale: [1, 1.08, 1] } : {}}
           transition={{ delay: 0.3, duration: 0.5 }}
-          className="text-3xl font-bold text-slate-900 mb-1"
+          className="text-3xl font-bold text-white mb-1"
         >
           {perfectRun ? "Perfect!" : passed ? "Great job!" : "Lesson Complete"}
         </motion.h2>
 
         {/* Lesson name */}
-        <p className="text-slate-500 text-base mb-6">{lessonTitle}</p>
+        <p className="text-white/60 text-base mb-6">{lessonTitle}</p>
 
         {/* XP earned */}
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5 }}
-          className="flex items-center gap-2 px-6 py-3 rounded-2xl bg-violet-50 dark:bg-violet-900/30 border border-violet-200 dark:border-violet-700 mb-8"
+          className="flex items-center gap-2 px-6 py-3 rounded-2xl bg-violet-900/30 border border-violet-700 mb-8"
         >
           <Zap className="w-5 h-5 text-violet-500 fill-violet-500" />
-          <span className="text-2xl font-bold text-violet-700 dark:text-violet-300">
+          <span className="text-2xl font-bold text-violet-300">
             +{countDone ? xpEarned : countedXP}
           </span>
           <span className="text-sm font-medium text-violet-500 dark:text-violet-400 uppercase tracking-wide">
@@ -178,10 +178,10 @@ export default function LessonComplete({ score, xpEarned, perfectRun, lessonTitl
             initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.8 }}
-            className="w-full px-4 py-3 rounded-xl bg-amber-50 border border-amber-200 flex items-center gap-2 mb-6"
+            className="w-full px-4 py-3 rounded-xl rounded-xl border border-amber-500/30 flex items-center gap-2 mb-6"
           >
             <Trophy className="w-5 h-5 text-amber-500 shrink-0" />
-            <span className="text-sm font-semibold text-amber-700">
+            <span className="text-sm font-semibold text-amber-300">
               Perfect run bonus! No mistakes at all.
             </span>
           </motion.div>
