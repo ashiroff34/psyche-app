@@ -84,6 +84,11 @@ export function useLessonProgress() {
 
   const isLessonAvailable = useCallback(
     (unitId: string, lessonId: string): boolean => {
+      // Beta testers get unlimited access to all units
+      if (typeof window !== "undefined") {
+        try { if (localStorage.getItem("psyche-beta-access") === "true") return true; } catch {}
+      }
+
       const unit = LESSON_UNITS.find((u) => u.id === unitId);
       if (!unit) return false;
 
