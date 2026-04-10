@@ -43,16 +43,16 @@ export function mirrorV2Extras(bigFive: BigFiveScores, wordCount: number): Mirro
   let reasoning: string;
   if (anxietyAxis >= 60 && avoidanceAxis >= 55) {
     style = "fearful";
-    reasoning = "High neuroticism alongside low agreeableness and extraversion — the push-pull of wanting closeness and fearing it.";
+    reasoning = "High neuroticism alongside low agreeableness and extraversion, the push-pull of wanting closeness and fearing it.";
   } else if (anxietyAxis >= 60 && avoidanceAxis < 55) {
     style = "anxious";
-    reasoning = "High neuroticism with preserved warmth — the pattern of seeking reassurance rather than retreating.";
+    reasoning = "High neuroticism with preserved warmth, the pattern of seeking reassurance rather than retreating.";
   } else if (anxietyAxis < 55 && avoidanceAxis >= 55) {
     style = "dismissive";
-    reasoning = "Low neuroticism with low warmth and withdrawal — the pattern of managing intimacy by keeping it at arm's length.";
+    reasoning = "Low neuroticism with low warmth and withdrawal, the pattern of managing intimacy by keeping it at arm's length.";
   } else {
     style = "secure";
-    reasoning = "Moderate to low neuroticism with intact warmth — the pattern of being able to depend on others without losing yourself.";
+    reasoning = "Moderate to low neuroticism with intact warmth, the pattern of being able to depend on others without losing yourself.";
   }
 
   // Value inference from Parks-Leduc et al. (2015)

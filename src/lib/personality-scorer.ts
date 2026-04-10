@@ -255,12 +255,12 @@ function estimateConfidence(wordCount: number): { level: ScoringResult["confiden
   if (wordCount < 750) {
     return {
       level: "medium",
-      note: "A few hundred words is enough to catch the rough shape of your language patterns — but still noisy. Longer text = clearer signal.",
+      note: "A few hundred words is enough to catch the rough shape of your language patterns, but still noisy. Longer text = clearer signal.",
     };
   }
   return {
     level: "high",
-    note: "Over 750 words gives a reasonably stable picture — but no amount of text makes this a diagnosis. It's still a noisy signal from an approximation model.",
+    note: "Over 750 words gives a reasonably stable picture, but no amount of text makes this a diagnosis. It's still a noisy signal from an approximation model.",
   };
 }
 
@@ -336,7 +336,7 @@ const TRAIT_INTERPRETATIONS: Record<
   },
   E: {
     label: "Extraversion",
-    low: "Your language leans inward — more reflection than broadcast.",
+    low: "Your language leans inward, more reflection than broadcast.",
     moderate: "Your writing mixes inward reflection and outward engagement.",
     high: "Your language shows social warmth and outward energy.",
   },
@@ -350,7 +350,7 @@ const TRAIT_INTERPRETATIONS: Record<
     label: "Emotional reactivity",
     low: "Your language shows emotional steadiness and resilience.",
     moderate: "Your writing shows moderate emotional variability.",
-    high: "Your language shows emotional intensity — highs and lows register strongly.",
+    high: "Your language shows emotional intensity, highs and lows register strongly.",
   },
 };
 

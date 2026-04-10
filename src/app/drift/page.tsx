@@ -109,11 +109,11 @@ export default function DriftPage() {
           <div className="flex items-baseline gap-4 mb-3">
             <div>
               <p className="text-[10px] uppercase tracking-widest opacity-50">Trait</p>
-              <p className="text-xl font-bold">{currentTrait ?? "—"}</p>
+              <p className="text-xl font-bold">{currentTrait ?? "n/a"}</p>
             </div>
             <div>
               <p className="text-[10px] uppercase tracking-widest opacity-50">Avg state</p>
-              <p className="text-xl font-bold">{avgState ?? "—"}</p>
+              <p className="text-xl font-bold">{avgState ?? "n/a"}</p>
             </div>
             <div>
               <p className="text-[10px] uppercase tracking-widest opacity-50">Trend</p>
@@ -154,7 +154,7 @@ export default function DriftPage() {
             {driftSnapshots.slice(-5).map((snap, i) => (
               <div key={i} className="text-xs opacity-70 mb-1 flex justify-between">
                 <span>{new Date(snap.date).toLocaleDateString()}</span>
-                <span>{snap.aspectScores[selectedAspect] ?? "—"}</span>
+                <span>{snap.aspectScores[selectedAspect] ?? "n/a"}</span>
               </div>
             ))}
             {!tagging && (
