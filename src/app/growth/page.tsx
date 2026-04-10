@@ -10,6 +10,9 @@ import PetCompanion from "@/components/PetCompanion";
 import { getTodaysPerspectiveSwap, INTEGRATION_TYPE } from "@/data/perspective-swaps";
 import { TYPE_GROWTH_EDGES } from "@/data/growth-edges";
 import { getWeeklyWisdom } from "@/data/type-wisdom";
+import { getPrediction, SITUATION_CATEGORIES, type SituationCategory } from "@/data/predictive-self";
+import { getDialogue, DIALOGUE_INTEGRATION_TYPE } from "@/data/shadow-dialogue";
+import { TYPE_FORMATION } from "@/data/formation-map";
 
 // ─── Token gate for Enneagram Growth Path ────────────────────────────────────
 const ENNEAGRAM_GROWTH_UNLOCK_KEY = "psyche-enneagram-growth-unlocked";
@@ -485,6 +488,153 @@ export default function GrowthPage() {
                       </div>
                     ))}
                   </div>
+                </div>
+              );
+            })()}
+
+            {/* ── Predictive Self (Mischel CAPS 1995) ── */}
+            {(() => {
+              const [selectedSit, setSelectedSit] = useState<SituationCategory | null>(null);
+              const prediction = selectedSit && activeType ? getPrediction(activeType, selectedSit) : null;
+              return (
+                <div className="rounded-3xl p-5 mb-5" style={{ background: "rgba(99,102,241,0.06)", border: "1px solid rgba(99,102,241,0.18)" }}>
+                  <h3 className="text-xs font-bold uppercase tracking-widest mb-3" style={{ color: "#a5b4fc" }}>Predict your pattern</h3>
+                  <p className="text-[11px] opacity-60 mb-3">What situation are you facing? See how your type will probably respond, and what the alternative looks like.</p>
+                  <div className="flex flex-wrap gap-2 mb-4">
+                    {SITUATION_CATEGORIES.map(cat => (
+                      <button key={cat.id} onClick={() => setSelectedSit(selectedSit === cat.id ? null : cat.id)}
+                        className="text-xs px-3 py-1.5 rounded-full transition-all"
+                        style={{
+                          background: selectedSit === cat.id ? "rgba(99,102,241,0.2)" : "rgba(255,255,255,0.04)",
+                          border: `1px solid ${selectedSit === cat.id ? "rgba(99,102,241,0.5)" : "rgba(255,255,255,0.08)"}`,
+                          color: selectedSit === cat.id ? "#c7d2fe" : "rgba(255,255,255,0.65)",
+                        }}>
+                        {cat.label}
+                      </button>
+                    ))}
+                  </div>
+                  <AnimatePresence mode="wait">
+                    {prediction && (
+                      <motion.div key={selectedSit} initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -6 }}>
+                        <div className="p-3 rounded-xl mb-2" style={{ background: "rgba(239,68,68,0.06)", border: "1px solid rgba(239,68,68,0.15)" }}>
+                          <p className="text-[10px] uppercase tracking-widest opacity-50 mb-1">Your habitual pattern</p>
+                          <p className="text-xs leading-relaxed" style={{ color: "rgba(255,255,255,0.8)" }}>{prediction.habitualPattern}</p>
+                        </div>
+                        <div className="p-3 rounded-xl mb-2" style={{ background: "rgba(16,185,129,0.06)", border: "1px solid rgba(16,185,129,0.15)" }}>
+                          <p className="text-[10px] uppercase tracking-widest text-emerald-300 mb-1">The integration alternative</p>
+                          <p className="text-xs leading-relaxed" style={{ color: "rgba(255,255,255,0.85)" }}>{prediction.integrationAlternative}</p>
+                        </div>
+                        <div className="p-3 rounded-xl" style={{ background: "rgba(234,179,8,0.06)", border: "1px solid rgba(234,179,8,0.15)" }}>
+                          <p className="text-[10px] uppercase tracking-widest text-yellow-300 mb-1">The choice point</p>
+                          <p className="text-xs leading-relaxed font-semibold" style={{ color: "rgba(255,255,255,0.9)" }}>{prediction.choicePoint}</p>
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+              );
+            })()}
+
+            {/* ── Shadow Dialogue (Hermans 2001) ── */}
+            {activeType && (() => {
+              const dialogue = getDialogue(activeType);
+              const intType = DIALOGUE_INTEGRATION_TYPE[activeType];
+              const [showDialogue, setShowDialogue] = useState(false);
+              const [dialogueStep, setDialogueStep] = useState(0);
+              const [choices, setChoices] = useState<string[]>([]);
+              if (!dialogue) return null;
+              const visibleTurns = dialogue.turns.slice(0, showDialogue ? dialogueStep + 1 : 0);
+              const atChoice = showDialogue && dialogueStep >= dialogue.choiceAfter && dialogueStep < dialogue.turns.length;
+              return (
+                <div className="rounded-3xl p-5 mb-5" style={{ background: "rgba(168,85,247,0.06)", border: "1px solid rgba(168,85,247,0.18)" }}>
+                  <h3 className="text-xs font-bold uppercase tracking-widest mb-2" style={{ color: "#c084fc" }}>Shadow dialogue</h3>
+                  <p className="text-[11px] opacity-60 mb-3">{dialogue.topic}</p>
+                  {!showDialogue ? (
+                    <button onClick={() => { setShowDialogue(true); setDialogueStep(0); }}
+                      className="w-full py-2.5 rounded-xl text-sm font-semibold"
+                      style={{ background: "rgba(168,85,247,0.12)", border: "1px solid rgba(168,85,247,0.3)", color: "#c084fc" }}>
+                      Start the dialogue
+                    </button>
+                  ) : (
+                    <div className="space-y-2">
+                      {visibleTurns.map((turn, i) => (
+                        <motion.div key={i} initial={{ opacity: 0, y: 4 }} animate={{ opacity: 1, y: 0 }}
+                          className="p-3 rounded-xl" style={{
+                            background: turn.speaker === "type" ? "rgba(255,255,255,0.04)" : "rgba(139,92,246,0.08)",
+                            border: `1px solid ${turn.speaker === "type" ? "rgba(255,255,255,0.08)" : "rgba(139,92,246,0.2)"}`,
+                          }}>
+                          <p className="text-[9px] uppercase tracking-widest opacity-40 mb-1">
+                            {turn.speaker === "type" ? `Type ${activeType}` : `Integration (${intType})`}
+                          </p>
+                          <p className="text-xs leading-relaxed" style={{ color: "rgba(255,255,255,0.85)" }}>{turn.text}</p>
+                        </motion.div>
+                      ))}
+                      {dialogueStep < dialogue.turns.length - 1 && !atChoice && (
+                        <button onClick={() => setDialogueStep(dialogueStep + 1)}
+                          className="w-full py-2 rounded-xl text-xs font-semibold"
+                          style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)", color: "rgba(255,255,255,0.7)" }}>
+                          Continue
+                        </button>
+                      )}
+                      {atChoice && (
+                        <div className="space-y-2 pt-1">
+                          <p className="text-[10px] text-center opacity-50">Which voice do you want to speak as next?</p>
+                          <div className="grid grid-cols-2 gap-2">
+                            <button onClick={() => { setChoices([...choices, "type"]); setDialogueStep(dialogueStep + 1); }}
+                              className="py-2 rounded-xl text-xs font-semibold"
+                              style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.12)", color: "rgba(255,255,255,0.8)" }}>
+                              Type {activeType}
+                            </button>
+                            <button onClick={() => { setChoices([...choices, "integration"]); setDialogueStep(dialogueStep + 1); }}
+                              className="py-2 rounded-xl text-xs font-semibold"
+                              style={{ background: "rgba(139,92,246,0.12)", border: "1px solid rgba(139,92,246,0.3)", color: "#c084fc" }}>
+                              Integration ({intType})
+                            </button>
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  )}
+                </div>
+              );
+            })()}
+
+            {/* ── Formation Map (Millon + Riso-Hudson) ── */}
+            {activeType && (() => {
+              const formation = TYPE_FORMATION[activeType];
+              const [showFormation, setShowFormation] = useState(false);
+              if (!formation) return null;
+              return (
+                <div className="rounded-3xl p-5 mb-5" style={{ background: "rgba(244,63,94,0.06)", border: "1px solid rgba(244,63,94,0.18)" }}>
+                  <h3 className="text-xs font-bold uppercase tracking-widest mb-2" style={{ color: "#fda4af" }}>Personality archaeology</h3>
+                  <p className="text-[11px] opacity-60 mb-3">How your Type {activeType} pattern likely formed. This is a hypothesis, not a diagnosis.</p>
+                  {!showFormation ? (
+                    <button onClick={() => setShowFormation(true)}
+                      className="w-full py-2.5 rounded-xl text-sm font-semibold"
+                      style={{ background: "rgba(244,63,94,0.08)", border: "1px solid rgba(244,63,94,0.2)", color: "#fda4af" }}>
+                      Explore my formation
+                    </button>
+                  ) : (
+                    <motion.div initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} className="space-y-3">
+                      {([
+                        { label: "The childhood experience", text: formation.childhoodWound, color: "rgba(244,63,94,0.1)", border: "rgba(244,63,94,0.2)" },
+                        { label: "What you built in response", text: formation.adaptiveStrategy, color: "rgba(251,191,36,0.08)", border: "rgba(251,191,36,0.18)" },
+                        { label: "How it shows up now", text: formation.adultManifestation, color: "rgba(139,92,246,0.08)", border: "rgba(139,92,246,0.18)" },
+                        { label: "Typical consolidation", text: formation.consolidationAge, color: "rgba(255,255,255,0.03)", border: "rgba(255,255,255,0.08)" },
+                        { label: "Where it lives in the body", text: formation.somaticSignature, color: "rgba(16,185,129,0.06)", border: "rgba(16,185,129,0.15)" },
+                        { label: "The liberation", text: formation.liberationInsight, color: "rgba(234,179,8,0.08)", border: "rgba(234,179,8,0.2)" },
+                      ]).map((section, i) => (
+                        <motion.div key={i} initial={{ opacity: 0, y: 4 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.05 }}
+                          className="p-3 rounded-xl" style={{ background: section.color, border: `1px solid ${section.border}` }}>
+                          <p className="text-[10px] uppercase tracking-widest opacity-60 mb-1">{section.label}</p>
+                          <p className="text-xs leading-relaxed" style={{ color: "rgba(255,255,255,0.82)" }}>{section.text}</p>
+                        </motion.div>
+                      ))}
+                      <p className="text-[10px] opacity-40 text-center leading-relaxed pt-2">
+                        This is a generalized hypothesis based on Enneagram developmental theory. Your actual experience may differ. If this brings up difficult feelings, that is normal. Reach out to a trusted person or professional if needed.
+                      </p>
+                    </motion.div>
+                  )}
                 </div>
               );
             })()}
