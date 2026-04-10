@@ -121,7 +121,7 @@ function EnterScreen() {
 
   return (
     <div
-      className="fixed inset-0 flex flex-col items-center justify-center overflow-hidden"
+      className="min-h-screen flex flex-col items-center justify-center overflow-y-auto"
       style={{ background: "#08031a" }}
     >
       {/* Static radial glow (pure CSS, no animation, zero render cost after paint) */}

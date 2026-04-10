@@ -10,6 +10,7 @@ import { useSubtypeAwareCopy } from "@/hooks/useSubtypeAwareCopy";
 import StateCheckIn from "@/components/daily/StateCheckIn";
 import LuckyDropToast from "@/components/daily/LuckyDropToast";
 import ChibiMessage from "@/components/ChibiMessage";
+import BodyMapCheckIn from "@/components/daily/BodyMapCheckIn";
 import { usePsychometrics } from "@/hooks/usePsychometrics";
 import { pickByFocus } from "@/data/psychometrics/regulatory-focus";
 import { getFreshStartWindow, getFreshStartCopy, getImplementationIntent } from "@/lib/fresh-start";
@@ -657,6 +658,9 @@ export default function HubView({
           <span className="text-[10px]">🔒</span>
           <p className="text-[10px] opacity-60">Your personality data stays on this device. <a href="/data-usage" className="underline opacity-80">See what we store</a></p>
         </div>
+
+        {/* ── Body map check-in (Damasio somatic markers) ── */}
+        <BodyMapCheckIn />
 
         {/* ── State check-in (30-second today-vs-usually micro-assessment) ── */}
         <StateCheckIn />

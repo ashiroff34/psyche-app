@@ -893,7 +893,7 @@ export default function WrappedPage() {
   return (
     <div
       ref={containerRef}
-      className="fixed inset-0 flex flex-col overflow-hidden select-none"
+      className="min-h-screen flex flex-col overflow-y-auto select-none"
       style={{ background: "#0f0a1e" }}
       onClick={handleContainerClick}
     >

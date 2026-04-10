@@ -38,6 +38,7 @@ import { unit27Lessons } from "@/data/lessons/unit-27-living-as-yourself";
 import { unit28Lessons } from "@/data/lessons/unit-28-the-looker";
 import { unit29Lessons } from "@/data/lessons/unit-29-is-there-a-self";
 import { unit30Lessons } from "@/data/lessons/unit-30-holding-both";
+import { unit31Lessons } from "@/data/lessons/unit-31-holy-ideas";
 
 // ── Unit Metadata ───────────────────────────────────────────────────────────
 
@@ -351,6 +352,16 @@ export const LESSON_UNITS: Unit[] = [
     category: "philosophy",
     lessons: unit30Lessons,
     requiresUnit: "is-there-a-self",
+  },
+  {
+    id: "holy-ideas",
+    order: 31,
+    title: "Your Type's Hidden Gift",
+    subtitle: "What becomes available when the pattern relaxes",
+    icon: "Gem",
+    category: "philosophy",
+    lessons: unit31Lessons,
+    requiresUnit: "holding-both",
   },
 ];
 

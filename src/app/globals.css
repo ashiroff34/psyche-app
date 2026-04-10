@@ -49,6 +49,14 @@
 }
 
 /* ===== Base Styles ===== */
+html, body {
+  overflow-x: hidden;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  height: auto;
+  min-height: 100%;
+}
+
 body {
   background-color: var(--bg);
   color: var(--text-primary);

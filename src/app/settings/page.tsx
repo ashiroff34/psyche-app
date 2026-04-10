@@ -896,6 +896,48 @@ export default function SettingsPage() {
           {/* App Version */}
           <div className="text-center pt-2">
             <p className="text-xs" style={{ color: "rgba(255,255,255,0.35)" }}>Thyself v1.0.0</p>
+
+            {/* Beta access code */}
+            <div className="mt-4 pt-4" style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}>
+              <p className="text-[10px] uppercase tracking-widest opacity-40 mb-2">Beta access</p>
+              <div className="flex gap-2">
+                <input
+                  placeholder="Enter beta code"
+                  maxLength={20}
+                  className="flex-1 text-xs px-3 py-2 rounded-lg"
+                  style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)", color: "white" }}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") {
+                      const input = e.currentTarget;
+                      const code = input.value.trim().toUpperCase();
+                      if (code === "THYSELF-BETA" || code === "THYSELF_BETA" || code === "THYSELFBETA") {
+                        try {
+                          localStorage.setItem("psyche-beta-access", "true");
+                          // Grant unlimited tokens + unlock everything
+                          const gs = JSON.parse(localStorage.getItem("psyche-game-state") || "{}");
+                          gs.tokens = 99999;
+                          gs.totalTokensEarned = 99999;
+                          gs.hearts = 999;
+                          gs.maxHearts = 999;
+                          gs.streakFreezes = 99;
+                          localStorage.setItem("psyche-game-state", JSON.stringify(gs));
+                          // Unlock growth path
+                          localStorage.setItem("psyche-enneagram-growth-unlocked", "true");
+                          // Mark as Pro
+                          localStorage.setItem("psyche-pro-active", "true");
+                          input.value = "";
+                          alert("Beta access activated. All features unlocked. Unlimited hearts and tokens.");
+                          window.location.reload();
+                        } catch {}
+                      } else {
+                        input.value = "";
+                        input.placeholder = "Invalid code";
+                      }
+                    }
+                  }}
+                />
+              </div>
+            </div>
           </div>
         </ExpandableSection>
       </div>
