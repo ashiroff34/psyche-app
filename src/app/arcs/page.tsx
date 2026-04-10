@@ -99,6 +99,55 @@ const ARCS: Arc[] = [
     teaser:
       "The 5's vast inner world takes its first steps into the arena. This arc helps the observer learn to act before they feel ready. and discover the power waiting on the other side of the threshold.",
   },
+  // ── Shadow / Disintegration Arcs ──────────────────────────────────────
+  {
+    id: "arc-shadow-1-4",
+    title: "The 1→4 Shadow Arc",
+    subtitle: "When the Critic Becomes the Mourner",
+    theme: { from: "#E74C3C", to: "#9B59B6" },
+    teaser:
+      "Under stress, the 1's rigid self-control collapses into the 4's emotional flooding. This arc explores how the reformer's shadow holds grief, envy, and the feelings the inner critic tried to legislate away.",
+  },
+  {
+    id: "arc-shadow-3-9",
+    title: "The 3→9 Shadow Arc",
+    subtitle: "When the Performer Goes Numb",
+    theme: { from: "#F39C12", to: "#95A5A6" },
+    teaser:
+      "Under stress, the 3's relentless drive collapses into the 9's numbness. This arc explores what happens when the achiever can no longer perform, and what is waiting in the stillness underneath.",
+  },
+  {
+    id: "arc-shadow-7-1",
+    title: "The 7→1 Shadow Arc",
+    subtitle: "When Freedom Becomes Rigidity",
+    theme: { from: "#1ABC9C", to: "#E74C3C" },
+    teaser:
+      "Under stress, the 7's boundless enthusiasm collapses into the 1's harsh self-criticism. This arc explores the perfectionism hiding inside the adventurer, and the pain the plans were built to avoid.",
+  },
+  {
+    id: "arc-shadow-8-5",
+    title: "The 8→5 Shadow Arc",
+    subtitle: "When Power Becomes Withdrawal",
+    theme: { from: "#E67E22", to: "#2980B9" },
+    teaser:
+      "Under stress, the 8's forceful engagement collapses into the 5's secretive retreat. This arc explores the isolation behind the armor, and what the challenger does when fighting stops working.",
+  },
+  {
+    id: "arc-shadow-6-3",
+    title: "The 6→3 Shadow Arc",
+    subtitle: "When Doubt Becomes Performance",
+    theme: { from: "#27AE60", to: "#F39C12" },
+    teaser:
+      "Under stress, the 6's careful loyalty collapses into the 3's competitive image management. This arc explores how the loyalist's anxiety drives them to prove their worth through accomplishment instead of trust.",
+  },
+  {
+    id: "arc-shadow-2-8",
+    title: "The 2→8 Shadow Arc",
+    subtitle: "When Giving Becomes Demanding",
+    theme: { from: "#E91E8C", to: "#E67E22" },
+    teaser:
+      "Under stress, the 2's generosity collapses into the 8's aggressive control. This arc explores the anger hiding under the sweetness, and what happens when the helper stops being nice.",
+  },
 ];
 
 const ACTIVE_ARC = ARCS[0];
