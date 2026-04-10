@@ -13,6 +13,7 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Sparkles, Check } from "lucide-react";
+import MicroCelebration from "@/components/MicroCelebration";
 import { usePsychometrics } from "@/hooks/usePsychometrics";
 import { ASPECTS, type Aspect } from "@/data/psychometrics/big-five-aspects";
 
@@ -56,6 +57,7 @@ export default function StateCheckIn() {
   const [answers, setAnswers] = useState<Record<string, number>>({});
   const [done, setDone] = useState(false);
   const [dismissed, setDismissed] = useState(false);
+  const [celebrate, setCelebrate] = useState(false);
 
   useEffect(() => {
     const today = getDateKey();
@@ -77,11 +79,15 @@ export default function StateCheckIn() {
       if (typeof window !== "undefined") {
         localStorage.setItem(STORAGE_KEY_DONE(today), "1");
       }
+      setCelebrate(true);
       setTimeout(() => setDone(true), 120);
     }
   }
 
   if (dismissed) return null;
+
+  // Micro-celebration on completion (Fogg Tiny Habits)
+  if (celebrate && !done) return <MicroCelebration trigger={true} label="Logged" onDone={() => setCelebrate(false)} />;
 
   if (done) {
     // Show state-vs-trait delta if we have both

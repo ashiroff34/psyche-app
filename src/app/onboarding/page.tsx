@@ -1352,7 +1352,24 @@ function OnboardingPageInner() {
       });
     } catch {}
 
-    setStep(9); // → chibi naming → implementation intention → all set
+    // Fire welcome email (Day 0)
+    if (email.trim()) {
+      try {
+        const chibiName = localStorage.getItem("psyche-chibi-name") ?? undefined;
+        fetch("/api/send-welcome", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            email: email.trim(),
+            displayName: name.trim() || undefined,
+            enneagramType: assessmentResult.type,
+            chibiName,
+          }),
+        }).catch(() => {}); // fire and forget
+      } catch {}
+    }
+
+    setStep(9); // → chibi naming → all set
   };
 
   const saveManual = (name: string, type: number) => {

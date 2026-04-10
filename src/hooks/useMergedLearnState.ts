@@ -36,9 +36,12 @@ export function useMergedLearnState() {
 
   const unitsWithStatus: UnitWithStatus[] = useMemo(() => {
     return LESSON_UNITS.map((unit) => {
+      // Beta testers bypass all unit locks
+      const isBeta = typeof window !== "undefined" && (() => { try { return localStorage.getItem("psyche-beta-access") === "true"; } catch { return false; } })();
+
       // Determine if unit is locked based on requiresUnit
       let isLocked = false;
-      if (unit.requiresUnit) {
+      if (!isBeta && unit.requiresUnit) {
         const prereq = LESSON_UNITS.find((u) => u.id === unit.requiresUnit);
         if (prereq && prereq.lessons.length > 0) {
           isLocked = !isUnitCompleted(prereq.id);
