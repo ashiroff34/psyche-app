@@ -101,8 +101,12 @@ export default function ComebackModal() {
     const today = getDateKey();
     const daysSince = data?.daysSince ?? 0;
 
-    // Gentle (1-3 days): no token bonus. Moderate (4-13): +25. Win-back (14+): +50.
-    const tokenBonus = daysSince >= 14 ? 50 : daysSince >= 4 ? 25 : 0;
+    // Progressive ladder (Dai/Milkman/Riis fresh-start effect + Neff self-compassion):
+    //   1-3 days = gentle  (no bonus, warm framing, no pressure)
+    //   4-13 days = moderate (+25 tokens, +50 xp, +1 streak freeze)
+    //   14-29 days = empathetic (+40 tokens, +75 xp, +2 freezes, warmer copy, no shame)
+    //   30+ days = freshStart (+75 tokens, +100 xp, +3 freezes, fresh-start framing)
+    const tokenBonus = daysSince >= 30 ? 75 : daysSince >= 14 ? 40 : daysSince >= 4 ? 25 : 0;
 
     // Apply all rewards in a single read-modify-write to avoid overwriting earlier changes
     if (daysSince >= 4 || tokenBonus > 0) {
@@ -110,9 +114,11 @@ export default function ComebackModal() {
         const raw = localStorage.getItem("psyche-game-state");
         const gs = raw ? JSON.parse(raw) : {};
         if (daysSince >= 4) {
-          gs.xp = (gs.xp ?? 0) + 50;
-          gs.totalXPEarned = (gs.totalXPEarned ?? 0) + 50;
-          gs.streakFreezes = (gs.streakFreezes ?? 0) + 1;
+          const xpBoost = daysSince >= 30 ? 100 : daysSince >= 14 ? 75 : 50;
+          const freezeBoost = daysSince >= 30 ? 3 : daysSince >= 14 ? 2 : 1;
+          gs.xp = (gs.xp ?? 0) + xpBoost;
+          gs.totalXPEarned = (gs.totalXPEarned ?? 0) + xpBoost;
+          gs.streakFreezes = (gs.streakFreezes ?? 0) + freezeBoost;
         }
         if (tokenBonus > 0) {
           gs.tokens = ((gs.tokens as number) ?? 0) + tokenBonus;
@@ -137,9 +143,15 @@ export default function ComebackModal() {
 
   const { daysSince } = data;
 
-  // Segment: gentle (1-3), moderate (4-13), win-back (14+)
-  const segment: "gentle" | "moderate" | "winback" =
-    daysSince >= 14 ? "winback" : daysSince >= 4 ? "moderate" : "gentle";
+  // Segment ladder: gentle (1-3), moderate (4-13), empathetic (14-29), freshStart (30+)
+  type Segment = "gentle" | "moderate" | "empathetic" | "freshStart";
+  const segment: Segment =
+    daysSince >= 30 ? "freshStart"
+    : daysSince >= 14 ? "empathetic"
+    : daysSince >= 4 ? "moderate"
+    : "gentle";
+  // Any long-away tier triggers the token/reward paths that used to be "winback"
+  const isLongAway: boolean = segment === "empathetic" || segment === "freshStart";
 
   const petHealthColor =
     data.petHealth === null
@@ -159,7 +171,11 @@ export default function ComebackModal() {
 
   // Heading / subtext / CTA copy per segment
   const headingText =
-    segment === "winback"
+    segment === "freshStart"
+      ? "A fresh start is always available."
+      : segment === "empathetic"
+      ? "No streak to catch up on. Just you, here."
+      : isLongAway
       ? "Your growth path is waiting."
       : data.petName !== "Your pet"
       ? `${data.petName} missed you.`
@@ -172,7 +188,15 @@ export default function ComebackModal() {
       <p className="text-sm" style={{ color: "rgba(255,255,255,0.5)" }}>
         You were away for {daysSince === 1 ? "1 day" : `${daysSince} days`}. let&apos;s pick up where you left off.
       </p>
-    ) : segment === "winback" ? (
+    ) : segment === "freshStart" ? (
+      <p className="text-sm" style={{ color: "rgba(255,255,255,0.5)" }}>
+        It&apos;s been {daysSince} days. That&apos;s a long break, and that&apos;s okay. Research shows returning after a long absence is a temporal landmark, a fresh start window. You can begin again, clean. No streak pressure.
+      </p>
+    ) : segment === "empathetic" ? (
+      <p className="text-sm" style={{ color: "rgba(255,255,255,0.5)" }}>
+        {daysSince} days. Life takes over sometimes. Nothing you built here went away. Your type is still yours, and what you learned is still there. Come back at your pace.
+      </p>
+    ) : isLongAway ? (
       <p className="text-sm" style={{ color: "rgba(255,255,255,0.5)" }}>
         You&apos;ve been away {daysSince} days.{data.userType ? ` ${data.userType}s` : " People"} who return after a break often have the deepest breakthroughs.
       </p>
@@ -180,16 +204,17 @@ export default function ComebackModal() {
       <p className="text-sm" style={{ color: "rgba(255,255,255,0.5)" }}>
         {daysSince === 1
           ? "You were away for 1 day. come back strong."
-          : `You were away for ${daysSince} days. don't let it slip further.`}
+          : `You were away for ${daysSince} days. Your chibi is still here waiting.`}
       </p>
     );
 
   const ctaLabel =
-    segment === "gentle"
-      ? "Continue →"
-      : segment === "winback"
-      ? "Return to your journey →"
-      : null; // moderate uses icon+text button
+    segment === "gentle" ? "Continue →"
+    : segment === "freshStart" ? "Begin again →"
+    : segment === "empathetic" ? "I'm back →"
+    : isLongAway ? "Return to your journey →"
+    : null; // moderate uses icon+text button
+  void isLongAway;
 
   return (
     <AnimatePresence>
@@ -216,7 +241,7 @@ export default function ComebackModal() {
           >
             <div className="pointer-events-auto w-full max-w-sm rounded-3xl overflow-hidden" style={{ background: "rgba(18,12,36,0.98)", border: "1px solid rgba(139,92,246,0.25)", boxShadow: "0 24px 60px rgba(0,0,0,0.6)" }}>
               {/* Header gradient strip */}
-              <div className={`h-1.5 ${segment === "gentle" ? "bg-gradient-to-r from-slate-500 via-indigo-500 to-slate-500" : segment === "winback" ? "bg-gradient-to-r from-purple-400 via-violet-500 to-indigo-400" : "bg-gradient-to-r from-violet-400 via-indigo-500 to-sky-400"}`} />
+              <div className={`h-1.5 ${segment === "gentle" ? "bg-gradient-to-r from-slate-500 via-indigo-500 to-slate-500" : isLongAway ? "bg-gradient-to-r from-purple-400 via-violet-500 to-indigo-400" : "bg-gradient-to-r from-violet-400 via-indigo-500 to-sky-400"}`} />
 
               <div className="p-7 relative">
                 {/* Close button */}
@@ -273,7 +298,7 @@ export default function ComebackModal() {
                           <Coins className="w-4 h-4" style={{ color: "#34d399" }} />
                         </div>
                         <span className="text-sm font-medium" style={{ color: "rgba(255,255,255,0.82)" }}>
-                          {segment === "winback"
+                          {isLongAway
                             ? <>+50 tokens <span className="text-xs" style={{ color: "rgba(255,255,255,0.45)" }}>win-back bonus</span></>
                             : <>2× tokens today <span className="text-xs" style={{ color: "rgba(255,255,255,0.45)" }}>+25 bonus</span></>
                           }
@@ -354,7 +379,7 @@ export default function ComebackModal() {
                     <>Bonus Claimed!</>
                   ) : segment === "gentle" ? (
                     <>{ctaLabel}</>
-                  ) : segment === "winback" ? (
+                  ) : isLongAway ? (
                     <>{ctaLabel}</>
                   ) : (
                     <>

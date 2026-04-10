@@ -12,6 +12,8 @@ import ChibiSprite from "@/components/ChibiSprite";
 import { TYPE_WPFA } from "@/data/wound-passion-fixation-armor";
 import { resolveTypeAwareCopy } from "@/hooks/useTypeAwareCopy";
 import { posthog, EVENTS, setUserProperty } from "@/lib/posthog";
+import TypeIdentityCard from "@/components/TypeIdentityCard";
+import { Share2 } from "lucide-react";
 import dynamic from "next/dynamic";
 const Confetti = dynamic(() => import("react-confetti"), { ssr: false });
 
@@ -516,12 +518,32 @@ function TypeRevealScreen({
           </motion.button>
         )}
 
-        {/* Identity Card share link */}
+        {/* Peak-moment shareable. Embedded TypeIdentityCard right at reveal. */}
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.9 }}
+          className="w-full mb-4"
+        >
+          <div className="text-center mb-2">
+            <p className="text-[10px] font-bold uppercase tracking-widest" style={{ color: "rgba(217,70,239,0.9)" }}>
+              Share your type
+            </p>
+            <p className="text-[11px] opacity-50 leading-snug">Tap to flip. Tap share to send a branded card.</p>
+          </div>
+          <TypeIdentityCard
+            type={result.type}
+            instinct={result.instinct?.split("/")[0]}
+            displayName={displayName}
+          />
+        </motion.div>
+
+        {/* Secondary: go to dedicated /identity page */}
         <motion.a
           href="/identity"
           initial={{ opacity: 0, y: 6 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.82 }}
+          transition={{ delay: 0.92 }}
           className="w-full py-3 rounded-2xl text-sm font-semibold transition-all active:scale-[0.98] flex items-center justify-center gap-2"
           style={{
             background: "rgba(255,255,255,0.04)",
@@ -875,6 +897,170 @@ const TYPE_NAMES: Record<number, string> = {
   7: "The Enthusiast", 8: "The Challenger", 9: "The Peacemaker",
 };
 
+// ── Step 9: Chibi Naming ───────────────────────────────────────────────────
+// Psychological ownership (Pierce et al. 2003) + IKEA effect (Norton 2012).
+// Self-assembled items valued 63% higher; naming creates intimate knowledge.
+
+function StepChibiName({ type, onContinue }: { type: number; onContinue: () => void }) {
+  const [name, setName] = useState("");
+  const [submitted, setSubmitted] = useState(false);
+
+  const DEFAULT_NAMES: Record<number, string[]> = {
+    1: ["Athena", "Quill", "Sage"],
+    2: ["Clover", "Hart", "Mira"],
+    3: ["Blaze", "Nova", "Axel"],
+    4: ["Luna", "Wren", "Indigo"],
+    5: ["Corvus", "Owlet", "Ash"],
+    6: ["Scout", "Sentry", "Juniper"],
+    7: ["Zippy", "Pip", "Flint"],
+    8: ["Ember", "Rook", "Ridge"],
+    9: ["Mochi", "Moss", "River"],
+  };
+  const suggestions = DEFAULT_NAMES[type] ?? ["Companion"];
+
+  function submit(finalName: string) {
+    if (!finalName.trim()) return;
+    try {
+      const petRaw = localStorage.getItem("psyche-pet-state");
+      const pet = petRaw ? JSON.parse(petRaw) : {};
+      localStorage.setItem("psyche-pet-state", JSON.stringify({ ...pet, name: finalName.trim(), userNamed: true }));
+      localStorage.setItem("psyche-chibi-name", finalName.trim());
+    } catch {}
+    try { posthog.capture("chibi_named", { name_length: finalName.trim().length, used_suggestion: suggestions.includes(finalName.trim()) }); } catch {}
+    setSubmitted(true);
+    setTimeout(onContinue, 700);
+  }
+
+  return (
+    <div className="w-full max-w-md">
+      <div className="text-center mb-8">
+        <div className="flex justify-center mb-4">
+          <ChibiSprite type={type} size={170} />
+        </div>
+        <h2 className="text-2xl font-bold mb-2">Meet your companion</h2>
+        <p className="text-sm opacity-70 leading-relaxed px-4">
+          This chibi is yours. They'll grow with you. Give them a name.
+        </p>
+      </div>
+      <div className="rounded-3xl p-6" style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)" }}>
+        <input
+          autoFocus
+          value={name}
+          onChange={e => setName(e.target.value)}
+          onKeyDown={e => { if (e.key === "Enter") submit(name); }}
+          maxLength={20}
+          placeholder="A name for your chibi"
+          className="w-full text-center text-lg font-semibold py-3 px-4 rounded-2xl mb-3"
+          style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.12)", color: "white" }}
+        />
+        <div className="flex flex-wrap gap-2 justify-center mb-4">
+          {suggestions.map(s => (
+            <button
+              key={s}
+              onClick={() => setName(s)}
+              className="text-xs px-3 py-1.5 rounded-full"
+              style={{ background: "rgba(139,92,246,0.15)", border: "1px solid rgba(139,92,246,0.3)", color: "#c4b5fd" }}
+            >
+              {s}
+            </button>
+          ))}
+        </div>
+        <button
+          onClick={() => submit(name)}
+          disabled={!name.trim() || submitted}
+          className="w-full py-3 rounded-2xl font-semibold transition-all disabled:opacity-40"
+          style={{ background: "linear-gradient(135deg,#8b5cf6,#d946ef)", color: "white" }}
+        >
+          {submitted ? "Saved" : "This is their name"}
+        </button>
+      </div>
+    </div>
+  );
+}
+
+// ── Step 10: Implementation Intention ──────────────────────────────────────
+// Gollwitzer (1999): "if X then Y" plans produce 2-3x goal completion vs
+// general intentions. Capturing a specific anchor doubles daily return rate.
+
+function StepImplementationIntention({ onContinue }: { onContinue: () => void }) {
+  const [anchor, setAnchor] = useState<string | null>(null);
+  const [customAnchor, setCustomAnchor] = useState("");
+  const [submitted, setSubmitted] = useState(false);
+
+  const ANCHORS = [
+    { id: "morning_coffee", label: "After my morning coffee", key: "after-morning-coffee", timeHint: "08:00" },
+    { id: "lunch", label: "After lunch", key: "after-lunch", timeHint: "13:00" },
+    { id: "commute", label: "On my commute", key: "during-commute", timeHint: "17:30" },
+    { id: "bedtime", label: "Before bed", key: "before-bed", timeHint: "22:00" },
+  ];
+
+  function submit(chosen: { id: string; label: string; key: string; timeHint: string } | { id: "custom"; label: string; key: string; timeHint: string }) {
+    try {
+      localStorage.setItem(
+        "psyche-implementation-intention",
+        JSON.stringify({ id: chosen.id, label: chosen.label, key: chosen.key, timeHint: chosen.timeHint, capturedAt: new Date().toISOString() })
+      );
+    } catch {}
+    try { posthog.capture("implementation_intention_set", { anchor_id: chosen.id }); } catch {}
+    setSubmitted(true);
+    setTimeout(onContinue, 700);
+  }
+
+  return (
+    <div className="w-full max-w-md">
+      <div className="text-center mb-8">
+        <h2 className="text-2xl font-bold mb-3">When will you check in?</h2>
+        <p className="text-sm opacity-70 leading-relaxed px-4">
+          Pick one moment in your day. Research shows that linking a new practice to an existing routine more than doubles follow-through.
+        </p>
+      </div>
+      <div className="rounded-3xl p-6" style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)" }}>
+        <div className="space-y-2 mb-3">
+          {ANCHORS.map(a => (
+            <button
+              key={a.id}
+              onClick={() => { setAnchor(a.id); submit(a); }}
+              className="w-full text-left py-3 px-4 rounded-xl font-medium transition-all active:scale-[0.98]"
+              style={{
+                background: anchor === a.id ? "rgba(139,92,246,0.22)" : "rgba(255,255,255,0.05)",
+                border: `1px solid ${anchor === a.id ? "rgba(139,92,246,0.6)" : "rgba(255,255,255,0.1)"}`,
+                color: "rgba(255,255,255,0.9)",
+              }}
+              disabled={submitted}
+            >
+              {a.label}
+            </button>
+          ))}
+        </div>
+        <div className="pt-2">
+          <input
+            value={customAnchor}
+            onChange={e => setCustomAnchor(e.target.value)}
+            placeholder="Or write your own anchor..."
+            maxLength={60}
+            className="w-full text-sm py-2.5 px-3 rounded-xl mb-2"
+            style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)", color: "white" }}
+            disabled={submitted}
+          />
+          {customAnchor.trim().length > 2 && (
+            <button
+              onClick={() => submit({ id: "custom", label: customAnchor.trim(), key: "custom", timeHint: "09:00" })}
+              className="w-full py-2.5 text-xs rounded-xl font-semibold"
+              style={{ background: "rgba(139,92,246,0.18)", border: "1px solid rgba(139,92,246,0.35)", color: "#c4b5fd" }}
+              disabled={submitted}
+            >
+              Use "{customAnchor.trim()}"
+            </button>
+          )}
+        </div>
+        <p className="text-[11px] opacity-50 text-center mt-4 leading-snug">
+          This becomes your reminder copy. You can change it any time in settings.
+        </p>
+      </div>
+    </div>
+  );
+}
+
 function ManualTypePicker({ onSave }: { onSave: (name: string, type: number) => void }) {
   const [name, setName] = useState("");
   const [type, setType] = useState<number | null>(null);
@@ -1181,7 +1367,7 @@ function OnboardingPageInner() {
       });
     } catch {}
 
-    setStep(7); // all set → daily
+    setStep(9); // → chibi naming → implementation intention → all set
   };
 
   const saveManual = (name: string, type: number) => {
@@ -1294,7 +1480,7 @@ function OnboardingPageInner() {
         path: "skip_email",
       });
     } catch {}
-    setStep(7); // all set → daily
+    setStep(9); // → chibi naming → implementation intention → all set
   };
 
   return (
@@ -1425,6 +1611,39 @@ function OnboardingPageInner() {
                 onSkip={skipSave}
               />
             </div>
+          </motion.div>
+        )}
+
+        {/* Step 9: Chibi naming (psychological ownership / IKEA effect) */}
+        {step === 9 && assessmentResult && (
+          <motion.div
+            key="chibi-name"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.25 }}
+            className="min-h-screen flex items-center justify-center pt-8 pb-24 px-4"
+          >
+            <StepChibiName
+              type={assessmentResult.type}
+              onContinue={() => setStep(10)}
+            />
+          </motion.div>
+        )}
+
+        {/* Step 10: Implementation intention (if-then habit anchor) */}
+        {step === 10 && assessmentResult && (
+          <motion.div
+            key="implementation-intention"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.25 }}
+            className="min-h-screen flex items-center justify-center pt-8 pb-24 px-4"
+          >
+            <StepImplementationIntention
+              onContinue={() => setStep(7)}
+            />
           </motion.div>
         )}
 

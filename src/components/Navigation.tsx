@@ -24,6 +24,9 @@ import {
   Layers,
   TrendingUp,
   Users,
+  Star,
+  Video,
+  UserPlus,
 } from "lucide-react";
 import OuroborosLogo from "@/components/OuroborosLogo";
 import SearchComponent from "@/components/Search";
@@ -166,6 +169,14 @@ const ALL_MORE_GROUPS: MoreGroup[] = [
       { href: "/drift", label: "Drift Graph", icon: TrendingUp },
       { href: "/selves", label: "Selves (Work/Home/Love)", icon: Users },
       { href: "/relational", label: "Relational You", icon: Heart },
+      { href: "/rarity", label: "Your Rarity", icon: Star },
+    ],
+  },
+  {
+    label: "Share",
+    items: [
+      { href: "/tiktok", label: "TikTok Studio", icon: Video },
+      { href: "/pair", label: "Pair Challenge", icon: UserPlus },
     ],
   },
   {

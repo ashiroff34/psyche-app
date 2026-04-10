@@ -259,6 +259,36 @@ function EnterScreen() {
         ))}
       </div>
 
+      {/* Endowed progress + curiosity gap (Nunes & Drèze 2006; Zeigarnik) */}
+      <motion.div
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, delay: 0.3 }}
+        className="relative w-full px-6 mb-4"
+        style={{ maxWidth: "360px", zIndex: 10 }}
+      >
+        <div className="px-4 py-3 rounded-2xl" style={{ background: "rgba(139,92,246,0.08)", border: "1px solid rgba(139,92,246,0.22)" }}>
+          <div className="flex justify-between items-baseline mb-1.5">
+            <p className="text-[10px] font-bold uppercase tracking-widest" style={{ color: "rgba(167,139,250,0.85)" }}>
+              You're already on the way
+            </p>
+            <span className="text-[10px] font-mono" style={{ color: "rgba(255,255,255,0.5)" }}>14%</span>
+          </div>
+          <div className="h-1.5 rounded-full overflow-hidden mb-2" style={{ background: "rgba(255,255,255,0.06)" }}>
+            <motion.div
+              initial={{ width: 0 }}
+              animate={{ width: "14%" }}
+              transition={{ duration: 1.2, delay: 0.6 }}
+              className="h-full rounded-full"
+              style={{ background: "linear-gradient(90deg, #8b5cf6, #d946ef)" }}
+            />
+          </div>
+          <p className="text-[11px] leading-snug" style={{ color: "rgba(255,255,255,0.65)" }}>
+            Based on 1 answer from the landing card, we've eliminated 3 of the 9 possible Enneagram types. Six remain.
+          </p>
+        </div>
+      </motion.div>
+
       {/* CTAs */}
       <motion.div
         initial={{ opacity: 0, y: 10 }}

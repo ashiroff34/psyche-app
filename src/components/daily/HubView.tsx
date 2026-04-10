@@ -8,8 +8,11 @@ import { useVerifiedShare } from "@/hooks/useVerifiedShare";
 import { resolveTypeAwareCopy } from "@/hooks/useTypeAwareCopy";
 import { useSubtypeAwareCopy } from "@/hooks/useSubtypeAwareCopy";
 import StateCheckIn from "@/components/daily/StateCheckIn";
+import LuckyDropToast from "@/components/daily/LuckyDropToast";
 import { usePsychometrics } from "@/hooks/usePsychometrics";
 import { pickByFocus } from "@/data/psychometrics/regulatory-focus";
+import { getFreshStartWindow, getFreshStartCopy, getImplementationIntent } from "@/lib/fresh-start";
+import { isBonusDayToday } from "@/lib/variable-rewards";
 
 // ─── Type-match preview cards (subset for daily challenge) ────────────────────
 const DAILY_CHALLENGE_CARDS = [
@@ -201,6 +204,21 @@ export default function HubView({
     prevention: "Stay on track today",
     balanced: "Start here",
   });
+  // Fresh-start effect (Dai, Milkman, Riis 2014): surface a banner on
+  // temporal landmarks (Mondays, 1st of month, birthday, season changes).
+  // Dismissed per-window with a localStorage key.
+  const [freshStartState] = useState(() => {
+    if (typeof window === "undefined") return { visible: false, window: "none" as const, copy: null as any };
+    const w = getFreshStartWindow(new Date(), null);
+    if (w === "none") return { visible: false, window: w, copy: null };
+    const dismissKey = `psyche-fresh-start-dismissed-${w}-${new Date().toISOString().slice(0, 10)}`;
+    if (localStorage.getItem(dismissKey)) return { visible: false, window: w, copy: null };
+    const copy = getFreshStartCopy(w, name ?? null, enneagramType || null);
+    return { visible: true, window: w, copy, dismissKey };
+  });
+  const [freshStartVisible, setFreshStartVisible] = useState(freshStartState.visible);
+  const implementationIntent = typeof window !== "undefined" ? getImplementationIntent() : null;
+  const bonusDay = typeof window !== "undefined" ? isBonusDayToday() : false;
   const TYPE_COLORS: Record<number, string> = { 1: "#E74C3C", 2: "#E91E8C", 3: "#F39C12", 4: "#9B59B6", 5: "#2980B9", 6: "#27AE60", 7: "#1ABC9C", 8: "#E67E22", 9: "#95A5A6" };
   const overallProgress = Math.round((completedToday / Math.max(totalNodes, 1)) * 100);
   const ringCircumference = 2 * Math.PI * 52;
@@ -261,7 +279,31 @@ export default function HubView({
         background: "#0f0a1e",
       }}
     >
+      {/* Variable reinforcement lucky drop toast */}
+      <LuckyDropToast actionId="hub-visit" />
+
       <div className="max-w-2xl mx-auto px-4 pt-20 pb-32">
+
+        {/* ── Bonus Day banner (variable reinforcement) ── */}
+        {bonusDay && (
+          <motion.div
+            initial={{ opacity: 0, y: -8 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="mb-4 px-4 py-3 rounded-2xl flex items-center gap-3"
+            style={{
+              background: "linear-gradient(135deg, rgba(234,179,8,0.18), rgba(217,70,239,0.14))",
+              border: "1px solid rgba(234,179,8,0.4)",
+            }}
+          >
+            <Sparkles className="w-5 h-5 text-yellow-300 shrink-0" />
+            <div className="min-w-0">
+              <p className="text-[10px] font-bold uppercase tracking-widest text-yellow-200">
+                Bonus day
+              </p>
+              <p className="text-xs opacity-85">All tokens earned today are doubled.</p>
+            </div>
+          </motion.div>
+        )}
 
         {/* ── Endowed progress banner ── */}
         <AnimatePresence>
@@ -498,6 +540,41 @@ export default function HubView({
 
           return (
             <>
+            {freshStartVisible && freshStartState.copy && (
+              <motion.div
+                initial={{ opacity: 0, y: 6 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="w-full mb-3 px-4 py-3 rounded-2xl relative"
+                style={{
+                  background: "linear-gradient(135deg, rgba(234,179,8,0.12), rgba(217,70,239,0.1))",
+                  border: "1px solid rgba(234,179,8,0.3)",
+                }}
+              >
+                <button
+                  onClick={() => {
+                    if ((freshStartState as any).dismissKey) localStorage.setItem((freshStartState as any).dismissKey, "1");
+                    setFreshStartVisible(false);
+                  }}
+                  className="absolute top-2 right-2 text-[10px] opacity-50 hover:opacity-90 px-2"
+                >
+                  ✕
+                </button>
+                <p className="text-[10px] font-bold uppercase tracking-widest mb-1" style={{ color: "#fde68a" }}>
+                  Fresh start
+                </p>
+                <p className="text-sm font-semibold mb-0.5" style={{ color: "rgba(255,255,255,0.95)" }}>
+                  {freshStartState.copy.headline}
+                </p>
+                <p className="text-xs opacity-70 leading-snug pr-6">
+                  {freshStartState.copy.body}
+                </p>
+                {implementationIntent && (
+                  <p className="text-[10px] opacity-60 mt-1.5 italic">
+                    Your anchor: {implementationIntent.label.toLowerCase()}
+                  </p>
+                )}
+              </motion.div>
+            )}
             {subtypeGreeting && subtypeGreeting !== "Your practice is here." && (
               <motion.div
                 initial={{ opacity: 0, y: 6 }}
