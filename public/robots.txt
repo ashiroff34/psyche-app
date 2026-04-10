@@ -1,0 +1,11 @@
+User-agent: *
+Allow: /
+Sitemap: https://psyche-app-two.vercel.app/sitemap.xml
+
+# Block internal app routes from indexing (require auth/state)
+Disallow: /daily
+Disallow: /settings
+Disallow: /store
+Disallow: /journal
+Disallow: /profile
+Disallow: /api/

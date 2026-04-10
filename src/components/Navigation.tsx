@@ -180,6 +180,14 @@ const ALL_MORE_GROUPS: MoreGroup[] = [
     ],
   },
   {
+    label: "Pro",
+    items: [
+      { href: "/pricing", label: "Pricing", icon: Star },
+      { href: "/mastery", label: "Mastery Map", icon: TrendingUp },
+      { href: "/data-usage", label: "Your Data", icon: Layers },
+    ],
+  },
+  {
     label: "Explore",
     items: [
       { href: "/compatibility", label: "Compare Types", icon: Heart },

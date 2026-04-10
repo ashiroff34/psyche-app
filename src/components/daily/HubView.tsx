@@ -9,10 +9,12 @@ import { resolveTypeAwareCopy } from "@/hooks/useTypeAwareCopy";
 import { useSubtypeAwareCopy } from "@/hooks/useSubtypeAwareCopy";
 import StateCheckIn from "@/components/daily/StateCheckIn";
 import LuckyDropToast from "@/components/daily/LuckyDropToast";
+import ChibiMessage from "@/components/ChibiMessage";
 import { usePsychometrics } from "@/hooks/usePsychometrics";
 import { pickByFocus } from "@/data/psychometrics/regulatory-focus";
 import { getFreshStartWindow, getFreshStartCopy, getImplementationIntent } from "@/lib/fresh-start";
 import { isBonusDayToday } from "@/lib/variable-rewards";
+import { getTodaysNorm } from "@/data/descriptive-norms";
 
 // ─── Type-match preview cards (subset for daily challenge) ────────────────────
 const DAILY_CHALLENGE_CARDS = [
@@ -219,6 +221,7 @@ export default function HubView({
   const [freshStartVisible, setFreshStartVisible] = useState(freshStartState.visible);
   const implementationIntent = typeof window !== "undefined" ? getImplementationIntent() : null;
   const bonusDay = typeof window !== "undefined" ? isBonusDayToday() : false;
+  const todaysNorm = getTodaysNorm(enneagramType || null);
   const TYPE_COLORS: Record<number, string> = { 1: "#E74C3C", 2: "#E91E8C", 3: "#F39C12", 4: "#9B59B6", 5: "#2980B9", 6: "#27AE60", 7: "#1ABC9C", 8: "#E67E22", 9: "#95A5A6" };
   const overallProgress = Math.round((completedToday / Math.max(totalNodes, 1)) * 100);
   const ringCircumference = 2 * Math.PI * 52;
@@ -629,6 +632,27 @@ export default function HubView({
             </>
           );
         })()}
+
+        {/* ── Chibi narration (parasocial voice, Horton & Wohl 1956) ── */}
+        {enneagramType > 0 && (
+          <div className="mb-4">
+            <ChibiMessage enneagramType={enneagramType} />
+          </div>
+        )}
+
+        {/* ── Descriptive norm (Schultz 2007 + injunctive pairing) ── */}
+        {todaysNorm && (
+          <div className="mb-3 px-3 py-2 rounded-xl" style={{ background: "rgba(139,92,246,0.05)", border: "1px solid rgba(139,92,246,0.12)" }}>
+            <p className="text-[11px] opacity-65 leading-snug">{todaysNorm.text}</p>
+            <p className="text-[10px] opacity-50 mt-0.5 italic">{todaysNorm.injunctive}</p>
+          </div>
+        )}
+
+        {/* ── Trust badge (Pew 2019 privacy concern data) ── */}
+        <div className="mb-3 flex items-center gap-2 px-3 py-2 rounded-xl" style={{ background: "rgba(16,185,129,0.06)", border: "1px solid rgba(16,185,129,0.15)" }}>
+          <span className="text-[10px]">🔒</span>
+          <p className="text-[10px] opacity-60">Your personality data stays on this device. <a href="/data-usage" className="underline opacity-80">See what we store</a></p>
+        </div>
 
         {/* ── State check-in (30-second today-vs-usually micro-assessment) ── */}
         <StateCheckIn />

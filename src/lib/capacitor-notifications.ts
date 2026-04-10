@@ -107,3 +107,42 @@ export function hourForTimePreset(preset: "morning" | "afternoon" | "evening"): 
       return 9;
   }
 }
+
+// ── Type-Aware + Anchor-Aware Notification Copy ──────────────────────────
+// Pulls from implementation intention anchor (Gollwitzer 1999) and
+// Enneagram type for personalized, earned notification content.
+// Pielot et al. 2017: rich/contextual push has 3x engagement over generic.
+
+import { getImplementationIntent } from "@/lib/fresh-start";
+
+const TYPE_NOTIFICATION_BODIES: Record<number, string> = {
+  1: "A small act of self-honesty. 60 seconds.",
+  2: "A moment just for you, nothing to give back.",
+  3: "Pause the performance. Notice what's underneath.",
+  4: "Ordinary is not a failure of depth. One check-in.",
+  5: "60 seconds of noticing. Minimal, focused, no fluff.",
+  6: "Same place, same time. Your practice is steady.",
+  7: "One minute. Stay with it. The depth is here.",
+  8: "Your call. 60 seconds of honest self-observation.",
+  9: "Just one thing. No decisions, no pressure.",
+};
+
+/**
+ * Build a personalized notification title + body based on the user's type
+ * and their stored implementation intention anchor.
+ */
+export function buildPersonalizedNotification(enneagramType?: number | null): { title: string; body: string } {
+  const intent = getImplementationIntent();
+  const chibiName: string | null = typeof window !== "undefined" ? localStorage.getItem("psyche-chibi-name") : null;
+
+  const title = intent
+    ? `It's ${intent.label.toLowerCase()} time`
+    : chibiName
+      ? `${chibiName} is waiting`
+      : "Your daily check-in";
+
+  const body: string = (enneagramType ? TYPE_NOTIFICATION_BODIES[enneagramType] : undefined)
+    ?? "Your daily check-in is ready. 60 seconds of noticing.";
+
+  return { title, body };
+}

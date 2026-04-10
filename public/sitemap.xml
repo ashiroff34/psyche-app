@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://psyche-app-two.vercel.app/</loc><priority>1.0</priority></url>
+  <url><loc>https://psyche-app-two.vercel.app/assessments</loc><priority>0.9</priority></url>
+  <url><loc>https://psyche-app-two.vercel.app/onboarding</loc><priority>0.9</priority></url>
+  <url><loc>https://psyche-app-two.vercel.app/mirrors</loc><priority>0.8</priority></url>
+  <url><loc>https://psyche-app-two.vercel.app/pricing</loc><priority>0.8</priority></url>
+  <url><loc>https://psyche-app-two.vercel.app/privacy</loc><priority>0.5</priority></url>
+  <url><loc>https://psyche-app-two.vercel.app/terms</loc><priority>0.5</priority></url>
+  <!-- Enneagram type pages -->
+  <url><loc>https://psyche-app-two.vercel.app/enneagram/1</loc><priority>0.8</priority></url>
+  <url><loc>https://psyche-app-two.vercel.app/enneagram/2</loc><priority>0.8</priority></url>
+  <url><loc>https://psyche-app-two.vercel.app/enneagram/3</loc><priority>0.8</priority></url>
+  <url><loc>https://psyche-app-two.vercel.app/enneagram/4</loc><priority>0.8</priority></url>
+  <url><loc>https://psyche-app-two.vercel.app/enneagram/5</loc><priority>0.8</priority></url>
+  <url><loc>https://psyche-app-two.vercel.app/enneagram/6</loc><priority>0.8</priority></url>
+  <url><loc>https://psyche-app-two.vercel.app/enneagram/7</loc><priority>0.8</priority></url>
+  <url><loc>https://psyche-app-two.vercel.app/enneagram/8</loc><priority>0.8</priority></url>
+  <url><loc>https://psyche-app-two.vercel.app/enneagram/9</loc><priority>0.8</priority></url>
+  <!-- Comparison SEO pages (top mistype pairs) -->
+  <url><loc>https://psyche-app-two.vercel.app/compare/1-vs-4</loc><priority>0.7</priority></url>
+  <url><loc>https://psyche-app-two.vercel.app/compare/4-vs-5</loc><priority>0.7</priority></url>
+  <url><loc>https://psyche-app-two.vercel.app/compare/2-vs-9</loc><priority>0.7</priority></url>
+  <url><loc>https://psyche-app-two.vercel.app/compare/3-vs-7</loc><priority>0.7</priority></url>
+  <url><loc>https://psyche-app-two.vercel.app/compare/6-vs-8</loc><priority>0.7</priority></url>
+  <url><loc>https://psyche-app-two.vercel.app/compare/1-vs-6</loc><priority>0.6</priority></url>
+  <url><loc>https://psyche-app-two.vercel.app/compare/2-vs-4</loc><priority>0.6</priority></url>
+  <url><loc>https://psyche-app-two.vercel.app/compare/3-vs-8</loc><priority>0.6</priority></url>
+  <url><loc>https://psyche-app-two.vercel.app/compare/5-vs-9</loc><priority>0.6</priority></url>
+  <url><loc>https://psyche-app-two.vercel.app/compare/7-vs-9</loc><priority>0.6</priority></url>
+  <!-- Mirrors / psychometric -->
+  <url><loc>https://psyche-app-two.vercel.app/drift</loc><priority>0.6</priority></url>
+  <url><loc>https://psyche-app-two.vercel.app/selves</loc><priority>0.6</priority></url>
+  <url><loc>https://psyche-app-two.vercel.app/relational</loc><priority>0.6</priority></url>
+  <url><loc>https://psyche-app-two.vercel.app/rarity</loc><priority>0.6</priority></url>
+</urlset>
