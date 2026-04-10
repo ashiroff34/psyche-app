@@ -21,6 +21,9 @@ import {
   Heart,
   MessageCircle,
   ShoppingBag,
+  Layers,
+  TrendingUp,
+  Users,
 } from "lucide-react";
 import OuroborosLogo from "@/components/OuroborosLogo";
 import SearchComponent from "@/components/Search";
@@ -156,6 +159,15 @@ type MoreItem = { href: string; label: string; icon: React.ElementType; unlocksD
 type MoreGroup = { label: string; items: MoreItem[] };
 
 const ALL_MORE_GROUPS: MoreGroup[] = [
+  {
+    label: "Mirrors",
+    items: [
+      { href: "/mirrors", label: "Three Mirrors", icon: Layers },
+      { href: "/drift", label: "Drift Graph", icon: TrendingUp },
+      { href: "/selves", label: "Selves (Work/Home/Love)", icon: Users },
+      { href: "/relational", label: "Relational You", icon: Heart },
+    ],
+  },
   {
     label: "Explore",
     items: [

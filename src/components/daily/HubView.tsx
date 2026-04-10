@@ -6,6 +6,10 @@ import Link from "next/link";
 import { Flame, Zap, Heart, ArrowRight, Sparkles, BookOpen, CheckCircle, Target, Star, Clock, Lock, ChevronRight, Coins, Brain, Trophy, Share2, X } from "lucide-react";
 import { useVerifiedShare } from "@/hooks/useVerifiedShare";
 import { resolveTypeAwareCopy } from "@/hooks/useTypeAwareCopy";
+import { useSubtypeAwareCopy } from "@/hooks/useSubtypeAwareCopy";
+import StateCheckIn from "@/components/daily/StateCheckIn";
+import { usePsychometrics } from "@/hooks/usePsychometrics";
+import { pickByFocus } from "@/data/psychometrics/regulatory-focus";
 
 // ─── Type-match preview cards (subset for daily challenge) ────────────────────
 const DAILY_CHALLENGE_CARDS = [
@@ -188,6 +192,15 @@ export default function HubView({
   onClaimWeeklyReward,
   onStreakShop,
 }: Props) {
+  const subtypeCopy = useSubtypeAwareCopy();
+  const subtypeGreeting = enneagramType > 0 ? subtypeCopy("hub.subtype.greeting") : "";
+  const subtypeGrowthFocus = enneagramType > 0 ? subtypeCopy("growth.focus") : "";
+  const { regFocus } = usePsychometrics();
+  const focusedStartLabel = pickByFocus(regFocus?.dominant, {
+    promotion: "Today's next unlock",
+    prevention: "Stay on track today",
+    balanced: "Start here",
+  });
   const TYPE_COLORS: Record<number, string> = { 1: "#E74C3C", 2: "#E91E8C", 3: "#F39C12", 4: "#9B59B6", 5: "#2980B9", 6: "#27AE60", 7: "#1ABC9C", 8: "#E67E22", 9: "#95A5A6" };
   const overallProgress = Math.round((completedToday / Math.max(totalNodes, 1)) * 100);
   const ringCircumference = 2 * Math.PI * 52;
@@ -484,6 +497,26 @@ export default function HubView({
           }
 
           return (
+            <>
+            {subtypeGreeting && subtypeGreeting !== "Your practice is here." && (
+              <motion.div
+                initial={{ opacity: 0, y: 6 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.05 }}
+                className="w-full mb-3 px-4 py-3 rounded-2xl"
+                style={{
+                  background: "rgba(139,92,246,0.08)",
+                  border: "1px solid rgba(139,92,246,0.22)",
+                }}
+              >
+                <p className="text-[10px] font-bold uppercase tracking-widest mb-1" style={{ color: "rgba(167,139,250,0.7)" }}>
+                  Today's focus{instinct ? ` · ${instinct.toUpperCase()}` : ""}{subtypeGrowthFocus ? ` · ${subtypeGrowthFocus}` : ""}
+                </p>
+                <p className="text-sm leading-snug" style={{ color: "rgba(255,255,255,0.88)" }}>
+                  {subtypeGreeting}
+                </p>
+              </motion.div>
+            )}
             <motion.button
               initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
@@ -505,7 +538,7 @@ export default function HubView({
               </div>
               <div className="flex-1 min-w-0">
                 <p className="text-[10px] font-bold uppercase tracking-widest mb-0.5" style={{ color: "rgba(255,255,255,0.45)" }}>
-                  Start here
+                  {focusedStartLabel}
                 </p>
                 <p className="text-sm font-bold truncate" style={{ color: "rgba(255,255,255,0.95)" }}>
                   {label}
@@ -516,8 +549,12 @@ export default function HubView({
               </div>
               <ArrowRight className="w-4 h-4 shrink-0" style={{ color: "rgba(255,255,255,0.5)" }} />
             </motion.button>
+            </>
           );
         })()}
+
+        {/* ── State check-in (30-second today-vs-usually micro-assessment) ── */}
+        <StateCheckIn />
 
         {/* ── Morning Passion Check-In (60-second daily ritual) ── */}
         {enneagramType > 0 && (

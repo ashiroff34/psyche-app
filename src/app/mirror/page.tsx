@@ -8,6 +8,9 @@ import {
   Info, Shield, BookOpen, Trash2,
 } from "lucide-react";
 import { scorePersonalityFromText, type ScoringResult } from "@/lib/personality-scorer";
+import { mirrorV2Extras } from "@/lib/mirror-v2";
+import { SCHWARTZ_VALUES } from "@/data/psychometrics/schwartz-values";
+import { attachmentStyles } from "@/data/attachment";
 import BigFiveRadar from "@/components/BigFiveRadar";
 import { enneagramTypes } from "@/data/enneagram";
 import { TYPE_WPFA } from "@/data/wound-passion-fixation-armor";
@@ -233,6 +236,40 @@ export default function MirrorPage() {
                   <p>{result.confidenceNote}</p>
                 </div>
               </div>
+
+              {/* Mirror V2 synthesis line + attachment + values inference */}
+              {(() => {
+                const extras = mirrorV2Extras(result.bigFive, result.wordCount);
+                return (
+                  <div
+                    className="p-4 rounded-2xl mb-4"
+                    style={{ background: "rgba(217,70,239,0.08)", border: "1px solid rgba(217,70,239,0.25)" }}
+                  >
+                    <p className="text-[10px] font-bold uppercase tracking-widest mb-2" style={{ color: "#f0abfc" }}>
+                      Deeper Read (Mirror V2)
+                    </p>
+                    <p className="text-base font-bold mb-3" style={{ color: "rgba(255,255,255,0.95)" }}>
+                      {extras.synthesisLine}
+                    </p>
+                    <div className="mb-3">
+                      <p className="text-[10px] uppercase opacity-60 mb-1">Inferred attachment</p>
+                      <p className="text-sm font-semibold">{attachmentStyles[extras.inferredAttachment.style].title}</p>
+                      <p className="text-[11px] opacity-70 leading-snug">{extras.inferredAttachment.reasoning}</p>
+                    </div>
+                    <div className="mb-2">
+                      <p className="text-[10px] uppercase opacity-60 mb-1">Inferred values (top 3)</p>
+                      <p className="text-xs opacity-80">
+                        {extras.inferredTopValues
+                          .map(v => SCHWARTZ_VALUES.find(x => x.key === v)?.name)
+                          .join(", ")}
+                      </p>
+                    </div>
+                    <p className="text-[10px] opacity-50 leading-snug mt-2">
+                      These are heuristic inferences from your text, not validated measurements. Take the full assessments at /mirrors for the measured versions.
+                    </p>
+                  </div>
+                );
+              })()}
 
               {/* Big Five radar */}
               <div

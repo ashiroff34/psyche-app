@@ -656,6 +656,46 @@ export default function SettingsPage() {
                 )}
               </AnimatePresence>
             </div>
+            {/* Instinctual subtype (sp/sx/so) — drives subtype-aware content */}
+            <div className="flex items-center justify-between py-2 px-3 rounded-xl" style={{ background: "rgba(255,255,255,0.06)" }}>
+              <div className="flex items-center gap-2">
+                <Compass className="w-4 h-4 text-violet-400" />
+                <span className="text-sm" style={{ color: "rgba(255,255,255,0.7)" }}>
+                  {profile.enneagramSubtype
+                    ? `Instinct: ${profile.enneagramSubtype.toUpperCase()}`
+                    : profile.instinctualStacking
+                      ? `Stacking: ${profile.instinctualStacking.toUpperCase()}`
+                      : "Instinct not set"}
+                </span>
+              </div>
+              <Link
+                href="/assessments/instinctual"
+                className="text-xs font-medium text-violet-400 hover:text-violet-300"
+              >
+                {profile.enneagramSubtype || profile.instinctualStacking ? "Change" : "Assess"}
+              </Link>
+            </div>
+            {/* Quick manual subtype picker */}
+            <div className="grid grid-cols-3 gap-2">
+              {(["sp","sx","so"] as const).map(code => {
+                const active = profile.enneagramSubtype === code;
+                const label = code === "sp" ? "Self-Pres" : code === "sx" ? "Sexual" : "Social";
+                return (
+                  <button
+                    key={code}
+                    onClick={() => { updateProfile({ enneagramSubtype: code }); notifyProfileChanged(); }}
+                    className="py-2 rounded-xl text-xs font-semibold transition-all"
+                    style={{
+                      background: active ? "rgba(139,92,246,0.3)" : "rgba(139,92,246,0.08)",
+                      border: `1px solid ${active ? "rgba(139,92,246,0.6)" : "rgba(139,92,246,0.18)"}`,
+                      color: active ? "#c4b5fd" : "#a78bfa",
+                    }}
+                  >
+                    {label}
+                  </button>
+                );
+              })}
+            </div>
             <div className="flex items-center justify-between py-2 px-3 rounded-xl" style={{ background: "rgba(255,255,255,0.06)" }}>
               <div className="flex items-center gap-2">
                 <Brain className="w-4 h-4 text-violet-400" />
