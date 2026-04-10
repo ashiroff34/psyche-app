@@ -1099,7 +1099,7 @@ export default function QuickTypeAssessment({
               top: "10%", left: "50%", transform: "translateX(-50%)",
             }}
           />
-          <ChibiSprite type={result.type} size={180} state="happy" className="relative z-10" />
+          <ChibiSprite type={result.type} instinct={selectedInstinct?.split("/")[0]} size={180} state="happy" className="relative z-10" />
           <motion.div
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -1197,115 +1197,9 @@ export default function QuickTypeAssessment({
     );
   }
 
-  // ── Subtype screen ──────────────────────────────────────────────────────────
-  if (phase === "subtype" && result) {
-    const typeColor = typeColors[result.type];
-    return (
-      <motion.div
-        initial={{ opacity: 0, x: 40 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ duration: 0.25 }}
-        className="max-w-lg mx-auto py-10 px-4"
-      >
-        <div className="text-center mb-7">
-          <div
-            className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold mb-5"
-            style={{ background: `${typeColor}18`, border: `1px solid ${typeColor}35`, color: typeColor }}
-          >
-            Type {result.type}. Subtype
-          </div>
-          <h2 className="text-2xl font-serif font-bold mb-2" style={{ color: "rgba(255,255,255,0.93)" }}>
-            Unlock your avatar
-          </h2>
-          <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.4)" }}>
-            Your instinctual subtype shapes how your type shows up in the world. and unlocks your personalized chibi.
-          </p>
-        </div>
-
-        <div className="space-y-2 mb-6">
-          {INSTINCT_OPTIONS.map(({ code, label, sublabel, desc, detail }) => {
-            const isSelected = selectedInstinct === code;
-            const isExpanded = expandedInstinct === code;
-            return (
-              <div
-                key={code}
-                className="rounded-2xl overflow-hidden transition-all"
-                style={{
-                  background: isSelected ? "rgba(124,58,237,0.18)" : "rgba(255,255,255,0.05)",
-                  border: isSelected ? "1px solid rgba(167,139,250,0.45)" : "1px solid rgba(255,255,255,0.09)",
-                }}
-              >
-                <button
-                  onClick={() => setSelectedInstinct(code)}
-                  className="w-full text-left px-4 py-3.5 transition-all active:scale-[0.98]"
-                >
-                  <div className="flex items-start gap-3">
-                    <div className="flex-1 min-w-0">
-                      <div className="flex items-center gap-2 mb-0.5">
-                        <span className="text-xs font-bold" style={{ color: isSelected ? "#c4b5fd" : "rgba(255,255,255,0.65)" }}>
-                          {label}
-                        </span>
-                        <span className="text-[10px] px-1.5 py-0.5 rounded-full font-mono" style={{ background: "rgba(255,255,255,0.07)", color: "rgba(255,255,255,0.35)" }}>
-                          {sublabel}
-                        </span>
-                      </div>
-                      <span className="text-xs leading-snug block" style={{ color: isSelected ? "rgba(255,255,255,0.78)" : "rgba(255,255,255,0.38)" }}>
-                        {desc}
-                      </span>
-                    </div>
-                    <button
-                      onClick={(e) => { e.stopPropagation(); setExpandedInstinct(isExpanded ? null : code); }}
-                      className="shrink-0 mt-0.5 p-1 rounded-lg transition-colors"
-                      style={{ background: "rgba(255,255,255,0.07)", color: "rgba(255,255,255,0.4)" }}
-                    >
-                      <ChevronDown size={12} style={{ transform: isExpanded ? "rotate(180deg)" : "none", transition: "transform 0.2s" }} />
-                    </button>
-                  </div>
-                </button>
-                <AnimatePresence>
-                  {isExpanded && (
-                    <motion.div
-                      initial={{ height: 0, opacity: 0 }}
-                      animate={{ height: "auto", opacity: 1 }}
-                      exit={{ height: 0, opacity: 0 }}
-                      transition={{ duration: 0.2 }}
-                      className="overflow-hidden"
-                    >
-                      <div className="px-4 pb-4 pt-0">
-                        <div className="h-px mb-3" style={{ background: "rgba(255,255,255,0.07)" }} />
-                        <p className="text-xs leading-relaxed" style={{ color: "rgba(255,255,255,0.5)" }}>
-                          {detail}
-                        </p>
-                      </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </div>
-            );
-          })}
-        </div>
-
-        <button
-          onClick={() => onComplete({ ...result, instinct: selectedInstinct ?? undefined })}
-          disabled={!selectedInstinct}
-          className="w-full py-3.5 rounded-2xl text-sm font-bold text-white transition-all active:scale-[0.98] disabled:opacity-35 mb-3"
-          style={{
-            background: selectedInstinct ? "linear-gradient(135deg, #7c3aed, #4f46e5)" : "rgba(255,255,255,0.08)",
-            boxShadow: selectedInstinct ? "0 8px 24px rgba(124,58,237,0.45)" : "none",
-          }}
-        >
-          Unlock my avatar →
-        </button>
-        <button
-          onClick={() => onComplete(result)}
-          className="w-full text-xs py-2 transition-colors text-center"
-          style={{ color: "rgba(255,255,255,0.22)" }}
-        >
-          Skip for now
-        </button>
-      </motion.div>
-    );
-  }
+  // Dead "subtype" phase removed — instinct is now determined by the
+  // instinct questions phase and stored in selectedInstinct. The old
+  // subtype picker was unreachable and showed generic sp descriptions.
 
   // ── Question screen ────────────────────────────────────────────────────────
   const progressLabel = phase === "triage"
