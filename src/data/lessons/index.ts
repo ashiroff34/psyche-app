@@ -34,6 +34,10 @@ import { unit23Lessons } from "@/data/lessons/unit-23-the-observer";
 import { unit24Lessons } from "@/data/lessons/unit-24-your-core-question";
 import { unit25Lessons } from "@/data/lessons/unit-25-identity-in-motion";
 import { unit26Lessons } from "@/data/lessons/unit-26-philosophical-self-inquiry";
+import { unit27Lessons } from "@/data/lessons/unit-27-living-as-yourself";
+import { unit28Lessons } from "@/data/lessons/unit-28-the-looker";
+import { unit29Lessons } from "@/data/lessons/unit-29-is-there-a-self";
+import { unit30Lessons } from "@/data/lessons/unit-30-holding-both";
 
 // ── Unit Metadata ───────────────────────────────────────────────────────────
 
@@ -307,6 +311,46 @@ export const LESSON_UNITS: Unit[] = [
     category: "philosophy",
     lessons: unit26Lessons,
     requiresUnit: "identity-in-motion",
+  },
+  {
+    id: "living-as-yourself",
+    order: 27,
+    title: "Living as Yourself",
+    subtitle: "Acting from values, not from fear",
+    icon: "Sun",
+    category: "philosophy",
+    lessons: unit27Lessons,
+    requiresUnit: "philosophical-self-inquiry",
+  },
+  {
+    id: "the-looker",
+    order: 28,
+    title: "The Looker",
+    subtitle: "Look for the one who is looking",
+    icon: "Eye",
+    category: "philosophy",
+    lessons: unit28Lessons,
+    requiresUnit: "living-as-yourself",
+  },
+  {
+    id: "is-there-a-self",
+    order: 29,
+    title: "What If There Is No Fixed Self?",
+    subtitle: "An investigation, not a belief",
+    icon: "CircleDot",
+    category: "philosophy",
+    lessons: unit29Lessons,
+    requiresUnit: "the-looker",
+  },
+  {
+    id: "holding-both",
+    order: 30,
+    title: "Holding Both",
+    subtitle: "You are a type. You are the space in which the type happens.",
+    icon: "Infinity",
+    category: "philosophy",
+    lessons: unit30Lessons,
+    requiresUnit: "is-there-a-self",
   },
 ];
 
