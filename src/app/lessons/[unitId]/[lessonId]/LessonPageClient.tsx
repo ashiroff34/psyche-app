@@ -8,6 +8,8 @@ import { useLessonProgress } from "@/hooks/useLessonProgress";
 import { useProfile } from "@/hooks/useProfile";
 import { useGameState } from "@/hooks/useGameState";
 import LessonEngine from "@/components/lessons/LessonEngine";
+import GroundingExercise from "@/components/GroundingExercise";
+import { LESSON_UNITS } from "@/data/lessons/index";
 import type { Lesson } from "@/types/lessons";
 
 export default function LessonPageClient({
@@ -118,11 +120,29 @@ export default function LessonPageClient({
     );
   }
 
+  // Check if this is a philosophy/exploration lesson (show grounding button)
+  const currentUnit = LESSON_UNITS.find(u => u.id === unitId);
+  const isPhilosophy = currentUnit?.category === "philosophy" || currentUnit?.category === "exploration";
+  const [showGrounding, setShowGrounding] = useState(false);
+
   return (
-    <LessonEngine
-      lesson={preparedLesson}
-      onComplete={handleComplete}
-      onExit={handleExit}
-    />
+    <>
+      <LessonEngine
+        lesson={preparedLesson}
+        onComplete={handleComplete}
+        onExit={handleExit}
+      />
+      {/* Grounding exercise button for philosophy/exploration lessons (dark night guardrail) */}
+      {isPhilosophy && !showGrounding && (
+        <button
+          onClick={() => setShowGrounding(true)}
+          className="fixed bottom-4 right-4 z-40 px-3 py-2 rounded-full text-[10px] font-semibold flex items-center gap-1.5"
+          style={{ background: "rgba(16,185,129,0.12)", border: "1px solid rgba(16,185,129,0.25)", color: "#6ee7b7" }}
+        >
+          Ground yourself
+        </button>
+      )}
+      {showGrounding && <GroundingExercise onClose={() => setShowGrounding(false)} />}
+    </>
   );
 }
