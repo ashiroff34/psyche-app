@@ -29,6 +29,11 @@ import { unit18Lessons } from "@/data/lessons/unit-18-ni";
 import { unit19Lessons } from "@/data/lessons/unit-19-ne";
 import { unit20Lessons } from "@/data/lessons/unit-20-si";
 import { unit21Lessons } from "@/data/lessons/unit-21-se";
+import { unit22Lessons } from "@/data/lessons/unit-22-am-i-typed-correctly";
+import { unit23Lessons } from "@/data/lessons/unit-23-the-observer";
+import { unit24Lessons } from "@/data/lessons/unit-24-your-core-question";
+import { unit25Lessons } from "@/data/lessons/unit-25-identity-in-motion";
+import { unit26Lessons } from "@/data/lessons/unit-26-philosophical-self-inquiry";
 
 // ── Unit Metadata ───────────────────────────────────────────────────────────
 
@@ -248,6 +253,60 @@ export const LESSON_UNITS: Unit[] = [
     category: "cognitive-function",
     lessons: unit21Lessons,
     requiresUnit: "what-are-cognitive-functions",
+  },
+
+  // ─ Exploration ────────────────────────────────────────────────────────
+  {
+    id: "am-i-typed-correctly",
+    order: 22,
+    title: "Am I Typed Correctly?",
+    subtitle: "Open-ended exploration, no right or wrong answers",
+    icon: "HelpCircle",
+    category: "exploration",
+    lessons: unit22Lessons,
+    requiresUnit: "your-type", // available early, only needs type knowledge
+  },
+
+  // ─ Philosophy ────────────────────────────────────────────────────────
+  {
+    id: "the-observer",
+    order: 23,
+    title: "The Observer",
+    subtitle: "Learning to watch your patterns without being controlled by them",
+    icon: "Eye",
+    category: "philosophy",
+    lessons: unit23Lessons,
+    requiresUnit: "am-i-typed-correctly",
+  },
+  {
+    id: "your-core-question",
+    order: 24,
+    title: "Your Core Question",
+    subtitle: "The philosophical question your type is wrestling with",
+    icon: "Compass",
+    category: "philosophy",
+    lessons: unit24Lessons,
+    requiresUnit: "the-observer",
+  },
+  {
+    id: "identity-in-motion",
+    order: 25,
+    title: "Identity in Motion",
+    subtitle: "Your type stays. Your relationship to it changes.",
+    icon: "RefreshCw",
+    category: "philosophy",
+    lessons: unit25Lessons,
+    requiresUnit: "your-core-question",
+  },
+  {
+    id: "philosophical-self-inquiry",
+    order: 26,
+    title: "The Examined Life",
+    subtitle: "Philosophical self-inquiry as a daily practice",
+    icon: "Sparkles",
+    category: "philosophy",
+    lessons: unit26Lessons,
+    requiresUnit: "identity-in-motion",
   },
 ];
 

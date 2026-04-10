@@ -138,7 +138,7 @@ export interface Unit {
   title: string;
   subtitle: string;
   icon: string;
-  category: "enneagram-intro" | "enneagram-type" | "cognitive-intro" | "cognitive-function";
+  category: "enneagram-intro" | "enneagram-type" | "cognitive-intro" | "cognitive-function" | "exploration" | "philosophy";
   lessons: Lesson[];
   requiresUnit?: string;  // ID of prerequisite unit
 }
