@@ -7,6 +7,9 @@ import Link from "next/link";
 import { Sparkles, ChevronRight, RefreshCw, Check, ArrowRight, ArrowLeft, Leaf, Lock, Zap } from "lucide-react";
 import { enneagramTypes } from "@/data/enneagram";
 import PetCompanion from "@/components/PetCompanion";
+import { getTodaysPerspectiveSwap, INTEGRATION_TYPE } from "@/data/perspective-swaps";
+import { TYPE_GROWTH_EDGES } from "@/data/growth-edges";
+import { getWeeklyWisdom } from "@/data/type-wisdom";
 
 // ─── Token gate for Enneagram Growth Path ────────────────────────────────────
 const ENNEAGRAM_GROWTH_UNLOCK_KEY = "psyche-enneagram-growth-unlocked";
@@ -415,7 +418,7 @@ export default function GrowthPage() {
             </div>
 
             {/* Growth tips */}
-            <div className="rounded-3xl p-5 mb-8" style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.09)" }}>
+            <div className="rounded-3xl p-5 mb-5" style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.09)" }}>
               <h3 className="text-sm font-semibold mb-3" style={{ color: "rgba(255,255,255,0.7)" }}>Growth tips for Type {activeType}</h3>
               <div className="space-y-2">
                 {type.growthTips.map((tip, i) => (
@@ -426,6 +429,78 @@ export default function GrowthPage() {
                 ))}
               </div>
             </div>
+
+            {/* ── Perspective Swap (Galinsky 2008) ── */}
+            {(() => {
+              const swap = getTodaysPerspectiveSwap(activeType!);
+              const intType = INTEGRATION_TYPE[activeType!];
+              if (!swap) return null;
+              return (
+                <div className="rounded-3xl p-5 mb-5" style={{ background: "rgba(217,70,239,0.06)", border: "1px solid rgba(217,70,239,0.18)" }}>
+                  <h3 className="text-xs font-bold uppercase tracking-widest mb-3" style={{ color: "#f0abfc" }}>Perspective swap</h3>
+                  <p className="text-sm mb-4 leading-relaxed" style={{ color: "rgba(255,255,255,0.85)" }}>{swap.scenario}</p>
+                  <div className="space-y-2 mb-3">
+                    <div className="p-3 rounded-xl" style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)" }}>
+                      <p className="text-[10px] uppercase tracking-widest opacity-50 mb-1">Your lens</p>
+                      <p className="text-xs leading-relaxed" style={{ color: "rgba(255,255,255,0.75)" }}>{swap.yourLens}</p>
+                    </div>
+                    <div className="p-3 rounded-xl" style={{ background: "rgba(139,92,246,0.08)", border: "1px solid rgba(139,92,246,0.2)" }}>
+                      <p className="text-[10px] uppercase tracking-widest text-violet-300 mb-1">Integration toward {intType}</p>
+                      <p className="text-xs leading-relaxed" style={{ color: "rgba(255,255,255,0.85)" }}>{swap.integrationLens}</p>
+                    </div>
+                  </div>
+                  <p className="text-[11px] opacity-60 leading-relaxed italic">{swap.reflection}</p>
+                </div>
+              );
+            })()}
+
+            {/* ── Type Wisdom Feed ── */}
+            {(() => {
+              const wisdom = getWeeklyWisdom(activeType!);
+              if (!wisdom) return null;
+              return (
+                <div className="rounded-3xl p-5 mb-5" style={{ background: "rgba(234,179,8,0.06)", border: "1px solid rgba(234,179,8,0.18)" }}>
+                  <h3 className="text-xs font-bold uppercase tracking-widest mb-3" style={{ color: "#fde68a" }}>Others of your type have said</h3>
+                  <p className="text-base font-serif italic leading-relaxed mb-2" style={{ color: "rgba(255,255,255,0.9)" }}>
+                    &ldquo;{wisdom.text}&rdquo;
+                  </p>
+                  <p className="text-xs opacity-50">{wisdom.source}</p>
+                </div>
+              );
+            })()}
+
+            {/* ── Growth Edges Inventory ── */}
+            {(() => {
+              const edges = TYPE_GROWTH_EDGES[activeType!];
+              if (!edges?.length) return null;
+              return (
+                <div className="rounded-3xl p-5 mb-5" style={{ background: "rgba(16,185,129,0.06)", border: "1px solid rgba(16,185,129,0.18)" }}>
+                  <h3 className="text-xs font-bold uppercase tracking-widest mb-3" style={{ color: "#6ee7b7" }}>Your growth edges</h3>
+                  <p className="text-[11px] opacity-60 mb-3">Which of these have you explored?</p>
+                  <div className="space-y-2">
+                    {edges.map(edge => (
+                      <div key={edge.id} className="p-3 rounded-xl" style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.06)" }}>
+                        <p className="text-sm font-semibold" style={{ color: "rgba(255,255,255,0.8)" }}>{edge.label}</p>
+                        <p className="text-[11px] opacity-60">{edge.description}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              );
+            })()}
+
+            {/* ── Decentering Index link ── */}
+            <Link href="/assessments/decentering"
+              className="block rounded-3xl p-5 mb-8 transition-all active:scale-[0.98]"
+              style={{ background: "rgba(139,92,246,0.08)", border: "1px solid rgba(139,92,246,0.22)" }}>
+              <div className="flex items-center justify-between">
+                <div>
+                  <h3 className="text-xs font-bold uppercase tracking-widest mb-1" style={{ color: "#c4b5fd" }}>Decentering Index</h3>
+                  <p className="text-sm opacity-70">Measure your growth. Retake monthly.</p>
+                </div>
+                <ArrowRight className="w-4 h-4 opacity-40" />
+              </div>
+            </Link>
           </>
         ) : (
           <div className="text-center py-12 px-6">
