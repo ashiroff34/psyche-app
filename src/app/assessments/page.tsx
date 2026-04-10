@@ -22,6 +22,7 @@ import {
   ChevronUp,
   CheckCircle2,
   Circle,
+  Eye,
 } from "lucide-react";
 import { useProfile } from "@/hooks/useProfile";
 import { enneagramTypes } from "@/data/enneagram";
@@ -418,6 +419,55 @@ const ALL_ASSESSMENTS: AssessmentItem[] = [
     tags: ["120 Questions", "IPIP-NEO"],
     gradient: "from-blue-400 to-indigo-500",
     href: "/assessments/big-five",
+  },
+  // ── New psychometric assessments ──
+  {
+    id: "values",
+    tab: "scientific",
+    icon: Heart,
+    title: "Schwartz Values",
+    subtitle: "What you actually prioritize, 10 universal values",
+    description: "Based on Schwartz's cross-cultural values theory. Measures Self-Direction, Stimulation, Achievement, Power, Security, Conformity, Tradition, Benevolence, and Universalism.",
+    timeEstimate: "~2 min",
+    tags: ["20 Items", "Schwartz 2012"],
+    gradient: "from-fuchsia-400 to-pink-500",
+    href: "/assessments/values",
+  },
+  {
+    id: "aspects",
+    tab: "scientific",
+    icon: Layers,
+    title: "Big Five Aspects",
+    subtitle: "10 aspects, because most people are split within a factor",
+    description: "DeYoung, Quilty, Peterson (2007). Splits each Big Five factor into two aspects with separable neural substrates.",
+    timeEstimate: "~3 min",
+    tags: ["30 Items", "DeYoung 2007"],
+    gradient: "from-purple-400 to-violet-500",
+    href: "/assessments/aspects",
+  },
+  {
+    id: "regulatory-focus",
+    tab: "scientific",
+    icon: Zap,
+    title: "Regulatory Focus",
+    subtitle: "Are you pulled by gains or pushed by avoiding losses?",
+    description: "Higgins (1997). Promotion focus vs prevention focus. Changes how growth prompts are framed for you.",
+    timeEstimate: "~1 min",
+    tags: ["6 Items", "Higgins 1997"],
+    gradient: "from-amber-400 to-orange-500",
+    href: "/assessments/regulatory-focus",
+  },
+  {
+    id: "decentering",
+    tab: "scientific",
+    icon: Eye,
+    title: "Decentering Index",
+    subtitle: "Measure your growth. Retake monthly.",
+    description: "Fresco (2007). Tracks your capacity to observe patterns without being controlled by them.",
+    timeEstimate: "~2 min",
+    tags: ["8 Items", "Growth Metric"],
+    gradient: "from-violet-400 to-indigo-500",
+    href: "/assessments/decentering",
   },
 ];
 

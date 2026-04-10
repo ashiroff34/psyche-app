@@ -3,13 +3,12 @@
 import { use, useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
-import { getLesson, personalizeExercises } from "@/data/lessons";
+import { getLesson, personalizeExercises, LESSON_UNITS } from "@/data/lessons";
 import { useLessonProgress } from "@/hooks/useLessonProgress";
 import { useProfile } from "@/hooks/useProfile";
 import { useGameState } from "@/hooks/useGameState";
 import LessonEngine from "@/components/lessons/LessonEngine";
 import GroundingExercise from "@/components/GroundingExercise";
-import { LESSON_UNITS } from "@/data/lessons/index";
 import type { Lesson } from "@/types/lessons";
 
 export default function LessonPageClient({

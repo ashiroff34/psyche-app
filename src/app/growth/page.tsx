@@ -123,7 +123,7 @@ function EnneagramGrowthGate({ children }: { children: React.ReactNode }) {
   if (unlocked) return <>{children}</>;
 
   return (
-    <div className="relative min-h-screen overflow-hidden" style={{ background: "#0f0a1e" }}>
+    <div className="relative min-h-screen overflow-y-auto" style={{ background: "#0f0a1e" }}>
       {/* Blurred preview of actual content */}
       <div
         aria-hidden="true"

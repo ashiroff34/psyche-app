@@ -92,9 +92,9 @@ function TermsScreen({ onAccept }: { onAccept: () => void }) {
 // ── Type reveal sentences ─────────────────────────────────────────────────────
 
 const TYPE_REVEAL_SENTENCES: Record<number, string> = {
-  1: "You carry the vision of a better world. and the weight of making it real.",
+  1: "You carry the vision of a better world, and the weight of making it real.",
   2: "You love with your whole heart, and you're learning to include yourself.",
-  3: "You were born to become. and you're discovering who you are beneath the achievement.",
+  3: "You were born to become, and you're discovering who you are beneath the achievement.",
   4: "You transform suffering into meaning. That is your gift and your work.",
   5: "You see what others miss. Your mind is your compass.",
   6: "You build loyalty that lasts a lifetime. Trust begins with yourself.",
