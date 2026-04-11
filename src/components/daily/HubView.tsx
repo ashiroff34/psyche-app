@@ -310,6 +310,16 @@ export default function HubView({
     url: "https://thyself.app",
   });
 
+  // Hoisted from IIFE to fix Rules of Hooks violation
+  const challengeDateKey = getDateKey();
+  const challengeStorageKey = `psyche-type-challenge-done-${challengeDateKey}`;
+  const [challengeDone, setChallengeDone] = useState(false);
+  useEffect(() => {
+    try {
+      setChallengeDone(!!localStorage.getItem(challengeStorageKey));
+    } catch {}
+  }, [challengeStorageKey]);
+
   return (
     <div
       className="min-h-screen"
@@ -1230,18 +1240,7 @@ export default function HubView({
 
         {/* ── Daily Type Challenge ── */}
         {(() => {
-          const dateKey = getDateKey();
-          const storageKey = `psyche-type-challenge-done-${dateKey}`;
-          // eslint-disable-next-line react-hooks/rules-of-hooks
-          const [challengeDone, setChallengeDone] = useState(false);
-          // eslint-disable-next-line react-hooks/rules-of-hooks
-          useEffect(() => {
-            try {
-              setChallengeDone(!!localStorage.getItem(storageKey));
-            } catch {}
-          // eslint-disable-next-line react-hooks/exhaustive-deps
-          }, []);
-
+          const storageKey = challengeStorageKey;
           const dailyCards = getDailyCards();
 
           return (
