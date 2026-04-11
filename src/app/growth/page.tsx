@@ -13,6 +13,7 @@ import { getWeeklyWisdom } from "@/data/type-wisdom";
 import { getPrediction, SITUATION_CATEGORIES, type SituationCategory } from "@/data/predictive-self";
 import { generateAvoidanceInsight, getTimingInsights } from "@/lib/behavioral-signals";
 import { collectTextCorpus, analyzeLinguistics, computeGrowthVector, generateFutureLetterClientSide } from "@/lib/living-mirror";
+import { generateBlindSpotInsights } from "@/lib/blind-spot-radar";
 import { getDialogue, DIALOGUE_INTEGRATION_TYPE } from "@/data/shadow-dialogue";
 import { TYPE_FORMATION } from "@/data/formation-map";
 
@@ -695,6 +696,30 @@ export default function GrowthPage() {
                       </p>
                     </motion.div>
                   )}
+                </div>
+              );
+            })()}
+
+            {/* ── Blind Spot Radar ── */}
+            {(() => {
+              const blindSpots = generateBlindSpotInsights(activeType!);
+              if (!blindSpots.length) return null;
+              return (
+                <div className="rounded-3xl p-5 mb-5" style={{ background: "rgba(234,179,8,0.06)", border: "1px solid rgba(234,179,8,0.18)" }}>
+                  <h3 className="text-xs font-bold uppercase tracking-widest mb-3" style={{ color: "#fde68a" }}>Blind spot radar</h3>
+                  <p className="text-[11px] opacity-50 mb-3">Patterns your type is built not to notice, surfaced by cross-referencing your behavioral data.</p>
+                  {blindSpots.map((insight, i) => (
+                    <div key={i} className="mb-3 last:mb-0 p-3 rounded-xl" style={{
+                      background: insight.severity === "alert" ? "rgba(239,68,68,0.08)" : insight.severity === "pattern" ? "rgba(234,179,8,0.06)" : "rgba(255,255,255,0.03)",
+                      border: `1px solid ${insight.severity === "alert" ? "rgba(239,68,68,0.2)" : insight.severity === "pattern" ? "rgba(234,179,8,0.15)" : "rgba(255,255,255,0.06)"}`,
+                    }}>
+                      <p className="text-sm font-semibold mb-1" style={{ color: insight.severity === "alert" ? "#fca5a5" : insight.severity === "pattern" ? "#fde68a" : "rgba(255,255,255,0.85)" }}>
+                        {insight.title}
+                      </p>
+                      <p className="text-xs leading-relaxed opacity-75">{insight.body}</p>
+                      <p className="text-[9px] opacity-30 mt-1">{insight.dataPoints}</p>
+                    </div>
+                  ))}
                 </div>
               );
             })()}
