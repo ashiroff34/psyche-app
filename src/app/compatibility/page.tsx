@@ -1137,7 +1137,7 @@ import React from "react";
 const ShareCard = React.forwardRef<
   HTMLDivElement,
   { myType: number; friendType: number; insight: string }
->(function ShareCard({ myType, friendType, insight }, ref) {
+>(function ShareCardInner({ myType, friendType, insight }, ref) {
   const colorA = TYPE_COLORS[myType];
   const colorB = TYPE_COLORS[friendType];
   const nameA = TYPE_NAMES[myType];

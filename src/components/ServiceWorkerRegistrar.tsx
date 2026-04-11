@@ -7,7 +7,12 @@ export default function ServiceWorkerRegistrar() {
   useEffect(() => {
     if (!("serviceWorker" in navigator)) return;
 
-    navigator.serviceWorker.register("/sw.js").catch(() => {});
+    navigator.serviceWorker.register("/sw.js").catch((err) => {
+      if (process.env.NODE_ENV === "development") {
+        // eslint-disable-next-line no-console
+        console.warn("[SW] Registration failed:", err);
+      }
+    });
 
     let reloading = false;
     navigator.serviceWorker.addEventListener("controllerchange", () => {

@@ -109,6 +109,8 @@ export default function PricingPage() {
     if (!packId) return; // free tier
     setLoading(packId);
     try {
+      const ctrl = new AbortController();
+      const timeout = setTimeout(() => ctrl.abort(), 15000);
       const res = await fetch("/api/checkout", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -117,7 +119,9 @@ export default function PricingPage() {
           userId: profile.email ?? "anonymous",
           email: profile.email ?? undefined,
         }),
+        signal: ctrl.signal,
       });
+      clearTimeout(timeout);
       const data = await res.json();
       if (data.url) window.location.href = data.url;
     } catch (e) {

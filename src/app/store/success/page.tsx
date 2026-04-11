@@ -85,7 +85,10 @@ function SuccessInner() {
 
     async function verify() {
       try {
-        const res = await fetch(`/api/verify-purchase?session_id=${sessionId}`);
+        const ctrl = new AbortController();
+        const timeout = setTimeout(() => ctrl.abort(), 15000);
+        const res = await fetch(`/api/verify-purchase?session_id=${sessionId}`, { signal: ctrl.signal });
+        clearTimeout(timeout);
         const data = await res.json() as PurchaseResult & { ok?: boolean; error?: string };
 
         if (!res.ok || !data.ok) {

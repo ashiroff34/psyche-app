@@ -304,11 +304,15 @@ function getOrCreateDeviceId(): string {
 async function startCheckout(packId: string, setPurchaseToast: (m: string | null) => void) {
   try {
     const userId = getOrCreateDeviceId();
+    const ctrl = new AbortController();
+    const timeout = setTimeout(() => ctrl.abort(), 15000);
     const res = await fetch("/api/checkout", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ packId, userId }),
+      signal: ctrl.signal,
     });
+    clearTimeout(timeout);
     const data = await res.json() as { url?: string; error?: string };
     if (data.url) {
       window.location.href = data.url;
