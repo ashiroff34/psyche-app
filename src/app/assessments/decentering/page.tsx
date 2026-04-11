@@ -27,7 +27,7 @@ export default function DecenteringPage() {
     if (typeof window === "undefined") return;
     try {
       const raw = localStorage.getItem("psyche-decentering-history");
-      if (raw) setHistory(JSON.parse(raw));
+      try { if (raw) setHistory(JSON.parse(raw)); } catch {}
     } catch {}
   }, []);
 

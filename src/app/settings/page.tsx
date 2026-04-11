@@ -413,7 +413,7 @@ export default function SettingsPage() {
         const key = localStorage.key(i);
         if (key && key.startsWith("psyche-")) {
           try {
-            data[key] = JSON.parse(localStorage.getItem(key) || "");
+            try { const v = localStorage.getItem(key); if (v) data[key] = JSON.parse(v); } catch {}
           } catch {
             data[key] = localStorage.getItem(key);
           }
@@ -497,7 +497,7 @@ export default function SettingsPage() {
   if (!loaded) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <div className="w-8 h-8 border-2 border-sky-200 border-t-sky-500 rounded-full animate-spin" />
+        <div className="w-8 h-8 border-2 border-violet-800 border-t-violet-400 rounded-full animate-spin" />
       </div>
     );
   }

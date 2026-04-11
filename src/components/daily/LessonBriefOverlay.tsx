@@ -633,7 +633,8 @@ export default function LessonBriefOverlay({
 
   const renderBody = (body: string, highlight?: string) => {
     if (!highlight) return <span>{body}</span>;
-    const parts = body.split(new RegExp(`(${highlight})`, "gi"));
+    const escaped = highlight.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    const parts = body.split(new RegExp(`(${escaped})`, "gi"));
     return (
       <>
         {parts.map((part, i) =>

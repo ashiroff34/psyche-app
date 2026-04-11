@@ -1,5 +1,6 @@
 "use client";
 
+import { getReferralShareUrl } from "@/lib/referral";
 import { useState, useEffect, useRef, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
@@ -776,7 +777,7 @@ export default function CompatibilityPage() {
     try {
       const referralCode = localStorage.getItem("psyche-my-referral-code");
       const url = referralCode
-        ? `https://thyself.app?ref=${referralCode}`
+        ? `${getReferralShareUrl()}`
         : "https://thyself.app";
       await navigator.clipboard.writeText(url);
       setCopied(true);

@@ -634,7 +634,7 @@ function ShadowWorkExplorer() {
               <label className="flex items-center gap-2 text-xs font-semibold text-violet-300 mb-2">
                 <Eye className="w-3.5 h-3.5" /> Your Ego (Conscious)
               </label>
-              <textarea
+              <textarea maxLength={5000}
                 value={dialogue.ego}
                 onChange={(e) =>
                   setDialogue((d) => ({ ...d, ego: e.target.value }))
@@ -648,7 +648,7 @@ function ShadowWorkExplorer() {
               <label className="flex items-center gap-2 text-xs font-semibold text-purple-300 mb-2">
                 <Ghost className="w-3.5 h-3.5" /> Your Shadow (Unconscious)
               </label>
-              <textarea
+              <textarea maxLength={5000}
                 value={dialogue.shadow}
                 onChange={(e) =>
                   setDialogue((d) => ({ ...d, shadow: e.target.value }))
@@ -1293,7 +1293,7 @@ function CognitiveReframeTool() {
             <label className="text-xs font-semibold text-white/60 mb-2 block">
               Describe a situation or problem you are facing:
             </label>
-            <textarea
+            <textarea maxLength={5000}
               value={situation}
               onChange={(e) => {
                 setSituation(e.target.value);
@@ -1526,7 +1526,7 @@ function DailyReflections() {
   useEffect(() => {
     try {
       const raw = localStorage.getItem("psyche-reflections");
-      if (raw) setEntries(JSON.parse(raw));
+      try { if (raw) setEntries(JSON.parse(raw)); } catch {}
     } catch {}
   }, []);
 
@@ -1937,7 +1937,7 @@ function loadJournalEntries(): EnneagramJournalEntry[] {
   if (typeof window === "undefined") return [];
   try {
     const raw = localStorage.getItem("psyche-enneagram-journal");
-    return raw ? JSON.parse(raw) : [];
+    try { return raw ? JSON.parse(raw) : []; } catch { return []; }
   } catch {
     return [];
   }
@@ -2209,7 +2209,7 @@ function EnneagramJournal() {
             </button>
           </div>
 
-          <textarea
+          <textarea maxLength={5000}
             value={text}
             onChange={(e) => setText(e.target.value)}
             placeholder="What are you noticing about yourself today?"

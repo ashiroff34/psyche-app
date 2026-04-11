@@ -1,5 +1,6 @@
 "use client";
 
+import { getReferralShareUrl } from "@/lib/referral";
 import { useRef, useState, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Share2, Download, X, Coins } from "lucide-react";
@@ -180,7 +181,7 @@ export default function TikTokTypeCard({
 
   const [discordCopied, setDiscordCopied] = useState(false);
   const referralCode = typeof window !== "undefined" ? (localStorage.getItem("psyche-my-referral-code") ?? "") : "";
-  const referralLink = referralCode ? `https://thyself.app/r?code=${referralCode}` : "https://thyself.app";
+  const referralLink = referralCode ? `${getReferralShareUrl()}` : "https://thyself.app";
   const discordMessage = `🔮 ${TYPE_SHARE_HOOKS[enneagramType] ?? `I'm Enneagram Type ${enneagramType}`}\n\nFind your type free: ${referralLink}`;
 
   const copyDiscordMessage = useCallback(async () => {
