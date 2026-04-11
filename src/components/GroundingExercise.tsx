@@ -35,7 +35,7 @@ export default function GroundingExercise({ onClose }: { onClose?: () => void })
     >
       <div className="max-w-sm w-full text-center">
         {onClose && (
-          <button onClick={onClose} className="absolute top-6 right-6 opacity-50 hover:opacity-90">
+          <button aria-label="Close" onClick={onClose} className="absolute top-6 right-6 opacity-50 hover:opacity-90">
             <X className="w-5 h-5" />
           </button>
         )}

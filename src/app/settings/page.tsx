@@ -924,7 +924,6 @@ export default function SettingsPage() {
                           // Unlock growth path
                           localStorage.setItem("psyche-enneagram-growth-unlocked", "true");
                           // Mark as Pro
-                          localStorage.setItem("psyche-pro-active", "true");
                           input.value = "";
                           alert("Beta access activated. All features unlocked. Unlimited hearts and tokens.");
                           window.location.reload();

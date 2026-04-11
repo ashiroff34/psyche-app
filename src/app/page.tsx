@@ -36,16 +36,9 @@ function getGreeting() {
 }
 
 function useHomeState() {
-  const [state, setState] = useState<"loading" | "new" | "onboarding" | "assess_prompt" | "dashboard">(() => {
-    if (typeof window === "undefined") return "loading";
-    try {
-      const raw = localStorage.getItem("psyche-profile");
-      if (!raw && !localStorage.getItem("psyche-onboarding-complete")) return "new";
-      const p = raw ? JSON.parse(raw) : {};
-      if (p.enneagramType || p.cognitiveType || p.mbtiType) return "dashboard";
-    } catch {}
-    return "loading";
-  });
+  // Always start as "loading" to avoid hydration mismatch (server renders
+  // "loading", client reads localStorage in useEffect below)
+  const [state, setState] = useState<"loading" | "new" | "onboarding" | "assess_prompt" | "dashboard">("loading");
   const [profile, setProfile] = useState<Record<string, any>>({});
   const [gameState, setGameState] = useState<Record<string, any>>({});
   const [dailyProgress, setDailyProgress] = useState<Record<string, any>>({});

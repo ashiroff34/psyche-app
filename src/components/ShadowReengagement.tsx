@@ -118,7 +118,7 @@ export default function ShadowReengagement({
       style={{
         position: "fixed",
         inset: 0,
-        zIndex: 9999,
+        zIndex: 9990,
         background: "rgba(10,5,20,0.92)",
         display: "flex",
         alignItems: "center",
