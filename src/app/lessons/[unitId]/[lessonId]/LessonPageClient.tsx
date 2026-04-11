@@ -26,6 +26,7 @@ export default function LessonPageClient({
   const [preparedLesson, setPreparedLesson] = useState<Lesson | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [completionShown, setCompletionShown] = useState(false);
+  const [showGrounding, setShowGrounding] = useState(false);
 
   // Load and personalize lesson
   useEffect(() => {
@@ -122,7 +123,6 @@ export default function LessonPageClient({
   // Check if this is a philosophy/exploration lesson (show grounding button)
   const currentUnit = LESSON_UNITS.find(u => u.id === unitId);
   const isPhilosophy = currentUnit?.category === "philosophy" || currentUnit?.category === "exploration";
-  const [showGrounding, setShowGrounding] = useState(false);
 
   return (
     <>
