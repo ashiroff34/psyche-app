@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Thyself — Join the Waitlist</title>
+<meta name="description" content="A personality app built on actual research. Not a quiz. A curriculum. Join the first 50.">
+<meta property="og:title" content="Thyself — Know thyself. For real this time.">
+<meta property="og:description" content="A personality app built on actual research. 31 lesson units, 8 assessments, features that don't exist anywhere else. Join the waitlist.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#08031a">
+<link rel="icon" href="/favicon-32.png" type="image/png">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #08031a;
+    color: white;
+    font-family: 'Inter', -apple-system, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+  .container { max-width: 480px; margin: 0 auto; padding: 0 24px; }
+
+  /* Hero */
+  .hero {
+    position: relative;
+    text-align: center;
+    padding: 60px 0 40px;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 60% 50% at 50% 30%, rgba(139,92,246,0.2) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-content { position: relative; z-index: 1; }
+  .badge {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.3em;
+    color: #a78bfa;
+    margin-bottom: 16px;
+  }
+  h1 {
+    font-family: 'Inter', sans-serif;
+    font-size: 36px;
+    font-weight: 900;
+    line-height: 1.15;
+    margin-bottom: 16px;
+  }
+  h1 span { color: #a78bfa; }
+  .subtitle {
+    font-size: 15px;
+    color: rgba(255,255,255,0.65);
+    line-height: 1.6;
+    max-width: 360px;
+    margin: 0 auto 32px;
+  }
+
+  /* CTA Button */
+  .cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 16px 32px;
+    background: linear-gradient(135deg, #7c3aed, #d946ef);
+    color: white;
+    font-size: 16px;
+    font-weight: 700;
+    border: none;
+    border-radius: 16px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: transform 0.15s, box-shadow 0.15s;
+    box-shadow: 0 8px 32px rgba(124,58,237,0.5);
+  }
+  .cta:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(124,58,237,0.6); }
+  .cta:active { transform: scale(0.98); }
+  .cta-sub {
+    font-size: 12px;
+    color: rgba(255,255,255,0.35);
+    margin-top: 12px;
+  }
+
+  /* Features */
+  .section-label {
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.25em;
+    color: #a78bfa;
+    text-align: center;
+    margin-bottom: 24px;
+  }
+  .feature-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 16px;
+    border-radius: 16px;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.06);
+    margin-bottom: 10px;
+    transition: background 0.2s, border-color 0.2s;
+  }
+  .feature-card:hover {
+    background: rgba(139,92,246,0.06);
+    border-color: rgba(139,92,246,0.2);
+  }
+  .feature-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 16px;
+  }
+  .feature-title { font-size: 14px; font-weight: 700; margin-bottom: 2px; }
+  .feature-desc { font-size: 12px; color: rgba(255,255,255,0.55); line-height: 1.5; }
+
+  /* Stats */
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin: 40px 0;
+  }
+  .stat-card {
+    text-align: center;
+    padding: 16px;
+    border-radius: 16px;
+    background: rgba(139,92,246,0.06);
+    border: 1px solid rgba(139,92,246,0.15);
+  }
+  .stat-num { font-size: 22px; font-weight: 900; }
+  .stat-label { font-size: 10px; color: rgba(255,255,255,0.45); margin-top: 4px; }
+
+  /* Research tags */
+  .tags { display: flex; flex-wrap: wrap; gap: 8px; margin: 16px 0; }
+  .tag {
+    font-size: 10px;
+    padding: 4px 10px;
+    border-radius: 999px;
+    background: rgba(139,92,246,0.08);
+    border: 1px solid rgba(139,92,246,0.15);
+    color: #c4b5fd;
+  }
+
+  /* Perks */
+  .perks-card {
+    padding: 20px;
+    border-radius: 16px;
+    background: linear-gradient(135deg, rgba(139,92,246,0.08), rgba(217,70,239,0.06));
+    border: 1px solid rgba(139,92,246,0.22);
+    margin: 40px 0;
+  }
+  .perk { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+  .perk:last-child { margin-bottom: 0; }
+  .perk-icon { color: #a78bfa; font-size: 16px; flex-shrink: 0; }
+  .perk-text { font-size: 14px; color: rgba(255,255,255,0.85); }
+
+  /* Footer CTA */
+  .footer-cta {
+    text-align: center;
+    padding: 40px 0 60px;
+  }
+  .footer-cta h2 { font-size: 24px; font-weight: 900; margin-bottom: 8px; }
+  .footer-cta .sub { font-size: 14px; color: rgba(255,255,255,0.5); margin-bottom: 24px; }
+  .privacy-note { font-size: 10px; color: rgba(255,255,255,0.25); margin-top: 24px; }
+
+  /* Section wrapper */
+  .section { padding: 0 0 20px; }
+
+  @media (max-width: 400px) {
+    h1 { font-size: 28px; }
+    .cta { padding: 14px 24px; font-size: 14px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-content container">
+    <div class="badge">Coming soon</div>
+    <h1>Know thyself.<br><span>For real this time.</span></h1>
+    <p class="subtitle">A personality app built on actual research. Not a quiz. A curriculum that goes from understanding your type to questioning what a self even is.</p>
+    <a href="https://docs.google.com/forms/d/e/1FAIpQLSerCIG8vYXf4Po6L7wbxIYtuCa7BxQf5PPxeGo003IrKGI5lA/viewform" target="_blank" class="cta">
+      Get on the waitlist →
+    </a>
+    <p class="cta-sub">Free. First 50 get permanent founding access.</p>
+  </div>
+</div>
+
+<div class="container">
+
+  <div class="section">
+    <div class="section-label">Features that don't exist anywhere else</div>
+
+    <div class="feature-card">
+      <div class="feature-icon" style="background:rgba(139,92,246,0.12);color:#8b5cf6">🧠</div>
+      <div>
+        <div class="feature-title">Predicts your reactions</div>
+        <div class="feature-desc">Tell it what situation you're facing. It shows how your type will probably respond, and what the alternative looks like.</div>
+      </div>
+    </div>
+
+    <div class="feature-card">
+      <div class="feature-icon" style="background:rgba(217,70,239,0.12);color:#d946ef">👁</div>
+      <div>
+        <div class="feature-title">Surfaces your blind spots</div>
+        <div class="feature-desc">Cross-references your behavioral data to find patterns your type is literally built not to notice.</div>
+      </div>
+    </div>
+
+    <div class="feature-card">
+      <div class="feature-icon" style="background:rgba(236,72,153,0.12);color:#ec4899">💬</div>
+      <div>
+        <div class="feature-title">Shadow Dialogue</div>
+        <div class="feature-desc">A live conversation between your dominant type voice and your integration voice. You choose which to speak as.</div>
+      </div>
+    </div>
+
+    <div class="feature-card">
+      <div class="feature-icon" style="background:rgba(245,158,11,0.12);color:#f59e0b">✨</div>
+      <div>
+        <div class="feature-title">Living Mirror</div>
+        <div class="feature-desc">A letter from your future self, written in your own words, based on how your language has changed over time.</div>
+      </div>
+    </div>
+
+    <div class="feature-card">
+      <div class="feature-icon" style="background:rgba(16,185,129,0.12);color:#10b981">🏗</div>
+      <div>
+        <div class="feature-title">Personality Archaeology</div>
+        <div class="feature-desc">How your type actually formed. Not "you're a 4 because you're sad." The why underneath.</div>
+      </div>
+    </div>
+
+    <div class="feature-card">
+      <div class="feature-icon" style="background:rgba(99,102,241,0.12);color:#6366f1">📚</div>
+      <div>
+        <div class="feature-title">31 lesson units</div>
+        <div class="feature-desc">From "know thyself" through philosophy to "is there a thyself?" Grounded in Riso-Hudson, Chestnut, Fleeson, DeYoung.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="stats">
+    <div class="stat-card">
+      <div class="stat-num">31</div>
+      <div class="stat-label">lesson units</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">1,247</div>
+      <div class="stat-label">exercises</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">8</div>
+      <div class="stat-label">assessments</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">Built on real research</div>
+    <div class="tags">
+      <span class="tag">Riso-Hudson</span>
+      <span class="tag">Chestnut</span>
+      <span class="tag">Fleeson</span>
+      <span class="tag">DeYoung</span>
+      <span class="tag">Schwartz</span>
+      <span class="tag">Matz & Kosinski</span>
+      <span class="tag">Kegan</span>
+      <span class="tag">Fresco</span>
+      <span class="tag">Damasio</span>
+      <span class="tag">Pennebaker</span>
+    </div>
+  </div>
+
+  <div class="perks-card">
+    <div class="section-label" style="text-align:left;margin-bottom:16px;color:#c4b5fd">What the first 50 get</div>
+    <div class="perk">
+      <span class="perk-icon">⭐</span>
+      <span class="perk-text">Permanent early access to every feature, forever</span>
+    </div>
+    <div class="perk">
+      <span class="perk-icon">👥</span>
+      <span class="perk-text">Direct input on the roadmap. You shape what gets built.</span>
+    </div>
+    <div class="perk">
+      <span class="perk-icon">⚡</span>
+      <span class="perk-text">All content unlocked. No paywalls during beta.</span>
+    </div>
+    <div class="perk">
+      <span class="perk-icon">🕐</span>
+      <span class="perk-text">Your name in the credits if you want it.</span>
+    </div>
+  </div>
+
+  <div class="footer-cta">
+    <h2>Be first.</h2>
+    <p class="sub">First 50 signups get founding member access when beta opens.</p>
+    <a href="https://docs.google.com/forms/d/e/1FAIpQLSerCIG8vYXf4Po6L7wbxIYtuCa7BxQf5PPxeGo003IrKGI5lA/viewform" target="_blank" class="cta">
+      Join the waitlist →
+    </a>
+    <p class="privacy-note">All data stays on your device. We don't sell anything. Ever.</p>
+  </div>
+
+</div>
+
+</body>
+</html>
