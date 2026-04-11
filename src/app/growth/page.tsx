@@ -345,7 +345,7 @@ export default function GrowthPage() {
 
               {/* Reflection input */}
               <div className="relative">
-                <textarea
+                <textarea maxLength={2000}
                   rows={4}
                   placeholder="Write your reflection here... (optional, saved privately)"
                   value={reflectionText}

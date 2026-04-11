@@ -128,7 +128,7 @@ export default function FreeRecallExercise({ content, onContinue }: Props) {
       <div className="px-5 pb-3 flex-1 flex flex-col gap-3">
         {!submitted ? (
           <>
-            <textarea
+            <textarea maxLength={1000}
               value={answer}
               onChange={(e) => setAnswer(e.target.value)}
               placeholder="Type your answer here..."

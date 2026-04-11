@@ -240,7 +240,7 @@ export default function NodeBottomSheet({ node, onClose, onStart, onCompleteNonQ
                       &ldquo;{node.prompt}&rdquo;
                     </p>
                   )}
-                  <textarea
+                  <textarea maxLength={1000}
                     className="w-full h-36 p-4 rounded-2xl border border-slate-200 text-sm text-slate-800 placeholder-slate-300 resize-none focus:outline-none focus:border-violet-300 focus:ring-2 focus:ring-violet-100 transition"
                     placeholder="Write your reflection here..."
                     value={reflectionText}

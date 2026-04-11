@@ -137,7 +137,7 @@ export default function MirrorPage() {
               </button>
             </div>
 
-            <textarea
+            <textarea maxLength={5000}
               value={text}
               onChange={(e) => setText(e.target.value)}
               placeholder="Paste 250+ words of something you've written recently. A journal entry, a long message, a blog post, an email. The more authentic and the longer, the better the signal."

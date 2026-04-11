@@ -238,10 +238,11 @@ export default function HubView({
   useEffect(() => {
     recordSessionStart();
     const handleUnload = () => recordSessionEnd();
-    window.addEventListener("beforeunload", handleUnload);
-    document.addEventListener("visibilitychange", () => {
+    const handleVisibility = () => {
       if (document.visibilityState === "hidden") recordSessionEnd();
-    });
+    };
+    window.addEventListener("beforeunload", handleUnload);
+    document.addEventListener("visibilitychange", handleVisibility);
     // Track which features are offered
     if (enneagramType > 0) {
       recordFeatureOffered("morning-intention");
@@ -252,6 +253,7 @@ export default function HubView({
     }
     return () => {
       window.removeEventListener("beforeunload", handleUnload);
+      document.removeEventListener("visibilitychange", handleVisibility);
       recordSessionEnd();
     };
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
