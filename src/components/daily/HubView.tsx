@@ -224,7 +224,7 @@ export default function HubView({
     if (typeof window === "undefined") return { visible: false, window: "none" as const, copy: null as any };
     const w = getFreshStartWindow(new Date(), null);
     if (w === "none") return { visible: false, window: w, copy: null };
-    const dismissKey = `psyche-fresh-start-dismissed-${w}-${new Date().toISOString().slice(0, 10)}`;
+    const dismissKey = `psyche-fresh-start-dismissed-${w}-${new Intl.DateTimeFormat("en-CA").format(new Date())}`;
     if (localStorage.getItem(dismissKey)) return { visible: false, window: w, copy: null };
     const copy = getFreshStartCopy(w, name ?? null, enneagramType || null);
     return { visible: true, window: w, copy, dismissKey };

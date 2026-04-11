@@ -695,7 +695,7 @@ export default function CompatibilityPage() {
   // Award 10 tokens once per day on share
   const awardShareTokens = useCallback(() => {
     try {
-      const today = new Date().toISOString().slice(0, 10);
+      const today = new Intl.DateTimeFormat("en-CA").format(new Date());
       const storageKey = `psyche-last-compat-share-${today}`;
       if (localStorage.getItem(storageKey)) return; // already awarded today
 

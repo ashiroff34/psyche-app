@@ -559,10 +559,10 @@ export default function DailyPage() {
       const onboardingDate = localStorage.getItem("psyche-onboarding-complete-date");
       if (!onboardingDate) {
         // First time. record today's date and skip morning observation
-        localStorage.setItem("psyche-onboarding-complete-date", new Date().toISOString().slice(0, 10));
+        localStorage.setItem("psyche-onboarding-complete-date", new Intl.DateTimeFormat("en-CA").format(new Date()));
         return;
       }
-      const today = new Date().toISOString().slice(0, 10);
+      const today = new Intl.DateTimeFormat("en-CA").format(new Date());
       if (onboardingDate === today) return; // still day 1
     } catch {}
     if (shouldShowMorningObservation()) setShowMorningObservation(true);

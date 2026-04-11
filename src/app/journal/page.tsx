@@ -2001,7 +2001,7 @@ function EnneagramJournal() {
     incrementGrowthStreak();
     // Award XP for journaling with word count and daily limit checks
     const wordCount = text.trim().split(/\s+/).filter(Boolean).length;
-    const dateKey = new Date().toISOString().slice(0, 10);
+    const dateKey = new Intl.DateTimeFormat("en-CA").format(new Date());
     const xpCountKey = `psyche-journal-xp-${dateKey}`;
     try {
       const dailyCount = parseInt(localStorage.getItem(xpCountKey) || "0", 10);

@@ -11,7 +11,7 @@ const KEY_LAST_ACTIVE = "psyche-last-active-date";
 const shownKey = (dateKey: string) => `psyche-shadow-reengagement-shown-${dateKey}`;
 
 function getDateKey(): string {
-  return new Date().toISOString().slice(0, 10);
+  return new Intl.DateTimeFormat("en-CA").format(new Date());
 }
 
 /* ─────────────────────────────────────────────────────────────────────────────
