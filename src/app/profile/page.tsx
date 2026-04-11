@@ -68,7 +68,7 @@ function buildTypeDNA(
   if (profile.enneagramScores && profile.enneagramScores.length > 0) {
     const maxPct = Math.max(...profile.enneagramScores.map(s => s.percentage), 1);
     return enneagramTypes.map(t => {
-      const s = profile.enneagramScores!.find(x => parseInt(x.key) === t.number);
+      const s = profile.enneagramScores!.find(x => parseInt(x.key, 10) === t.number);
       const pct = s ? Math.round((s.percentage / maxPct) * 100) : 5;
       return { num: t.number, name: t.name, color: t.color, pct, label: s ? `${s.percentage}%` : "," };
     });

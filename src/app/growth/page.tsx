@@ -190,6 +190,15 @@ export default function GrowthPage() {
   const [selectedType, setSelectedType] = useState<number | null>(null);
   const [promptIdx, setPromptIdx] = useState(0);
   const [reflectionText, setReflectionText] = useState("");
+  // Hoisted from IIFEs to fix Rules of Hooks violation
+  const [showMirror, setShowMirror] = useState(false);
+  const [showDialogue, setShowDialogue] = useState(false);
+  const [dialogueStep, setDialogueStep] = useState(0);
+  const [dialogueChoices, setDialogueChoices] = useState<string[]>([]);
+  const [showFormation, setShowFormation] = useState(false);
+  const [selectedSituation, setSelectedSituation] = useState<SituationCategory | null>(null);
+  const [keganDone, setKeganDone] = useState(false);
+  const [keganText, setKeganText] = useState("");
   const [saved, setSaved] = useState(false);
   const [showAll, setShowAll] = useState(false);
 
@@ -325,7 +334,6 @@ export default function GrowthPage() {
               const profile = analyzeLinguistics(corpus);
               const growth = computeGrowthVector(corpus);
               const letter = generateFutureLetterClientSide(profile, growth, activeType, type.name ? undefined : undefined);
-              const [showMirror, setShowMirror] = useState(false);
 
               return (
                 <div className="rounded-3xl mb-5 overflow-hidden" style={{ background: "linear-gradient(160deg, rgba(139,92,246,0.08) 0%, rgba(217,70,239,0.06) 100%)", border: "1px solid rgba(139,92,246,0.22)" }}>
@@ -555,20 +563,19 @@ export default function GrowthPage() {
 
             {/* ── Predictive Self (Mischel CAPS 1995) ── */}
             {(() => {
-              const [selectedSit, setSelectedSit] = useState<SituationCategory | null>(null);
-              const prediction = selectedSit && activeType ? getPrediction(activeType, selectedSit) : null;
+              const prediction = selectedSituation && activeType ? getPrediction(activeType, selectedSituation) : null;
               return (
                 <div className="rounded-3xl p-5 mb-5" style={{ background: "rgba(99,102,241,0.06)", border: "1px solid rgba(99,102,241,0.18)" }}>
                   <h3 className="text-xs font-bold uppercase tracking-widest mb-3" style={{ color: "#a5b4fc" }}>Predict your pattern</h3>
                   <p className="text-[11px] opacity-60 mb-3">What situation are you facing? See how your type will probably respond, and what the alternative looks like.</p>
                   <div className="flex flex-wrap gap-2 mb-4">
                     {SITUATION_CATEGORIES.map(cat => (
-                      <button key={cat.id} onClick={() => setSelectedSit(selectedSit === cat.id ? null : cat.id)}
+                      <button key={cat.id} onClick={() => setSelectedSituation(selectedSituation === cat.id ? null : cat.id)}
                         className="text-xs px-3 py-1.5 rounded-full transition-all"
                         style={{
-                          background: selectedSit === cat.id ? "rgba(99,102,241,0.2)" : "rgba(255,255,255,0.04)",
-                          border: `1px solid ${selectedSit === cat.id ? "rgba(99,102,241,0.5)" : "rgba(255,255,255,0.08)"}`,
-                          color: selectedSit === cat.id ? "#c7d2fe" : "rgba(255,255,255,0.65)",
+                          background: selectedSituation === cat.id ? "rgba(99,102,241,0.2)" : "rgba(255,255,255,0.04)",
+                          border: `1px solid ${selectedSituation === cat.id ? "rgba(99,102,241,0.5)" : "rgba(255,255,255,0.08)"}`,
+                          color: selectedSituation === cat.id ? "#c7d2fe" : "rgba(255,255,255,0.65)",
                         }}>
                         {cat.label}
                       </button>
@@ -576,7 +583,7 @@ export default function GrowthPage() {
                   </div>
                   <AnimatePresence mode="wait">
                     {prediction && (
-                      <motion.div key={selectedSit} initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -6 }}>
+                      <motion.div key={selectedSituation} initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -6 }}>
                         <div className="p-3 rounded-xl mb-2" style={{ background: "rgba(239,68,68,0.06)", border: "1px solid rgba(239,68,68,0.15)" }}>
                           <p className="text-[10px] uppercase tracking-widest opacity-50 mb-1">Your habitual pattern</p>
                           <p className="text-xs leading-relaxed" style={{ color: "rgba(255,255,255,0.8)" }}>{prediction.habitualPattern}</p>
@@ -600,9 +607,6 @@ export default function GrowthPage() {
             {activeType && (() => {
               const dialogue = getDialogue(activeType);
               const intType = DIALOGUE_INTEGRATION_TYPE[activeType];
-              const [showDialogue, setShowDialogue] = useState(false);
-              const [dialogueStep, setDialogueStep] = useState(0);
-              const [choices, setChoices] = useState<string[]>([]);
               if (!dialogue) return null;
               const visibleTurns = dialogue.turns.slice(0, showDialogue ? dialogueStep + 1 : 0);
               const atChoice = showDialogue && dialogueStep >= dialogue.choiceAfter && dialogueStep < dialogue.turns.length;
@@ -641,12 +645,12 @@ export default function GrowthPage() {
                         <div className="space-y-2 pt-1">
                           <p className="text-[10px] text-center opacity-50">Which voice do you want to speak as next?</p>
                           <div className="grid grid-cols-2 gap-2">
-                            <button onClick={() => { setChoices([...choices, "type"]); setDialogueStep(dialogueStep + 1); }}
+                            <button onClick={() => { setDialogueChoices([...dialogueChoices, "type"]); setDialogueStep(dialogueStep + 1); }}
                               className="py-2 rounded-xl text-xs font-semibold"
                               style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.12)", color: "rgba(255,255,255,0.8)" }}>
                               Type {activeType}
                             </button>
-                            <button onClick={() => { setChoices([...choices, "integration"]); setDialogueStep(dialogueStep + 1); }}
+                            <button onClick={() => { setDialogueChoices([...dialogueChoices, "integration"]); setDialogueStep(dialogueStep + 1); }}
                               className="py-2 rounded-xl text-xs font-semibold"
                               style={{ background: "rgba(139,92,246,0.12)", border: "1px solid rgba(139,92,246,0.3)", color: "#c084fc" }}>
                               Integration ({intType})
@@ -663,7 +667,6 @@ export default function GrowthPage() {
             {/* ── Formation Map (Millon + Riso-Hudson) ── */}
             {activeType && (() => {
               const formation = TYPE_FORMATION[activeType];
-              const [showFormation, setShowFormation] = useState(false);
               if (!formation) return null;
               return (
                 <div className="rounded-3xl p-5 mb-5" style={{ background: "rgba(244,63,94,0.06)", border: "1px solid rgba(244,63,94,0.18)" }}>

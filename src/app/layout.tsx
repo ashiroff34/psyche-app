@@ -70,8 +70,8 @@ export default function RootLayout({
     <html lang="en">
       <head>
         <link rel="icon" href={assetPath("/favicon-32.png")} sizes="32x32" type="image/png" />
-        <link rel="icon" href="/icon.png" sizes="32x32" type="image/png" />
-        <link rel="apple-touch-icon" href="/apple-icon.png" sizes="180x180" />
+        <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
+        <link rel="apple-touch-icon" href="/apple-icon-180.png" sizes="180x180" />
         <link
           href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap"
           rel="stylesheet"

@@ -38,7 +38,7 @@ export default function MichaelCalozPage() {
       <StructuredAssessment
         sections={calozSections}
         onComplete={(r) => {
-          updateProfile({ enneagramType: parseInt(r.topResult) });
+          updateProfile({ enneagramType: parseInt(r.topResult, 10) });
           addXP(100, "michael-caloz-complete");
           const params = new URLSearchParams({
             type: r.topResult,

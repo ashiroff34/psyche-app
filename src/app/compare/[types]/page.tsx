@@ -18,8 +18,8 @@ import ChibiSprite from "@/components/ChibiSprite";
 function parseTypes(slug: string): [number, number] | null {
   const m = slug.match(/^(\d)-vs-(\d)$/);
   if (!m) return null;
-  const a = parseInt(m[1]);
-  const b = parseInt(m[2]);
+  const a = parseInt(m[1], 10);
+  const b = parseInt(m[2], 10);
   if (a < 1 || a > 9 || b < 1 || b > 9 || a === b) return null;
   return [a, b];
 }

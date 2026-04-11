@@ -36,7 +36,7 @@ export default function MistypeInvestigatorPage() {
       <MistypeInvestigator
         pairs={mistypePairs}
         onComplete={(r) => {
-          updateProfile({ enneagramType: parseInt(r.topResult) });
+          updateProfile({ enneagramType: parseInt(r.topResult, 10) });
           addXP(50, "mistype-investigator-complete");
           const params = new URLSearchParams({
             type: r.topResult,
