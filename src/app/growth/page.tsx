@@ -12,6 +12,7 @@ import { TYPE_GROWTH_EDGES } from "@/data/growth-edges";
 import { getWeeklyWisdom } from "@/data/type-wisdom";
 import { getPrediction, SITUATION_CATEGORIES, type SituationCategory } from "@/data/predictive-self";
 import { generateAvoidanceInsight, getTimingInsights } from "@/lib/behavioral-signals";
+import { collectTextCorpus, analyzeLinguistics, computeGrowthVector, generateFutureLetterClientSide } from "@/lib/living-mirror";
 import { getDialogue, DIALOGUE_INTEGRATION_TYPE } from "@/data/shadow-dialogue";
 import { TYPE_FORMATION } from "@/data/formation-map";
 
@@ -316,6 +317,64 @@ export default function GrowthPage() {
 
         {activeType && type && growthInfo ? (
           <>
+            {/* ── The Living Mirror ── */}
+            {(() => {
+              const corpus = collectTextCorpus();
+              if (corpus.length < 5) return null; // need at least 5 entries
+              const profile = analyzeLinguistics(corpus);
+              const growth = computeGrowthVector(corpus);
+              const letter = generateFutureLetterClientSide(profile, growth, activeType, type.name ? undefined : undefined);
+              const [showMirror, setShowMirror] = useState(false);
+
+              return (
+                <div className="rounded-3xl mb-5 overflow-hidden" style={{ background: "linear-gradient(160deg, rgba(139,92,246,0.08) 0%, rgba(217,70,239,0.06) 100%)", border: "1px solid rgba(139,92,246,0.22)" }}>
+                  <button
+                    onClick={() => setShowMirror(!showMirror)}
+                    className="w-full text-left p-5"
+                  >
+                    <div className="flex items-center gap-2 mb-1">
+                      <Sparkles className="w-4 h-4 text-violet-300" />
+                      <p className="text-xs font-bold uppercase tracking-widest text-violet-300">The Living Mirror</p>
+                    </div>
+                    <p className="text-sm" style={{ color: "rgba(255,255,255,0.7)" }}>
+                      A letter from your future self, written in your own words.
+                    </p>
+                    <p className="text-[10px] opacity-40 mt-1">Based on {profile.totalEntries} entries · {profile.totalWords} words</p>
+                  </button>
+
+                  <AnimatePresence>
+                    {showMirror && (
+                      <motion.div
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: "auto", opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        className="overflow-hidden"
+                      >
+                        <div className="px-5 pb-5">
+                          <div className="h-px mb-4" style={{ background: "rgba(139,92,246,0.15)" }} />
+                          <div className="font-serif text-sm leading-relaxed whitespace-pre-line" style={{ color: "rgba(255,255,255,0.88)" }}>
+                            {letter}
+                          </div>
+                          {growth.direction === "growing" && (
+                            <div className="mt-4 p-3 rounded-xl" style={{ background: "rgba(16,185,129,0.06)", border: "1px solid rgba(16,185,129,0.15)" }}>
+                              <p className="text-[10px] uppercase tracking-widest text-emerald-300 font-bold mb-1">Growth vector</p>
+                              <p className="text-xs opacity-70">
+                                Your language is shifting. {growth.agencyShift > 0 ? "More agency. " : ""}{growth.hedgingShift < 0 ? "Less hedging. " : ""}{growth.insightShift > 0 ? "More self-awareness. " : ""}{growth.emotionShift > 0 ? "Richer emotional vocabulary. " : ""}
+                                This trajectory is real, even if you cannot feel it yet.
+                              </p>
+                            </div>
+                          )}
+                          <p className="text-[10px] opacity-30 mt-3 text-center">
+                            Generated from your own words. Regenerates as you write more.
+                          </p>
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+              );
+            })()}
+
             {/* Growth Theme */}
             <div className={`p-5 rounded-2xl border mb-5 bg-gradient-to-br ${gradient} text-white shadow-md`}>
               <div className="text-xs font-bold uppercase tracking-wider text-white/70 mb-1">Growth Theme</div>
