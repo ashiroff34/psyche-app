@@ -130,7 +130,7 @@ export default function MorningObservation({ typeNumber, onDismiss }: MorningObs
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.5 }}
-      className="fixed inset-0 z-[200] flex flex-col items-center justify-center overflow-hidden"
+      className="fixed inset-0 z-[200] flex flex-col items-center overflow-y-auto"
       style={{ background: "#05020f" }}
     >
       {/* Aurora background */}
@@ -164,7 +164,7 @@ export default function MorningObservation({ typeNumber, onDismiss }: MorningObs
       </div>
 
       {/* Content */}
-      <div className="relative w-full max-w-sm mx-auto px-6 flex flex-col min-h-screen">
+      <div className="relative w-full max-w-sm mx-auto px-6 flex flex-col min-h-screen justify-center py-12">
         <AnimatePresence mode="wait">
 
           {/* ── Phase 1: Reading ── */}

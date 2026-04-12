@@ -71,6 +71,7 @@ const HOLY_IDEAS: Record<number, { idea: string; concept: string; practice: stri
 
 export const unit31Lessons: Lesson[] = [
   {
+    // Pattern B: concept-intro → fill-in-blank → matching-pairs → scenario → socratic-prompt
     id: "holy-intro",
     unitId: "holy-ideas",
     order: 1,
@@ -80,12 +81,74 @@ export const unit31Lessons: Lesson[] = [
     personalized: true,
     personalizeFor: "enneagramType",
     exercises: [
-      { id: "h31-1-i", difficulty: 1, content: { type: "concept-intro", title: "Your pattern is a distortion of something beautiful", body: "Every Enneagram type's fixation, the thing that causes the most suffering, is actually a distorted version of a genuine perception of reality. The 1's perfectionism is a distortion of the perception that reality is already whole. The 7's escape is a distortion of the perception that depth lives in staying. When the distortion relaxes, the original perception becomes available. That is the hidden gift." } },
-      { id: "h31-1-s", difficulty: 2, content: { type: "socratic-prompt", question: "What is the most painful part of your type's pattern? Can you imagine what it might be a distortion of?", reflection: "The suffering and the gift are two sides of the same coin. The intensity of the suffering often points to the depth of the gift.", revealLabel: "Your type's hidden gift", conceptTitle: "The perception underneath the pattern", conceptBody: "Each type's fixation distorts a specific way of seeing reality. When the fixation loosens, not disappears but loosens, the original perception re-emerges. This is not something you achieve. It is something you stop blocking." } },
-      { id: "h31-1-f", difficulty: 3, content: { type: "free-recall", prompt: "In your own words, what is the thing your type is most afraid of? And what would become possible if that fear loosened its grip by 10%?", keyTerms: ["afraid", "fear", "loosen", "possible", "if"], minWords: 20, modelAnswer: "The fear and the gift are connected. The 1's fear of being wrong hides the gift of accepting what is. The 4's fear of being ordinary hides the gift of belonging. Whatever you wrote about the fear points directly at the gift." } },
+      {
+        id: "h31-1-i",
+        difficulty: 1,
+        content: {
+          type: "concept-intro",
+          title: "Your pattern is a distortion of something beautiful",
+          body: "Every Enneagram type's fixation, the thing that causes the most suffering, is actually a distorted version of a genuine perception of reality. The 1's perfectionism is a distortion of the perception that reality is already whole. The 7's escape is a distortion of the perception that depth lives in staying. When the distortion relaxes, the original perception becomes available. That is the hidden gift.",
+        },
+      },
+      {
+        id: "h31-1-fib",
+        difficulty: 2,
+        content: {
+          type: "fill-in-blank",
+          sentence: "The type's fixation and its hidden gift are two sides of the same ___. The intensity of the suffering often points to the depth of what is available underneath it.",
+          options: ["coin", "pattern", "story"],
+          correctIndex: 0,
+          explanation: "If the gift and the suffering were unrelated, understanding the suffering would not help you access the gift. But they are connected — the same energy that drives the compulsion is the energy available when the compulsion relaxes. The 1's relentless drive for correctness, when it settles, becomes the capacity to see wholeness. The coin flips.",
+        },
+      },
+      {
+        id: "h31-1-mp",
+        difficulty: 2,
+        content: {
+          type: "matching-pairs",
+          instruction: "Match each type's core fixation with the hidden gift that lives underneath it — the perception that becomes available when the distortion relaxes.",
+          pairs: [
+            { left: "The 1's inner critic demanding perfection", right: "Perceiving reality as already whole" },
+            { left: "The 2's need to give in order to be loved", right: "Perceiving love as unconditional and prior to action" },
+            { left: "The 5's need to understand before engaging", right: "Perceiving reality through direct contact, not models" },
+            { left: "The 7's compulsion to seek the next experience", right: "Perceiving depth as found by staying, not moving" },
+            { left: "The 9's self-erasure to preserve peace", right: "Perceiving one's own presence as necessary to real harmony" },
+          ],
+        },
+      },
+      {
+        id: "h31-1-sc",
+        difficulty: 2,
+        content: {
+          type: "scenario",
+          scenario: "A Type 3 has spent their career achieving at a relentless pace. In a quiet moment, someone who loves them says: 'I don't love you for what you do. I love you for who you are when you stop performing.' The Type 3 feels both threatened and deeply relieved by this. The threat is to the pattern. The relief is something older.",
+          question: "What does the relief point toward?",
+          options: [
+            "The Type 3 secretly wants to quit working and needs permission",
+            "The relief is a sign of the hidden gift — the perception that being has value independent of doing, which the fixation has been obscuring",
+            "The Type 3 is exhausted and needs rest, not a philosophical insight",
+            "The person's words have removed the Type 3's motivation structure",
+          ],
+          correctIndex: 1,
+          explanation: "The relief is not about rest. It is about recognition. Something in the Type 3 already knows that being has value without doing — the fixation just keeps that perception buried under urgency and performance. When someone speaks to what is underneath, the body responds before the mind can argue. That response is the gift announcing itself.",
+        },
+      },
+      {
+        id: "h31-1-sp",
+        difficulty: 3,
+        content: {
+          type: "socratic-prompt",
+          question: "What is the most painful part of your type's pattern? Can you imagine what it might be a distortion of?",
+          reflection: "The suffering and the gift are two sides of the same coin. The intensity of the suffering often points to the depth of the gift.",
+          revealLabel: "Your type's hidden gift",
+          conceptTitle: "The perception underneath the pattern",
+          conceptBody: "Each type's fixation distorts a specific way of seeing reality. When the fixation loosens, not disappears but loosens, the original perception re-emerges. This is not something you achieve. It is something you stop blocking.",
+        },
+      },
     ],
   },
   {
+    // Pattern C: concept-intro → multiple-choice → fill-in-blank → scenario → sorting
     id: "holy-practice",
     unitId: "holy-ideas",
     order: 2,
@@ -95,9 +158,76 @@ export const unit31Lessons: Lesson[] = [
     personalized: true,
     personalizeFor: "enneagramType",
     exercises: [
-      { id: "h31-2-i", difficulty: 1, content: { type: "concept-intro", title: "Not all practices work the same for all types", body: "A practice that transforms a Type 3 might bore a Type 7. An exercise that grounds a Type 6 might frustrate a Type 8. The contemplative traditions figured this out centuries ago: the medicine must match the disease. Your type has a specific practice that addresses its specific distortion." } },
-      { id: "h31-2-s", difficulty: 2, content: { type: "socratic-prompt", question: "What is one practice or habit that has actually helped you loosen your pattern's grip, even a little? What made it work?", reflection: "The things that have already worked for you likely share a structure with the practices contemplative traditions recommend for your type.", revealLabel: "Your practice", conceptTitle: "The exercise for your type", conceptBody: "Each type benefits from a specific contemplative move. For some, it is stillness. For others, engagement. For others, honesty. The common thread: the practice always asks you to do the thing your pattern says is dangerous." } },
-      { id: "h31-2-f", difficulty: 3, content: { type: "free-recall", prompt: "Try your type's practice right now (or commit to trying it today). Then write what you noticed, or what you anticipate noticing.", keyTerms: ["tried", "noticed", "felt", "practice", "different", "hard"], minWords: 20, modelAnswer: "The practice is meant to feel slightly uncomfortable, because it asks you to relax the very defense your type considers essential. That discomfort is the signal that it is working. Not because pain is good, but because the pattern's comfort zone IS the limitation." } },
+      {
+        id: "h31-2-i",
+        difficulty: 1,
+        content: {
+          type: "concept-intro",
+          title: "Not all practices work the same for all types",
+          body: "A practice that transforms a Type 3 might bore a Type 7. An exercise that grounds a Type 6 might frustrate a Type 8. The contemplative traditions figured this out centuries ago: the medicine must match the disease. Your type has a specific practice that addresses its specific distortion.",
+        },
+      },
+      {
+        id: "h31-2-mc",
+        difficulty: 2,
+        content: {
+          type: "multiple-choice",
+          question: "Why does a useful contemplative practice for your type often feel slightly uncomfortable or even threatening?",
+          options: [
+            "Because effective practices are inherently painful and discomfort signals progress",
+            "Because the practice asks you to do the exact thing your pattern has been avoiding, which the pattern experiences as dangerous",
+            "Because unfamiliar practices always feel uncomfortable until they become habit",
+            "Because the discomfort means you have chosen the wrong practice for your type",
+          ],
+          correctIndex: 1,
+          explanation: "The practice targets the specific move your type refuses to make. For the 5, direct embodied contact without analysis. For the 2, receiving without giving. For the 6, acting without external confirmation. The pattern calls these moves dangerous. The practice says: try anyway. The discomfort is not a red flag. It is the address of the gift.",
+        },
+      },
+      {
+        id: "h31-2-fib",
+        difficulty: 2,
+        content: {
+          type: "fill-in-blank",
+          sentence: "The practice always asks you to do the thing your pattern says is ___. That is how you know it is the right practice.",
+          options: ["dangerous", "boring", "impossible"],
+          correctIndex: 0,
+          explanation: "Each type has built an elaborate defense around one specific move. The 8's armor says vulnerability is dangerous. The 9's fading says assertion is dangerous. The 4's longing says ordinary belonging is dangerous. The right practice walks directly toward that declared danger and discovers it was never what the pattern said it was.",
+        },
+      },
+      {
+        id: "h31-2-sc",
+        difficulty: 2,
+        content: {
+          type: "scenario",
+          scenario: "A Type 6 is given a practice: make one small decision today without consulting anyone or researching further. Just act from what you already know. The Type 6 starts the practice and immediately feels the pull to check one more source, ask one more person. They pause. They feel the groundlessness. Then they decide anyway. Nothing catastrophic happens. For a moment, they feel something unfamiliar: solid.",
+          question: "What has just occurred in this practice moment?",
+          options: [
+            "The Type 6 has suppressed their natural caution, which could lead to poor decisions",
+            "The Type 6 has discovered their hidden gift — that inner authority exists and does not require external confirmation to be real",
+            "The practice has worked by making the Type 6 feel confident, which is the goal of all growth",
+            "The Type 6 has temporarily overridden their type, which will revert under pressure",
+          ],
+          correctIndex: 1,
+          explanation: "The groundlessness the Type 6 feared turned out to be survivable. And inside the groundlessness was something solid: their own knowing. The gift of the 6 is courage — not the absence of fear, but the discovery that inner authority is real and does not need external scaffolding. The practice created the conditions for that discovery.",
+        },
+      },
+      {
+        id: "h31-2-sort",
+        difficulty: 3,
+        content: {
+          type: "sorting",
+          instruction: "Sort each description of a practice moment into whether it reflects THE PATTERN DEFENDING ITSELF or THE GIFT BEGINNING TO EMERGE.",
+          categories: ["Pattern Defending", "Gift Emerging"],
+          items: [
+            { text: "A Type 2 sits quietly doing nothing helpful and notices: 'I am still here. I am still enough.'", categoryIndex: 1 },
+            { text: "A Type 7 stays with one experience longer and feels the familiar urge to move on to something better", categoryIndex: 0 },
+            { text: "A Type 1 looks at a messy room and feels, briefly, that nothing here actually needs correcting", categoryIndex: 1 },
+            { text: "A Type 8 is about to share something vulnerable and pulls back, deciding it would make them look weak", categoryIndex: 0 },
+            { text: "A Type 9 states a preference out loud and notices the world does not end", categoryIndex: 1 },
+            { text: "A Type 5 touches a wall and immediately starts analyzing the texture instead of just feeling it", categoryIndex: 0 },
+          ],
+        },
+      },
     ],
   },
 ];
