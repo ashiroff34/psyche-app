@@ -130,8 +130,8 @@ export default function MorningObservation({ typeNumber, onDismiss }: MorningObs
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.5 }}
-      className="fixed inset-0 z-[200] flex flex-col items-center overflow-y-auto"
-      style={{ background: "#05020f" }}
+      className="fixed inset-0 z-[200] overflow-y-auto"
+      style={{ background: "#05020f", WebkitOverflowScrolling: "touch" }}
     >
       {/* Aurora background */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
