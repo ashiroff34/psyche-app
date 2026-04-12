@@ -990,7 +990,7 @@ function LearnContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const typeParam = searchParams.get("type");
-  const [selectedType, setSelectedType] = useState<number | null>(typeParam ? parseInt(typeParam) : null);
+  const [selectedType, setSelectedType] = useState<number | null>(typeParam ? parseInt(typeParam, 10) : null);
   const [learnTab, setLearnTab] = useState<"types" | "instincts" | "stackings" | "tritypes" | "deepsystems" | "selfwork">("types");
   const [advUnlocked, setAdvUnlocked] = useState(false);
   const [proUnlocked, setProUnlocked] = useState(false);
@@ -1009,7 +1009,7 @@ function LearnContent() {
   // Auto-load user's type from profile if no URL param
   useEffect(() => {
     if (typeParam) {
-      setSelectedType(parseInt(typeParam));
+      setSelectedType(parseInt(typeParam, 10));
       setLearnTab("types");
     } else {
       try {

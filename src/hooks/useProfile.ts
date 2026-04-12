@@ -106,7 +106,7 @@ function resolveTypeFromVotes(votes: { id: string; type: number }[]): {
   }
 
   const sorted = Object.entries(weightedTotals)
-    .map(([t, w]) => ({ type: parseInt(t), weight: w }))
+    .map(([t, w]) => ({ type: parseInt(t, 10), weight: w }))
     .sort((a, b) => b.weight - a.weight);
 
   const winner = sorted[0].type;

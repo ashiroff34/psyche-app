@@ -497,7 +497,7 @@ function getISOWeekKey(): string {
 
 export function getCurrentWeeklyChallenge(): { challenge: WeeklyChallengeTemplate; weekKey: string } {
   const weekKey = getISOWeekKey();
-  const weekNum = parseInt(weekKey.split("-W")[1] ?? "0") || 0;
+  const weekNum = parseInt(weekKey.split("-W")[1] ?? "0", 10) || 0;
   const challenge = WEEKLY_CHALLENGES[weekNum % WEEKLY_CHALLENGES.length];
   return { challenge, weekKey };
 }

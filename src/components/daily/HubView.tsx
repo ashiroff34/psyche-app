@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
-import { Flame, Zap, Heart, ArrowRight, Sparkles, BookOpen, CheckCircle, Target, Star, Clock, Lock, ChevronRight, Coins, Brain, Trophy, Share2, X } from "lucide-react";
+import { Flame, Zap, Heart, ArrowRight, Sparkles, BookOpen, CheckCircle, Target, Star, Clock, Lock, ChevronRight, Coins, Brain, Trophy, Share2, X, Mail } from "lucide-react";
 import { useVerifiedShare } from "@/hooks/useVerifiedShare";
 import { resolveTypeAwareCopy } from "@/hooks/useTypeAwareCopy";
 import { useSubtypeAwareCopy } from "@/hooks/useSubtypeAwareCopy";
@@ -21,6 +21,7 @@ import { getFreshStartWindow, getFreshStartCopy, getImplementationIntent } from 
 import { isBonusDayToday } from "@/lib/variable-rewards";
 import { getTodaysNorm } from "@/data/descriptive-norms";
 import { recordSessionStart, recordSessionEnd, recordFeatureOffered } from "@/lib/behavioral-signals";
+import { safeGet, safeSet, safeGetJSON, safeSetJSON } from "@/lib/safe-storage";
 import ReactionTimeGame from "@/components/daily/ReactionTimeGame";
 
 // ─── Type-match preview cards (subset for daily challenge) ────────────────────
@@ -64,6 +65,19 @@ const TYPE_NAMES: Record<number, string> = {
   1: "Type 1", 2: "Type 2", 3: "Type 3",
   4: "Type 4", 5: "Type 5", 6: "Type 6",
   7: "Type 7", 8: "Type 8", 9: "Type 9",
+};
+
+// ─── Day 2 streak celebration copy (type-specific) ──────────────────────────
+const DAY2_COPY: Record<number, string> = {
+  1: "Day 2. The discipline is real. You're already ahead of most.",
+  2: "Day 2. You showed up for yourself this time. That matters.",
+  3: "Day 2. Consistency is the quiet kind of winning.",
+  4: "Day 2. Depth requires return. You came back.",
+  5: "Day 2. Consistency is the experiment. Data point collected.",
+  6: "Day 2. You trusted the process. That took courage.",
+  7: "Day 2. Staying is its own kind of adventure.",
+  8: "Day 2. Strength is showing up when no one's watching.",
+  9: "Day 2. Your presence matters. Even here.",
 };
 import WeeklyChallengeCard from "./WeeklyChallengeCard";
 import IntegrationCompanion from "./IntegrationCompanion";
@@ -320,6 +334,64 @@ export default function HubView({
     } catch {}
   }, [challengeStorageKey]);
 
+  // ─── Feature 1: Day 2 Streak Celebration Banner ───────────────────────────
+  const dateKey = getDateKey();
+  const day2DismissKey = `psyche-day2-banner-dismissed-${dateKey}`;
+  const [day2Dismissed, setDay2Dismissed] = useState(() => {
+    return safeGet(day2DismissKey) === "1";
+  });
+  const showDay2Banner = streak === 1 && enneagramType > 0 && !day2Dismissed;
+  const day2TypeColor = TYPE_COLORS[enneagramType] ?? "#8b5cf6";
+
+  // ─── Feature 2: "What to do next" Nudge Card ─────────────────────────────
+  const [nudgeDismissed, setNudgeDismissed] = useState(false);
+  const completedLessons = safeGetJSON<string[]>("psyche-completed-lessons", []);
+  const showNudgeCard = !nudgeDismissed && completedLessons.length < 3 && streak < 5 && enneagramType > 0;
+
+  // ─── Feature 3: Soft Email Capture (3rd visit) ────────────────────────────
+  const [emailCaptureVisible, setEmailCaptureVisible] = useState(false);
+  const [emailInput, setEmailInput] = useState("");
+  const [emailSubmitted, setEmailSubmitted] = useState(false);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    // Increment daily visit count
+    const visitCount = parseInt(safeGet("psyche-daily-visit-count", "0") ?? "0", 10) + 1;
+    safeSet("psyche-daily-visit-count", String(visitCount));
+
+    // Only show on 3rd+ visit
+    if (visitCount < 3) return;
+
+    // Check if already has email
+    const profile = safeGetJSON<{ email?: string }>("psyche-profile", {});
+    if (profile.email) return;
+
+    // Check if dismissed within last 14 days
+    const dismissedDate = safeGet("psyche-email-capture-dismissed");
+    if (dismissedDate) {
+      const dismissed = new Date(dismissedDate);
+      const now = new Date();
+      const daysDiff = (now.getTime() - dismissed.getTime()) / (1000 * 60 * 60 * 24);
+      if (daysDiff < 14) return;
+    }
+
+    setEmailCaptureVisible(true);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+  const handleEmailSubmit = () => {
+    if (!emailInput.trim() || !emailInput.includes("@")) return;
+    const profile = safeGetJSON<Record<string, unknown>>("psyche-profile", {});
+    profile.email = emailInput.trim();
+    safeSetJSON("psyche-profile", profile);
+    setEmailSubmitted(true);
+    setTimeout(() => setEmailCaptureVisible(false), 2000);
+  };
+
+  const handleEmailDismiss = () => {
+    safeSet("psyche-email-capture-dismissed", new Date().toISOString());
+    setEmailCaptureVisible(false);
+  };
+
   return (
     <div
       className="min-h-screen"
@@ -365,6 +437,170 @@ export default function HubView({
             >
               <Zap className="w-5 h-5 shrink-0 fill-white" />
               <span>You&apos;ve already earned <strong>{totalXP} XP</strong>. You&apos;re ahead of the starting line!</span>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        {/* ── Day 2 Streak Celebration Banner ── */}
+        <AnimatePresence>
+          {showDay2Banner && (
+            <motion.div
+              key="day2-banner"
+              initial={{ opacity: 0, y: -8, scale: 0.97 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: -8, scale: 0.97 }}
+              className="mb-4 relative rounded-2xl overflow-hidden"
+              style={{
+                background: "rgba(15,10,30,0.6)",
+                border: "1px solid transparent",
+                backgroundClip: "padding-box",
+              }}
+            >
+              {/* Gradient border effect */}
+              <div
+                className="absolute inset-0 -z-10 rounded-2xl"
+                style={{
+                  background: `linear-gradient(135deg, ${day2TypeColor}, #8b5cf6, ${day2TypeColor})`,
+                  margin: "-1px",
+                  borderRadius: "inherit",
+                }}
+              />
+              <div className="px-4 py-3 flex items-start gap-3" style={{ background: "rgba(15,10,30,0.92)", borderRadius: "inherit" }}>
+                <Sparkles className="w-5 h-5 shrink-0 mt-0.5" style={{ color: day2TypeColor }} />
+                <div className="flex-1 min-w-0">
+                  <p className="text-[10px] font-bold uppercase tracking-widest mb-1" style={{ color: day2TypeColor }}>
+                    Welcome back
+                  </p>
+                  <p className="text-sm leading-snug" style={{ color: "rgba(255,255,255,0.9)" }}>
+                    {DAY2_COPY[enneagramType] ?? "Day 2. You came back. That matters."}
+                  </p>
+                </div>
+                <button
+                  onClick={() => {
+                    safeSet(day2DismissKey, "1");
+                    setDay2Dismissed(true);
+                  }}
+                  className="shrink-0 mt-0.5 opacity-50 hover:opacity-90 transition-opacity"
+                  style={{ color: "rgba(255,255,255,0.6)" }}
+                >
+                  <X className="w-4 h-4" />
+                </button>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        {/* ── "What to do next" Nudge Card ── */}
+        <AnimatePresence>
+          {showNudgeCard && (
+            <motion.div
+              key="nudge-card"
+              initial={{ opacity: 0, y: -6 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -6 }}
+              className="mb-4 rounded-2xl overflow-hidden"
+              style={{
+                background: "rgba(99,102,241,0.06)",
+                borderLeft: `3px solid ${TYPE_COLORS[enneagramType] ?? "#8b5cf6"}`,
+                border: "1px solid rgba(99,102,241,0.15)",
+                borderLeftWidth: "3px",
+                borderLeftColor: TYPE_COLORS[enneagramType] ?? "#8b5cf6",
+              }}
+            >
+              <div className="px-4 py-3 flex items-center gap-3">
+                <Link href="/lessons" className="flex items-center gap-3 flex-1 min-w-0">
+                  <div
+                    className="w-9 h-9 rounded-xl flex items-center justify-center shrink-0"
+                    style={{ background: "rgba(99,102,241,0.12)" }}
+                  >
+                    <BookOpen className="w-4 h-4" style={{ color: TYPE_COLORS[enneagramType] ?? "#8b5cf6" }} />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <p className="text-[10px] font-bold uppercase tracking-widest mb-0.5" style={{ color: "rgba(255,255,255,0.4)" }}>
+                      Recommended next
+                    </p>
+                    <p className="text-sm font-semibold" style={{ color: "rgba(255,255,255,0.9)" }}>
+                      Start your Type {enneagramType} deep dive &rarr;
+                    </p>
+                  </div>
+                </Link>
+                <button
+                  onClick={() => setNudgeDismissed(true)}
+                  className="shrink-0 opacity-40 hover:opacity-80 transition-opacity"
+                  style={{ color: "rgba(255,255,255,0.5)" }}
+                >
+                  <X className="w-4 h-4" />
+                </button>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        {/* ── Soft Email Capture (3rd visit) ── */}
+        <AnimatePresence>
+          {emailCaptureVisible && (
+            <motion.div
+              key="email-capture"
+              initial={{ opacity: 0, y: -6 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -6 }}
+              className="mb-4 rounded-2xl"
+              style={{
+                background: "rgba(139,92,246,0.06)",
+                border: "1px solid rgba(139,92,246,0.18)",
+              }}
+            >
+              <div className="px-4 py-3">
+                {emailSubmitted ? (
+                  <div className="flex items-center gap-2 py-1">
+                    <CheckCircle className="w-4 h-4 text-emerald-400 shrink-0" />
+                    <p className="text-sm font-medium" style={{ color: "#34d399" }}>
+                      You&apos;re subscribed! Watch for your first insight.
+                    </p>
+                  </div>
+                ) : (
+                  <>
+                    <div className="flex items-center gap-2 mb-2">
+                      <Mail className="w-4 h-4 shrink-0" style={{ color: "#a78bfa" }} />
+                      <p className="text-sm font-semibold" style={{ color: "rgba(255,255,255,0.9)" }}>
+                        Want your weekly type insight delivered?
+                      </p>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <input
+                        type="email"
+                        placeholder="your@email.com"
+                        value={emailInput}
+                        onChange={(e) => setEmailInput(e.target.value)}
+                        onKeyDown={(e) => e.key === "Enter" && handleEmailSubmit()}
+                        className="flex-1 min-w-0 px-3 py-2 rounded-xl text-sm outline-none"
+                        style={{
+                          background: "rgba(255,255,255,0.06)",
+                          border: "1px solid rgba(139,92,246,0.25)",
+                          color: "rgba(255,255,255,0.9)",
+                        }}
+                      />
+                      <button
+                        onClick={handleEmailSubmit}
+                        className="shrink-0 px-4 py-2 rounded-xl text-xs font-bold text-white transition-all active:scale-95"
+                        style={{
+                          background: "linear-gradient(135deg, #8b5cf6, #7c3aed)",
+                          boxShadow: "0 2px 8px rgba(139,92,246,0.3)",
+                        }}
+                      >
+                        Subscribe
+                      </button>
+                    </div>
+                    <button
+                      onClick={handleEmailDismiss}
+                      className="mt-2 text-xs transition-opacity hover:opacity-80"
+                      style={{ color: "rgba(255,255,255,0.35)" }}
+                    >
+                      Not now
+                    </button>
+                  </>
+                )}
+              </div>
             </motion.div>
           )}
         </AnimatePresence>

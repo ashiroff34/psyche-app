@@ -94,8 +94,8 @@ export default function PsychicPortrait({
   const wingNum = (() => {
     if (!enneagramWing) return null;
     const match = enneagramWing.match(/\d+w(\d+)/);
-    if (match) return parseInt(match[1]);
-    const plain = parseInt(enneagramWing);
+    if (match) return parseInt(match[1], 10);
+    const plain = parseInt(enneagramWing, 10);
     return isNaN(plain) ? null : plain;
   })();
 

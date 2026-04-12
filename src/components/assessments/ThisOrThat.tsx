@@ -170,7 +170,7 @@ function getTypeBrief(typeNum: number): string {
 
 function topTypes(scores: Record<number, number>): { type: number; score: number }[] {
   return Object.entries(scores)
-    .map(([t, s]) => ({ type: parseInt(t), score: s }))
+    .map(([t, s]) => ({ type: parseInt(t, 10), score: s }))
     .sort((a, b) => b.score - a.score);
 }
 
@@ -201,7 +201,7 @@ export default function ThisOrThat({ onComplete }: Props) {
     setTimeout(() => {
       const newScores = { ...scores };
       for (const [typeStr, weight] of Object.entries(chosen.types)) {
-        const t = parseInt(typeStr);
+        const t = parseInt(typeStr, 10);
         newScores[t] = (newScores[t] ?? 0) + (weight as number);
       }
       setScores(newScores);

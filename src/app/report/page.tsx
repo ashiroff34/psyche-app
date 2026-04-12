@@ -325,8 +325,8 @@ export default function ReportPage() {
       : null;
 
   // Wings
-  const wingLeft = typeData ? parseInt(typeData.wings.left.split(",")[0].replace("w", "").charAt(1)) : null;
-  const wingRight = typeData ? parseInt(typeData.wings.right.split(",")[0].replace("w", "").charAt(1)) : null;
+  const wingLeft = typeData ? parseInt(typeData.wings.left.split(",")[0].replace("w", "").charAt(1), 10) : null;
+  const wingRight = typeData ? parseInt(typeData.wings.right.split(",")[0].replace("w", "").charAt(1), 10) : null;
   const wingLeftName = wingLeft ? typeData?.wings.left.split(",")[1]?.trim() : null;
   const wingRightName = wingRight ? typeData?.wings.right.split(",")[1]?.trim() : null;
 

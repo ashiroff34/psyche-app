@@ -1,9 +1,11 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useRouter } from "next/navigation";
 import { streakMilestones, type StreakMilestone } from "@/data/streakMilestones";
+import { getReferralShareUrl } from "@/lib/referral";
+import { Share2 } from "lucide-react";
 
 interface MilestoneModalProps {
   streakCount: number;
@@ -54,6 +56,28 @@ export default function MilestoneModal({ streakCount, enneagramType }: Milestone
     setActiveMilestone(null);
     router.push("/journal");
   };
+
+  const handleShare = useCallback(async () => {
+    const url = getReferralShareUrl();
+    const text = `I hit a ${activeMilestone.days}-day streak on Thyself! \u{1F525}`;
+
+    if (typeof navigator !== "undefined" && navigator.share) {
+      try {
+        await navigator.share({ text, url });
+        return;
+      } catch {
+        // User cancelled or share failed — fall through to clipboard
+      }
+    }
+
+    // Clipboard fallback
+    try {
+      await navigator.clipboard.writeText(`${text}\n${url}`);
+      // Optionally could show a toast here
+    } catch {
+      // Clipboard not available
+    }
+  }, [activeMilestone]);
 
   return (
     <AnimatePresence>
@@ -142,6 +166,18 @@ export default function MilestoneModal({ streakCount, enneagramType }: Milestone
                   }}
                 >
                   Journal This
+                </button>
+                <button
+                  onClick={handleShare}
+                  className="w-full py-3 rounded-2xl text-sm font-semibold transition-all flex items-center justify-center gap-2"
+                  style={{
+                    background: "rgba(139,92,246,0.12)",
+                    color: "rgba(139,92,246,0.9)",
+                    border: "1px solid rgba(139,92,246,0.25)",
+                  }}
+                >
+                  <Share2 size={15} />
+                  Share
                 </button>
                 <button
                   onClick={handleDismiss}

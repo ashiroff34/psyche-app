@@ -43,6 +43,8 @@ import { introQuestions } from "@/data/intro-questions";
 import { rateCard, getCardPriority, type FSRSCard } from "@/lib/fsrs";
 import { instinctualStackings } from "@/data/subtypes";
 import { orderedTritypeThyselfs } from "@/data/tritypes";
+import FirstVisitWelcome from "@/components/daily/FirstVisitWelcome";
+import { safeGet } from "@/lib/safe-storage";
 
 /* ═══════════════════════════════════════════════════════════════════════════
    UTILITY: Seeded PRNG (deterministic shuffle per day)
@@ -665,6 +667,9 @@ export default function DailyPage() {
       }));
     } catch {}
   }, [gameStateRaw.streakCount, loaded]);
+
+  // ── First-visit welcome overlay ──
+  const [showWelcome, setShowWelcome] = useState(() => safeGet("psyche-first-visit-complete") !== "true");
 
   // ── View state (hub / path / quiz) ──
   const [view, setView] = useState<"hub" | "path" | "quiz" | "lesson" | "reading">("path");
@@ -1518,6 +1523,18 @@ export default function DailyPage() {
   // ═══════════════════════════════════════════════════════════════════════
   // RENDER
   // ═══════════════════════════════════════════════════════════════════════
+
+  // ── First-visit welcome overlay ──
+  if (showWelcome && profile.enneagramType) {
+    return (
+      <FirstVisitWelcome
+        type={profile.enneagramType}
+        instinct={profile.instinctualStacking}
+        displayName={profile.displayName}
+        onComplete={() => setShowWelcome(false)}
+      />
+    );
+  }
 
   // ── Hub view ──
   if (view === "hub") {

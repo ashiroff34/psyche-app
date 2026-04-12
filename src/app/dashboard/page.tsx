@@ -189,7 +189,7 @@ export default function DashboardPage() {
 
   const radarLabels = enneagramTypes.map((t) => `${t.number}`);
   const radarValues = enneagramTypes.map((t) => {
-    const score = profile.enneagramScores?.find((s) => parseInt(s.key) === t.number);
+    const score = profile.enneagramScores?.find((s) => parseInt(s.key, 10) === t.number);
     return score?.percentage || 0;
   });
 

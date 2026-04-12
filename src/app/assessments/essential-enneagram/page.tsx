@@ -23,7 +23,7 @@ export default function EssentialEnneagramPage() {
         paragraphs={essentialParagraphs}
         narrowingQuestions={narrowingQuestions}
         onComplete={(r) => {
-          updateProfile({ enneagramType: parseInt(r.topResult) });
+          updateProfile({ enneagramType: parseInt(r.topResult, 10) });
           addXP(75, "essential-enneagram-complete");
           const params = new URLSearchParams({
             type: r.topResult,

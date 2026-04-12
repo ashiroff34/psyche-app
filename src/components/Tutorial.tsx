@@ -216,7 +216,14 @@ export default function TutorialOverlay({ onClose }: { onClose: () => void }) {
   return (
     <>
       {/* Dim backdrop */}
-      <div className="fixed inset-0 z-[9998] bg-black/50 backdrop-blur-[2px]" onClick={onClose} />
+      <div
+        className="fixed inset-0 z-[9998] bg-black/50 backdrop-blur-[2px]"
+        onClick={onClose}
+        role="button"
+        tabIndex={0}
+        aria-label="Close tutorial"
+        onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") onClose(); }}
+      />
 
       {/* Bottom sheet */}
       <motion.div

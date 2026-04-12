@@ -15,7 +15,7 @@ export default function ServiceWorkerRegistrar() {
     });
 
     let reloading = false;
-    navigator.serviceWorker.addEventListener("controllerchange", () => {
+    const onControllerChange = () => {
       if (reloading) return;
       reloading = true;
       toast("✦ App updated. refreshing…", {
@@ -30,7 +30,12 @@ export default function ServiceWorkerRegistrar() {
         },
       });
       setTimeout(() => window.location.reload(), 1900);
-    });
+    };
+    navigator.serviceWorker.addEventListener("controllerchange", onControllerChange);
+
+    return () => {
+      navigator.serviceWorker.removeEventListener("controllerchange", onControllerChange);
+    };
   }, []);
 
   return null;

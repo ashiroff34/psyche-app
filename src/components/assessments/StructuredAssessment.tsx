@@ -41,7 +41,7 @@ export default function StructuredAssessment({
       const typeScores: Record<number, number> = {};
       Object.values(ratings).forEach((sectionRatings) => {
         Object.entries(sectionRatings).forEach(([type, val]) => {
-          typeScores[parseInt(type)] = (typeScores[parseInt(type)] || 0) + val;
+          typeScores[parseInt(type, 10)] = (typeScores[parseInt(type, 10)] || 0) + val;
         });
       });
 

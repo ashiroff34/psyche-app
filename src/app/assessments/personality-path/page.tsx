@@ -38,7 +38,7 @@ export default function PersonalityPathPage() {
       <AdaptiveAssessment
         rounds={adaptiveRounds}
         onComplete={(r) => {
-          updateProfile({ enneagramType: parseInt(r.topResult) });
+          updateProfile({ enneagramType: parseInt(r.topResult, 10) });
           addXP(75, "personality-path-complete");
           const params = new URLSearchParams({
             type: r.topResult,

@@ -285,7 +285,7 @@ function ResultsInner() {
   const [growthMode, setGrowthMode] = useState<"integration" | "disintegration">("integration");
   const [expandedDeepField, setExpandedDeepField] = useState<string | null>(null);
 
-  const typeNum = parseInt(searchParams.get("type") ?? String(profile.enneagramType ?? "1"));
+  const typeNum = parseInt(searchParams.get("type") ?? String(profile.enneagramType ?? "1"), 10);
   const typeData = enneagramTypes.find((t) => t.number === typeNum);
 
   // Detect first-ever type discovery (profile had no type before this page loaded)
@@ -303,9 +303,9 @@ function ResultsInner() {
   }, []);
 
   // iEQ9-style confidence and dual-type reporting
-  const confidence = parseInt(searchParams.get("confidence") ?? "70");
+  const confidence = parseInt(searchParams.get("confidence") ?? "70", 10);
   const showTwo = searchParams.get("showTwo") === "true";
-  const secondTypeNum = parseInt(searchParams.get("secondType") ?? "0");
+  const secondTypeNum = parseInt(searchParams.get("secondType") ?? "0", 10);
   const secondTypeData = secondTypeNum ? enneagramTypes.find((t) => t.number === secondTypeNum) : null;
 
   // Instinct variant result

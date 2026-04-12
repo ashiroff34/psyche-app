@@ -592,8 +592,8 @@ function ResultsContent() {
   const dominantFunc = cognitiveFunctions.find(f => f.code === bestType.stack[0]);
 
   // Confidence and consistency from new scoring (MBTI Form M IRT methodology)
-  const confidence = parseInt(searchParams.get("confidence") ?? "70");
-  const consistencyScore = parseInt(searchParams.get("consistencyScore") ?? "100");
+  const confidence = parseInt(searchParams.get("confidence") ?? "70", 10);
+  const consistencyScore = parseInt(searchParams.get("consistencyScore") ?? "100", 10);
   let inconsistentAxes: string[] = [];
   try { inconsistentAxes = JSON.parse(searchParams.get("inconsistentAxes") ?? "[]"); } catch {}
 

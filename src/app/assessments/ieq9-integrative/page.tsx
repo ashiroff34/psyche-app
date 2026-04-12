@@ -63,20 +63,20 @@ export default function IEQ9IntegrativePage() {
           const typeScores = r.allScores.filter((s) => !["sp", "sx", "so"].includes(s.key));
           const topType = typeScores[0]?.key || "9";
           const instinctKey = r.allScores.find((s) => ["sp", "sx", "so"].includes(s.key))?.key ?? null;
-          updateProfile({ enneagramType: parseInt(topType) });
+          updateProfile({ enneagramType: parseInt(topType, 10) });
           addXP(100, "ieq9-integrative-complete");
           // Analytics: deep quiz completed with higher confidence than quick quiz
           try {
             posthog.capture(EVENTS.QUIZ_COMPLETED, {
               assessment: "ieq9_integrative",
-              enneagramType: parseInt(topType),
-              runnerUp: typeScores[1]?.key ? parseInt(typeScores[1].key) : null,
+              enneagramType: parseInt(topType, 10),
+              runnerUp: typeScores[1]?.key ? parseInt(typeScores[1].key, 10) : null,
               instinct: instinctKey,
               length: 175,
               source: "deep_assessment",
             });
             setUserProperty({
-              enneagramType: parseInt(topType),
+              enneagramType: parseInt(topType, 10),
               instinct: instinctKey,
               hasCompletedDeepAssessment: true,
             });

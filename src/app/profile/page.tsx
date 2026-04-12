@@ -82,7 +82,7 @@ function buildTypeDNA(
   if (core) {
     scores[core] = (scores[core] ?? 0) + 90;
     // Wing
-    const wingNum = profile.enneagramWing ? parseInt(profile.enneagramWing.slice(-1)) : NaN;
+    const wingNum = profile.enneagramWing ? parseInt(profile.enneagramWing.slice(-1), 10) : NaN;
     if (!isNaN(wingNum) && wingNum >= 1 && wingNum <= 9) scores[wingNum] = (scores[wingNum] ?? 0) + 45;
     // Integration / disintegration lines add moderate resonance
     const typeData = enneagramTypes.find(t => t.number === core);
@@ -192,7 +192,7 @@ function getTypeCombinationInsight(mbti: string, ennea: number, wing?: string, s
 
   // Wing flavor
   if (wing) {
-    const wingNum = parseInt(wing.charAt(wing.length - 1));
+    const wingNum = parseInt(wing.charAt(wing.length - 1), 10);
     const wingType = enneagramTypes.find(t => t.number === wingNum);
     if (wingType) {
       parts.push(`Your ${wing} wing adds a ${wingType.name.toLowerCase()} flavor, blending ${enneaData.coreDesire.toLowerCase()} with touches of ${wingType?.keyTraits?.[0]?.toLowerCase() || "depth"}.`);

@@ -76,6 +76,30 @@ export default function RootLayout({
           href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap"
           rel="stylesheet"
         />
+        {/* JSON-LD structured data */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify([
+              {
+                "@context": "https://schema.org",
+                "@type": "Organization",
+                name: "Thyself",
+                url: "https://psyche-app-two.vercel.app",
+              },
+              {
+                "@context": "https://schema.org",
+                "@type": "WebApplication",
+                name: "Thyself",
+                description:
+                  "Know thyself. Discover your Enneagram type through 5 assessment paths. 9 types, 27 subtypes, cognitive functions, and deep psychology rooted in Ichazo, Naranjo, and Riso-Hudson.",
+                applicationCategory: "LifestyleApplication",
+                operatingSystem: "Web, iOS, Android",
+                url: "https://psyche-app-two.vercel.app",
+              },
+            ]),
+          }}
+        />
         {/* Clear any stale light-mode flag from removed feature */}
         <script
           dangerouslySetInnerHTML={{

@@ -210,7 +210,7 @@ export function getTimingInsights(): {
     for (const r of records) dayCounts[r.dayOfWeek] = (dayCounts[r.dayOfWeek] ?? 0) + 1;
     const peakDayNum = Object.entries(dayCounts).sort(([, a], [, b]) => b - a)[0]?.[0] ?? "1";
     const dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-    const peakDay = dayNames[parseInt(peakDayNum)] ?? "Monday";
+    const peakDay = dayNames[parseInt(peakDayNum, 10)] ?? "Monday";
 
     // Avg session
     const durations = records.filter(r => r.sessionDurationMs > 10000); // filter out bounces
@@ -219,7 +219,7 @@ export function getTimingInsights(): {
       : 0;
 
     return {
-      peakHour: parseInt(peakHour),
+      peakHour: parseInt(peakHour, 10),
       peakDay,
       avgSessionMinutes: Math.round(avgMs / 60000),
       totalSessions: records.length,
