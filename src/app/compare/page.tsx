@@ -626,7 +626,7 @@ function buildDynamicContent(a: number, b: number): PairContent {
     summary: `${typeA.name} and ${typeB.name} meet between the desire to ${typeA.coreDesire.toLowerCase().slice(0, 40)} and the desire to ${typeB.coreDesire.toLowerCase().slice(0, 40)}. ${sameCenterNote}Their path forward lies in recognizing the fear beneath each other's surface behavior.`,
     together: {
       strengths: [
-        `${typeA.name}'s ${typeA.keyTraits[0].toLowerCase()} balances ${typeB.name}'s ${typeB.keyTraits[0].toLowerCase()}`,
+        `${typeA.name}'s ${(typeA.keyTraits[0] ?? "").toLowerCase()} balances ${typeB.name}'s ${(typeB.keyTraits[0] ?? "").toLowerCase()}`,
         `Shared commitment to growth when both are healthy`,
         `Each brings a perspective the other genuinely lacks`,
       ],
@@ -635,7 +635,7 @@ function buildDynamicContent(a: number, b: number): PairContent {
         "Authenticity in their respective styles",
         "Genuine care for others in their own way",
       ],
-      superpower: `${typeA.name}'s ${typeA.healthyTraits[0].toLowerCase()} combined with ${typeB.name}'s ${typeB.healthyTraits[0].toLowerCase()} creates a rare combination of gifts that neither possesses alone.`,
+      superpower: `${typeA.name}'s ${(typeA.healthyTraits[0] ?? "").toLowerCase()} combined with ${typeB.name}'s ${(typeB.healthyTraits[0] ?? "").toLowerCase()} creates a rare combination of gifts that neither possesses alone.`,
     },
     friction: {
       coreTension: `${typeA.name} fears ${typeA.coreFear.toLowerCase()}, while ${typeB.name} fears ${typeB.coreFear.toLowerCase()}, these fears can make each read the other as a threat.`,

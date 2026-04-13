@@ -57,7 +57,7 @@ export default function MistypeInvestigator({
         .sort((a, b) => b.score - a.score);
       const maxScore = sorted[0]?.score || 1;
       onComplete({
-        topResult: sorted[0].key,
+        topResult: sorted[0]?.key ?? "",
         allScores: sorted.map((s) => ({
           ...s,
           percentage: Math.round((s.score / maxScore) * 100),
