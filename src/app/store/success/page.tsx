@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, Suspense } from "react";
+import { useEffect, useState, useRef, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { motion } from "framer-motion";
 import { Check, Coins, Crown, Zap, ArrowRight, Loader2 } from "lucide-react";
@@ -69,6 +69,11 @@ function SuccessInner() {
   const [errorMsg,  setErrorMsg] = useState("");
   const [showConfetti, setShowConfetti] = useState(false);
   const [windowSize, setWindowSize] = useState({ width: 0, height: 0 });
+  const mountedRef = useRef(true);
+  useEffect(() => {
+    mountedRef.current = true;
+    return () => { mountedRef.current = false; };
+  }, []);
 
   useEffect(() => {
     if (!sessionId) {
@@ -103,13 +108,14 @@ function SuccessInner() {
         }
 
         markSessionClaimed(sessionId);
+        if (!mountedRef.current) return;
         setResult(data);
         setStatus("success");
 
         // Fire confetti
         setWindowSize({ width: window.innerWidth, height: window.innerHeight });
         setShowConfetti(true);
-        setTimeout(() => setShowConfetti(false), 4000);
+        setTimeout(() => { if (mountedRef.current) setShowConfetti(false); }, 4000);
 
         // Send receipt email (fire and forget)
         if (data.customerEmail) {
@@ -127,6 +133,7 @@ function SuccessInner() {
           }).catch(() => {});
         }
       } catch (err) {
+        if (!mountedRef.current) return;
         setStatus("error");
         setErrorMsg(err instanceof Error ? err.message : "Something went wrong");
       }

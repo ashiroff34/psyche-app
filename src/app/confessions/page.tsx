@@ -643,14 +643,19 @@ export default function ConfessionsPage() {
   const [mounted, setMounted] = useState(false);
   const deviceIdRef = useRef<string>("");
 
+  const loadMountedRef = useRef(true);
+
   // Load on mount. try Supabase first, fall back to localStorage
   useEffect(() => {
+    loadMountedRef.current = true;
     setMounted(true);
     setUserType(getUserType());
     deviceIdRef.current = getOrCreateDeviceId();
 
     async function loadData() {
       const sb = await getSupabase();
+
+      if (!loadMountedRef.current) return;
 
       if (!sb) {
         // Supabase not configured. use localStorage
@@ -664,6 +669,8 @@ export default function ConfessionsPage() {
         .order("created_at", { ascending: false })
         .limit(50);
 
+      if (!loadMountedRef.current) return;
+
       if (error || !data || data.length === 0) {
         // Supabase error or empty. fall back to localStorage seed
         setConfessions(loadConfessionsFromStorage());
@@ -674,6 +681,7 @@ export default function ConfessionsPage() {
     }
 
     loadData();
+    return () => { loadMountedRef.current = false; };
   }, []);
 
   // Realtime subscription for new confessions
