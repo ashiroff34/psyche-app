@@ -1670,20 +1670,7 @@ export default function DailyPage() {
 
   if (view === "path") {
     return (
-      <div className="min-h-screen" style={{
-        background: `linear-gradient(
-          180deg,
-          #1a0836 0%,
-          #0a1228 12%,
-          #071a14 24%,
-          #1a1200 36%,
-          #1a0818 48%,
-          #0a1020 60%,
-          #0d1a0d 72%,
-          #0f0a1e 86%,
-          #08031a 100%
-        )`,
-      }}>
+      <div className="min-h-screen" style={{ background: "#08031a" }}>
         {/* Ambient glow — fixed top, doesn't scroll */}
         <div
           aria-hidden
@@ -2091,7 +2078,7 @@ export default function DailyPage() {
       // Use effect-safe redirect: return path content by falling through to path view rendering
       // We trigger a state update on next tick to avoid render-during-render
       return (
-        <div className="min-h-screen" style={{ background: "linear-gradient(180deg, #1a0836 0%, #0a1228 12%, #071a14 24%, #1a1200 36%, #1a0818 48%, #0a1020 60%, #0d1a0d 72%, #0f0a1e 86%, #08031a 100%)" }} />
+        <div className="min-h-screen" style={{ background: "#08031a" }} />
       );
     }
     return (

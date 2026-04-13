@@ -31,14 +31,15 @@ const ROW_HEIGHT_NORMAL = 110;
 const ROW_HEIGHT_CURRENT = 195; // extra room for chibi + START pill
 
 // Gradient palettes per unit index (cycles)
+// bg = the zone color each unit section "owns" — Duolingo world color
 const UNIT_PALETTES = [
-  { from: "#7c3aed", to: "#4f46e5", glow: "rgba(124,58,237,0.5)" },
-  { from: "#0ea5e9", to: "#6366f1", glow: "rgba(14,165,233,0.5)" },
-  { from: "#10b981", to: "#0ea5e9", glow: "rgba(16,185,129,0.5)" },
-  { from: "#f59e0b", to: "#ef4444", glow: "rgba(245,158,11,0.5)" },
-  { from: "#ec4899", to: "#a855f7", glow: "rgba(236,72,153,0.5)" },
-  { from: "#6366f1", to: "#06b6d4", glow: "rgba(99,102,241,0.5)" },
-  { from: "#84cc16", to: "#10b981", glow: "rgba(132,204,22,0.45)" },
+  { from: "#a855f7", to: "#7c3aed", glow: "rgba(168,85,247,0.55)", bg: "#1a0538" },   // cosmic violet
+  { from: "#38bdf8", to: "#3b82f6", glow: "rgba(56,189,248,0.55)", bg: "#031728" },   // deep ocean
+  { from: "#34d399", to: "#059669", glow: "rgba(52,211,153,0.55)", bg: "#03200d" },   // forest
+  { from: "#fbbf24", to: "#f97316", glow: "rgba(251,191,36,0.55)", bg: "#2a1000" },   // volcanic amber
+  { from: "#f472b6", to: "#db2777", glow: "rgba(244,114,182,0.55)", bg: "#2d0520" },  // rose/fuchsia
+  { from: "#22d3ee", to: "#0891b2", glow: "rgba(34,211,238,0.55)", bg: "#012828" },   // arctic teal
+  { from: "#a3e635", to: "#65a30d", glow: "rgba(163,230,53,0.5)",  bg: "#122000" },   // jungle lime
 ];
 
 function CurriculumNode({
@@ -283,7 +284,12 @@ export default function UnitSection({ unit, onNodeTap, index, enneagramType = 4,
       initial={{ opacity: 0, y: 24 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: index * 0.07, duration: 0.4 }}
-      className="mb-2"
+      className="mb-2 relative"
+      style={!isLocked ? {
+        background: `linear-gradient(180deg, ${palette.bg}ff 0%, ${palette.bg}cc 60%, ${palette.bg}00 100%)`,
+        paddingTop: 16,
+        marginBottom: 0,
+      } : undefined}
     >
       {/* ── World / Unit banner ────────────────────────────────────────── */}
       <div
