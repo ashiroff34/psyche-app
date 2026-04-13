@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import {
@@ -103,6 +103,8 @@ const RESUME_LABELS: Record<number, string> = {
 function EnterScreen() {
   const router = useRouter();
   const [resumeStep, setResumeStep] = useState<number | null>(null);
+  const [showBubble, setShowBubble] = useState(false);
+  const [bubbleDismissed, setBubbleDismissed] = useState(false);
 
   useEffect(() => {
     try {
@@ -111,6 +113,19 @@ function EnterScreen() {
       if (!done && saved > 0 && saved < 7) setResumeStep(saved);
     } catch {}
   }, []);
+
+  // Show bubble after a short delay
+  useEffect(() => {
+    const t = setTimeout(() => setShowBubble(true), 1200);
+    return () => clearTimeout(t);
+  }, []);
+
+  // Auto-dismiss after 8 seconds
+  useEffect(() => {
+    if (!showBubble) return;
+    const t = setTimeout(() => setShowBubble(false), 8000);
+    return () => clearTimeout(t);
+  }, [showBubble]);
 
   return (
     <div
@@ -165,63 +180,38 @@ function EnterScreen() {
         }}
       />
 
-      {/* CENTER: logo + chibi side by side */}
-      <div className="relative flex items-center gap-5 mb-6" style={{ zIndex: 10 }}>
-        {/* Rotating snake logo */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.85 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-          className="relative flex-shrink-0"
-          style={{ width: 150, height: 150 }}
-        >
-          <div
-            style={{
-              position: "absolute",
-              inset: 0,
-              borderRadius: "22%",
-              background: "linear-gradient(135deg, #5b21b6 0%, #7c3aed 50%, #4f46e5 100%)",
-              boxShadow: "0 0 60px rgba(124,58,237,0.45)",
-            }}
-          />
-          <motion.img
-            src="/thyself-snake-only.svg"
-            alt="Ouroboros"
-            animate={{ rotate: -360 }}
-            transition={{ duration: 60, repeat: Infinity, ease: "linear" }}
-            style={{
-              position: "absolute",
-              inset: 0,
-              width: "100%",
-              height: "100%",
-              display: "block",
-              willChange: "transform",
-            }}
-          />
-        </motion.div>
-
-        {/* Chibi guide — floats gently, enters from right */}
-        <motion.div
-          initial={{ opacity: 0, x: 20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.7, delay: 0.4, ease: "easeOut" }}
-          style={{ flexShrink: 0 }}
-        >
-          <motion.img
-            src="/sprites/chibi/5-so5.png"
-            alt="Guide"
-            animate={{ y: [0, -7, 0] }}
-            transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut" }}
-            style={{
-              width: 100,
-              height: 100,
-              imageRendering: "pixelated",
-              filter: "drop-shadow(0 6px 18px rgba(139,92,246,0.5))",
-              willChange: "transform",
-            }}
-          />
-        </motion.div>
-      </div>
+      {/* CENTER: rotating snake logo */}
+      <motion.div
+        initial={{ opacity: 0, scale: 0.85 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+        className="relative mb-6"
+        style={{ width: 180, height: 180, zIndex: 10 }}
+      >
+        <div
+          style={{
+            position: "absolute",
+            inset: 0,
+            borderRadius: "22%",
+            background: "linear-gradient(135deg, #5b21b6 0%, #7c3aed 50%, #4f46e5 100%)",
+            boxShadow: "0 0 60px rgba(124,58,237,0.45)",
+          }}
+        />
+        <motion.img
+          src="/thyself-snake-only.svg"
+          alt="Ouroboros"
+          animate={{ rotate: -360 }}
+          transition={{ duration: 60, repeat: Infinity, ease: "linear" }}
+          style={{
+            position: "absolute",
+            inset: 0,
+            width: "100%",
+            height: "100%",
+            display: "block",
+            willChange: "transform",
+          }}
+        />
+      </motion.div>
 
       {/* Headline (entrance only, no filter blur for perf) */}
       <motion.h1
@@ -372,6 +362,77 @@ function EnterScreen() {
           </div>
         </div>
       </motion.div>
+
+      {/* Chibi guide — fixed bottom-right with speech bubble */}
+      <div className="fixed bottom-6 right-4 z-[150] flex flex-col items-end gap-2" style={{ pointerEvents: "none" }}>
+        {/* Speech bubble */}
+        <AnimatePresence mode="wait">
+          {showBubble && !bubbleDismissed && (
+            <motion.div
+              key="hero-bubble"
+              initial={{ opacity: 0, scale: 0.85, y: 6 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.9, y: 4 }}
+              transition={{ duration: 0.2, ease: "easeOut" }}
+              className="relative max-w-[172px]"
+              style={{ pointerEvents: "auto" }}
+            >
+              <div
+                style={{
+                  background: "rgba(15, 10, 32, 0.97)",
+                  border: "1px solid rgba(139, 92, 246, 0.4)",
+                  borderRadius: 14,
+                  padding: "10px 13px 10px 13px",
+                  boxShadow: "0 6px 28px rgba(0,0,0,0.55), 0 0 0 1px rgba(139,92,246,0.08)",
+                }}
+              >
+                <p className="text-xs leading-relaxed pr-3" style={{ color: "rgba(255,255,255,0.88)", fontFamily: "Inter, sans-serif" }}>
+                  Tap below to find out which of the 9 types you are.
+                </p>
+                <button
+                  onClick={() => setBubbleDismissed(true)}
+                  aria-label="Dismiss"
+                  className="absolute top-2 right-2 w-4 h-4 flex items-center justify-center rounded-full text-[9px] font-bold"
+                  style={{ color: "rgba(255,255,255,0.35)", background: "rgba(255,255,255,0.08)" }}
+                >
+                  ✕
+                </button>
+              </div>
+              {/* Bubble tail */}
+              <div className="absolute -bottom-[7px] right-7">
+                <div style={{ width: 0, height: 0, borderLeft: "6px solid transparent", borderRight: "6px solid transparent", borderTop: "7px solid rgba(139, 92, 246, 0.4)" }} />
+              </div>
+              <div className="absolute -bottom-[5px] right-7">
+                <div style={{ width: 0, height: 0, borderLeft: "6px solid transparent", borderRight: "6px solid transparent", borderTop: "7px solid rgba(15, 10, 32, 0.97)" }} />
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        {/* Chibi — tap to reopen bubble */}
+        <motion.button
+          animate={{ y: [0, -5, 0] }}
+          transition={{ repeat: Infinity, duration: 3.2, ease: "easeInOut" }}
+          onClick={() => { setBubbleDismissed(false); setShowBubble(true); }}
+          aria-label="Tap for a hint"
+          style={{
+            pointerEvents: "auto",
+            filter: "drop-shadow(0 4px 18px rgba(139,92,246,0.45))",
+            background: "none",
+            border: "none",
+            padding: 0,
+            cursor: "pointer",
+          }}
+        >
+          <img
+            src="/sprites/chibi/5-so5.png"
+            alt="Guide"
+            width={68}
+            height={68}
+            style={{ imageRendering: "pixelated", display: "block" }}
+          />
+        </motion.button>
+      </div>
     </div>
   );
 }
