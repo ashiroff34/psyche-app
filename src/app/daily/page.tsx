@@ -935,7 +935,9 @@ export default function DailyPage() {
   useEffect(() => {
     if (totalXP > prevXP.current && prevXP.current > 0) {
       setXpGainShow(true);
-      setTimeout(() => setXpGainShow(false), 1500);
+      const t = setTimeout(() => setXpGainShow(false), 1500);
+      prevXP.current = totalXP;
+      return () => clearTimeout(t);
     }
     prevXP.current = totalXP;
   }, [totalXP]);
@@ -947,7 +949,8 @@ export default function DailyPage() {
       setShowDailyGoalCelebration(true);
       // Award companion XP for daily goal
       awardDailyGoalXP();
-      setTimeout(() => setShowDailyGoalCelebration(false), 3000);
+      const t = setTimeout(() => setShowDailyGoalCelebration(false), 3000);
+      return () => clearTimeout(t);
     }
   }, [gameStateRaw?.dailyGoalMet, awardDailyGoalXP]);
 
@@ -961,7 +964,9 @@ export default function DailyPage() {
         level: currentLevel,
         petType: livePetState.type,
       });
-      setTimeout(() => setPetLevelUpCelebration(null), 4000);
+      const t = setTimeout(() => setPetLevelUpCelebration(null), 4000);
+      prevCompanionLevelRef.current = currentLevel;
+      return () => clearTimeout(t);
     }
     prevCompanionLevelRef.current = currentLevel;
   }, [livePetState?.companionLevel, livePetState?.name, livePetState?.type]);

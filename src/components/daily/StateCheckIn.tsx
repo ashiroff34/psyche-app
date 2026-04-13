@@ -11,7 +11,7 @@ import { recordFeatureSkipped } from "@/lib/behavioral-signals";
 // We rotate through the 10 Big Five Aspects so a full week's worth of
 // check-ins covers all of them twice.
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Sparkles, Check } from "lucide-react";
 import MicroCelebration from "@/components/MicroCelebration";
@@ -59,6 +59,12 @@ export default function StateCheckIn() {
   const [done, setDone] = useState(false);
   const [dismissed, setDismissed] = useState(false);
   const [celebrate, setCelebrate] = useState(false);
+  const mountedRef = useRef(true);
+
+  useEffect(() => {
+    mountedRef.current = true;
+    return () => { mountedRef.current = false; };
+  }, []);
 
   useEffect(() => {
     const today = getDateKey();
@@ -73,15 +79,15 @@ export default function StateCheckIn() {
     const next = { ...answers, [aspect]: items[idx].reverse ? 6 - v : v };
     setAnswers(next);
     if (idx < items.length - 1) {
-      setTimeout(() => setIdx(idx + 1), 100);
+      setTimeout(() => { if (mountedRef.current) setIdx(idx + 1); }, 100);
     } else {
       const today = getDateKey();
       addStateCheckIn({ date: today, scores: next });
       if (typeof window !== "undefined") {
         localStorage.setItem(STORAGE_KEY_DONE(today), "1");
       }
-      setCelebrate(true);
-      setTimeout(() => setDone(true), 120);
+      if (mountedRef.current) setCelebrate(true);
+      setTimeout(() => { if (mountedRef.current) setDone(true); }, 120);
     }
   }
 
@@ -131,7 +137,7 @@ export default function StateCheckIn() {
   }
 
   const item = items[idx];
-  const progress = ((idx + 1) / items.length) * 100;
+  const progress = items.length > 0 ? ((idx + 1) / items.length) * 100 : 0;
 
   return (
     <motion.div initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }}

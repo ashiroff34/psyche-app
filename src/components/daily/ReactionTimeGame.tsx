@@ -42,6 +42,12 @@ export default function ReactionTimeGame({ enneagramType }: Props) {
   const [wordIdx, setWordIdx] = useState(0);
   const [showWord, setShowWord] = useState(false);
   const wordStartRef = useRef(0);
+  const mountedRef = useRef(true);
+
+  useEffect(() => {
+    mountedRef.current = true;
+    return () => { mountedRef.current = false; };
+  }, []);
   const [reactions, setReactions] = useState<Array<{ word: string; isTypeWord: boolean; reactionMs: number; resonated: boolean }>>([]);
 
   // Build today's word list: 4 type words + 4 neutral, shuffled
@@ -109,7 +115,7 @@ export default function ReactionTimeGame({ enneagramType }: Props) {
         hist.push({ date: today, avgTypeMs: avgType, avgNeutralMs: avgNeutral, implicitStrength });
         localStorage.setItem("psyche-reaction-history", JSON.stringify(hist.slice(-90)));
       } catch {}
-      setDone(true);
+      if (mountedRef.current) setDone(true);
     }
   }
 

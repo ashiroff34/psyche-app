@@ -11,7 +11,7 @@ import { recordFeatureSkipped } from "@/lib/behavioral-signals";
 // Heart types (2/3/4): tension in chest, shoulders, throat
 // Head types (5/6/7): tension in head, neck, shallow breathing
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Activity, Check } from "lucide-react";
 
@@ -29,6 +29,7 @@ function getDateKey(): string {
 
 // Rotate 3 questions per day from the pool of 5
 function getTodaysQuestions() {
+  if (!BODY_QUESTIONS.length) return [];
   const dayOfYear = Math.floor((Date.now() - new Date(new Date().getFullYear(), 0, 0).getTime()) / 86400000);
   const offset = (dayOfYear * 3) % BODY_QUESTIONS.length;
   return [0, 1, 2].map(i => BODY_QUESTIONS[(offset + i) % BODY_QUESTIONS.length]);
@@ -40,6 +41,12 @@ export default function BodyMapCheckIn() {
   const [answers, setAnswers] = useState<Record<string, number>>({});
   const [done, setDone] = useState(false);
   const [dismissed, setDismissed] = useState(false);
+  const mountedRef = useRef(true);
+
+  useEffect(() => {
+    mountedRef.current = true;
+    return () => { mountedRef.current = false; };
+  }, []);
 
   useEffect(() => {
     const today = getDateKey();
@@ -52,7 +59,7 @@ export default function BodyMapCheckIn() {
     const next = { ...answers, [q.id]: v };
     setAnswers(next);
     if (idx < questions.length - 1) {
-      setTimeout(() => setIdx(idx + 1), 100);
+      setTimeout(() => { if (mountedRef.current) setIdx(idx + 1); }, 100);
     } else {
       const today = getDateKey();
       // Save to history
@@ -63,7 +70,7 @@ export default function BodyMapCheckIn() {
         localStorage.setItem("psyche-body-history", JSON.stringify(hist.slice(-90)));
         localStorage.setItem(`psyche-body-check-${today}`, "1");
       } catch {}
-      setTimeout(() => setDone(true), 120);
+      setTimeout(() => { if (mountedRef.current) setDone(true); }, 120);
     }
   }
 
