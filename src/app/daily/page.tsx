@@ -597,15 +597,19 @@ export default function DailyPage() {
 
   // Days since account created (used to activate gate after Day 5)
   const daysSinceCreated = (() => {
-    if (!gameStateRaw.accountCreated) return 999;
+    // If accountCreated is missing, treat as day 0 (new user) — don't activate gate
+    if (!gameStateRaw.accountCreated) return 0;
     const created = new Date(gameStateRaw.accountCreated).getTime();
     return Math.floor((Date.now() - created) / 86400000);
   })();
   const unitLimitActive = daysSinceCreated >= UNIT_LIMIT_ACTIVATES_DAY;
 
   const handleLessonNodeTap = (lesson: LessonWithStatus, unit: UnitWithStatus) => {
+    // Beta users bypass daily unit limit entirely
+    const isBeta = (() => { try { return localStorage.getItem("psyche-beta-access") === "true"; } catch { return false; } })();
+
     // Only gate non-completed lessons (don't block reviewing done lessons)
-    if (unitLimitActive && lesson.status !== "completed") {
+    if (!isBeta && unitLimitActive && lesson.status !== "completed") {
       const startedToday = getTodayStartedUnits();
       const isNewUnitToday = !startedToday.has(unit.id);
       if (isNewUnitToday && startedToday.size >= DAILY_UNIT_LIMIT) {
@@ -1980,6 +1984,76 @@ export default function DailyPage() {
           unit={selectedLessonUnit}
           onClose={() => { setSelectedLesson(null); setSelectedLessonUnit(null); }}
         />
+
+        {/* ─── Unit limit gate (must live in path view, not final block) ── */}
+        <AnimatePresence>
+          {unitLimitGate && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 z-[80] flex items-end justify-center px-4 pb-8"
+              style={{ background: "rgba(10,5,25,0.85)", backdropFilter: "blur(12px)" }}
+              onClick={() => setUnitLimitGate(null)}
+            >
+              <motion.div
+                initial={{ y: 60, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                exit={{ y: 60, opacity: 0 }}
+                transition={{ type: "spring", stiffness: 300, damping: 28 }}
+                className="w-full max-w-sm rounded-3xl p-6 text-center"
+                style={{ background: "rgba(22,12,48,0.98)", border: "1px solid rgba(139,92,246,0.25)" }}
+                onClick={e => e.stopPropagation()}
+              >
+                <div className="text-4xl mb-3">📚</div>
+                <h2 className="text-xl font-black text-white mb-1">Daily Limit Reached</h2>
+                <p className="text-sm mb-5" style={{ color: "rgba(255,255,255,0.5)" }}>
+                  You&apos;ve started {DAILY_UNIT_LIMIT} units today. Come back tomorrow, or spend a token to keep going.
+                </p>
+                <button
+                  onClick={() => {
+                    if ((gameStateRaw.tokens ?? 0) < 1) return;
+                    const { pendingLesson, pendingUnit } = unitLimitGate;
+                    try {
+                      const raw = localStorage.getItem("psyche-game-state");
+                      if (raw) {
+                        const gs = JSON.parse(raw);
+                        if ((gs.tokens ?? 0) >= 1) {
+                          gs.tokens -= 1;
+                          localStorage.setItem("psyche-game-state", JSON.stringify(gs));
+                        }
+                      }
+                    } catch {}
+                    recordUnitStarted(pendingUnit.id);
+                    setUnitLimitGate(null);
+                    setSelectedLesson(pendingLesson);
+                    setSelectedLessonUnit(pendingUnit);
+                  }}
+                  className="w-full py-3.5 rounded-2xl font-black text-white text-base mb-3 transition-all active:scale-95"
+                  style={{
+                    background: (gameStateRaw.tokens ?? 0) >= 1
+                      ? "linear-gradient(135deg, #7c3aed, #4f46e5)"
+                      : "rgba(255,255,255,0.08)",
+                    boxShadow: (gameStateRaw.tokens ?? 0) >= 1 ? "0 4px 20px rgba(124,58,237,0.4)" : "none",
+                    color: (gameStateRaw.tokens ?? 0) >= 1 ? "#fff" : "rgba(255,255,255,0.3)",
+                    border: (gameStateRaw.tokens ?? 0) >= 1 ? "none" : "1px solid rgba(255,255,255,0.15)",
+                  }}
+                >
+                  {(gameStateRaw.tokens ?? 0) >= 1
+                    ? `Unlock with 1 Token (${gameStateRaw.tokens ?? 0} left)`
+                    : "Not enough tokens"}
+                </button>
+                <button
+                  onClick={() => setUnitLimitGate(null)}
+                  className="w-full py-2.5 rounded-2xl text-sm font-medium"
+                  style={{ color: "rgba(255,255,255,0.4)" }}
+                >
+                  Come back tomorrow
+                </button>
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     );
   }
