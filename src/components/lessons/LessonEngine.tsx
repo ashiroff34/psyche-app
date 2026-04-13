@@ -14,6 +14,7 @@ import DiscriminationExercise, { type DiscriminationContent } from "./exercises/
 import FreeRecallExercise from "./exercises/FreeRecallExercise";
 import SocraticPrompt from "./exercises/SocraticPrompt";
 import InterleavingExercise from "./exercises/InterleavingExercise";
+import StorySceneExercise from "./exercises/StorySceneExercise";
 import LessonComplete from "./LessonComplete";
 
 interface LessonEngineProps {
@@ -245,6 +246,14 @@ export default function LessonEngine({ lesson, onComplete, onExit }: LessonEngin
           <InterleavingExercise
             content={content}
             onComplete={handleExerciseComplete}
+          />
+        );
+      case "story-scene":
+        return (
+          <StorySceneExercise
+            content={content}
+            onAnswer={handleExerciseAnswer}
+            exerciseId={exercise.id}
           />
         );
       default:

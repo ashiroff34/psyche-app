@@ -11,22 +11,52 @@ import {
   type LucideIcon,
 } from "lucide-react";
 import { LESSON_UNITS } from "@/data/lessons";
+import { useLessonProgress } from "@/hooks/useLessonProgress";
+import { useProfile } from "@/hooks/useProfile";
+import PetCompanion from "@/components/PetCompanion";
+import PracticeMode from "@/components/lessons/PracticeMode";
+
+// ── Category Colors ──────────────────────────────────────────────────────────
+
+const CATEGORY_COLORS: Record<string, { accent: string; bg: string; border: string; text: string }> = {
+  "enneagram-intro":    { accent: "#6366f1", bg: "bg-indigo-50/60",   border: "border-indigo-200",  text: "text-indigo-600"   },
+  "enneagram-type":     { accent: "#7c3aed", bg: "bg-violet-50/60",   border: "border-violet-200",  text: "text-violet-600"   },
+  "cognitive-intro":    { accent: "#3b82f6", bg: "bg-blue-50/60",     border: "border-blue-200",    text: "text-blue-600"     },
+  "cognitive-function": { accent: "#06b6d4", bg: "bg-cyan-50/60",     border: "border-cyan-200",    text: "text-cyan-600"     },
+  "exploration":        { accent: "#f59e0b", bg: "bg-amber-50/60",    border: "border-amber-200",   text: "text-amber-600"    },
+  "philosophy":         { accent: "#10b981", bg: "bg-emerald-50/60",  border: "border-emerald-200", text: "text-emerald-600"  },
+};
+
+const CATEGORY_LABELS: Record<string, string> = {
+  "enneagram-intro":    "Enneagram · Introduction",
+  "enneagram-type":     "Enneagram · Type Deep Dive",
+  "cognitive-intro":    "Cognitive · Introduction",
+  "cognitive-function": "Cognitive · Functions",
+  "exploration":        "Exploration",
+  "philosophy":         "Philosophy",
+};
+
+// ── Crown Level Helpers ──────────────────────────────────────────────────────
+
+function crownRingStyle(level: 0 | 1 | 2 | 3 | 4 | 5): React.CSSProperties {
+  if (level === 2) return { outline: "2px solid #cd7f32", outlineOffset: "2px" };
+  if (level === 3) return { outline: "2px solid #c0c0c0", outlineOffset: "2px" };
+  if (level === 4) return { outline: "2px solid #fbbf24", outlineOffset: "2px" };
+  if (level === 5) return { outline: "2px solid #a855f7", outlineOffset: "2px" };
+  return {};
+}
 
 const UNIT_ICON_MAP: Record<string, LucideIcon> = {
   BookOpen, Target, Scale, Heart, Star, Pencil,
   Search, Shield, Sparkles, Flame, Wind, Brain, Lightbulb,
   Compass, Users, Layers, BarChart2, Eye, Shuffle, BookMarked, Zap,
 };
-import { useLessonProgress } from "@/hooks/useLessonProgress";
-import { useProfile } from "@/hooks/useProfile";
-import PetCompanion from "@/components/PetCompanion";
-
 // ── Unit Status Helpers ──────────────────────────────────────────────────────
 
 type UnitStatus = "locked" | "available" | "completed";
 
 function useUnitStatus() {
-  const { isUnitCompleted, getUnitProgress, isLessonAvailable, getLessonStatus } =
+  const { isUnitCompleted, getUnitProgress, isLessonAvailable, getLessonStatus, getLessonCrownLevel } =
     useLessonProgress();
   const { profile } = useProfile();
 
@@ -56,7 +86,7 @@ function useUnitStatus() {
     [isUnitCompleted, isLessonAvailable]
   );
 
-  return { getUnitStatus, getUnitProgress, getLessonStatus, profile };
+  return { getUnitStatus, getUnitProgress, getLessonStatus, getLessonCrownLevel, profile };
 }
 
 // ── Personalized Subtitle ────────────────────────────────────────────────────
@@ -98,21 +128,31 @@ function LessonNode({
   title,
   status,
   index,
+  categoryColor,
+  crownLevel,
 }: {
   unitId: string;
   lessonId: string;
   title: string;
   status: "locked" | "available" | "in-progress" | "completed";
   index: number;
+  categoryColor: string;
+  crownLevel: 0 | 1 | 2 | 3 | 4 | 5;
 }) {
   // Zigzag: alternate left/right
   const isRight = index % 2 === 1;
+
+  // Completed nodes use emerald; available/in-progress use the category accent color
+  const nodeStyle: React.CSSProperties =
+    status === "available" || status === "in-progress"
+      ? { background: categoryColor }
+      : {};
 
   const nodeColor =
     status === "completed"
       ? "bg-emerald-500 border-emerald-300 shadow-emerald-200/50"
       : status === "available" || status === "in-progress"
-      ? "bg-gradient-to-br from-violet-500 to-fuchsia-500 border-violet-300 shadow-violet-200/50"
+      ? "border-transparent shadow-lg"
       : "bg-slate-300 border-slate-200";
 
   const inner =
@@ -124,6 +164,9 @@ function LessonNode({
       <Star className="w-5 h-5 text-white" />
     );
 
+  // Crown ring: use inline outline style for levels 1-5
+  const crownStyle = crownLevel >= 1 ? crownRingStyle(crownLevel) : {};
+
   const node = (
     <motion.div
       initial={{ scale: 0.8, opacity: 0 }}
@@ -131,20 +174,32 @@ function LessonNode({
       transition={{ delay: index * 0.05 }}
       className={`flex items-center gap-3 ${isRight ? "flex-row-reverse" : ""}`}
     >
-      <div
-        className={`w-12 h-12 rounded-full flex items-center justify-center border-2 shadow-lg ${nodeColor} transition-all ${
-          status === "available" ? "ring-2 ring-violet-300 ring-offset-2" : ""
-        }`}
-      >
-        {inner}
+      <div className="relative flex-shrink-0">
+        <div
+          className={`w-12 h-12 rounded-full flex items-center justify-center border-2 shadow-lg ${nodeColor} transition-all`}
+          style={{
+            ...nodeStyle,
+            ...crownStyle,
+          }}
+        >
+          {inner}
+        </div>
+        {crownLevel === 5 && (
+          <span className="absolute -top-2 -right-2 text-xs leading-none" title="Legendary">✨</span>
+        )}
       </div>
-      <span
-        className={`text-sm font-medium max-w-[180px] ${
-          status === "locked" ? "text-slate-400" : "text-slate-700"
-        }`}
-      >
-        {title}
-      </span>
+      <div className={`flex flex-col max-w-[180px]`}>
+        <span
+          className={`text-sm font-medium ${
+            status === "locked" ? "text-slate-400" : "text-slate-700"
+          }`}
+        >
+          {title}
+        </span>
+        {crownLevel === 5 && (
+          <span className="text-[9px] uppercase tracking-widest font-bold text-purple-500">Legendary</span>
+        )}
+      </div>
     </motion.div>
   );
 
@@ -177,12 +232,29 @@ function UnitCard({
   index: number;
 }) {
   const [expanded, setExpanded] = useState(false);
-  const { getUnitStatus, getUnitProgress, getLessonStatus, profile } =
+  const [tipOpen, setTipOpen] = useState(false);
+  const { getUnitStatus, getUnitProgress, getLessonStatus, getLessonCrownLevel, profile } =
     useUnitStatus();
 
   const status = getUnitStatus(unit.id);
   const progress = getUnitProgress(unit.id);
   const subtitle = getPersonalizedSubtitle(unit.id, unit.subtitle, profile);
+
+  const catColors = CATEGORY_COLORS[unit.category] ?? {
+    accent: "#8b5cf6",
+    bg: "bg-violet-50/60",
+    border: "border-violet-200",
+    text: "text-violet-600",
+  };
+  const catLabel = CATEGORY_LABELS[unit.category] ?? unit.category;
+
+  // Icon bg: completed → emerald, locked → slate, otherwise use category bg
+  const iconBgClass =
+    status === "completed"
+      ? "bg-emerald-100"
+      : status === "locked"
+      ? "bg-slate-100"
+      : catColors.bg;
 
   return (
     <motion.div
@@ -203,13 +275,7 @@ function UnitCard({
       >
         {/* Icon */}
         <div
-          className={`w-12 h-12 rounded-xl flex items-center justify-center text-2xl flex-shrink-0 ${
-            status === "completed"
-              ? "bg-emerald-100"
-              : status === "available"
-              ? "bg-sky-100"
-              : "bg-slate-100"
-          }`}
+          className={`w-12 h-12 rounded-xl flex items-center justify-center text-2xl flex-shrink-0 ${iconBgClass}`}
         >
           {status === "completed" ? (
             <CheckCircle className="w-6 h-6 text-emerald-500" />
@@ -217,13 +283,15 @@ function UnitCard({
             <Lock className="w-5 h-5 text-slate-400" />
           ) : (() => {
               const I = unit.icon ? UNIT_ICON_MAP[unit.icon] : null;
-              return I ? <I className="w-5 h-5 text-sky-600" /> : <span className="text-sm font-bold text-sky-600">{unit.order}</span>;
+              return I
+                ? <I className={`w-5 h-5 ${catColors.text}`} />
+                : <span className={`text-sm font-bold ${catColors.text}`}>{unit.order}</span>;
             })()}
         </div>
 
         {/* Title & subtitle */}
         <div className="flex-1 min-w-0">
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 flex-wrap">
             <span className="text-xs font-bold text-slate-400">
               UNIT {unit.order}
             </span>
@@ -233,6 +301,12 @@ function UnitCard({
               </span>
             )}
           </div>
+          {/* Category badge */}
+          {status !== "locked" && (
+            <span className={`text-[10px] uppercase tracking-widest font-semibold ${catColors.text}`}>
+              {catLabel}
+            </span>
+          )}
           <h3
             className={`text-base font-semibold truncate ${
               status === "locked" ? "text-slate-400" : "text-slate-800"
@@ -271,7 +345,7 @@ function UnitCard({
                 background:
                   status === "completed"
                     ? "linear-gradient(90deg, #10b981, #059669)"
-                    : "linear-gradient(90deg, #8b5cf6, #d946ef)",
+                    : catColors.accent,
               }}
               initial={{ width: 0 }}
               animate={{ width: `${progress.pct}%` }}
@@ -288,6 +362,48 @@ function UnitCard({
         </p>
       )}
 
+      {/* Cheat Sheet / Tip Card */}
+      {unit.tipCard && status !== "locked" && (
+        <div className="mt-3">
+          <button
+            onClick={() => setTipOpen(!tipOpen)}
+            className={`flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-wide px-3 py-1.5 rounded-full border transition-all hover:opacity-80 ${catColors.text} ${catColors.border} ${catColors.bg}`}
+          >
+            <span>{tipOpen ? "Hide" : "Cheat Sheet"}</span>
+            {tipOpen ? (
+              <ChevronUp className="w-3 h-3" />
+            ) : (
+              <ChevronDown className="w-3 h-3" />
+            )}
+          </button>
+          <AnimatePresence>
+            {tipOpen && (
+              <motion.div
+                initial={{ height: 0, opacity: 0 }}
+                animate={{ height: "auto", opacity: 1 }}
+                exit={{ height: 0, opacity: 0 }}
+                transition={{ duration: 0.2 }}
+                className="overflow-hidden"
+              >
+                <div className={`mt-2 rounded-xl p-3 border ${catColors.bg} ${catColors.border}`}>
+                  <p className={`text-xs font-bold uppercase tracking-widest mb-2 ${catColors.text}`}>
+                    {unit.tipCard.title}
+                  </p>
+                  <ul className="space-y-1.5">
+                    {unit.tipCard.bullets.map((b, bi) => (
+                      <li key={bi} className="flex items-start gap-2 text-xs text-slate-600">
+                        <span className={`mt-0.5 text-[10px] ${catColors.text}`}>•</span>
+                        <span>{b}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
+      )}
+
       {/* Expanded: lesson nodes in zigzag pattern */}
       <AnimatePresence>
         {expanded && unit.lessons.length > 0 && (
@@ -301,6 +417,8 @@ function UnitCard({
             <div className="pt-4 pb-2 flex flex-col items-center gap-4">
               {unit.lessons.map((lesson, i) => {
                 const lessonStatus = getLessonStatus(unit.id, lesson.id);
+                const catColor = CATEGORY_COLORS[unit.category]?.accent ?? "#8b5cf6";
+                const crown = getLessonCrownLevel(lesson.id);
                 return (
                   <div
                     key={lesson.id}
@@ -314,6 +432,8 @@ function UnitCard({
                       title={lesson.title}
                       status={lessonStatus}
                       index={i}
+                      categoryColor={catColor}
+                      crownLevel={crown}
                     />
                   </div>
                 );
@@ -363,8 +483,10 @@ function OverallProgress() {
 // ── Main Page ────────────────────────────────────────────────────────────────
 
 export default function LessonsPage() {
-  const { loaded, isUnitCompleted } = useLessonProgress();
+  const { loaded, isUnitCompleted, state } = useLessonProgress();
   const { profile } = useProfile();
+  const [practiceOpen, setPracticeOpen] = useState(false);
+  const [noWeakSpotsToast, setNoWeakSpotsToast] = useState(false);
 
   const completedCount = LESSON_UNITS.filter((u) => isUnitCompleted(u.id)).length;
   const totalUnits = LESSON_UNITS.length;
@@ -374,6 +496,20 @@ export default function LessonsPage() {
       : completedCount >= totalUnits
       ? "Your companion is so proud!"
       : "Your companion has been studying hard!";
+
+  // Find lessons with score < 80%
+  const weakLessons = Object.entries(state.completedLessons)
+    .filter(([, result]) => result.score < 80)
+    .map(([id]) => id);
+
+  const handlePracticeClick = () => {
+    if (weakLessons.length === 0) {
+      setNoWeakSpotsToast(true);
+      setTimeout(() => setNoWeakSpotsToast(false), 2500);
+    } else {
+      setPracticeOpen(true);
+    }
+  };
 
   if (!loaded) {
     return (
@@ -391,7 +527,7 @@ export default function LessonsPage() {
           <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-violet-500 to-fuchsia-500 flex items-center justify-center shadow-lg shadow-violet-200/50">
             <BookOpen className="w-5 h-5 text-white" />
           </div>
-          <div>
+          <div className="flex-1 min-w-0">
             <h1 className="text-2xl font-serif font-bold text-slate-900">
               Learn
             </h1>
@@ -399,11 +535,35 @@ export default function LessonsPage() {
               Master psychology through bite-sized lessons
             </p>
           </div>
+          {/* Practice button */}
+          <motion.button
+            whileTap={{ scale: 0.96 }}
+            onClick={handlePracticeClick}
+            className="flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-bold text-white shrink-0"
+            style={{ background: "linear-gradient(135deg, #7c3aed, #d946ef)" }}
+          >
+            <Zap className="w-3.5 h-3.5" />
+            Practice
+          </motion.button>
         </div>
 
         {/* Overall progress bar */}
         <OverallProgress />
       </div>
+
+      {/* No weak spots toast */}
+      <AnimatePresence>
+        {noWeakSpotsToast && (
+          <motion.div
+            initial={{ opacity: 0, y: -8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
+            className="fixed top-20 left-1/2 -translate-x-1/2 z-50 bg-slate-800 text-white text-sm font-medium px-4 py-2.5 rounded-2xl shadow-xl"
+          >
+            No weak spots yet!
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* Pet study buddy */}
       <div className="px-4 sm:px-6 max-w-2xl mx-auto">
@@ -421,6 +581,21 @@ export default function LessonsPage() {
           ))}
         </div>
       </div>
+
+      {/* Practice Mode overlay */}
+      <AnimatePresence>
+        {practiceOpen && (
+          <PracticeMode
+            weakLessons={weakLessons}
+            onComplete={(_xp) => {
+              setPracticeOpen(false);
+              // XP event dispatched by caller if needed; lesson progress hook
+              // already listens for psyche-lesson-complete events
+            }}
+            onExit={() => setPracticeOpen(false)}
+          />
+        )}
+      </AnimatePresence>
     </div>
   );
 }

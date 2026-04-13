@@ -14,7 +14,8 @@ export type ExerciseType =
   | "sorting"            // Order/categorize items
   | "free-recall"        // Feynman technique: type your own explanation
   | "socratic-prompt"    // Reflection question before a concept reveal
-  | "interleaving";      // Mixed-type discrimination practice
+  | "interleaving"       // Mixed-type discrimination practice
+  | "story-scene";       // Narrative multiple-choice: character scene + question
 
 // ── Discriminated Union for Exercise Content ────────────────────────────────
 
@@ -92,6 +93,17 @@ export interface InterleavingExerciseContent {
   }>;
 }
 
+export interface StorySceneContent {
+  type: "story-scene";
+  character: string;        // e.g., "Maya"
+  scene: string;            // 2-3 sentence narrative
+  question: string;         // e.g., "What is Maya experiencing?"
+  options: string[];        // 4 options
+  correctIndex: number;
+  explanation: string;
+  typeHint?: number;        // Enneagram type the character exemplifies
+}
+
 export type ExerciseContent =
   | ConceptIntroContent
   | MultipleChoiceContent
@@ -101,7 +113,8 @@ export type ExerciseContent =
   | SortingContent
   | FreeRecallContent
   | SocraticPromptContent
-  | InterleavingExerciseContent;
+  | InterleavingExerciseContent
+  | StorySceneContent;
 
 // ── Exercise & Lesson Structures ────────────────────────────────────────────
 
@@ -141,6 +154,10 @@ export interface Unit {
   category: "enneagram-intro" | "enneagram-type" | "cognitive-intro" | "cognitive-function" | "exploration" | "philosophy";
   lessons: Lesson[];
   requiresUnit?: string;  // ID of prerequisite unit
+  tipCard?: {
+    title: string;
+    bullets: string[];  // 3-4 bullet points
+  };
 }
 
 // ── Progress Tracking ───────────────────────────────────────────────────────
@@ -150,6 +167,7 @@ export interface LessonResult {
   score: number;
   xpEarned: number;
   perfectRun: boolean;
+  completionCount: number;  // tracks how many times lesson has been completed (crown levels)
 }
 
 export interface LessonInProgress {

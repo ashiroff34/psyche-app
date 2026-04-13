@@ -39,6 +39,10 @@ import { unit28Lessons } from "@/data/lessons/unit-28-the-looker";
 import { unit29Lessons } from "@/data/lessons/unit-29-is-there-a-self";
 import { unit30Lessons } from "@/data/lessons/unit-30-holding-both";
 import { unit31Lessons } from "@/data/lessons/unit-31-holy-ideas";
+import { unit32Lessons } from "@/data/lessons/unit-32-hornevian-groups";
+import { unit33Lessons } from "@/data/lessons/unit-33-harmonic-groups";
+import { unit34Lessons } from "@/data/lessons/unit-34-instinctual-subtypes";
+import { unit35Lessons } from "@/data/lessons/unit-35-ichazo-fixations";
 
 // ── Unit Metadata ───────────────────────────────────────────────────────────
 
@@ -52,6 +56,15 @@ export const LESSON_UNITS: Unit[] = [
     icon: "BookOpen",
     category: "enneagram-intro",
     lessons: unit01Lessons,
+    tipCard: {
+      title: "Enneagram Basics",
+      bullets: [
+        "9 types defined by core motivation, not behavior",
+        "The type that fits feels like recognition, not aspiration",
+        "Wings are adjacent types that flavor your core type",
+        "Stress (disintegration) and growth (integration) arrows show movement",
+      ],
+    },
   },
   {
     id: "your-type",
@@ -62,6 +75,15 @@ export const LESSON_UNITS: Unit[] = [
     category: "enneagram-intro",
     lessons: unit02Lessons,
     requiresUnit: "what-is-enneagram",
+    tipCard: {
+      title: "Your Type",
+      bullets: [
+        "Core fear drives behavior more than core desire",
+        "The passion is the emotional habit of the type",
+        "Subtypes (sp/sx/so) create 27 variations within 9 types",
+        "Healthy vs. unhealthy looks very different for same type",
+      ],
+    },
   },
 
   // ─ Enneagram Type Deep Dives ───────────────────────────────────────────
@@ -74,6 +96,15 @@ export const LESSON_UNITS: Unit[] = [
     category: "enneagram-type",
     lessons: type1Lessons,
     requiresUnit: "your-type",
+    tipCard: {
+      title: "Type 1 Cheat Sheet",
+      bullets: [
+        "Core fear: being corrupt, defective, or wrong",
+        "The inner critic is the loudest voice in the room",
+        "Anger is the passion — often masked as righteous frustration",
+        "Growth moves toward Type 7's spontaneity and joy",
+      ],
+    },
   },
   {
     id: "type-2",
@@ -84,6 +115,15 @@ export const LESSON_UNITS: Unit[] = [
     category: "enneagram-type",
     lessons: type2Lessons,
     requiresUnit: "your-type",
+    tipCard: {
+      title: "Type 2 Cheat Sheet",
+      bullets: [
+        "Core fear: being unloved or unwanted for who they truly are",
+        "Pride is the passion — believing others need them specifically",
+        "Give to feel needed; struggle to ask for help themselves",
+        "Growth moves toward Type 4's self-awareness and emotional honesty",
+      ],
+    },
   },
   {
     id: "type-3",
@@ -94,6 +134,15 @@ export const LESSON_UNITS: Unit[] = [
     category: "enneagram-type",
     lessons: type3Lessons,
     requiresUnit: "your-type",
+    tipCard: {
+      title: "Type 3 Cheat Sheet",
+      bullets: [
+        "Core fear: being worthless or failing to be valuable",
+        "Deceit is the passion — shape-shifting to match what succeeds",
+        "Image and achievement can be confused with identity itself",
+        "Growth moves toward Type 6's loyalty, depth, and commitment",
+      ],
+    },
   },
   {
     id: "type-4",
@@ -362,6 +411,46 @@ export const LESSON_UNITS: Unit[] = [
     category: "philosophy",
     lessons: unit31Lessons,
     requiresUnit: "holding-both",
+  },
+  {
+    id: "hornevian-groups",
+    order: 32,
+    title: "Hornevian Groups",
+    subtitle: "Horney's three coping strategies mapped to the Enneagram",
+    icon: "Users",
+    category: "exploration",
+    lessons: unit32Lessons,
+    requiresUnit: "your-type",
+  },
+  {
+    id: "harmonic-groups",
+    order: 33,
+    title: "Harmonic Groups",
+    subtitle: "How each type responds when they don't get what they want",
+    icon: "Layers",
+    category: "exploration",
+    lessons: unit33Lessons,
+    requiresUnit: "your-type",
+  },
+  {
+    id: "instinctual-subtypes",
+    order: 34,
+    title: "Instinctual Subtypes",
+    subtitle: "The three primal drives that create 27 variations of the 9 types",
+    icon: "Flame",
+    category: "exploration",
+    lessons: unit34Lessons,
+    requiresUnit: "your-type",
+  },
+  {
+    id: "ichazo-fixations",
+    order: 35,
+    title: "Passions & Fixations",
+    subtitle: "Ichazo's original map of the nine ego trances",
+    icon: "Eye",
+    category: "exploration",
+    lessons: unit35Lessons,
+    requiresUnit: "your-type",
   },
 ];
 

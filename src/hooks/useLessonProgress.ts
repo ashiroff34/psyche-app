@@ -193,21 +193,38 @@ export function useLessonProgress() {
       xpEarned: number,
       perfectRun: boolean
     ): LessonResult => {
-      const result: LessonResult = {
+      // We need to read current completionCount from state before update
+      // Use a ref to capture the value synchronously inside the updater
+      let finalResult: LessonResult = {
         completedAt: new Date().toISOString(),
         score,
         xpEarned,
         perfectRun,
+        completionCount: 1,
       };
 
-      update((prev) => ({
-        ...prev,
-        completedLessons: {
-          ...prev.completedLessons,
-          [lessonId]: result,
-        },
-        currentLesson: undefined,
-      }));
+      update((prev) => {
+        const existing = prev.completedLessons[lessonId];
+        const prevCount = existing?.completionCount ?? 0;
+        const result: LessonResult = {
+          completedAt: new Date().toISOString(),
+          score,
+          xpEarned,
+          perfectRun,
+          completionCount: prevCount + 1,
+        };
+        finalResult = result;
+        return {
+          ...prev,
+          completedLessons: {
+            ...prev.completedLessons,
+            [lessonId]: result,
+          },
+          currentLesson: undefined,
+        };
+      });
+
+      const result = finalResult;
 
       // Earn XP via useGameState, callers should wire this up:
       // const { earnXP } = useGameState();
@@ -225,6 +242,18 @@ export function useLessonProgress() {
     },
     [update]
   );
+
+  const getLessonCrownLevel = useCallback((lessonId: string): 0 | 1 | 2 | 3 | 4 | 5 => {
+    const result = state.completedLessons[lessonId];
+    if (!result) return 0;
+    const count = result.completionCount ?? 1;
+    const perfect = result.perfectRun;
+    if (count >= 5 && perfect) return 5; // legendary
+    if (count >= 4 && perfect) return 4; // gold
+    if (count >= 3) return 3;             // silver
+    if (count >= 2) return 2;             // bronze
+    return 1;                              // completed
+  }, [state.completedLessons]);
 
   const clearCurrentLesson = useCallback(() => {
     update((prev) => ({
@@ -253,6 +282,7 @@ export function useLessonProgress() {
     isLessonAvailable,
     getLessonStatus,
     getUnitProgress,
+    getLessonCrownLevel,
 
     // Mutations
     startLesson,
