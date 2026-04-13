@@ -127,7 +127,7 @@ function EnterScreen() {
         }}
       />
 
-      {/* ONE slow-drifting aurora (down from 2) */}
+      {/* Aurora top-left */}
       <motion.div
         aria-hidden
         animate={{ x: [0, 30, 0], y: [0, -20, 0] }}
@@ -146,41 +146,82 @@ function EnterScreen() {
         }}
       />
 
-      {/* CENTER: Purple icon (static, no pulsing glow) */}
+      {/* Aurora bottom-right (second blob, cheap CSS) */}
       <motion.div
-        initial={{ opacity: 0, scale: 0.85 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-        className="relative flex-shrink-0"
-        style={{ width: 180, height: 180, marginBottom: 24, zIndex: 10, willChange: "transform" }}
-      >
-        {/* Stationary purple background square */}
-        <div
-          style={{
-            position: "absolute",
-            inset: 0,
-            borderRadius: "22%",
-            background: "linear-gradient(135deg, #5b21b6 0%, #7c3aed 50%, #4f46e5 100%)",
-            boxShadow: "0 0 60px rgba(124,58,237,0.45)",
-          }}
-        />
+        aria-hidden
+        animate={{ x: [0, -20, 0], y: [0, 15, 0] }}
+        transition={{ duration: 34, repeat: Infinity, ease: "easeInOut" }}
+        style={{
+          position: "absolute",
+          bottom: "-5%",
+          right: "10%",
+          width: 380,
+          height: 380,
+          borderRadius: "50%",
+          filter: "blur(70px)",
+          pointerEvents: "none",
+          background: "radial-gradient(circle, rgba(79,70,229,0.18) 0%, transparent 65%)",
+          willChange: "transform",
+        }}
+      />
 
-        {/* Rotating snake (kept, signature animation) */}
-        <motion.img
-          src="/thyself-snake-only.svg"
-          alt="Ouroboros"
-          animate={{ rotate: -360 }}
-          transition={{ duration: 60, repeat: Infinity, ease: "linear" }}
-          style={{
-            position: "absolute",
-            inset: 0,
-            width: "100%",
-            height: "100%",
-            display: "block",
-            willChange: "transform",
-          }}
-        />
-      </motion.div>
+      {/* CENTER: logo + chibi side by side */}
+      <div className="relative flex items-center gap-5 mb-6" style={{ zIndex: 10 }}>
+        {/* Rotating snake logo */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.85 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+          className="relative flex-shrink-0"
+          style={{ width: 150, height: 150 }}
+        >
+          <div
+            style={{
+              position: "absolute",
+              inset: 0,
+              borderRadius: "22%",
+              background: "linear-gradient(135deg, #5b21b6 0%, #7c3aed 50%, #4f46e5 100%)",
+              boxShadow: "0 0 60px rgba(124,58,237,0.45)",
+            }}
+          />
+          <motion.img
+            src="/thyself-snake-only.svg"
+            alt="Ouroboros"
+            animate={{ rotate: -360 }}
+            transition={{ duration: 60, repeat: Infinity, ease: "linear" }}
+            style={{
+              position: "absolute",
+              inset: 0,
+              width: "100%",
+              height: "100%",
+              display: "block",
+              willChange: "transform",
+            }}
+          />
+        </motion.div>
+
+        {/* Chibi guide — floats gently, enters from right */}
+        <motion.div
+          initial={{ opacity: 0, x: 20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.7, delay: 0.4, ease: "easeOut" }}
+          style={{ flexShrink: 0 }}
+        >
+          <motion.img
+            src="/sprites/chibi/5-so5.png"
+            alt="Guide"
+            animate={{ y: [0, -7, 0] }}
+            transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut" }}
+            style={{
+              width: 100,
+              height: 100,
+              imageRendering: "pixelated",
+              filter: "drop-shadow(0 6px 18px rgba(139,92,246,0.5))",
+              willChange: "transform",
+            }}
+          />
+        </motion.div>
+      </div>
 
       {/* Headline (entrance only, no filter blur for perf) */}
       <motion.h1

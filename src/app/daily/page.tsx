@@ -680,16 +680,17 @@ export default function DailyPage() {
   const [statsCollapsed, setStatsCollapsed] = useState(true);
 
   // ── Auto-scroll to current lesson when path view mounts ──
+  // Wait for data to be loaded before scrolling so the DOM has the node
   useEffect(() => {
-    if (view !== "path") return;
+    if (view !== "path" || !loaded) return;
     const timer = setTimeout(() => {
       const el = document.getElementById("current-lesson-node");
       if (el) {
         el.scrollIntoView({ behavior: "smooth", block: "center" });
       }
-    }, 400);
+    }, 350);
     return () => clearTimeout(timer);
-  }, [view]);
+  }, [view, loaded]);
   const [bottomSheetNode, setBottomSheetNode] = useState<PathNodeConfig | null>(null);
   const [quizSourceNode, setQuizSourceNode] = useState<PathNodeConfig | null>(null);
   const [pendingQuizNode, setPendingQuizNode] = useState<PathNodeConfig | null>(null);
