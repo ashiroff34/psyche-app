@@ -22,6 +22,8 @@ interface Props {
   index: number;
   enneagramType?: number;
   instinct?: string;
+  prevBg?: string;
+  nextBg?: string;
 }
 
 // Snake-path x positions (as fraction of container width)
@@ -31,15 +33,16 @@ const ROW_HEIGHT_NORMAL = 110;
 const ROW_HEIGHT_CURRENT = 195; // extra room for chibi + START pill
 
 // Gradient palettes per unit index (cycles)
-// bg = the zone color each unit section "owns" — Duolingo world color
+// bg = the full-section background color — Duolingo-style world immersion
+// Keep rich/dark but clearly distinct — white text must stay legible
 const UNIT_PALETTES = [
-  { from: "#a855f7", to: "#7c3aed", glow: "rgba(168,85,247,0.55)", bg: "#1a0538" },   // cosmic violet
-  { from: "#38bdf8", to: "#3b82f6", glow: "rgba(56,189,248,0.55)", bg: "#031728" },   // deep ocean
-  { from: "#34d399", to: "#059669", glow: "rgba(52,211,153,0.55)", bg: "#03200d" },   // forest
-  { from: "#fbbf24", to: "#f97316", glow: "rgba(251,191,36,0.55)", bg: "#2a1000" },   // volcanic amber
-  { from: "#f472b6", to: "#db2777", glow: "rgba(244,114,182,0.55)", bg: "#2d0520" },  // rose/fuchsia
-  { from: "#22d3ee", to: "#0891b2", glow: "rgba(34,211,238,0.55)", bg: "#012828" },   // arctic teal
-  { from: "#a3e635", to: "#65a30d", glow: "rgba(163,230,53,0.5)",  bg: "#122000" },   // jungle lime
+  { from: "#c084fc", to: "#7c3aed", glow: "rgba(192,132,252,0.6)", bg: "#200a4a" },  // cosmic violet
+  { from: "#38bdf8", to: "#2563eb", glow: "rgba(56,189,248,0.6)",  bg: "#051e38" },  // deep ocean
+  { from: "#4ade80", to: "#059669", glow: "rgba(74,222,128,0.6)",  bg: "#0a2d10" },  // forest
+  { from: "#fbbf24", to: "#ea580c", glow: "rgba(251,191,36,0.6)",  bg: "#2d1800" },  // volcanic amber
+  { from: "#f472b6", to: "#be185d", glow: "rgba(244,114,182,0.6)", bg: "#2d0820" },  // fuchsia
+  { from: "#22d3ee", to: "#0891b2", glow: "rgba(34,211,238,0.6)",  bg: "#052828" },  // arctic teal
+  { from: "#bef264", to: "#65a30d", glow: "rgba(190,242,100,0.55)", bg: "#162800" }, // jungle lime
 ];
 
 function CurriculumNode({
@@ -273,7 +276,7 @@ function CurriculumNode({
   );
 }
 
-export default function UnitSection({ unit, onNodeTap, index, enneagramType = 4, instinct = "sp" }: Props) {
+export default function UnitSection({ unit, onNodeTap, index, enneagramType = 4, instinct = "sp", prevBg = "#08031a", nextBg = "#08031a" }: Props) {
   const palette = UNIT_PALETTES[index % UNIT_PALETTES.length];
   const { isLocked, lessonsWithStatus, progress } = unit;
   const pct = progress.total > 0 ? Math.round((progress.completed / progress.total) * 100) : 0;
@@ -284,11 +287,11 @@ export default function UnitSection({ unit, onNodeTap, index, enneagramType = 4,
       initial={{ opacity: 0, y: 24 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: index * 0.07, duration: 0.4 }}
-      className="mb-2 relative"
+      className="mb-0 relative"
       style={!isLocked ? {
-        background: `linear-gradient(180deg, ${palette.bg}ff 0%, ${palette.bg}cc 60%, ${palette.bg}00 100%)`,
-        paddingTop: 16,
-        marginBottom: 0,
+        background: `linear-gradient(180deg, ${prevBg} 0%, ${palette.bg} 12%, ${palette.bg} 82%, ${nextBg} 100%)`,
+        paddingTop: 24,
+        paddingBottom: 8,
       } : undefined}
     >
       {/* ── World / Unit banner ────────────────────────────────────────── */}

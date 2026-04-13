@@ -1979,16 +1979,25 @@ export default function DailyPage() {
         })()}
         {/* ─── Curriculum Path ─────────────────────────────────────────── */}
         <div className="max-w-md mx-auto pt-1 pb-8">
-          {unitsWithStatus.map((unit, i) => (
-            <UnitSection
-              key={unit.id}
-              unit={unit}
-              index={i}
-              enneagramType={enneagramTypeForPet}
-              instinct={profile.instinctualStacking ?? "sp"}
-              onNodeTap={(lesson) => handleLessonNodeTap(lesson, unit)}
-            />
-          ))}
+          {unitsWithStatus.map((unit, i) => {
+            const PALETTES = [
+              "#200a4a","#051e38","#0a2d10","#2d1800","#2d0820","#052828","#162800",
+            ];
+            const prevBg = i > 0 ? PALETTES[(i - 1) % PALETTES.length] : "#08031a";
+            const nextBg = i < unitsWithStatus.length - 1 ? PALETTES[(i + 1) % PALETTES.length] : "#08031a";
+            return (
+              <UnitSection
+                key={unit.id}
+                unit={unit}
+                index={i}
+                enneagramType={enneagramTypeForPet}
+                instinct={profile.instinctualStacking ?? "sp"}
+                onNodeTap={(lesson) => handleLessonNodeTap(lesson, unit)}
+                prevBg={prevBg}
+                nextBg={nextBg}
+              />
+            );
+          })}
         </div>
 
         {/* ─── Lesson node bottom sheet ────────────────────────────────── */}
