@@ -9,7 +9,7 @@
 // Differentiation moat: no competitor can compute cross-framework rarity
 // because none of them have all four frameworks in one app.
 
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { Share2, Download, Check } from "lucide-react";
 import ChibiSprite from "@/components/ChibiSprite";
 import { computeRarity } from "@/data/type-prevalence";
@@ -28,6 +28,11 @@ interface Props {
 export default function RarityCard({ enneagramType, instinct, mbti, attachment, displayName }: Props) {
   const ref = useRef<HTMLDivElement>(null);
   const [status, setStatus] = useState<string | null>(null);
+  const mountedRef = useRef(true);
+  useEffect(() => {
+    mountedRef.current = true;
+    return () => { mountedRef.current = false; };
+  }, []);
 
   const rarity = computeRarity({ enneagramType, instinct, mbti, attachment });
   const typeData = enneagramTypes.find(t => t.number === enneagramType);
@@ -58,7 +63,7 @@ export default function RarityCard({ enneagramType, instinct, mbti, attachment, 
       console.error("Rarity share failed:", e);
       setStatus("Try again");
     } finally {
-      setTimeout(() => setStatus(null), 2200);
+      setTimeout(() => { if (mountedRef.current) setStatus(null); }, 2200);
     }
   }
 
@@ -78,7 +83,7 @@ export default function RarityCard({ enneagramType, instinct, mbti, attachment, 
       console.error(e);
       setStatus("Try again");
     } finally {
-      setTimeout(() => setStatus(null), 2200);
+      setTimeout(() => { if (mountedRef.current) setStatus(null); }, 2200);
     }
   }
 

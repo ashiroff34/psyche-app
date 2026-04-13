@@ -668,6 +668,11 @@ function getCompatibilityData(a: number, b: number): CompatibilityData {
 export default function CompatibilityPage() {
   const router = useRouter();
   const cardRef = useRef<HTMLDivElement>(null);
+  const mountedRef = useRef(true);
+  useEffect(() => {
+    mountedRef.current = true;
+    return () => { mountedRef.current = false; };
+  }, []);
 
   const [myType, setMyType] = useState<number | null>(null);
   const [friendType, setFriendType] = useState<number | null>(null);
@@ -708,7 +713,7 @@ export default function CompatibilityPage() {
       localStorage.setItem(storageKey, "1");
       setTokenAwarded(true);
       setShowTokenBadge(true);
-      setTimeout(() => setShowTokenBadge(false), 3000);
+      setTimeout(() => { if (mountedRef.current) setShowTokenBadge(false); }, 3000);
     } catch {
       // silently ignore
     }
@@ -781,7 +786,7 @@ export default function CompatibilityPage() {
         : "https://thyself.app";
       await navigator.clipboard.writeText(url);
       setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
+      setTimeout(() => { if (mountedRef.current) setCopied(false); }, 2000);
     } catch {
       // silently ignore
     }

@@ -289,7 +289,7 @@ function Iteration2() {
                 <div className="h-1.5 w-20 bg-white/20 rounded-full mt-1">
                   <div
                     className="h-full bg-white rounded-full"
-                    style={{ width: `${(unit.nodes.filter(n => n.status === "completed").length / unit.nodes.length) * 100}%` }}
+                    style={{ width: `${unit.nodes.length > 0 ? (unit.nodes.filter(n => n.status === "completed").length / unit.nodes.length) * 100 : 0}%` }}
                   />
                 </div>
               </div>
@@ -830,7 +830,7 @@ function Iteration10() {
       {/* Path with S-curve AND clean cards */}
       {UNITS.map((unit) => {
         const completedCount = unit.nodes.filter(n => n.status === "completed").length;
-        const progress = Math.round((completedCount / unit.nodes.length) * 100);
+        const progress = unit.nodes.length > 0 ? Math.round((completedCount / unit.nodes.length) * 100) : 0;
 
         return (
           <div key={unit.id}>
