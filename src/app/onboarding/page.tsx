@@ -1352,11 +1352,11 @@ function OnboardingPageInner() {
       });
     } catch {}
 
-    // Fire welcome email (Day 0)
+    // Register subscriber — stores in Resend Audience + sends welcome email
     if (email.trim()) {
       try {
         const chibiName = localStorage.getItem("psyche-chibi-name") ?? undefined;
-        fetch("/api/send-welcome", {
+        fetch("/api/register-subscriber", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
