@@ -108,19 +108,29 @@ function CurriculumNode({
           className="absolute left-0 w-full overflow-visible pointer-events-none"
           style={{ top: -48, height: 56, zIndex: 0 }}
         >
+          <defs>
+            <linearGradient id={`conn-grad-${rowIndex}`} x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor={isCompleted ? "#34d399" : palette.from} stopOpacity="0.9" />
+              <stop offset="100%" stopColor={isCompleted ? "#10b981" : palette.to} stopOpacity="0.7" />
+            </linearGradient>
+            <linearGradient id={`conn-glow-${rowIndex}`} x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor={isCompleted ? "rgba(52,211,153,0.3)" : palette.from} stopOpacity="0.25" />
+              <stop offset="100%" stopColor={isCompleted ? "rgba(16,185,129,0.3)" : palette.to} stopOpacity="0.15" />
+            </linearGradient>
+          </defs>
           {/* Glow layer */}
           <line
             x1={`${prevXPct * 100}%`} y1="0"
             x2={`${xPct * 100}%`} y2="56"
-            stroke={isCompleted ? "rgba(52,211,153,0.35)" : "rgba(139,92,246,0.15)"}
+            stroke={`url(#conn-glow-${rowIndex})`}
             strokeWidth="18"
             strokeLinecap="round"
           />
-          {/* Main thick line */}
+          {/* Main gradient line */}
           <line
             x1={`${prevXPct * 100}%`} y1="0"
             x2={`${xPct * 100}%`} y2="56"
-            stroke={isCompleted ? "#34d399" : "rgba(139,92,246,0.35)"}
+            stroke={`url(#conn-grad-${rowIndex})`}
             strokeWidth="6"
             strokeLinecap="round"
           />
@@ -128,7 +138,7 @@ function CurriculumNode({
           <line
             x1={`${prevXPct * 100}%`} y1="0"
             x2={`${xPct * 100}%`} y2="56"
-            stroke={isCompleted ? "rgba(110,231,183,0.7)" : "rgba(167,139,250,0.18)"}
+            stroke={isCompleted ? "rgba(110,231,183,0.7)" : `${palette.from}44`}
             strokeWidth="2"
             strokeLinecap="round"
           />
@@ -161,18 +171,18 @@ function CurriculumNode({
           </motion.div>
         )}
 
-        {/* Pulse rings for current */}
+        {/* Pulse rings for current — use unit palette color */}
         {isCurrent && (
           <>
             <motion.div
               className="absolute rounded-full pointer-events-none"
-              style={{ inset: -10, border: "2px solid rgba(139,92,246,0.3)" }}
+              style={{ inset: -10, border: `2px solid ${palette.from}55` }}
               animate={{ scale: [1, 1.35], opacity: [0.6, 0] }}
               transition={{ duration: 1.5, repeat: Infinity }}
             />
             <motion.div
               className="absolute rounded-full pointer-events-none"
-              style={{ inset: -5, border: "2px solid rgba(139,92,246,0.5)" }}
+              style={{ inset: -5, border: `2px solid ${palette.from}88` }}
               animate={{ scale: [1, 1.22], opacity: [0.8, 0] }}
               transition={{ duration: 1.5, repeat: Infinity, delay: 0.3 }}
             />
@@ -287,6 +297,9 @@ export default function UnitSection({ unit, onNodeTap, index, enneagramType = 4,
             : `1px solid ${palette.from}55`,
         }}
       >
+        {/* Grain texture overlay */}
+        {!isLocked && <div className="banner-grain" />}
+
         {/* Top accent stripe */}
         {!isLocked && (
           <div

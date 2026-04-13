@@ -392,6 +392,8 @@ export default function HubView({
     setEmailCaptureVisible(false);
   };
 
+  const typeGlowColor = enneagramType > 0 ? (TYPE_COLORS[enneagramType] ?? "#7c3aed") : "#7c3aed";
+
   return (
     <div
       className="min-h-screen"
@@ -399,6 +401,21 @@ export default function HubView({
         background: "#0f0a1e",
       }}
     >
+      {/* Ambient type-color glow — fixed, doesn't scroll */}
+      <div
+        aria-hidden
+        className="fixed top-0 left-1/2 -translate-x-1/2 pointer-events-none"
+        style={{
+          width: 500,
+          height: 380,
+          borderRadius: "50%",
+          background: `radial-gradient(ellipse, ${typeGlowColor}22 0%, transparent 70%)`,
+          filter: "blur(40px)",
+          zIndex: 0,
+          transition: "background 1s ease",
+        }}
+      />
+
       {/* Variable reinforcement lucky drop toast */}
       <LuckyDropToast actionId="hub-visit" />
 

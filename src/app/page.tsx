@@ -132,6 +132,15 @@ function EnterScreen() {
       className="min-h-screen flex flex-col items-center justify-center overflow-y-auto"
       style={{ background: "#08031a" }}
     >
+      {/* Dot grid — drifts imperceptibly slow, ~60s full cycle */}
+      <motion.div
+        aria-hidden
+        animate={{ backgroundPosition: ["0px 0px", "22px 22px"] }}
+        transition={{ duration: 60, repeat: Infinity, ease: "linear" }}
+        className="absolute inset-0 pointer-events-none bg-dots"
+        style={{ opacity: 0.5, zIndex: 0 }}
+      />
+
       {/* Static radial glow (pure CSS, no animation, zero render cost after paint) */}
       <div
         aria-hidden

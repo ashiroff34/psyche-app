@@ -1487,7 +1487,21 @@ function OnboardingPageInner() {
   };
 
   return (
-    <div className="min-h-screen relative overflow-hidden" style={{ background: "#0f0a1e" }}>
+    <div
+      className="min-h-screen relative overflow-hidden"
+      style={{
+        background: step === 0
+          ? "linear-gradient(160deg, #0d0520 0%, #0f0a1e 100%)"
+          : step === 1
+          ? "linear-gradient(160deg, #0a0d28 0%, #0f0a1e 100%)"
+          : step === 2
+          ? "linear-gradient(160deg, #130820 0%, #0c0a22 100%)"
+          : step === 3
+          ? "linear-gradient(160deg, #180a30 0%, #0f0824 100%)"
+          : "#0f0a1e",
+        transition: "background 0.6s ease",
+      }}
+    >
       {/* Aurora orbs */}
       <div className="fixed inset-0 -z-10 pointer-events-none">
         <div className="absolute top-20 left-10 w-72 h-72 rounded-full blur-3xl" style={{ background: "radial-gradient(circle, rgba(139,92,246,0.12) 0%, transparent 70%)" }} />
