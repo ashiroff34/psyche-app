@@ -313,7 +313,7 @@ export default function FirstVisitWelcome({
   return (
     <div className="fixed inset-0 z-[300] bg-[#08031a] flex flex-col">
       {/* Card area */}
-      <div className="flex-1 flex items-center justify-center overflow-hidden">
+      <div className="flex-1 flex items-start justify-center overflow-y-auto py-6" style={{ WebkitOverflowScrolling: "touch" }}>
         <div className="w-full max-w-md mx-auto px-4">
           <AnimatePresence mode="wait" custom={direction}>
             <motion.div

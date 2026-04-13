@@ -222,24 +222,24 @@ export default function ComebackModal() {
     <AnimatePresence>
       {show && (
         <>
-          {/* Backdrop */}
+          {/* Backdrop — sits below modal, dismisses on tap */}
           <motion.div
             key="comeback-backdrop"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={handleClose}
-            className="fixed inset-0 z-50 bg-black/30 backdrop-blur-sm"
+            className="fixed inset-0 z-[55] bg-black/30 backdrop-blur-sm"
           />
 
-          {/* Modal */}
+          {/* Modal — above backdrop, pointer-events-none on wrapper so only card is interactive */}
           <motion.div
             key="comeback-modal"
             initial={{ opacity: 0, scale: 0.9, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.9, y: 20 }}
             transition={{ type: "spring", stiffness: 300, damping: 28 }}
-            className="fixed inset-0 z-50 flex items-center justify-center px-4 pointer-events-none"
+            className="fixed inset-0 z-[56] flex items-center justify-center px-4 pointer-events-none"
           >
             <div className="pointer-events-auto w-full max-w-sm rounded-3xl overflow-hidden" style={{ background: "rgba(18,12,36,0.98)", border: "1px solid rgba(139,92,246,0.25)", boxShadow: "0 24px 60px rgba(0,0,0,0.6)" }}>
               {/* Header gradient strip */}
