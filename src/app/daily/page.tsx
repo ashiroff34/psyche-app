@@ -1584,6 +1584,7 @@ export default function DailyPage() {
           weeklyChallenge={weeklyChallenge}
           onClaimWeeklyReward={() => { claimWeeklyReward(); setShowWeeklyCelebration(true); }}
           onStreakShop={() => setShowStreakShop(true)}
+          warmupDoneToday={true}
         />
         <NodeBottomSheet
           node={bottomSheetNode}

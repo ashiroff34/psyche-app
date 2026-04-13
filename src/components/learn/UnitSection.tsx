@@ -181,12 +181,12 @@ function CurriculumNode({
 
         {/* 3D node button */}
         <motion.button
-          onClick={isInteractive ? onClick : undefined}
-          whileTap={isInteractive ? { scale: 0.88 } : {}}
+          onClick={onClick}
+          whileTap={{ scale: isInteractive ? 0.88 : 0.95 }}
           animate={isCurrent ? { scale: [1, 1.04, 1] } : {}}
           transition={isCurrent ? { duration: 2, repeat: Infinity } : {}}
           className="relative"
-          style={{ width: NODE_SIZE, height: NODE_SIZE, cursor: isInteractive ? "pointer" : "default" }}
+          style={{ width: NODE_SIZE, height: NODE_SIZE, cursor: "pointer" }}
         >
           {/* 3D shadow bottom layer */}
           <div
