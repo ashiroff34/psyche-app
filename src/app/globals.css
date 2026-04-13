@@ -225,43 +225,25 @@ h1, h2, h3, h4 {
   background-clip: text !important;
 }
 
-/* ===== Touch Interaction Fixes (critical for iOS) ===== */
-/*
- * touch-action: manipulation eliminates the 300ms tap delay on iOS Safari.
- * Without this, taps feel unresponsive — the browser waits to distinguish
- * a tap from a double-tap/zoom gesture before firing the click event.
- * -webkit-tap-highlight-color gives instant visual feedback on touch.
- */
+/* ===== Touch Interaction Fixes (iOS tap delay) ===== */
+/* touch-action: manipulation kills the 300ms iOS tap delay */
 button,
 a,
 [role="button"],
 [role="tab"],
 [role="menuitem"],
 [role="option"],
-label[for],
-input[type="submit"],
-input[type="button"],
-input[type="reset"],
-select {
+.cursor-pointer {
   touch-action: manipulation;
-  cursor: pointer;
-  -webkit-tap-highlight-color: rgba(139, 92, 246, 0.18);
-}
-
-/* div/span-based interactive elements — add class .tap-target */
-.cursor-pointer,
-.tap-target {
-  touch-action: manipulation;
-  cursor: pointer;
-  -webkit-tap-highlight-color: rgba(139, 92, 246, 0.12);
+  -webkit-tap-highlight-color: rgba(139, 92, 246, 0.15);
 }
 
 /* ===== Smooth Button Press ===== */
 button, [role="button"] {
-  transition: transform 0.1s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.1s ease !important;
+  transition: transform 0.15s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.15s ease, opacity 0.15s ease !important;
 }
 button:active:not(:disabled), [role="button"]:active:not(:disabled) {
-  opacity: 0.75 !important;
+  transform: scale(0.97) !important;
 }
 button:hover:not(:disabled), [role="button"]:hover:not(:disabled) {
   filter: brightness(1.04);
@@ -269,10 +251,10 @@ button:hover:not(:disabled), [role="button"]:hover:not(:disabled) {
 
 /* Links that look like buttons */
 a[class*="rounded"]:active {
-  opacity: 0.75 !important;
+  transform: scale(0.97) !important;
 }
 a[class*="rounded"] {
-  transition: opacity 0.1s ease !important;
+  transition: transform 0.15s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.15s ease !important;
 }
 
 /* ===== Smooth Number Count-Up ===== */
