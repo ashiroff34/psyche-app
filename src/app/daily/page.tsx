@@ -1670,8 +1670,20 @@ export default function DailyPage() {
 
   if (view === "path") {
     return (
-      <div className="min-h-screen" style={{ background: "#0f0a1e" }}>
-        {/* Confetti handled by react-rewards anchors in layout */}
+      <div className="min-h-screen" style={{ background: "linear-gradient(180deg, #1a0836 0%, #0f0a1e 35%, #08031a 100%)" }}>
+        {/* Ambient glow — fixed top, doesn't scroll */}
+        <div
+          aria-hidden
+          className="fixed top-0 left-1/2 -translate-x-1/2 pointer-events-none"
+          style={{
+            width: 420,
+            height: 320,
+            borderRadius: "50%",
+            background: "radial-gradient(ellipse, rgba(124,58,237,0.18) 0%, transparent 70%)",
+            filter: "blur(40px)",
+            zIndex: 0,
+          }}
+        />
 
         {/* Unit completion milestone celebration */}
         <AnimatePresence>
@@ -2066,7 +2078,7 @@ export default function DailyPage() {
       // Use effect-safe redirect: return path content by falling through to path view rendering
       // We trigger a state update on next tick to avoid render-during-render
       return (
-        <div className="min-h-screen" style={{ background: "#0f0a1e" }} />
+        <div className="min-h-screen" style={{ background: "linear-gradient(180deg, #1a0836 0%, #0f0a1e 35%, #08031a 100%)" }} />
       );
     }
     return (
