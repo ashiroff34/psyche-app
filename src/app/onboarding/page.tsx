@@ -14,6 +14,7 @@ import { resolveTypeAwareCopy } from "@/hooks/useTypeAwareCopy";
 import { posthog, EVENTS, setUserProperty } from "@/lib/posthog";
 import TypeIdentityCard from "@/components/TypeIdentityCard";
 import { Share2 } from "lucide-react";
+import GuidingChibi from "@/components/onboarding/GuidingChibi";
 import dynamic from "next/dynamic";
 const Confetti = dynamic(() => import("react-confetti"), { ssr: false });
 
@@ -1493,6 +1494,9 @@ function OnboardingPageInner() {
         <div className="absolute top-40 right-20 w-96 h-96 rounded-full blur-3xl" style={{ background: "radial-gradient(circle, rgba(79,70,229,0.1) 0%, transparent 70%)" }} />
         <div className="absolute bottom-20 left-1/3 w-64 h-64 rounded-full blur-3xl" style={{ background: "radial-gradient(circle, rgba(124,58,237,0.08) 0%, transparent 70%)" }} />
       </div>
+
+      {/* SO5 guide chibi — visible steps 0–3, disappears at type reveal */}
+      <GuidingChibi step={step} />
 
       <AnimatePresence mode="wait">
         {/* Step 0: Welcome */}
