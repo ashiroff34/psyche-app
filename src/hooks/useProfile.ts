@@ -213,6 +213,27 @@ export function useProfile() {
   const updateProfile = useCallback((updates: Partial<PsycheProfile>) => {
     setProfile((prev) => {
       const updated = { ...prev, ...updates };
+
+      // Silently validate wing when it or the core type is updated
+      if (updates.enneagramWing !== undefined || updates.enneagramType !== undefined) {
+        const coreType = updated.enneagramType;
+        const wingStr = updated.enneagramWing; // e.g. "4w5" or "5"
+        if (coreType && wingStr) {
+          try {
+            // Support both "4w5" and bare "5" formats
+            const wingNum = wingStr.includes("w")
+              ? parseInt(wingStr.split("w")[1], 10)
+              : parseInt(wingStr, 10);
+            import("@/lib/type-validation").then(({ validateWing }) => {
+              const result = validateWing(coreType, wingNum);
+              if (!result.valid) {
+                console.warn(`[Thyself] Invalid wing: ${result.message}`);
+              }
+            });
+          } catch {}
+        }
+      }
+
       try {
         localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
       } catch {}

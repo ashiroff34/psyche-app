@@ -34,6 +34,7 @@ import {
   Share2,
 } from "lucide-react";
 import NextStepBanner from "@/components/NextStepBanner";
+import ProgressHeatmap from "@/components/ProgressHeatmap";
 import StreakShareCard from "@/components/StreakShareCard";
 import {
   useGameState,
@@ -1083,6 +1084,23 @@ function XPGainToast({ amount, source }: { amount: number; source: string }) {
   );
 }
 
+// ─── Activity Heatmap Section ────────────────────────────────────────────────
+
+function ActivityHeatmapSection() {
+  const [activityData, setActivityData] = useState<Record<string, number>>({});
+
+  useEffect(() => {
+    try {
+      const raw = localStorage.getItem("psyche-activity-log");
+      if (raw) {
+        setActivityData(JSON.parse(raw) as Record<string, number>);
+      }
+    } catch {}
+  }, []);
+
+  return <ProgressHeatmap activityData={activityData} goalXP={50} />;
+}
+
 // ─── Main Page ───────────────────────────────────────────────────────────────
 
 export default function GamePage() {
@@ -1235,6 +1253,11 @@ export default function GamePage() {
             topicProgress={state.topicProgress}
             isTopicUnlocked={game.isTopicUnlocked}
           />
+        </div>
+
+        {/* Activity Heatmap - Full width */}
+        <div className="mb-6">
+          <ActivityHeatmapSection />
         </div>
 
         {/* Bottom Row: Shop + Leaderboard */}

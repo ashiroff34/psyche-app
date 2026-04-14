@@ -22,6 +22,8 @@ import {
   FileText,
   Shield,
   Bug,
+  BookOpen,
+  Flag,
   ChevronDown,
   ChevronUp,
   ExternalLink,
@@ -149,6 +151,69 @@ function saveNotificationPrefs(prefs: NotificationPrefs) {
   try {
     localStorage.setItem("psyche-notification-prefs", JSON.stringify(prefs));
   } catch {}
+}
+
+// ── Flagged Questions Section ────────────────────────────────────────────────
+
+function FlaggedQuestionsSection() {
+  const [count, setCount] = useState(0);
+  const [cleared, setCleared] = useState(false);
+
+  useEffect(() => {
+    try {
+      const raw = localStorage.getItem("psyche-flagged-questions");
+      if (raw) {
+        const parsed = JSON.parse(raw) as string[];
+        setCount(parsed.length);
+      }
+    } catch {}
+  }, []);
+
+  const handleClear = () => {
+    try {
+      localStorage.removeItem("psyche-flagged-questions");
+      setCount(0);
+      setCleared(true);
+      setTimeout(() => setCleared(false), 2000);
+    } catch {}
+  };
+
+  return (
+    <div className="rounded-2xl overflow-hidden" style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.09)" }}>
+      <div className="px-5 py-4">
+        <div className="flex items-center gap-3 mb-3">
+          <div className="w-8 h-8 rounded-xl flex items-center justify-center" style={{ background: "rgba(239,68,68,0.12)" }}>
+            <Flag className="w-4 h-4 text-red-400" />
+          </div>
+          <span className="font-semibold" style={{ color: "rgba(255,255,255,0.93)" }}>Flagged Questions</span>
+          {count > 0 && (
+            <span className="ml-auto text-xs font-mono px-2 py-0.5 rounded-full" style={{ background: "rgba(239,68,68,0.15)", color: "#f87171" }}>
+              {count} flagged
+            </span>
+          )}
+        </div>
+        {count === 0 ? (
+          <p className="text-sm" style={{ color: "rgba(255,255,255,0.35)" }}>
+            {cleared ? "Cleared!" : "No flagged questions. Tap 🚩 on any quiz question to flag it for review."}
+          </p>
+        ) : (
+          <div className="space-y-2">
+            <p className="text-sm" style={{ color: "rgba(255,255,255,0.45)" }}>
+              You have flagged {count} question{count !== 1 ? "s" : ""} for review.
+            </p>
+            <button
+              onClick={handleClear}
+              className="flex items-center gap-2 px-3 py-2 rounded-xl text-sm transition-colors"
+              style={{ background: "rgba(239,68,68,0.1)", color: "#f87171", border: "1px solid rgba(239,68,68,0.2)" }}
+            >
+              <Flag className="w-3.5 h-3.5" />
+              Clear all flagged questions
+            </button>
+          </div>
+        )}
+      </div>
+    </div>
+  );
 }
 
 // ── Confirmation Dialog ──────────────────────────────────────────────────────
@@ -964,7 +1029,10 @@ export default function SettingsPage() {
           </button>
         </ExpandableSection>
 
-        {/* ── Section 4: Account ──────────────────────────────────────────── */}
+        {/* ── Section 4: Flagged Questions ─────────────────────────────── */}
+        <FlaggedQuestionsSection />
+
+        {/* ── Section 5: Account ──────────────────────────────────────────── */}
         <ExpandableSection title="Account" icon={Shield}>
           {/* Delete All Data */}
           <button
@@ -977,6 +1045,15 @@ export default function SettingsPage() {
 
           {/* Links */}
           <div className="space-y-1 pt-1">
+            <Link
+              href="/glossary"
+              className="flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm transition-colors hover:bg-white/5"
+              style={{ color: "rgba(255,255,255,0.6)" }}
+            >
+              <BookOpen className="w-4 h-4" style={{ color: "rgba(255,255,255,0.35)" }} />
+              Glossary &amp; Definitions
+              <ExternalLink className="w-3 h-3 ml-auto" style={{ color: "rgba(255,255,255,0.2)" }} />
+            </Link>
             <Link
               href="/sources"
               className="flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm transition-colors hover:bg-white/5"

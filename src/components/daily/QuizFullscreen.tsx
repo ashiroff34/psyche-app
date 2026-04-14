@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef, useMemo } from "react";
 import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, CheckCircle, XCircle, Heart, Zap, Trophy, ArrowRight, Star, BookOpen, Timer } from "lucide-react";
+import { X, CheckCircle, XCircle, Heart, Zap, Trophy, ArrowRight, Star, BookOpen, Timer, Flag } from "lucide-react";
 import ChibiSprite from "@/components/ChibiSprite";
 import type { ChibiState } from "@/components/ChibiSprite";
 import KeepGoingCard from "@/components/daily/KeepGoingCard";
@@ -173,6 +173,32 @@ export default function QuizFullscreen({
   const [showSparkle, setShowSparkle] = useState(false);
   const [showPerfectFlash, setShowPerfectFlash] = useState(false);
   const [showCaudaPavonis, setShowCaudaPavonis] = useState(false);
+
+  // ── Flag question ─────────────────────────────────────────────────────────
+  const [flaggedIds, setFlaggedIds] = useState<Set<string>>(() => {
+    if (typeof window === "undefined") return new Set();
+    try {
+      const raw = localStorage.getItem("psyche-flagged-questions");
+      return raw ? new Set(JSON.parse(raw) as string[]) : new Set();
+    } catch {
+      return new Set();
+    }
+  });
+
+  const toggleFlag = (questionId: string) => {
+    setFlaggedIds((prev) => {
+      const next = new Set(prev);
+      if (next.has(questionId)) {
+        next.delete(questionId);
+      } else {
+        next.add(questionId);
+      }
+      try {
+        localStorage.setItem("psyche-flagged-questions", JSON.stringify([...next]));
+      } catch {}
+      return next;
+    });
+  };
 
   // ── Running score counter + XP flash ───────────────────────────────────────
   const [xpFlash, setXpFlash] = useState(false);
@@ -855,9 +881,23 @@ export default function QuizFullscreen({
               className="flex-1 rounded-2xl rounded-tl-sm px-4 py-3"
               style={{ background: "rgba(255,255,255,0.07)", border: "1px solid rgba(255,255,255,0.08)" }}
             >
-              <p className="text-base font-bold leading-snug" style={{ color: "rgba(255,255,255,0.93)" }}>
-                {q.q}
-              </p>
+              <div className="flex items-start justify-between gap-2">
+                <p className="text-base font-bold leading-snug flex-1" style={{ color: "rgba(255,255,255,0.93)" }}>
+                  {q.q}
+                </p>
+                <button
+                  onClick={() => toggleFlag(q.id)}
+                  className="shrink-0 p-1 rounded-lg transition-all hover:bg-white/10 mt-0.5"
+                  aria-label={flaggedIds.has(q.id) ? "Unflag question" : "Flag question"}
+                  title="Flag this question for review"
+                >
+                  <Flag
+                    className="w-4 h-4 transition-colors"
+                    style={{ color: flaggedIds.has(q.id) ? "#ef4444" : "rgba(255,255,255,0.2)" }}
+                    fill={flaggedIds.has(q.id) ? "#ef4444" : "none"}
+                  />
+                </button>
+              </div>
             </motion.div>
           </AnimatePresence>
         </div>

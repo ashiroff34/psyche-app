@@ -1121,6 +1121,14 @@ export default function DailyPage() {
       gameEarnXP(xpGained, "daily-quiz");
       addXP(xpGained);
       setSessionXP(prev => prev + xpGained);
+      // Write to activity log for heatmap
+      try {
+        const dateKey = new Intl.DateTimeFormat("en-CA").format(new Date());
+        const activityRaw = localStorage.getItem("psyche-activity-log");
+        const activity: Record<string, number> = activityRaw ? JSON.parse(activityRaw) : {};
+        activity[dateKey] = (activity[dateKey] ?? 0) + xpGained;
+        localStorage.setItem("psyche-activity-log", JSON.stringify(activity));
+      } catch {}
     }
     if (!correct) loseHeart();
 
@@ -1356,6 +1364,14 @@ export default function DailyPage() {
     gameEarnXP(node.xp, "reflection");
     addXP(node.xp);
     setSessionXP(prev => prev + node.xp);
+    // Write to activity log for heatmap
+    try {
+      const dateKey = new Intl.DateTimeFormat("en-CA").format(new Date());
+      const activityRaw = localStorage.getItem("psyche-activity-log");
+      const activity: Record<string, number> = activityRaw ? JSON.parse(activityRaw) : {};
+      activity[dateKey] = (activity[dateKey] ?? 0) + node.xp;
+      localStorage.setItem("psyche-activity-log", JSON.stringify(activity));
+    } catch {}
     // Show async save feedback
     if (saveFeedbackTimerRef.current) clearTimeout(saveFeedbackTimerRef.current);
     setSaveFeedback(true);

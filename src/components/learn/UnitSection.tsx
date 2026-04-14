@@ -6,8 +6,10 @@ import {
   Lock, Crown, BookOpen, Target, Scale, Heart, Star, Pencil,
   Search, Shield, Sparkles, Flame, Wind, Brain, Lightbulb,
   Compass, Users, Layers, BarChart2, Eye, Shuffle, BookMarked, Zap, Info,
+  Bookmark, BookmarkCheck,
   type LucideIcon,
 } from "lucide-react";
+import { useBookmarks } from "@/hooks/useBookmarks";
 
 const UNIT_ICON_MAP: Record<string, LucideIcon> = {
   BookOpen, Target, Scale, Heart, Star, Pencil,
@@ -320,6 +322,9 @@ export default function UnitSection({ unit, onNodeTap, index, enneagramType = 4,
   const palette = UNIT_PALETTES[index % UNIT_PALETTES.length];
   const { isLocked, lessonsWithStatus, progress } = unit;
   const [showWhy, setShowWhy] = useState(false);
+  const { isBookmarked, toggleBookmark } = useBookmarks();
+  const bookmarkId = `unit-${unit.id}`;
+  const bookmarked = isBookmarked(bookmarkId);
   const pedagogyNote = PEDAGOGY_NOTES[unit.order];
   const pct = progress.total > 0 ? Math.round((progress.completed / progress.total) * 100) : 0;
   const currentIdx = lessonsWithStatus.findIndex((l) => l.status === "current");
@@ -448,6 +453,27 @@ export default function UnitSection({ unit, onNodeTap, index, enneagramType = 4,
               </div>
             )}
           </div>
+
+          {/* Bookmark button */}
+          {!isLocked && (
+            <button
+              onClick={() => toggleBookmark({
+                id: bookmarkId,
+                type: "lesson",
+                title: unit.title,
+                subtitle: unit.subtitle,
+                unitId: unit.id,
+              })}
+              className="shrink-0 p-2 rounded-xl transition-all hover:bg-white/10 self-start mt-1"
+              aria-label={bookmarked ? "Remove bookmark" : "Bookmark unit"}
+            >
+              {bookmarked ? (
+                <BookmarkCheck className="w-4 h-4 text-violet-400" />
+              ) : (
+                <Bookmark className="w-4 h-4" style={{ color: "rgba(255,255,255,0.2)" }} />
+              )}
+            </button>
+          )}
         </div>
       </div>
 
