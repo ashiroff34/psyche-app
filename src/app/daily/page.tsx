@@ -543,7 +543,7 @@ function srSelectQuestions(pool: Question[], n: number, stats: Record<string, QS
 export default function DailyPage() {
   const router = useRouter();
   const { profile, loaded, trackVisit, markQuizComplete, addXP } = useProfile();
-  const { state: gameStateRaw, earnXP: gameEarnXP, loseHeart, buyHearts, xpGainAnimation, completeReading, recordTokenDrop, bumpSessionCount, weeklyChallenge, claimWeeklyReward } = useGameState();
+  const { state: gameStateRaw, earnXP: gameEarnXP, loseHeart, buyHearts, spendTokens, xpGainAnimation, completeReading, recordTokenDrop, bumpSessionCount, weeklyChallenge, claimWeeklyReward } = useGameState();
   const enneagramTypeForPet = profile.enneagramType ?? profile.enneagramCore ?? undefined;
   const { petState: livePetState, awardDailyGoalXP } = usePetState(enneagramTypeForPet);
 
@@ -735,6 +735,15 @@ export default function DailyPage() {
   // Async save feedback toast
   const [saveFeedback, setSaveFeedback] = useState(false);
   const saveFeedbackTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  // Skip toast feedback
+  const [skipToast, setSkipToast] = useState<string | null>(null);
+  const skipToastTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const showSkipToast = useCallback((msg: string) => {
+    if (skipToastTimerRef.current) clearTimeout(skipToastTimerRef.current);
+    setSkipToast(msg);
+    skipToastTimerRef.current = setTimeout(() => setSkipToast(null), 2000);
+  }, []);
 
   // Graceful error toast
   const [errorToast, setErrorToast] = useState<string | null>(null);
@@ -1396,6 +1405,44 @@ export default function DailyPage() {
     }
   };
 
+  // ── Skip Question (10 tokens) ──────────────────────────────────────────────
+  const skipQuestion = () => {
+    const COST = 10;
+    if ((gameStateRaw.tokens ?? 0) < COST) {
+      showSkipToast("Not enough tokens (need 10 🪙)");
+      return;
+    }
+    const ok = spendTokens(COST);
+    if (!ok) { showSkipToast("Not enough tokens (need 10 🪙)"); return; }
+    // Mark current question as skipped (incorrect) and advance
+    setModuleAnswers(prev => [...prev, false]);
+    if (moduleQ + 1 >= moduleQuestions.length) {
+      // Last question — finish the quiz
+      setModuleDone(true);
+    } else {
+      setModuleQ(prev => prev + 1);
+      setModuleSelected(null);
+      setModuleShowExp(false);
+    }
+    showSkipToast("Question skipped −10 🪙");
+  };
+
+  // ── Skip Quiz (30 tokens) ───────────────────────────────────────────────────
+  const skipQuiz = () => {
+    const COST = 30;
+    if ((gameStateRaw.tokens ?? 0) < COST) {
+      showSkipToast("Not enough tokens (need 30 🪙)");
+      return;
+    }
+    const ok = spendTokens(COST);
+    if (!ok) { showSkipToast("Not enough tokens (need 30 🪙)"); return; }
+    // Fill remaining answers as skipped, then complete
+    const remaining = moduleQuestions.length - moduleAnswers.length;
+    setModuleAnswers(prev => [...prev, ...Array(Math.max(remaining, 1)).fill(false)]);
+    setModuleDone(true);
+    showSkipToast("Quiz skipped −30 🪙");
+  };
+
   if (!loaded) return (
     <div className="min-h-screen flex flex-col items-center justify-center" style={{ background: "#0f0a1e" }}>
       <div className="flex flex-col items-center gap-4">
@@ -1475,7 +1522,33 @@ export default function DailyPage() {
             <span className="text-[10px]" style={{ color: "rgba(255,255,255,0.3)" }}>|</span>
             <span className="text-[10px]" style={{ color: "rgba(255,255,255,0.6)" }}>{currentIdx + 1} of {questions.length}</span>
           </div>
-          {correctStreak > 0 && <StreakFlame count={correctStreak} />}
+          <div className="flex items-center gap-1.5">
+            {correctStreak > 0 && <StreakFlame count={correctStreak} />}
+            {/* Skip question — only when unanswered */}
+            {selected === null && (
+              <button
+                onClick={skipQuestion}
+                className="flex items-center gap-1 px-2 py-1 rounded-lg text-[10px] font-semibold transition-all active:scale-95 hover:opacity-80"
+                style={{ background: "rgba(251,191,36,0.12)", border: "1px solid rgba(251,191,36,0.25)", color: "rgba(251,191,36,0.85)" }}
+                title="Skip this question for 10 tokens"
+              >
+                <Zap className="w-2.5 h-2.5" />
+                Skip 10 🪙
+              </button>
+            )}
+            {/* Skip quiz */}
+            {questions.length > 1 && (
+              <button
+                onClick={skipQuiz}
+                className="flex items-center gap-1 px-2 py-1 rounded-lg text-[10px] font-semibold transition-all active:scale-95 hover:opacity-80"
+                style={{ background: "rgba(139,92,246,0.12)", border: "1px solid rgba(139,92,246,0.25)", color: "rgba(167,139,250,0.85)" }}
+                title="Skip this entire quiz for 30 tokens"
+              >
+                <Zap className="w-2.5 h-2.5" />
+                Skip All 30 🪙
+              </button>
+            )}
+          </div>
         </div>
 
         {/* Question */}
@@ -3099,6 +3172,28 @@ export default function DailyPage() {
         />
       </div>
     </div>
+
+    {/* ── Skip Toast ── */}
+    <AnimatePresence>
+      {skipToast && (
+        <motion.div
+          key="skip-toast"
+          initial={{ opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: 8 }}
+          transition={{ duration: 0.18 }}
+          className="fixed bottom-36 left-4 right-4 z-[70] flex items-center gap-3 px-5 py-3.5 rounded-2xl shadow-lg pointer-events-none"
+          style={{
+            background: "rgba(251,191,36,0.12)",
+            border: "1px solid rgba(251,191,36,0.3)",
+            backdropFilter: "blur(8px)",
+          }}
+        >
+          <Zap className="w-4 h-4 text-yellow-400 flex-shrink-0" />
+          <p className="text-sm font-semibold text-yellow-300">{skipToast}</p>
+        </motion.div>
+      )}
+    </AnimatePresence>
 
     {/* ── Error Toast ── */}
     <AnimatePresence>
