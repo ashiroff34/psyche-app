@@ -856,6 +856,69 @@ export default function SettingsPage() {
               </Link>
             </div>
           </div>
+          {/* ── Profile Completeness Indicator ── */}
+          {(() => {
+            const factors = [
+              { label: "Enneagram type", weight: 20, done: !!profile.enneagramType },
+              { label: "Cognitive type (MBTI)", weight: 20, done: !!profile.cognitiveType },
+              { label: "Instinctual stacking", weight: 15, done: !!(profile.instinctualStacking || profile.enneagramSubtype) },
+              { label: "Tritype", weight: 15, done: !!(profile as Record<string, unknown>).tritype },
+              { label: "Completed a quiz", weight: 10, done: !!((profile as Record<string, unknown>).completedQuizzes as unknown[])?.length },
+              { label: "Display name", weight: 10, done: !!profile.displayName },
+              { label: "Email", weight: 10, done: !!profile.email },
+            ];
+            const pct = factors.reduce((acc, f) => acc + (f.done ? f.weight : 0), 0);
+            const missing = factors.filter(f => !f.done).sort((a, b) => b.weight - a.weight).slice(0, 3);
+
+            const ACTION_HINTS: Record<string, string> = {
+              "Cognitive type (MBTI)": "Take the Cognitive Type assessment",
+              "Instinctual stacking": "Take the Instinctual Subtype assessment",
+              "Tritype": "Complete the Tritype assessment",
+              "Completed a quiz": "Finish your first daily quiz",
+              "Display name": "Add your display name above",
+              "Email": "Add your email above",
+            };
+
+            return (
+              <div className="pt-3 space-y-2.5">
+                <div className="flex items-center justify-between">
+                  <p className="text-xs font-medium uppercase tracking-wider" style={{ color: "rgba(255,255,255,0.35)" }}>
+                    Profile Completeness
+                  </p>
+                  <span className="text-xs font-bold" style={{ color: pct >= 70 ? "#34d399" : pct >= 40 ? "#f59e0b" : "#f87171" }}>
+                    {pct}%
+                  </span>
+                </div>
+                <div className="h-2 rounded-full overflow-hidden" style={{ background: "rgba(255,255,255,0.08)" }}>
+                  <motion.div
+                    className="h-full rounded-full"
+                    style={{ background: "linear-gradient(90deg, #7c3aed, #d946ef)" }}
+                    initial={{ width: 0 }}
+                    animate={{ width: `${pct}%` }}
+                    transition={{ duration: 1, ease: "easeOut" }}
+                  />
+                </div>
+                <p className="text-xs" style={{ color: "rgba(255,255,255,0.4)" }}>
+                  Your psychological profile is {pct}% complete
+                </p>
+                {missing.length > 0 && (
+                  <div className="space-y-1.5 pt-1">
+                    <p className="text-[10px] font-semibold uppercase tracking-wider" style={{ color: "rgba(255,255,255,0.25)" }}>
+                      To improve it:
+                    </p>
+                    {missing.map(f => (
+                      <div key={f.label} className="flex items-center gap-2">
+                        <div className="w-1 h-1 rounded-full flex-shrink-0" style={{ background: "rgba(139,92,246,0.5)" }} />
+                        <p className="text-xs" style={{ color: "rgba(255,255,255,0.45)" }}>
+                          {ACTION_HINTS[f.label] ?? f.label}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            );
+          })()}
         </ExpandableSection>
 
         {/* ── Section 2: Notifications ────────────────────────────────────── */}

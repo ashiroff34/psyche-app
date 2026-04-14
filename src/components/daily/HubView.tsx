@@ -188,6 +188,111 @@ interface Props {
   onStreakShop?: () => void;
 }
 
+// ── Mastery Section ───────────────────────────────────────────────────────────
+const MASTERY_CONCEPTS = [
+  { id: "enneagram-core", label: "Core Enneagram", color: "#7c3aed", tags: ["enneagram", "type", "core"] },
+  { id: "cognitive-functions", label: "Cognitive Functions", color: "#2563eb", tags: ["cognitive", "jungian", "mbti", "function"] },
+  { id: "instinctual-subtypes", label: "Instincts & Subtypes", color: "#059669", tags: ["instinct", "subtype", "sp", "sx", "so", "hornevian", "harmonic"] },
+  { id: "integration", label: "Integration & Growth", color: "#ea580c", tags: ["integration", "growth", "health", "levels"] },
+];
+
+function MasterySection({ units }: { units: PathUnit[] }) {
+  const [open, setOpen] = useState(false);
+  const [masteryData, setMasteryData] = useState<{ pct: number }[]>(MASTERY_CONCEPTS.map(() => ({ pct: 0 })));
+
+  useEffect(() => {
+    try {
+      // Use completed lessons from psyche-completed-lessons
+      const completedRaw = localStorage.getItem("psyche-completed-lessons");
+      const completedIds = new Set<string>(completedRaw ? JSON.parse(completedRaw) : []);
+
+      // Also check psyche-lesson-progress
+      const progressRaw = localStorage.getItem("psyche-lesson-progress");
+      const progressMap: Record<string, boolean> = progressRaw ? JSON.parse(progressRaw) : {};
+      for (const [k, v] of Object.entries(progressMap)) {
+        if (v) completedIds.add(k);
+      }
+
+      // Count completed lessons per concept by matching node IDs against concept tags
+      const data = MASTERY_CONCEPTS.map(concept => {
+        let total = 0;
+        let completed = 0;
+        for (const unit of units) {
+          for (const node of unit.nodes) {
+            // Check if node label/id/unitName contains any concept tag
+            const searchStr = `${node.id} ${node.label} ${node.unitName} ${node.sublabel}`.toLowerCase();
+            const matches = concept.tags.some(tag => searchStr.includes(tag));
+            if (matches) {
+              total++;
+              if (completedIds.has(node.id) || node.status === "completed") completed++;
+            }
+          }
+        }
+        // Minimum of 5 "total" lessons per concept so bars show something meaningful
+        const effectiveTotal = Math.max(total, 5);
+        const pct = Math.round((completed / effectiveTotal) * 100);
+        return { pct };
+      });
+      setMasteryData(data);
+    } catch {}
+  }, [units]);
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 8 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: 0.2 }}
+      className="mb-6 rounded-2xl overflow-hidden"
+      style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.07)" }}
+    >
+      <button
+        onClick={() => setOpen(v => !v)}
+        className="w-full flex items-center justify-between px-4 py-3.5 transition-colors hover:bg-white/5"
+      >
+        <div className="flex items-center gap-2.5">
+          <Trophy className="w-4 h-4 text-violet-400" />
+          <span className="text-sm font-semibold" style={{ color: "rgba(255,255,255,0.85)" }}>Mastery</span>
+        </div>
+        <ChevronRight
+          className="w-4 h-4 transition-transform"
+          style={{ color: "rgba(255,255,255,0.3)", transform: open ? "rotate(90deg)" : "rotate(0deg)" }}
+        />
+      </button>
+      <AnimatePresence initial={false}>
+        {open && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            className="overflow-hidden"
+          >
+            <div className="px-4 pb-4 space-y-3">
+              {MASTERY_CONCEPTS.map((concept, i) => (
+                <div key={concept.id}>
+                  <div className="flex items-center justify-between mb-1">
+                    <span className="text-xs font-medium" style={{ color: "rgba(255,255,255,0.65)" }}>{concept.label}</span>
+                    <span className="text-[10px] font-bold" style={{ color: concept.color }}>{masteryData[i].pct}%</span>
+                  </div>
+                  <div className="h-1.5 rounded-full overflow-hidden" style={{ background: "rgba(255,255,255,0.08)" }}>
+                    <motion.div
+                      className="h-full rounded-full"
+                      style={{ background: `linear-gradient(90deg, ${concept.color}cc, ${concept.color})` }}
+                      initial={{ width: 0 }}
+                      animate={{ width: `${masteryData[i].pct}%` }}
+                      transition={{ duration: 0.9, ease: "easeOut", delay: i * 0.1 }}
+                    />
+                  </div>
+                </div>
+              ))}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </motion.div>
+  );
+}
+
 export default function HubView({
   streak,
   totalXP,
@@ -816,6 +921,9 @@ export default function HubView({
             <span className="text-[9px] text-white/40 uppercase tracking-wide mt-0.5">done today</span>
           </div>
         </motion.div>
+
+        {/* ── Mastery bars ── */}
+        <MasterySection units={units} />
 
         {/* ── Smart "Start today's practice" CTA ── picks the most-needed action ── */}
         {(() => {

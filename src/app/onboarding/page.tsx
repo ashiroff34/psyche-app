@@ -638,15 +638,109 @@ function StepTypePreview({ onNext, onBack }: { onNext: () => void; onBack: () =>
 
 // ── Step 5: Subtype unlock ────────────────────────────────────────────────────
 
+// ── Step 11: What brought you here? ──────────────────────────────────────────
+
+const MOTIVATION_OPTIONS = [
+  { id: "curiosity", emoji: "🔍", label: "Curiosity", desc: "I just want to understand myself better" },
+  { id: "relationships", emoji: "💞", label: "Relationships", desc: "Understanding others (or a specific person)" },
+  { id: "growth", emoji: "🌱", label: "Growth", desc: "I want to change something about myself" },
+  { id: "career", emoji: "🎯", label: "Career", desc: "Understand my working style and strengths" },
+  { id: "struggle", emoji: "😔", label: "Struggle", desc: "I'm going through something and need a framework" },
+] as const;
+
+const MOTIVATION_MESSAGES: Record<string, string> = {
+  relationships: "We'll help you understand the people around you, starting with yourself.",
+  growth: "Growth starts with honest self-knowledge. You're in the right place.",
+  curiosity: "Great minds ask great questions. Let's start exploring.",
+  struggle: "Self-understanding is one of the most powerful tools you have right now.",
+  career: "Knowing your type is a professional superpower. Let's unlock it.",
+};
+
+function StepMotivations({ onContinue }: { onContinue: (motivations: string[]) => void }) {
+  const [selected, setSelected] = useState<Set<string>>(new Set());
+
+  const toggle = (id: string) => {
+    setSelected(prev => {
+      const next = new Set(prev);
+      if (next.has(id)) next.delete(id);
+      else next.add(id);
+      return next;
+    });
+  };
+
+  const handleContinue = () => {
+    const motivations = Array.from(selected);
+    try {
+      const raw = localStorage.getItem("psyche-profile");
+      const p = raw ? JSON.parse(raw) : {};
+      localStorage.setItem("psyche-profile", JSON.stringify({ ...p, motivations }));
+    } catch {}
+    onContinue(motivations);
+  };
+
+  return (
+    <div className="w-full max-w-md px-4">
+      <div className="text-center mb-8">
+        <h2 className="text-2xl font-bold mb-3" style={{ color: "rgba(255,255,255,0.95)" }}>
+          What brought you here?
+        </h2>
+        <p className="text-sm leading-relaxed opacity-60">
+          Select all that apply. This helps us personalize your path.
+        </p>
+      </div>
+      <div className="space-y-3 mb-8">
+        {MOTIVATION_OPTIONS.map(opt => {
+          const isSelected = selected.has(opt.id);
+          return (
+            <button
+              key={opt.id}
+              onClick={() => toggle(opt.id)}
+              className="w-full flex items-center gap-4 px-4 py-3.5 rounded-2xl transition-all active:scale-[0.98] text-left"
+              style={{
+                background: isSelected ? "rgba(139,92,246,0.18)" : "rgba(255,255,255,0.04)",
+                border: `1px solid ${isSelected ? "rgba(139,92,246,0.5)" : "rgba(255,255,255,0.08)"}`,
+              }}
+            >
+              <span className="text-2xl flex-shrink-0">{opt.emoji}</span>
+              <div className="flex-1 min-w-0">
+                <p className="text-sm font-semibold" style={{ color: isSelected ? "#c4b5fd" : "rgba(255,255,255,0.85)" }}>
+                  {opt.label}
+                </p>
+                <p className="text-xs mt-0.5" style={{ color: "rgba(255,255,255,0.4)" }}>
+                  {opt.desc}
+                </p>
+              </div>
+              {isSelected && (
+                <div className="w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0" style={{ background: "rgba(139,92,246,0.5)" }}>
+                  <span className="text-white text-[10px] font-bold">✓</span>
+                </div>
+              )}
+            </button>
+          );
+        })}
+      </div>
+      <button
+        onClick={handleContinue}
+        className="w-full py-4 rounded-2xl font-bold text-white text-base transition-all hover:-translate-y-0.5 active:scale-[0.98]"
+        style={{ background: "linear-gradient(135deg, #7c3aed, #4f46e5)", boxShadow: "0 8px 28px rgba(124,58,237,0.4)" }}
+      >
+        {selected.size > 0 ? "Continue →" : "Skip for now →"}
+      </button>
+    </div>
+  );
+}
+
 // ── Step 7: All Set ───────────────────────────────────────────────────────────
 
 function StepAllSet({
   result,
   displayName,
+  motivationMessage,
   onStart,
 }: {
   result: { type: number; confidence: number; runnerUp: number };
   displayName: string;
+  motivationMessage?: string;
   onStart: () => void;
 }) {
   const typeData = enneagramTypes.find((t) => t.number === result.type);
@@ -695,10 +789,10 @@ function StepAllSet({
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.45 }}
-          className="text-sm mb-10"
+          className="text-sm mb-10 leading-relaxed text-center px-4"
           style={{ color: "rgba(255,255,255,0.28)" }}
         >
-          Your journey begins today.
+          {motivationMessage ?? "Your journey begins today."}
         </motion.p>
 
         <motion.button
@@ -1169,9 +1263,10 @@ function OnboardingPageInner() {
 
   // Terms gate removed, not legally needed while localStorage-only
   const [acceptedTerms, setAcceptedTerms] = useState(true);
-  // 0=welcome, 1=name, 2=preview, 3=assessment, 4=type reveal, 5=subtype, 6=email gate, 7=all set, 8=manual picker
+  // 0=welcome, 1=name, 2=preview, 3=assessment, 4=type reveal, 5=subtype, 6=email gate, 7=all set, 8=manual picker, 9=chibi naming, 10=implementation intention, 11=motivations
   const [step, setStep] = useState(0);
   const [displayName, setDisplayName] = useState("");
+  const [motivationMessage, setMotivationMessage] = useState<string | undefined>(undefined);
   const [assessmentResult, setAssessmentResult] = useState<{
     type: number;
     confidence: number;
@@ -1646,7 +1741,28 @@ function OnboardingPageInner() {
           >
             <StepChibiName
               type={assessmentResult.type}
-              onContinue={() => setStep(7)}
+              onContinue={() => setStep(11)}
+            />
+          </motion.div>
+        )}
+
+        {/* Step 11: What brought you here? */}
+        {step === 11 && assessmentResult && (
+          <motion.div
+            key="motivations"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.25 }}
+            className="min-h-screen flex items-center justify-center pt-8 pb-24 px-4"
+          >
+            <StepMotivations
+              onContinue={(motivations) => {
+                const firstMotivation = motivations[0];
+                const msg = firstMotivation ? MOTIVATION_MESSAGES[firstMotivation] : undefined;
+                setMotivationMessage(msg);
+                setStep(7);
+              }}
             />
           </motion.div>
         )}
@@ -1679,6 +1795,7 @@ function OnboardingPageInner() {
             <StepAllSet
               result={assessmentResult}
               displayName={displayName}
+              motivationMessage={motivationMessage}
               onStart={() => router.push("/daily")}
             />
           </motion.div>

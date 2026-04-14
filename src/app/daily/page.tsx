@@ -10,7 +10,7 @@ import {
   BarChart3, Sparkles, ArrowRight, Copy, Check,
   Layers, History,
   GraduationCap, Dumbbell, Crown, Snowflake, Heart, Wand2,
-  AlertTriangle, Frown
+  AlertTriangle, Frown, HelpCircle
 } from "lucide-react";
 import { useProfile } from "@/hooks/useProfile";
 import { useGameState, trackWeeklyEvent } from "@/hooks/useGameState";
@@ -706,6 +706,8 @@ export default function DailyPage() {
   const [moduleAnswers, setModuleAnswers] = useState<boolean[]>([]);
   const [moduleDone, setModuleDone] = useState(false);
   const [moduleStartTime, setModuleStartTime] = useState<number>(0);
+  const [imNotSureCount, setImNotSureCount] = useState(0);
+  const [imNotSureTriggered, setImNotSureTriggered] = useState(false);
 
   // Engagement
   const { confettiBurst, bigConfetti, emojiRain } = useRewards();
@@ -1112,6 +1114,8 @@ export default function DailyPage() {
     setModuleAnswers([]);
     setModuleDone(false);
     setModuleStartTime(Date.now());
+    setImNotSureCount(0);
+    setImNotSureTriggered(false);
   };
 
   const handleModuleAnswer = (idx: number) => {
@@ -1190,8 +1194,11 @@ export default function DailyPage() {
       try { sessionStorage.removeItem("psyche-quiz-progress"); } catch {}
       bumpSessionCount();
       trackWeeklyEvent("module_complete");
-      const correctCount = moduleAnswers.filter(Boolean).length + (moduleSelected === moduleQuestions[moduleQ]?.ans ? 1 : 0);
-      const totalCount = moduleAnswers.length + 1;
+      // If imNotSureTriggered, the last answer was already added to moduleAnswers as false
+      // so don't count current question again
+      const lastAnswerAlreadyCounted = imNotSureTriggered;
+      const correctCount = moduleAnswers.filter(Boolean).length + (lastAnswerAlreadyCounted ? 0 : (moduleSelected === moduleQuestions[moduleQ]?.ans ? 1 : 0));
+      const totalCount = moduleAnswers.length + (lastAnswerAlreadyCounted ? 0 : 1);
       const timeSpent = Math.round((Date.now() - moduleStartTime) / 60000);
 
       // Perfect section bonus
@@ -1222,6 +1229,7 @@ export default function DailyPage() {
       setModuleQ(q => q + 1);
       setModuleSelected(null);
       setModuleShowExp(false);
+      setImNotSureTriggered(false);
     }
   };
 
@@ -1443,15 +1451,50 @@ export default function DailyPage() {
     showSkipToast("Quiz skipped −30 🪙");
   };
 
+  const LOADING_FACTS = [
+    "The Enneagram predates modern psychology by centuries...",
+    "Type 4s and Type 9s are the most frequently mistyped...",
+    "Jung identified 8 cognitive functions. Most people use 4 fluently...",
+    "Your instinctual subtype often matters more than your core type...",
+    "The word 'Enneagram' comes from Greek: ennea (nine) + gramma (drawn)...",
+    "Integration lines weren't in Ichazo's original model — Riso added them...",
+    "The 9 types map to the 9 Fruits of the Spirit in some traditions...",
+    "Naranjo linked each type to a specific DSM personality disorder...",
+  ];
+  const [loadingFactIdx, setLoadingFactIdx] = useState(0);
+  const [loadingFactVisible, setLoadingFactVisible] = useState(true);
+  useEffect(() => {
+    if (loaded) return;
+    const interval = setInterval(() => {
+      setLoadingFactVisible(false);
+      setTimeout(() => {
+        setLoadingFactIdx(i => (i + 1) % LOADING_FACTS.length);
+        setLoadingFactVisible(true);
+      }, 300);
+    }, 2000);
+    return () => clearInterval(interval);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [loaded]);
+
   if (!loaded) return (
-    <div className="min-h-screen flex flex-col items-center justify-center" style={{ background: "#0f0a1e" }}>
-      <div className="flex flex-col items-center gap-4">
+    <div className="min-h-screen flex flex-col items-center justify-center px-6" style={{ background: "#0f0a1e" }}>
+      <div className="flex flex-col items-center gap-4 max-w-xs w-full">
         <div className="w-12 h-12 rounded-2xl animate-pulse" style={{ background: "rgba(124,58,237,0.25)" }} />
         <div className="flex gap-1.5">
           {[0, 1, 2].map(i => (
             <div key={i} className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ background: "rgba(167,139,250,0.5)", animationDelay: `${i * 0.15}s` }} />
           ))}
         </div>
+        <motion.p
+          key={loadingFactIdx}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: loadingFactVisible ? 1 : 0 }}
+          transition={{ duration: 0.3 }}
+          className="text-center text-xs leading-relaxed mt-2"
+          style={{ color: "rgba(167,139,250,0.6)" }}
+        >
+          {LOADING_FACTS[loadingFactIdx]}
+        </motion.p>
       </div>
     </div>
   );
@@ -1492,6 +1535,7 @@ export default function DailyPage() {
     onAnswer: (idx: number) => void,
     onNext: () => void,
     done: boolean,
+    imNotSureTriggered?: boolean,
   ) => {
     if (done) return null;
     const q = questions[currentIdx];
@@ -1575,29 +1619,29 @@ export default function DailyPage() {
                     disabled={revealed}
                     whileHover={!revealed ? { scale: 1.01 } : {}}
                     whileTap={!revealed ? { scale: 0.99 } : {}}
-                    animate={revealed && isThisSelected && !isThisCorrect ? { x: [0, -6, 6, -4, 4, 0] } : {}}
+                    animate={revealed && isThisSelected && !isThisCorrect && !imNotSureTriggered ? { x: [0, -6, 6, -4, 4, 0] } : {}}
                     transition={{ duration: 0.4 }}
                     className={`w-full text-left px-4 py-3.5 rounded-xl text-sm border-2 transition-all ${
                       !revealed
                         ? "border-slate-100 bg-white hover:border-indigo-200 hover:bg-indigo-50/30 cursor-pointer"
                         : isThisCorrect
                         ? "border-emerald-400 bg-emerald-50 text-emerald-800 shadow-sm shadow-emerald-100"
-                        : isThisSelected
+                        : isThisSelected && !imNotSureTriggered
                         ? "border-rose-400 bg-rose-50 text-rose-800"
                         : "border-slate-100 bg-slate-50/50"
                     }`}
-                    style={revealed && !isThisCorrect && !isThisSelected ? { color: "rgba(100,116,139,0.7)" } : undefined}
+                    style={revealed && !isThisCorrect && (!isThisSelected || imNotSureTriggered) ? { color: "rgba(100,116,139,0.7)" } : undefined}
                   >
                     <div className="flex items-center gap-3">
                       <span className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-medium shrink-0 ${
                         !revealed ? "bg-slate-100 text-slate-500"
                         : isThisCorrect ? "bg-emerald-400 text-white"
-                        : isThisSelected ? "bg-rose-400 text-white"
+                        : isThisSelected && !imNotSureTriggered ? "bg-rose-400 text-white"
                         : "bg-slate-100"
                       }`}
-                      style={revealed && !isThisCorrect && !isThisSelected ? { color: "rgba(100,116,139,0.6)" } : undefined}>
+                      style={revealed && !isThisCorrect && (!isThisSelected || imNotSureTriggered) ? { color: "rgba(100,116,139,0.6)" } : undefined}>
                         {revealed && isThisCorrect ? <CheckCircle className="w-4 h-4" /> :
-                         revealed && isThisSelected ? <XCircle className="w-4 h-4" /> :
+                         revealed && isThisSelected && !imNotSureTriggered ? <XCircle className="w-4 h-4" /> :
                          String.fromCharCode(65 + i)}
                       </span>
                       <span>{opt}</span>
@@ -1607,6 +1651,27 @@ export default function DailyPage() {
               })}
             </div>
 
+            {/* "I'm not sure" button — only shown when question is unanswered */}
+            {selected === null && (
+              <button
+                onClick={() => {
+                  setImNotSureCount(prev => prev + 1);
+                  setImNotSureTriggered(true);
+                  setModuleAnswers(prev => [...prev, false]);
+                  setModuleSelected(q.ans);
+                  setModuleShowExp(true);
+                }}
+                className="flex items-center justify-center gap-2 w-full mt-3 py-3 rounded-xl text-sm transition-all active:scale-[0.98]"
+                style={{
+                  border: "1px dashed rgba(148,163,184,0.4)",
+                  color: "rgba(148,163,184,0.7)",
+                }}
+              >
+                <HelpCircle className="w-4 h-4" />
+                I&apos;m not sure — show me the answer
+              </button>
+            )}
+
             {/* Explanation */}
             <AnimatePresence>
               {showExp && (
@@ -1615,16 +1680,20 @@ export default function DailyPage() {
                   animate={{ opacity: 1, y: 0, height: "auto" }}
                   exit={{ opacity: 0, y: -8 }}
                   className={`mt-4 p-4 rounded-xl text-sm ${
-                    isCorrect ? "bg-emerald-50 border border-emerald-100" : "bg-rose-50 border border-rose-100"
+                    imNotSureTriggered
+                      ? "bg-amber-50 border border-amber-100"
+                      : isCorrect ? "bg-emerald-50 border border-emerald-100" : "bg-rose-50 border border-rose-100"
                   }`}
                 >
                   <div className="flex gap-3 items-start">
-                    {isCorrect
+                    {imNotSureTriggered
+                      ? <Lightbulb className="w-4 h-4 text-amber-500 shrink-0 mt-0.5" />
+                      : isCorrect
                       ? <CheckCircle className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
                       : <XCircle className="w-4 h-4 text-rose-500 shrink-0 mt-0.5" />}
                     <div>
-                      <p className={`font-medium mb-1 ${isCorrect ? "text-emerald-700" : "text-rose-700"}`}>
-                        {isCorrect ? "Correct!" : "Not quite."}
+                      <p className={`font-medium mb-1 ${imNotSureTriggered ? "text-amber-700" : isCorrect ? "text-emerald-700" : "text-rose-700"}`}>
+                        {imNotSureTriggered ? "Teaching moment" : isCorrect ? "Correct!" : "Not quite."}
                       </p>
                       <p className="text-slate-600 leading-relaxed">{q.exp}</p>
                     </div>
@@ -2248,6 +2317,7 @@ export default function DailyPage() {
   const activeModuleName = MODULE_CONFIG.find(m => m.id === activeModule)?.title ?? "Deep Learning";
 
   return (
+    <>
     <div className="min-h-screen pb-20">
       {/* Daily Goal Completion Celebration */}
       <AnimatePresence>
@@ -2578,6 +2648,8 @@ export default function DailyPage() {
                 setModuleSelected(null);
                 setModuleShowExp(false);
                 setSessionXP(0);
+                setImNotSureCount(0);
+                setImNotSureTriggered(false);
               }}
               moduleName={activeModuleName}
               sessionXP={sessionXP}
@@ -2612,6 +2684,8 @@ export default function DailyPage() {
             setActiveModule(null);
             setModuleDone(false);
             setModuleAnswers([]);
+            setImNotSureCount(0);
+            setImNotSureTriggered(false);
           }}
           className="flex items-center gap-1.5 text-sm text-slate-400 hover:text-slate-600 transition mb-6"
         >
@@ -2928,7 +3002,8 @@ export default function DailyPage() {
                   {!moduleDone ? (
                     renderQuiz(
                       moduleQuestions, moduleQ, moduleSelected, moduleShowExp,
-                      moduleAnswers, handleModuleAnswer, nextModuleQuestion, moduleDone
+                      moduleAnswers, handleModuleAnswer, nextModuleQuestion, moduleDone,
+                      imNotSureTriggered
                     )
                   ) : (
                     <motion.div initial={{ opacity: 1, scale: 1 }} animate={{ opacity: 1, scale: 1 }} className="text-center py-6">
@@ -2976,6 +3051,23 @@ export default function DailyPage() {
                         </motion.div>
                       )}
 
+                      {/* "I'm not sure" revisit reminder */}
+                      {imNotSureCount > 0 && (
+                        <motion.div
+                          initial={{ opacity: 0, y: 6 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ delay: 0.4 }}
+                          className="mb-4 p-3 rounded-xl bg-amber-50 border border-amber-100"
+                        >
+                          <div className="flex items-start gap-2">
+                            <HelpCircle className="w-4 h-4 text-amber-500 shrink-0 mt-0.5" />
+                            <p className="text-amber-700 text-sm leading-snug">
+                              You used &lsquo;I&rsquo;m not sure&rsquo; {imNotSureCount} time{imNotSureCount !== 1 ? "s" : ""} — those concepts are worth revisiting.
+                            </p>
+                          </div>
+                        </motion.div>
+                      )}
+
                       <div className="flex gap-2">
                         <button
                           onClick={shareScore}
@@ -2986,7 +3078,7 @@ export default function DailyPage() {
                           {copied ? "Copied!" : "Share Score"}
                         </button>
                         <button
-                          onClick={() => { setActiveModule(null); setModuleDone(false); setModuleAnswers([]); }}
+                          onClick={() => { setActiveModule(null); setModuleDone(false); setModuleAnswers([]); setImNotSureCount(0); setImNotSureTriggered(false); }}
                           className="flex-1 py-3 bg-gradient-to-r from-indigo-500 to-violet-500 text-white rounded-xl text-sm font-medium hover:shadow-lg transition"
                         >
                           Next Module
@@ -3242,5 +3334,6 @@ export default function DailyPage() {
         </motion.div>
       )}
     </AnimatePresence>
+    </>
   );
 }

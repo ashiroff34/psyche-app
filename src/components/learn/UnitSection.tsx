@@ -6,7 +6,7 @@ import {
   Lock, Crown, BookOpen, Target, Scale, Heart, Star, Pencil,
   Search, Shield, Sparkles, Flame, Wind, Brain, Lightbulb,
   Compass, Users, Layers, BarChart2, Eye, Shuffle, BookMarked, Zap, Info,
-  Bookmark, BookmarkCheck,
+  Bookmark, BookmarkCheck, X, AlertTriangle,
   type LucideIcon,
 } from "lucide-react";
 import { useBookmarks } from "@/hooks/useBookmarks";
@@ -66,6 +66,24 @@ const PEDAGOGY_NOTES: Record<number, string> = {
   33: "Virtue ethics asks not 'what type am I?' but 'what kind of person am I becoming?' — a worthy final question.",
   34: "Meaning and purpose integrate all the frameworks into a lived life philosophy.",
   35: "Meta-cognition is the capstone — thinking about how you think is the ultimate tool.",
+};
+
+// ── Type-specific banner flavor ───────────────────────────────────────────────
+const TYPE_BANNER_FLAVOR: Record<number, { emoji: string; label: string; motif: string }> = {
+  1: { emoji: "⚖️", label: "Reform", motif: "scales" },
+  2: { emoji: "🤝", label: "Connection", motif: "hearts" },
+  3: { emoji: "⭐", label: "Achievement", motif: "stars" },
+  4: { emoji: "🌊", label: "Depth", motif: "waves" },
+  5: { emoji: "🔭", label: "Insight", motif: "dots" },
+  6: { emoji: "🛡️", label: "Security", motif: "shield" },
+  7: { emoji: "✨", label: "Possibility", motif: "sparks" },
+  8: { emoji: "⚡", label: "Power", motif: "bolts" },
+  9: { emoji: "☮️", label: "Harmony", motif: "circles" },
+};
+
+const TYPE_ACCENT_COLORS: Record<number, string> = {
+  1: "#E74C3C", 2: "#E91E8C", 3: "#F39C12", 4: "#9B59B6",
+  5: "#2980B9", 6: "#27AE60", 7: "#1ABC9C", 8: "#E67E22", 9: "#95A5A6",
 };
 
 // Snake-path x positions (as fraction of container width)
@@ -322,12 +340,20 @@ export default function UnitSection({ unit, onNodeTap, index, enneagramType = 4,
   const palette = UNIT_PALETTES[index % UNIT_PALETTES.length];
   const { isLocked, lessonsWithStatus, progress } = unit;
   const [showWhy, setShowWhy] = useState(false);
+  const [mistypeWarningDismissed, setMistypeWarningDismissed] = useState(() => {
+    if (typeof window === "undefined") return false;
+    return localStorage.getItem("psyche-mistype-warning-dismissed") === "true";
+  });
   const { isBookmarked, toggleBookmark } = useBookmarks();
   const bookmarkId = `unit-${unit.id}`;
   const bookmarked = isBookmarked(bookmarkId);
   const pedagogyNote = PEDAGOGY_NOTES[unit.order];
   const pct = progress.total > 0 ? Math.round((progress.completed / progress.total) * 100) : 0;
   const currentIdx = lessonsWithStatus.findIndex((l) => l.status === "current");
+
+  // Type flavor pill — show on active unit banner if type is set
+  const hasCurrentLesson = currentIdx >= 0;
+  const typeFlavor = enneagramType > 0 ? TYPE_BANNER_FLAVOR[enneagramType] : null;
 
   return (
     <motion.div
@@ -475,7 +501,65 @@ export default function UnitSection({ unit, onNodeTap, index, enneagramType = 4,
             </button>
           )}
         </div>
+
+        {/* Type flavor pill — top-right corner, extremely subtle */}
+        {!isLocked && hasCurrentLesson && typeFlavor && (
+          <div
+            className="absolute top-2 right-2 flex items-center gap-1 px-1.5 py-0.5 rounded-full pointer-events-none"
+            style={{
+              background: `${TYPE_ACCENT_COLORS[enneagramType] ?? "#8b5cf6"}15`,
+              border: `1px solid ${TYPE_ACCENT_COLORS[enneagramType] ?? "#8b5cf6"}22`,
+              opacity: 0.08,
+            }}
+          >
+            <span style={{ fontSize: 9 }}>{typeFlavor.emoji}</span>
+            <span style={{ fontSize: 9, color: "rgba(255,255,255,0.9)", fontWeight: 600 }}>{typeFlavor.label}</span>
+          </div>
+        )}
       </div>
+
+      {/* ── Mistype warning card (Unit 1 only) ─────────────────────────── */}
+      {unit.order === 1 && !isLocked && !mistypeWarningDismissed && (
+        <motion.div
+          initial={{ opacity: 0, y: -8 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -8 }}
+          transition={{ duration: 0.3 }}
+          className="mx-3 mb-4 rounded-xl p-4"
+          style={{
+            background: "rgba(217,119,6,0.08)",
+            border: "1px solid rgba(217,119,6,0.25)",
+          }}
+        >
+          <div className="flex items-start gap-3">
+            <AlertTriangle className="w-4 h-4 shrink-0 mt-0.5" style={{ color: "rgba(251,191,36,0.85)" }} />
+            <div className="flex-1 min-w-0">
+              <p className="text-xs font-bold mb-1.5" style={{ color: "rgba(251,191,36,0.9)" }}>
+                A note before you begin
+              </p>
+              <p className="text-xs leading-relaxed mb-1" style={{ color: "rgba(255,255,255,0.55)" }}>
+                The most common mistake in Enneagram is mistaking your coping style for your type. Your type is your core motivation — not your behavior under stress.
+              </p>
+              <p className="text-xs font-medium" style={{ color: "rgba(251,191,36,0.65)" }}>
+                Ask yourself: <em>What do I want most, deep down?</em>
+              </p>
+              <p className="text-[10px] mt-0.5" style={{ color: "rgba(255,255,255,0.3)" }}>
+                Not: <em>What do I usually do?</em>
+              </p>
+            </div>
+            <button
+              onClick={() => {
+                setMistypeWarningDismissed(true);
+                try { localStorage.setItem("psyche-mistype-warning-dismissed", "true"); } catch {}
+              }}
+              className="shrink-0 p-1 rounded-lg transition-all hover:bg-white/10"
+              aria-label="Dismiss warning"
+            >
+              <X className="w-3.5 h-3.5" style={{ color: "rgba(255,255,255,0.3)" }} />
+            </button>
+          </div>
+        </motion.div>
+      )}
 
       {/* ── Lesson nodes (snake path) ───────────────────────────────────── */}
       {!isLocked && lessonsWithStatus.length > 0 && (

@@ -66,6 +66,9 @@ export interface PsycheProfile {
   enneagramCore?: number;
   enneagramScores?: { key: string; score: number; percentage: number }[];
   savedAt?: string;
+
+  // Onboarding motivations
+  motivations?: string[];
 }
 
 const STORAGE_KEY = "psyche-profile";
