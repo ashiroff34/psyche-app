@@ -732,6 +732,19 @@ export default function DailyPage() {
   const [xpGainShow, setXpGainShow] = useState(false);
   const prevXP = useRef(0);
 
+  // Async save feedback toast
+  const [saveFeedback, setSaveFeedback] = useState(false);
+  const saveFeedbackTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  // Graceful error toast
+  const [errorToast, setErrorToast] = useState<string | null>(null);
+  const errorToastTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const showErrorToast = useCallback((msg: string) => {
+    if (errorToastTimerRef.current) clearTimeout(errorToastTimerRef.current);
+    setErrorToast(msg);
+    errorToastTimerRef.current = setTimeout(() => setErrorToast(null), 3500);
+  }, []);
+
   // Spaced repetition stats (loaded once at mount, updated via saveQStat)
   const [qStats, setQStats] = useState<Record<string, QStat>>({});
   useEffect(() => { setQStats(loadQStats()); }, []);
@@ -946,6 +959,20 @@ export default function DailyPage() {
     }
     prevXP.current = totalXP;
   }, [totalXP]);
+
+  // ── Storage error listener ──
+  useEffect(() => {
+    const handleStorageError = (e: Event) => {
+      const detail = (e as CustomEvent).detail;
+      if (detail?.type === "quota") {
+        showErrorToast("Storage is full — clear some space in Settings");
+      } else {
+        showErrorToast("Couldn't save progress — please check your storage settings");
+      }
+    };
+    window.addEventListener("psyche-storage-error", handleStorageError);
+    return () => window.removeEventListener("psyche-storage-error", handleStorageError);
+  }, [showErrorToast]);
 
   // ── Daily Goal Completion Celebration ──
   useEffect(() => {
@@ -1329,6 +1356,10 @@ export default function DailyPage() {
     gameEarnXP(node.xp, "reflection");
     addXP(node.xp);
     setSessionXP(prev => prev + node.xp);
+    // Show async save feedback
+    if (saveFeedbackTimerRef.current) clearTimeout(saveFeedbackTimerRef.current);
+    setSaveFeedback(true);
+    saveFeedbackTimerRef.current = setTimeout(() => setSaveFeedback(false), 2200);
     // Persist reflection text to journal
     if (text?.trim()) {
       try {
@@ -1591,6 +1622,8 @@ export default function DailyPage() {
           tokens={gameStateRaw.tokens ?? 0}
           instinct={profile.instinctualStacking}
           name={profile.displayName}
+          isTypeContested={profile.isTypeContested}
+          contestedRunnerUp={profile.contestedRunnerUp}
           weeklyChallenge={weeklyChallenge}
           onClaimWeeklyReward={() => { claimWeeklyReward(); setShowWeeklyCelebration(true); }}
           onStreakShop={() => setShowStreakShop(true)}
@@ -3050,5 +3083,53 @@ export default function DailyPage() {
         />
       </div>
     </div>
+
+    {/* ── Error Toast ── */}
+    <AnimatePresence>
+      {errorToast && (
+        <motion.div
+          key="error-toast"
+          initial={{ opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: 8 }}
+          transition={{ duration: 0.2 }}
+          className="fixed bottom-32 left-4 right-4 z-[70] flex items-center gap-3 px-5 py-4 rounded-2xl shadow-xl"
+          style={{
+            background: "rgba(239,68,68,0.15)",
+            border: "1px solid rgba(239,68,68,0.3)",
+            backdropFilter: "blur(8px)",
+          }}
+        >
+          <svg className="w-4 h-4 text-red-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3m0 3h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z" />
+          </svg>
+          <p className="text-sm text-red-300">{errorToast}</p>
+        </motion.div>
+      )}
+    </AnimatePresence>
+
+    {/* ── Async Save Feedback Toast ── */}
+    <AnimatePresence>
+      {saveFeedback && (
+        <motion.div
+          key="save-feedback"
+          initial={{ opacity: 0, y: 8, scale: 0.95 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          exit={{ opacity: 0, y: 8, scale: 0.95 }}
+          transition={{ duration: 0.2 }}
+          className="fixed bottom-24 right-4 z-[70] flex items-center gap-2 px-4 py-2.5 rounded-xl shadow-lg pointer-events-none"
+          style={{
+            background: "rgba(16,185,129,0.15)",
+            border: "1px solid rgba(16,185,129,0.3)",
+            backdropFilter: "blur(8px)",
+          }}
+        >
+          <svg className="w-3.5 h-3.5 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+          </svg>
+          <span className="text-[12px] font-semibold text-emerald-400">Saved</span>
+        </motion.div>
+      )}
+    </AnimatePresence>
   );
 }

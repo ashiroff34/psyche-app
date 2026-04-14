@@ -1,10 +1,11 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
+import { useState } from "react";
 import {
   Lock, Crown, BookOpen, Target, Scale, Heart, Star, Pencil,
   Search, Shield, Sparkles, Flame, Wind, Brain, Lightbulb,
-  Compass, Users, Layers, BarChart2, Eye, Shuffle, BookMarked, Zap,
+  Compass, Users, Layers, BarChart2, Eye, Shuffle, BookMarked, Zap, Info,
   type LucideIcon,
 } from "lucide-react";
 
@@ -25,6 +26,45 @@ interface Props {
   prevBg?: string;
   nextBg?: string;
 }
+
+// ── "Why this order?" pedagogy notes per unit order ─────────────────────────
+const PEDAGOGY_NOTES: Record<number, string> = {
+  1:  "We start here because knowing the 9 types is the foundation everything else builds on.",
+  2:  "Wings give your core type texture — they're the first layer of nuance after the basics.",
+  3:  "Once you know your type, subtypes show how it expresses in real life situations.",
+  4:  "Tritype reveals which types you draw from across all three centers, rounding out your profile.",
+  5:  "Levels of health show the same type across a whole spectrum — key for real self-knowledge.",
+  6:  "Integration and stress lines explain how you shift under growth or pressure.",
+  7:  "Growth practices are most useful once you understand your type's patterns.",
+  8:  "Self-observation is where psychology becomes lived practice.",
+  9:  "Somatic awareness grounds what you've learned in your body, not just your mind.",
+  10: "Relationships are where type dynamics play out most visibly.",
+  11: "Shadow work requires a solid grasp of your core before going deeper.",
+  12: "The head center types (5, 6, 7) share a common fear theme worth exploring together.",
+  13: "The heart center types (2, 3, 4) share an identity-seeking pattern.",
+  14: "The gut center types (8, 9, 1) share an instinct-regulation pattern.",
+  15: "Cognitive functions bridge Enneagram with Jungian typology.",
+  16: "Dominant functions shape everything — they're the lens you default to.",
+  17: "Auxiliary functions are your support system and secondary strength.",
+  18: "Inferior and shadow functions reveal your blind spots and growth edges.",
+  19: "MBTI types emerge naturally from the function stack you've been building.",
+  20: "Big Five grounds these frameworks in empirically validated personality research.",
+  21: "The neuroscience of personality makes the abstract concrete and scientifically credible.",
+  22: "Attachment theory connects early experience to the patterns you've been studying.",
+  23: "Hornevian groups (Assertive, Compliant, Withdrawn) reveal your interpersonal strategy — essential before diving into philosophy.",
+  24: "Harmonic groups (Positive Outlook, Competency, Reactive) show how you cope with conflict — a critical layer of self-knowledge.",
+  25: "Instinctual subtypes (sp/sx/so) are the most practical filter — they explain surface-level behavior differences within the same type.",
+  26: "Ichazo's original fixations are where modern Enneagram began — historical grounding before we go deeper.",
+  27: "Existentialism asks the questions your type is already living. A natural bridge from psychological to philosophical self-inquiry.",
+  28: "Stoic practices map directly onto integration work — control, acceptance, and virtue align with type growth.",
+  29: "Buddhism introduced non-self and impermanence — concepts that reframe type identification entirely.",
+  30: "Phenomenology is the philosophy of lived experience, which is exactly what you've been developing self-awareness of.",
+  31: "Depth psychology (Jung, Freud) gives theoretical grounding to everything in this curriculum.",
+  32: "Eastern philosophy expands the frame beyond the Western psychological lens.",
+  33: "Virtue ethics asks not 'what type am I?' but 'what kind of person am I becoming?' — a worthy final question.",
+  34: "Meaning and purpose integrate all the frameworks into a lived life philosophy.",
+  35: "Meta-cognition is the capstone — thinking about how you think is the ultimate tool.",
+};
 
 // Snake-path x positions (as fraction of container width)
 const POSITIONS = [0.2, 0.5, 0.8, 0.5];
@@ -279,6 +319,8 @@ function CurriculumNode({
 export default function UnitSection({ unit, onNodeTap, index, enneagramType = 4, instinct = "sp", prevBg = "#08031a", nextBg = "#08031a" }: Props) {
   const palette = UNIT_PALETTES[index % UNIT_PALETTES.length];
   const { isLocked, lessonsWithStatus, progress } = unit;
+  const [showWhy, setShowWhy] = useState(false);
+  const pedagogyNote = PEDAGOGY_NOTES[unit.order];
   const pct = progress.total > 0 ? Math.round((progress.completed / progress.total) * 100) : 0;
   const currentIdx = lessonsWithStatus.findIndex((l) => l.status === "current");
 
@@ -372,6 +414,37 @@ export default function UnitSection({ unit, onNodeTap, index, enneagramType = 4,
                 <p className="text-[9px] mt-0.5" style={{ color: "rgba(255,255,255,0.25)" }}>
                   {progress.completed}/{progress.total} complete
                 </p>
+              </div>
+            )}
+
+            {/* "Why this order?" toggle */}
+            {!isLocked && pedagogyNote && (
+              <div className="mt-2.5">
+                <button
+                  onClick={() => setShowWhy(!showWhy)}
+                  className="flex items-center gap-1 transition-opacity hover:opacity-80 active:scale-95"
+                  style={{ color: `${palette.from}bb` }}
+                >
+                  <Info className="w-3 h-3 flex-shrink-0" />
+                  <span className="text-[10px] font-semibold">Why is this here?</span>
+                </button>
+                <AnimatePresence>
+                  {showWhy && (
+                    <motion.p
+                      initial={{ opacity: 0, height: 0 }}
+                      animate={{ opacity: 1, height: "auto" }}
+                      exit={{ opacity: 0, height: 0 }}
+                      transition={{ duration: 0.2 }}
+                      className="text-[11px] leading-relaxed mt-1.5 pl-4"
+                      style={{
+                        color: "rgba(255,255,255,0.55)",
+                        borderLeft: `2px solid ${palette.from}55`,
+                      }}
+                    >
+                      {pedagogyNote}
+                    </motion.p>
+                  )}
+                </AnimatePresence>
               </div>
             )}
           </div>

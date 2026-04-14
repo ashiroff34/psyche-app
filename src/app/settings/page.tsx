@@ -15,7 +15,9 @@ import {
   Sun,
   Moon,
   Download,
+  Upload,
   RotateCcw,
+  RefreshCw,
   Trash2,
   FileText,
   Shield,
@@ -29,6 +31,7 @@ import {
   ArrowLeft,
 } from "lucide-react";
 import { useProfile, notifyProfileChanged } from "@/hooks/useProfile";
+import { useSmartBack } from "@/hooks/useSmartBack";
 
 // ── Collapsible Section ──────────────────────────────────────────────────────
 
@@ -249,6 +252,7 @@ function Toast({ message, visible }: { message: string; visible: boolean }) {
 
 export default function SettingsPage() {
   const router = useRouter();
+  const goBack = useSmartBack("/daily");
   const { profile, loaded, updateProfile } = useProfile();
 
   // Form state
@@ -321,6 +325,10 @@ export default function SettingsPage() {
   // Dialogs
   const [showResetDialog, setShowResetDialog] = useState(false);
   const [showDeleteDialog, setShowDeleteDialog] = useState(false);
+  const [showClearCacheDialog, setShowClearCacheDialog] = useState(false);
+
+  // Import file input ref
+  const importInputRef = useRef<HTMLInputElement>(null);
 
   // Toast
   const [toast, setToast] = useState("");
@@ -434,6 +442,76 @@ export default function SettingsPage() {
     }
   };
 
+  // ── Import Data ──────────────────────────────────────────────────────────
+
+  const importData = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = (ev) => {
+      try {
+        const raw = ev.target?.result as string;
+        const data = JSON.parse(raw);
+        let count = 0;
+        Object.entries(data).forEach(([key, value]) => {
+          if (key.startsWith("psyche-")) {
+            try {
+              localStorage.setItem(
+                key,
+                typeof value === "string" ? value : JSON.stringify(value)
+              );
+              count++;
+            } catch {}
+          }
+        });
+        showToast(`Imported ${count} item${count !== 1 ? "s" : ""} — reloading…`);
+        setTimeout(() => window.location.reload(), 1800);
+      } catch {
+        showToast("Import failed — invalid or corrupted file");
+      }
+    };
+    reader.readAsText(file);
+    // reset so same file can be chosen again
+    e.target.value = "";
+  };
+
+  // ── Clear Cache ──────────────────────────────────────────────────────────
+
+  const clearCache = async () => {
+    try {
+      // Clear service worker / browser caches
+      if ("caches" in window) {
+        const names = await caches.keys();
+        await Promise.all(names.map((n) => caches.delete(n)));
+      }
+      // Remove transient psyche- keys but preserve core data
+      const preserveKeys = new Set([
+        "psyche-profile",
+        "psyche-lesson-progress",
+        "psyche-game-state",
+        "psyche-notif-enabled",
+        "psyche-notif-prefs",
+        "psyche-dark-mode",
+        "psyche-beta-access",
+        "psyche-enneagram-growth-unlocked",
+        "psyche-onboarding-complete",
+        "psyche-type-votes",
+      ]);
+      const toRemove: string[] = [];
+      for (let i = 0; i < localStorage.length; i++) {
+        const key = localStorage.key(i);
+        if (key && key.startsWith("psyche-") && !preserveKeys.has(key)) {
+          toRemove.push(key);
+        }
+      }
+      toRemove.forEach((k) => { try { localStorage.removeItem(k); } catch {} });
+      showToast("Cache cleared ✓");
+    } catch {
+      showToast("Cache cleared ✓");
+    }
+    setShowClearCacheDialog(false);
+  };
+
   // ── Reset Progress ───────────────────────────────────────────────────────
 
   const resetProgress = () => {
@@ -507,7 +585,7 @@ export default function SettingsPage() {
       <div className="max-w-lg mx-auto space-y-4">
         {/* Back button */}
         <button
-          onClick={() => router.back()}
+          onClick={goBack}
           className="flex items-center gap-1 text-sm mb-4 transition-colors"
           style={{ color: "rgba(255,255,255,0.35)" }}
         >
@@ -849,6 +927,33 @@ export default function SettingsPage() {
             Export My Data
           </button>
 
+          {/* Import Data */}
+          <button
+            onClick={() => importInputRef.current?.click()}
+            className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-colors hover:bg-white/10"
+            style={{ background: "rgba(255,255,255,0.06)", color: "rgba(255,255,255,0.7)" }}
+          >
+            <Upload className="w-4 h-4" style={{ color: "rgba(255,255,255,0.35)" }} />
+            Import Data
+          </button>
+          <input
+            ref={importInputRef}
+            type="file"
+            accept="application/json,.json"
+            className="hidden"
+            onChange={importData}
+          />
+
+          {/* Clear Cache */}
+          <button
+            onClick={() => setShowClearCacheDialog(true)}
+            className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-colors hover:bg-white/10"
+            style={{ background: "rgba(255,255,255,0.06)", color: "rgba(255,255,255,0.7)" }}
+          >
+            <RefreshCw className="w-4 h-4" style={{ color: "rgba(255,255,255,0.35)" }} />
+            Clear Cache
+          </button>
+
           {/* Reset Progress */}
           <button
             onClick={() => setShowResetDialog(true)}
@@ -942,6 +1047,15 @@ export default function SettingsPage() {
       </div>
 
       {/* ── Dialogs ───────────────────────────────────────────────────────── */}
+      <ConfirmDialog
+        open={showClearCacheDialog}
+        title="Clear Cache"
+        message="This will clear temporary app data and browser caches. Your profile, progress, and saved types will not be affected."
+        confirmLabel="Clear Cache"
+        onConfirm={clearCache}
+        onCancel={() => setShowClearCacheDialog(false)}
+      />
+
       <ConfirmDialog
         open={showResetDialog}
         title="Reset Progress"

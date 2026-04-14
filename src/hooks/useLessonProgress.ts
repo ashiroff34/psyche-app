@@ -48,7 +48,17 @@ export function useLessonProgress() {
     saveRef.current = setTimeout(() => {
       try {
         localStorage.setItem(STORAGE_KEY, JSON.stringify(newState));
-      } catch {}
+      } catch (err) {
+        // Dispatch a storage error event so the UI can surface a toast
+        if (typeof window !== "undefined") {
+          const isQuota = err instanceof DOMException && (
+            err.name === "QuotaExceededError" || err.name === "NS_ERROR_DOM_QUOTA_REACHED"
+          );
+          window.dispatchEvent(new CustomEvent("psyche-storage-error", {
+            detail: { type: isQuota ? "quota" : "unknown" }
+          }));
+        }
+      }
     }, 100);
   }, []);
 

@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { useSmartBack } from "@/hooks/useSmartBack";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { Sparkles, ChevronRight, RefreshCw, Check, ArrowRight, ArrowLeft, Leaf, Lock, Zap } from "lucide-react";
@@ -186,6 +187,7 @@ function EnneagramGrowthGate({ children }: { children: React.ReactNode }) {
 
 export default function GrowthPage() {
   const router = useRouter();
+  const goBack = useSmartBack("/daily");
   const [userType, setUserType] = useState<number | null>(null);
   const [selectedType, setSelectedType] = useState<number | null>(null);
   const [promptIdx, setPromptIdx] = useState(0);
@@ -252,7 +254,7 @@ export default function GrowthPage() {
       <div className="max-w-2xl mx-auto">
         {/* Back button */}
         <button
-          onClick={() => router.back()}
+          onClick={goBack}
           className="flex items-center gap-1 text-sm mb-4 transition-colors"
           style={{ color: "rgba(255,255,255,0.35)" }}
         >

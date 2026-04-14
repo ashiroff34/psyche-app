@@ -174,6 +174,10 @@ interface Props {
   dailyXPEarned?: number;
   readingDoneToday?: boolean;
   onStartReading?: () => void;
+  // Contested type confidence
+  isTypeContested?: boolean;
+  contestedRunnerUp?: number;
+
   // Weekly challenge
   weeklyChallenge?: {
     id: string; name: string; emoji: string; description: string;
@@ -214,6 +218,8 @@ export default function HubView({
   tokens = 0,
   instinct,
   name,
+  isTypeContested,
+  contestedRunnerUp,
   weeklyChallenge,
   onClaimWeeklyReward,
   onStreakShop,
@@ -695,22 +701,37 @@ export default function HubView({
 
           {/* Type identity pills */}
           {(enneagramType > 0 || jungianType) && (
-            <div className="flex items-center gap-2 mt-3 flex-wrap justify-center">
-              {enneagramType > 0 && (
-                <span
-                  className="px-2.5 py-1 rounded-full text-[11px] font-bold"
-                  style={{ background: "rgba(139,92,246,0.2)", color: "#c4b5fd", border: "1px solid rgba(139,92,246,0.3)" }}
+            <div className="flex flex-col items-center gap-1.5 mt-3">
+              <div className="flex items-center gap-2 flex-wrap justify-center">
+                {enneagramType > 0 && (
+                  <span
+                    className="px-2.5 py-1 rounded-full text-[11px] font-bold"
+                    style={{ background: "rgba(139,92,246,0.2)", color: "#c4b5fd", border: "1px solid rgba(139,92,246,0.3)" }}
+                  >
+                    Type {enneagramType}
+                  </span>
+                )}
+                {jungianType && (
+                  <span
+                    className="px-2.5 py-1 rounded-full text-[11px] font-bold font-mono"
+                    style={{ background: "rgba(99,102,241,0.2)", color: "#a5b4fc", border: "1px solid rgba(99,102,241,0.3)" }}
+                  >
+                    {jungianType}
+                  </span>
+                )}
+              </div>
+              {/* Contested type indicator */}
+              {isTypeContested && contestedRunnerUp && enneagramType > 0 && (
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ delay: 0.6, duration: 0.4 }}
+                  className="flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px]"
+                  style={{ background: "rgba(251,191,36,0.12)", border: "1px solid rgba(251,191,36,0.25)", color: "rgba(251,191,36,0.8)" }}
                 >
-                  Type {enneagramType}
-                </span>
-              )}
-              {jungianType && (
-                <span
-                  className="px-2.5 py-1 rounded-full text-[11px] font-bold font-mono"
-                  style={{ background: "rgba(99,102,241,0.2)", color: "#a5b4fc", border: "1px solid rgba(99,102,241,0.3)" }}
-                >
-                  {jungianType}
-                </span>
+                  <span>⚡</span>
+                  <span>You&apos;re between Type {enneagramType} &amp; Type {contestedRunnerUp} — keep exploring</span>
+                </motion.div>
               )}
             </div>
           )}

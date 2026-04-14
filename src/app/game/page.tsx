@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { useSmartBack } from "@/hooks/useSmartBack";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import {
@@ -1086,6 +1087,7 @@ function XPGainToast({ amount, source }: { amount: number; source: string }) {
 
 export default function GamePage() {
   const router = useRouter();
+  const goBack = useSmartBack("/daily");
   const game = useGameState();
   const { state, loaded } = game;
   const { bigConfetti, balloonBurst } = useRewards();
@@ -1171,7 +1173,7 @@ export default function GamePage() {
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-8">
         {/* Back button */}
         <button
-          onClick={() => router.back()}
+          onClick={goBack}
           className="flex items-center gap-1 text-sm mb-4 transition-colors"
           style={{ color: "rgba(255,255,255,0.35)" }}
         >
