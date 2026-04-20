@@ -1256,7 +1256,7 @@ function TodaysIntentionCard({ profile }: { profile: Pick<PsycheProfile, "enneag
   const [loading, setLoading] = useState(false);
   const fetchedRef = useRef(false);
 
-  const dateKey = new Date().toISOString().split("T")[0];
+  const dateKey = new Intl.DateTimeFormat("en-CA").format(new Date());
   const storageKey = `psyche-ai-challenge-${dateKey}-e${enneagramType ?? ""}-c${cognitiveType ?? ""}`;
 
   const fallbackIntention = getStaticIntention(enneagramType ?? null);

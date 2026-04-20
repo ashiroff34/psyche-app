@@ -59,7 +59,7 @@ function useHomeState() {
       } catch {}
 
       try {
-        const dateKey = new Date().toISOString().split("T")[0];
+        const dateKey = new Intl.DateTimeFormat("en-CA").format(new Date());
         const dp = localStorage.getItem(`psyche-daily-${dateKey}`);
         if (dp) setDailyProgress(JSON.parse(dp));
       } catch {}

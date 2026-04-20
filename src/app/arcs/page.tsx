@@ -174,7 +174,7 @@ function saveProgress(progress: ArcProgress) {
 function initProgress(arcId: string): ArcProgress {
   const progress: ArcProgress = {
     arcId,
-    startDate: new Date().toISOString().split("T")[0],
+    startDate: new Intl.DateTimeFormat("en-CA").format(new Date()),
     completedDays: [],
     currentDay: 1,
   };

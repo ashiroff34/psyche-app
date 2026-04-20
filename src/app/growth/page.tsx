@@ -240,7 +240,7 @@ export default function GrowthPage() {
   const saveReflection = () => {
     if (!reflectionText.trim()) return;
     try {
-      const key = `psyche-growth-${new Date().toISOString().split("T")[0]}-${activeType}`;
+      const key = `psyche-growth-${new Intl.DateTimeFormat("en-CA").format(new Date())}-${activeType}`;
       localStorage.setItem(key, JSON.stringify({ type: activeType, prompt: currentPrompt, reflection: reflectionText, savedAt: new Date().toISOString() }));
       setSaved(true);
     } catch {}
