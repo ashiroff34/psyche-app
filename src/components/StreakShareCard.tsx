@@ -135,6 +135,7 @@ export default function StreakShareCard({
             {/* Close button */}
             <button
               onClick={onClose}
+              aria-label="Close"
               className="absolute top-4 right-4 z-10 w-8 h-8 rounded-full bg-white/20 hover:bg-white/30 flex items-center justify-center transition-colors"
             >
               <X className="w-4 h-4 text-white" />

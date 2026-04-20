@@ -58,6 +58,7 @@ export default function FirstVisitTooltip({
           <p className="flex-1 text-sm font-medium leading-snug">{message}</p>
           <button
             onClick={dismiss}
+            aria-label="Dismiss"
             className="flex-shrink-0 p-0.5 text-white/50 hover:text-white transition-colors"
           >
             <X className="w-3.5 h-3.5" />
