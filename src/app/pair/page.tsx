@@ -130,7 +130,7 @@ function PairInner() {
   async function handleInviteShare() {
     if (!myType) return;
     const code = getOrCreateReferralCode();
-    const origin = typeof window !== "undefined" ? window.location.origin : "https://psyche-app-two.vercel.app";
+    const origin = typeof window !== "undefined" ? window.location.origin : "https://thyself.app";
     const pairUrl = `${origin}/pair?from=${myType}&code=${code}`;
     const text = `I'm a Type ${myType} on Thyself. Take this 1-minute quiz and see our compatibility.`;
     try {

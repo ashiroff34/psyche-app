@@ -507,16 +507,16 @@ const lesson5: Lesson = {
       difficulty: 2,
       content: {
         type: "multiple-choice",
-        question: "The SP 6 is often called the countertype of Type 6 because it appears courageous rather than fearful. Which of the following best explains this counterintuitive pattern?",
+        question: "The SP 6 ('Warmth') is often called the countertype of Type 6. Which of the following best explains why it is the countertype?",
         options: [
+          "SP 6 manages fear by appearing strong and aggressive, directly confronting threats — this is why it can resemble Type 8",
+          "SP 6 looks least like the anxious Type 6 stereotype because it expresses fear through warmth, loyalty, and alliance-building rather than visible anxiety — the fear is still the driver, but it is channeled into trust-seeking rather than open worry",
           "SP 6s do not actually experience fear — they have overcome it through discipline",
-          "SP 6 manages fear by appearing strong and fearless, actively countering the image of anxiety — the fear is still the underlying driver, expressed as hyper-vigilance and toughness rather than open worry",
-          "SP 6s are actually mistyped Type 8s who test as Type 6 on assessments",
           "The SP instinct eliminates fear and replaces it with self-confidence",
         ],
         correctIndex: 1,
         explanation:
-          "The SP 6 countertype manages the core Type 6 fear by projecting strength and appearing fearless. Chestnut describes this as a counter-phobic response to fear: the underlying anxiety is present, but it is expressed as courage, toughness, and even aggression rather than visible worry. This is why SP 6 can look more like a Type 8.",
+          "Per Beatrice Chestnut's 'The Complete Enneagram,' the SP 6 ('Warmth') is the countertype because it looks least like the classic anxious Six. SP 6 manages fear by building warm, loyal alliances and seeking trustworthy relationships — it appears less visibly anxious than the other two Six subtypes. It is the SX 6 ('Strength/Beauty'), not the SP 6, that is counterphobic: the SX 6 goes toward the feared object, appearing tough, intimidating, and can resemble Type 8.",
       },
     },
     {
@@ -558,7 +558,7 @@ const lesson5: Lesson = {
       difficulty: 3,
       content: {
         type: "scenario",
-        scenario: "All nine Enneagram types have one countertype subtype. Here are four examples from Chestnut's 'The Complete Enneagram': SP 1 countertype looks less perfectionistic than SO or SX 1 — more focused on personal anxiety and worry than overt criticism of others. SP 4 countertype is the most stoic and least outwardly dramatic of the Type 4 subtypes, sometimes mistyped as Type 1 or Type 5. SP 6 countertype looks fearless and tough rather than anxious, often mistyped as Type 8. SO 7 countertype appears serious and self-sacrificing rather than pleasure-seeking, often mistyped as Type 1.",
+        scenario: "All nine Enneagram types have one countertype subtype. Here are four examples from Chestnut's 'The Complete Enneagram': SP 1 countertype looks less perfectionistic than SO or SX 1 — more focused on personal anxiety and worry than overt criticism of others. SP 4 countertype is the most stoic and least outwardly dramatic of the Type 4 subtypes, sometimes mistyped as Type 1 or Type 5. SX 6 countertype ('Strength/Beauty') is counterphobic — it goes toward the feared object, appearing tough or intimidating, often mistyped as Type 8. SO 7 countertype appears serious and self-sacrificing rather than pleasure-seeking, often mistyped as Type 1.",
         question: "What do these four countertype examples share in common that explains why they are countertypes?",
         options: [
           "All four are in the self-preservation stacking, which automatically creates countertype behavior",
@@ -568,7 +568,7 @@ const lesson5: Lesson = {
         ],
         correctIndex: 2,
         explanation:
-          "What unites all countertypes is the same underlying logic: the core passion is present, but the dominant instinct channels it into an expression that inverts the typical outward presentation. SP 6 is still driven by fear — but it expresses as toughness. SO 7 is still driven by gluttony — but it expresses as self-denial for the group. The fire is the same; the flame looks different.",
+          "What unites all countertypes is the same underlying logic: the core passion is present, but the dominant instinct channels it into an expression that inverts the typical outward presentation. SX 6 is still driven by fear — but it expresses as toughness and confrontation. SO 7 is still driven by gluttony — but it expresses as self-denial for the group. The fire is the same; the flame looks different.",
       },
     },
   ],

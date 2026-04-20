@@ -874,7 +874,7 @@ const lesson5: Lesson = {
     {
       id: "u7-l5-e2",
       difficulty: 2,
-      content: ({
+      content: {
         type: "discrimination",
         typeA: 5,
         typeB: 9,
@@ -901,7 +901,7 @@ const lesson5: Lesson = {
             explanation: "Type 9's passive resistance emerges when suppressed preferences finally surface as resentment. They said yes without accessing their no.",
           },
         ],
-      } as DiscriminationContent) as unknown as ExerciseContent,
+      } as DiscriminationContent,
     },
     {
       id: "u7-l5-e3",

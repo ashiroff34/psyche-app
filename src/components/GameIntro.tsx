@@ -83,7 +83,12 @@ export default function GameIntro() {
                 <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${slides[step].iconBg} flex items-center justify-center shadow-lg`}>
                   {slides[step].icon}
                 </div>
-                <button onClick={dismiss} className="transition-colors mt-1" style={{ color: "rgba(255,255,255,0.4)" }}>
+                <button
+                  onClick={dismiss}
+                  aria-label="Dismiss intro"
+                  className="-mr-2 -mt-1 p-2.5 transition-colors hover:opacity-80"
+                  style={{ color: "rgba(255,255,255,0.4)" }}
+                >
                   <X className="w-5 h-5" />
                 </button>
               </div>

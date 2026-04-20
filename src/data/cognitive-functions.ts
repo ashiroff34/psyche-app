@@ -803,7 +803,7 @@ export const mbtiTypes: MBTIType[] = [
       "Not absorbing others' emotions",
       "Acting on insights rather than just perceiving them",
     ],
-    famousExamples: ["Carl Jung", "Martin Luther King Jr.", "Fyodor Dostoevsky"],
+    famousExamples: ["Carl Jung", "Fyodor Dostoevsky"],
     journalPrompts: [
       "Whose emotions am I carrying that aren't mine?",
       "What insight have I been sitting on that I need to act upon?",
@@ -926,7 +926,7 @@ export const mbtiTypes: MBTIType[] = [
       "Not overcommitting",
       "Being present instead of always imagining what's next",
     ],
-    famousExamples: ["Robin Williams", "Walt Disney", "Mark Twain"],
+    famousExamples: ["Robin Williams", "Walt Disney"],
     journalPrompts: [
       "What possibility am I chasing, and does it align with my deepest values?",
       "What commitment would benefit from more sustained attention?",
@@ -1146,7 +1146,7 @@ export const mbtiTypes: MBTIType[] = [
     gripDescription:
       "Under extreme stress, the ISTP falls into the grip of inferior Fe. This manifests as uncharacteristic emotional displays, the normally stoic, private ISTP becomes emotionally volatile, hypersensitive to social rejection, and desperately seeking emotional connection in clumsy, awkward ways. They may interpret neutral social interactions as either deeply affirming or deeply hurtful, overreact to perceived slights, and make dramatic emotional gestures that they later find embarrassing. In some cases, the grip produces an oppressive need to be liked that leads to people-pleasing behavior entirely at odds with their usual independence.",
     commonMistypes: ["INTP", "ISTJ", "ESTP", "ISFP"],
-    interactionStyle: "Chart the Course",
+    interactionStyle: "Behind the Scenes",
     temperament: "SP Artisan",
   },
   {

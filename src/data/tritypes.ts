@@ -11,6 +11,9 @@
 //
 // The same 3 types in different orders are different tritypes with
 // different archetype names and expressions.
+//
+// Note: archetype names in the ordered lookup follow Fauvre where documented.
+// Names not found in Fauvre's published archetypes are app-original descriptive labels.
 
 export interface TritypeCenter {
   name: string;
@@ -39,6 +42,7 @@ export const orderedTritypeThyselfs: Record<string, string> = {
   "126": "The Mentor",  // 1-2-6
   "125": "The Teacher",
   "162": "The Mentor",
+  "135": "The Researcher",  // 1-3-5 (Fauvre canonical name for this combination)
 
   // Type 2 dominant
   "217": "The Loving Advisor",  // 2-1-7
@@ -50,7 +54,7 @@ export const orderedTritypeThyselfs: Record<string, string> = {
 
   // Type 4 dominant
   "415": "The Contemplative Individualist",  // 4-1-5
-  "459": "The Researcher",
+  "459": "The Contemplative",
 
   // Type 5 dominant
   "514": "The Technical Expert",  // 5-1-4
@@ -193,7 +197,9 @@ export const tritypes: Tritype[] = [
   { code: "471", archetype: "The Creative Idealist", description: "Individualistic, enthusiastic, and principled. Combines authenticity, vision, and integrity into an idealistic creative who holds both imagination and standards.", strengths: ["Creatively principled", "Visionary with integrity", "Authentic and idealistic"], challenges: ["Frustrated by imperfect reality", "Can be harshly self-critical about creative work", "May oscillate between inspiration and criticism"] },
 
   // Additional key tritypes
-  { code: "528", archetype: "The Problem Solver", description: "Investigative, helpful, and powerful. Combines depth of knowledge with protective care and decisive action. Uses expertise to help and protect.", strengths: ["Knowledgeable and protective", "Strategic helper", "Decisive and caring"], challenges: ["Can be controlling through knowledge", "May intimidate while helping", "Difficulty asking for help"] },
+  // Note: 528 is not listed here as a separate entry — 258 and 528 represent the same
+  // three types and are unified under code "258" in the unordered canonical array.
+  // The ordered lookup (orderedTritypeThyselfs) distinguishes dominant-type orderings.
   { code: "531", archetype: "The Technical Innovator", description: "Investigative, achieving, and principled. Combines deep knowledge, competence-drive, and integrity. A highly capable individual who pursues mastery with both intellectual depth and principled standards. Extremely independent, precise, and driven by understanding.", strengths: ["Deeply knowledgeable and competent", "Independent and principled", "Precise and standards-driven", "Strategic and intellectually rigorous"], challenges: ["Can be emotionally detached", "May be overly critical of self and others", "Difficulty with emotional expression", "May prioritize competence over connection"] },
   { code: "539", archetype: "The Contemplative Strategist", description: "Investigative, achieving, and peaceful. Combines analytical depth, quiet ambition, and equanimity. Works behind the scenes with deep understanding and calm determination.", strengths: ["Quietly brilliant and strategic", "Calm and deeply knowledgeable", "Efficient without being aggressive"], challenges: ["Can be too withdrawn", "May undervalue own accomplishments", "Difficulty engaging emotionally"] },
   { code: "541", archetype: "The Specialist", description: "Investigative, individualistic, and principled. Combines deep investigation, emotional authenticity, and integrity. Seeks profound understanding through both mind and heart.", strengths: ["Profoundly deep understanding", "Authentic and principled", "Highly specialized and precise"], challenges: ["Can be intensely self-critical", "Risk of isolation through standards", "May feel chronically dissatisfied"] },

@@ -56,6 +56,22 @@ export interface EnneagramType {
   harmonicGroup?: 'positive_outlook' | 'competency' | 'reactive';
 }
 
+/**
+ * Canonical Enneagram type color map. Import from here — do NOT redefine locally.
+ * Keys are type numbers 1-9.
+ */
+export const TYPE_COLORS: Record<number, string> = {
+  1: "#B85C38",
+  2: "#C4607A",
+  3: "#C9921A",
+  4: "#7B5AAD",
+  5: "#2980B9",
+  6: "#27AE60",
+  7: "#1ABC9C",
+  8: "#9B2C2C",
+  9: "#8B7355",
+};
+
 export const enneagramTypes: EnneagramType[] = [
   {
     number: 1,
@@ -66,10 +82,10 @@ export const enneagramTypes: EnneagramType[] = [
     coreMotivation: "To be right, to strive higher and improve everything, to be consistent with their ideals, to justify themselves, to be beyond criticism.",
     coreFear: "Of being corrupt, evil, or defective.",
     coreDesire: "To be good, to have integrity, to be balanced.",
-    passion: "Resentment (Ichazo). A Continuous Sensitivity to the Gap Between What Is and What Could Be. an internal awareness that naturally measures the present against a standard of how things ought to be. For the 1, this isn't experienced as negativity. it's a genuine attunement to quality, integrity, and getting things right. The noticing doesn't switch off easily. (Ichazo; elaborated by Naranjo in Character & Neurosis)",
+    passion: "Anger (Ichazo) — manifests as chronic resentment toward what falls short (Naranjo/Riso-Hudson). A Continuous Sensitivity to the Gap Between What Is and What Could Be. an internal awareness that naturally measures the present against a standard of how things ought to be. For the 1, this isn't experienced as negativity. it's a genuine attunement to quality, integrity, and getting things right. The noticing doesn't switch off easily. (Ichazo; elaborated by Naranjo in Character & Neurosis)",
     fixation: "Attention That Automatically Notices What Needs Correcting. an involuntary orientation toward errors, imprecisions, and deviations from the right way of doing things. The 1's focus naturally goes to what could be improved. not as external judgment, but as an automatic attunement to accuracy and proper order. (Ichazo / Naranjo)",
     holyIdea: "The Recognition That What Is Here Is Already in Right Order. the higher cognitive shift in which the compulsion to correct and improve settles, and what's present is experienced as already whole and sufficient. The measuring relaxes without effort. (Ichazo)",
-    virtue: "Accepting What Is Without Requiring It to Be Different. a spacious relationship with the present in which things don't need to be fixed or improved before they can be received. The internal pressure toward correction eases into equanimity. (Naranjo / Riso & Hudson)",
+    virtue: "Accepting What Is Without Requiring It to Be Different. a spacious relationship with the present in which things don't need to be fixed or improved before they can be received. The internal pressure toward correction eases into serenity. (Naranjo / Riso & Hudson)",
     defenseM: "Expressing the Opposite of What Is Actually Felt Internally. unconsciously converting inner impulses that feel unacceptable into their moral opposite: the urge to do nothing becomes compulsive productivity; the urge to be selfish becomes rigid self-sacrifice. The original impulse isn't experienced. only its inversion. (Riso & Hudson, The Wisdom of the Enneagram)",
     keyTraits: ["Principled", "Orderly", "Self-disciplined", "Ethical", "Responsible"],
     healthyTraits: ["Wise", "Discerning", "Realistic", "Noble", "Morally heroic"],
@@ -274,7 +290,7 @@ Growth for Twos lies in humility. the recognition that they are not actually exe
     coreMotivation: "To be affirmed, to distinguish themselves from others, to have attention, to be admired.",
     coreFear: "Of being worthless or without inherent value apart from achievements.",
     coreDesire: "To feel valuable and worthwhile.",
-    passion: "Deceit (Ichazo). Shaping Presentation to Match What Each Situation Values. a natural adaptability in which how you come across is continuously adjusted to fit what will be recognized and rewarded in a given context. For the 3, this doesn't feel like performance. it feels like effectiveness, like knowing how to be the right person for the moment. (Ichazo; also rendered as 'Vanity' in some translations; elaborated by Naranjo)",
+    passion: "Vanity (Ichazo) — elaborated as self-deceit by Naranjo. Shaping Presentation to Match What Each Situation Values. a natural adaptability in which how you come across is continuously adjusted to fit what will be recognized and rewarded in a given context. For the 3, this doesn't feel like performance. it feels like effectiveness, like knowing how to be the right person for the moment. (Ichazo; elaborated by Naranjo in Character & Neurosis)",
     fixation: "Attention Tracking How You Are Coming Across and Being Received. a continuous orientation toward the social feedback loop: reading the room, adjusting in real time, monitoring whether the presentation is landing as intended. (Ichazo / Naranjo)",
     holyIdea: "Value That Exists Independent of What You Accomplish. the higher recognition that worth is intrinsic and doesn't need to be earned through achievement or recognition. Something real is already there before any performance begins. (Ichazo)",
     virtue: "Expressing What's Actually There Rather Than What's Expected. the capacity to be seen as you genuinely are rather than as the version that will be most valued; feeling from the inside out rather than adjusting from the outside in. (Naranjo / Riso & Hudson)",

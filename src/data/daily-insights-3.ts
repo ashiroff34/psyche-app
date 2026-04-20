@@ -235,7 +235,7 @@ export const insights3: DailyInsight[] = [
   {
     id: 534,
     quote: "Neurons that fire together wire together.",
-    author: "Donald Hebb",
+    author: "Carla Shatz (paraphrasing Donald Hebb)",
     reflection: "Every thought you repeat strengthens a neural pathway. You are literally sculpting your brain with your habits of mind.",
     category: "neuroscience"
   },
@@ -1691,7 +1691,7 @@ export const insights3: DailyInsight[] = [
   {
     id: 742,
     quote: "I am not what happened to me, I am what I choose to become.",
-    author: "Carl Jung",
+    author: "Author unknown (attributed to Carl Jung)",
     reflection: "Your history informs you but does not define you. Choice, not circumstance, is the final author of your identity.",
     category: "Jungian psychology"
   },

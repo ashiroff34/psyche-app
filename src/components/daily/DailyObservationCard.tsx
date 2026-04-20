@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronDown, Clock, Mail, X, Check } from "lucide-react";
 import { getDailyObservation, getObservationSet } from "@/data/daily-observations";
+import { TYPE_COLORS } from "@/data/enneagram";
 
 // ── Helpers ────────────────────────────────────────────────────────────────────
 
@@ -17,10 +18,6 @@ function formatDate(): string {
 
 const TIMES = ["6:00 PM", "7:00 PM", "8:00 PM", "9:00 PM", "10:00 PM"];
 
-const TYPE_COLORS: Record<number, string> = {
-  1: "#E74C3C", 2: "#E91E8C", 3: "#F39C12", 4: "#9B59B6",
-  5: "#2980B9", 6: "#27AE60", 7: "#1ABC9C", 8: "#E67E22", 9: "#95A5A6",
-};
 
 // ── Storage keys ────────────────────────────────────────────────────────────────
 const FIRST_VISIT_KEY = "psyche-first-visit-date";

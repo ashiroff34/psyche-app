@@ -492,16 +492,16 @@ export const subtypes: Subtype[] = [
     name: "SX Six, Strength/Beauty",
     chestnutName: "Strength / Beauty",
     isCountertype: true,
-    description: "The sexual Six is the countertype, they manage their fear by going directly toward it with strength and intimidation. This is the counterphobic Six, rather than seeking safety, they prove their courage by confronting danger. Chestnut describes them as having a fierce, aggressive quality. They project strength and beauty (physical or psychological) as a way of warding off threats. They can strongly resemble Type 8 in their confrontational energy and apparent fearlessness.",
+    description: "The sexual Six is both the countertype of Type 6 and the subtype where the counterphobic strategy dominates most visibly. While all Sixes carry both phobic (moving away from fear) and counterphobic (moving toward feared objects) tendencies, the sx6 is the subtype in which the counterphobic strategy takes over — going directly toward danger, projecting strength, and appearing aggressive or fearless. This is what makes them the countertype: they look least like the fearful Six stereotype. Chestnut describes them as having a fierce, assertive quality, projecting physical or psychological strength and beauty as a way of warding off threats. They can strongly resemble Type 8 in their confrontational energy and apparent fearlessness, though underneath the bravado the core Six anxiety is still present.",
     keyPatterns: [
-      "Countertype: confronts fear through strength and intimidation",
-      "Counterphobic, moves toward danger rather than away from it",
-      "Projects physical or psychological strength and beauty",
-      "Can strongly resemble Type 8 in confrontational energy",
+      "Countertype: the counterphobic strategy dominates, looks least like a fearful Six",
+      "Moves toward feared objects rather than away — goes directly into danger",
+      "Projects physical or psychological strength and beauty to ward off threats",
+      "Can strongly resemble Type 8 in confrontational energy and assertiveness",
       "Uses intimidation as a defense against being intimidated",
-      "Most openly aggressive and challenging of the Sixes"
+      "Most openly aggressive and challenging of the Sixes — bravado masks core anxiety"
     ],
-    howTheyDiffer: "The countertype, while SP Sixes use warmth and SO Sixes use group authority, SX Sixes confront fear directly through counterphobic aggression and displays of strength.",
+    howTheyDiffer: "The countertype, while SP Sixes use warmth and SO Sixes use group authority to manage fear, SX Sixes confront fear head-on through counterphobic aggression and displays of strength. The counterphobic strategy is most visible and dominant in this subtype — it is not simply a trait all Sixes share equally.",
     growthPath: "Recognizing that bravado is a fear response, not the absence of fear. Learning to be vulnerable, which is actually the greatest courage."
   },
   {

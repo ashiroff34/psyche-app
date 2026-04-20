@@ -196,7 +196,7 @@ export const insights4: DailyInsight[] = [
   {
     id: 775,
     quote: "Neurons that fire together wire together.",
-    author: "Donald Hebb",
+    author: "Carla Shatz (paraphrasing Donald Hebb)",
     reflection:
       "Every repeated thought or behavior strengthens a neural pathway. You are always practicing something, so choose wisely what you rehearse.",
     category: "neuroscience",
@@ -844,7 +844,7 @@ export const insights4: DailyInsight[] = [
   {
     id: 856,
     quote: "If you are depressed you are living in the past. If you are anxious you are living in the future. If you are at peace you are living in the present.",
-    author: "Lao Tzu",
+    author: "Author unknown (attributed to Lao Tzu)",
     reflection:
       "This is a simplification, but the core truth holds: the present moment is the only place where peace can actually be found.",
     category: "mindfulness",
@@ -1956,7 +1956,7 @@ export const insights4: DailyInsight[] = [
   {
     id: 995,
     quote: "I am not what happened to me. I am what I choose to become.",
-    author: "Carl Jung",
+    author: "Author unknown (attributed to Carl Jung)",
     reflection:
       "Your history informs you but does not define you. At every moment, you have the capacity to choose a different direction.",
     category: "jungian",

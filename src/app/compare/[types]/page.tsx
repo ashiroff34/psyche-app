@@ -64,7 +64,7 @@ function genericComparison(a: number, b: number) {
   const tb = enneagramTypes.find(t => t.number === b);
   return {
     shared: `Both Type ${a} (${ta?.name ?? ""}) and Type ${b} (${tb?.name ?? ""}) have patterns that are worth comparing. They may overlap in behavior but differ in core motivation.`,
-    differ: `Type ${a} is driven by a core desire for ${(ta as any)?.desire ?? "something distinct"}, while Type ${b} is driven by ${(tb as any)?.desire ?? "a different core need"}.`,
+    differ: `Type ${a} is driven by a core desire ${ta?.coreDesire ? `— ${ta.coreDesire.replace(/\.$/, "")}` : "that shapes how they move through the world"}, while Type ${b} is driven by ${tb?.coreDesire ? tb.coreDesire.replace(/\.$/, "") : "a different core need"}.`,
     mistype: `These types can be confused when surface behavior overlaps. Look at motivation, not behavior, to distinguish them.`,
     growth: `Both types have unique growth paths. ${a}s integrate toward health by relaxing their core defense, and ${b}s by engaging with what they avoid.`,
   };

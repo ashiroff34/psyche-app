@@ -79,7 +79,7 @@ export default function StreakShareCard({
     tokensPerShare: 15,
     title: `${streak}-day streak on Thyself!`,
     text: shareText,
-    url: typeof window !== "undefined" ? window.location.origin : "https://psyche-app-two.vercel.app",
+    url: typeof window !== "undefined" ? window.location.origin : "https://thyself.app",
     onVerified: (t) => {
       if (t > 0) {
         setTokenToast(t);

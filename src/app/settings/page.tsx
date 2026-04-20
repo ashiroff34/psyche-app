@@ -1170,8 +1170,8 @@ export default function SettingsPage() {
                           localStorage.setItem("psyche-enneagram-growth-unlocked", "true");
                           // Mark as Pro
                           input.value = "";
-                          alert("Beta access activated. All features unlocked. Unlimited hearts and tokens.");
-                          window.location.reload();
+                          setToast("Beta access activated — all features unlocked");
+                          setTimeout(() => window.location.reload(), 1400);
                         } catch {}
                       } else {
                         input.value = "";

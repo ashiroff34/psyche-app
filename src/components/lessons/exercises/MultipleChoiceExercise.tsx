@@ -17,11 +17,12 @@ const OPTION_LETTERS = ["A", "B", "C", "D"];
 export default function MultipleChoiceExercise({ content, onAnswer, exerciseId }: Props) {
   const { question, options, correctIndex, explanation } = content;
 
-  // Stable shuffle so options don't jump on re-renders, but correct answer position is randomized
+  // Stable shuffle so options don't jump on re-renders, but correct answer position is randomized.
+  // Include options and correctIndex in deps so stale shuffles are never served if content changes.
   const { shuffled: shuffledOptions, newCorrectIndex } = useMemo(
     () => stableShuffleOptions(options, correctIndex, exerciseId ?? question),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [exerciseId, question]
+    [exerciseId, question, options, correctIndex]
   );
 
   const [selected, setSelected] = useState<number | null>(null);

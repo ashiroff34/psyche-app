@@ -26,7 +26,7 @@ import {
   Trophy,
 } from "lucide-react";
 import { cognitiveFunctions, mbtiTypes } from "@/data/cognitive-functions";
-import { enneagramTypes } from "@/data/enneagram";
+import { enneagramTypes, TYPE_COLORS } from "@/data/enneagram";
 import { shadowPositions } from "@/data/deep-cognitive";
 import { instinctualStackings } from "@/data/subtypes";
 import { tritypes, getCenter, getOrderedTritypeThyself } from "@/data/tritypes";
@@ -1899,6 +1899,11 @@ function ReferralBlock() {
 
   const recordShare = () => {
     try {
+      // Use localStorage as source of truth to defend against rapid double-taps
+      // before React state re-reads (setTokensAwarded/setMilestoneReached).
+      const alreadyAwardedFirst = localStorage.getItem(REFERRAL_SHARE_TOKEN_KEY) === "true";
+      const alreadyAwardedMilestone = localStorage.getItem(REFERRAL_MILESTONE_KEY) === "true";
+
       const currentCount = parseInt(localStorage.getItem(REFERRAL_SHARE_COUNT_KEY) ?? "0", 10);
       const newCount = currentCount + 1;
       setShareCount(newCount);
@@ -1907,23 +1912,24 @@ function ReferralBlock() {
       const gs = JSON.parse(localStorage.getItem("psyche-game-state") || "{}");
       let totalAward = 0;
 
-      // First share reward
-      if (!tokensAwarded) {
+      if (!alreadyAwardedFirst) {
         gs.tokens = (gs.tokens ?? 0) + REFERRAL_SHARE_TOKENS;
+        gs.totalTokensEarned = (gs.totalTokensEarned ?? 0) + REFERRAL_SHARE_TOKENS;
         localStorage.setItem(REFERRAL_SHARE_TOKEN_KEY, "true");
         setTokensAwarded(true);
         totalAward += REFERRAL_SHARE_TOKENS;
       }
 
-      // 5-share milestone
-      if (newCount >= REFERRAL_MILESTONE_COUNT && !milestoneReached) {
+      if (newCount >= REFERRAL_MILESTONE_COUNT && !alreadyAwardedMilestone) {
         gs.tokens = (gs.tokens ?? 0) + REFERRAL_MILESTONE_TOKENS;
+        gs.totalTokensEarned = (gs.totalTokensEarned ?? 0) + REFERRAL_MILESTONE_TOKENS;
         localStorage.setItem(REFERRAL_MILESTONE_KEY, "true");
         setMilestoneReached(true);
         totalAward += REFERRAL_MILESTONE_TOKENS;
       }
 
       localStorage.setItem("psyche-game-state", JSON.stringify(gs));
+      window.dispatchEvent(new CustomEvent("psyche-game-state-change"));
       if (totalAward > 0) {
         setLatestAward(totalAward);
         setTimeout(() => setLatestAward(null), 2800);
@@ -2128,17 +2134,6 @@ function ReferralBlock() {
 
 // ─── Referral Leaderboard ─────────────────────────────────────────────────────
 
-const TYPE_COLORS: Record<string, string> = {
-  "1": "#a78bfa",
-  "2": "#f472b6",
-  "3": "#fbbf24",
-  "4": "#34d399",
-  "5": "#60a5fa",
-  "6": "#fb923c",
-  "7": "#4ade80",
-  "8": "#f87171",
-  "9": "#94a3b8",
-};
 
 const EXTENDED_MILESTONES = [
   { count: 3, reward: "Exclusive chibi variant", icon: "🎭" },
@@ -2159,23 +2154,6 @@ function ReferralLeaderboard() {
     }
   }, []);
 
-  // Seed fixed mock entries (not the user)
-  const mockEntries = [
-    { label: "Type 3", typeKey: "3", shares: 47 },
-    { label: "Type 7", typeKey: "7", shares: 31 },
-    { label: "Type 8", typeKey: "8", shares: 28 },
-    { label: "Type 2", typeKey: "2", shares: 19 },
-  ];
-
-  // Build leaderboard: insert the user at correct rank position
-  const userEntry = { label: "You", typeKey: "you", shares: shareCount, isUser: true };
-  const combined = [
-    ...mockEntries.map((e) => ({ ...e, isUser: false })),
-    userEntry,
-  ].sort((a, b) => b.shares - a.shares);
-
-  const top5 = combined.slice(0, 5);
-
   return (
     <motion.div
       initial={{ opacity: 0, y: 8 }}
@@ -2191,77 +2169,35 @@ function ReferralLeaderboard() {
       {/* Header */}
       <div className="flex items-center gap-2 mb-3">
         <Trophy className="w-4 h-4 text-amber-400 shrink-0" />
-        <span className="text-sm font-bold text-white">Top Referrers</span>
+        <span className="text-sm font-bold text-white">Your Referrals</span>
       </div>
 
-      {/* Leaderboard rows */}
-      <div className="flex flex-col gap-1.5 mb-4">
-        {top5.map((entry, idx) => {
-          const rank = idx + 1;
-          const rankColor =
-            rank === 1 ? "#fbbf24" : rank === 2 ? "#cbd5e1" : rank === 3 ? "#fb923c" : "rgba(255,255,255,0.35)";
-          const dotColor = entry.isUser ? "#fbbf24" : (TYPE_COLORS[entry.typeKey] ?? "rgba(255,255,255,0.4)");
-
-          return (
-            <motion.div
-              key={entry.label + idx}
-              initial={{ opacity: 0, x: -6 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: idx * 0.06, duration: 0.28, ease: "easeOut" }}
-              className="flex items-center gap-3 px-3 py-2 rounded-xl"
-              style={{
-                background: entry.isUser
-                  ? "rgba(245,158,11,0.09)"
-                  : "rgba(255,255,255,0.03)",
-                border: entry.isUser
-                  ? "1px solid rgba(245,158,11,0.35)"
-                  : "1px solid rgba(255,255,255,0.06)",
-              }}
-            >
-              {/* Rank */}
-              <span
-                className="text-xs font-bold w-5 text-center shrink-0"
-                style={{ color: rankColor }}
-              >
-                #{rank}
-              </span>
-
-              {/* Type dot */}
-              <div
-                className="w-6 h-6 rounded-full flex items-center justify-center shrink-0 text-xs font-bold"
-                style={{
-                  background: `${dotColor}22`,
-                  border: `1.5px solid ${dotColor}55`,
-                  color: dotColor,
-                }}
-              >
-                {entry.isUser ? "✦" : entry.typeKey}
-              </div>
-
-              {/* Label */}
-              <span
-                className="flex-1 text-xs font-semibold"
-                style={{ color: entry.isUser ? "#fbbf24" : "rgba(255,255,255,0.75)" }}
-              >
-                {entry.label}
-                {entry.isUser && (
-                  <span className="ml-1.5 text-[10px] font-normal" style={{ color: "rgba(251,191,36,0.55)" }}>
-                    (you)
-                  </span>
-                )}
-              </span>
-
-              {/* Share count */}
-              <span
-                className="text-xs font-bold shrink-0"
-                style={{ color: entry.isUser ? "#fbbf24" : "rgba(255,255,255,0.4)" }}
-              >
-                {entry.shares} shares
-              </span>
-            </motion.div>
-          );
-        })}
+      {/* User share count */}
+      <div
+        className="flex items-center gap-3 px-3 py-2 rounded-xl mb-4"
+        style={{
+          background: "rgba(245,158,11,0.09)",
+          border: "1px solid rgba(245,158,11,0.35)",
+        }}
+      >
+        <div
+          className="w-6 h-6 rounded-full flex items-center justify-center shrink-0 text-xs font-bold"
+          style={{ background: "rgba(245,158,11,0.22)", border: "1.5px solid rgba(245,158,11,0.55)", color: "#fbbf24" }}
+        >
+          ✦
+        </div>
+        <span className="flex-1 text-xs font-semibold" style={{ color: "#fbbf24" }}>
+          You
+        </span>
+        <span className="text-xs font-bold shrink-0" style={{ color: "#fbbf24" }}>
+          {shareCount} {shareCount === 1 ? "share" : "shares"}
+        </span>
       </div>
+
+      {/* Leaderboard coming soon note */}
+      <p className="text-xs text-center mb-4 leading-relaxed" style={{ color: "rgba(255,255,255,0.35)" }}>
+        Leaderboard coming soon
+      </p>
 
       {/* Extended milestone tiers */}
       <div className="mb-3">
@@ -2294,11 +2230,6 @@ function ReferralLeaderboard() {
           })}
         </div>
       </div>
-
-      {/* Footer note */}
-      <p className="text-[10px] text-center leading-relaxed" style={{ color: "rgba(255,255,255,0.25)" }}>
-        Leaderboard resets monthly · Top referrer gets 500 bonus tokens
-      </p>
     </motion.div>
   );
 }

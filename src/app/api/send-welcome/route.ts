@@ -39,12 +39,12 @@ export async function POST(req: NextRequest) {
   <p style="font-size:15px;color:rgba(255,255,255,0.75);line-height:1.6;margin-bottom:24px;">
     Tomorrow, try opening Thyself for just 60 seconds. That's the tiny behavior that builds the habit.
   </p>
-  <a href="https://psyche-app-two.vercel.app/daily" style="display:inline-block;padding:14px 28px;background:linear-gradient(135deg,#8b5cf6,#d946ef);color:white;border-radius:16px;text-decoration:none;font-weight:bold;font-size:14px;">
+  <a href="https://thyself.app/daily" style="display:inline-block;padding:14px 28px;background:linear-gradient(135deg,#8b5cf6,#d946ef);color:white;border-radius:16px;text-decoration:none;font-weight:bold;font-size:14px;">
     Open your practice
   </a>
   <p style="font-size:11px;color:rgba(255,255,255,0.3);margin-top:40px;line-height:1.5;">
     You're receiving this because you signed up on Thyself. Your personality data stays on your device, not in our database.
-    <br><a href="https://psyche-app-two.vercel.app/settings" style="color:rgba(255,255,255,0.4);">Unsubscribe</a>
+    <br><a href="https://thyself.app/settings" style="color:rgba(255,255,255,0.4);">Unsubscribe</a>
   </p>
 </div>
 </body></html>`;

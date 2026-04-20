@@ -1,3 +1,6 @@
+/** Milliseconds in one day. Use this instead of the magic number 86400000. */
+export const MS_PER_DAY = 86_400_000;
+
 // Centralized date utility to avoid UTC vs local timezone inconsistency.
 //
 // The app previously used two different approaches:

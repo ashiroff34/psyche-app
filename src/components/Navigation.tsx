@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
+import { MS_PER_DAY } from "@/lib/date-utils";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { assetPath } from "@/lib/assetPath";
@@ -209,7 +210,8 @@ const ALL_MORE_GROUPS: MoreGroup[] = [
 function MoreMenu({ pathname }: { pathname: string }) {
   const [open, setOpen] = useState(false);
   const [hasSeenExplore, setHasSeenExplore] = useState(true);
-  const [daysSinceCreated, setDaysSinceCreated] = useState(999); // default shows all
+  // null = not yet loaded; treat as "show all" until we know the account age
+  const [daysSinceCreated, setDaysSinceCreated] = useState<number | null>(null);
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -226,7 +228,7 @@ function MoreMenu({ pathname }: { pathname: string }) {
         const gs = JSON.parse(raw);
         if (gs.accountCreated) {
           const created = new Date(gs.accountCreated).getTime();
-          const days = Math.floor((Date.now() - created) / 86400000);
+          const days = Math.floor((Date.now() - created) / MS_PER_DAY);
           setDaysSinceCreated(days);
         }
       }
@@ -236,7 +238,8 @@ function MoreMenu({ pathname }: { pathname: string }) {
   // Filter groups by account age. items without unlocksDay are always shown
   const moreGroups = ALL_MORE_GROUPS.map(group => ({
     ...group,
-    items: group.items.filter(item => !item.unlocksDay || daysSinceCreated >= item.unlocksDay),
+    // null means account age not yet loaded — show all items (safe default)
+    items: group.items.filter(item => !item.unlocksDay || daysSinceCreated === null || daysSinceCreated >= item.unlocksDay),
   })).filter(group => group.items.length > 0);
 
   const handleOpen = () => {
@@ -347,10 +350,11 @@ function MoreMenu({ pathname }: { pathname: string }) {
 // ── Swipe detection overlay for tab navigation ──────────────────────────────
 
 function SwipeNavigator() {
-  const pathname = usePathname();
+  const pathname = usePathname() ?? "/";
   const router = useRouter();
   const touchStartX = useRef(0);
   const touchStartY = useRef(0);
+  const blockedRef = useRef(false);
 
   const tabOrder = ["/assessments", "/daily", "/avatar", "/store", "/profile"];
 
@@ -358,9 +362,15 @@ function SwipeNavigator() {
     const onTouchStart = (e: TouchEvent) => {
       touchStartX.current = e.touches[0].clientX;
       touchStartY.current = e.touches[0].clientY;
+      // Respect opt-out on any ancestor of the touch target. Any scrollable
+      // horizontal carousel, draggable card, modal, or overlay can mark its
+      // container with data-no-swipe-nav to disable tab swipe for that region.
+      const target = e.target as Element | null;
+      blockedRef.current = !!target?.closest?.("[data-no-swipe-nav]");
     };
 
     const onTouchEnd = (e: TouchEvent) => {
+      if (blockedRef.current) return;
       const deltaX = e.changedTouches[0].clientX - touchStartX.current;
       const deltaY = e.changedTouches[0].clientY - touchStartY.current;
       if (Math.abs(deltaX) < 80 || Math.abs(deltaX) < Math.abs(deltaY) * 1.5) return;
@@ -389,7 +399,8 @@ function SwipeNavigator() {
 // ── Main Navigation Component ───────────────────────────────────────────────
 
 export default function Navigation() {
-  const pathname = usePathname();
+  const pathnameRaw = usePathname();
+  const pathname = pathnameRaw ?? "/"; // usePathname is never null in App Router but TS types say otherwise
   const router = useRouter();
   // Don't show nav on onboarding or for brand-new users
   const isOnboarding = pathname === "/onboarding";
@@ -408,6 +419,7 @@ export default function Navigation() {
   const [storeUnlocked, setStoreUnlocked] = useState(false);
   const [storeLockToast, setStoreLockToast] = useState(false);
   const [tokenCount, setTokenCount] = useState(0);
+  const isGoingBackRef = useRef(false);
 
   useEffect(() => {
     function readTokens() {
@@ -417,9 +429,9 @@ export default function Navigation() {
         const gs = JSON.parse(raw);
         const tokens = (gs.tokens as number) ?? 0;
         setTokenCount(tokens);
-        let days = 999;
+        let days = Infinity; // unknown age → always show store
         if (gs.accountCreated) {
-          days = Math.floor((Date.now() - new Date(gs.accountCreated).getTime()) / 86400000);
+          days = Math.floor((Date.now() - new Date(gs.accountCreated).getTime()) / MS_PER_DAY);
         }
         setStoreUnlocked(tokens > 0 || days >= 2);
       } catch {}
@@ -427,12 +439,21 @@ export default function Navigation() {
     readTokens();
     // Re-read whenever game state changes (e.g. after earning tokens)
     const handler = () => readTokens();
-    window.addEventListener("psyche-profile-change", handler);
-    return () => window.removeEventListener("psyche-profile-change", handler);
+    window.addEventListener("psyche-game-state-change", handler);
+    window.addEventListener("psyche-profile-change", handler); // also refresh on profile change for safety
+    return () => {
+      window.removeEventListener("psyche-game-state-change", handler);
+      window.removeEventListener("psyche-profile-change", handler);
+    };
   }, [pathname]);
 
   // Store page history in localStorage so back button always works
   useEffect(() => {
+    // Skip pushing onto history when this navigation was triggered by goBack()
+    if (isGoingBackRef.current) {
+      isGoingBackRef.current = false;
+      return;
+    }
     try {
       const history: string[] = JSON.parse(localStorage.getItem("psyche-page-history") || "[]");
       // Don't add duplicates
@@ -455,7 +476,9 @@ export default function Navigation() {
         history.pop(); // Remove current page
         const prev = history[history.length - 1];
         localStorage.setItem("psyche-page-history", JSON.stringify(history));
+        isGoingBackRef.current = true; // prevent history effect from re-adding this destination
         router.push(prev);
+        setHasPrevPage(history.length > 1);
         return;
       }
     } catch {}

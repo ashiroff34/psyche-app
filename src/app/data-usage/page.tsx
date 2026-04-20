@@ -36,6 +36,7 @@ const STORAGE_MAP: StorageItem[] = [
 
 export default function DataUsagePage() {
   const [sizes, setSizes] = useState<Record<string, string>>({});
+  const [wipeArmed, setWipeArmed] = useState(false);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -76,7 +77,12 @@ export default function DataUsagePage() {
 
   function handleWipe() {
     if (typeof window === "undefined") return;
-    if (!confirm("This will delete ALL your local data, including your type, progress, and chibi. This cannot be undone. Continue?")) return;
+    if (!wipeArmed) {
+      setWipeArmed(true);
+      // auto-disarm after 4s so a stray tap can't commit later
+      window.setTimeout(() => setWipeArmed(false), 4000);
+      return;
+    }
     for (const item of STORAGE_MAP) {
       if (item.where === "device") {
         try { localStorage.removeItem(item.key); } catch {}
@@ -148,9 +154,13 @@ export default function DataUsagePage() {
             <Download className="w-4 h-4" /> Export all
           </button>
           <button onClick={handleWipe}
-            className="py-3 rounded-xl text-sm font-semibold flex items-center justify-center gap-2"
-            style={{ background: "rgba(239,68,68,0.08)", border: "1px solid rgba(239,68,68,0.2)", color: "#fca5a5" }}>
-            <Trash2 className="w-4 h-4" /> Wipe data
+            className="py-3 rounded-xl text-sm font-semibold flex items-center justify-center gap-2 transition-colors"
+            style={
+              wipeArmed
+                ? { background: "rgba(239,68,68,0.22)", border: "1px solid rgba(239,68,68,0.55)", color: "#fecaca" }
+                : { background: "rgba(239,68,68,0.08)", border: "1px solid rgba(239,68,68,0.2)", color: "#fca5a5" }
+            }>
+            <Trash2 className="w-4 h-4" /> {wipeArmed ? "Tap again to confirm" : "Wipe data"}
           </button>
         </div>
 

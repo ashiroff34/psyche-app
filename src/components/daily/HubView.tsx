@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { Flame, Zap, Heart, ArrowRight, Sparkles, BookOpen, CheckCircle, Target, Star, Clock, Lock, ChevronRight, Coins, Brain, Trophy, Share2, X, Mail } from "lucide-react";
 import { useVerifiedShare } from "@/hooks/useVerifiedShare";
+import { TYPE_COLORS } from "@/data/enneagram";
 import { resolveTypeAwareCopy } from "@/hooks/useTypeAwareCopy";
 import { useSubtypeAwareCopy } from "@/hooks/useSubtypeAwareCopy";
 import StateCheckIn from "@/components/daily/StateCheckIn";
@@ -382,7 +383,6 @@ export default function HubView({
       recordSessionEnd();
     };
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
-  const TYPE_COLORS: Record<number, string> = { 1: "#E74C3C", 2: "#E91E8C", 3: "#F39C12", 4: "#9B59B6", 5: "#2980B9", 6: "#27AE60", 7: "#1ABC9C", 8: "#E67E22", 9: "#95A5A6" };
   const overallProgress = Math.round((completedToday / Math.max(totalNodes, 1)) * 100);
   const ringCircumference = 2 * Math.PI * 52;
   const countdown = useMidnightCountdown();

@@ -68,8 +68,8 @@ function buildDripHtml({
   hook: string;
 }) {
   const cta = day === 14
-    ? { label: "See your growth edge →", url: "https://psyche-app-two.vercel.app/growth" }
-    : { label: `Open your practice`, url: "https://psyche-app-two.vercel.app/daily" };
+    ? { label: "See your growth edge →", url: "https://thyself.app/growth" }
+    : { label: `Open your practice`, url: "https://thyself.app/daily" };
 
   return `<!DOCTYPE html>
 <html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
@@ -89,7 +89,7 @@ function buildDripHtml({
   </a>
   <p style="font-size:11px;color:rgba(255,255,255,0.3);margin-top:48px;line-height:1.5;">
     You're receiving this because you signed up on Thyself.<br>
-    <a href="https://psyche-app-two.vercel.app/settings" style="color:rgba(255,255,255,0.4);">Unsubscribe</a>
+    <a href="https://thyself.app/settings" style="color:rgba(255,255,255,0.4);">Unsubscribe</a>
   </p>
 </div>
 </body></html>`;
@@ -108,13 +108,13 @@ function buildDay30Html({ name, chibi }: { name: string; chibi: string }) {
   <p style="font-size:14px;color:rgba(255,255,255,0.55);line-height:1.6;margin-bottom:32px;">
     ${chibi} has been with you through all of it. Share your identity card and let someone else start their journey.
   </p>
-  <a href="https://psyche-app-two.vercel.app/identity"
+  <a href="https://thyself.app/identity"
      style="display:inline-block;padding:14px 28px;background:linear-gradient(135deg,#8b5cf6,#d946ef);color:white;border-radius:16px;text-decoration:none;font-weight:bold;font-size:14px;">
     Share your identity card →
   </a>
   <p style="font-size:11px;color:rgba(255,255,255,0.3);margin-top:48px;line-height:1.5;">
     You're receiving this because you signed up on Thyself.<br>
-    <a href="https://psyche-app-two.vercel.app/settings" style="color:rgba(255,255,255,0.4);">Unsubscribe</a>
+    <a href="https://thyself.app/settings" style="color:rgba(255,255,255,0.4);">Unsubscribe</a>
   </p>
 </div>
 </body></html>`;

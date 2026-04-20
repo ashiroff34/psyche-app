@@ -28,7 +28,9 @@ export default function LessonPageClient({
   const [completionShown, setCompletionShown] = useState(false);
   const [showGrounding, setShowGrounding] = useState(false);
 
-  // Load and personalize lesson
+  // Load and personalize lesson — run only once when both loaders are ready.
+  // profile is captured at load time only; we don't want re-runs on profile
+  // updates (XP awards etc.) because that resets in-progress exercise state.
   useEffect(() => {
     if (!progressLoaded || !profileLoaded) return;
 
@@ -52,7 +54,8 @@ export default function LessonPageClient({
 
     setPreparedLesson(finalLesson);
     startLesson(unitId, lessonId);
-  }, [unitId, lessonId, progressLoaded, profileLoaded, profile, startLesson]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [unitId, lessonId, progressLoaded, profileLoaded]); // profile intentionally omitted — lesson is personalized once at load
 
   // ── Handlers ───────────────────────────────────────────────────────────────
 

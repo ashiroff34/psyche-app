@@ -4,20 +4,10 @@ import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useRouter } from "next/navigation";
 import { Plus, Send, X, MessageCircle, ChevronLeft } from "lucide-react";
+import { TYPE_COLORS } from "@/data/enneagram";
 
 // ─── Constants ────────────────────────────────────────────────────────────────
 
-const TYPE_COLORS: Record<number, string> = {
-  1: "#E74C3C",
-  2: "#E91E8C",
-  3: "#F39C12",
-  4: "#9B59B6",
-  5: "#2980B9",
-  6: "#27AE60",
-  7: "#1ABC9C",
-  8: "#E67E22",
-  9: "#95A5A6",
-};
 
 const TYPE_NAMES: Record<number, string> = {
   1: "The Reformer",

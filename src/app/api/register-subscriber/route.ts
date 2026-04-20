@@ -88,13 +88,13 @@ function buildWelcomeHtml({ name, chibi, typeLabel }: { name: string; chibi: str
   <p style="font-size:15px;color:rgba(255,255,255,0.75);line-height:1.6;margin-bottom:32px;">
     Tomorrow, open Thyself for just 60 seconds. That's the tiny habit that changes things.
   </p>
-  <a href="https://psyche-app-two.vercel.app/daily"
+  <a href="https://thyself.app/daily"
      style="display:inline-block;padding:14px 28px;background:linear-gradient(135deg,#8b5cf6,#d946ef);color:white;border-radius:16px;text-decoration:none;font-weight:bold;font-size:14px;">
     Open your practice →
   </a>
   <p style="font-size:11px;color:rgba(255,255,255,0.3);margin-top:48px;line-height:1.5;">
     You're receiving this because you signed up on Thyself. Your personality data stays on your device.<br>
-    <a href="https://psyche-app-two.vercel.app/settings" style="color:rgba(255,255,255,0.4);">Unsubscribe</a>
+    <a href="https://thyself.app/settings" style="color:rgba(255,255,255,0.4);">Unsubscribe</a>
   </p>
 </div>
 </body></html>`;

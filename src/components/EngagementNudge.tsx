@@ -208,7 +208,7 @@ export default function EngagementNudge() {
       // Update last visit
       localStorage.setItem(
         "psyche-profile",
-        JSON.stringify({ ...profile, lastVisitDate: new Date().toISOString().split("T")[0] })
+        JSON.stringify({ ...profile, lastVisitDate: new Intl.DateTimeFormat("en-CA").format(new Date()) })
       );
 
       // Get pet health, streak, and today's activity from game state
@@ -221,7 +221,7 @@ export default function EngagementNudge() {
           const parsed = JSON.parse(gs);
           petHealth = parsed.petHealth ?? 100;
           streakCount = parsed.streakCount ?? 0;
-          const today = new Date().toISOString().split("T")[0];
+          const today = new Intl.DateTimeFormat("en-CA").format(new Date());
           doneStreakToday = parsed.lastActivityDate === today;
         }
       } catch {}
@@ -264,7 +264,7 @@ export default function EngagementNudge() {
               const p = JSON.parse(gs);
               petHealth = p.petHealth ?? 100;
               streakCount = p.streakCount ?? 0;
-              const today = new Date().toISOString().split("T")[0];
+              const today = new Intl.DateTimeFormat("en-CA").format(new Date());
               doneToday = p.lastActivityDate === today;
             }
           } catch {}

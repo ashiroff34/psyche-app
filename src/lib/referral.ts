@@ -3,7 +3,7 @@
  *
  * Each user gets a unique 6-char code stored in localStorage at
  * `psyche-my-referral-code`. Share URLs point to the current origin
- * (works on thyself.app, psyche-app-two.vercel.app, or localhost).
+ * (works on thyself.app or localhost).
  *
  * The `/r?code=XXX` page captures the code and the referee is credited
  * with bonus tokens when they complete their first assessment
@@ -36,7 +36,7 @@ export function getReferralShareUrl(): string {
   const origin =
     typeof window !== "undefined" && window.location?.origin
       ? window.location.origin
-      : "https://psyche-app-two.vercel.app";
+      : "https://thyself.app";
   return `${origin}/r?code=${code}`;
 }
 

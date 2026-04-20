@@ -324,7 +324,9 @@ export function usePetState(enneagramType?: number) {
       if (!prev.isAlive) {
         // If doing daily revival, track consecutive days
         if (prev.revivalStartDate) {
-          const yesterday = new Date(Date.now() - 86400000).toISOString().split("T")[0];
+          const yesterdayDate = new Date();
+          yesterdayDate.setDate(yesterdayDate.getDate() - 1);
+          const yesterday = new Intl.DateTimeFormat("en-CA").format(yesterdayDate);
           if (prev.lastLogin === yesterday) {
             const newDays = prev.revivalDaysCompleted + 1;
             if (newDays >= PET_ACTIONS.reviveDays) {

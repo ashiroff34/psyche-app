@@ -60,6 +60,6 @@ export const bigFiveCrossMap: Record<number, EnneagramBigFiveProfile> = {
     highFacets: ["Compliance", "Modesty", "Trust", "Altruism"],
     lowFacets: ["Assertiveness", "Activity", "Achievement Striving", "Self-Discipline", "Angry Hostility"],
     interpretation:
-      "Type 9s show high Agreeableness. especially Compliance, Modesty, and Trust. reflecting their accommodating, conflict-averse nature. They typically score low on Assertiveness and Activity (Extraversion), and low on Achievement Striving and Self-Discipline (Conscientiousness), capturing their tendency toward inertia and going along. Low Angry Hostility reflects their suppressed anger and characteristic peacefulness.",
+      "Type 9s show high Agreeableness. especially Compliance, Modesty, and Trust. reflecting their accommodating, conflict-averse nature. They typically score low on Assertiveness and Activity (Extraversion), and low on Achievement Striving and Self-Discipline (Conscientiousness), capturing their tendency toward inertia and going along. Low Angry Hostility reflects the fact that Type 9's anger is typically outside conscious awareness — it doesn't register as felt anger-hostility, which explains the low scale score. The anger surfaces instead as passive resistance and stubbornness rather than as consciously experienced hostility.",
   },
 };

@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next";
 
-const BASE = "https://psyche-app-two.vercel.app";
+const BASE = "https://thyself.app";
 
 // All 31 unit IDs
 const UNIT_IDS = [

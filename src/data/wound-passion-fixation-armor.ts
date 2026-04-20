@@ -31,7 +31,7 @@ export const TYPE_WPFA: Record<number, WPFA> = {
   },
   3: {
     wound: "I am only lovable if I am succeeding.",
-    passion: "Vanity, deep replacement of actual identity with whatever image gets the most approval.",
+    passion: "Deceit, deep replacement of actual identity with whatever image gets the most approval.",
     fixation: "Brain constantly manages perception, constructs the version that lands best in any room.",
     armor: "The achiever. Always on, always impressive. No idea who they are when the room is empty.",
   },

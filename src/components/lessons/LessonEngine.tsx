@@ -3,7 +3,7 @@
 import { useState, useCallback, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, Heart } from "lucide-react";
-import type { Lesson, Exercise } from "@/types/lessons";
+import type { Lesson, Exercise, ExerciseContent } from "@/types/lessons";
 import ConceptIntroCard from "./exercises/ConceptIntroCard";
 import MultipleChoiceExercise from "./exercises/MultipleChoiceExercise";
 import MatchingPairsExercise from "./exercises/MatchingPairsExercise";
@@ -157,11 +157,8 @@ export default function LessonEngine({ lesson, onComplete, onExit }: LessonEngin
   if (!currentExercise) return null;
 
   // Render the appropriate exercise component
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const renderExercise = (exercise: Exercise) => {
-    // Cast to any to support extended exercise types not yet in the ExerciseContent union
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const content = exercise.content as any;
+    const content: ExerciseContent = exercise.content;
     switch (content.type) {
       case "concept-intro":
         return (

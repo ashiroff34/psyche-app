@@ -7,11 +7,8 @@ import Link from "next/link";
 import ChibiSprite from "@/components/ChibiSprite";
 import { usePetState } from "@/hooks/usePetState";
 import { useProfile } from "@/hooks/useProfile";
+import { TYPE_COLORS } from "@/data/enneagram";
 
-const TYPE_COLORS: Record<number, string> = {
-  1: "#E74C3C", 2: "#E91E8C", 3: "#F39C12", 4: "#9B59B6",
-  5: "#2980B9", 6: "#27AE60", 7: "#1ABC9C", 8: "#E67E22", 9: "#95A5A6",
-};
 
 const PET_NAMES: Record<number, string> = {
   1: "Athena", 2: "Clover", 3: "Blaze", 4: "Luna",

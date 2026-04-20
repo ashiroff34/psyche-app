@@ -8,10 +8,14 @@ interface Props {
   onClose: () => void;
 }
 
-function getTomorrowISO(): string {
+function getLocalDateKey(d: Date): string {
+  return new Intl.DateTimeFormat("en-CA").format(d);
+}
+
+function getTomorrowKey(): string {
   const d = new Date();
   d.setDate(d.getDate() + 1);
-  return d.toISOString().split("T")[0];
+  return getLocalDateKey(d);
 }
 
 function getMonthKey(): string {
@@ -37,7 +41,9 @@ function deductTokens(amount: number): boolean {
     const current = typeof gs.tokens === "number" ? gs.tokens : 0;
     if (current < amount) return false;
     gs.tokens = current - amount;
+    gs.totalTokensSpent = (typeof gs.totalTokensSpent === "number" ? gs.totalTokensSpent : 0) + amount;
     localStorage.setItem("psyche-game-state", JSON.stringify(gs));
+    window.dispatchEvent(new CustomEvent("psyche-game-state-change"));
     return true;
   } catch {
     return false;
@@ -64,8 +70,7 @@ export default function StreakFreezeShop({ onClose }: Props) {
   const [justPurchased, setJustPurchased] = useState<string | null>(null);
 
   useEffect(() => {
-    const today = new Date().toISOString().split("T")[0];
-    const tomorrow = getTomorrowISO();
+    const today = getLocalDateKey(new Date());
     const monthKey = getMonthKey();
 
     setTokens(getTokens());
@@ -88,7 +93,7 @@ export default function StreakFreezeShop({ onClose }: Props) {
     const cost = 50;
     if (tokens < cost) return;
     if (!deductTokens(cost)) return;
-    const tomorrow = getTomorrowISO();
+    const tomorrow = getTomorrowKey();
     try {
       localStorage.setItem("psyche-streak-freeze-active", "true");
       localStorage.setItem("psyche-streak-freeze-expires", tomorrow);
@@ -103,7 +108,7 @@ export default function StreakFreezeShop({ onClose }: Props) {
     const cost = 75;
     if (tokens < cost) return;
     if (!deductTokens(cost)) return;
-    const tomorrow = getTomorrowISO();
+    const tomorrow = getTomorrowKey();
     try {
       localStorage.setItem("psyche-double-xp-expires", tomorrow);
     } catch {}
@@ -125,6 +130,7 @@ export default function StreakFreezeShop({ onClose }: Props) {
       const gs = raw ? JSON.parse(raw) : {};
       gs.streakCount = (typeof gs.streakCount === "number" ? gs.streakCount : 0) + 1;
       localStorage.setItem("psyche-game-state", JSON.stringify(gs));
+      window.dispatchEvent(new CustomEvent("psyche-game-state-change"));
     } catch {}
     setTokens((t) => t - cost);
     setStreak((s) => s + 1);

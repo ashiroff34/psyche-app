@@ -11,7 +11,7 @@ import { acquireNotificationLock, releaseNotificationLock } from "@/lib/notifica
 // ─── Helpers ─────────────────────────────────────────────────────────────────
 
 function getDateKey() {
-  return new Date().toISOString().split("T")[0];
+  return new Intl.DateTimeFormat("en-CA").format(new Date());
 }
 
 function daysBetween(isoA: string, isoB: string): number {
@@ -98,6 +98,10 @@ export default function ComebackModal() {
   };
 
   const handleClaim = () => {
+    // Guard against double-claim from rapid double-tap
+    if (claimed) return;
+    setClaimed(true);
+
     const today = getDateKey();
     const daysSince = data?.daysSince ?? 0;
 
@@ -125,13 +129,13 @@ export default function ComebackModal() {
           gs.totalTokensEarned = ((gs.totalTokensEarned as number) ?? 0) + tokenBonus;
         }
         localStorage.setItem("psyche-game-state", JSON.stringify(gs));
+        window.dispatchEvent(new CustomEvent("psyche-game-state-change"));
       } catch {}
     }
 
     // Mark claimed
     sessionStorage.setItem("comeback-claimed-date", today);
 
-    setClaimed(true);
     setTimeout(() => {
       releaseNotificationLock("comeback-modal");
       setShow(false);

@@ -606,7 +606,7 @@ export const insights2: DailyInsight[] = [
   {
     id: 337,
     quote: "What you resist, persists.",
-    author: "Carl Jung",
+    author: "Attributed to Carl Jung",
     reflection: "Pushing away an emotion only gives it more power. Try turning toward it with curiosity instead of bracing against it.",
     category: "Jungian psychology"
   },
@@ -963,14 +963,14 @@ export const insights2: DailyInsight[] = [
   {
     id: 388,
     quote: "I am not what happened to me, I am what I choose to become.",
-    author: "Carl Jung",
+    author: "Author unknown (attributed to Carl Jung)",
     reflection: "Your history informs you but does not imprison you. The story of your future is still being written by your choices today.",
     category: "Jungian psychology"
   },
   {
     id: 389,
     quote: "If you are depressed you are living in the past. If you are anxious you are living in the future. If you are at peace you are living in the present.",
-    author: "Lao Tzu",
+    author: "Author unknown (attributed to Lao Tzu)",
     reflection: "This is a simplification, but the kernel is real. Notice where your attention spends most of its time, and gently guide it home.",
     category: "mindfulness"
   },
@@ -1558,7 +1558,7 @@ export const insights2: DailyInsight[] = [
   {
     id: 473,
     quote: "Watch your thoughts, they become your words; watch your words, they become your actions; watch your actions, they become your habits; watch your habits, they become your character.",
-    author: "Lao Tzu",
+    author: "Author unknown (attributed to Lao Tzu)",
     reflection: "The chain from thought to character is forged one link at a time. Intervene at the earliest stage you can.",
     category: "mindfulness"
   },
@@ -1733,7 +1733,7 @@ export const insights2: DailyInsight[] = [
   {
     id: 498,
     quote: "The secret of change is to focus all of your energy not on fighting the old, but on building the new.",
-    author: "Socrates",
+    author: "Dan Millman, Way of the Peaceful Warrior (often misattributed to Socrates)",
     reflection: "Resistance to old patterns wastes the very energy you need for creating new ones. Redirect your focus toward what you want to build.",
     category: "Socratic philosophy"
   },

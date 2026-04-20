@@ -12,56 +12,65 @@
 
 import type { Lesson } from "@/types/lessons";
 
-const HOLY_IDEAS: Record<number, { idea: string; concept: string; practice: string; liberation: string }> = {
+const HOLY_IDEAS: Record<number, { name: string; idea: string; concept: string; practice: string; liberation: string }> = {
   1: {
+    name: "Holy Perfection",
     idea: "Reality is already whole",
     concept: "Your pattern says the world is broken and needs fixing. The hidden gift is the perception that reality, including you, is already complete. Not perfect in the way the critic means. Complete in the way a forest is complete: messy, alive, and not missing anything.",
     practice: "Spend 5 minutes looking at something natural: a tree, the sky, your own hands. Ask: what if nothing here needs correcting?",
     liberation: "Serenity. Not the absence of standards, but standards held lightly, without the suffering of demanding that reality conform.",
   },
   2: {
+    name: "Holy Will (also Holy Freedom)",
     idea: "Love does not need to be earned",
     concept: "Your pattern says you must give to be loved. The hidden gift is the perception that love, the real kind, is not transactional. It exists before you do anything. You were loved before you were useful.",
     practice: "Sit for 3 minutes and do nothing helpful. Notice the discomfort. Then notice: you are still here. You are still lovable.",
     liberation: "Humility. Not self-effacement, but the quiet recognition that you are worthy of love without earning it.",
   },
   3: {
+    name: "Holy Law (also Holy Hope)",
     idea: "Being has value without doing",
     concept: "Your pattern says you are what you achieve. The hidden gift is the perception that existence itself, just being here, has value independent of any output. The oak tree does not perform. It is.",
     practice: "Spend 5 minutes doing nothing productive. Not resting to be more productive later. Just being. Notice what arises.",
     liberation: "Truthfulness. Not just honesty with others, but the capacity to be real, to drop the image, to exist without a performance.",
   },
   4: {
+    name: "Holy Origin",
     idea: "You are already connected",
     concept: "Your pattern says you are fundamentally separate, missing something essential that others have. The hidden gift is the perception that you were never actually disconnected. The longing itself is evidence of the connection. You cannot miss what you never had.",
     practice: "Notice one moment today where you felt genuinely part of something. Not special within it. Part of it.",
     liberation: "Equanimity. Not the absence of deep feeling, but the ability to feel deeply without being destroyed by it.",
   },
   5: {
+    name: "Holy Omniscience (also Holy Transparency)",
     idea: "Reality can be contacted directly",
     concept: "Your pattern says you need to understand everything before you can engage with it. The hidden gift is the perception that reality is accessible through direct contact, not just through mental models. The map is never the territory. At some point, you walk.",
     practice: "Touch something physical: a wall, fabric, water. Stay with the raw sensation for 30 seconds without interpreting it. That contact is knowledge too.",
     liberation: "Non-attachment. Not detachment (which is the defense) but the ability to engage fully without needing to control the outcome through understanding.",
   },
   6: {
+    name: "Holy Strength (also Holy Faith)",
     idea: "Groundlessness is not dangerous",
     concept: "Your pattern says you need certainty to be safe. The hidden gift is the perception that groundlessness, not knowing, having no authority to lean on, is actually the natural condition of being alive. And it is not dangerous. It is free.",
     practice: "Make one small decision today without consulting anyone or researching further. Act from what you already know. Notice what happens.",
     liberation: "Courage. Not the absence of fear, but the capacity to act from inner authority without needing external validation.",
   },
   7: {
+    name: "Holy Work (also Holy Plan)",
     idea: "Depth is found by staying",
     concept: "Your pattern says the next experience will be better than this one. The hidden gift is the perception that depth, satisfaction, and richness come from staying with one thing fully, not from sampling many things partially. The symphony is in the sustained note, not the chord progression.",
     practice: "Choose one experience today and stay with it 10% longer than your instinct says. Notice what opens up in the extra time.",
     liberation: "Sobriety. Not the absence of joy, but joy that does not depend on novelty or escape.",
   },
   8: {
+    name: "Holy Truth",
     idea: "Vulnerability is the doorway",
     concept: "Your pattern says softness is weakness and the world requires armor. The hidden gift is the perception that your vulnerability, the tender thing you protect behind all that force, is not a liability. It is the only doorway to the intimacy and trust you actually want.",
     practice: "Tell one person one small truth you would normally withhold. Not a dramatic confession. Just something honest that your armor would usually filter out.",
     liberation: "Innocence. Not naivety, but the capacity to meet the world without preemptive defense.",
   },
   9: {
+    name: "Holy Love",
     idea: "Your presence matters",
     concept: "Your pattern says you do not matter enough to disrupt the peace. The hidden gift is the perception that your presence, your voice, your preferences, your anger, are not a threat to harmony. They are a necessary part of it. Real harmony includes you. Not a muted version. The actual you.",
     practice: "State one preference out loud today that you would normally suppress. Not a demand. A preference. Notice that the world does not end.",
@@ -87,7 +96,7 @@ export const unit31Lessons: Lesson[] = [
         content: {
           type: "concept-intro",
           title: "Your pattern is a distortion of something beautiful",
-          body: "Every Enneagram type's fixation, the thing that causes the most suffering, is actually a distorted version of a genuine perception of reality. The 1's perfectionism is a distortion of the perception that reality is already whole. The 7's escape is a distortion of the perception that depth lives in staying. When the distortion relaxes, the original perception becomes available. That is the hidden gift.",
+          body: "Every Enneagram type's fixation, the thing that causes the most suffering, is actually a distorted version of a genuine perception of reality. The 1's perfectionism is a distortion of the perception that reality is already whole. The 7's escape is a distortion of the perception that depth lives in staying. When the distortion relaxes, the original perception becomes available. That is the hidden gift.\n\nIchazo named these nine perceptions the Holy Ideas: Holy Perfection (Type 1), Holy Will or Holy Freedom (Type 2), Holy Law or Holy Hope (Type 3), Holy Origin (Type 4), Holy Omniscience or Holy Transparency (Type 5), Holy Strength or Holy Faith (Type 6), Holy Work or Holy Plan (Type 7), Holy Truth (Type 8), Holy Love (Type 9).",
         },
       },
       {

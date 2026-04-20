@@ -12,14 +12,10 @@ import { mirrorV2Extras } from "@/lib/mirror-v2";
 import { SCHWARTZ_VALUES } from "@/data/psychometrics/schwartz-values";
 import { attachmentStyles } from "@/data/attachment";
 import BigFiveRadar from "@/components/BigFiveRadar";
-import { enneagramTypes } from "@/data/enneagram";
+import { enneagramTypes, TYPE_COLORS } from "@/data/enneagram";
 import { TYPE_WPFA } from "@/data/wound-passion-fixation-armor";
 import { posthog, EVENTS } from "@/lib/posthog";
 
-const TYPE_COLORS: Record<number, string> = {
-  1: "#E74C3C", 2: "#E91E8C", 3: "#F39C12", 4: "#9B59B6",
-  5: "#2980B9", 6: "#27AE60", 7: "#1ABC9C", 8: "#E67E22", 9: "#95A5A6",
-};
 
 const EXAMPLE_TEXT = `I don't know why I did it that way. Thinking back, there was probably a better path, but in the moment I just moved. I've always trusted my gut more than my head, which has cost me a few times but also saved me more than I can count.
 
@@ -44,22 +40,18 @@ export default function MirrorPage() {
   function handleAnalyze() {
     if (wordCount < 30) return;
     setAnalyzing(true);
-    // Simulate a tiny delay for perceived "analysis" feel
-    setTimeout(() => {
-      const r = scorePersonalityFromText(text);
-      setResult(r);
-      setAnalyzing(false);
-      // Analytics: mirror_analyzed with confidence and top type
-      try {
-        posthog.capture(EVENTS.MIRROR_ANALYZED, {
-          wordCount: r.wordCount,
-          confidence: r.confidence,
-          topType: r.enneagramEstimate.topType,
-          topTypeScore: r.enneagramEstimate.topTypeScore,
-          runnerUpType: r.enneagramEstimate.runnerUpType,
-        });
-      } catch {}
-    }, 600);
+    const r = scorePersonalityFromText(text);
+    setResult(r);
+    setAnalyzing(false);
+    try {
+      posthog.capture(EVENTS.MIRROR_ANALYZED, {
+        wordCount: r.wordCount,
+        confidence: r.confidence,
+        topType: r.enneagramEstimate.topType,
+        topTypeScore: r.enneagramEstimate.topTypeScore,
+        runnerUpType: r.enneagramEstimate.runnerUpType,
+      });
+    } catch {}
   }
 
   function handleClear() {

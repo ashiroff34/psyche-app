@@ -110,7 +110,9 @@ function resolveTypeFromVotes(votes: { id: string; type: number }[]): {
 
   const sorted = Object.entries(weightedTotals)
     .map(([t, w]) => ({ type: parseInt(t, 10), weight: w }))
-    .sort((a, b) => b.weight - a.weight);
+    // Deterministic tie-break: higher type number wins, so result is stable
+    // regardless of insertion order across sessions / JS engines.
+    .sort((a, b) => b.weight - a.weight || b.type - a.type);
 
   const winner = sorted[0].type;
   const runnerUp = sorted.length > 1 ? sorted[1].type : null;
@@ -366,6 +368,8 @@ export function useProfile() {
             gs.tokens = (gs.tokens ?? 0) + 50 + limitedBonus;
             localStorage.setItem("psyche-game-state", JSON.stringify(gs));
             if (limitedBonus) localStorage.removeItem("psyche-referral-limited-bonus");
+            // Notify any mounted useGameState/Navigation instances to re-sync tokens
+            window.dispatchEvent(new CustomEvent("psyche-game-state-change"));
           }
         } catch {}
       }

@@ -227,7 +227,7 @@ export const insights1: DailyInsight[] = [
   {
     id: 32,
     quote: "If you are depressed you are living in the past. If you are anxious you are living in the future. If you are at peace you are living in the present.",
-    author: "Lao Tzu",
+    author: "Author unknown (attributed to Lao Tzu)",
     reflection: "Most suffering comes from mental time travel. The present moment, when you actually arrive in it, is almost always manageable.",
     category: "mindfulness"
   },
@@ -255,7 +255,7 @@ export const insights1: DailyInsight[] = [
   {
     id: 36,
     quote: "Neurons that fire together wire together.",
-    author: "Donald Hebb",
+    author: "Carla Shatz (paraphrasing Donald Hebb)",
     reflection: "Your brain literally reshapes itself based on what you practice. Every thought pattern you repeat becomes a neural highway, choose your routes wisely.",
     category: "neuroscience"
   },
@@ -283,7 +283,7 @@ export const insights1: DailyInsight[] = [
   {
     id: 40,
     quote: "I am not what happened to me, I am what I choose to become.",
-    author: "Carl Jung",
+    author: "Author unknown (attributed to Carl Jung)",
     reflection: "Your past shaped you, but it doesn't define you. At any moment, you can start writing a new chapter. Identity is a living, breathing choice.",
     category: "jung"
   },
@@ -619,7 +619,7 @@ export const insights1: DailyInsight[] = [
   {
     id: 88,
     quote: "What you resist persists.",
-    author: "Carl Jung",
+    author: "Attributed to Carl Jung",
     reflection: "Fighting an emotion or pattern only strengthens it. The paradox of transformation: things change most when you stop trying to force them to be different.",
     category: "jung"
   },
@@ -731,7 +731,7 @@ export const insights1: DailyInsight[] = [
   {
     id: 104,
     quote: "The amygdala is designed to make you survive, not to make you happy.",
-    author: "Dan Gilbert",
+    author: "Source uncertain (commonly misattributed to Dan Gilbert)",
     reflection: "Your brain's threat-detection system evolved for physical dangers, not modern anxieties. Understanding this helps you stop taking every alarm so seriously.",
     category: "neuroscience"
   },
@@ -1021,13 +1021,6 @@ export const insights1: DailyInsight[] = [
     author: "Soren Kierkegaard",
     reflection: "The problem-solving mindset has its place, but applied to your whole existence, it turns living into an endless to-do list. Some things are meant to be experienced, not fixed.",
     category: "philosophy"
-  },
-  {
-    id: 146,
-    quote: "The curious paradox is that when I accept myself just as I am, then I can change.",
-    author: "Carl Rogers",
-    reflection: "Acceptance and change aren't opposites, they're partners. The soil of self-acceptance is where the seeds of transformation take root most deeply.",
-    category: "psychology"
   },
   {
     id: 147,
@@ -1465,8 +1458,8 @@ export const insights1: DailyInsight[] = [
   },
   {
     id: 209,
-    quote: "The mirror neurons in our brains mean we literally feel what others feel, empathy is neurologically wired.",
-    author: "Giacomo Rizzolatti",
+    quote: "Mirror neurons may allow us to simulate others' internal states — a proposed neural basis for empathy, though the direct link in humans is still being studied.",
+    author: "Giacomo Rizzolatti (paraphrased)",
     reflection: "Empathy isn't just a nice concept, it's hardwired into your biology. Your brain literally simulates others' experiences. You are built for connection at the neural level.",
     category: "neuroscience"
   },
@@ -1739,7 +1732,7 @@ export const insights1: DailyInsight[] = [
   {
     id: 248,
     quote: "Watch your thoughts, they become your words; watch your words, they become your actions; watch your actions, they become your habits; watch your habits, they become your character.",
-    author: "Lao Tzu",
+    author: "Author unknown (attributed to Lao Tzu)",
     reflection: "Character is built in a cascade that starts with a single thought. The chain from thought to destiny is long but unbroken. Guard the beginning, and the end takes care of itself.",
     category: "mindfulness"
   },

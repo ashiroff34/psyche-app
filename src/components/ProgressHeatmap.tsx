@@ -11,7 +11,8 @@ interface Props {
 const DAY_LABELS = ["Mon", "", "Wed", "", "Fri", "", "Sun"];
 
 function getDateKey(date: Date): string {
-  return date.toISOString().split("T")[0];
+  // Use local calendar date (en-CA gives YYYY-MM-DD) to match the rest of the app
+  return new Intl.DateTimeFormat("en-CA").format(date);
 }
 
 function getDayOfWeek(date: Date): number {
@@ -161,7 +162,7 @@ export default function ProgressHeatmap({
                     initial={false}
                     whileHover={day.xp > 0 ? { scale: 1.3 } : {}}
                     onMouseEnter={(e) => {
-                      if (!day.xp && day.xp !== 0) return;
+                      if (day.xp === 0) return; // skip zero-activity days
                       const svgEl = (e.target as SVGElement).closest("svg");
                       const rect = svgEl?.getBoundingClientRect();
                       if (rect) {

@@ -46,6 +46,7 @@ import Link from "next/link";
 import { useGameState } from "@/hooks/useGameState";
 import { Lock } from "lucide-react";
 import { resolveTypeAwareCopy } from "@/hooks/useTypeAwareCopy";
+import { TYPE_COLORS } from "@/data/enneagram";
 
 // ============================================================
 // Shadow Work paywall
@@ -1922,17 +1923,6 @@ function PatternTracker() {
 // Enneagram Journal
 // ============================================================
 
-const ENNEAGRAM_TYPE_COLORS: Record<number, string> = {
-  1: "#e67e22",
-  2: "#e74c3c",
-  3: "#f39c12",
-  4: "#8e44ad",
-  5: "#2980b9",
-  6: "#27ae60",
-  7: "#16a085",
-  8: "#c0392b",
-  9: "#7f8c8d",
-};
 
 function loadJournalEntries(): EnneagramJournalEntry[] {
   if (typeof window === "undefined") return [];
@@ -2115,15 +2105,15 @@ function EnneagramJournal() {
                             href={`/enneagram/${type}`}
                             className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold transition-opacity hover:opacity-80"
                             style={{
-                              background: `${ENNEAGRAM_TYPE_COLORS[Number(type)]}22`,
-                              border: `1px solid ${ENNEAGRAM_TYPE_COLORS[Number(type)]}44`,
-                              color: ENNEAGRAM_TYPE_COLORS[Number(type)],
+                              background: `${TYPE_COLORS[Number(type)]}22`,
+                              border: `1px solid ${TYPE_COLORS[Number(type)]}44`,
+                              color: TYPE_COLORS[Number(type)],
                             }}
                           >
                             Type {type}
                             <span
                               className="px-1.5 py-0.5 rounded-full text-[10px] font-bold"
-                              style={{ background: `${ENNEAGRAM_TYPE_COLORS[Number(type)]}33` }}
+                              style={{ background: `${TYPE_COLORS[Number(type)]}33` }}
                             >
                               {count}×
                             </span>
@@ -2238,10 +2228,10 @@ function EnneagramJournal() {
                     className="w-8 h-8 rounded-xl text-xs font-bold transition-all"
                     style={{
                       background: active
-                        ? ENNEAGRAM_TYPE_COLORS[t]
-                        : `${ENNEAGRAM_TYPE_COLORS[t]}18`,
-                      color: active ? "#fff" : ENNEAGRAM_TYPE_COLORS[t],
-                      border: `1px solid ${ENNEAGRAM_TYPE_COLORS[t]}44`,
+                        ? TYPE_COLORS[t]
+                        : `${TYPE_COLORS[t]}18`,
+                      color: active ? "#fff" : TYPE_COLORS[t],
+                      border: `1px solid ${TYPE_COLORS[t]}44`,
                     }}
                   >
                     {t}
@@ -2355,8 +2345,8 @@ function EnneagramJournal() {
                         key={t}
                         className="text-[10px] px-1.5 py-0.5 rounded-md font-bold"
                         style={{
-                          background: `${ENNEAGRAM_TYPE_COLORS[t]}22`,
-                          color: ENNEAGRAM_TYPE_COLORS[t],
+                          background: `${TYPE_COLORS[t]}22`,
+                          color: TYPE_COLORS[t],
                           border: "1px solid rgba(255,255,255,0.2)",
                         }}
                       >

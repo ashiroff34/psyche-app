@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback, useRef } from "react";
+import { MS_PER_DAY } from "@/lib/date-utils";
 
 // ─── Types ───────────────────────────────────────────────────────────────────
 
@@ -491,7 +492,7 @@ function getISOWeekKey(): string {
   const day = d.getDay() || 7; // Mon=1 ... Sun=7
   d.setDate(d.getDate() + 4 - day); // pivot to Thursday of current week
   const yearStart = new Date(d.getFullYear(), 0, 1);
-  const week = Math.ceil((((d.getTime() - yearStart.getTime()) / 86400000) + 1) / 7);
+  const week = Math.ceil((((d.getTime() - yearStart.getTime()) / MS_PER_DAY) + 1) / 7);
   return `${d.getFullYear()}-W${String(week).padStart(2, "0")}`;
 }
 
@@ -635,8 +636,14 @@ export function useGameState() {
       const today = getToday();
       if (prev.lastActivityDate === today) return prev; // already checked today
 
-      const yesterday = new Date(Date.now() - 86400000).toISOString().split("T")[0];
-      const twoDaysAgo = new Date(Date.now() - 172800000).toISOString().split("T")[0];
+      // Use getToday()-relative offsets so local-timezone users aren't affected
+      const todayDate = new Date();
+      const yesterdayDate = new Date(todayDate);
+      yesterdayDate.setDate(todayDate.getDate() - 1);
+      const twoDaysAgoDate = new Date(todayDate);
+      twoDaysAgoDate.setDate(todayDate.getDate() - 2);
+      const yesterday = new Intl.DateTimeFormat("en-CA").format(yesterdayDate);
+      const twoDaysAgo = new Intl.DateTimeFormat("en-CA").format(twoDaysAgoDate);
 
       let newStreak = prev.streakCount;
       let freezes = prev.streakFreezes;
@@ -676,10 +683,12 @@ export function useGameState() {
 
   const earnXP = useCallback(
     (amount: number, source: string) => {
-      // Variable ratio reinforcement: occasional bonus
+      // Variable ratio reinforcement: single random draw so 2x and 3x are truly mutually exclusive.
+      // Intent: 3% triple, 10% double (of the remaining), ~87% single.
       let bonusMultiplier = 1;
-      if (Math.random() < 0.1) bonusMultiplier = 2; // 10% chance of double XP
-      if (Math.random() < 0.03) bonusMultiplier = 3; // 3% chance of triple XP
+      const roll = Math.random();
+      if (roll < 0.03) bonusMultiplier = 3;
+      else if (roll < 0.13) bonusMultiplier = 2;
       // XP Boost shop item: read from updater arg to avoid stale closure
       const finalAmount = Math.floor(amount * bonusMultiplier);
 
@@ -701,8 +710,9 @@ export function useGameState() {
         const goalTarget = DAILY_GOAL_XP[prev.dailyGoal];
         const dailyGoalMet = newDailyXP >= goalTarget;
 
-        // Update streak
-        const yesterday = new Date(Date.now() - 86400000).toISOString().split("T")[0];
+        // Update streak — use local-timezone yesterday to match getToday()
+        const _yd = new Date(); _yd.setDate(_yd.getDate() - 1);
+        const yesterday = new Intl.DateTimeFormat("en-CA").format(_yd);
         let newStreak = prev.streakCount;
         if (prev.lastActivityDate !== today) {
           if (prev.lastActivityDate === yesterday || prev.streakFreezeUsedDate === yesterday) {
@@ -829,6 +839,7 @@ export function useGameState() {
         dailyXPEarned: (prev.dailyXPEarned ?? 0) + xpReward,
         totalXPEarned: prev.totalXPEarned + xpReward,
         xp: prev.xp + xpReward,
+        level: getLevelFromXP(prev.xp + xpReward),
         completedReadingIds: prev.completedReadingIds?.includes(readingId)
           ? prev.completedReadingIds
           : [...(prev.completedReadingIds ?? []), readingId],
@@ -1137,7 +1148,8 @@ export function useGameState() {
     update((prev) => {
       const today = getToday();
       if (prev.lastGrowthDate === today) return prev; // already counted today
-      const yesterday = new Date(Date.now() - 86400000).toISOString().split("T")[0];
+      const _gyd = new Date(); _gyd.setDate(_gyd.getDate() - 1);
+      const yesterday = new Intl.DateTimeFormat("en-CA").format(_gyd);
       let newGrowthStreak: number;
       if (prev.lastGrowthDate === yesterday) {
         newGrowthStreak = prev.growthStreakCount + 1;
@@ -1276,12 +1288,17 @@ export function useGameState() {
     if (allTopics) unlockBadge("all-topics");
 
     // Comeback kid
+    // lastActivityDate is stored as a local YYYY-MM-DD, so parse components manually
+    // (new Date("YYYY-MM-DD") is parsed as UTC midnight which drifts by a day in negative-UTC zones)
     if (state.lastActivityDate) {
-      const daysSince = Math.floor(
-        (Date.now() - new Date(state.lastActivityDate).getTime()) / 86400000
-      );
-      if (daysSince >= 7 && state.streakCount <= 1 && state.totalXPEarned > 0) {
-        unlockBadge("comeback-kid");
+      const parts = state.lastActivityDate.split("-").map(Number);
+      if (parts.length === 3 && parts.every((n) => Number.isFinite(n))) {
+        const [y, m, d] = parts;
+        const lastLocal = new Date(y, m - 1, d).getTime();
+        const daysSince = Math.floor((Date.now() - lastLocal) / MS_PER_DAY);
+        if (daysSince >= 7 && state.streakCount <= 1 && state.totalXPEarned > 0) {
+          unlockBadge("comeback-kid");
+        }
       }
     }
 
@@ -1307,7 +1324,7 @@ export function useGameState() {
     // Pet parent, pet alive 30+ days (use accountCreated as proxy for pet birth)
     if (state.petAlive && state.accountCreated) {
       const daysSinceBorn = Math.floor(
-        (Date.now() - new Date(state.accountCreated).getTime()) / 86400000
+        (Date.now() - new Date(state.accountCreated).getTime()) / MS_PER_DAY
       );
       if (daysSinceBorn >= 30) unlockBadge("pet-parent");
     }

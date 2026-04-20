@@ -2,7 +2,9 @@
 // Source: David Keirsey, "Please Understand Me" (1978) and "Please Understand Me II" (1998)
 //
 // Keirsey diverged from Jung and Myers-Briggs by organizing the 16 types
-// into four temperaments based on the SN and TF/JP dichotomies.
+// into four temperaments using a two-level sorting: S/N is the primary axis.
+// For Sensors, J/P then distinguishes SJs from SPs. For Intuitives, T/F
+// distinguishes NTs from NFs.
 // His temperaments describe patterns of need, value, and self-image that
 // remain stable across a person's life.
 
@@ -18,6 +20,7 @@ export interface KeirseyTemperament {
   coreValue: string;
   coreFeeling: string; // what they most want to feel about themselves
   types: string[]; // MBTI types in this temperament
+  // Note: Enneagram correlations below are speculative community observations — not from Keirsey's published work.
   enneagramCorrelations: string; // 2,3 sentences on Enneagram overlap
 }
 

@@ -13,7 +13,7 @@ import PostHogProvider from "@/components/PostHogProvider";
 import { Suspense } from "react";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://psyche-app-two.vercel.app"),
+  metadataBase: new URL("https://thyself.app"),
   title: "Thyself. Know thyself.",
   description:
     "Know thyself. Discover your Enneagram type through 5 assessment paths. 9 types, 27 subtypes, cognitive functions, and deep psychology rooted in Ichazo, Naranjo, and Riso-Hudson.",
@@ -31,12 +31,12 @@ export const metadata: Metadata = {
     title: "Thyself. Know thyself.",
     description:
       "Know thyself. 9 types, 27 subtypes, 5 assessment paths. Grounded in Ichazo, Naranjo & Riso-Hudson.",
-    url: "https://psyche-app-two.vercel.app",
+    url: "https://thyself.app",
     siteName: "Thyself",
     type: "website",
     images: [
       {
-        url: "https://psyche-app-two.vercel.app/opengraph-image",
+        url: "https://thyself.app/opengraph-image",
         width: 1200,
         height: 630,
         alt: "Thyself. Know thyself.",
@@ -48,7 +48,7 @@ export const metadata: Metadata = {
     title: "Thyself. Know thyself.",
     description:
       "Know thyself. Discover your Enneagram type through 5 assessment paths. Deep psychology, 27 subtypes, cognitive functions.",
-    images: ["https://psyche-app-two.vercel.app/opengraph-image"],
+    images: ["https://thyself.app/opengraph-image"],
   },
 };
 
@@ -85,7 +85,7 @@ export default function RootLayout({
                 "@context": "https://schema.org",
                 "@type": "Organization",
                 name: "Thyself",
-                url: "https://psyche-app-two.vercel.app",
+                url: "https://thyself.app",
               },
               {
                 "@context": "https://schema.org",
@@ -95,7 +95,7 @@ export default function RootLayout({
                   "Know thyself. Discover your Enneagram type through 5 assessment paths. 9 types, 27 subtypes, cognitive functions, and deep psychology rooted in Ichazo, Naranjo, and Riso-Hudson.",
                 applicationCategory: "LifestyleApplication",
                 operatingSystem: "Web, iOS, Android",
-                url: "https://psyche-app-two.vercel.app",
+                url: "https://thyself.app",
               },
             ]),
           }}

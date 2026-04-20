@@ -444,7 +444,7 @@ function renderLearnContent(raw: string) {
               }
 
               // ── Function badge lines: "Ne, description" or "Fi, description" ──
-              const funcMatch = line.match(/^([A-Z][a-z]?) [,,] (.+)/);
+              const funcMatch = line.match(/^([A-Z][a-z]?) [,] (.+)/);
               if (funcMatch) {
                 const fn = funcMatch[1];
                 const desc = funcMatch[2];
@@ -626,10 +626,22 @@ export default function LessonBriefOverlay({
 
   const CardIcon = ICON_MAP[card.icon] ?? Layers;
 
-  // Chibi for the header, use the user's type sprite or default
-  const chibiSrc = enneagramType
-    ? `/sprites/chibi/${enneagramType}-sp${enneagramType}.png`
-    : "/sprites/chibi/5-sp5.png";
+  // Chibi for the header — derive instinct prefix from profile so sx/so users get the right sprite
+  const chibiSrc = (() => {
+    if (!enneagramType) return "/sprites/chibi/5-sp5.png";
+    try {
+      const raw = typeof window !== "undefined" ? localStorage.getItem("psyche-profile") : null;
+      if (raw) {
+        const p = JSON.parse(raw);
+        const subtype: string = p.enneagramSubtype ?? p.instinctualStacking ?? "";
+        // instinctualStacking is like "sp/sx" — take the first segment
+        const instinct = subtype.split("/")[0]?.toLowerCase() ?? "sp";
+        const prefix = ["sp", "sx", "so"].includes(instinct) ? instinct : "sp";
+        return `/sprites/chibi/${enneagramType}-${prefix}${enneagramType}.png`;
+      }
+    } catch {}
+    return `/sprites/chibi/${enneagramType}-sp${enneagramType}.png`;
+  })();
 
   const renderBody = (body: string, highlight?: string) => {
     if (!highlight) return <span>{body}</span>;

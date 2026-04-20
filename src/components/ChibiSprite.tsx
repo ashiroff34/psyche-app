@@ -41,7 +41,8 @@ export default function ChibiSprite({
   className = "",
   onClick,
 }: ChibiSpriteProps) {
-  const [imgError, setImgError] = useState(false);
+  const validType = Number.isInteger(type) && type >= 1 && type <= 9;
+  const [imgError, setImgError] = useState(!validType);
   const [currentState, setCurrentState] = useState<ChibiState>(spriteState);
 
   useEffect(() => {
@@ -87,7 +88,7 @@ export default function ChibiSprite({
         onClick={onClick}
       >
         <span className="text-slate-400 font-serif font-bold" style={{ fontSize: size * 0.35 }}>
-          {type}
+          {validType ? type : "?"}
         </span>
       </motion.div>
     );

@@ -5,14 +5,10 @@ import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { Flame, Zap, Trophy, Share2, ChevronRight, Star } from "lucide-react";
 import { assetPath } from "@/lib/assetPath";
+import { TYPE_COLORS } from "@/data/enneagram";
 
 // ─── Constants ────────────────────────────────────────────────────────────────
 
-const TYPE_COLORS: Record<number, string> = {
-  1: "#E74C3C", 2: "#E91E8C", 3: "#F39C12",
-  4: "#9B59B6", 5: "#2980B9", 6: "#27AE60",
-  7: "#1ABC9C", 8: "#E67E22", 9: "#95A5A6",
-};
 
 const TYPE_NAMES: Record<number, string> = {
   1: "The Reformer", 2: "The Helper", 3: "The Achiever",

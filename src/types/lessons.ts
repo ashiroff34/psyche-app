@@ -3,6 +3,8 @@
 // Duolingo-style progressive lesson framework for psychology education
 // ─────────────────────────────────────────────────────────────────────────────
 
+import type { DiscriminationItem } from "@/data/discriminationExercises";
+
 // ── Exercise Types ──────────────────────────────────────────────────────────
 
 export type ExerciseType =
@@ -104,6 +106,14 @@ export interface StorySceneContent {
   typeHint?: number;        // Enneagram type the character exemplifies
 }
 
+export interface DiscriminationContent {
+  type: "discrimination";
+  typeA: number;
+  typeB: number;
+  prompt: string;
+  items: DiscriminationItem[];
+}
+
 export type ExerciseContent =
   | ConceptIntroContent
   | MultipleChoiceContent
@@ -114,7 +124,8 @@ export type ExerciseContent =
   | FreeRecallContent
   | SocraticPromptContent
   | InterleavingExerciseContent
-  | StorySceneContent;
+  | StorySceneContent
+  | DiscriminationContent;
 
 // ── Exercise & Lesson Structures ────────────────────────────────────────────
 

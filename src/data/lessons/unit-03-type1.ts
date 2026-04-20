@@ -891,7 +891,7 @@ const lesson5: Lesson = {
     {
       id: "u3-l5-e2",
       difficulty: 2,
-      content: ({
+      content: {
         type: "discrimination",
         typeA: 1,
         typeB: 6,
@@ -918,7 +918,7 @@ const lesson5: Lesson = {
             explanation: "Type 6's vigilance is threat-based. They're trying to detect whether authorities and allies are trustworthy.",
           },
         ],
-      } as DiscriminationContent) as unknown as ExerciseContent,
+      } as DiscriminationContent,
     },
     {
       id: "u3-l5-e3",

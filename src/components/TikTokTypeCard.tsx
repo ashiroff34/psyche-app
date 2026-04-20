@@ -1,6 +1,7 @@
 "use client";
 
 import { getReferralShareUrl } from "@/lib/referral";
+import { TYPE_COLORS } from "@/data/enneagram";
 import { useRef, useState, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Share2, Download, X, Coins } from "lucide-react";
@@ -8,11 +9,6 @@ import { assetPath } from "@/lib/assetPath";
 
 // ─── Type data ────────────────────────────────────────────────────────────────
 
-const TYPE_COLORS: Record<number, string> = {
-  1: "#E74C3C", 2: "#E91E8C", 3: "#F39C12",
-  4: "#9B59B6", 5: "#2980B9", 6: "#27AE60",
-  7: "#1ABC9C", 8: "#E67E22", 9: "#95A5A6",
-};
 
 const TYPE_NAMES: Record<number, string> = {
   1: "The Reformer", 2: "The Helper", 3: "The Achiever",

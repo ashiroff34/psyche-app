@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo } from "react";
-import { enneagramTypes } from "@/data/enneagram";
+import { enneagramTypes, TYPE_COLORS } from "@/data/enneagram";
 
 interface HistoryEntry {
   id: string;
@@ -44,11 +44,6 @@ function formatDate(iso: string): string {
   }
 }
 
-const TYPE_COLORS: Record<number, string> = {
-  1: "#E74C3C", 2: "#E67E22", 3: "#F1C40F",
-  4: "#1ABC9C", 5: "#3498DB", 6: "#9B59B6",
-  7: "#2ECC71", 8: "#E74C3C", 9: "#1ABC9C",
-};
 
 export default function AssessmentHistory({ history }: { history: HistoryEntry[] }) {
   const sorted = useMemo(

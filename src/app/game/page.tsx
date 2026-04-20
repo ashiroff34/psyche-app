@@ -53,6 +53,7 @@ import {
   type DailyGoal,
   type Badge,
   type League,
+  type GameState,
 } from "@/hooks/useGameState";
 import { enneagramTypes } from "@/data/enneagram";
 import PetSprite from "@/components/PetSprite";
@@ -191,8 +192,8 @@ function HeaderSection({
   cognitiveType,
   instinct,
 }: {
-  state: any;
-  xpProgress: any;
+  state: GameState;
+  xpProgress: ReturnType<typeof getXPProgress>;
   enneagramType?: number;
   cognitiveType?: string;
   instinct?: string;
@@ -292,7 +293,7 @@ function DailyGoalSection({
   state,
   onChangeGoal,
 }: {
-  state: any;
+  state: GameState;
   onChangeGoal: (goal: DailyGoal) => void;
 }) {
   const [showGoalPicker, setShowGoalPicker] = useState(false);
@@ -402,7 +403,7 @@ function DailyGoalSection({
 }
 
 function PetWidget({ state, petName, petType, onFeed, onTreat, onRevive }: {
-  state: any;
+  state: Pick<GameState, "petHealth" | "petHappiness" | "petAlive">;
   petName: string;
   petType: number;
   onFeed: () => void;
@@ -871,7 +872,7 @@ function TypeMasterySection({ typeMastery, userEnneagramType }: { typeMastery: R
   );
 }
 
-function LeaderboardSection({ state }: { state: any }) {
+function LeaderboardSection({ state }: { state: GameState }) {
   const [leaderboard] = useState(() =>
     generateLeaderboard(state.xp, state.level)
   );
@@ -951,7 +952,7 @@ function LeaderboardSection({ state }: { state: any }) {
   );
 }
 
-function StatsSection({ state }: { state: any }) {
+function StatsSection({ state }: { state: GameState }) {
   const accuracy =
     state.totalAttempted > 0
       ? Math.round((state.totalCorrect / state.totalAttempted) * 100)

@@ -176,7 +176,7 @@ export const GLOSSARY: GlossaryEntry[] = [
     term: "Holy ideas",
     shortDef: "The higher worldview or spiritual truth associated with each type's essential nature.",
     longDef:
-      "Holy Ideas represent the objective spiritual reality that each type has partially lost access to. When a type reconnects with its Holy Idea, the core fear dissolves. Examples: Holy Perfection (1), Holy Will/Freedom (7), Holy Love (2).",
+      "Holy Ideas represent the objective spiritual reality that each type has partially lost access to. When a type reconnects with its Holy Idea, the core fear dissolves. Examples: Holy Perfection (1), Holy Will/Freedom (2), Holy Law/Holy Hope (3), Holy Origin (4), Holy Omniscience/Transparency (5), Holy Strength/Faith (6), Holy Work/Holy Plan (7), Holy Truth (8), Holy Love (9).",
     relatedTerms: ["Virtue", "Fixation", "Passion"],
     source: "Oscar Ichazo; A.H. Almaas, Facets of Unity",
     unitIds: ["holy-ideas"],

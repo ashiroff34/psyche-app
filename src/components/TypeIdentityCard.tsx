@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Download, Share2, Copy, RotateCw, Check, Sparkles } from "lucide-react";
 import ChibiSprite from "@/components/ChibiSprite";
 import { TYPE_WPFA } from "@/data/wound-passion-fixation-armor";
-import { enneagramTypes } from "@/data/enneagram";
+import { enneagramTypes, TYPE_COLORS } from "@/data/enneagram";
 import { posthog, EVENTS } from "@/lib/posthog";
 import { getReferralShareUrl } from "@/lib/referral";
 
@@ -17,10 +17,6 @@ import { getReferralShareUrl } from "@/lib/referral";
 // Exportable as PNG via html-to-image. Shareable via Web Share API
 // with fallback to copy.
 
-const TYPE_COLORS: Record<number, string> = {
-  1: "#E74C3C", 2: "#E91E8C", 3: "#F39C12", 4: "#9B59B6",
-  5: "#2980B9", 6: "#27AE60", 7: "#1ABC9C", 8: "#E67E22", 9: "#95A5A6",
-};
 
 const TYPE_GRADIENTS: Record<number, [string, string]> = {
   1: ["#E74C3C", "#C0392B"],

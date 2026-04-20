@@ -45,6 +45,7 @@ import { instinctualStackings } from "@/data/subtypes";
 import { orderedTritypeThyselfs } from "@/data/tritypes";
 import FirstVisitWelcome from "@/components/daily/FirstVisitWelcome";
 import { safeGet } from "@/lib/safe-storage";
+import { MS_PER_DAY } from "@/lib/date-utils";
 
 /* ═══════════════════════════════════════════════════════════════════════════
    UTILITY: Seeded PRNG (deterministic shuffle per day)
@@ -75,7 +76,7 @@ function getTodaySeed(): number {
 function getDayOfYear(): number {
   const now = new Date();
   const start = new Date(now.getFullYear(), 0, 0);
-  return Math.floor((now.getTime() - start.getTime()) / 86400000);
+  return Math.floor((now.getTime() - start.getTime()) / MS_PER_DAY);
 }
 
 function getDateKey(): string {
@@ -600,7 +601,7 @@ export default function DailyPage() {
     // If accountCreated is missing, treat as day 0 (new user) — don't activate gate
     if (!gameStateRaw.accountCreated) return 0;
     const created = new Date(gameStateRaw.accountCreated).getTime();
-    return Math.floor((Date.now() - created) / 86400000);
+    return Math.floor((Date.now() - created) / MS_PER_DAY);
   })();
   const unitLimitActive = daysSinceCreated >= UNIT_LIMIT_ACTIVATES_DAY;
 
@@ -669,6 +670,7 @@ export default function DailyPage() {
         tokens: current + bonus,
         totalTokensEarned: ((gs.totalTokensEarned as number) ?? 0) + bonus,
       }));
+      window.dispatchEvent(new CustomEvent("psyche-game-state-change"));
     } catch {}
   }, [gameStateRaw.streakCount, loaded]);
 
@@ -863,7 +865,7 @@ export default function DailyPage() {
     for (let i = 6; i >= 0; i--) {
       const d = new Date();
       d.setDate(d.getDate() - i);
-      const key = d.toISOString().split("T")[0];
+      const key = new Intl.DateTimeFormat("en-CA").format(d);
       try {
         const raw = localStorage.getItem(`psyche-daily-${key}`);
         const data = raw ? (JSON.parse(raw) as DailyProgress) : null;
@@ -1194,11 +1196,10 @@ export default function DailyPage() {
       try { sessionStorage.removeItem("psyche-quiz-progress"); } catch {}
       bumpSessionCount();
       trackWeeklyEvent("module_complete");
-      // If imNotSureTriggered, the last answer was already added to moduleAnswers as false
-      // so don't count current question again
-      const lastAnswerAlreadyCounted = imNotSureTriggered;
-      const correctCount = moduleAnswers.filter(Boolean).length + (lastAnswerAlreadyCounted ? 0 : (moduleSelected === moduleQuestions[moduleQ]?.ans ? 1 : 0));
-      const totalCount = moduleAnswers.length + (lastAnswerAlreadyCounted ? 0 : 1);
+      // handleModuleAnswer and the "I'm not sure" handler both push to moduleAnswers before this runs,
+      // so the final answer is always already included. No special-case add needed.
+      const correctCount = moduleAnswers.filter(Boolean).length;
+      const totalCount = moduleAnswers.length;
       const timeSpent = Math.round((Date.now() - moduleStartTime) / 60000);
 
       // Perfect section bonus
@@ -1251,22 +1252,8 @@ export default function DailyPage() {
   const totalAnsweredToday = dailyProgress?.questionsAnswered ?? 0;
   const totalCorrectToday = dailyProgress?.correctAnswers ?? 0;
   const accuracyToday = totalAnsweredToday > 0 ? Math.round((totalCorrectToday / totalAnsweredToday) * 100) : 0;
-  // Load all-time total once on mount. not recalculated on every answer
-  const [totalAnsweredAllTime, setTotalAnsweredAllTime] = useState(0);
-  useEffect(() => {
-    if (!loaded || typeof window === "undefined") return;
-    let total = 0;
-    for (let i = 0; i < 365; i++) {
-      const d = new Date();
-      d.setDate(d.getDate() - i);
-      const key = d.toISOString().split("T")[0];
-      try {
-        const raw = localStorage.getItem(`psyche-daily-${key}`);
-        if (raw) total += (JSON.parse(raw) as DailyProgress).questionsAnswered;
-      } catch {}
-    }
-    setTotalAnsweredAllTime(total);
-  }, [loaded]);
+  // All-time total questions — read directly from game state (no loop needed)
+  const totalAnsweredAllTime = gameStateRaw.totalAttempted ?? 0;
 
   const today = new Date();
 
@@ -1444,9 +1431,11 @@ export default function DailyPage() {
     }
     const ok = spendTokens(COST);
     if (!ok) { showSkipToast("Not enough tokens (need 30 🪙)"); return; }
-    // Fill remaining answers as skipped, then complete
+    // Fill remaining answers as skipped (false). On the last question, remaining is 0 — don't pad.
     const remaining = moduleQuestions.length - moduleAnswers.length;
-    setModuleAnswers(prev => [...prev, ...Array(Math.max(remaining, 1)).fill(false)]);
+    if (remaining > 0) {
+      setModuleAnswers(prev => [...prev, ...Array(remaining).fill(false)]);
+    }
     setModuleDone(true);
     showSkipToast("Quiz skipped −30 🪙");
   };
@@ -1773,7 +1762,7 @@ export default function DailyPage() {
           longestStreak={gameStateRaw.longestStreak}
           questionsAnsweredToday={dailyProgress?.questionsAnswered ?? 0}
           dailyXPEarned={gameStateRaw.dailyXPEarned}
-          readingDoneToday={gameStateRaw.dailyReadingDate === new Date().toISOString().split("T")[0]}
+          readingDoneToday={gameStateRaw.dailyReadingDate === getDateKey()}
           onStartReading={() => setView("reading")}
           units={currentUnits}
           onViewFullPath={() => setView("path")}
@@ -1785,7 +1774,7 @@ export default function DailyPage() {
           weeklyChallenge={weeklyChallenge}
           onClaimWeeklyReward={() => { claimWeeklyReward(); setShowWeeklyCelebration(true); }}
           onStreakShop={() => setShowStreakShop(true)}
-          warmupDoneToday={true}
+          warmupDoneToday={dailyProgress?.modulesCompleted?.includes("warmup") ?? false}
         />
         <NodeBottomSheet
           node={bottomSheetNode}
@@ -1824,11 +1813,11 @@ export default function DailyPage() {
     );
   }
 
-  // ── Path view ──
+  // ── Reading view ──
   if (view === "reading") {
-    const today = new Date().toISOString().split("T")[0];
+    const today = getDateKey();
     const daysSinceJoin = gameStateRaw.accountCreated
-      ? Math.floor((Date.now() - new Date(gameStateRaw.accountCreated).getTime()) / 86400000)
+      ? Math.floor((Date.now() - new Date(gameStateRaw.accountCreated).getTime()) / MS_PER_DAY)
       : 0;
     const todayReading = getDailyReading(
       profile.enneagramType ?? null,
@@ -2233,7 +2222,9 @@ export default function DailyPage() {
                         const gs = JSON.parse(raw);
                         if ((gs.tokens ?? 0) >= 1) {
                           gs.tokens -= 1;
+                          gs.totalTokensSpent = (gs.totalTokensSpent ?? 0) + 1;
                           localStorage.setItem("psyche-game-state", JSON.stringify(gs));
+                          window.dispatchEvent(new CustomEvent("psyche-game-state-change"));
                         }
                       }
                     } catch {}
@@ -2433,7 +2424,9 @@ export default function DailyPage() {
                       const gs = JSON.parse(raw);
                       if ((gs.tokens ?? 0) >= 1) {
                         gs.tokens -= 1;
+                        gs.totalTokensSpent = (gs.totalTokensSpent ?? 0) + 1;
                         localStorage.setItem("psyche-game-state", JSON.stringify(gs));
+                        window.dispatchEvent(new CustomEvent("psyche-game-state-change"));
                       }
                     }
                   } catch {}
@@ -2515,9 +2508,11 @@ export default function DailyPage() {
                       const gs = JSON.parse(raw);
                       if ((gs.tokens ?? 0) >= 3) {
                         gs.tokens -= 3;
+                        gs.totalTokensSpent = (gs.totalTokensSpent ?? 0) + 3;
                         gs.streakCount = parseInt(localStorage.getItem("psyche-prev-streak") ?? "1", 10);
                         gs.lastActivityDate = getDateKey();
                         localStorage.setItem("psyche-game-state", JSON.stringify(gs));
+                        window.dispatchEvent(new CustomEvent("psyche-game-state-change"));
                         localStorage.removeItem("psyche-prev-streak");
                       }
                     }

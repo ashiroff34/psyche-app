@@ -90,7 +90,8 @@ export default function BeginnerBanner({
             </div>
             <button
               onClick={dismiss}
-              className="shrink-0 w-6 h-6 flex items-center justify-center rounded-lg text-indigo-300 hover:text-indigo-500 hover:bg-indigo-100 transition-colors"
+              aria-label="Dismiss"
+              className="shrink-0 w-9 h-9 -mr-1.5 flex items-center justify-center rounded-lg text-indigo-300 hover:text-indigo-500 hover:bg-indigo-100 transition-colors"
             >
               <X className="w-3.5 h-3.5" />
             </button>

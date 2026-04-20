@@ -869,7 +869,7 @@ const lesson5: Lesson = {
     {
       id: "u6-l5-e2",
       difficulty: 2,
-      content: ({
+      content: {
         type: "discrimination",
         typeA: 4,
         typeB: 6,
@@ -896,7 +896,7 @@ const lesson5: Lesson = {
             explanation: "Type 6's testing behavior is about detecting whether people are reliable. Loyalty and authority are the key questions.",
           },
         ],
-      } as DiscriminationContent) as unknown as ExerciseContent,
+      } as DiscriminationContent,
     },
     {
       id: "u6-l5-e3",

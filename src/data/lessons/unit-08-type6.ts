@@ -857,7 +857,7 @@ const lesson5: Lesson = {
     {
       id: "u8-l5-e2",
       difficulty: 2,
-      content: ({
+      content: {
         type: "discrimination",
         typeA: 6,
         typeB: 1,
@@ -884,7 +884,7 @@ const lesson5: Lesson = {
             explanation: "Type 1's resentment is moral, not relational. The standard was violated. that is the problem, independent of who violated it.",
           },
         ],
-      } as DiscriminationContent) as unknown as ExerciseContent,
+      } as DiscriminationContent,
     },
     {
       id: "u8-l5-e3",
