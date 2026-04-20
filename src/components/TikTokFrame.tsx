@@ -61,7 +61,7 @@ export default function TikTokFrame({
       const file = new File([blob], `thyself-tiktok.png`, { type: "image/png" });
       const text = `${insight}\n\n${ctaText}:`;
       const url = getReferralShareUrl();
-      if (navigator.share && (navigator as any).canShare?.({ files: [file] })) {
+      if (navigator.share && navigator.canShare?.({ files: [file] })) {
         await navigator.share({ files: [file], text, url });
         setStatus("Shared");
       } else {

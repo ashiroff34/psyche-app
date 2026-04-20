@@ -48,7 +48,7 @@ export default function RarityCard({ enneagramType, instinct, mbti, attachment, 
       const file = new File([blob], `thyself-rarity-${enneagramType}.png`, { type: "image/png" });
       const text = `I'm a ${rarity.components.join(" · ")}, that's ${rarity.label}. 1 in ${rarity.oneIn}. Find your cross-framework rarity:`;
       const url = getReferralShareUrl();
-      if (navigator.share && (navigator as any).canShare?.({ files: [file] })) {
+      if (navigator.share && navigator.canShare?.({ files: [file] })) {
         await navigator.share({ files: [file], text, url, title: "My Thyself rarity" });
         setStatus("Shared");
       } else if (navigator.share) {
