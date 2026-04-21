@@ -1,3 +1,24 @@
+// Cognitive Growth Edges — Inferior Function Development
+//
+// Each MBTI type's deepest growth edge is its inferior function: the least
+// developed function in the personality stack. In stress or growth, the
+// inferior function emerges, often clumsily, as the main vector of
+// psychological individuation (Jung's term for becoming more whole).
+//
+// Sources:
+//   Carl Jung, "Psychological Types" (1921) — foundational function theory
+//   Marie-Louise von Franz & James Hillman, "Lectures on Jung's Typology"
+//     (1971) — primary academic treatment of the inferior function as the
+//     gateway to wholeness; the "inferior function" framing here draws
+//     directly from von Franz's second lecture
+//   Isabel Briggs Myers, "Gifts Differing" (1980) — applied MBTI stack theory
+//   John Beebe, "Energies and Patterns in Psychological Type" (2017) — modern
+//     synthesis of the eight-function model; confirms inferior as growth axis
+//
+// Dominant/inferior pairings confirmed against standard MBTI function stacks.
+// Growth edge descriptions are practical re-expressions of clinical theory,
+// not clinical advice.
+
 export interface CognitiveGrowthEdge {
   dominantFunction: string;
   inferiorFunction: string;
