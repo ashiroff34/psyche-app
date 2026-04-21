@@ -4,6 +4,8 @@
 // their integration type voice. The user chooses which to speak as.
 // Tracking which voice they gravitate toward reveals identification patterns.
 
+import { INTEGRATION_TYPE } from "./integration-messages";
+
 export interface DialogueTurn {
   speaker: "type" | "integration";
   text: string;
@@ -14,8 +16,6 @@ export interface DialogueScript {
   turns: DialogueTurn[];
   choiceAfter: number; // after this many turns, user picks which voice to continue as
 }
-
-const INTEGRATION_TYPE: Record<number, number> = { 1: 7, 2: 4, 3: 6, 4: 1, 5: 8, 6: 9, 7: 5, 8: 2, 9: 3 };
 
 export const SHADOW_DIALOGUES: Record<number, DialogueScript[]> = {
   1: [

@@ -3,15 +3,14 @@
 // Present a scenario, then show how the user's integration type would
 // see it. Reduces egocentric bias. Uses existing integration line data.
 
+import { INTEGRATION_TYPE } from "./integration-messages";
+
 export interface PerspectiveSwap {
   scenario: string;
   yourLens: string; // how user's type sees it
   integrationLens: string; // how integration type sees it
   reflection: string;
 }
-
-// Integration lines: 1→7, 2→4, 3→6, 4→1, 5→8, 6→9, 7→5, 8→2, 9→3
-const INTEGRATION_TYPE: Record<number, number> = { 1: 7, 2: 4, 3: 6, 4: 1, 5: 8, 6: 9, 7: 5, 8: 2, 9: 3 };
 
 export const PERSPECTIVE_SWAPS: Record<number, PerspectiveSwap[]> = {
   1: [
