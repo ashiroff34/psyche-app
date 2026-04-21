@@ -199,11 +199,13 @@ export default function EngagementNudge() {
 
       const profile = JSON.parse(profileRaw) as Record<string, unknown>;
 
-      // Calculate days since last visit
+      // Calculate days since last visit.
+      // Parse YYYY-MM-DD as local midnight (not UTC midnight) to avoid
+      // timezone-shifted day counts in non-UTC timezones.
       const lastVisit = profile.lastVisitDate as string | undefined;
-      const daysSinceVisit = lastVisit
-        ? Math.floor((Date.now() - new Date(lastVisit).getTime()) / 86400000)
-        : 0;
+      const toLocalMs = (s: string) => { const [y, m, d] = s.split("-").map(Number); return new Date(y, m - 1, d).getTime(); };
+      const todayMs = toLocalMs(new Intl.DateTimeFormat("en-CA").format(new Date()));
+      const daysSinceVisit = lastVisit ? Math.max(0, Math.floor((todayMs - toLocalMs(lastVisit)) / 86400000)) : 0;
 
       // Update last visit
       localStorage.setItem(
