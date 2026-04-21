@@ -742,7 +742,7 @@ export default function AssessmentsPage() {
         {pageMode === "know" && <>
 
         {/* ── Header ── */}
-        <div className="mb-8">
+        <div className="mb-6">
           <p className="text-[10px] font-bold uppercase tracking-widest mb-1" style={{ color: "rgba(139,92,246,0.7)" }}>
             Self-Assessment
           </p>
@@ -761,6 +761,74 @@ export default function AssessmentsPage() {
               : `${completedDimensions} of 5 dimensions mapped.`}
           </p>
         </div>
+
+        {/* ── Three Mirrors — hero feature card ── */}
+        <Link
+          href="/mirrors"
+          className="group block mb-6 rounded-2xl overflow-hidden transition-all duration-200 active:scale-[0.98]"
+          style={{
+            background: "linear-gradient(135deg, #1a0a3a 0%, #2a0a4a 50%, #1a0a3a 100%)",
+            border: "1px solid rgba(139,92,246,0.4)",
+            boxShadow: "0 0 0 1px rgba(217,70,239,0.1), 0 8px 32px rgba(124,58,237,0.25)",
+          }}
+        >
+          {/* Top rainbow gradient bar */}
+          <div className="h-0.5 w-full" style={{ background: "linear-gradient(90deg, #6366f1, #8b5cf6, #d946ef)" }} />
+
+          <div className="p-5">
+            <div className="flex items-start gap-4">
+              {/* Icon cluster */}
+              <div className="w-12 h-12 rounded-2xl flex items-center justify-center shrink-0"
+                style={{ background: "linear-gradient(135deg, rgba(99,102,241,0.3), rgba(217,70,239,0.3))", border: "1px solid rgba(139,92,246,0.3)" }}>
+                <Sparkles className="w-6 h-6" style={{ color: "#c4b5fd" }} />
+              </div>
+
+              <div className="flex-1 min-w-0">
+                <div className="flex items-center gap-2 mb-0.5">
+                  <span className="text-[10px] font-bold uppercase tracking-widest" style={{ color: "rgba(196,181,253,0.7)" }}>
+                    Cross-lens synthesis
+                  </span>
+                </div>
+                <h2 className="text-lg font-bold leading-tight" style={{ color: "rgba(255,255,255,0.95)" }}>
+                  The Three Mirrors
+                </h2>
+                <p className="text-xs mt-1 leading-snug" style={{ color: "rgba(255,255,255,0.5)" }}>
+                  See where your motivation, traits, and values line up — and where they contradict each other. That's where the real insight is.
+                </p>
+              </div>
+
+              <ArrowRight className="w-5 h-5 shrink-0 mt-1 transition-transform group-hover:translate-x-0.5" style={{ color: "rgba(196,181,253,0.5)" }} />
+            </div>
+
+            {/* Three lenses row */}
+            <div className="flex gap-2 mt-4">
+              {[
+                { label: "Motivation", sub: "Enneagram", color: "#8b5cf6", done: hasType },
+                { label: "Trait", sub: "Big Five Aspects", color: "#a855f7", done: !!aspects },
+                { label: "Values", sub: "Schwartz", color: "#d946ef", done: !!schwartz },
+              ].map(({ label, sub, color, done }) => (
+                <div
+                  key={label}
+                  className="flex-1 px-2.5 py-2 rounded-xl"
+                  style={{
+                    background: done ? `${color}20` : "rgba(255,255,255,0.05)",
+                    border: `1px solid ${done ? `${color}40` : "rgba(255,255,255,0.1)"}`,
+                  }}
+                >
+                  <div className="flex items-center gap-1 mb-0.5">
+                    <div className="w-1 h-1 rounded-full shrink-0" style={{ background: done ? color : "rgba(255,255,255,0.2)" }} />
+                    <p className="text-[9px] font-bold uppercase tracking-widest truncate" style={{ color: done ? color : "rgba(255,255,255,0.3)" }}>
+                      {label}
+                    </p>
+                  </div>
+                  <p className="text-[10px] font-medium leading-snug" style={{ color: done ? "rgba(255,255,255,0.7)" : "rgba(255,255,255,0.25)" }}>
+                    {sub}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </Link>
 
         {/* ── Dimension tracker ── */}
         <div
@@ -867,76 +935,6 @@ export default function AssessmentsPage() {
                   <Clock className="w-2.5 h-2.5" />
                   {recommendation.timeEstimate}
                 </span>
-              </div>
-            </div>
-          </Link>
-        </motion.div>
-
-        {/* ── Three Mirrors synthesis card ── */}
-        <motion.div
-          initial={{ opacity: 0, y: 8 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.3, delay: 0.1 }}
-          className="mb-6"
-        >
-          <Link
-            href="/mirrors"
-            className="group block rounded-2xl overflow-hidden transition-all duration-200 hover:-translate-y-0.5"
-            style={{ boxShadow: "0 8px 32px rgba(0,0,0,0.4)" }}
-          >
-            <div
-              className="relative p-5"
-              style={{
-                background: "linear-gradient(135deg, rgba(99,102,241,0.18) 0%, rgba(139,92,246,0.18) 40%, rgba(217,70,239,0.18) 100%)",
-                border: "1px solid rgba(139,92,246,0.3)",
-                borderRadius: "1rem",
-              }}
-            >
-              {/* Shimmer overlay */}
-              <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/5 to-white/0 pointer-events-none rounded-2xl" />
-
-              <div className="flex items-start justify-between mb-3">
-                <div>
-                  <div className="flex items-center gap-2 mb-1">
-                    <Sparkles className="w-4 h-4" style={{ color: "#c4b5fd" }} />
-                    <span className="text-[10px] font-bold uppercase tracking-widest" style={{ color: "rgba(196,181,253,0.8)" }}>
-                      Cross-lens synthesis
-                    </span>
-                  </div>
-                  <h2 className="text-lg font-bold" style={{ color: "rgba(255,255,255,0.93)" }}>The Three Mirrors</h2>
-                  <p className="text-xs mt-0.5 leading-snug" style={{ color: "rgba(255,255,255,0.45)" }}>
-                    Where your motivation, traits, and values agree — and where they don't.
-                  </p>
-                </div>
-                <ArrowRight
-                  className="w-4 h-4 shrink-0 mt-1 transition-transform group-hover:translate-x-0.5"
-                  style={{ color: "rgba(196,181,253,0.6)" }}
-                />
-              </div>
-
-              {/* Three lens chips */}
-              <div className="flex gap-2">
-                {[
-                  { label: "Motivation", sub: "Enneagram", color: "#8b5cf6", done: hasType },
-                  { label: "Trait", sub: "Big Five Aspects", color: "#a855f7", done: !!aspects },
-                  { label: "Values", sub: "Schwartz", color: "#d946ef", done: !!schwartz },
-                ].map(({ label, sub, color, done }) => (
-                  <div
-                    key={label}
-                    className="flex-1 px-2.5 py-2 rounded-xl"
-                    style={{
-                      background: done ? `${color}18` : "rgba(255,255,255,0.04)",
-                      border: `1px solid ${done ? `${color}35` : "rgba(255,255,255,0.08)"}`,
-                    }}
-                  >
-                    <p className="text-[9px] font-bold uppercase tracking-widest" style={{ color: done ? color : "rgba(255,255,255,0.25)" }}>
-                      {label}
-                    </p>
-                    <p className="text-[10px] font-medium mt-0.5" style={{ color: done ? "rgba(255,255,255,0.6)" : "rgba(255,255,255,0.2)" }}>
-                      {sub}
-                    </p>
-                  </div>
-                ))}
               </div>
             </div>
           </Link>

@@ -665,7 +665,7 @@ function ResultsContent() {
           </div>
 
           {/* Confidence + Consistency badges. MBTI Form M IRT methodology */}
-          <div className="flex items-center justify-center gap-3 flex-wrap mb-8">
+          <div className="flex flex-col items-center gap-2 mb-8">
             <div className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border text-xs font-medium ${
               confidence >= 65
                 ? "border-emerald-500/30 text-emerald-400"
@@ -673,18 +673,20 @@ function ResultsContent() {
                 ? "border-amber-500/30 text-amber-400"
                 : "border-rose-500/30 text-rose-400"
             }`} style={{ background: "rgba(255,255,255,0.05)" }}>
-              <span className="w-1.5 h-1.5 rounded-full bg-current inline-block" />
-              {confidence >= 65 ? "Clear preference" : confidence >= 40 ? "Moderate preference" : "Unclear preference"} · {confidence}%
+              <span className="w-1.5 h-1.5 rounded-full bg-current inline-block shrink-0" />
+              <span>{confidence >= 65 ? "Clear preference" : confidence >= 40 ? "Moderate preference" : "Unclear preference"} · {confidence}%</span>
             </div>
             {consistencyScore < 100 && (
-              <div className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border text-xs font-medium ${
+              <div className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border text-xs font-medium max-w-xs ${
                 consistencyScore >= 75
                   ? "border-sky-500/30 text-sky-400"
                   : "border-amber-500/30 text-amber-400"
               }`} style={{ background: "rgba(255,255,255,0.05)" }}>
-                <span className="w-1.5 h-1.5 rounded-full bg-current inline-block" />
-                Consistency: {consistencyScore}%
-                {inconsistentAxes.length > 0 && ` · ${inconsistentAxes.join(", ")} inconsistent`}
+                <span className="w-1.5 h-1.5 rounded-full bg-current inline-block shrink-0" />
+                <span className="truncate">
+                  Consistency: {consistencyScore}%
+                  {inconsistentAxes.length > 0 && ` · ${inconsistentAxes.slice(0, 2).join(", ")}${inconsistentAxes.length > 2 ? "…" : ""} inconsistent`}
+                </span>
               </div>
             )}
           </div>
