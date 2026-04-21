@@ -7,7 +7,7 @@ import { useProfile } from "@/hooks/useProfile";
 
 export default function QuickAssessmentPage() {
   const router = useRouter();
-  const { addXP, recordAssessment } = useProfile();
+  const { addXP, recordAssessment, updateProfile } = useProfile();
 
   return (
     <div className="min-h-screen pb-32">
@@ -43,6 +43,10 @@ export default function QuickAssessmentPage() {
           recordAssessment("quick", result.confidence, result.type);
           addXP(50, "quick-assessment-complete");
           const instinct = (result as { instinct?: string }).instinct ?? "SP";
+          // Persist instinct to profile so chibi sprites sync across the app
+          // (ChibiSprite reads profile.instinctualStacking; without this, every
+          // chibi falls back to "sp" regardless of what the user answered).
+          updateProfile({ instinctualStacking: instinct.toLowerCase().slice(0, 2) });
           const params = new URLSearchParams({
             type: String(result.type),
             scores: JSON.stringify([]),
