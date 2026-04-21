@@ -430,6 +430,11 @@ export function useProfile() {
     ? `Type ${profile.enneagramType}`
     : null;
 
+  // Pre-resolved convenience fields — prefer these over manual ?? chains in consumers.
+  // Centralizes the legacy-field fallback in one place.
+  const resolvedEnneagramType = profile.enneagramType ?? profile.enneagramCore ?? null;
+  const resolvedCognitiveType = profile.cognitiveType ?? profile.mbtiType ?? null;
+
   return {
     profile,
     loaded,
@@ -441,5 +446,9 @@ export function useProfile() {
     recordAssessment,
     hasType,
     displayName,
+    /** Resolved Enneagram type: enneagramType ?? enneagramCore. Prefer this over manual fallback. */
+    resolvedEnneagramType,
+    /** Resolved cognitive/MBTI type: cognitiveType ?? mbtiType. Prefer this over manual fallback. */
+    resolvedCognitiveType,
   };
 }
