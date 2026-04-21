@@ -164,9 +164,8 @@ type MoreGroup = { label: string; items: MoreItem[] };
 
 const ALL_MORE_GROUPS: MoreGroup[] = [
   {
-    label: "Mirrors",
+    label: "Deep Dive",
     items: [
-      { href: "/mirrors", label: "Three Mirrors", icon: Layers },
       { href: "/drift", label: "Drift Graph", icon: TrendingUp },
       { href: "/selves", label: "Selves (Work/Home/Love)", icon: Users },
       { href: "/relational", label: "Relational You", icon: Heart },
