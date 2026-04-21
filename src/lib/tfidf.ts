@@ -137,11 +137,12 @@ export async function buildLessonIndex(): Promise<TFIDFIndex> {
     // Index each lesson within the unit
     if (Array.isArray(unit.lessons)) {
       for (const lesson of unit.lessons) {
+        const lessonAny = lesson as unknown as Record<string, unknown>;
         const lessonContent = [
           lesson.title ?? "",
-          lesson.content ?? "",
-          (lesson as Record<string, unknown>).description ?? "",
-          (lesson as Record<string, unknown>).explanation ?? "",
+          String(lessonAny.content ?? ""),
+          String(lessonAny.description ?? ""),
+          String(lessonAny.explanation ?? ""),
         ]
           .filter(Boolean)
           .join(" ");

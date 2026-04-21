@@ -36,7 +36,7 @@ function getOrCreateDeviceId(): string {
  */
 export default function PostHogProvider() {
   const pathname     = usePathname();
-  const searchParams = useSearchParams();
+  const searchParams = useSearchParams() ?? new URLSearchParams();
 
   // Identify user on first mount
   useEffect(() => {

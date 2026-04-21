@@ -274,7 +274,7 @@ function NextAssessmentPrompt({ taken }: { taken: string[] }) {
 
 // ── Main inner component ──────────────────────────────────────────────────
 function ResultsInner() {
-  const searchParams = useSearchParams();
+  const searchParams = useSearchParams() ?? new URLSearchParams();
   const router = useRouter();
   const { profile, loaded, updateProfile } = useProfile();
   const [activeTab, setActiveTab] = useState(0);

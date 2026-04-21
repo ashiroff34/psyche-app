@@ -89,7 +89,7 @@ const PAIR_QUESTIONS: Array<{ text: string; scores: Record<number, number> }> = 
 
 function PairInner() {
   const router = useRouter();
-  const searchParams = useSearchParams();
+  const searchParams = useSearchParams() ?? new URLSearchParams();
   const { profile } = useProfile();
   const fromType = searchParams.get("from");
   const fromCode = searchParams.get("code");

@@ -9,7 +9,7 @@ const LIMITED_TIME_BONUS = 100;
 const TOTAL_REWARD = REFERRAL_TOKEN_REWARD + LIMITED_TIME_BONUS;
 
 function ReferralContent() {
-  const searchParams = useSearchParams();
+  const searchParams = useSearchParams() ?? new URLSearchParams();
   const router = useRouter();
   const code = searchParams.get("code") ?? "";
 

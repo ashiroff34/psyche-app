@@ -1257,7 +1257,7 @@ function OnboardingPageInner() {
   //   → Redirected to / which shows the app
   // ─────────────────────────────────────────────────────────────────
   const router = useRouter();
-  const searchParams = useSearchParams();
+  const searchParams = useSearchParams() ?? new URLSearchParams();
   const fromEnter = searchParams.get("fromEnter") === "true";
   const isManual = searchParams.get("manual") === "true";
 

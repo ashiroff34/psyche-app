@@ -60,7 +60,7 @@ function grantProLocally() {
 }
 
 function SuccessInner() {
-  const searchParams = useSearchParams();
+  const searchParams = useSearchParams() ?? new URLSearchParams();
   const sessionId = searchParams.get("session_id") ?? "";
   const packId    = searchParams.get("pack") ?? "";
 

@@ -71,8 +71,8 @@ function genericComparison(a: number, b: number) {
 }
 
 export default function ComparisonPage() {
-  const params = useParams();
-  const slug = params.types as string;
+  const params = useParams() ?? {};
+  const slug = (params.types ?? "") as string;
   const parsed = parseTypes(slug);
 
   if (!parsed) {

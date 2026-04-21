@@ -1017,7 +1017,7 @@ function SubtypeCard({
 
 // ─── Main Page ──────────────────────────────────────────────────────────────────
 export default function TypeDeepDivePage() {
-  const params = useParams();
+  const params = useParams() ?? {};
   const typeNum = parseInt(String(params.type), 10);
   const { profile, loaded } = useProfile();
 

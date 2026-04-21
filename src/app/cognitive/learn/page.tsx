@@ -1823,7 +1823,7 @@ const tabs = [
 type TabId = (typeof tabs)[number]["id"];
 
 function CognitiveLearnContent() {
-  const searchParams = useSearchParams();
+  const searchParams = useSearchParams() ?? new URLSearchParams();
   const funcParam = searchParams.get("func");
   const typeParam = searchParams.get("type");
 

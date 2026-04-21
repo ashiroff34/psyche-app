@@ -578,7 +578,7 @@ const inferiorDevelopmentStages: Record<string, {
 // ─── Main Component ───────────────────────────────────────────────────────────
 
 function ResultsContent() {
-  const searchParams = useSearchParams();
+  const searchParams = useSearchParams() ?? new URLSearchParams();
   const scoresParam = searchParams.get("scores");
   // allScores is now the full 8-function stack ordered by score (from buildFunctionStack)
   let allScores: { func: string; score: number; percentage: number }[] = [];

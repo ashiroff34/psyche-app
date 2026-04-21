@@ -987,7 +987,7 @@ function TypeDetail({ type }: { type: EnneagramType }) {
 }
 
 function LearnContent() {
-  const searchParams = useSearchParams();
+  const searchParams = useSearchParams() ?? new URLSearchParams();
   const router = useRouter();
   const typeParam = searchParams.get("type");
   const [selectedType, setSelectedType] = useState<number | null>(typeParam ? parseInt(typeParam, 10) : null);
