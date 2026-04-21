@@ -135,9 +135,21 @@ export default function ChibiMessage({ enneagramType, className }: Props) {
     const stateHistory = stateHistoryRaw ? JSON.parse(stateHistoryRaw) : [];
     const streak = gs.streakCount ?? gs.streak ?? 0;
     const totalDays = gs.totalDaysVisited ?? 0;
-    const lastVisit = gs.lastActivityDate ?? gs.lastVisitDate;
+    // gs.lastActivityDate is the canonical game-state field (YYYY-MM-DD local).
+    // Fall back to profile.lastVisitDate for users who opened the app but have
+    // not yet completed an in-app activity — gs.lastVisitDate was an incorrect
+    // fallback (that field does not exist on GameState; it lives on PsycheProfile).
+    const lastVisit: string | undefined = gs.lastActivityDate || profile.lastVisitDate;
+    // Parse YYYY-MM-DD strings as local midnight, not UTC midnight.
+    // new Date("YYYY-MM-DD") treats the string as UTC, which shifts the result
+    // by the user's UTC offset and yields wrong day counts in non-UTC timezones.
+    const toLocalMs = (s: string) => {
+      const [y, m, d] = s.split("-").map(Number);
+      return new Date(y, m - 1, d).getTime();
+    };
+    const todayMs = toLocalMs(new Intl.DateTimeFormat("en-CA").format(new Date()));
     const daysSinceLastVisit = lastVisit
-      ? Math.floor((Date.now() - new Date(lastVisit).getTime()) / 86400000)
+      ? Math.max(0, Math.floor((todayMs - toLocalMs(lastVisit)) / 86400000))
       : 0;
 
     const data = {
