@@ -129,7 +129,11 @@ export default function RetentionBanner() {
 
     const now = new Date();
     const hour = now.getHours();
-    const yesterday = new Intl.DateTimeFormat("en-CA").format(new Date(Date.now() - 86400000));
+    // Use setDate(-1) not Date.now()-86400000: the latter breaks on DST transitions
+    // (spring-forward day is 23h, fall-back day is 25h) and would misidentify the
+    // previous calendar day. setDate operates on local calendar days correctly.
+    const yd = new Date(); yd.setDate(yd.getDate() - 1);
+    const yesterday = new Intl.DateTimeFormat("en-CA").format(yd);
 
     let data: BannerData | null = null;
 
