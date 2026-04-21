@@ -5,6 +5,8 @@
 // situation categories. The prediction shows the habitual path
 // AND the integration alternative, with the specific choice point.
 
+import { INTEGRATION_TYPE } from "./integration-messages";
+
 export type SituationCategory = "conflict" | "performance" | "intimacy" | "uncertainty" | "loss";
 
 export interface Prediction {
@@ -12,8 +14,6 @@ export interface Prediction {
   integrationAlternative: string;
   choicePoint: string;
 }
-
-const INTEGRATION_TYPE: Record<number, number> = { 1: 7, 2: 4, 3: 6, 4: 1, 5: 8, 6: 9, 7: 5, 8: 2, 9: 3 };
 
 // Predictions keyed by type then situation category
 const PREDICTIONS: Record<number, Record<SituationCategory, Prediction>> = {
