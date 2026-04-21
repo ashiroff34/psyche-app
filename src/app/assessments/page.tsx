@@ -25,6 +25,7 @@ import {
   Eye,
 } from "lucide-react";
 import { useProfile } from "@/hooks/useProfile";
+import { usePsychometrics } from "@/hooks/usePsychometrics";
 import { enneagramTypes } from "@/data/enneagram";
 import EnneagramCircle from "@/components/EnneagramCircle";
 import { Leaf, ArrowRight as ArrowRightIcon } from "lucide-react";
@@ -574,6 +575,25 @@ function GrowthTab({ myType }: { myType: number }) {
         <Leaf className="w-4 h-4" />
         Full growth journal
       </Link>
+
+      {/* Three Mirrors cross-lens CTA */}
+      <Link
+        href="/mirrors"
+        className="flex items-center justify-between px-4 py-3.5 rounded-2xl transition-all"
+        style={{
+          background: "linear-gradient(135deg, rgba(99,102,241,0.12) 0%, rgba(217,70,239,0.12) 100%)",
+          border: "1px solid rgba(139,92,246,0.28)",
+        }}
+      >
+        <div className="flex items-center gap-2.5">
+          <Sparkles className="w-4 h-4 shrink-0" style={{ color: "#c4b5fd" }} />
+          <div>
+            <p className="text-sm font-semibold" style={{ color: "rgba(255,255,255,0.85)" }}>The Three Mirrors</p>
+            <p className="text-[11px]" style={{ color: "rgba(255,255,255,0.4)" }}>Where your lenses agree — and where they don't</p>
+          </div>
+        </div>
+        <ArrowRightIcon className="w-4 h-4 shrink-0" style={{ color: "rgba(196,181,253,0.6)" }} />
+      </Link>
     </div>
   );
 }
@@ -655,6 +675,7 @@ function ExploreTab({ myType }: { myType: number }) {
 
 export default function AssessmentsPage() {
   const { profile } = useProfile();
+  const { schwartz, aspects } = usePsychometrics();
   const [pageMode, setPageMode] = useState<"know" | "explore" | "growth">("know");
   const [showAll, setShowAll] = useState(false);
   const [activeTab, setActiveTab] = useState<Tab>("enneagram");
@@ -846,6 +867,76 @@ export default function AssessmentsPage() {
                   <Clock className="w-2.5 h-2.5" />
                   {recommendation.timeEstimate}
                 </span>
+              </div>
+            </div>
+          </Link>
+        </motion.div>
+
+        {/* ── Three Mirrors synthesis card ── */}
+        <motion.div
+          initial={{ opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.3, delay: 0.1 }}
+          className="mb-6"
+        >
+          <Link
+            href="/mirrors"
+            className="group block rounded-2xl overflow-hidden transition-all duration-200 hover:-translate-y-0.5"
+            style={{ boxShadow: "0 8px 32px rgba(0,0,0,0.4)" }}
+          >
+            <div
+              className="relative p-5"
+              style={{
+                background: "linear-gradient(135deg, rgba(99,102,241,0.18) 0%, rgba(139,92,246,0.18) 40%, rgba(217,70,239,0.18) 100%)",
+                border: "1px solid rgba(139,92,246,0.3)",
+                borderRadius: "1rem",
+              }}
+            >
+              {/* Shimmer overlay */}
+              <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/5 to-white/0 pointer-events-none rounded-2xl" />
+
+              <div className="flex items-start justify-between mb-3">
+                <div>
+                  <div className="flex items-center gap-2 mb-1">
+                    <Sparkles className="w-4 h-4" style={{ color: "#c4b5fd" }} />
+                    <span className="text-[10px] font-bold uppercase tracking-widest" style={{ color: "rgba(196,181,253,0.8)" }}>
+                      Cross-lens synthesis
+                    </span>
+                  </div>
+                  <h2 className="text-lg font-bold" style={{ color: "rgba(255,255,255,0.93)" }}>The Three Mirrors</h2>
+                  <p className="text-xs mt-0.5 leading-snug" style={{ color: "rgba(255,255,255,0.45)" }}>
+                    Where your motivation, traits, and values agree — and where they don't.
+                  </p>
+                </div>
+                <ArrowRight
+                  className="w-4 h-4 shrink-0 mt-1 transition-transform group-hover:translate-x-0.5"
+                  style={{ color: "rgba(196,181,253,0.6)" }}
+                />
+              </div>
+
+              {/* Three lens chips */}
+              <div className="flex gap-2">
+                {[
+                  { label: "Motivation", sub: "Enneagram", color: "#8b5cf6", done: hasType },
+                  { label: "Trait", sub: "Big Five Aspects", color: "#a855f7", done: !!aspects },
+                  { label: "Values", sub: "Schwartz", color: "#d946ef", done: !!schwartz },
+                ].map(({ label, sub, color, done }) => (
+                  <div
+                    key={label}
+                    className="flex-1 px-2.5 py-2 rounded-xl"
+                    style={{
+                      background: done ? `${color}18` : "rgba(255,255,255,0.04)",
+                      border: `1px solid ${done ? `${color}35` : "rgba(255,255,255,0.08)"}`,
+                    }}
+                  >
+                    <p className="text-[9px] font-bold uppercase tracking-widest" style={{ color: done ? color : "rgba(255,255,255,0.25)" }}>
+                      {label}
+                    </p>
+                    <p className="text-[10px] font-medium mt-0.5" style={{ color: done ? "rgba(255,255,255,0.6)" : "rgba(255,255,255,0.2)" }}>
+                      {sub}
+                    </p>
+                  </div>
+                ))}
               </div>
             </div>
           </Link>
