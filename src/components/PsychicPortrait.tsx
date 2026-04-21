@@ -3,6 +3,7 @@
 import { useRef, useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Share2, Download } from "lucide-react";
+import { TYPE_NAMES } from "@/data/enneagram";
 
 // ─── Type color palette ───────────────────────────────────────────────────────
 
@@ -18,17 +19,6 @@ const TYPE_COLOR: Record<number, string> = {
   9: "#cbd5e1",
 };
 
-const TYPE_NAMES: Record<number, string> = {
-  1: "The Reformer",
-  2: "The Helper",
-  3: "The Achiever",
-  4: "The Individualist",
-  5: "The Observer",
-  6: "The Loyalist",
-  7: "The Enthusiast",
-  8: "The Challenger",
-  9: "The Peacemaker",
-};
 
 // Cognitive type → orbital angle offset (degrees, spread around the Enneagram)
 const COGNITIVE_ANGLE: Record<string, number> = {
