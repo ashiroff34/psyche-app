@@ -62,12 +62,6 @@ function getDailyCards() {
   return [DAILY_CHALLENGE_CARDS[idx1], DAILY_CHALLENGE_CARDS[idx2]];
 }
 
-const TYPE_NAMES: Record<number, string> = {
-  1: "Type 1", 2: "Type 2", 3: "Type 3",
-  4: "Type 4", 5: "Type 5", 6: "Type 6",
-  7: "Type 7", 8: "Type 8", 9: "Type 9",
-};
-
 // ─── Day 2 streak celebration copy (type-specific) ──────────────────────────
 const DAY2_COPY: Record<number, string> = {
   1: "Day 2. The discipline is real. You're already ahead of most.",

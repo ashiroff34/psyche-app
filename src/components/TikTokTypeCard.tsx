@@ -1,20 +1,12 @@
 "use client";
 
 import { getReferralShareUrl } from "@/lib/referral";
-import { TYPE_COLORS } from "@/data/enneagram";
+import { TYPE_COLORS, TYPE_NAMES } from "@/data/enneagram";
 import { useRef, useState, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Share2, Download, X, Coins } from "lucide-react";
 import { assetPath } from "@/lib/assetPath";
 
-// ─── Type data ────────────────────────────────────────────────────────────────
-
-
-const TYPE_NAMES: Record<number, string> = {
-  1: "The Reformer", 2: "The Helper", 3: "The Achiever",
-  4: "The Individualist", 5: "The Investigator", 6: "The Loyalist",
-  7: "The Enthusiast", 8: "The Challenger", 9: "The Peacemaker",
-};
 
 const TYPE_TAGLINES: Record<number, string> = {
   1: "Principled. Purposeful. Self-controlled.",

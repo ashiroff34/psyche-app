@@ -72,6 +72,23 @@ export const TYPE_COLORS: Record<number, string> = {
   9: "#8B7355",
 };
 
+/**
+ * Canonical Enneagram type name map (Riso-Hudson nomenclature).
+ * Import from here — do NOT redefine locally.
+ * Keys are type numbers 1-9.
+ */
+export const TYPE_NAMES: Record<number, string> = {
+  1: "The Reformer",
+  2: "The Helper",
+  3: "The Achiever",
+  4: "The Individualist",
+  5: "The Investigator",
+  6: "The Loyalist",
+  7: "The Enthusiast",
+  8: "The Challenger",
+  9: "The Peacemaker",
+};
+
 export const enneagramTypes: EnneagramType[] = [
   {
     number: 1,

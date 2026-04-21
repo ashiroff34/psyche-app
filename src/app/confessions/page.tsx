@@ -4,22 +4,9 @@ import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useRouter } from "next/navigation";
 import { Plus, Send, X, MessageCircle, ChevronLeft } from "lucide-react";
-import { TYPE_COLORS } from "@/data/enneagram";
+import { TYPE_COLORS, TYPE_NAMES } from "@/data/enneagram";
 
 // ─── Constants ────────────────────────────────────────────────────────────────
-
-
-const TYPE_NAMES: Record<number, string> = {
-  1: "The Reformer",
-  2: "The Helper",
-  3: "The Achiever",
-  4: "The Individualist",
-  5: "The Investigator",
-  6: "The Loyalist",
-  7: "The Enthusiast",
-  8: "The Challenger",
-  9: "The Peacemaker",
-};
 
 const CONFESSIONS_KEY = "psyche-confessions";
 const LAST_CONFESSION_DATE_KEY = "psyche-last-confession-date";

@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { Brain, CheckCircle, XCircle, Zap, ArrowRight, Sparkles } from "lucide-react";
 import { useGameState } from "@/hooks/useGameState";
-import { TYPE_COLORS } from "@/data/enneagram";
+import { TYPE_COLORS, TYPE_NAMES } from "@/data/enneagram";
 
 // ─── Data ─────────────────────────────────────────────────────────────────────
 // Each card: show a quote/behavior/scenario, guess the type.
@@ -210,11 +210,6 @@ function getTypeOptions(correctType: number): number[] {
 }
 
 
-const TYPE_NAMES: Record<number, string> = {
-  1: "The Reformer", 2: "The Helper", 3: "The Achiever",
-  4: "The Individualist", 5: "The Investigator", 6: "The Loyalist",
-  7: "The Enthusiast", 8: "The Challenger", 9: "The Peacemaker",
-};
 
 const ROUNDS = 5;
 const XP_PER_CORRECT = 15;
