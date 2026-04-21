@@ -1,13 +1,13 @@
 {
   "name": "Thyself",
   "short_name": "Thyself",
-  "description": "Know thyself through the Enneagram and Jungian Cognitive Functions",
+  "description": "Self-understanding as mental fitness. Discover your psychological patterns, master your emotional defaults, and build lasting self-awareness.",
   "start_url": ".",
   "display": "standalone",
   "background_color": "#08031a",
   "theme_color": "#7c3aed",
   "orientation": "portrait",
-  "categories": ["education", "health", "lifestyle"],
+  "categories": ["education", "health", "fitness", "lifestyle"],
   "icons": [
     {
       "src": "icon-192.png",
