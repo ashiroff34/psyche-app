@@ -63,6 +63,7 @@ function matchesQuery(item: SearchItem, query: string): boolean {
 export default function SearchComponent() {
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState("");
+  const [activeIndex, setActiveIndex] = useState(-1);
   const router = useRouter();
   const inputRef = useRef<HTMLInputElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -72,6 +73,18 @@ export default function SearchComponent() {
       ? searchIndex.filter((item) => matchesQuery(item, query)).slice(0, 12)
       : [];
 
+  // Reset keyboard selection whenever results change
+  useEffect(() => {
+    setActiveIndex(-1);
+  }, [query]);
+
+  // Scroll active result into view when navigating with keyboard
+  useEffect(() => {
+    if (activeIndex < 0) return;
+    const el = document.getElementById(`search-result-${activeIndex}`);
+    el?.scrollIntoView({ block: "nearest" });
+  }, [activeIndex]);
+
   const handleOpen = () => {
     setOpen(true);
     setTimeout(() => inputRef.current?.focus(), 80);
@@ -80,11 +93,26 @@ export default function SearchComponent() {
   const handleClose = useCallback(() => {
     setOpen(false);
     setQuery("");
+    setActiveIndex(-1);
   }, []);
 
   const handleSelect = (item: SearchItem) => {
     router.push(item.href);
     handleClose();
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (!results.length) return;
+    if (e.key === "ArrowDown") {
+      e.preventDefault();
+      setActiveIndex((i) => Math.min(i + 1, results.length - 1));
+    } else if (e.key === "ArrowUp") {
+      e.preventDefault();
+      setActiveIndex((i) => Math.max(i - 1, 0));
+    } else if (e.key === "Enter" && activeIndex >= 0) {
+      e.preventDefault();
+      handleSelect(results[activeIndex]);
+    }
   };
 
   // Close on click outside
@@ -146,12 +174,19 @@ export default function SearchComponent() {
                 type="text"
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
+                onKeyDown={handleKeyDown}
                 placeholder="Search types, functions, concepts..."
                 className="flex-1 bg-transparent text-sm outline-none"
                 style={{ color: "rgba(255,255,255,0.9)", caretColor: "#a78bfa" }}
+                aria-autocomplete="list"
+                aria-activedescendant={activeIndex >= 0 ? `search-result-${activeIndex}` : undefined}
               />
               {query && (
-                <button onClick={() => setQuery("")} style={{ color: "rgba(255,255,255,0.35)" }}>
+                <button
+                  onClick={() => { setQuery(""); setActiveIndex(-1); }}
+                  aria-label="Clear search"
+                  style={{ color: "rgba(255,255,255,0.35)" }}
+                >
                   <X className="w-4 h-4" />
                 </button>
               )}
@@ -160,19 +195,19 @@ export default function SearchComponent() {
             {/* Results */}
             {results.length > 0 && (
               <div className="py-1 max-h-96 overflow-y-auto">
-                {results.map((item) => {
+                {results.map((item, idx) => {
                   const meta = CATEGORY_META[item.category];
+                  const isActive = idx === activeIndex;
                   return (
                     <button
                       key={item.id}
+                      id={`search-result-${idx}`}
                       onClick={() => handleSelect(item)}
+                      onMouseEnter={() => setActiveIndex(idx)}
                       className="w-full text-left px-4 py-3 flex items-start gap-3 transition-colors"
-                      style={{ borderBottom: "1px solid rgba(255,255,255,0.04)" }}
-                      onMouseEnter={(e) => {
-                        (e.currentTarget as HTMLButtonElement).style.background = "rgba(139,92,246,0.1)";
-                      }}
-                      onMouseLeave={(e) => {
-                        (e.currentTarget as HTMLButtonElement).style.background = "transparent";
+                      style={{
+                        borderBottom: "1px solid rgba(255,255,255,0.04)",
+                        background: isActive ? "rgba(139,92,246,0.15)" : "transparent",
                       }}
                     >
                       {/* Category pill */}
@@ -198,7 +233,7 @@ export default function SearchComponent() {
             )}
 
             {/* Empty state */}
-            {query.trim().length >= 2 && results.length === 0 && (
+            {query.trim().length >= 1 && results.length === 0 && (
               <div className="px-4 py-8 text-center">
                 <p className="text-sm" style={{ color: "rgba(255,255,255,0.35)" }}>
                   No results for &ldquo;{query}&rdquo;
