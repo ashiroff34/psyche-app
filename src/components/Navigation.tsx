@@ -42,7 +42,7 @@ import SearchComponent from "@/components/Search";
 const WHEEL_SPOKES = [
   { href: "/assessments", label: "Know",     icon: Target,      color: "#8b5cf6" },
   { href: "/daily",       label: "Practice", icon: Flame,       color: "#d946ef" },
-  { href: "/avatar",      label: "Pet",      icon: Heart,       color: "#10b981" },
+  { href: "/mirrors",     label: "Mirrors",  icon: Layers,      color: "#a855f7" },
   { href: "/store",       label: "Store",    icon: ShoppingBag, color: "#fbbf24" },
   { href: "/profile",     label: "You",      icon: UserCircle,  color: "#a78bfa" },
 ] as const;
@@ -356,7 +356,7 @@ function SwipeNavigator() {
   const touchStartY = useRef(0);
   const blockedRef = useRef(false);
 
-  const tabOrder = ["/assessments", "/daily", "/avatar", "/store", "/profile"];
+  const tabOrder = ["/assessments", "/daily", "/mirrors", "/store", "/profile"];
 
   useEffect(() => {
     const onTouchStart = (e: TouchEvent) => {

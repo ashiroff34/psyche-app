@@ -33,38 +33,11 @@ const IDLE_MINUTES = 3; // show idle nudge after this many minutes
 
 function buildNudges(
   profile: Record<string, unknown>,
-  petHealth: number,
   streakCount: number,
   daysSinceVisit: number,
   doneStreakToday: boolean
 ): Nudge[] {
   const nudges: Nudge[] = [];
-
-  // Pet health critical
-  if (petHealth > 0 && petHealth < 30) {
-    nudges.push({
-      id: "pet-hungry",
-      icon: null,
-      title: "Your pet is starving!",
-      body: `Health: ${petHealth}%. Feed them in the Game Hub before it's too late.`,
-      cta: "Feed now",
-      href: "/avatar",
-      accentClass: "from-rose-400 to-orange-400",
-    });
-  }
-
-  // Pet dead
-  if (petHealth === 0) {
-    nudges.push({
-      id: "pet-dead",
-      icon: null,
-      title: "Your pet didn't make it…",
-      body: "Use 100 tokens in the shop to revive them.",
-      cta: "Revive pet",
-      href: "/avatar",
-      accentClass: "from-slate-400 to-slate-600",
-    });
-  }
 
   // Streak about to break, only if they haven't done their practice today yet
   if (streakCount > 0 && !doneStreakToday) {
@@ -213,32 +186,24 @@ export default function EngagementNudge() {
         JSON.stringify({ ...profile, lastVisitDate: new Intl.DateTimeFormat("en-CA").format(new Date()) })
       );
 
-      // Get pet health, streak, and today's activity from game state
-      let petHealth = 100;
+      // Get streak and today's activity from game state
       let streakCount = 0;
       let doneStreakToday = false;
       try {
         const gs = localStorage.getItem("psyche-game-state");
         if (gs) {
           const parsed = JSON.parse(gs);
-          petHealth = parsed.petHealth ?? 100;
           streakCount = parsed.streakCount ?? 0;
           const today = new Intl.DateTimeFormat("en-CA").format(new Date());
           doneStreakToday = parsed.lastActivityDate === today;
         }
       } catch {}
 
-      const nudges = buildNudges(profile, petHealth, streakCount, daysSinceVisit, doneStreakToday);
+      const nudges = buildNudges(profile, streakCount, daysSinceVisit, doneStreakToday);
 
       // Re-entry nudge: show after 1.5s if absent 1+ day
       if (daysSinceVisit >= 1) {
         const timer = setTimeout(() => showNextNudge(nudges, "reentry"), 1500);
-        return () => clearTimeout(timer);
-      }
-
-      // Pet critical: check immediately
-      if (petHealth < 30) {
-        const timer = setTimeout(() => showNextNudge(nudges, "pet"), 2000);
         return () => clearTimeout(timer);
       }
     } catch {}
@@ -257,20 +222,18 @@ export default function EngagementNudge() {
           const profileRaw = localStorage.getItem("psyche-profile");
           if (!profileRaw) return;
           const profile = JSON.parse(profileRaw) as Record<string, unknown>;
-          let petHealth = 100;
           let streakCount = 0;
           let doneToday = false;
           try {
             const gs = localStorage.getItem("psyche-game-state");
             if (gs) {
               const p = JSON.parse(gs);
-              petHealth = p.petHealth ?? 100;
               streakCount = p.streakCount ?? 0;
               const today = new Intl.DateTimeFormat("en-CA").format(new Date());
               doneToday = p.lastActivityDate === today;
             }
           } catch {}
-          const nudges = buildNudges(profile, petHealth, streakCount, 0, doneToday);
+          const nudges = buildNudges(profile, streakCount, 0, doneToday);
           showNextNudge(nudges, "idle");
         } catch {}
       }, IDLE_MS);

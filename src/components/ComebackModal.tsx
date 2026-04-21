@@ -2,10 +2,9 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Trophy, Heart, X, Zap, Snowflake, Coins } from "lucide-react";
+import { Trophy, X, Zap, Snowflake, Coins } from "lucide-react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import PetSprite from "@/components/PetSprite";
 import { acquireNotificationLock, releaseNotificationLock } from "@/lib/notificationLock";
 
 // ─── Helpers ─────────────────────────────────────────────────────────────────
@@ -23,11 +22,6 @@ function daysBetween(isoA: string, isoB: string): number {
 // ─── Types ───────────────────────────────────────────────────────────────────
 
 interface ModalData {
-  petName: string;
-  petType: number;
-  petHealth: number | null;
-  petHunger: number | null;
-  petAlive: boolean;
   daysSince: number;
   userType: string | null;
 }
@@ -50,16 +44,10 @@ export default function ComebackModal() {
     if (localStorage.getItem("psyche-tutorial-complete") !== "true") return;
 
     let profile: Record<string, unknown> = {};
-    let petState: Record<string, unknown> | null = null;
 
     try {
       const raw = localStorage.getItem("psyche-profile");
       if (raw) profile = JSON.parse(raw);
-    } catch {}
-
-    try {
-      const raw = localStorage.getItem("psyche-pet-state");
-      if (raw) petState = JSON.parse(raw);
     } catch {}
 
     const lastVisitDate = typeof profile.lastVisitDate === "string" ? profile.lastVisitDate : null;
@@ -67,8 +55,6 @@ export default function ComebackModal() {
 
     const daysSince = daysBetween(lastVisitDate, today);
     if (daysSince < 1) return;
-
-    const petType = typeof petState?.type === "number" ? petState.type : null;
 
     // Determine user type label
     const enneagramType = typeof profile.enneagramType === "number" ? profile.enneagramType : null;
@@ -78,15 +64,7 @@ export default function ComebackModal() {
     // Only show if no other notification is currently visible
     if (!acquireNotificationLock("comeback-modal")) return;
 
-    setData({
-      petName: typeof petState?.name === "string" ? petState.name : "Your pet",
-      petType: (petState?.type ?? enneagramType ?? 1) as number,
-      petHealth: typeof petState?.health === "number" ? petState.health : null,
-      petHunger: typeof petState?.hunger === "number" ? petState.hunger : null,
-      petAlive: petState?.isAlive !== false,
-      daysSince,
-      userType,
-    });
+    setData({ daysSince, userType });
 
     setShow(true);
     sessionStorage.setItem("comeback-shown", "true");
@@ -157,22 +135,6 @@ export default function ComebackModal() {
   // Any long-away tier triggers the token/reward paths that used to be "winback"
   const isLongAway: boolean = segment === "empathetic" || segment === "freshStart";
 
-  const petHealthColor =
-    data.petHealth === null
-      ? "bg-slate-200"
-      : data.petHealth < 20
-      ? "bg-red-400"
-      : data.petHealth < 50
-      ? "bg-orange-400"
-      : "bg-emerald-400";
-
-  const petHungerColor =
-    data.petHunger === null
-      ? "bg-slate-200"
-      : data.petHunger < 30
-      ? "bg-orange-400"
-      : "bg-sky-400";
-
   // Heading / subtext / CTA copy per segment
   const headingText =
     segment === "freshStart"
@@ -181,8 +143,6 @@ export default function ComebackModal() {
       ? "No streak to catch up on. Just you, here."
       : isLongAway
       ? "Your growth path is waiting."
-      : data.petName !== "Your pet"
-      ? `${data.petName} missed you.`
       : data.userType
       ? `We missed you, ${data.userType}.`
       : "We missed you.";
@@ -266,17 +226,11 @@ export default function ComebackModal() {
                     {headingText}
                   </h2>
                   {subtextEl}
-                  {/* Urgency line. only for moderate/winback */}
-                  {segment !== "gentle" && (
-                    data.petHealth !== null && data.petHealth < 80 ? (
-                      <p className="text-xs mt-2 font-medium" style={{ color: "#fb923c" }}>
-                        Your pet&apos;s health dropped while you were away
-                      </p>
-                    ) : (data.petHealth === null || data.petHealth >= 80) && daysSince > 0 ? (
-                      <p className="text-xs mt-2 font-medium" style={{ color: "#f87171" }}>
-                        Your streak reset. start a new one today
-                      </p>
-                    ) : null
+                  {/* Urgency line */}
+                  {segment !== "gentle" && daysSince > 0 && (
+                    <p className="text-xs mt-2 font-medium" style={{ color: "#f87171" }}>
+                      Your streak reset. start a new one today
+                    </p>
                   )}
                 </div>
 
@@ -314,59 +268,6 @@ export default function ComebackModal() {
                   </div>
                 )}
 
-                {/* Pet status (if pet exists). show for moderate and winback */}
-                {segment !== "gentle" && (data.petName !== "Your pet" || data.petHealth !== null) ? (
-                  <div className="p-4 rounded-2xl mb-5" style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.08)" }}>
-                    <div className="flex items-center gap-3 mb-3">
-                      <PetSprite type={data.petType} size={60} />
-                      <div>
-                        <p className="text-sm font-semibold" style={{ color: "rgba(255,255,255,0.9)" }}>
-                          {data.petName} missed you!
-                        </p>
-                        {!data.petAlive && (
-                          <div>
-                            <p className="text-xs font-medium" style={{ color: "#f87171" }}>Needs revival</p>
-                            <Link href="/avatar" onClick={handleClose} className="text-xs font-semibold" style={{ color: "#fb7185" }}>
-                              Go revive →
-                            </Link>
-                          </div>
-                        )}
-                      </div>
-                    </div>
-                    {data.petHealth !== null && data.petAlive && (
-                      <div className="space-y-2">
-                        <div>
-                          <div className="flex justify-between text-xs mb-1" style={{ color: "rgba(255,255,255,0.4)" }}>
-                            <span className="flex items-center gap-1">
-                              <Heart className="w-3 h-3" /> Health
-                            </span>
-                            <span>{data.petHealth}%</span>
-                          </div>
-                          <div className="h-1.5 rounded-full overflow-hidden" style={{ background: "rgba(255,255,255,0.1)" }}>
-                            <div
-                              className={`h-full rounded-full transition-all ${petHealthColor}`}
-                              style={{ width: `${data.petHealth}%` }}
-                            />
-                          </div>
-                        </div>
-                        {data.petHunger !== null && (
-                          <div>
-                            <div className="flex justify-between text-xs mb-1" style={{ color: "rgba(255,255,255,0.4)" }}>
-                              <span>Hunger</span>
-                              <span>{data.petHunger}%</span>
-                            </div>
-                            <div className="h-1.5 rounded-full overflow-hidden" style={{ background: "rgba(255,255,255,0.1)" }}>
-                              <div
-                                className={`h-full rounded-full transition-all ${petHungerColor}`}
-                                style={{ width: `${data.petHunger}%` }}
-                              />
-                            </div>
-                          </div>
-                        )}
-                      </div>
-                    )}
-                  </div>
-                ) : segment !== "gentle" ? null : null}
 
                 {/* Claim / Continue button */}
                 <motion.button

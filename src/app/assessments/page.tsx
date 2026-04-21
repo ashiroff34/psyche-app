@@ -610,6 +610,33 @@ const TYPE_CENTER_COLORS: Record<number, string> = {
 function ExploreTab({ myType }: { myType: number }) {
   return (
     <div>
+      {/* ── Three Mirrors feature hero ── */}
+      <Link
+        href="/mirrors"
+        className="group block mb-6 rounded-2xl overflow-hidden transition-all duration-200 active:scale-[0.98]"
+        style={{
+          background: "linear-gradient(135deg, #1a0a3a 0%, #2a0a4a 50%, #1a0a3a 100%)",
+          border: "1px solid rgba(139,92,246,0.4)",
+          boxShadow: "0 0 0 1px rgba(217,70,239,0.1), 0 8px 32px rgba(124,58,237,0.25)",
+        }}
+      >
+        <div className="h-0.5 w-full" style={{ background: "linear-gradient(90deg, #6366f1, #8b5cf6, #d946ef)" }} />
+        <div className="p-5 flex items-center gap-4">
+          <div className="w-12 h-12 rounded-2xl flex items-center justify-center shrink-0"
+            style={{ background: "linear-gradient(135deg, rgba(99,102,241,0.3), rgba(217,70,239,0.3))", border: "1px solid rgba(139,92,246,0.3)" }}>
+            <Sparkles className="w-6 h-6" style={{ color: "#c4b5fd" }} />
+          </div>
+          <div className="flex-1 min-w-0">
+            <p className="text-[10px] font-bold uppercase tracking-widest mb-0.5" style={{ color: "rgba(196,181,253,0.7)" }}>Cross-lens synthesis</p>
+            <h2 className="text-base font-bold" style={{ color: "rgba(255,255,255,0.95)" }}>The Three Mirrors</h2>
+            <p className="text-xs mt-0.5 leading-snug" style={{ color: "rgba(255,255,255,0.45)" }}>
+              Motivation · Trait · Values — where they agree and where they don't
+            </p>
+          </div>
+          <ArrowRight className="w-5 h-5 shrink-0 transition-transform group-hover:translate-x-0.5" style={{ color: "rgba(196,181,253,0.5)" }} />
+        </div>
+      </Link>
+
       {/* Enneagram diagram */}
       <div className="flex justify-center mb-8">
         <EnneagramCircle selectedType={myType || undefined} size={240} />

@@ -5,23 +5,17 @@ import { motion, AnimatePresence } from "framer-motion";
 import { acquireNotificationLock, releaseNotificationLock } from "@/lib/notificationLock";
 import Link from "next/link";
 import {
-  AlertTriangle,
   Flame,
   Trophy,
-  Heart,
   Zap,
   X,
   ArrowRight,
   BookOpen,
-  Skull,
 } from "lucide-react";
 
 // ─── Types ───────────────────────────────────────────────────────────────────
 
 type BannerVariant =
-  | "pet-dying"
-  | "pet-dead"
-  | "pet-hungry"
   | "streak-at-risk"
   | "comeback"
   | "daily-not-done"
@@ -81,7 +75,6 @@ export default function RetentionBanner() {
     // Read all relevant state
     let profile: Record<string, unknown> = {};
     let gameState: Record<string, unknown> = {};
-    let petState: Record<string, unknown> | null = null;
     let dailyProgress: Record<string, unknown> | null = null;
 
     try {
@@ -95,19 +88,9 @@ export default function RetentionBanner() {
     } catch {}
 
     try {
-      const raw = localStorage.getItem("psyche-pet-state");
-      if (raw) { const parsed = JSON.parse(raw); petState = parsed ?? null; }
-    } catch {}
-
-    try {
       const raw = localStorage.getItem(`psyche-daily-${today}`);
       if (raw) { const parsed = JSON.parse(raw); dailyProgress = parsed ?? null; }
     } catch {}
-
-    const petName = (petState?.name as string) || "Your pet";
-    const petHealth = typeof petState?.health === "number" ? petState.health : null;
-    const petHunger = typeof petState?.hunger === "number" ? petState.hunger : null;
-    const petAlive = petState?.isAlive !== false;
 
     const xp =
       typeof gameState.xp === "number"
@@ -137,47 +120,8 @@ export default function RetentionBanner() {
 
     let data: BannerData | null = null;
 
-    // Priority 1: Pet dying (health < 20, alive)
-    if (petState && petAlive && petHealth !== null && petHealth < 20) {
-      data = {
-        variant: "pet-dying",
-        message: `${petName} is in critical condition! Care for them now.`,
-        href: "/avatar",
-        actionLabel: "Help Now",
-        icon: <AlertTriangle className="w-4 h-4" />,
-        gradient: "from-red-500/10 via-rose-500/10 to-red-500/5",
-        textColor: "text-red-700",
-        buttonClass: "bg-red-500 hover:bg-red-600 text-white",
-      };
-    }
-    // Priority 2: Pet dead
-    else if (petState && !petAlive) {
-      data = {
-        variant: "pet-dead",
-        message: `${petName} needs revival! They've been waiting for you.`,
-        href: "/avatar",
-        actionLabel: "Revive",
-        icon: <Skull className="w-4 h-4" />,
-        gradient: "from-red-500/15 via-rose-500/10 to-red-500/8",
-        textColor: "text-red-400",
-        buttonClass: "bg-slate-600 hover:bg-slate-700 text-white",
-      };
-    }
-    // Priority 3: Pet hungry (hunger < 30, alive)
-    else if (petState && petAlive && petHunger !== null && petHunger < 30) {
-      data = {
-        variant: "pet-hungry",
-        message: `${petName} is hungry! Feed them to earn bonus tokens.`,
-        href: "/avatar",
-        actionLabel: "Feed Pet",
-        icon: <Heart className="w-4 h-4" />,
-        gradient: "from-orange-500/15 via-amber-500/10 to-orange-500/8",
-        textColor: "text-orange-400",
-        buttonClass: "bg-orange-500 hover:bg-orange-600 text-white",
-      };
-    }
-    // Priority 4: Streak at risk (last visit was yesterday, now past 9pm)
-    else if (lastVisitDate === yesterday && hour >= 21 && streakCount > 0) {
+    // Priority 1: Streak at risk (last visit was yesterday, now past 9pm)
+    if (lastVisitDate === yesterday && hour >= 21 && streakCount > 0) {
       data = {
         variant: "streak-at-risk",
         message: `Don't break your ${streakCount}-day streak! Complete today's quiz before midnight.`,
