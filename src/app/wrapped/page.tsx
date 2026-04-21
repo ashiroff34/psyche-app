@@ -268,7 +268,7 @@ function SlideType({ data }: { data: WrappedData }) {
           className="w-28 h-28"
         >
           <img
-            src={assetPath(`/sprites/chibi/${type}-sp${type}.png`)}
+            src={assetPath(`/sprites/chibi/${type}-sp${type}.png`) + "?v=2"}
             alt={`Type ${type} chibi`}
             className="w-full h-full object-contain"
             onError={() => setImgError(true)}

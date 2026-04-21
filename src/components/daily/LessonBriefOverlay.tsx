@@ -628,7 +628,7 @@ export default function LessonBriefOverlay({
 
   // Chibi for the header — derive instinct prefix from profile so sx/so users get the right sprite
   const chibiSrc = (() => {
-    if (!enneagramType) return "/sprites/chibi/5-sp5.png";
+    if (!enneagramType) return "/sprites/chibi/5-sp5.png?v=2";
     try {
       const raw = typeof window !== "undefined" ? localStorage.getItem("psyche-profile") : null;
       if (raw) {
@@ -637,10 +637,10 @@ export default function LessonBriefOverlay({
         // instinctualStacking is like "sp/sx" — take the first segment
         const instinct = subtype.split("/")[0]?.toLowerCase() ?? "sp";
         const prefix = ["sp", "sx", "so"].includes(instinct) ? instinct : "sp";
-        return `/sprites/chibi/${enneagramType}-${prefix}${enneagramType}.png`;
+        return `/sprites/chibi/${enneagramType}-${prefix}${enneagramType}.png?v=2`;
       }
     } catch {}
-    return `/sprites/chibi/${enneagramType}-sp${enneagramType}.png`;
+    return `/sprites/chibi/${enneagramType}-sp${enneagramType}.png?v=2`;
   })();
 
   const renderBody = (body: string, highlight?: string) => {

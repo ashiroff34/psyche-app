@@ -57,9 +57,10 @@ export default function ChibiSprite({
     }
   }, [spriteState]);
 
-  // Build path: e.g. /sprites/chibi/5-so5.png
+  // Build path: e.g. /sprites/chibi/5-so5.png?v=2
+  // Cache-bust v=2 forces CDN/browser to fetch the updated RGBA sprites
   const inst = instinct?.toLowerCase().slice(0, 2) || "sp";
-  const src = assetPath(`/sprites/chibi/${type}-${inst}${type}.png`);
+  const src = assetPath(`/sprites/chibi/${type}-${inst}${type}.png`) + "?v=2";
 
   let animate: Record<string, number[]> = IDLE_ANIMATE;
   let transition: Record<string, unknown> = IDLE_TRANSITION;

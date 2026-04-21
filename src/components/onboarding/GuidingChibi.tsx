@@ -6,7 +6,7 @@ import { assetPath } from "@/lib/assetPath";
 
 // SO5 is the guide — the Social 5 archetype (teacher, observer, synthesizer)
 // Appropriate for onboarding: curious, knowledgeable, non-intrusive.
-const SPRITE = "/sprites/chibi/5-so5.png";
+const SPRITE = "/sprites/chibi/5-so5.png?v=2";
 
 const STEP_MESSAGES: Record<number, string> = {
   0: "Hi. I'll guide you through. Takes about 4 minutes.",

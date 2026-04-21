@@ -431,7 +431,7 @@ function EnterScreen() {
           }}
         >
           <img
-            src="/sprites/chibi/5-so5.png"
+            src="/sprites/chibi/5-so5.png?v=2"
             alt="Guide"
             width={68}
             height={68}

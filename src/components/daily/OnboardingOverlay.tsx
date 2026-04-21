@@ -212,7 +212,7 @@ export default function OnboardingOverlay({ onComplete }: Props) {
                 className="mb-4"
               >
                 <Image
-                  src="/sprites/chibi/5-sp5.png"
+                  src="/sprites/chibi/5-sp5.png?v=2"
                   alt="mascot"
                   width={80}
                   height={80}

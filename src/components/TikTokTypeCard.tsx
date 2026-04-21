@@ -237,7 +237,7 @@ export default function TikTokTypeCard({
             <div className="relative">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src={assetPath(`/sprites/chibi/${enneagramType}-sp${enneagramType}.png`)}
+                src={assetPath(`/sprites/chibi/${enneagramType}-sp${enneagramType}.png`) + "?v=2"}
                 alt={`Type ${enneagramType} chibi`}
                 width={96}
                 height={96}

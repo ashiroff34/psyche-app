@@ -1329,7 +1329,7 @@ function TypeCardColumn({
   showSprite: boolean;
   onImgError: () => void;
 }) {
-  const spriteSrc = assetPath(`/sprites/chibi/${type}-sp${type}.png`);
+  const spriteSrc = assetPath(`/sprites/chibi/${type}-sp${type}.png`) + "?v=2";
 
   return (
     <div
