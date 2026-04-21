@@ -99,7 +99,9 @@ export const PASSION_CHECK_INS: Record<number, PassionCheckIn[]> = {
 export function getTodayPassionCheckIn(type: number): PassionCheckIn | null {
   const set = PASSION_CHECK_INS[type];
   if (!set || set.length === 0) return null;
-  // Day-of-week index so the same question shows all day, then rotates
-  const dayOfYear = Math.floor((Date.now() - new Date(new Date().getFullYear(), 0, 0).getTime()) / 86400000);
+  // Day-of-year index so the same question shows all day, then rotates.
+  // Use a local Date object for both operands to avoid UTC vs. local mismatch.
+  const now = new Date();
+  const dayOfYear = Math.floor((now.getTime() - new Date(now.getFullYear(), 0, 0).getTime()) / 86400000);
   return set[dayOfYear % set.length];
 }
