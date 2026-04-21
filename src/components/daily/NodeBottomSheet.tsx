@@ -166,6 +166,7 @@ export default function NodeBottomSheet({ node, onClose, onStart, onCompleteNonQ
                 </div>
                 <button
                   onClick={onClose}
+                  aria-label="Close"
                   className="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center hover:bg-slate-200 transition shrink-0 mt-1"
                 >
                   <X className="w-4 h-4 text-slate-500" />

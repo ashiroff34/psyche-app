@@ -75,6 +75,7 @@ export default function TypeDiscoveryModal({ typeNum, isFirstDiscovery }: Props)
                 </div>
                 <button
                   onClick={dismiss}
+                  aria-label="Dismiss"
                   className="p-2 rounded-xl"
                   style={{ background: "rgba(255,255,255,0.07)" }}
                 >
