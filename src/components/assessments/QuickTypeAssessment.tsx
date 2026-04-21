@@ -375,12 +375,22 @@ function computeResult(scores: Record<number, number>) {
   const entries = Object.entries(scores)
     .map(([k, v]) => ({ type: Number(k), score: v }))
     .sort((a, b) => b.score - a.score);
+  if (entries.length === 0) return { type: 1, confidence: 35, runnerUp: 1 };
   const top = entries[0];
   const second = entries[1];
   const total = entries.reduce((s, e) => s + e.score, 0);
+  // Gap-based confidence: how far the winner pulled ahead relative to all
+  // distributed points. Replaces the old top/total×100 formula, which
+  // inflated certainty — a type could show "89% confident" on a tie-ish
+  // result simply because the other 8 types scored near zero.
+  // Floor 35: we always show some confidence (the algorithm made a call).
+  // Ceiling 85: an 8-question short quiz cannot claim higher than this.
+  const gap = top.score - (second?.score ?? 0);
+  const gapRatio = total > 0 ? gap / total : 0;
+  const confidence = Math.round(35 + gapRatio * 50);
   return {
     type: top.type,
-    confidence: total > 0 ? Math.round((top.score / total) * 100) : 0,
+    confidence,
     runnerUp: second?.type ?? top.type,
   };
 }

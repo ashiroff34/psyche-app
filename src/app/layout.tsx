@@ -14,9 +14,9 @@ import { Suspense } from "react";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://thyself.app"),
-  title: "Thyself. Know thyself.",
+  title: "Thyself — Mental fitness through self-understanding",
   description:
-    "Know thyself. Discover your Enneagram type through 5 assessment paths. 9 types, 27 subtypes, cognitive functions, and deep psychology rooted in Ichazo, Naranjo, and Riso-Hudson.",
+    "Self-understanding as mental fitness. Discover the psychological patterns that drive your emotions and behavior — then grow past your defaults. Grounded in Enneagram, Jungian psychology, and behavioral science.",
   manifest: assetPath("/manifest.json"),
   appleWebApp: {
     capable: true,
@@ -28,9 +28,9 @@ export const metadata: Metadata = {
     "apple-mobile-web-app-capable": "yes",
   },
   openGraph: {
-    title: "Thyself. Know thyself.",
+    title: "Thyself — Mental fitness through self-understanding",
     description:
-      "Know thyself. 9 types, 27 subtypes, 5 assessment paths. Grounded in Ichazo, Naranjo & Riso-Hudson.",
+      "Self-understanding as mental fitness. Discover your psychological patterns, master your emotional defaults, and build the self-awareness that makes every other form of growth work better.",
     url: "https://thyself.app",
     siteName: "Thyself",
     type: "website",
@@ -39,15 +39,15 @@ export const metadata: Metadata = {
         url: "https://thyself.app/opengraph-image",
         width: 1200,
         height: 630,
-        alt: "Thyself. Know thyself.",
+        alt: "Thyself — Mental fitness through self-understanding",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Thyself. Know thyself.",
+    title: "Thyself — Mental fitness through self-understanding",
     description:
-      "Know thyself. Discover your Enneagram type through 5 assessment paths. Deep psychology, 27 subtypes, cognitive functions.",
+      "The mental fitness app built around your psychological type. Understand what drives your emotions, behavior, and relationships — then change the patterns that no longer serve you.",
     images: ["https://thyself.app/opengraph-image"],
   },
 };
@@ -92,10 +92,27 @@ export default function RootLayout({
                 "@type": "WebApplication",
                 name: "Thyself",
                 description:
-                  "Know thyself. Discover your Enneagram type through 5 assessment paths. 9 types, 27 subtypes, cognitive functions, and deep psychology rooted in Ichazo, Naranjo, and Riso-Hudson.",
-                applicationCategory: "LifestyleApplication",
+                  "Self-understanding as mental fitness. Discover the psychological patterns that drive your emotions and behavior — then grow past your defaults. Grounded in Enneagram, Jungian psychology, and behavioral science.",
+                applicationCategory: "HealthApplication",
                 operatingSystem: "Web, iOS, Android",
                 url: "https://thyself.app",
+                keywords: [
+                  "mental fitness",
+                  "self-awareness",
+                  "psychological patterns",
+                  "emotional intelligence",
+                  "self-understanding",
+                  "mental health",
+                  "personality psychology",
+                  "enneagram",
+                  "jungian psychology",
+                  "behavioral science",
+                  "mindfulness",
+                  "self-improvement",
+                  "emotional regulation",
+                  "shadow work",
+                  "cognitive functions",
+                ],
               },
             ]),
           }}
