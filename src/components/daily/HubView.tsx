@@ -18,7 +18,7 @@ import PracticeOfOpposite from "@/components/daily/PracticeOfOpposite";
 import QuestionOfWeek from "@/components/daily/QuestionOfWeek";
 import { usePsychometrics } from "@/hooks/usePsychometrics";
 import { pickByFocus } from "@/data/psychometrics/regulatory-focus";
-import { getFreshStartWindow, getFreshStartCopy, getImplementationIntent } from "@/lib/fresh-start";
+import { getFreshStartWindow, getFreshStartCopy, getImplementationIntent, type FreshStartCopy } from "@/lib/fresh-start";
 import { isBonusDayToday } from "@/lib/variable-rewards";
 import { getTodaysNorm } from "@/data/descriptive-norms";
 import { recordSessionStart, recordSessionEnd, recordFeatureOffered } from "@/lib/behavioral-signals";
@@ -340,8 +340,8 @@ export default function HubView({
   // Fresh-start effect (Dai, Milkman, Riis 2014): surface a banner on
   // temporal landmarks (Mondays, 1st of month, birthday, season changes).
   // Dismissed per-window with a localStorage key.
-  const [freshStartState] = useState(() => {
-    if (typeof window === "undefined") return { visible: false, window: "none" as const, copy: null as any };
+  const [freshStartState] = useState<{ visible: boolean; window: ReturnType<typeof getFreshStartWindow>; copy: FreshStartCopy | null; dismissKey?: string }>(() => {
+    if (typeof window === "undefined") return { visible: false, window: "none" as const, copy: null };
     const w = getFreshStartWindow(new Date(), null);
     if (w === "none") return { visible: false, window: w, copy: null };
     const dismissKey = `psyche-fresh-start-dismissed-${w}-${new Intl.DateTimeFormat("en-CA").format(new Date())}`;
@@ -976,7 +976,7 @@ export default function HubView({
               >
                 <button
                   onClick={() => {
-                    if ((freshStartState as any).dismissKey) localStorage.setItem((freshStartState as any).dismissKey, "1");
+                    if (freshStartState.dismissKey) localStorage.setItem(freshStartState.dismissKey, "1");
                     setFreshStartVisible(false);
                   }}
                   className="absolute top-2 right-2 text-[10px] opacity-50 hover:opacity-90 px-2"

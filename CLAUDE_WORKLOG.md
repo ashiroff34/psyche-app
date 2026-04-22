@@ -7,6 +7,9 @@ See bottom for today's entries (most recent first within each day).
 
 ## 2026-04-22
 
+### Pass 6 — Remove `as any` casts in HubView fresh-start state
+- **fix**: Added explicit generic type `{ visible, window, copy: FreshStartCopy | null, dismissKey?: string }` to the `useState` initializer in `src/components/daily/HubView.tsx`, replacing `null as any` and two `(freshStartState as any).dismissKey` casts — state is now fully type-safe and `dismissKey` is properly typed as optional
+
 ### Pass 5 — Remove `as any` cast in cognitive results normalizer
 - **fix**: Widened `allScores` type in `src/app/cognitive/results/page.tsx` to `{ func?: string; key?: string; score: number; percentage: number }[]`, eliminating two `as any` casts in the old/new format normalizer — now type-safe with a `?? ""` fallback
 
