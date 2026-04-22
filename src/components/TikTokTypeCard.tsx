@@ -192,7 +192,9 @@ export default function TikTokTypeCard({
     >
       {/* Close */}
       <button
+        type="button"
         onClick={onClose}
+        aria-label="Close"
         className="absolute top-5 right-5 w-9 h-9 rounded-full flex items-center justify-center"
         style={{ background: "rgba(255,255,255,0.08)" }}
       >

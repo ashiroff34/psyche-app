@@ -123,7 +123,7 @@ export default function GlossaryTip({ term, children, inline = false }: Glossary
                   </div>
                   <h3 className="text-base font-semibold" style={{ color: "rgba(255,255,255,0.9)" }}>{entry.title}</h3>
                 </div>
-                <button onClick={() => setOpen(false)} className="transition-colors" style={{ color: "rgba(255,255,255,0.4)" }}>
+                <button type="button" onClick={() => setOpen(false)} aria-label="Close" className="transition-colors" style={{ color: "rgba(255,255,255,0.4)" }}>
                   <X className="w-5 h-5" />
                 </button>
               </div>

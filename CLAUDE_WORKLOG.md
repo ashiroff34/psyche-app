@@ -7,6 +7,9 @@ See bottom for today's entries (most recent first within each day).
 
 ## 2026-04-22
 
+### Pass 3 — Icon-only close buttons a11y
+- **fix**: Added `type="button"` + `aria-label="Close"` to bare X-icon close buttons in `src/components/TikTokTypeCard.tsx` and `src/components/GlossaryTip.tsx` — prevents accidental form submit, fixes screen readers announcing bare "button" with no label
+
 ### Pass 2 — NodeSheet close button a11y
 - **fix**: Added `type="button"` + `aria-label="Close"` to icon-only close button in `src/components/learn/NodeSheet.tsx` — prevents accidental form submit, fixes screen reader announcing bare "button"
 
