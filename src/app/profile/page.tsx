@@ -1895,7 +1895,7 @@ function ReferralBlock() {
     }
   }, []);
 
-  const link = `https://thyself.app/r?code=${code ?? "...loading"}`;
+  const link = `${typeof window !== "undefined" ? window.location.origin : "https://thyself.app"}/r?code=${code ?? "...loading"}`;
 
   const recordShare = () => {
     try {
