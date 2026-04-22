@@ -7,6 +7,9 @@ See bottom for today's entries (most recent first within each day).
 
 ## 2026-04-22
 
+### Pass 14 — Fix stale closure in EngagementNudge showNextNudge
+- **fix**: Replaced `useState<Set<string>>` + `[shown]` dep in `showNextNudge` useCallback with a `shownRef` ref — the callback now has stable `[]` deps, the re-entry useEffect can properly list `showNextNudge` as a dep instead of suppressing it with `eslint-disable-line`, and the unused `shown` state (never read in JSX) is removed entirely
+
 ### Pass 13 — Fix hardcoded domain in profile referral link
 - **fix**: Replaced hardcoded `https://thyself.app` in the referral share link in `src/app/profile/page.tsx` with `window.location.origin` (with SSR fallback) so staging and preview deployments generate correct referral URLs
 

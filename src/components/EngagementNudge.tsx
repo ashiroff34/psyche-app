@@ -135,22 +135,22 @@ function buildNudges(
 
 export default function EngagementNudge() {
   const [nudge, setNudge] = useState<Nudge | null>(null);
-  const [shown, setShown] = useState<Set<string>>(new Set());
+  const shownRef = useRef<Set<string>>(new Set());
   const idleTimer = useRef<NodeJS.Timeout | null>(null);
   const dismissedRef = useRef<Set<string>>(new Set());
 
   const showNextNudge = useCallback(
     (nudges: Nudge[], reason: "idle" | "reentry" | "pet") => {
       const candidate = nudges.find(
-        (n) => !dismissedRef.current.has(n.id) && !shown.has(n.id)
+        (n) => !dismissedRef.current.has(n.id) && !shownRef.current.has(n.id)
       );
       if (!candidate) return;
       // Don't show if another notification is already visible
       if (!acquireNotificationLock("engagement-nudge")) return;
-      setShown((prev) => new Set([...prev, candidate.id]));
+      shownRef.current.add(candidate.id);
       setNudge(candidate);
     },
-    [shown]
+    []
   );
 
   const dismiss = useCallback(() => {
@@ -207,7 +207,7 @@ export default function EngagementNudge() {
         return () => clearTimeout(timer);
       }
     } catch {}
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [showNextNudge]);
 
   // Idle detection, reset on any user activity
   useEffect(() => {
