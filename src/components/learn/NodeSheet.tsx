@@ -81,7 +81,9 @@ export default function NodeSheet({ lesson, unit, onClose }: Props) {
             <div className="px-6 pb-6">
               {/* Close button */}
               <button
+                type="button"
                 onClick={onClose}
+                aria-label="Close"
                 className="absolute top-4 right-5 w-8 h-8 rounded-full flex items-center justify-center transition-all"
                 style={{ background: "rgba(255,255,255,0.08)" }}
               >
