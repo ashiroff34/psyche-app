@@ -735,7 +735,7 @@ export default function CompatibilityPage() {
         await navigator.share({
           title: shareData.title,
           text: shareData.text,
-          url: "https://thyself.app",
+          url: window.location.origin,
         });
         shared = true;
       } else {
@@ -773,7 +773,7 @@ export default function CompatibilityPage() {
       const referralCode = localStorage.getItem("psyche-my-referral-code");
       const url = referralCode
         ? `${getReferralShareUrl()}`
-        : "https://thyself.app";
+        : window.location.origin;
       await navigator.clipboard.writeText(url);
       setCopied(true);
       setTimeout(() => { if (mountedRef.current) setCopied(false); }, 2000);
