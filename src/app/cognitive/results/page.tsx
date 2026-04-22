@@ -581,11 +581,12 @@ function ResultsContent() {
   const searchParams = useSearchParams() ?? new URLSearchParams();
   const scoresParam = searchParams.get("scores");
   // allScores is now the full 8-function stack ordered by score (from buildFunctionStack)
-  let allScores: { func: string; score: number; percentage: number }[] = [];
+  // Accept both old {key} format and new {func} format from URL params
+  let allScores: { func?: string; key?: string; score: number; percentage: number }[] = [];
   try { if (scoresParam) allScores = JSON.parse(scoresParam); } catch { allScores = []; }
 
   // Normalize: support both old {key} format and new {func} format
-  const normalizedScores = allScores.map(s => ({ key: (s as any).key ?? (s as any).func, score: s.score, percentage: s.percentage }));
+  const normalizedScores = allScores.map(s => ({ key: s.key ?? s.func ?? "", score: s.score, percentage: s.percentage }));
 
   const topFunctions = normalizedScores.slice(0, 4).map(s => s.key);
   const bestType = mbtiTypes.find(t => t.stack[0] === topFunctions[0]) || mbtiTypes[0];
