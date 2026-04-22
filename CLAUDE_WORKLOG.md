@@ -7,6 +7,9 @@ See bottom for today's entries (most recent first within each day).
 
 ## 2026-04-22
 
+### Pass 7 — Remove `as any` cast in useSounds webkitAudioContext
+- **fix**: Replaced `(window as any).webkitAudioContext` in `src/hooks/useSounds.ts` with a typed `WindowWithWebkit` interface, eliminating the `as any` cast while preserving Safari vendor-prefix fallback support
+
 ### Pass 6 — Remove `as any` casts in HubView fresh-start state
 - **fix**: Added explicit generic type `{ visible, window, copy: FreshStartCopy | null, dismissKey?: string }` to the `useState` initializer in `src/components/daily/HubView.tsx`, replacing `null as any` and two `(freshStartState as any).dismissKey` casts — state is now fully type-safe and `dismissKey` is properly typed as optional
 

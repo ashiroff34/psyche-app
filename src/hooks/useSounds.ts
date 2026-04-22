@@ -3,10 +3,17 @@
  * Generates Duolingo-style correct/wrong/streak/levelup chimes in the browser.
  */
 
+interface WindowWithWebkit {
+  AudioContext?: typeof AudioContext;
+  webkitAudioContext?: typeof AudioContext;
+}
+
 function getAudioContext(): AudioContext | null {
   if (typeof window === "undefined") return null;
   try {
-    return new (window.AudioContext || (window as any).webkitAudioContext)();
+    const w = window as unknown as WindowWithWebkit;
+    const Ctor = w.AudioContext ?? w.webkitAudioContext;
+    return Ctor ? new Ctor() : null;
   } catch {
     return null;
   }
