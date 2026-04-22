@@ -7,6 +7,9 @@ See bottom for today's entries (most recent first within each day).
 
 ## 2026-04-22
 
+### Pass 10 — Link select label to voice picker in AudioReflection
+- **fix**: Added `htmlFor="audio-reflection-voice"` to the Voice `<label>` and `id="audio-reflection-voice"` to the `<select>` in `src/components/AudioReflection.tsx` — the label and select were visually paired but had no programmatic association, making the control inaccessible to screen readers (WCAG 2.1 1.3.1 fail)
+
 ### Pass 9 — Accessible form labels on all inputs
 - **fix**: Added `aria-label` or linked `htmlFor`/`id` pairs to 12 unlabeled `<input>` elements across 8 files — onboarding name/email/chibi name/time pickers, daily morning/evening reflection, daily reminder time, hub email signup, glossary search, settings display name/email/beta code, journal note, drift life event, morning observation email, audio reflection speed/pitch sliders, and daily observation email — all previously had no programmatic label association making them inaccessible to screen readers
 

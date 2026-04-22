@@ -321,10 +321,11 @@ export default function AudioReflection({ type, onClose }: Props) {
               </div>
               {availableVoices.length > 0 && (
                 <div>
-                  <label className="text-[10px] font-bold uppercase tracking-wider block mb-1" style={{ color: "rgba(255,255,255,0.4)" }}>
+                  <label htmlFor="audio-reflection-voice" className="text-[10px] font-bold uppercase tracking-wider block mb-1" style={{ color: "rgba(255,255,255,0.4)" }}>
                     Voice
                   </label>
                   <select
+                    id="audio-reflection-voice"
                     value={voice?.name ?? ""}
                     onChange={(e) => {
                       const v = availableVoices.find((x) => x.name === e.target.value);
