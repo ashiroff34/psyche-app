@@ -210,6 +210,7 @@ export default function DailyObservationCard({ enneagramType, typeName }: Props)
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="your@email.com"
+                    aria-label="Email address"
                     className="flex-1 bg-transparent text-[13px] text-white/70 placeholder-white/20 outline-none border-b border-white/10 pb-1 focus:border-white/30 transition-colors"
                   />
                 </div>

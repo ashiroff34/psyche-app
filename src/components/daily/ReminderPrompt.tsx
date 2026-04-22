@@ -84,6 +84,7 @@ export default function ReminderPrompt() {
           value={time}
           onChange={e => setTime(e.target.value)}
           disabled={saved}
+          aria-label="Daily reminder time"
           className="flex-1 text-lg font-bold py-2 px-3 rounded-xl text-center"
           style={{
             background: "rgba(139,92,246,0.08)",

@@ -221,6 +221,7 @@ export default function GlossaryPage() {
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder="Search terms, concepts, functions…"
+              aria-label="Search glossary"
               className="w-full pl-10 pr-10 py-3 rounded-2xl text-sm outline-none transition-all"
               style={{
                 background: "rgba(255,255,255,0.06)",

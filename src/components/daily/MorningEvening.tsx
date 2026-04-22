@@ -111,6 +111,7 @@ export default function MorningEvening({ enneagramType }: { enneagramType: numbe
           onChange={e => setResponse(e.target.value)}
           onKeyDown={e => { if (e.key === "Enter") submit(); }}
           placeholder={isMorning ? "I will notice..." : "I noticed..."}
+          aria-label={isMorning ? "Morning intention" : "Evening reflection"}
           maxLength={200}
           className="flex-1 text-sm py-2 px-3 rounded-xl"
           style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)", color: "white" }}

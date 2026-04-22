@@ -7,6 +7,9 @@ See bottom for today's entries (most recent first within each day).
 
 ## 2026-04-22
 
+### Pass 9 — Accessible form labels on all inputs
+- **fix**: Added `aria-label` or linked `htmlFor`/`id` pairs to 12 unlabeled `<input>` elements across 8 files — onboarding name/email/chibi name/time pickers, daily morning/evening reflection, daily reminder time, hub email signup, glossary search, settings display name/email/beta code, journal note, drift life event, morning observation email, audio reflection speed/pitch sliders, and daily observation email — all previously had no programmatic label association making them inaccessible to screen readers
+
 ### Pass 8 — Replace hardcoded domain in compatibility share handlers
 - **fix**: Replaced two `"https://thyself.app"` hardcoded fallbacks in `src/app/compatibility/page.tsx` share and copy-invite handlers with `window.location.origin` — these handlers always run in browser context so `window` is available, and using `window.location.origin` ensures staging/preview deployments share the correct URL
 

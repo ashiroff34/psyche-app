@@ -290,10 +290,11 @@ export default function AudioReflection({ type, onClose }: Props) {
           >
             <div className="space-y-3 pt-3 mt-3" style={{ borderTop: "1px solid rgba(255,255,255,0.08)" }}>
               <div>
-                <label className="text-[10px] font-bold uppercase tracking-wider block mb-1" style={{ color: "rgba(255,255,255,0.4)" }}>
+                <label htmlFor="audio-speed-range" className="text-[10px] font-bold uppercase tracking-wider block mb-1" style={{ color: "rgba(255,255,255,0.4)" }}>
                   Speed: {rate.toFixed(2)}x
                 </label>
                 <input
+                  id="audio-speed-range"
                   type="range"
                   min={0.6}
                   max={1.4}
@@ -304,10 +305,11 @@ export default function AudioReflection({ type, onClose }: Props) {
                 />
               </div>
               <div>
-                <label className="text-[10px] font-bold uppercase tracking-wider block mb-1" style={{ color: "rgba(255,255,255,0.4)" }}>
+                <label htmlFor="audio-pitch-range" className="text-[10px] font-bold uppercase tracking-wider block mb-1" style={{ color: "rgba(255,255,255,0.4)" }}>
                   Pitch: {pitch.toFixed(2)}
                 </label>
                 <input
+                  id="audio-pitch-range"
                   type="range"
                   min={0.6}
                   max={1.4}

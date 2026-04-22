@@ -692,6 +692,7 @@ export default function HubView({
                       <input
                         type="email"
                         placeholder="your@email.com"
+                        aria-label="Email address for weekly type insight"
                         value={emailInput}
                         onChange={(e) => setEmailInput(e.target.value)}
                         onKeyDown={(e) => e.key === "Enter" && handleEmailSubmit()}

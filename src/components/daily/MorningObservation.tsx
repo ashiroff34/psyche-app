@@ -343,11 +343,12 @@ export default function MorningObservation({ typeNumber, onDismiss }: MorningObs
                 className="flex flex-col gap-4"
               >
                 <div className="flex flex-col gap-2">
-                  <label className="text-[12px] uppercase tracking-widest font-mono" style={{ color: "rgba(255,255,255,0.35)" }}>
+                  <label htmlFor="morning-obs-email" className="text-[12px] uppercase tracking-widest font-mono" style={{ color: "rgba(255,255,255,0.35)" }}>
                     Your email
                   </label>
                   <div className="relative">
                     <input
+                      id="morning-obs-email"
                       ref={inputRef}
                       type="email"
                       inputMode="email"

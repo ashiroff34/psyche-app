@@ -185,6 +185,7 @@ function StepName({
           onChange={(e) => setName(e.target.value)}
           onKeyDown={(e) => { if (e.key === "Enter") onNext(name.trim()); }}
           placeholder="Your name…"
+          aria-label="Your name"
           maxLength={40}
           autoFocus
           className="w-full pl-11 pr-5 py-4 text-base rounded-2xl focus:outline-none transition-all"
@@ -915,6 +916,7 @@ function StepEmailGate({
           value={name}
           onChange={(e) => setName(e.target.value)}
           placeholder="What should we call you? (optional)"
+          aria-label="Your name (optional)"
           maxLength={40}
           className="w-full pl-11 pr-5 py-4 text-base rounded-2xl focus:outline-none transition-all"
           style={{
@@ -945,6 +947,7 @@ function StepEmailGate({
               if (email && !isValidEmail(email)) setEmailError("Enter a valid email to save your results");
             }}
             placeholder="Your email (required to save)"
+            aria-label="Email address"
             className="w-full pl-11 pr-5 py-4 text-base rounded-2xl focus:outline-none transition-all"
             style={{
               background: "rgba(255,255,255,0.06)",
@@ -1045,6 +1048,7 @@ function StepChibiName({ type, onContinue }: { type: number; onContinue: () => v
           onKeyDown={e => { if (e.key === "Enter") submit(name); }}
           maxLength={20}
           placeholder="A name for your chibi"
+          aria-label="Name for your companion"
           className="w-full text-center text-lg font-semibold py-3 px-4 rounded-2xl mb-3"
           style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.12)", color: "white" }}
         />
@@ -1116,6 +1120,7 @@ function StepImplementationIntention({ onContinue }: { onContinue: () => void })
           value={time}
           onChange={e => setTime(e.target.value)}
           disabled={submitted}
+          aria-label="Daily reminder time"
           className="text-4xl font-bold text-center py-4 px-6 rounded-2xl mb-4 w-full"
           style={{
             background: "rgba(139,92,246,0.08)",

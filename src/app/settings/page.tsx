@@ -670,11 +670,12 @@ export default function SettingsPage() {
         <ExpandableSection title="Profile" icon={User} defaultOpen>
           {/* Display Name */}
           <div>
-            <label className="text-xs font-medium uppercase tracking-wider" style={{ color: "rgba(255,255,255,0.35)" }}>
+            <label htmlFor="settings-display-name" className="text-xs font-medium uppercase tracking-wider" style={{ color: "rgba(255,255,255,0.35)" }}>
               Display Name
             </label>
             <div className="flex gap-2 mt-1.5">
               <input
+                id="settings-display-name"
                 type="text"
                 value={displayName}
                 onChange={(e) => {
@@ -698,11 +699,12 @@ export default function SettingsPage() {
 
           {/* Email */}
           <div>
-            <label className="text-xs font-medium uppercase tracking-wider" style={{ color: "rgba(255,255,255,0.35)" }}>
+            <label htmlFor="settings-email" className="text-xs font-medium uppercase tracking-wider" style={{ color: "rgba(255,255,255,0.35)" }}>
               Email
             </label>
             <div className="flex gap-2 mt-1.5">
               <input
+                id="settings-email"
                 type="email"
                 value={email}
                 onChange={(e) => {
@@ -1148,6 +1150,7 @@ export default function SettingsPage() {
               <div className="flex gap-2">
                 <input
                   placeholder="Enter beta code"
+                  aria-label="Beta access code"
                   maxLength={20}
                   className="flex-1 text-xs px-3 py-2 rounded-lg"
                   style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)", color: "white" }}

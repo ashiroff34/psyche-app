@@ -169,6 +169,7 @@ export default function DriftPage() {
                   value={eventInput}
                   onChange={e => setEventInput(e.target.value)}
                   placeholder="e.g. started new job"
+                  aria-label="Life event description"
                   className="flex-1 text-xs px-3 py-2 rounded-lg"
                   style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.12)", color: "white" }}
                 />

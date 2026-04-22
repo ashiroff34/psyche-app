@@ -1724,10 +1724,11 @@ function PatternTracker() {
                   </div>
                 </div>
                 <div>
-                  <label className="text-xs font-semibold text-white/60 mb-2 block">
+                  <label htmlFor="journal-note-input" className="text-xs font-semibold text-white/60 mb-2 block">
                     What happened? (optional)
                   </label>
                   <input
+                    id="journal-note-input"
                     type="text"
                     value={note}
                     onChange={(e) => setNote(e.target.value)}
