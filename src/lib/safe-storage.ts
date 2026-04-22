@@ -12,6 +12,7 @@ export function safeGet(key: string, fallback: string | null = null): string | n
   try {
     return localStorage.getItem(key) ?? fallback;
   } catch {
+    // intentionally silent — private browsing or storage unavailable
     return fallback;
   }
 }
@@ -26,7 +27,7 @@ export function safeSet(key: string, value: string): boolean {
     localStorage.setItem(key, value);
     return true;
   } catch {
-    // Quota exceeded or private browsing
+    // intentionally silent — quota exceeded or private browsing
     return false;
   }
 }
@@ -38,7 +39,9 @@ export function safeRemove(key: string): void {
   if (typeof window === "undefined") return;
   try {
     localStorage.removeItem(key);
-  } catch {}
+  } catch {
+    // intentionally silent — private browsing or storage unavailable
+  }
 }
 
 /**
@@ -50,6 +53,7 @@ export function safeGetJSON<T>(key: string, fallback: T): T {
     const raw = localStorage.getItem(key);
     return raw ? (JSON.parse(raw) as T) : fallback;
   } catch {
+    // intentionally silent — malformed JSON or storage unavailable
     return fallback;
   }
 }

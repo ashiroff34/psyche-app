@@ -49,7 +49,9 @@ export function collectTextCorpus(): TextEntry[] {
         if (e.response) entries.push({ date: e.date, text: e.response, source: "morning" });
       }
     }
-  } catch {}
+  } catch {
+    // intentionally silent — malformed JSON or private browsing
+  }
 
   try {
     // Evening journal
@@ -59,7 +61,9 @@ export function collectTextCorpus(): TextEntry[] {
         if (e.response) entries.push({ date: e.date, text: e.response, source: "evening" });
       }
     }
-  } catch {}
+  } catch {
+    // intentionally silent — malformed JSON or private browsing
+  }
 
   try {
     // Growth reflections (keyed by date)
@@ -73,7 +77,9 @@ export function collectTextCorpus(): TextEntry[] {
         }
       }
     }
-  } catch {}
+  } catch {
+    // intentionally silent — malformed JSON or private browsing
+  }
 
   try {
     // Kegan exercises
@@ -83,7 +89,9 @@ export function collectTextCorpus(): TextEntry[] {
         if (e.text) entries.push({ date: e.week, text: e.text, source: "journal" });
       }
     }
-  } catch {}
+  } catch {
+    // intentionally silent — malformed JSON or private browsing
+  }
 
   return entries.sort((a, b) => a.date.localeCompare(b.date));
 }

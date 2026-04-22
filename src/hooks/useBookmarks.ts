@@ -20,6 +20,7 @@ function loadBookmarks(): Bookmark[] {
     if (!raw) return [];
     return JSON.parse(raw) as Bookmark[];
   } catch {
+    // intentionally silent — malformed JSON or private browsing
     return [];
   }
 }
@@ -28,7 +29,9 @@ function saveBookmarks(bookmarks: Bookmark[]): void {
   if (typeof window === "undefined") return;
   try {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(bookmarks));
-  } catch {}
+  } catch {
+    // intentionally silent — quota exceeded or private browsing
+  }
 }
 
 export function useBookmarks() {
