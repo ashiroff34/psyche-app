@@ -222,7 +222,7 @@ export default function SearchComponent() {
                         <p className="text-sm font-medium truncate" style={{ color: "rgba(255,255,255,0.88)" }}>
                           {item.title}
                         </p>
-                        <p className="text-xs leading-relaxed mt-0.5" style={{ color: "rgba(255,255,255,0.45)" }}>
+                        <p className="text-xs leading-relaxed mt-0.5 line-clamp-2" style={{ color: "rgba(255,255,255,0.45)" }}>
                           {item.preview}
                         </p>
                       </div>

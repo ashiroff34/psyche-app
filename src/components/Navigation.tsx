@@ -7,8 +7,6 @@ import { usePathname, useRouter } from "next/navigation";
 import { assetPath } from "@/lib/assetPath";
 import { motion, AnimatePresence } from "framer-motion";
 import {
-  Brain,
-  Compass,
   UserCircle,
   Flame,
   Coins,
@@ -17,7 +15,6 @@ import {
   Settings,
   BookOpen,
   Target,
-  Sprout,
   MoreHorizontal,
   Heart,
   MessageCircle,
