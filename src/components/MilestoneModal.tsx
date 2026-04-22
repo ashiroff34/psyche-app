@@ -95,6 +95,9 @@ export default function MilestoneModal({ streakCount, enneagramType }: Milestone
 
           {/* Modal */}
           <motion.div
+            role="dialog"
+            aria-modal="true"
+            aria-label={`Streak milestone: ${activeMilestone.title}`}
             className="fixed z-50 left-0 right-0 bottom-0 sm:bottom-auto sm:top-1/2 sm:left-1/2 sm:-translate-x-1/2 sm:-translate-y-1/2 sm:max-w-md w-full"
             initial={{ opacity: 0, y: 60 }}
             animate={{ opacity: 1, y: 0 }}

@@ -7,6 +7,9 @@ See bottom for today's entries (most recent first within each day).
 
 ## 2026-04-22
 
+### Pass 11 — Add dialog ARIA semantics to modal overlays
+- **fix**: Added `role="dialog"`, `aria-modal="true"`, and `aria-label` to the inner card container of `TypeDiscoveryModal`, `MilestoneModal`, and `ComebackModal` — all three rendered as full-screen overlays with no ARIA dialog semantics, making them invisible to screen reader users as dialog regions (WCAG 2.1 4.1.2 fail)
+
 ### Pass 10 — Link select label to voice picker in AudioReflection
 - **fix**: Added `htmlFor="audio-reflection-voice"` to the Voice `<label>` and `id="audio-reflection-voice"` to the `<select>` in `src/components/AudioReflection.tsx` — the label and select were visually paired but had no programmatic association, making the control inaccessible to screen readers (WCAG 2.1 1.3.1 fail)
 

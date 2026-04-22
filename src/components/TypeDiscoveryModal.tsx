@@ -49,6 +49,9 @@ export default function TypeDiscoveryModal({ typeNum, isFirstDiscovery }: Props)
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 24, scale: 0.97 }}
             transition={{ type: "spring", stiffness: 320, damping: 28 }}
+            role="dialog"
+            aria-modal="true"
+            aria-label={`Type ${typeNum} discovered`}
             className="w-full max-w-lg rounded-3xl overflow-hidden"
             style={{ background: "#100c22", border: "1px solid rgba(255,255,255,0.1)" }}
             onClick={(e) => e.stopPropagation()}

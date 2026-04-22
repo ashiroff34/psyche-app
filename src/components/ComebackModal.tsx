@@ -202,6 +202,9 @@ export default function ComebackModal() {
           {/* Modal — above backdrop, pointer-events-none on wrapper so only card is interactive */}
           <motion.div
             key="comeback-modal"
+            role="dialog"
+            aria-modal="true"
+            aria-label="Welcome back"
             initial={{ opacity: 0, scale: 0.9, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.9, y: 20 }}
