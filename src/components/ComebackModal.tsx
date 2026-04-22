@@ -125,6 +125,9 @@ export default function ComebackModal() {
 
   const { daysSince } = data;
 
+  // Mirror the same token ladder used in handleClaim so the UI always shows the actual award
+  const displayTokenBonus = daysSince >= 30 ? 75 : daysSince >= 14 ? 40 : daysSince >= 4 ? 25 : 0;
+
   // Segment ladder: gentle (1-3), moderate (4-13), empathetic (14-29), freshStart (30+)
   type Segment = "gentle" | "moderate" | "empathetic" | "freshStart";
   const segment: Segment =
@@ -169,8 +172,8 @@ export default function ComebackModal() {
     ) : (
       <p className="text-sm" style={{ color: "rgba(255,255,255,0.5)" }}>
         {daysSince === 1
-          ? "One day. Your chibi kept your place. The practice is still here."
-          : `${daysSince} days away. The pattern waited. So did your chibi. No judgment, just glad you're back.`}
+          ? "One day away. The practice does not require perfection. It requires return."
+          : `${daysSince} days away. The pattern waited. No judgment, just glad you're back.`}
       </p>
     );
 
@@ -259,8 +262,8 @@ export default function ComebackModal() {
                         </div>
                         <span className="text-sm font-medium" style={{ color: "rgba(255,255,255,0.82)" }}>
                           {isLongAway
-                            ? <>+50 tokens <span className="text-xs" style={{ color: "rgba(255,255,255,0.45)" }}>win-back bonus</span></>
-                            : <>2× tokens today <span className="text-xs" style={{ color: "rgba(255,255,255,0.45)" }}>+25 bonus</span></>
+                            ? <>+{displayTokenBonus} tokens <span className="text-xs" style={{ color: "rgba(255,255,255,0.45)" }}>welcome-back bonus</span></>
+                            : <>+{displayTokenBonus} tokens <span className="text-xs" style={{ color: "rgba(255,255,255,0.45)" }}>comeback bonus</span></>
                           }
                         </span>
                       </div>
@@ -291,7 +294,7 @@ export default function ComebackModal() {
                   ) : (
                     <>
                       <Trophy className="w-4 h-4" />
-                      Claim your 25 tokens →
+                      Claim your {displayTokenBonus} tokens →
                     </>
                   )}
                 </motion.button>
