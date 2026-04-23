@@ -7,6 +7,26 @@ See bottom for today's entries (most recent first within each day).
 
 ## 2026-04-22
 
+### Pass 24 — Pet wardrobe + full type in manual picker
+
+**`src/app/pet/page.tsx`** — Full rewrite to add the wardrobe system:
+- Swapped `ChibiSprite` → `AnimatedPet` so equipped hats render on the chibi
+- Added Care / Wardrobe tab switcher
+- Wardrobe tab: currently-equipped strip with unequip buttons; category tabs (Hats / Frames / Effects / Backgrounds); item grid showing owned items (equip/unequip) and shop items (buy with tokens)
+- Token balance displayed in header
+- Buy feedback bubbles ("Got it!" / "Not enough tokens")
+- Imports `useGameState` for real token spending
+
+**`src/app/onboarding/page.tsx`** — Expanded `ManualTypePicker` to collect full type:
+- Wing picker: two valid wings per type (e.g. 4w3 / 4w5), tap-to-toggle, optional
+- Instinctual subtype: sp / sx / so pills, optional
+- Tritype: shows the other two centers (gut/heart/head), pick one from each, optional
+- Label copy: "Enter what you know — skip anything you're unsure about"
+- `saveManual` updated to accept and persist `wing`, `instinct`, `tritypeSecond`, `tritypeThird` → writes `enneagramWing`, `instinctualStacking`, `enneagramSubtype`, `tritypeFirst/Second/Third`, `tritype` to profile
+- All new fields are optional; core type still required
+
+`npx tsc --noEmit` clean.
+
 ### Pass 23 — ARIA dialog semantics on 5 more modals + UTC date fix in behavioral-signals
 
 **ARIA (WCAG 2.1 4.1.2):** Added `role="dialog"`, `aria-modal="true"`, and `aria-label` to 5 full-screen overlay components that were missing dialog semantics (Pass 11 fixed 3; this gets 5 more):

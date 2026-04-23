@@ -1147,9 +1147,54 @@ function StepImplementationIntention({ onContinue }: { onContinue: () => void })
   );
 }
 
-function ManualTypePicker({ onSave }: { onSave: (name: string, type: number) => void }) {
+// Wing adjacency map
+const TYPE_WINGS: Record<number, [number, number]> = {
+  1: [9, 2], 2: [1, 3], 3: [2, 4], 4: [3, 5], 5: [4, 6],
+  6: [5, 7], 7: [6, 8], 8: [7, 9], 9: [8, 1],
+};
+
+// Enneagram centers
+const GUT_TYPES = [8, 9, 1];
+const HEART_TYPES = [2, 3, 4];
+const HEAD_TYPES = [5, 6, 7];
+
+function getCenter(t: number): "gut" | "heart" | "head" {
+  if (GUT_TYPES.includes(t)) return "gut";
+  if (HEART_TYPES.includes(t)) return "heart";
+  return "head";
+}
+
+const CENTER_TYPES: Record<"gut" | "heart" | "head", number[]> = {
+  gut: GUT_TYPES, heart: HEART_TYPES, head: HEAD_TYPES,
+};
+
+function ManualTypePicker({ onSave }: { onSave: (name: string, type: number, wing?: string, instinct?: string, tritypeSecond?: number, tritypeThird?: number) => void }) {
   const [name, setName] = useState("");
   const [type, setType] = useState<number | null>(null);
+  const [wing, setWing] = useState<number | null>(null);
+  const [instinct, setInstinct] = useState<string | null>(null);
+  const [tritypeSecond, setTritypeSecond] = useState<number | null>(null);
+  const [tritypeThird, setTritypeThird] = useState<number | null>(null);
+
+  // Reset wing when type changes
+  const handleTypeSelect = (t: number) => {
+    setType(t);
+    setWing(null);
+    setTritypeSecond(null);
+    setTritypeThird(null);
+  };
+
+  const dominantCenter = type ? getCenter(type) : null;
+  const otherCenters = dominantCenter
+    ? (["gut", "heart", "head"] as const).filter(c => c !== dominantCenter)
+    : [];
+
+  const wingStr = type && wing ? `${type}w${wing}` : undefined;
+
+  const sectionStyle = {
+    background: "rgba(255,255,255,0.03)",
+    border: "1px solid rgba(255,255,255,0.08)",
+  };
 
   return (
     <div className="flex flex-col items-center px-6 max-w-sm mx-auto w-full pt-8 pb-24">
@@ -1160,11 +1205,11 @@ function ManualTypePicker({ onSave }: { onSave: (name: string, type: number) => 
         Welcome to Thyself
       </h2>
       <p className="text-sm text-center mb-8" style={{ color: "rgba(255,255,255,0.4)" }}>
-        You already know your type. Let's build on that self-knowledge.
+        You already know your type. Enter what you know — skip anything you're unsure about.
       </p>
 
       {/* Name */}
-      <div className="w-full mb-6">
+      <div className="w-full mb-5">
         <label className="block text-xs font-semibold mb-2 uppercase tracking-wider" style={{ color: "rgba(167,139,250,0.7)" }}>
           Your name (optional)
         </label>
@@ -1175,7 +1220,8 @@ function ManualTypePicker({ onSave }: { onSave: (name: string, type: number) => 
             value={name}
             onChange={(e) => setName(e.target.value)}
             placeholder="What should we call you?"
-            className="w-full pl-10 pr-4 py-3.5 rounded-xl text-sm outline-none transition-all"
+            aria-label="Your name"
+            className="w-full pl-10 pr-4 py-3.5 rounded-xl text-sm outline-none"
             style={{
               background: "rgba(255,255,255,0.06)",
               border: "1px solid rgba(255,255,255,0.1)",
@@ -1185,16 +1231,17 @@ function ManualTypePicker({ onSave }: { onSave: (name: string, type: number) => 
         </div>
       </div>
 
-      {/* Type picker */}
-      <div className="w-full mb-8">
+      {/* Core type — required */}
+      <div className="w-full mb-5">
         <label className="block text-xs font-semibold mb-3 uppercase tracking-wider" style={{ color: "rgba(167,139,250,0.7)" }}>
-          Your Enneagram type
+          Your Enneagram type <span style={{ color: "rgba(255,255,255,0.25)", textTransform: "none", fontWeight: 400 }}>required</span>
         </label>
         <div className="grid grid-cols-3 gap-2">
           {[1,2,3,4,5,6,7,8,9].map((t) => (
             <button
+              type="button"
               key={t}
-              onClick={() => setType(t)}
+              onClick={() => handleTypeSelect(t)}
               className="flex flex-col items-center py-3 px-2 rounded-xl transition-all active:scale-[0.97]"
               style={{
                 background: type === t ? "rgba(124,58,237,0.22)" : "rgba(255,255,255,0.05)",
@@ -1212,7 +1259,7 @@ function ManualTypePicker({ onSave }: { onSave: (name: string, type: number) => 
         </div>
         {!type && (
           <p className="text-xs text-center mt-2" style={{ color: "rgba(255,255,255,0.25)" }}>
-            Not sure yet?{" "}
+            Not sure?{" "}
             <a href="/onboarding?fromEnter=true" className="underline" style={{ color: "rgba(167,139,250,0.5)" }}>
               Take the assessment instead
             </a>
@@ -1220,8 +1267,115 @@ function ManualTypePicker({ onSave }: { onSave: (name: string, type: number) => 
         )}
       </div>
 
+      {/* Wing — optional, shown once type is selected */}
+      {type && (
+        <div className="w-full mb-5 rounded-2xl p-4" style={sectionStyle}>
+          <div className="flex items-center justify-between mb-3">
+            <label className="text-xs font-semibold uppercase tracking-wider" style={{ color: "rgba(167,139,250,0.7)" }}>
+              Wing
+            </label>
+            <span className="text-[10px]" style={{ color: "rgba(255,255,255,0.25)" }}>optional — skip if unsure</span>
+          </div>
+          <div className="flex gap-2">
+            {TYPE_WINGS[type].map((w) => (
+              <button
+                type="button"
+                key={w}
+                onClick={() => setWing(wing === w ? null : w)}
+                className="flex-1 py-2.5 rounded-xl text-sm font-bold transition-all"
+                style={{
+                  background: wing === w ? "rgba(124,58,237,0.25)" : "rgba(255,255,255,0.05)",
+                  border: wing === w ? "1px solid rgba(167,139,250,0.5)" : "1px solid rgba(255,255,255,0.08)",
+                  color: wing === w ? "#c4b5fd" : "rgba(255,255,255,0.6)",
+                }}
+              >
+                {type}w{w}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Instinctual subtype — optional */}
+      {type && (
+        <div className="w-full mb-5 rounded-2xl p-4" style={sectionStyle}>
+          <div className="flex items-center justify-between mb-3">
+            <label className="text-xs font-semibold uppercase tracking-wider" style={{ color: "rgba(167,139,250,0.7)" }}>
+              Instinctual subtype
+            </label>
+            <span className="text-[10px]" style={{ color: "rgba(255,255,255,0.25)" }}>optional</span>
+          </div>
+          <div className="flex gap-2">
+            {[
+              { key: "sp", label: "sp", sublabel: "Self-pres" },
+              { key: "sx", label: "sx", sublabel: "Sexual" },
+              { key: "so", label: "so", sublabel: "Social" },
+            ].map(({ key, label, sublabel }) => (
+              <button
+                type="button"
+                key={key}
+                onClick={() => setInstinct(instinct === key ? null : key)}
+                className="flex-1 flex flex-col items-center py-2.5 rounded-xl transition-all"
+                style={{
+                  background: instinct === key ? "rgba(124,58,237,0.25)" : "rgba(255,255,255,0.05)",
+                  border: instinct === key ? "1px solid rgba(167,139,250,0.5)" : "1px solid rgba(255,255,255,0.08)",
+                }}
+              >
+                <span className="text-sm font-bold" style={{ color: instinct === key ? "#c4b5fd" : "rgba(255,255,255,0.7)" }}>
+                  {label}
+                </span>
+                <span className="text-[9px]" style={{ color: "rgba(255,255,255,0.3)" }}>{sublabel}</span>
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Tritype — optional, pick from other two centers */}
+      {type && (
+        <div className="w-full mb-6 rounded-2xl p-4" style={sectionStyle}>
+          <div className="flex items-center justify-between mb-3">
+            <label className="text-xs font-semibold uppercase tracking-wider" style={{ color: "rgba(167,139,250,0.7)" }}>
+              Tritype
+            </label>
+            <span className="text-[10px]" style={{ color: "rgba(255,255,255,0.25)" }}>optional</span>
+          </div>
+          <p className="text-[11px] mb-3" style={{ color: "rgba(255,255,255,0.35)" }}>
+            Your dominant type is {type}. Pick one type from each of the other two centers if you know them.
+          </p>
+          {otherCenters.map((center, ci) => {
+            const selected = ci === 0 ? tritypeSecond : tritypeThird;
+            const setter = ci === 0 ? setTritypeSecond : setTritypeThird;
+            const centerLabel = center === "gut" ? "Gut (8, 9, 1)" : center === "heart" ? "Heart (2, 3, 4)" : "Head (5, 6, 7)";
+            return (
+              <div key={center} className="mb-3 last:mb-0">
+                <p className="text-[10px] font-semibold mb-2" style={{ color: "rgba(255,255,255,0.35)" }}>{centerLabel}</p>
+                <div className="flex gap-2">
+                  {CENTER_TYPES[center].map((t) => (
+                    <button
+                      type="button"
+                      key={t}
+                      onClick={() => setter(selected === t ? null : t)}
+                      className="flex-1 py-2 rounded-xl text-sm font-bold transition-all"
+                      style={{
+                        background: selected === t ? "rgba(124,58,237,0.25)" : "rgba(255,255,255,0.05)",
+                        border: selected === t ? "1px solid rgba(167,139,250,0.5)" : "1px solid rgba(255,255,255,0.08)",
+                        color: selected === t ? "#c4b5fd" : "rgba(255,255,255,0.6)",
+                      }}
+                    >
+                      {t}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      )}
+
       <button
-        onClick={() => type && onSave(name, type)}
+        type="button"
+        onClick={() => type && onSave(name, type, wingStr, instinct ?? undefined, tritypeSecond ?? undefined, tritypeThird ?? undefined)}
         disabled={!type}
         className="w-full py-4 rounded-2xl font-bold text-white text-base transition-all hover:-translate-y-0.5 active:scale-[0.98]"
         style={{
@@ -1231,7 +1385,7 @@ function ManualTypePicker({ onSave }: { onSave: (name: string, type: number) => 
           cursor: type ? "pointer" : "not-allowed",
         }}
       >
-        Enter Thyself →
+        Enter Thyself
       </button>
       <p className="text-xs text-emerald-400/70 mt-2 text-center">(+) 50 bonus tokens on signup</p>
     </div>
@@ -1474,15 +1628,24 @@ function OnboardingPageInner() {
     setStep(9); // → chibi naming → all set
   };
 
-  const saveManual = (name: string, type: number) => {
+  const saveManual = (name: string, type: number, wing?: string, instinct?: string, tritypeSecond?: number, tritypeThird?: number) => {
     try {
       const raw = localStorage.getItem("psyche-profile");
       const p = raw ? JSON.parse(raw) : {};
+      // Build tritype string if all three parts are known
+      const tritypeStr = tritypeSecond && tritypeThird
+        ? `${type}${tritypeSecond}${tritypeThird}`
+        : undefined;
       const updated = {
         ...p,
         enneagramType: type,
+        enneagramCore: type,
         assessmentsTaken: ["manual"],
         ...(name.trim() ? { displayName: name.trim() } : {}),
+        ...(wing ? { enneagramWing: wing } : {}),
+        ...(instinct ? { instinctualStacking: instinct, enneagramSubtype: instinct } : {}),
+        ...(tritypeSecond ? { tritypeFirst: type, tritypeSecond, ...(tritypeThird ? { tritypeThird } : {}) } : {}),
+        ...(tritypeStr ? { tritype: tritypeStr } : {}),
       };
       localStorage.setItem("psyche-profile", JSON.stringify(updated));
       localStorage.setItem("psyche-onboarding-complete", "true");
