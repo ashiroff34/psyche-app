@@ -135,6 +135,9 @@ export default function OnboardingOverlay({ onComplete }: Props) {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
+      role="dialog"
+      aria-modal="true"
+      aria-label="Onboarding"
       className="fixed inset-0 z-[80] flex flex-col"
       style={{ background: "linear-gradient(160deg, #0d0a1a 0%, #160f38 55%, #0d0d1e 100%)" }}
     >

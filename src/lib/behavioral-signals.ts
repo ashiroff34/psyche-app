@@ -1,3 +1,5 @@
+import { getLocalDateKey } from "@/lib/date-utils";
+
 // Behavioral Signals: Passive Psychometric Data Collection
 //
 // Tracks feature avoidance patterns, session dropout points, and usage
@@ -96,7 +98,7 @@ export function recordSessionStart() {
     const raw = localStorage.getItem(USAGE_TIMING_KEY);
     const records: UsageTiming[] = raw ? JSON.parse(raw) : [];
     records.push({
-      date: now.toISOString().slice(0, 10),
+      date: getLocalDateKey(now),
       hour: now.getHours(),
       dayOfWeek: now.getDay(),
       sessionDurationMs: 0, // updated on unmount

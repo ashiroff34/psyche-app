@@ -7,6 +7,19 @@ See bottom for today's entries (most recent first within each day).
 
 ## 2026-04-22
 
+### Pass 23 — ARIA dialog semantics on 5 more modals + UTC date fix in behavioral-signals
+
+**ARIA (WCAG 2.1 4.1.2):** Added `role="dialog"`, `aria-modal="true"`, and `aria-label` to 5 full-screen overlay components that were missing dialog semantics (Pass 11 fixed 3; this gets 5 more):
+- `src/components/daily/OnboardingOverlay.tsx` — `aria-label="Onboarding"` on outer `motion.div`
+- `src/components/daily/DailyCompleteOverlay.tsx` — `aria-label="Daily session complete"` on outer `motion.div`
+- `src/components/StreakFreezeShop.tsx` — `aria-label="Streak Shop"` on inner card `motion.div`
+- `src/components/GroundingExercise.tsx` — `aria-label="Grounding exercise"` on inner card `div`
+- `src/components/daily/LessonBriefOverlay.tsx` — `aria-label="Lesson overview"` on outer `motion.div`
+
+**UTC date bug:** `src/lib/behavioral-signals.ts` — `recordSessionStart()` was recording session date as `now.toISOString().slice(0, 10)` (UTC). Fixed to `getLocalDateKey(now)` — session chronotype data (used for personality-timing correlations) now records the user's local date correctly. Added import for `getLocalDateKey` from `@/lib/date-utils`.
+
+`npx tsc --noEmit` clean.
+
 ### Pass 22 — Restore Pet tab to bottom nav (replacing Mirrors)
 
 User requested the Pet tab back as the third bottom nav item. Mirrors was previously swapped in during the pet/game hub removal pass.

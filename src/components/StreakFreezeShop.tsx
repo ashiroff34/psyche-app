@@ -188,6 +188,9 @@ export default function StreakFreezeShop({ onClose }: Props) {
       onClick={onClose}
     >
       <motion.div
+        role="dialog"
+        aria-modal="true"
+        aria-label="Streak Shop"
         className="w-full max-w-sm rounded-3xl overflow-hidden shadow-2xl"
         style={{ background: "linear-gradient(145deg, #1a0f3a, #0f0a1e)", border: "1px solid rgba(255,255,255,0.1)" }}
         initial={{ scale: 0.88, opacity: 0, y: 24 }}

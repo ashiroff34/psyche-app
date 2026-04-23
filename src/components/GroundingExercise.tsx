@@ -33,7 +33,7 @@ export default function GroundingExercise({ onClose }: { onClose?: () => void })
       className="fixed inset-0 z-[90] flex items-center justify-center px-6"
       style={{ background: "rgba(10,5,20,0.95)" }}
     >
-      <div className="max-w-sm w-full text-center">
+      <div role="dialog" aria-modal="true" aria-label="Grounding exercise" className="max-w-sm w-full text-center">
         {onClose && (
           <button aria-label="Close" onClick={onClose} className="absolute top-6 right-6 opacity-50 hover:opacity-90">
             <X className="w-5 h-5" />

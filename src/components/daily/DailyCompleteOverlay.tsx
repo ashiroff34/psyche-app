@@ -27,6 +27,9 @@ export default function DailyCompleteOverlay({ show, streak, xpEarned, onDismiss
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.35 }}
+          role="dialog"
+          aria-modal="true"
+          aria-label="Daily session complete"
           className="fixed inset-0 z-[80] flex flex-col items-center justify-center px-6"
           style={{
             background: "linear-gradient(180deg, #0f0a1e 0%, #1a0a2e 40%, #0f0a1e 100%)",

@@ -662,6 +662,9 @@ export default function LessonBriefOverlay({
 
   return (
     <motion.div
+      role="dialog"
+      aria-modal="true"
+      aria-label="Lesson overview"
       className="fixed inset-0 z-[70] flex flex-col"
       style={{ background: "#0f0a1e" }}
       initial={{ x: "100%" }}
