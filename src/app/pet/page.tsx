@@ -2,8 +2,10 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Heart, Droplets, Smile, ShoppingBag, Shirt, Sparkles } from "lucide-react";
-import AnimatedPet from "@/components/AnimatedPet";
+import { Heart, Droplets, Smile, ShoppingBag, Shirt } from "lucide-react";
+import Image from "next/image";
+import ChibiSprite from "@/components/ChibiSprite";
+import { assetPath } from "@/lib/assetPath";
 import { usePetState, OUTFIT_ITEMS, type OutfitCategory } from "@/hooks/usePetState";
 import { useGameState } from "@/hooks/useGameState";
 import { useProfile } from "@/hooks/useProfile";
@@ -22,6 +24,14 @@ const CATEGORY_LABELS: Record<OutfitCategory, string> = {
 };
 
 const CATEGORY_ORDER: OutfitCategory[] = ["hat", "outfit", "accessory", "background"];
+
+const HAT_FILE: Record<string, string> = {
+  "crown":        "hat-crown",
+  "wizard-hat":   "hat-wizard",
+  "flower-crown": "hat-flower",
+  "santa-hat":    "hat-santa",
+  "cat-ears":     "hat-catears",
+};
 
 function StatBar({ value, max = 100, color }: { value: number; max?: number; color: string }) {
   return (
@@ -67,6 +77,13 @@ export default function PetPage() {
     : hunger < 30 ? "hungry"
     : health > 80 && happiness > 80 && hunger > 80 ? "thriving"
     : "happy";
+
+  const chibiState = (fed || played) ? "happy"
+    : (mood === "sick" || mood === "dead") ? "hurt"
+    : "idle";
+
+  const hatFile = equippedItems.hat ? HAT_FILE[equippedItems.hat] : null;
+  const hatSrc = hatFile ? assetPath(`/shop/${hatFile}.png`) : null;
 
   // Feed/play are free from the pet page (no token cost)
   const freeSpend = () => true;
@@ -145,24 +162,33 @@ export default function PetPage() {
             />
           )}
 
-          <motion.div
-            animate={mood === "thriving" || mood === "happy" || fed || played
-              ? { y: [0, -14, 0, -8, 0], scale: [1, 1.06, 1] }
-              : { y: [0, -6, 0] }
-            }
-            transition={fed || played
-              ? { duration: 0.6, repeat: 3 }
-              : { duration: 3, repeat: Infinity, ease: "easeInOut" }
-            }
-            className="relative"
-          >
-            <AnimatedPet
+          <div className="relative inline-block">
+            <ChibiSprite
               type={enneagramType}
+              instinct={instinct}
               size={140}
-              mood={mood}
-              equippedItems={equippedItems}
+              state={chibiState}
             />
-          </motion.div>
+            {hatSrc && (
+              <Image
+                src={hatSrc}
+                alt="hat"
+                width={140}
+                height={140}
+                style={{
+                  position: "absolute",
+                  top: "-4.5%",
+                  left: "50%",
+                  transform: "translateX(-50%)",
+                  width: "68%",
+                  height: "68%",
+                  objectFit: "contain",
+                  zIndex: 3,
+                  pointerEvents: "none",
+                }}
+              />
+            )}
+          </div>
 
           {/* Shadow */}
           <div
