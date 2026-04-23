@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useRouter, useSearchParams } from "next/navigation";
 import { ArrowRight, ArrowLeft, Mail, User, ChevronDown, RefreshCw, BookOpen, Sparkles } from "lucide-react";
 import { notifyProfileChanged } from "@/hooks/useProfile";
+import { getLocalDateKey } from "@/lib/date-utils";
 import OuroborosLogo from "@/components/OuroborosLogo";
 import QuickTypeAssessment from "@/components/assessments/QuickTypeAssessment";
 import { enneagramTypes } from "@/data/enneagram";
@@ -1351,7 +1352,7 @@ function OnboardingPageInner() {
       setUserProperty({
         enneagramType: result.type,
         instinct: result.instinct ?? null,
-        firstTypeDate: new Date().toISOString().slice(0, 10),
+        firstTypeDate: getLocalDateKey(),
       });
     } catch {}
 
@@ -1407,7 +1408,7 @@ function OnboardingPageInner() {
       try {
         const petRaw = localStorage.getItem("psyche-pet-state");
         if (!petRaw) {
-          const today = new Date().toISOString().slice(0, 10);
+          const today = getLocalDateKey();
           const PET_NAMES: Record<number, string> = {
             1: "Athena", 2: "Clover", 3: "Blaze", 4: "Luna",
             5: "Corvus", 6: "Scout", 7: "Zippy", 8: "Ember", 9: "Mochi",
@@ -1424,7 +1425,7 @@ function OnboardingPageInner() {
         }
       } catch {}
       localStorage.setItem("psyche-onboarding-complete", "true");
-      localStorage.setItem("psyche-onboarding-complete-date", new Date().toISOString().slice(0, 10));
+      localStorage.setItem("psyche-onboarding-complete-date", getLocalDateKey());
       localStorage.setItem("psyche-tutorial-complete", "true");
       localStorage.setItem("thyself_intent", "discover");
       localStorage.removeItem("psyche-onboarding-step");
@@ -1485,7 +1486,7 @@ function OnboardingPageInner() {
       };
       localStorage.setItem("psyche-profile", JSON.stringify(updated));
       localStorage.setItem("psyche-onboarding-complete", "true");
-      localStorage.setItem("psyche-onboarding-complete-date", new Date().toISOString().slice(0, 10));
+      localStorage.setItem("psyche-onboarding-complete-date", getLocalDateKey());
       localStorage.setItem("psyche-tutorial-complete", "true");
       localStorage.removeItem("psyche-onboarding-step");
       localStorage.removeItem("psyche-onboarding-name");
@@ -1510,7 +1511,7 @@ function OnboardingPageInner() {
       });
       setUserProperty({
         enneagramType: type,
-        firstTypeDate: new Date().toISOString().slice(0, 10),
+        firstTypeDate: getLocalDateKey(),
       });
     } catch {}
     router.push("/");
@@ -1539,7 +1540,7 @@ function OnboardingPageInner() {
       try {
         const petRaw = localStorage.getItem("psyche-pet-state");
         if (!petRaw) {
-          const today = new Date().toISOString().slice(0, 10);
+          const today = getLocalDateKey();
           const PET_NAMES: Record<number, string> = {
             1: "Athena", 2: "Clover", 3: "Blaze", 4: "Luna",
             5: "Corvus", 6: "Scout", 7: "Zippy", 8: "Ember", 9: "Mochi",
@@ -1556,7 +1557,7 @@ function OnboardingPageInner() {
         }
       } catch {}
       localStorage.setItem("psyche-onboarding-complete", "true");
-      localStorage.setItem("psyche-onboarding-complete-date", new Date().toISOString().slice(0, 10));
+      localStorage.setItem("psyche-onboarding-complete-date", getLocalDateKey());
       localStorage.setItem("psyche-tutorial-complete", "true");
       localStorage.setItem("thyself_intent", "discover");
       localStorage.removeItem("psyche-onboarding-step");

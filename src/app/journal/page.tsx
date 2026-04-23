@@ -1672,6 +1672,7 @@ function PatternTracker() {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             onClick={() => setShowForm(!showForm)}
+            aria-label={showForm ? "Cancel" : "Add entry"}
             className="w-8 h-8 rounded-xl bg-gradient-to-r from-indigo-500 to-sky-500 text-white flex items-center justify-center shadow-md"
           >
             {showForm ? (
@@ -2196,7 +2197,7 @@ function EnneagramJournal() {
         >
           <div className="flex items-center justify-between">
             <p className="text-sm font-semibold text-white">New Reflection</p>
-            <button onClick={() => setShowEditor(false)} style={{ color: "rgba(255,255,255,0.4)" }}>
+            <button onClick={() => setShowEditor(false)} aria-label="Close" style={{ color: "rgba(255,255,255,0.4)" }}>
               <X className="w-4 h-4" />
             </button>
           </div>

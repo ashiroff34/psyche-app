@@ -1,5 +1,6 @@
 "use client";
 
+import { useId } from "react";
 import { motion } from "framer-motion";
 import type { BigFiveScores } from "@/lib/personality-scorer";
 
@@ -21,6 +22,8 @@ const TRAITS: { key: keyof BigFiveScores; label: string; shortLabel: string }[] 
 ];
 
 export default function BigFiveRadar({ scores, size = 320 }: Props) {
+  const uid = useId();
+  const gradId = `bigfive-grad-${uid.replace(/:/g, "")}`;
   const cx = size / 2;
   const cy = size / 2;
   const maxRadius = size * 0.38;
@@ -44,8 +47,7 @@ export default function BigFiveRadar({ scores, size = 320 }: Props) {
 
   const polygonPath = dataPoints.map((p, i) => (i === 0 ? `M ${p.x} ${p.y}` : `L ${p.x} ${p.y}`)).join(" ") + " Z";
 
-  // Gradient id (unique for multiple charts on one page)
-  const gradId = `bigfive-grad-${Math.random().toString(36).slice(2, 8)}`;
+  // gradId is derived from useId above — stable across re-renders
 
   return (
     <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`}>

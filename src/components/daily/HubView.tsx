@@ -602,6 +602,7 @@ export default function HubView({
                     safeSet(day2DismissKey, "1");
                     setDay2Dismissed(true);
                   }}
+                  aria-label="Dismiss"
                   className="shrink-0 mt-0.5 opacity-50 hover:opacity-90 transition-opacity"
                   style={{ color: "rgba(255,255,255,0.6)" }}
                 >
@@ -648,6 +649,7 @@ export default function HubView({
                 </Link>
                 <button
                   onClick={() => setNudgeDismissed(true)}
+                  aria-label="Dismiss"
                   className="shrink-0 opacity-40 hover:opacity-80 transition-opacity"
                   style={{ color: "rgba(255,255,255,0.5)" }}
                 >
@@ -1265,6 +1267,7 @@ export default function HubView({
                     setShareDismissed(true);
                     try { localStorage.setItem(DAILY_SHARE_DISMISS_KEY, "1"); } catch {}
                   }}
+                  aria-label="Dismiss"
                   className="shrink-0 ml-1"
                   style={{ color: "rgba(52,211,153,0.5)" }}
                 >

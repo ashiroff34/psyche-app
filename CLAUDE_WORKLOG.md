@@ -7,6 +7,9 @@ See bottom for today's entries (most recent first within each day).
 
 ## 2026-04-22
 
+### Pass 15 — Replace index keys with stable string keys on shuffled quiz option lists
+- **fix**: Changed `key={i}` / `key={idx}` to `key={opt}` (the option string itself) for all shuffled answer-option lists in `QuizFullscreen.tsx`, `history/page.tsx`, `MultipleChoiceExercise.tsx`, `ScenarioExercise.tsx`, `StorySceneExercise.tsx`, and `FillInBlankExercise.tsx` — index keys on shuffled lists cause React to reuse DOM nodes when the question changes, potentially preserving stale button state across questions
+
 ### Pass 14 — Fix stale closure in EngagementNudge showNextNudge
 - **fix**: Replaced `useState<Set<string>>` + `[shown]` dep in `showNextNudge` useCallback with a `shownRef` ref — the callback now has stable `[]` deps, the re-entry useEffect can properly list `showNextNudge` as a dep instead of suppressing it with `eslint-disable-line`, and the unused `shown` state (never read in JSX) is removed entirely
 

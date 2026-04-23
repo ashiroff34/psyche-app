@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Eye } from "lucide-react";
+import { getLocalDateKey } from "@/lib/date-utils";
 
 /* ─────────────────────────────────────────────────────────────────────────────
    STORAGE KEYS
@@ -10,9 +11,8 @@ import { Eye } from "lucide-react";
 const KEY_LAST_ACTIVE = "psyche-last-active-date";
 const shownKey = (dateKey: string) => `psyche-shadow-reengagement-shown-${dateKey}`;
 
-function getDateKey(): string {
-  return new Intl.DateTimeFormat("en-CA").format(new Date());
-}
+// Use canonical date utility — avoids UTC midnight bug
+const getDateKey = getLocalDateKey;
 
 /* ─────────────────────────────────────────────────────────────────────────────
    EXPORTED UTILITIES
@@ -34,7 +34,7 @@ export function shouldShowShadowReengagement(): boolean {
 
 export function markActive(): void {
   try {
-    localStorage.setItem(KEY_LAST_ACTIVE, new Date().toISOString().slice(0, 10));
+    localStorage.setItem(KEY_LAST_ACTIVE, getLocalDateKey());
   } catch {}
 }
 

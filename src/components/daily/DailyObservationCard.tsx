@@ -128,6 +128,7 @@ export default function DailyObservationCard({ enneagramType, typeName }: Props)
             </div>
             <button
               onClick={() => { localStorage.setItem(ACKED_KEY(getDateKey()), "dismissed"); setVisible(false); }}
+              aria-label="Dismiss"
               className="text-white/20 hover:text-white/50 transition-colors"
             >
               <X className="w-3.5 h-3.5" />

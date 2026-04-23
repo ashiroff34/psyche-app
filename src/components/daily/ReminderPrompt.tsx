@@ -68,7 +68,7 @@ export default function ReminderPrompt() {
       className="mb-4 p-4 rounded-2xl relative"
       style={{ background: "rgba(139,92,246,0.08)", border: "1px solid rgba(139,92,246,0.22)" }}
     >
-      <button onClick={dismiss} className="absolute top-3 right-3 opacity-40 hover:opacity-80">
+      <button onClick={dismiss} aria-label="Dismiss" className="absolute top-3 right-3 opacity-40 hover:opacity-80">
         <X className="w-4 h-4" />
       </button>
       <div className="flex items-center gap-2 mb-2">

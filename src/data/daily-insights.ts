@@ -1,6 +1,8 @@
 // Daily provocative insights for each Enneagram type
 // Co-Star meets philosophy. cryptic, poetic, screenshot-worthy
 
+import { getLocalDateKey } from "@/lib/date-utils";
+
 export interface TypeInsight {
   text: string;
   subtext: string;
@@ -1158,7 +1160,7 @@ function hashDateType(dateKey: string, typeNumber: number): number {
  */
 export function getDailyInsight(typeNumber: number): TypeInsight {
   const insights = insightsByType[typeNumber] ?? type1Insights;
-  const dateKey = new Date().toISOString().slice(0, 10);
+  const dateKey = getLocalDateKey();
   const index = hashDateType(dateKey, typeNumber) % insights.length;
   return insights[index];
 }

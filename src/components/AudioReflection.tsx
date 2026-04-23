@@ -210,6 +210,7 @@ export default function AudioReflection({ type, onClose }: Props) {
         {onClose && (
           <button
             onClick={onClose}
+            aria-label="Close"
             className="w-8 h-8 rounded-lg flex items-center justify-center transition-colors"
             style={{ background: "rgba(255,255,255,0.05)", color: "rgba(255,255,255,0.5)" }}
           >

@@ -135,6 +135,7 @@ export default function MorningPassionCheckIn({ enneagramType }: Props) {
               </button>
               <button
                 onClick={() => handleResponse("skip")}
+                aria-label="Skip"
                 className="px-3 py-2.5 rounded-xl text-[12px] font-medium transition-all active:scale-95"
                 style={{ color: "rgba(255,255,255,0.35)" }}
               >

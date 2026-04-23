@@ -131,6 +131,7 @@ export default function ConfidenceBadge({ confidenceOverride }: ConfidenceBadgeP
               {/* Close */}
               <button
                 onClick={() => setOpen(false)}
+                aria-label="Close"
                 className="absolute top-5 right-5"
                 style={{ color: "rgba(255,255,255,0.4)" }}
               >

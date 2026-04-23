@@ -4,6 +4,7 @@ import { useState, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Share2, Copy, Check } from "lucide-react";
 import { getDailyInsight } from "@/data/daily-insights";
+import { getLocalDateKey } from "@/lib/date-utils";
 
 interface DailyInsightCardProps {
   typeNumber: number;
@@ -19,7 +20,7 @@ export default function DailyInsightCard({
   const [tokenPop, setTokenPop] = useState(false);
 
   const insight = getDailyInsight(typeNumber);
-  const dateKey = new Date().toISOString().slice(0, 10);
+  const dateKey = getLocalDateKey();
   const shareKey = `psyche-last-insight-share-${dateKey}`;
 
   const awardTokens = useCallback(() => {

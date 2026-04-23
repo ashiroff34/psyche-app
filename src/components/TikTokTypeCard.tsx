@@ -6,6 +6,7 @@ import { useRef, useState, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Share2, Download, X, Coins } from "lucide-react";
 import { assetPath } from "@/lib/assetPath";
+import { getLocalDateKey } from "@/lib/date-utils";
 
 
 const TYPE_TAGLINES: Record<number, string> = {
@@ -98,7 +99,7 @@ export default function TikTokTypeCard({
   const awardShareTokens = useCallback(() => {
     if (tokensAwarded) return;
     try {
-      const dateKey = new Date().toISOString().slice(0, 10);
+      const dateKey = getLocalDateKey();
       const lastShareKey = `psyche-last-share-${dateKey}`;
       if (localStorage.getItem(lastShareKey)) return; // already shared today
       localStorage.setItem(lastShareKey, "1");
