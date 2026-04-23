@@ -81,10 +81,10 @@ export default function MirrorPage() {
             Experimental · The Mirror
           </div>
           <h1 className="text-2xl md:text-3xl font-serif font-bold mb-2" style={{ color: "rgba(255,255,255,0.93)" }}>
-            What your own words say about you
+            What your own words reveal about you
           </h1>
           <p className="text-sm max-w-lg mx-auto leading-relaxed" style={{ color: "rgba(255,255,255,0.55)" }}>
-            Paste something you&apos;ve written, a journal entry, an email, an old message. Your language contains patterns that quizzes can&apos;t catch. This tool reads those patterns and offers an <em>independent</em> second opinion on your type.
+            Paste something you&apos;ve written, a journal entry, an email, an old message. Your language contains patterns that assessments can&apos;t catch. This tool reads those patterns and offers an <em>independent</em> second opinion on your type.
           </p>
         </div>
 

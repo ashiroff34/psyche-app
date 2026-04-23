@@ -110,7 +110,7 @@ function IntroScreen({ onBegin }: { onBegin: () => void }) {
             lineHeight: 1.3,
           }}
         >
-          Find yourself in the text
+          Recognize your pattern in the text
         </h2>
 
         <p
@@ -123,7 +123,7 @@ function IntroScreen({ onBegin }: { onBegin: () => void }) {
         >
           Professional typologists agree: the most accurate way to find your Enneagram type is to read
           all nine descriptions and recognize yourself from the inside. Behavior alone won&apos;t reveal
-          your type. two people can act identically but be completely different types.
+          your type. Two people can act identically but be driven by completely different core fears.
         </p>
 
         <p
@@ -134,8 +134,8 @@ function IntroScreen({ onBegin }: { onBegin: () => void }) {
             marginBottom: 28,
           }}
         >
-          Look for the one that describes your <em style={{ color: "rgba(167,139,250,0.85)", fontStyle: "italic" }}>inner world</em>. your
-          fears, your motivations. not just what you do.
+          Look for the one that describes your <em style={{ color: "rgba(167,139,250,0.85)", fontStyle: "italic" }}>inner world</em>: your
+          fears, your motivations, what drives you when no one is watching.
         </p>
 
         {/* Recommended by */}
@@ -180,7 +180,7 @@ function IntroScreen({ onBegin }: { onBegin: () => void }) {
             (e.currentTarget as HTMLButtonElement).style.boxShadow = "0 8px 28px rgba(124,58,237,0.45)";
           }}
         >
-          Begin Reading
+          Start Reading
         </button>
       </div>
     </motion.div>
@@ -284,7 +284,7 @@ function ConfirmOverlay({
         </p>
 
         <p style={{ fontSize: 13, color: "rgba(255,255,255,0.38)", marginBottom: 28, lineHeight: 1.5 }}>
-          Self-identification is the gold standard in Enneagram typology. Trust your inner recognition.
+          Self-identification is the gold standard in Enneagram typology. If it resonates from the inside, it&apos;s probably right.
         </p>
 
         <div style={{ display: "flex", gap: 10 }}>
@@ -798,7 +798,7 @@ export default function SelfIdPage() {
             Self-Identification
           </div>
           <div style={{ fontSize: 11, color: "rgba(255,255,255,0.38)", marginTop: 1 }}>
-            Read each type · Find yourself
+            Read each type · Find your pattern
           </div>
         </div>
 
@@ -856,7 +856,7 @@ export default function SelfIdPage() {
                     lineHeight: 1.6,
                   }}
                 >
-                  Read each type fully. Mark it as read when done. Tap &ldquo;This is me&rdquo; when one resonates from the inside.
+                  Read each type fully. Mark it as read when done. Tap &ldquo;This is me&rdquo; when you recognize yourself from the inside, not just the behavior.
                 </p>
               </div>
 

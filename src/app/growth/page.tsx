@@ -777,10 +777,10 @@ export default function GrowthPage() {
             <div className="text-4xl mb-4">~</div>
             <h3 className="text-lg font-serif font-semibold mb-2" style={{ color: "rgba(255,255,255,0.88)" }}>Your growth path starts with knowing your type</h3>
             <p className="text-sm mb-6 max-w-xs mx-auto" style={{ color: "rgba(255,255,255,0.45)" }}>
-              Each Enneagram type has a unique path to growth. specific fears to face, virtues to cultivate, and integration lines to explore.
+              Each Enneagram type has a distinct path. specific fears to understand, virtues to cultivate, and integration lines to explore.
             </p>
             <Link href="/assessments/quick" className="inline-flex items-center gap-2 px-6 py-3 rounded-2xl font-semibold text-white text-sm transition-all hover:-translate-y-0.5" style={{ background: "linear-gradient(135deg, #7c3aed, #4f46e5)", boxShadow: "0 8px 24px rgba(124,58,237,0.4)" }}>
-              Discover my type in 3 minutes →
+              Find my pattern in 3 minutes
             </Link>
           </div>
         )}

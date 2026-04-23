@@ -7,6 +7,46 @@ See bottom for today's entries (most recent first within each day).
 
 ## 2026-04-22
 
+### Pass 21 — Brand copy: tab screens and assessment intros aligned to brand voice
+
+Spread brand voice ("understand why you are the way you are") through the core tab screens and assessment entry points. Copy only, no layout or structural changes.
+
+**`src/app/assessments/page.tsx`**
+- Know tab header: "Map yourself" → "Map your psychology"; "Your full map" → "Your full psychological map"; subhead reframed around "pattern" not generic self-mapping
+- "Your starting path" section label → "Where to begin"
+- GrowthTab empty state CTA: "Find your type" → "Find my pattern"
+- Three Mirrors hero: removed dash, reframed "real insight" → "real self-knowledge"
+- Big Five DIMENSIONS description: "most scientifically validated personality model" → "most rigorously validated trait model"
+- Big Five ALL_ASSESSMENTS subtitle and description rewritten to be more precise and less quiz-framing
+- Recommendation `why` copy: clarified Ichazo/Naranjo as "original" frameworks; Big Five framing shifted from pop-validation to empirical cross-validation; mistype investigator copy sharpened
+- `getRecommendation` instinctual stacking: "determines" → "shapes" (less deterministic framing)
+- Jungian recommendation: reframed "where real self-knowledge lives" → "where the deepest patterns become visible"
+
+**`src/app/growth/page.tsx`**
+- Empty state CTA: "Discover my type in 3 minutes →" → "Find my pattern in 3 minutes" (no arrow, no "discover")
+- Empty state body: "specific fears to face" → "specific fears to understand" (recognition not prescription framing)
+
+**`src/app/mirrors/page.tsx`**
+- Hero subtitle: "Three independent lenses on who you are" → "Three independent lenses on your psychological pattern"
+- Three "Take the assessment" links → "Start the assessment"
+- Coherent-mirrors state: added "not just performing alignment" for depth
+- Incomplete-mirrors empty state: rewritten to foreground motivation/traits/values divergence framing
+
+**`src/app/assessments/self-id/page.tsx`**
+- Intro headline: "Find yourself in the text" → "Recognize your pattern in the text"
+- Intro body: "two people can act identically but be completely different types" → clarified as "driven by completely different core fears" (motivation-first framing)
+- Intro second paragraph: "not just what you do" → "what drives you when no one is watching"
+- CTA: "Begin Reading" → "Start Reading"
+- Fixed header subtitle: "Find yourself" → "Find your pattern"
+- Reading phase instruction: "when one resonates from the inside" → "when you recognize yourself from the inside, not just the behavior"
+- Confirm overlay: "Trust your inner recognition" → "If it resonates from the inside, it's probably right" (warmer, less oracular)
+
+**`src/app/mirror/page.tsx`**
+- Hero headline: "What your own words say about you" → "What your own words reveal about you"
+- Hero body: "quizzes can't catch" → "assessments can't catch" (we're not a quiz)
+
+`npx tsc --noEmit` clean.
+
 ### Pass 20 — Brand copy: hero, onboarding, and metadata updated to reflect brand positioning
 
 Updated all hero and entry copy to reflect the brand tagline "understand why you are the way you are." Key changes:

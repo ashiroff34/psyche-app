@@ -98,7 +98,7 @@ const DIMENSIONS: Dimension[] = [
     id: "bigfive",
     label: "Big Five",
     shortLabel: "Big Five",
-    description: "The most scientifically validated personality model. OCEAN trait profile.",
+    description: "The most rigorously validated trait model in psychology. OCEAN profile.",
     color: "#10b981",
     assessmentId: "big-five",
     href: "/assessments/big-five",
@@ -131,7 +131,7 @@ function getRecommendation(
       dimensionId: "enneagram",
       title: "Quick Type Finder",
       subtitle: "8 questions · ~3 minutes",
-      why: "Start here. Your Enneagram type is the foundation. Everything else in the system builds on it. This takes 3 minutes and draws on Ichazo and Naranjo's core frameworks.",
+      why: "Start here. Your Enneagram type is the foundation. Everything else in the system builds on it. This takes 3 minutes and draws on Ichazo and Naranjo's original frameworks.",
       timeEstimate: "~3 min",
       href: "/assessments/quick",
       gradient: "from-violet-500 to-indigo-600",
@@ -143,7 +143,7 @@ function getRecommendation(
       dimensionId: "instinct",
       title: "Instinctual Stacking",
       subtitle: "30 forced-choice questions · SP, SX, SO",
-      why: "You have your type. Now find your subtype. Your instinctual stacking determines which version of your type you actually live. Two Type 5s with different stackings can feel like different people.",
+      why: "You have your type. Now find your subtype. Your instinctual stacking shapes which version of your type you actually live. Two Type 5s with different stackings can feel like entirely different people.",
       timeEstimate: "~5 min",
       href: "/assessments/instinctual",
       gradient: "from-fuchsia-500 to-pink-600",
@@ -167,7 +167,7 @@ function getRecommendation(
       dimensionId: "cognitive",
       title: "Jungian Self-Identification",
       subtitle: "Study your function stack, identify your type",
-      why: "Adding your cognitive type reveals the 'how' behind your Enneagram 'why.' The overlap between your type's Jungian stack and your Enneagram fixation is where real self-knowledge lives.",
+      why: "Adding your cognitive type reveals the 'how' behind your Enneagram 'why.' The intersection of your Jungian function stack and your Enneagram fixation is where the deepest patterns become visible.",
       timeEstimate: "~15 min",
       href: "/assessments/jungian-self-id",
       gradient: "from-sky-400 to-blue-600",
@@ -179,7 +179,7 @@ function getRecommendation(
       dimensionId: "bigfive",
       title: "Big Five Personality (OCEAN)",
       subtitle: "120 items · The scientific gold standard",
-      why: "You've mapped the full Enneagram and cognitive picture. The Big Five adds the empirically validated layer. It cross-validates your other results and adds nuance that trait-based science captures uniquely.",
+      why: "You've mapped your Enneagram and cognitive picture. The Big Five adds the empirically validated layer. It cross-validates your other results and surfaces trait-level nuance that motivation-based frameworks miss.",
       timeEstimate: "~15 min",
       href: "/assessments/big-five",
       gradient: "from-emerald-400 to-teal-600",
@@ -192,7 +192,7 @@ function getRecommendation(
       dimensionId: "enneagram",
       title: "Mistype Investigator",
       subtitle: "Distinguish your most commonly confused types",
-      why: "Your results show a close split between two types. This assessment focuses specifically on the pairs you're most likely confusing. It's more useful than retaking a general assessment.",
+      why: "Your results show a close split between two types. This assessment focuses on the pairs you're most likely confusing and surfaces the distinctions that matter. More useful than retaking a general assessment.",
       timeEstimate: "~8 min",
       href: "/assessments/mistype-investigator",
       gradient: "from-rose-500 to-pink-600",
@@ -414,8 +414,8 @@ const ALL_ASSESSMENTS: AssessmentItem[] = [
     tab: "scientific",
     icon: BarChart3,
     title: "Big Five Personality (OCEAN)",
-    subtitle: "The scientific gold standard, 120 items",
-    description: "The most scientifically validated personality model in psychology. Measures OCEAN with 6 facets each.",
+    subtitle: "The most rigorously validated trait model, 120 items",
+    description: "Measures your trait profile across Openness, Conscientiousness, Extraversion, Agreeableness, and Neuroticism with 6 facets each. The empirical backbone of modern personality psychology.",
     timeEstimate: "~15 min",
     tags: ["120 Questions", "IPIP-NEO"],
     gradient: "from-blue-400 to-indigo-500",
@@ -524,7 +524,7 @@ function GrowthTab({ myType }: { myType: number }) {
       <div className="text-center py-16">
         <p className="text-white/40 text-sm">Complete a type assessment to unlock your growth path.</p>
         <Link href="/assessments/quick" className="inline-flex items-center gap-2 mt-4 px-5 py-2.5 rounded-xl text-sm font-semibold text-white" style={{ background: "linear-gradient(135deg, #8b5cf6, #d946ef)" }}>
-          Find your type
+          Find my pattern
         </Link>
       </div>
     );
@@ -775,14 +775,14 @@ export default function AssessmentsPage() {
           </p>
           <h1 className="text-2xl font-serif font-bold mb-1" style={{ color: "rgba(255,255,255,0.93)" }}>
             {completedDimensions === 0
-              ? "Map yourself"
+              ? "Map your psychology"
               : completedDimensions === 5
-              ? "Your full map"
+              ? "Your full psychological map"
               : "Continue mapping"}
           </h1>
           <p className="text-sm" style={{ color: "rgba(255,255,255,0.38)" }}>
             {completedDimensions === 0
-              ? "Five dimensions. Start with your Enneagram type. Everything builds from there."
+              ? "Five dimensions. Start with your Enneagram type. Your pattern builds from there."
               : completedDimensions === 5
               ? "You've mapped all five dimensions. Go deeper or explore the full library."
               : `${completedDimensions} of 5 dimensions mapped.`}
@@ -820,7 +820,7 @@ export default function AssessmentsPage() {
                   The Three Mirrors
                 </h2>
                 <p className="text-xs mt-1 leading-snug" style={{ color: "rgba(255,255,255,0.5)" }}>
-                  See where your motivation, traits, and values line up — and where they contradict each other. That's where the real insight is.
+                  See where your motivation, traits, and values line up, and where they contradict each other. That's where the real self-knowledge is.
                 </p>
               </div>
 
@@ -974,7 +974,7 @@ export default function AssessmentsPage() {
             style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.07)" }}
           >
             <p className="text-[10px] font-bold uppercase tracking-widest mb-3" style={{ color: "rgba(255,255,255,0.3)" }}>
-              Your starting path
+              Where to begin
             </p>
             <div className="space-y-2">
               {[

@@ -112,7 +112,7 @@ export default function MirrorsPage() {
         <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}>
           <h1 className="text-3xl font-bold mb-2">The Three Mirrors</h1>
           <p className="text-sm opacity-60 mb-6 leading-relaxed">
-            Three independent lenses on who you are. The most interesting self-knowledge lives where they disagree.
+            Three independent lenses on your psychological pattern. The deepest self-knowledge lives where they disagree.
           </p>
         </motion.div>
 
@@ -130,7 +130,7 @@ export default function MirrorsPage() {
             </p>
           ) : (
             <Link href="/assessments" className="text-sm text-violet-300 underline mt-1 inline-block">
-              Take the assessment
+              Start the assessment
             </Link>
           )}
           <p className="text-[11px] opacity-50 mt-2 leading-snug">
@@ -162,7 +162,7 @@ export default function MirrorsPage() {
             </div>
           ) : (
             <Link href="/assessments/aspects" className="text-sm text-purple-300 underline mt-1 inline-block">
-              Take the assessment, 30 items, ~3 min
+              Start the assessment, 30 items, ~3 min
             </Link>
           )}
           <p className="text-[11px] opacity-50 mt-2 leading-snug">
@@ -189,7 +189,7 @@ export default function MirrorsPage() {
             </div>
           ) : (
             <Link href="/assessments/values" className="text-sm text-fuchsia-300 underline mt-1 inline-block">
-              Take the assessment, 20 items, ~2 min
+              Start the assessment, 20 items, ~2 min
             </Link>
           )}
           <p className="text-[11px] opacity-50 mt-2 leading-snug">
@@ -216,14 +216,14 @@ export default function MirrorsPage() {
 
         {hasAll && insights.length === 0 && (
           <div className="mb-6 p-4 rounded-2xl text-center" style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)" }}>
-            <p className="text-sm opacity-70">Your three mirrors are coherent. That's rare, and it suggests your motivation, traits, and values are aligned.</p>
+            <p className="text-sm opacity-70">Your three mirrors are coherent. That's rare, and it means your motivation, traits, and values are genuinely aligned, not just performing alignment.</p>
           </div>
         )}
 
         {!hasAll && (
           <div className="mb-6 p-4 rounded-2xl" style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)" }}>
             <p className="text-sm opacity-70 leading-relaxed">
-              Complete all three mirrors to see divergence insights. The interesting content lives where they disagree.
+              Complete all three mirrors to see divergence insights. The most useful patterns emerge where your motivation, traits, and values pull in different directions.
             </p>
           </div>
         )}
