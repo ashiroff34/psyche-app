@@ -19,6 +19,9 @@ interface Props {
   onTabChange: (tab: "enneagram" | "jungian") => void;
 }
 
+const NODE_POSITIONS = ["pl-4", "px-12", "pr-4 ml-auto", "px-12", "pl-4"];
+const NODE_ALIGN = ["items-start", "items-center", "items-end", "items-center", "items-start"];
+
 function GradientRingNode({
   node,
   size = 64,
@@ -236,10 +239,8 @@ export default function PathView({ units, onNodeTap, activeTab, onTabChange }: P
               {/* S-curve nodes */}
               <div className="relative">
                 {nodes.map((node, nodeIdx) => {
-                  const positions = ["pl-4", "px-12", "pr-4 ml-auto", "px-12", "pl-4"];
-                  const align = ["items-start", "items-center", "items-end", "items-center", "items-start"];
-                  const pos = positions[nodeIdx % positions.length];
-                  const aln = align[nodeIdx % align.length];
+                  const pos = NODE_POSITIONS[nodeIdx % NODE_POSITIONS.length];
+                  const aln = NODE_ALIGN[nodeIdx % NODE_ALIGN.length];
 
                   return (
                     <div key={node.id} className="relative">

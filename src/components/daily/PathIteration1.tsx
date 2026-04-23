@@ -30,11 +30,12 @@ interface Props {
   onNodeTap: (node: PathNodeConfig) => void;
 }
 
+const SECTION_COLORS = ["#58cc02", "#ce82ff", "#00cd9c", "#ff9600", "#1cb0f6", "#ff4b4b"];
+
 // Flatten all units into one continuous node list
 function flattenNodes(units: PathUnit[]): (PathNodeConfig & { sectionColor: string })[] {
-  const sectionColors = ["#58cc02", "#ce82ff", "#00cd9c", "#ff9600", "#1cb0f6", "#ff4b4b"];
   return units.flatMap((unit, i) =>
-    unit.nodes.map((n) => ({ ...n, sectionColor: sectionColors[i % sectionColors.length] }))
+    unit.nodes.map((n) => ({ ...n, sectionColor: SECTION_COLORS[i % SECTION_COLORS.length] }))
   );
 }
 
@@ -121,7 +122,6 @@ function DuoNode({
 
 export default function PathIteration1({ units, onNodeTap }: Props) {
   const allNodes = flattenNodes(units);
-  const sectionColors = ["#58cc02", "#ce82ff", "#00cd9c", "#ff9600", "#1cb0f6", "#ff4b4b"];
 
   // Find index of current node for chibi placement
   const currentIdx = allNodes.findIndex((n) => n.status === "current");
@@ -137,7 +137,7 @@ export default function PathIteration1({ units, onNodeTap }: Props) {
 
           // Section background band
           const unitIdx = units.findIndex((u) => u.nodes.some((n) => n.id === node.id));
-          const sectionBg = sectionColors[unitIdx % sectionColors.length];
+          const sectionBg = SECTION_COLORS[unitIdx % SECTION_COLORS.length];
 
           const showChibi = idx === currentIdx;
 

@@ -7,6 +7,14 @@ See bottom for today's entries (most recent first within each day).
 
 ## 2026-04-22
 
+### Pass 16 — Hoist inline constant arrays to module scope (perf: avoid fresh allocation on every render)
+
+- `src/components/daily/PathIteration1.tsx`: removed duplicate `sectionColors` array inside component body (it was already defined inside `flattenNodes`); extracted as module-level `SECTION_COLORS` used by both call sites.
+- `src/components/daily/PathView.tsx`: hoisted `positions` and `align` arrays (previously re-created on every iteration of a `.map()` call) to module-level `NODE_POSITIONS` / `NODE_ALIGN`.
+- `src/components/DailyQuiz.tsx`: hoisted `LETTERS` (inside `useMemo`) and `VISUAL_LETTERS` (in render body) to a single module-level `OPTION_LETTERS` constant.
+
+`npx tsc --noEmit` — clean.
+
 ### Pass 15 — Replace index keys with stable string keys on shuffled quiz option lists
 - **fix**: Changed `key={i}` / `key={idx}` to `key={opt}` (the option string itself) for all shuffled answer-option lists in `QuizFullscreen.tsx`, `history/page.tsx`, `MultipleChoiceExercise.tsx`, `ScenarioExercise.tsx`, `StorySceneExercise.tsx`, and `FillInBlankExercise.tsx` — index keys on shuffled lists cause React to reuse DOM nodes when the question changes, potentially preserving stale button state across questions
 

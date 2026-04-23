@@ -7,6 +7,8 @@ import type { TypeQuizQuestion } from "@/data/type-quizzes";
 import { REWARDS } from "@/data/rewards";
 import { stableShuffleOptions } from "@/lib/shuffleOptions";
 
+const OPTION_LETTERS = ["A", "B", "C", "D"];
+
 export interface QuizAnswer {
   questionId: number;
   selected: string;
@@ -42,11 +44,10 @@ export default function DailyQuiz({ questions, trackName, onComplete }: DailyQui
     if (!q) return { shuffledOptionObjects: [] as { letter: string; text: string }[], shuffledAnswerLetter: "" };
     const correctIdx = q.options.findIndex(o => o.letter === q.answer);
     const { shuffled } = stableShuffleOptions(q.options, correctIdx, String(q.id));
-    const LETTERS = ["A", "B", "C", "D"];
     const newAnswerIdx = shuffled.findIndex(o => o.letter === q.answer);
     return {
       shuffledOptionObjects: shuffled,
-      shuffledAnswerLetter: LETTERS[newAnswerIdx] ?? q.answer,
+      shuffledAnswerLetter: OPTION_LETTERS[newAnswerIdx] ?? q.answer,
     };
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [q?.id]);
@@ -90,7 +91,6 @@ export default function DailyQuiz({ questions, trackName, onComplete }: DailyQui
 
   if (!q) return null;
 
-  const VISUAL_LETTERS = ["A", "B", "C", "D"];
   const isCorrect = selected === shuffledAnswerLetter;
   const progressPercent = ((currentIdx + 1) / total) * 100;
 
@@ -146,7 +146,7 @@ export default function DailyQuiz({ questions, trackName, onComplete }: DailyQui
           {/* Options */}
           <div className="space-y-3">
             {shuffledOptionObjects.map((opt, idx) => {
-              const visualLetter = VISUAL_LETTERS[idx];
+              const visualLetter = OPTION_LETTERS[idx];
               const isThis = selected === visualLetter;
               const isAnswer = visualLetter === shuffledAnswerLetter;
               let borderClass = "border-slate-200 hover:border-sky-300 hover:bg-sky-50/50";
