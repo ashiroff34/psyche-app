@@ -145,6 +145,8 @@ export default function PrivacyPolicyPage() {
                 If you purchase tokens or a Pro subscription, the payment is processed by Stripe. We never see your credit card number. Stripe sees the transaction and your billing details. Stripe&apos;s privacy policy is at{" "}
                 <a
                   href="https://stripe.com/privacy"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="underline"
                   style={{ color: "rgba(167,139,250,0.85)" }}
                 >

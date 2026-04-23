@@ -7,6 +7,15 @@ See bottom for today's entries (most recent first within each day).
 
 ## 2026-04-22
 
+### Pass 18 — External link security: add rel="noopener noreferrer" to unguarded external anchors
+
+- **`src/app/privacy/page.tsx`**: Stripe privacy link had no `target` or `rel`. Added `target="_blank" rel="noopener noreferrer"`.
+- **`src/app/terms/page.tsx`**: findahelpline.com crisis-line link had no `target` or `rel`. Added `target="_blank" rel="noopener noreferrer"`.
+- All other flagged links (`beta/page.tsx` ×2, `MistypeInvestigator.tsx`) already had correct `rel="noopener noreferrer"` — grep false positives from multi-line matching.
+- `layout.tsx` Google Fonts `<link>` is a stylesheet link element, not an anchor — not applicable.
+- Form `onSubmit`: zero instances missing `e.preventDefault()`.
+- `npx tsc --noEmit` clean.
+
 ### Pass 17 — Audit async useEffect anti-pattern and unguarded JSON.parse(localStorage)
 
 - **useEffect(async)**: zero instances found in `src/` — codebase is clean.

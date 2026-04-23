@@ -59,7 +59,7 @@ export default function TermsPage() {
                 <li>A replacement for professional help if you are in crisis</li>
               </ul>
               <p className="pt-2">
-                <strong style={{ color: "rgba(255,255,255,0.85)" }}>If you are in crisis</strong> or having thoughts of harming yourself, please contact your local emergency services or a crisis line (US: 988, UK: 116 123, or find yours at <a href="https://findahelpline.com" className="underline" style={{ color: "rgba(167,139,250,0.85)" }}>findahelpline.com</a>).
+                <strong style={{ color: "rgba(255,255,255,0.85)" }}>If you are in crisis</strong> or having thoughts of harming yourself, please contact your local emergency services or a crisis line (US: 988, UK: 116 123, or find yours at <a href="https://findahelpline.com" target="_blank" rel="noopener noreferrer" className="underline" style={{ color: "rgba(167,139,250,0.85)" }}>findahelpline.com</a>).
               </p>
             </div>
           </section>
