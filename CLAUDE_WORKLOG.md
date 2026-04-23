@@ -7,6 +7,20 @@ See bottom for today's entries (most recent first within each day).
 
 ## 2026-04-22
 
+### Pass 22 — Restore Pet tab to bottom nav (replacing Mirrors)
+
+User requested the Pet tab back as the third bottom nav item. Mirrors was previously swapped in during the pet/game hub removal pass.
+
+**`src/components/Navigation.tsx`**
+- WHEEL_SPOKES: `/mirrors` (Mirrors, Layers icon, purple) → `/pet` (Pet, Heart icon, rose `#f43f5e`)
+- SwipeNavigator tabOrder: `/mirrors` → `/pet`
+- `Layers` import retained (still used in the "Your Data" hamburger menu item)
+
+**`src/app/pet/page.tsx`**
+- Restored original 208-line Pet page (health/hunger stats, feed/play buttons, ChibiSprite) recovered from git history (`9010ad1^`)
+
+`npx tsc --noEmit` clean.
+
 ### Pass 21 — Brand copy: tab screens and assessment intros aligned to brand voice
 
 Spread brand voice ("understand why you are the way you are") through the core tab screens and assessment entry points. Copy only, no layout or structural changes.
