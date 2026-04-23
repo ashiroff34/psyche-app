@@ -13,6 +13,7 @@ import ChibiSprite from "@/components/ChibiSprite";
 import { TYPE_WPFA } from "@/data/wound-passion-fixation-armor";
 import { resolveTypeAwareCopy } from "@/hooks/useTypeAwareCopy";
 import { posthog, EVENTS, setUserProperty } from "@/lib/posthog";
+import { Analytics } from "@/lib/analytics";
 import TypeIdentityCard from "@/components/TypeIdentityCard";
 import { Share2 } from "lucide-react";
 import GuidingChibi from "@/components/onboarding/GuidingChibi";
@@ -1502,6 +1503,11 @@ function OnboardingPageInner() {
         enneagramType: result.type,
         instinct: result.instinct ?? null,
       });
+      Analytics.typeRevealed({
+        enneagram_type: result.type,
+        instinct: result.instinct ?? undefined,
+        confidence: result.confidence,
+      });
       // Persist user properties so all future events are segmentable by type
       setUserProperty({
         enneagramType: result.type,
@@ -1606,6 +1612,11 @@ function OnboardingPageInner() {
         email_provided: true,
         path: "save_and_continue",
       });
+      Analytics.onboardingCompleted({
+        method: "quiz",
+        enneagram_type: assessmentResult.type,
+        instinct: assessmentResult.instinct ?? undefined,
+      });
     } catch {}
 
     // Register subscriber — stores in Resend Audience + sends welcome email
@@ -1671,6 +1682,11 @@ function OnboardingPageInner() {
         enneagramType: type,
         path: "manual",
         email_provided: false,
+      });
+      Analytics.onboardingCompleted({
+        method: "manual",
+        enneagram_type: type,
+        instinct: instinct ?? undefined,
       });
       setUserProperty({
         enneagramType: type,
@@ -1745,6 +1761,11 @@ function OnboardingPageInner() {
         instinct: assessmentResult.instinct ?? null,
         email_provided: false,
         path: "skip_email",
+      });
+      Analytics.onboardingCompleted({
+        method: "quiz",
+        enneagram_type: assessmentResult.type,
+        instinct: assessmentResult.instinct ?? undefined,
       });
     } catch {}
     setStep(9); // → chibi naming → implementation intention → all set

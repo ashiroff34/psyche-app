@@ -1,6 +1,6 @@
 "use client";
 
-import { use, useState, useEffect } from "react";
+import { use, useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import { getLesson, personalizeExercises, LESSON_UNITS } from "@/data/lessons";
@@ -8,6 +8,7 @@ import { useLessonProgress } from "@/hooks/useLessonProgress";
 import { useProfile } from "@/hooks/useProfile";
 import { useGameState } from "@/hooks/useGameState";
 import LessonEngine from "@/components/lessons/LessonEngine";
+import { Analytics } from "@/lib/analytics";
 import GroundingExercise from "@/components/GroundingExercise";
 import type { Lesson } from "@/types/lessons";
 
@@ -27,6 +28,7 @@ export default function LessonPageClient({
   const [error, setError] = useState<string | null>(null);
   const [completionShown, setCompletionShown] = useState(false);
   const [showGrounding, setShowGrounding] = useState(false);
+  const lessonStartedAt = useRef<number>(Date.now());
 
   // Load and personalize lesson — run only once when both loaders are ready.
   // profile is captured at load time only; we don't want re-runs on profile
@@ -54,6 +56,18 @@ export default function LessonPageClient({
 
     setPreparedLesson(finalLesson);
     startLesson(unitId, lessonId);
+
+    // Fire lesson_start analytics
+    const typeMatch = unitId.match(/^type-(\d)$/);
+    const typeFocus = typeMatch ? parseInt(typeMatch[1], 10) : 0;
+    const unitIndex = LESSON_UNITS.findIndex((u) => u.id === unitId);
+    const lessonIndex = lesson.exercises ? 0 : 0; // index within unit; default to 0 if not available
+    Analytics.lessonStart({
+      lesson_id: lessonId,
+      framework: "enneagram",
+      type_focus: typeFocus,
+      lesson_index: unitIndex >= 0 ? unitIndex : 0,
+    });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [unitId, lessonId, progressLoaded, profileLoaded]); // profile intentionally omitted — lesson is personalized once at load
 
@@ -70,6 +84,15 @@ export default function LessonPageClient({
   const handleComplete = (score: number, xpEarned: number, perfect: boolean) => {
     completeLesson(lessonId, score, xpEarned, perfect);
     earnXP(xpEarned, "lesson");
+
+    // Fire lesson_complete analytics
+    const timeSpent = Math.round((Date.now() - lessonStartedAt.current) / 1000);
+    Analytics.lessonComplete({
+      lesson_id: lessonId,
+      framework: "enneagram",
+      time_spent_seconds: timeSpent,
+      score: Math.round(score * 100) / 100,
+    });
 
     // Increment type mastery when completing a type-specific lesson unit
     const typeMatch = unitId.match(/^type-(\d)$/);

@@ -15,6 +15,7 @@
 import { useEffect } from "react";
 import { usePathname, useSearchParams } from "next/navigation";
 import { posthog, EVENTS } from "@/lib/posthog";
+import { trackAppOpen } from "@/lib/analytics";
 
 function getOrCreateDeviceId(): string {
   try {
@@ -38,7 +39,7 @@ export default function PostHogProvider() {
   const pathname     = usePathname();
   const searchParams = useSearchParams() ?? new URLSearchParams();
 
-  // Identify user on first mount
+  // Identify user + track app_open on first mount
   useEffect(() => {
     const deviceId = getOrCreateDeviceId();
     try {
@@ -52,6 +53,8 @@ export default function PostHogProvider() {
     } catch {
       posthog.identify(deviceId);
     }
+    // Track app open with first_open + days_since_last_open
+    trackAppOpen();
   }, []);
 
   // Fire pageview on every navigation

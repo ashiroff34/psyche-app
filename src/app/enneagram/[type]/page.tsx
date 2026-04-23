@@ -2045,6 +2045,239 @@ export default function TypeDeepDivePage() {
           )}
         </AnimatePresence>
       </div>
+
+      {/* ── Related Types ── */}
+      <section
+        className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12"
+        aria-label="Explore related Enneagram types"
+      >
+        <div
+          className="rounded-2xl p-6 sm:p-8"
+          style={{
+            background: "rgba(255,255,255,0.04)",
+            border: "1px solid rgba(255,255,255,0.09)",
+          }}
+        >
+          <h2
+            className="text-lg font-serif font-bold mb-1"
+            style={{ color: "rgba(255,255,255,0.93)" }}
+          >
+            Explore Related Types
+          </h2>
+          <p
+            className="text-sm mb-6"
+            style={{ color: "rgba(255,255,255,0.4)" }}
+          >
+            Each Enneagram type is connected to others through wings, integration, and stress lines.
+          </p>
+
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+            {/* Wing 1 */}
+            {(() => {
+              const wingNum = typeNum === 1 ? 9 : typeNum - 1;
+              const wingType = enneagramTypes.find((t) => t.number === wingNum);
+              if (!wingType) return null;
+              return (
+                <Link
+                  key={`wing-${wingNum}`}
+                  href={`/enneagram/${wingNum}`}
+                  className="group flex flex-col gap-1 p-4 rounded-xl transition-all duration-200"
+                  style={{
+                    background: "rgba(255,255,255,0.04)",
+                    border: "1px solid rgba(255,255,255,0.08)",
+                  }}
+                >
+                  <span
+                    className="text-xs font-medium uppercase tracking-widest"
+                    style={{ color: "rgba(255,255,255,0.3)" }}
+                  >
+                    Wing
+                  </span>
+                  <span
+                    className="text-2xl font-serif font-bold group-hover:opacity-80 transition-opacity"
+                    style={{ color: wingType.color }}
+                  >
+                    {wingNum}
+                  </span>
+                  <span
+                    className="text-sm font-medium leading-tight"
+                    style={{ color: "rgba(255,255,255,0.75)" }}
+                  >
+                    {wingType.name}
+                  </span>
+                  <span
+                    className="text-xs leading-tight"
+                    style={{ color: "rgba(255,255,255,0.35)" }}
+                  >
+                    {wingType.alias}
+                  </span>
+                </Link>
+              );
+            })()}
+
+            {/* Wing 2 */}
+            {(() => {
+              const wingNum = typeNum === 9 ? 1 : typeNum + 1;
+              const wingType = enneagramTypes.find((t) => t.number === wingNum);
+              if (!wingType) return null;
+              return (
+                <Link
+                  key={`wing2-${wingNum}`}
+                  href={`/enneagram/${wingNum}`}
+                  className="group flex flex-col gap-1 p-4 rounded-xl transition-all duration-200"
+                  style={{
+                    background: "rgba(255,255,255,0.04)",
+                    border: "1px solid rgba(255,255,255,0.08)",
+                  }}
+                >
+                  <span
+                    className="text-xs font-medium uppercase tracking-widest"
+                    style={{ color: "rgba(255,255,255,0.3)" }}
+                  >
+                    Wing
+                  </span>
+                  <span
+                    className="text-2xl font-serif font-bold group-hover:opacity-80 transition-opacity"
+                    style={{ color: wingType.color }}
+                  >
+                    {wingNum}
+                  </span>
+                  <span
+                    className="text-sm font-medium leading-tight"
+                    style={{ color: "rgba(255,255,255,0.75)" }}
+                  >
+                    {wingType.name}
+                  </span>
+                  <span
+                    className="text-xs leading-tight"
+                    style={{ color: "rgba(255,255,255,0.35)" }}
+                  >
+                    {wingType.alias}
+                  </span>
+                </Link>
+              );
+            })()}
+
+            {/* Integration (growth) */}
+            {(() => {
+              const integType = enneagramTypes.find(
+                (t) => t.number === typeData.integrationLine
+              );
+              if (!integType) return null;
+              return (
+                <Link
+                  key={`integ-${integType.number}`}
+                  href={`/enneagram/${integType.number}`}
+                  className="group flex flex-col gap-1 p-4 rounded-xl transition-all duration-200"
+                  style={{
+                    background: "rgba(255,255,255,0.04)",
+                    border: "1px solid rgba(255,255,255,0.08)",
+                  }}
+                >
+                  <span
+                    className="text-xs font-medium uppercase tracking-widest"
+                    style={{ color: "rgba(255,255,255,0.3)" }}
+                  >
+                    Growth
+                  </span>
+                  <span
+                    className="text-2xl font-serif font-bold group-hover:opacity-80 transition-opacity"
+                    style={{ color: integType.color }}
+                  >
+                    {integType.number}
+                  </span>
+                  <span
+                    className="text-sm font-medium leading-tight"
+                    style={{ color: "rgba(255,255,255,0.75)" }}
+                  >
+                    {integType.name}
+                  </span>
+                  <span
+                    className="text-xs leading-tight"
+                    style={{ color: "rgba(255,255,255,0.35)" }}
+                  >
+                    {integType.alias}
+                  </span>
+                </Link>
+              );
+            })()}
+
+            {/* Disintegration (stress) */}
+            {(() => {
+              const disType = enneagramTypes.find(
+                (t) => t.number === typeData.disintegrationLine
+              );
+              if (!disType) return null;
+              return (
+                <Link
+                  key={`dis-${disType.number}`}
+                  href={`/enneagram/${disType.number}`}
+                  className="group flex flex-col gap-1 p-4 rounded-xl transition-all duration-200"
+                  style={{
+                    background: "rgba(255,255,255,0.04)",
+                    border: "1px solid rgba(255,255,255,0.08)",
+                  }}
+                >
+                  <span
+                    className="text-xs font-medium uppercase tracking-widest"
+                    style={{ color: "rgba(255,255,255,0.3)" }}
+                  >
+                    Stress
+                  </span>
+                  <span
+                    className="text-2xl font-serif font-bold group-hover:opacity-80 transition-opacity"
+                    style={{ color: disType.color }}
+                  >
+                    {disType.number}
+                  </span>
+                  <span
+                    className="text-sm font-medium leading-tight"
+                    style={{ color: "rgba(255,255,255,0.75)" }}
+                  >
+                    {disType.name}
+                  </span>
+                  <span
+                    className="text-xs leading-tight"
+                    style={{ color: "rgba(255,255,255,0.35)" }}
+                  >
+                    {disType.alias}
+                  </span>
+                </Link>
+              );
+            })()}
+          </div>
+
+          {/* CTA row */}
+          <div className="mt-6 flex flex-col sm:flex-row gap-3 items-start sm:items-center justify-between">
+            <p className="text-sm" style={{ color: "rgba(255,255,255,0.4)" }}>
+              Not sure which type you are?
+            </p>
+            <div className="flex flex-wrap gap-3">
+              <Link
+                href="/enneagram/assess"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold transition-all duration-200 hover:opacity-90 active:scale-95"
+                style={{
+                  background: accent,
+                  color: "#fff",
+                }}
+              >
+                Take the free Thyself assessment
+              </Link>
+              <Link
+                href="/enneagram"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-medium transition-colors hover:text-violet-400"
+                style={{
+                  background: "rgba(255,255,255,0.07)",
+                  color: "rgba(255,255,255,0.7)",
+                  border: "1px solid rgba(255,255,255,0.12)",
+                }}
+              >
+                Browse all 9 types
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
   );
 }

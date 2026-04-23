@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback, useRef } from "react";
 import { MS_PER_DAY } from "@/lib/date-utils";
+import { Analytics } from "@/lib/analytics";
 
 // ─── Types ───────────────────────────────────────────────────────────────────
 
@@ -565,6 +566,8 @@ export function useGameState() {
   const [xpGainAnimation, setXpGainAnimation] = useState<{ amount: number; source: string } | null>(null);
   const [badgeUnlockAnimation, setBadgeUnlockAnimation] = useState<Badge | null>(null);
   const saveRef = useRef<NodeJS.Timeout | null>(null);
+  // Tracks previous streakCount so we can distinguish continued vs broken
+  const prevStreakRef = useRef<number>(-1);
 
   // Load from localStorage
   useEffect(() => {
@@ -1237,6 +1240,54 @@ export function useGameState() {
       return updated;
     });
   }, [save]);
+
+  // ── Streak analytics ────────────────────────────────────────────────────────
+  // Fires streak_continued / streak_broken / streak_milestone whenever
+  // streakCount changes after the initial load. Uses a ref to avoid firing
+  // on the hydration pass (prevStreakRef initialised to -1 as sentinel).
+
+  useEffect(() => {
+    if (!loaded) return;
+
+    const prev = prevStreakRef.current;
+    const current = state.streakCount;
+
+    if (prev === -1) {
+      // First render after load — capture baseline without firing events
+      prevStreakRef.current = current;
+      return;
+    }
+
+    if (current === prev) return; // no change
+
+    const hour = new Date().getHours();
+    const timeOfDay = hour < 12 ? "morning" : hour < 17 ? "afternoon" : "evening";
+
+    if (current > prev) {
+      // Streak extended (new day activity)
+      Analytics.streakContinued({
+        current_streak: current,
+        longest_streak: state.longestStreak,
+        time_of_day: timeOfDay,
+      });
+      // Check milestone thresholds
+      const milestones = [7, 30, 100, 365] as const;
+      for (const m of milestones) {
+        if (current === m) {
+          Analytics.streakMilestone({ milestone: m, current_streak: current });
+        }
+      }
+    } else if (prev > 1 && current === 1) {
+      // Streak reset after a missed day
+      Analytics.streakBroken({
+        broken_streak: prev,
+        longest_streak: state.longestStreak,
+        time_of_day: timeOfDay,
+      });
+    }
+
+    prevStreakRef.current = current;
+  }, [loaded, state.streakCount, state.longestStreak]);
 
   // ── Auto-check badges + refill hearts ────────────────────────────────────
 

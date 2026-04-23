@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo, useEffect } from "react";
+import { useState, useMemo, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { ArrowLeft } from "lucide-react";
 import LikertAssessment from "@/components/assessments/LikertAssessment";
@@ -8,16 +8,21 @@ import AssessmentGuide from "@/components/assessments/AssessmentGuide";
 import { coreStatements, wingStatements, instinctStatements, stressGrowthStatements } from "@/data/assessments/ieq9-style";
 import { useProfile } from "@/hooks/useProfile";
 import { posthog, EVENTS, setUserProperty } from "@/lib/posthog";
+import { track } from "@/lib/analytics";
 
 export default function IEQ9IntegrativePage() {
   const router = useRouter();
   const { updateProfile, addXP } = useProfile();
   const [showGuide, setShowGuide] = useState(true);
+  const assessmentStartedAt = useRef<number>(Date.now());
 
   // Analytics: track when users actually start the deep assessment
   useEffect(() => {
     if (!showGuide) {
-      try { posthog.capture(EVENTS.QUIZ_STARTED, { assessment: "ieq9_integrative", length: 175 }); } catch {}
+      try {
+        posthog.capture(EVENTS.QUIZ_STARTED, { assessment: "ieq9_integrative", length: 175 });
+        track({ event: "assessment_start", properties: { instrument: "ieq9_integrative", question_count: 175 } });
+      } catch {}
     }
   }, [showGuide]);
 
@@ -74,6 +79,19 @@ export default function IEQ9IntegrativePage() {
               instinct: instinctKey,
               length: 175,
               source: "deep_assessment",
+            });
+            const timeSpent = Math.round((Date.now() - assessmentStartedAt.current) / 1000);
+            const topScore = typeScores[0]?.score ?? 0;
+            const totalScore = typeScores.reduce((sum, s) => sum + (s.score ?? 0), 0);
+            const confidence = totalScore > 0 ? topScore / totalScore : 0;
+            track({
+              event: "assessment_complete",
+              properties: {
+                instrument: "ieq9_integrative",
+                result_type: topType,
+                confidence_score: Math.round(confidence * 100) / 100,
+                time_spent_seconds: timeSpent,
+              },
             });
             setUserProperty({
               enneagramType: parseInt(topType, 10),
