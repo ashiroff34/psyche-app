@@ -7,6 +7,12 @@ See bottom for today's entries (most recent first within each day).
 
 ## 2026-04-22
 
+### Pass 17 — Audit async useEffect anti-pattern and unguarded JSON.parse(localStorage)
+
+- **useEffect(async)**: zero instances found in `src/` — codebase is clean.
+- **JSON.parse(localStorage) without try/catch**: audited all 24 instances across 14 files. Every single call is already wrapped in a try/catch block. No crashes waiting to happen.
+- No code changes required — the codebase already applies correct defensive storage patterns throughout.
+
 ### Pass 16 — Hoist inline constant arrays to module scope (perf: avoid fresh allocation on every render)
 
 - `src/components/daily/PathIteration1.tsx`: removed duplicate `sectionColors` array inside component body (it was already defined inside `flattenNodes`); extracted as module-level `SECTION_COLORS` used by both call sites.
