@@ -7,6 +7,18 @@ See bottom for today's entries (most recent first within each day).
 
 ## 2026-04-22
 
+### Pass 25 — Pet page: ChibiSprite instead of AnimatedPet (correct chibi art)
+
+**`src/app/pet/page.tsx`** — Swapped `AnimatedPet` back to `ChibiSprite` (chibi art style), keeping the full wardrobe system from Pass 24 intact:
+- Replaced `AnimatedPet` import with `ChibiSprite`, `Image` (next/image), and `assetPath`
+- Removed unused `Sparkles` lucide import
+- Added `HAT_FILE` map at module scope (same crown/wizard/flower/santa/cat-ears keys as in AnimatedPet)
+- Derived `chibiState: ChibiState` from current mood: fed/played → `"happy"`, sick/dead → `"hurt"`, else → `"idle"`
+- Derived `hatSrc` from `equippedItems.hat` via `HAT_FILE` map
+- Replaced the outer `motion.div` + `AnimatedPet` with a `position: relative` wrapper div containing `ChibiSprite` (animation now handled internally by ChibiSprite) plus an absolute-positioned `<Image>` hat overlay (top: -4.5%, left: 50%, translateX -50%, 68% size) when a hat is equipped
+
+`npx tsc --noEmit` clean. Deployed to production.
+
 ### Pass 24 — Pet wardrobe + full type in manual picker
 
 **`src/app/pet/page.tsx`** — Full rewrite to add the wardrobe system:
