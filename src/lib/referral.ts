@@ -40,14 +40,3 @@ export function getReferralShareUrl(): string {
   return `${origin}/r?code=${code}`;
 }
 
-/**
- * Build a full share message combining a personal message + URL.
- * Used by Identity Card, Type Result, Mirror, etc.
- */
-export function buildShareMessage(personalText: string): { text: string; url: string } {
-  const url = getReferralShareUrl();
-  return {
-    text: `${personalText}\n\nFind your type: ${url}`,
-    url,
-  };
-}

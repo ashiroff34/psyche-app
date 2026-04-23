@@ -7,6 +7,13 @@ See bottom for today's entries (most recent first within each day).
 
 ## 2026-04-22
 
+### Pass 19 — Dead code removal: unused exports in lib/
+
+- **`src/lib/behavioral-signals.ts`**: removed `recordFeatureEngaged`, `recordExerciseDropout`, `getDropoutPatterns`, `DropoutRecord` interface, and `DROPOUT_KEY`/`ENGAGEMENT_KEY` constants — zero consumers anywhere in src/.
+- **`src/lib/local-embed.ts`**: removed `isEmbedderLoading` and `isEmbedderReady` — exported but never imported outside the module.
+- **`src/lib/referral.ts`**: removed `buildShareMessage` — exported but never imported anywhere in src/.
+- `npx tsc --noEmit` clean.
+
 ### Pass 18 — External link security: add rel="noopener noreferrer" to unguarded external anchors
 
 - **`src/app/privacy/page.tsx`**: Stripe privacy link had no `target` or `rel`. Added `target="_blank" rel="noopener noreferrer"`.

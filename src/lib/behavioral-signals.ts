@@ -10,22 +10,13 @@
 // User can see and export everything via /data-usage.
 
 const AVOIDANCE_KEY = "psyche-feature-avoidance";
-const DROPOUT_KEY = "psyche-exercise-dropouts";
 const USAGE_TIMING_KEY = "psyche-usage-timing";
-const ENGAGEMENT_KEY = "psyche-feature-engagement";
 
 export interface AvoidanceRecord {
   feature: string;
   skippedCount: number;
   offeredCount: number;
   lastSkipped: string;
-}
-
-export interface DropoutRecord {
-  lessonId: string;
-  exerciseId: string;
-  exerciseType: string;
-  timestamp: string;
 }
 
 export interface UsageTiming {
@@ -73,19 +64,6 @@ export function recordFeatureSkipped(feature: string) {
 }
 
 /**
- * Record that the user ENGAGED with a feature (completed it).
- */
-export function recordFeatureEngaged(feature: string) {
-  if (typeof window === "undefined") return;
-  try {
-    const raw = localStorage.getItem(ENGAGEMENT_KEY);
-    const records: Record<string, number> = raw ? JSON.parse(raw) : {};
-    records[feature] = (records[feature] ?? 0) + 1;
-    localStorage.setItem(ENGAGEMENT_KEY, JSON.stringify(records));
-  } catch {}
-}
-
-/**
  * Get all avoidance records sorted by skip rate (highest first).
  */
 export function getAvoidancePatterns(): Array<AvoidanceRecord & { skipRate: number }> {
@@ -101,42 +79,6 @@ export function getAvoidancePatterns(): Array<AvoidanceRecord & { skipRate: numb
         skipRate: r.offeredCount > 0 ? r.skippedCount / r.offeredCount : 0,
       }))
       .sort((a, b) => b.skipRate - a.skipRate);
-  } catch {
-    return [];
-  }
-}
-
-// ── Exercise Dropout Tracking ───────────────────────────────────────────────
-
-/**
- * Record that the user abandoned an exercise mid-lesson.
- */
-export function recordExerciseDropout(lessonId: string, exerciseId: string, exerciseType: string) {
-  if (typeof window === "undefined") return;
-  try {
-    const raw = localStorage.getItem(DROPOUT_KEY);
-    const records: DropoutRecord[] = raw ? JSON.parse(raw) : [];
-    records.push({ lessonId, exerciseId, exerciseType, timestamp: new Date().toISOString() });
-    localStorage.setItem(DROPOUT_KEY, JSON.stringify(records.slice(-100))); // keep last 100
-  } catch {}
-}
-
-/**
- * Get dropout patterns: which exercise types cause the most abandonment.
- */
-export function getDropoutPatterns(): Array<{ exerciseType: string; count: number }> {
-  if (typeof window === "undefined") return [];
-  try {
-    const raw = localStorage.getItem(DROPOUT_KEY);
-    if (!raw) return [];
-    const records: DropoutRecord[] = JSON.parse(raw);
-    const counts: Record<string, number> = {};
-    for (const r of records) {
-      counts[r.exerciseType] = (counts[r.exerciseType] ?? 0) + 1;
-    }
-    return Object.entries(counts)
-      .map(([exerciseType, count]) => ({ exerciseType, count }))
-      .sort((a, b) => b.count - a.count);
   } catch {
     return [];
   }

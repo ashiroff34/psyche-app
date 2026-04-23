@@ -53,10 +53,3 @@ export function cosineSimilarity(a: number[], b: number[]): number {
   return denom === 0 ? 0 : dot / denom;
 }
 
-export function isEmbedderLoading(): boolean {
-  return _loading;
-}
-
-export function isEmbedderReady(): boolean {
-  return _pipeline !== null;
-}
