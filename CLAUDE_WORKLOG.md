@@ -7,6 +7,15 @@ See bottom for today's entries (most recent first within each day).
 
 ## 2026-04-22
 
+### Pass 20 — Brand copy: hero, onboarding, and metadata updated to reflect brand positioning
+
+Updated all hero and entry copy to reflect the brand tagline "understand why you are the way you are." Key changes:
+
+- **`src/app/page.tsx`** (EnterScreen hero): Headline changed from "Know thyself. completely." to "Finally understand why you are the way you are." Thesis line now foregrounds the psyche-map framing: "Before therapy, before any real change, you need a map of your own psyche." Sub-line: "Typology gives you that map. Not transformation. Recognition." Proof pills rewritten from "9 core patterns / research-backed / private & honest" to "self-knowledge, not a quiz / grounded in real psychology / private and honest." Chibi bubble and endowed-progress label updated.
+- **`src/app/onboarding/page.tsx`** (StepWelcome): Headline from "Know thyself completely." to "Understand why you are the way you are." Enneagram description reframed from "archetypal system mapping 9 personality types" to "9 core psychological patterns — each defined by core fear, core desire, and a lifelong pattern of attention." CTA from "Discover my type" to "Find my pattern." StepTypePreview description now explicitly says "not a personality quiz." StepTypePreview CTA from "Show me my type" to "Start the assessment." ManualTypePicker subhead updated to "You already know your type. Let's build on that self-knowledge."
+- **`src/app/layout.tsx`** (metadata): Title, description, OG, Twitter, and JSON-LD all updated to use the tagline and brand voice.
+- `npx tsc --noEmit` clean.
+
 ### Pass 19 — Dead code removal: unused exports in lib/
 
 - **`src/lib/behavioral-signals.ts`**: removed `recordFeatureEngaged`, `recordExerciseDropout`, `getDropoutPatterns`, `DropoutRecord` interface, and `DROPOUT_KEY`/`ENGAGEMENT_KEY` constants — zero consumers anywhere in src/.

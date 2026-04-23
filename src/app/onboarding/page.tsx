@@ -117,17 +117,17 @@ function StepWelcome({ onNext }: { onNext: () => void }) {
 
       <h1 className="text-4xl font-serif font-bold mb-5 leading-tight"
         style={{ color: "rgba(255,255,255,0.95)" }}>
-        Know thyself{" "}
+        Understand why you are{" "}
         <span style={{ background: "linear-gradient(135deg, #a78bfa, #818cf8)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>
-          completely.
+          the way you are.
         </span>
       </h1>
 
       {/* What the Enneagram is */}
       <p className="text-base leading-relaxed mb-3" style={{ color: "rgba(255,255,255,0.55)" }}>
-        The Enneagram is an archetypal system mapping{" "}
-        <span style={{ color: "rgba(255,255,255,0.82)", fontWeight: 500 }}>9 personality types</span>
-        {" "}, each defined by a core desire, a core fear, and a pattern of attention that shapes everything you do.
+        The Enneagram maps{" "}
+        <span style={{ color: "rgba(255,255,255,0.82)", fontWeight: 500 }}>9 core psychological patterns</span>
+        {" "} — each defined by what drives you at your deepest level: a core fear, a core desire, and a lifelong pattern of attention.
       </p>
       <p className="text-sm mb-8" style={{ color: "rgba(255,255,255,0.32)" }}>
         8 questions · ~3 minutes · Instant result
@@ -138,7 +138,7 @@ function StepWelcome({ onNext }: { onNext: () => void }) {
         className="w-full flex items-center justify-center gap-2 py-4 rounded-2xl font-bold text-white text-base transition-all hover:-translate-y-0.5 active:scale-[0.98]"
         style={{ background: "linear-gradient(135deg, #7c3aed, #4f46e5)", boxShadow: "0 8px 32px rgba(124,58,237,0.5)" }}
       >
-        Discover my type
+        Find my pattern
         <ArrowRight className="w-5 h-5" />
       </button>
     </div>
@@ -607,7 +607,7 @@ function StepTypePreview({ onNext, onBack }: { onNext: () => void; onBack: () =>
         </span>
       </h2>
       <p className="text-sm leading-relaxed mb-8" style={{ color: "rgba(255,255,255,0.45)" }}>
-        The Enneagram maps 9 personality types defined by what drives you at your core. not just what you do. By the end of 8 questions, you&apos;ll know which one is you.
+        The Enneagram is not a personality quiz. It maps the psychological structure underneath your behavior: what you actually fear, what you actually want, and why you keep doing the thing you do.
       </p>
 
       <div className="grid grid-cols-3 gap-2 w-full mb-8">
@@ -632,7 +632,7 @@ function StepTypePreview({ onNext, onBack }: { onNext: () => void; onBack: () =>
         className="w-full py-4 rounded-2xl font-bold text-white text-base transition-all hover:-translate-y-0.5 active:scale-[0.98]"
         style={{ background: "linear-gradient(135deg, #7c3aed, #4f46e5)", boxShadow: "0 8px 28px rgba(124,58,237,0.5)" }}
       >
-        Show me my type →
+        Start the assessment →
       </button>
     </div>
   );
@@ -1160,7 +1160,7 @@ function ManualTypePicker({ onSave }: { onSave: (name: string, type: number) => 
         Welcome to Thyself
       </h2>
       <p className="text-sm text-center mb-8" style={{ color: "rgba(255,255,255,0.4)" }}>
-        Tell us about yourself to personalize your experience.
+        You already know your type. Let's build on that self-knowledge.
       </p>
 
       {/* Name */}

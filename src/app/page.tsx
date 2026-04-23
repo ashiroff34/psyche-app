@@ -232,7 +232,8 @@ function EnterScreen() {
           zIndex: 10,
         }}
       >
-        Know <span className="shimmer-text">thyself.</span>
+        Finally understand{" "}
+        <span className="shimmer-text">why you are the way you are.</span>
       </motion.h1>
 
       {/* Thesis line */}
@@ -248,9 +249,9 @@ function EnterScreen() {
           zIndex: 10,
         }}
       >
-        You are not your type.
+        Before therapy, before any real change,
         <br />
-        The type is the armor that formed around something.
+        you need a map of your own psyche.
       </motion.p>
 
       {/* Sub-line */}
@@ -266,7 +267,7 @@ function EnterScreen() {
           zIndex: 10,
         }}
       >
-        A quiet space to notice the armor, and over time, choose when to wear it.
+        Typology gives you that map. Not transformation. Recognition.
       </motion.p>
 
       {/* Proof pills (no motion) */}
@@ -274,7 +275,7 @@ function EnterScreen() {
         className="relative flex items-center gap-2 flex-wrap justify-center mb-7"
         style={{ zIndex: 10 }}
       >
-        {["9 core patterns", "research-backed", "private & honest"].map((pill) => (
+        {["self-knowledge, not a quiz", "grounded in real psychology", "private and honest"].map((pill) => (
           <span
             key={pill}
             className="px-3 py-1 rounded-full text-xs font-medium"
@@ -353,7 +354,7 @@ function EnterScreen() {
         <div className="px-4 py-3 rounded-2xl" style={{ background: "rgba(139,92,246,0.06)", border: "1px solid rgba(139,92,246,0.18)" }}>
           <div className="flex justify-between items-baseline mb-1.5">
             <p className="text-[10px] font-bold uppercase tracking-widest" style={{ color: "rgba(167,139,250,0.7)" }}>
-              You're already on the way
+              Self-knowledge compounds
             </p>
             <span className="text-[10px] font-mono" style={{ color: "rgba(255,255,255,0.4)" }}>14%</span>
           </div>
@@ -393,7 +394,7 @@ function EnterScreen() {
                 }}
               >
                 <p className="text-xs leading-relaxed pr-3" style={{ color: "rgba(255,255,255,0.88)", fontFamily: "Inter, sans-serif" }}>
-                  Tap below to find out which of the 9 types you are.
+                  Tap below to start mapping your psyche. It takes about 3 minutes.
                 </p>
                 <button
                   onClick={() => setBubbleDismissed(true)}

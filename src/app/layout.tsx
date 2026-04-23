@@ -14,9 +14,9 @@ import { Suspense } from "react";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://thyself.app"),
-  title: "Thyself — Mental fitness through self-understanding",
+  title: "Thyself — Understand why you are the way you are.",
   description:
-    "Self-understanding as mental fitness. Discover the psychological patterns that drive your emotions and behavior — then grow past your defaults. Grounded in Enneagram, Jungian psychology, and behavioral science.",
+    "Finally understand why you are the way you are. Thyself maps your psychological patterns through the Enneagram and Jungian frameworks, so you can see yourself clearly and do the inner work that actually changes things.",
   manifest: assetPath("/manifest.json"),
   appleWebApp: {
     capable: true,
@@ -28,9 +28,9 @@ export const metadata: Metadata = {
     "apple-mobile-web-app-capable": "yes",
   },
   openGraph: {
-    title: "Thyself — Mental fitness through self-understanding",
+    title: "Thyself — Understand why you are the way you are.",
     description:
-      "Self-understanding as mental fitness. Discover your psychological patterns, master your emotional defaults, and build the self-awareness that makes every other form of growth work better.",
+      "Finally understand why you are the way you are. A serious self-knowledge platform for people doing inner work. Not a personality quiz — a map of your psyche. Grounded in Enneagram, Jungian psychology, and decades of typology research.",
     url: "https://thyself.app",
     siteName: "Thyself",
     type: "website",
@@ -45,9 +45,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Thyself — Mental fitness through self-understanding",
+    title: "Thyself — Understand why you are the way you are.",
     description:
-      "The mental fitness app built around your psychological type. Understand what drives your emotions, behavior, and relationships — then change the patterns that no longer serve you.",
+      "A self-knowledge platform for people doing the inner work. Map your psychological patterns through the Enneagram and Jungian frameworks. Not transformation. Recognition.",
     images: ["https://thyself.app/opengraph-image"],
   },
 };
@@ -92,7 +92,7 @@ export default function RootLayout({
                 "@type": "WebApplication",
                 name: "Thyself",
                 description:
-                  "Self-understanding as mental fitness. Discover the psychological patterns that drive your emotions and behavior — then grow past your defaults. Grounded in Enneagram, Jungian psychology, and behavioral science.",
+                  "Finally understand why you are the way you are. Thyself maps your psychological patterns through the Enneagram and Jungian frameworks. Grounded in Ichazo, Naranjo, Riso-Hudson, and Jung.",
                 applicationCategory: "HealthApplication",
                 operatingSystem: "Web, iOS, Android",
                 url: "https://thyself.app",
