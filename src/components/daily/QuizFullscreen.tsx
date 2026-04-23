@@ -775,6 +775,7 @@ export default function QuizFullscreen({
       <div className="flex items-center gap-3 px-4 pt-safe pt-4 pb-3">
         <button
           onClick={onQuit}
+          aria-label="Quit quiz"
           className="w-8 h-8 rounded-full flex items-center justify-center transition shrink-0"
           style={{ background: "rgba(255,255,255,0.08)" }}
         >
@@ -929,7 +930,7 @@ export default function QuizFullscreen({
 
             return (
               <motion.button
-                key={i}
+                key={opt}
                 whileTap={!revealed ? { scale: 0.98 } : {}}
                 onClick={() => !revealed && onAnswer(shuffledToOriginal[i] ?? i)}
                 disabled={revealed}

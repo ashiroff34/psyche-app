@@ -112,7 +112,7 @@ export default function StorySceneExercise({ content, onAnswer, exerciseId }: Pr
 
             return (
               <motion.button
-                key={i}
+                key={opt}
                 initial={{ opacity: 0, x: -10 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.15 + i * 0.06 }}

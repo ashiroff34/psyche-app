@@ -82,7 +82,7 @@ export default function MultipleChoiceExercise({ content, onAnswer, exerciseId }
 
             return (
               <motion.button
-                key={i}
+                key={opt}
                 initial={{ opacity: 0, x: -10 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.1 + i * 0.06 }}

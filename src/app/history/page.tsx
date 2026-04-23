@@ -166,7 +166,7 @@ function KnowledgeCheck({ quiz, sectionName }: { quiz: QuizQuestion[]; sectionNa
           const isSelected = idx === selected;
           return (
             <button
-              key={idx}
+              key={opt}
               onClick={() => handleSelect(idx)}
               disabled={revealed}
               className={`w-full text-left p-3 rounded-xl text-sm transition-all border-2`}

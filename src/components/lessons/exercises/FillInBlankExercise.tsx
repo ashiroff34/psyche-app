@@ -110,7 +110,7 @@ export default function FillInBlankExercise({ content, onAnswer, exerciseId }: P
 
             return (
               <motion.button
-                key={i}
+                key={opt}
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2 + i * 0.06 }}
