@@ -79,7 +79,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const seoEnneagramPages: MetadataRoute.Sitemap = ENNEAGRAM_TYPES
     .filter((t) => {
       // Only include pages that have been built
-      const shipped = [4, 2];
+      const shipped = [1, 2, 3, 4, 5, 6, 7, 8, 9];
       return shipped.includes(t);
     })
     .map((t) => ({
@@ -98,5 +98,27 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: s.isCountertype ? 0.85 : 0.8,
   }));
 
-  return [...core, ...typePages, ...unitPages, ...assessmentPages, ...seoEnneagramPages, ...subtypePages];
+  // Cognitive function SEO pages — server-rendered, generateMetadata + JSON-LD
+  const MBTI_TYPES = [
+    "INTJ", "INTP", "ENTJ", "ENTP",
+    "INFJ", "INFP", "ENFJ", "ENFP",
+    "ISTJ", "ISFJ", "ESTJ", "ESFJ",
+    "ISTP", "ISFP", "ESTP", "ESFP",
+  ];
+  const shippedCognitive = [
+    "INTJ", "INTP", "ENTJ", "ENTP",
+    "INFJ", "INFP", "ENFJ", "ENFP",
+    "ISTJ", "ISFJ", "ESTJ", "ESFJ",
+    "ISTP", "ISFP", "ESTP", "ESFP",
+  ];
+  const cognitiveFunctionPages: MetadataRoute.Sitemap = MBTI_TYPES
+    .filter((t) => shippedCognitive.includes(t))
+    .map((t) => ({
+      url: `${BASE}/cognitive-functions/${t.toLowerCase()}`,
+      lastModified: now,
+      changeFrequency: "monthly" as const,
+      priority: 0.9,
+    }));
+
+  return [...core, ...typePages, ...unitPages, ...assessmentPages, ...seoEnneagramPages, ...subtypePages, ...cognitiveFunctionPages];
 }
