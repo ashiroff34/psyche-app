@@ -120,5 +120,19 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.9,
     }));
 
-  return [...core, ...typePages, ...unitPages, ...assessmentPages, ...seoEnneagramPages, ...subtypePages, ...cognitiveFunctionPages];
+  // Compatibility SEO pages — static server-rendered pairs
+  const shippedCompatibility: [number, number][] = [
+    [4, 5],
+    [2, 8],
+    [9, 1],
+    [4, 9],
+  ];
+  const compatibilityPages: MetadataRoute.Sitemap = shippedCompatibility.map(([a, b]) => ({
+    url: `${BASE}/compatibility/enneagram-${a}/enneagram-${b}`,
+    lastModified: now,
+    changeFrequency: "monthly" as const,
+    priority: 0.85,
+  }));
+
+  return [...core, ...typePages, ...unitPages, ...assessmentPages, ...seoEnneagramPages, ...subtypePages, ...cognitiveFunctionPages, ...compatibilityPages];
 }

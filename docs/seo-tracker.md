@@ -1,7 +1,7 @@
 # SEO Page Tracker
 
 **Target:** 1,000 indexed landing pages by month 12
-**Current total:** 25 dedicated static SEO pages (all 9 Enneagram types + all 16 cognitive function types)
+**Current total:** 29 dedicated static SEO pages (all 9 Enneagram types + all 16 cognitive function types + 4 compatibility pairs)
 
 > Note: `/enneagram/[type]` exists as a client-side dynamic route (not SEO-optimized). Dedicated static pages with `generateMetadata` + JSON-LD are needed for Google indexing.
 
@@ -11,7 +11,7 @@
 
 | Month target | Goal | Actual | Status |
 |---|---|---|---|
-| Month 3–4 | 40 pages | 25 | IN PROGRESS |
+| Month 3–4 | 40 pages | 29 | IN PROGRESS |
 | Month 5–6 | 200 pages | 0 | NOT STARTED |
 | Month 7–8 | 400 pages | 0 | NOT STARTED |
 | Month 9–12 | 1,000 pages | 0 | NOT STARTED |
@@ -67,10 +67,10 @@ Priority order (by search interest): 4+5 → 2+8 → 9+1 → 4+9 → 2+9 → 1+7
 
 | Route | Status | Date shipped |
 |---|---|---|
-| /compatibility/enneagram-4/enneagram-5 | NOT STARTED | — |
-| /compatibility/enneagram-2/enneagram-8 | NOT STARTED | — |
-| /compatibility/enneagram-9/enneagram-1 | NOT STARTED | — |
-| /compatibility/enneagram-4/enneagram-9 | NOT STARTED | — |
+| /compatibility/enneagram-4/enneagram-5 | SHIPPED | 2026-04-24 |
+| /compatibility/enneagram-2/enneagram-8 | SHIPPED | 2026-04-24 |
+| /compatibility/enneagram-9/enneagram-1 | SHIPPED | 2026-04-24 |
+| /compatibility/enneagram-4/enneagram-9 | SHIPPED | 2026-04-24 |
 
 ---
 
@@ -104,6 +104,10 @@ When a page ships, `/seo` command appends here:
 2026-04-24 | /cognitive-functions/isfp | shipped | ~1,800 words | tsc: PASS | blinky: pending
 2026-04-24 | /cognitive-functions/estp | shipped | ~1,800 words | tsc: PASS | blinky: pending
 2026-04-24 | /cognitive-functions/esfp | shipped | ~1,800 words | tsc: PASS | blinky: pending
+2026-04-24 | /compatibility/enneagram-4/enneagram-5 | shipped | ~2,600 words | tsc: PASS | blinky: pending
+2026-04-24 | /compatibility/enneagram-2/enneagram-8 | shipped | ~2,500 words | tsc: PASS | blinky: pending
+2026-04-24 | /compatibility/enneagram-9/enneagram-1 | shipped | ~2,500 words | tsc: PASS | blinky: pending
+2026-04-24 | /compatibility/enneagram-4/enneagram-9 | shipped | ~2,600 words | tsc: PASS | blinky: pending
 <!-- SEO_LOG_END -->
 
 ---
