@@ -1,4 +1,5 @@
 import type { MetadataRoute } from "next";
+import { ENNEAGRAM_SUBTYPES } from "@/data/seo-entities/enneagram-subtypes";
 
 const BASE = "https://thyself.app";
 
@@ -73,5 +74,29 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.6,
   }));
 
-  return [...core, ...typePages, ...unitPages, ...assessmentPages];
+  // Static SEO landing pages (server-rendered, generateMetadata + JSON-LD)
+  // These are distinct from /enneagram/[type] (client-side dynamic route)
+  const seoEnneagramPages: MetadataRoute.Sitemap = ENNEAGRAM_TYPES
+    .filter((t) => {
+      // Only include pages that have been built
+      const shipped = [4, 2];
+      return shipped.includes(t);
+    })
+    .map((t) => ({
+      url: `${BASE}/enneagram/type-${t}`,
+      lastModified: now,
+      changeFrequency: "monthly" as const,
+      priority: t === 4 ? 0.95 : 0.9,
+    }));
+
+  // Instinctual subtype SEO pages — all 27 at /enneagram/subtypes/[slug]
+  const subtypePages: MetadataRoute.Sitemap = ENNEAGRAM_SUBTYPES.map((s) => ({
+    url: `${BASE}/enneagram/subtypes/${s.slug}`,
+    lastModified: now,
+    changeFrequency: "monthly" as const,
+    // Countertypes are the highest-search-volume subtypes — boost slightly
+    priority: s.isCountertype ? 0.85 : 0.8,
+  }));
+
+  return [...core, ...typePages, ...unitPages, ...assessmentPages, ...seoEnneagramPages, ...subtypePages];
 }
