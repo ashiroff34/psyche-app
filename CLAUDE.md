@@ -1,5 +1,31 @@
 # Thyself — Project Instructions for Claude
 
+## Strategic Context (read first)
+
+**Goal:** Acquire within 18–30 months. Primary target: The Myers-Briggs Company ($8–35M). Secondary: Duolingo ($30–150M at 500K+ MAU), Truity ($3–15M).
+
+**Guiding question for every decision:** Does this make Thyself more legible, measurable, or defensible to an acquirer's diligence team? If no, defer.
+
+**Dev priority order** (founder-directed, April 2026):
+1. Analytics (PostHog) — first, always
+2. Streak mechanic (Supabase user_streaks, StreakSaver, push notifications)
+3. Proprietary assessments ("Thyself Type Index" + "Thyself Enneagram Assessment")
+4. Compatibility feature (relationships table, invite deep links, shareable cards)
+5. Journal (encrypted client-side, journal_prompts, RLS)
+6. SEO landing pages (1,000 pages by month 12)
+7. Paywall (RevenueCat: $7.99/mo, $49.99/yr, $149.99 lifetime)
+
+**TRADEMARK WARNING — non-negotiable:**
+- NEVER use MBTI®, Myers-Briggs®, or RHETI® in assessment names, UI copy, or branding
+- Use "Thyself Type Index" (16-type) and "Thyself Enneagram Assessment" (9-type) instead
+- Violation is an existential problem for any acquisition deal
+
+**No new features rule:** Polish, fix, refactor only. Do NOT build autonomously from the priority list above — surface to Arianna and await explicit instruction per priority.
+
+**Founder context:** Solo founder. Pfizer internship May–Aug 2026 (limited dev time). Prioritize ruthlessly.
+
+---
+
 ## Content Accuracy & Learning Standards
 
 ### Psychological Content Must Be Accurate
