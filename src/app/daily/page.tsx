@@ -736,6 +736,10 @@ export default function DailyPage() {
   const [xpGainShow, setXpGainShow] = useState(false);
   const prevXP = useRef(0);
 
+  // Surprise bonus toast (7% variable reward on correct quiz answers)
+  const [surpriseBonusActive, setSurpriseBonusActive] = useState(false);
+  const surpriseBonusTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
   // Async save feedback toast
   const [saveFeedback, setSaveFeedback] = useState(false);
   const saveFeedbackTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -1144,6 +1148,16 @@ export default function DailyPage() {
         activity[dateKey] = (activity[dateKey] ?? 0) + xpGained;
         localStorage.setItem("psyche-activity-log", JSON.stringify(activity));
       } catch {}
+
+      // 7% variable-reward surprise bonus: double XP for this answer (Skinner partial schedule)
+      if (Math.random() < 0.07) {
+        gameEarnXP(xpGained, "daily-quiz"); // extra XP equal to base = 2x total
+        addXP(xpGained);
+        setSessionXP(prev => prev + xpGained);
+        if (surpriseBonusTimerRef.current) clearTimeout(surpriseBonusTimerRef.current);
+        setSurpriseBonusActive(true);
+        surpriseBonusTimerRef.current = setTimeout(() => setSurpriseBonusActive(false), 1500);
+      }
     }
     if (!correct) loseHeart();
 
@@ -1775,6 +1789,7 @@ export default function DailyPage() {
           onClaimWeeklyReward={() => { claimWeeklyReward(); setShowWeeklyCelebration(true); }}
           onStreakShop={() => setShowStreakShop(true)}
           warmupDoneToday={dailyProgress?.modulesCompleted?.includes("warmup") ?? false}
+          dailyGoalMet={gameStateRaw.dailyGoalMet}
         />
         <NodeBottomSheet
           node={bottomSheetNode}
@@ -2652,7 +2667,7 @@ export default function DailyPage() {
               hearts={gameStateRaw.hearts}
               maxHearts={gameStateRaw.maxHearts ?? 5}
               heartsRefillTime={gameStateRaw.heartsRefillTime}
-              xpBonusLabel={xpGainAnimation?.source?.includes("BONUS") ? xpGainAnimation.source : null}
+              xpBonusLabel={surpriseBonusActive ? "+2x BONUS! Lucky streak!" : xpGainAnimation?.source?.includes("BONUS") ? xpGainAnimation.source : null}
               longestStreak={gameStateRaw.longestStreak}
               currentStreak={streak}
               enneagramType={profile.enneagramType ?? 5}

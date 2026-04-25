@@ -101,9 +101,26 @@ const PLANS: PlanProps[] = [
   },
 ];
 
+const TYPE_PAYWALL_HEADLINES: Record<number, string> = {
+  1: "Stop settling for a life that doesn't match your values.",
+  2: "Understand the people you love — and yourself — more deeply.",
+  3: "Know exactly what drives you, and what gets in the way.",
+  4: "Finally make sense of why you feel what you feel.",
+  5: "Go deeper into the framework than any book can take you.",
+  6: "Build the self-trust you've always wanted.",
+  7: "Stop running. Discover what you actually want.",
+  8: "Understand your power — and when to use it.",
+  9: "Find yourself without losing the peace.",
+};
+
 export default function PricingPage() {
   const { profile } = useProfile();
   const [loading, setLoading] = useState<string | null>(null);
+
+  const paywallHeadline =
+    profile.enneagramType && TYPE_PAYWALL_HEADLINES[profile.enneagramType]
+      ? TYPE_PAYWALL_HEADLINES[profile.enneagramType]
+      : "Understand why you are the way you are.";
 
   async function handleCheckout(packId: string) {
     if (!packId) return; // free tier
@@ -139,6 +156,9 @@ export default function PricingPage() {
         </Link>
 
         <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}>
+          <p className="text-base font-semibold mb-2 leading-snug" style={{ color: "rgba(255,255,255,0.9)" }}>
+            {paywallHeadline}
+          </p>
           <h1 className="text-3xl font-bold mb-1">Choose your depth</h1>
           <p className="text-xs mb-3" style={{ color: "rgba(255,255,255,0.32)" }}>
             Thousands of people mapping their psyche

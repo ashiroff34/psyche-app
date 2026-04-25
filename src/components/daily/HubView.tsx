@@ -195,6 +195,8 @@ interface Props {
   };
   onClaimWeeklyReward?: () => void;
   onStreakShop?: () => void;
+  /** Whether today's daily goal has been met (used to suppress streak-at-risk notifications) */
+  dailyGoalMet?: boolean;
 }
 
 // ── Mastery Section ───────────────────────────────────────────────────────────
@@ -337,6 +339,7 @@ export default function HubView({
   weeklyChallenge,
   onClaimWeeklyReward,
   onStreakShop,
+  dailyGoalMet = false,
 }: Props) {
   const subtypeCopy = useSubtypeAwareCopy();
   // Alternate between regular greeting and philosophical provocation (even/odd days)
@@ -860,6 +863,7 @@ export default function HubView({
             longest={longestStreak}
             freezeTokens={streakFreezes}
             enneagramType={enneagramType > 0 ? enneagramType : undefined}
+            dailyCompleted={dailyGoalMet}
             onClick={onStreakShop}
           />
         </div>

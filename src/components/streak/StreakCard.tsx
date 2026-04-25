@@ -3,17 +3,20 @@
 import { motion, useSpring, useTransform } from "framer-motion";
 import { useEffect, useRef } from "react";
 import { TYPE_COLORS } from "@/data/enneagram";
+import { scheduleStreakWarning } from "@/lib/capacitor-notifications";
 
 interface Props {
   streak: number;
   longest: number;
   freezeTokens: number;
   enneagramType?: number;
+  /** If true, the user already completed today's activity — no streak warning needed */
+  dailyCompleted?: boolean;
   /** Optional click handler — e.g. open the freeze shop */
   onClick?: () => void;
 }
 
-export default function StreakCard({ streak, longest, freezeTokens, enneagramType, onClick }: Props) {
+export default function StreakCard({ streak, longest, freezeTokens, enneagramType, dailyCompleted, onClick }: Props) {
   const flameColor = enneagramType ? (TYPE_COLORS[enneagramType] ?? "#f59e0b") : "#f59e0b";
   const prevStreak = useRef(streak);
 
@@ -29,6 +32,13 @@ export default function StreakCard({ streak, longest, freezeTokens, enneagramTyp
   }, [streak, springVal]);
 
   const atRisk = streak > 0 && new Date().getHours() >= 18;
+
+  // Fire a one-time evening push notification when streak becomes at-risk
+  useEffect(() => {
+    if (!atRisk || dailyCompleted) return;
+    // scheduleStreakWarning deduplicates via localStorage (once per calendar day)
+    scheduleStreakWarning(streak).catch(() => undefined);
+  }, [atRisk, dailyCompleted, streak]);
 
   return (
     <motion.div

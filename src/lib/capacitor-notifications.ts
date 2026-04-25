@@ -83,6 +83,58 @@ export async function scheduleDailyReminder(opts: {
   }
 }
 
+const STREAK_WARNING_ID = 1002; // stable ID for one-time streak-at-risk notification
+
+/**
+ * Schedule a one-time local notification for 8:00 PM today warning the user
+ * their streak is at risk. Safe to call multiple times — deduplicated via
+ * localStorage key `streak-warned-${today}` so only fires once per day.
+ *
+ * Only schedules if it is currently before 8:00 PM local time.
+ */
+export async function scheduleStreakWarning(streakCount: number): Promise<boolean> {
+  if (!isNative()) return false;
+  // Deduplicate: only warn once per calendar day
+  const today = new Intl.DateTimeFormat("en-CA").format(new Date());
+  const warnKey = `streak-warned-${today}`;
+  try {
+    if (typeof window !== "undefined" && localStorage.getItem(warnKey)) return false;
+  } catch {
+    return false;
+  }
+  // Only schedule if it is before 8pm
+  if (new Date().getHours() >= 20) return false;
+  try {
+    const { LocalNotifications } = await import("@capacitor/local-notifications");
+    const perm = await LocalNotifications.checkPermissions();
+    if (perm.display !== "granted") {
+      const req = await LocalNotifications.requestPermissions();
+      if (req.display !== "granted") return false;
+    }
+    // Cancel any previous streak warning before scheduling a fresh one
+    await LocalNotifications.cancel({ notifications: [{ id: STREAK_WARNING_ID }] });
+    // Fire at 8:00 PM today
+    const fireAt = new Date();
+    fireAt.setHours(20, 0, 0, 0);
+    await LocalNotifications.schedule({
+      notifications: [
+        {
+          id: STREAK_WARNING_ID,
+          title: "Streak at risk",
+          body: `Your ${streakCount}-day streak is at risk tonight. Keep it going.`,
+          schedule: { at: fireAt, allowWhileIdle: true },
+          smallIcon: "ic_stat_icon_config_sample",
+          iconColor: "#F59E0B",
+        },
+      ],
+    });
+    localStorage.setItem(warnKey, "1");
+    return true;
+  } catch {
+    return false;
+  }
+}
+
 /** Cancel the scheduled daily reminder. */
 export async function cancelDailyReminder(): Promise<void> {
   if (!isNative()) return;
