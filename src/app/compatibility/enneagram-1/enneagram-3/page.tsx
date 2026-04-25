@@ -117,16 +117,16 @@ export default function Enneagram1and3Page() {
               <div>
                 <p className="mb-3 text-sm font-semibold uppercase tracking-wide" style={{ color: colorA }}>Type 1 grows by</p>
                 <ul className="space-y-3">
-                  {["Distinguishing the Three&rsquo;s adaptability from dishonesty — pragmatism is not the same as inauthenticity", "Leading with appreciation before correction — the Three needs to feel received before they can receive feedback", "Inviting the Three&rsquo;s authentic self rather than exposing the performance through criticism", "Softening the standard enough to allow rest, celebration, and genuine intimacy in the relationship"].map((item, i) => (
-                    <li key={i} className="flex items-start gap-2 text-sm text-gray-700"><span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full" style={{ backgroundColor: colorA }} /><span dangerouslySetInnerHTML={{ __html: item }} /></li>
+                  {["Distinguishing the Three&rsquo;s adaptability from dishonesty — pragmatism is not the same as inauthenticity", "Leading with appreciation before correction — the Three needs to feel received before they can receive feedback", "Inviting the Three&rsquo;s authentic self rather than exposing the performance through criticism", "Softening the standard enough to allow rest, celebration, and genuine intimacy in the relationship"].map((item) => (
+                    <li key={item.slice(0, 30)} className="flex items-start gap-2 text-sm text-gray-700"><span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full" style={{ backgroundColor: colorA }} /><span dangerouslySetInnerHTML={{ __html: item }} /></li>
                   ))}
                 </ul>
               </div>
               <div>
                 <p className="mb-3 text-sm font-semibold uppercase tracking-wide" style={{ color: colorB }}>Type 3 grows by</p>
                 <ul className="space-y-3">
-                  {["Receiving the One&rsquo;s honest feedback as care rather than threat — the One offers it because they take the relationship seriously", "Using the One&rsquo;s moral clarity as an invitation toward authenticity rather than deflecting it with more polish", "Sharing what is hard and uncertain, not just what is working — the One is drawn to who the Three actually is", "Resisting the drive to make everything look good; allowing imperfection in the relationship as a form of genuine intimacy"].map((item, i) => (
-                    <li key={i} className="flex items-start gap-2 text-sm text-gray-700"><span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full" style={{ backgroundColor: colorB }} /><span dangerouslySetInnerHTML={{ __html: item }} /></li>
+                  {["Receiving the One&rsquo;s honest feedback as care rather than threat — the One offers it because they take the relationship seriously", "Using the One&rsquo;s moral clarity as an invitation toward authenticity rather than deflecting it with more polish", "Sharing what is hard and uncertain, not just what is working — the One is drawn to who the Three actually is", "Resisting the drive to make everything look good; allowing imperfection in the relationship as a form of genuine intimacy"].map((item) => (
+                    <li key={item.slice(0, 30)} className="flex items-start gap-2 text-sm text-gray-700"><span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full" style={{ backgroundColor: colorB }} /><span dangerouslySetInnerHTML={{ __html: item }} /></li>
                   ))}
                 </ul>
               </div>

@@ -261,6 +261,22 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.85,
   }));
 
+  // Friendship pages — all 9 types
+  const friendshipPages: MetadataRoute.Sitemap = ENNEAGRAM_TYPES.map((t) => ({
+    url: `${BASE}/enneagram/type-${t}/friendship`,
+    lastModified: now,
+    changeFrequency: "monthly" as const,
+    priority: 0.85,
+  }));
+
+  // Childhood / core wound pages — all 9 types
+  const childhoodPages: MetadataRoute.Sitemap = ENNEAGRAM_TYPES.map((t) => ({
+    url: `${BASE}/enneagram/type-${t}/childhood`,
+    lastModified: now,
+    changeFrequency: "monthly" as const,
+    priority: 0.85,
+  }));
+
   // Tritype SEO pages — all 27 three-center combinations + index
   const tritypeIndexPage: MetadataRoute.Sitemap = [
     {
@@ -277,5 +293,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.85,
   }));
 
-  return [...core, ...typePages, ...unitPages, ...assessmentPages, ...seoEnneagramPages, ...subtypePages, ...cognitiveFunctionPages, ...compatibilityPages, ...enneagramTheoryPages, ...wingPages, ...relationshipPages, ...workPages, ...sameTypeCompatibilityPages, ...famousPages, ...growthPages, ...stressPages, ...communicationPages, ...parentingPages, ...tritypeIndexPage, ...tritypeDetailPages];
+  return [...core, ...typePages, ...unitPages, ...assessmentPages, ...seoEnneagramPages, ...subtypePages, ...cognitiveFunctionPages, ...compatibilityPages, ...enneagramTheoryPages, ...wingPages, ...relationshipPages, ...workPages, ...sameTypeCompatibilityPages, ...famousPages, ...growthPages, ...stressPages, ...communicationPages, ...parentingPages, ...friendshipPages, ...childhoodPages, ...tritypeIndexPage, ...tritypeDetailPages];
 }

@@ -117,16 +117,16 @@ export default function Enneagram1and6Page() {
               <div>
                 <p className="mb-3 text-sm font-semibold uppercase tracking-wide" style={{ color: colorA }}>Type 1 grows by</p>
                 <ul className="space-y-3">
-                  {["Recognizing that the Six&rsquo;s anxiety is not irrationality but a pattern of care — the Six worries about what matters to them", "Offering reassurance before correction — the Six&rsquo;s nervous system needs settling before it can receive feedback", "Softening certainty enough to genuinely listen to the Six&rsquo;s questions — sometimes they surface something the One missed", "Distinguishing the Six&rsquo;s loyalty testing from ingratitude — the Six only tests what they value"].map((item, i) => (
-                    <li key={i} className="flex items-start gap-2 text-sm text-gray-700"><span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full" style={{ backgroundColor: colorA }} /><span dangerouslySetInnerHTML={{ __html: item }} /></li>
+                  {["Recognizing that the Six&rsquo;s anxiety is not irrationality but a pattern of care — the Six worries about what matters to them", "Offering reassurance before correction — the Six&rsquo;s nervous system needs settling before it can receive feedback", "Softening certainty enough to genuinely listen to the Six&rsquo;s questions — sometimes they surface something the One missed", "Distinguishing the Six&rsquo;s loyalty testing from ingratitude — the Six only tests what they value"].map((item) => (
+                    <li key={item.slice(0, 30)} className="flex items-start gap-2 text-sm text-gray-700"><span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full" style={{ backgroundColor: colorA }} /><span dangerouslySetInnerHTML={{ __html: item }} /></li>
                   ))}
                 </ul>
               </div>
               <div>
                 <p className="mb-3 text-sm font-semibold uppercase tracking-wide" style={{ color: colorB }}>Type 6 grows by</p>
                 <ul className="space-y-3">
-                  {["Receiving the One&rsquo;s correction as the ethical care it actually is — the One holds the Six to the same standard they hold themselves", "Naming anxiety as anxiety rather than expressing it through questions or testing that the One experiences as doubt", "Trusting the One&rsquo;s principled consistency as evidence of reliability rather than continuing to test past the point where trust has been earned", "Distinguishing the One&rsquo;s impatience with their anxiety from disapproval of them as a person"].map((item, i) => (
-                    <li key={i} className="flex items-start gap-2 text-sm text-gray-700"><span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full" style={{ backgroundColor: colorB }} /><span dangerouslySetInnerHTML={{ __html: item }} /></li>
+                  {["Receiving the One&rsquo;s correction as the ethical care it actually is — the One holds the Six to the same standard they hold themselves", "Naming anxiety as anxiety rather than expressing it through questions or testing that the One experiences as doubt", "Trusting the One&rsquo;s principled consistency as evidence of reliability rather than continuing to test past the point where trust has been earned", "Distinguishing the One&rsquo;s impatience with their anxiety from disapproval of them as a person"].map((item) => (
+                    <li key={item.slice(0, 30)} className="flex items-start gap-2 text-sm text-gray-700"><span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full" style={{ backgroundColor: colorB }} /><span dangerouslySetInnerHTML={{ __html: item }} /></li>
                   ))}
                 </ul>
               </div>

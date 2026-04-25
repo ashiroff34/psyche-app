@@ -117,16 +117,16 @@ export default function Enneagram1and5Page() {
               <div>
                 <p className="mb-3 text-sm font-semibold uppercase tracking-wide" style={{ color: colorA }}>Type 1 grows by</p>
                 <ul className="space-y-3">
-                  {["Offering curiosity before correction — the Five responds to questions, not verdicts", "Respecting the Five&rsquo;s energy budget and withdrawal needs without interpreting them as rejection", "Softening the inner critic enough to allow warmth and playfulness into the relationship — the Five needs an invitation, not a standard", "Naming appreciation explicitly rather than assuming the Five reads it from quality of engagement"].map((item, i) => (
-                    <li key={i} className="flex items-start gap-2 text-sm text-gray-700"><span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full" style={{ backgroundColor: colorA }} /><span dangerouslySetInnerHTML={{ __html: item }} /></li>
+                  {["Offering curiosity before correction — the Five responds to questions, not verdicts", "Respecting the Five&rsquo;s energy budget and withdrawal needs without interpreting them as rejection", "Softening the inner critic enough to allow warmth and playfulness into the relationship — the Five needs an invitation, not a standard", "Naming appreciation explicitly rather than assuming the Five reads it from quality of engagement"].map((item) => (
+                    <li key={item.slice(0, 30)} className="flex items-start gap-2 text-sm text-gray-700"><span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full" style={{ backgroundColor: colorA }} /><span dangerouslySetInnerHTML={{ __html: item }} /></li>
                   ))}
                 </ul>
               </div>
               <div>
                 <p className="mb-3 text-sm font-semibold uppercase tracking-wide" style={{ color: colorB }}>Type 5 grows by</p>
                 <ul className="space-y-3">
-                  {["Communicating withdrawal explicitly rather than simply disappearing — the One needs to know what is happening", "Practicing small acts of warmth and appreciation that the One can actually receive — not analysis, but genuine expression", "Allowing the One&rsquo;s corrective feedback as an act of care rather than contracting into further withdrawal", "Investing deliberately in the emotional dimension of the relationship, not just the intellectual — naming feelings, even briefly"].map((item, i) => (
-                    <li key={i} className="flex items-start gap-2 text-sm text-gray-700"><span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full" style={{ backgroundColor: colorB }} /><span dangerouslySetInnerHTML={{ __html: item }} /></li>
+                  {["Communicating withdrawal explicitly rather than simply disappearing — the One needs to know what is happening", "Practicing small acts of warmth and appreciation that the One can actually receive — not analysis, but genuine expression", "Allowing the One&rsquo;s corrective feedback as an act of care rather than contracting into further withdrawal", "Investing deliberately in the emotional dimension of the relationship, not just the intellectual — naming feelings, even briefly"].map((item) => (
+                    <li key={item.slice(0, 30)} className="flex items-start gap-2 text-sm text-gray-700"><span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full" style={{ backgroundColor: colorB }} /><span dangerouslySetInnerHTML={{ __html: item }} /></li>
                   ))}
                 </ul>
               </div>
