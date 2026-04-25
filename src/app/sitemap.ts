@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import { ENNEAGRAM_SUBTYPES } from "@/data/seo-entities/enneagram-subtypes";
+import { tritypes } from "@/data/tritypes";
 
 const BASE = "https://thyself.app";
 
@@ -260,5 +261,21 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.85,
   }));
 
-  return [...core, ...typePages, ...unitPages, ...assessmentPages, ...seoEnneagramPages, ...subtypePages, ...cognitiveFunctionPages, ...compatibilityPages, ...enneagramTheoryPages, ...wingPages, ...relationshipPages, ...workPages, ...sameTypeCompatibilityPages, ...famousPages, ...growthPages, ...stressPages, ...communicationPages, ...parentingPages];
+  // Tritype SEO pages — all 27 three-center combinations + index
+  const tritypeIndexPage: MetadataRoute.Sitemap = [
+    {
+      url: `${BASE}/enneagram/tritype`,
+      lastModified: now,
+      changeFrequency: "monthly" as const,
+      priority: 0.9,
+    },
+  ];
+  const tritypeDetailPages: MetadataRoute.Sitemap = tritypes.map((t) => ({
+    url: `${BASE}/enneagram/tritype/${t.code}`,
+    lastModified: now,
+    changeFrequency: "monthly" as const,
+    priority: 0.85,
+  }));
+
+  return [...core, ...typePages, ...unitPages, ...assessmentPages, ...seoEnneagramPages, ...subtypePages, ...cognitiveFunctionPages, ...compatibilityPages, ...enneagramTheoryPages, ...wingPages, ...relationshipPages, ...workPages, ...sameTypeCompatibilityPages, ...famousPages, ...growthPages, ...stressPages, ...communicationPages, ...parentingPages, ...tritypeIndexPage, ...tritypeDetailPages];
 }
