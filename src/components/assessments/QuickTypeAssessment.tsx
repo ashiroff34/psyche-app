@@ -865,6 +865,10 @@ export default function QuickTypeAssessment({
   const [selectedOption, setSelectedOption] = useState<number | null>(null);
   const [expandedLearn, setExpandedLearn] = useState<number | null>(null);
   const [result, setResult] = useState<{ type: number; confidence: number; runnerUp: number } | null>(null);
+  const [showProcessing, setShowProcessing] = useState(false);
+  const [processingMsg, setProcessingMsg] = useState<"mapping" | "finding">("mapping");
+  // Pending result to deliver after the processing screen completes
+  const [pendingResultValue, setPendingResultValue] = useState<{ type: number; confidence: number; runnerUp: number; instinct: string } | null>(null);
   const [showSkipConfirm, setShowSkipConfirm] = useState(false);
   const [skipErr, setSkipErr] = useState("");
   const [tokenBalance, setTokenBalance] = useState<number>(() => {
@@ -884,6 +888,15 @@ export default function QuickTypeAssessment({
       : "Know thyself. thyself.app",
     url: "https://thyself.app",
   });
+
+  // ── Deliver result once processing screen fades out ───────────────────────
+  useEffect(() => {
+    if (!showProcessing && pendingResultValue) {
+      onComplete(pendingResultValue);
+      setPendingResultValue(null);
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [showProcessing]);
 
   // ── Persist progress to localStorage on every question advance ───────────
   useEffect(() => {
@@ -1101,16 +1114,53 @@ export default function QuickTypeAssessment({
     );
   }
 
+  // ── Processing screen (2.5 s contemplative delay before result) ─────────────
+  if (showProcessing) {
+    return (
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        transition={{ duration: 0.35 }}
+        className="fixed inset-0 flex flex-col items-center justify-center"
+        style={{ background: "#0f0a1e", zIndex: 50 }}
+      >
+        {/* Pulsing breathing circle */}
+        <motion.div
+          animate={{ scale: [1, 1.18, 1], opacity: [0.5, 1, 0.5] }}
+          transition={{ duration: 2.4, repeat: Infinity, ease: "easeInOut" }}
+          className="mb-10 rounded-full"
+          style={{
+            width: 80,
+            height: 80,
+            background: "radial-gradient(circle, rgba(139,92,246,0.7) 0%, rgba(139,92,246,0.12) 70%)",
+            boxShadow: "0 0 40px rgba(139,92,246,0.35)",
+          }}
+        />
+        <AnimatePresence mode="wait">
+          <motion.p
+            key={processingMsg}
+            initial={{ opacity: 0, y: 6 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -6 }}
+            transition={{ duration: 0.4 }}
+            className="text-base font-medium tracking-wide"
+            style={{ color: "rgba(255,255,255,0.6)" }}
+          >
+            {processingMsg === "mapping" ? "Mapping your pattern..." : "Finding your type..."}
+          </motion.p>
+        </AnimatePresence>
+      </motion.div>
+    );
+  }
+
   // ── Instinct phase (6 forced-choice questions) ─────────────────────────────
   // ── Instinct phase (3 type-specific scenario cards, no labels) ──────────────
   if (phase === "instinct") {
     const typeQs = (result?.type && TYPE_INSTINCT_QS[result.type]) ? TYPE_INSTINCT_QS[result.type] : GENERIC_INSTINCT_QS;
     const iq = typeQs[qIdx];
     if (!iq) {
-      // All answered, compute stacking and go to reveal
-      const stacking = computeInstinct(instinctScores);
-      setSelectedInstinct(stacking);
-      if (result) onComplete({ ...result, instinct: stacking });
+      // All answered — processing screen handles the transition to reveal
       return null;
     }
 
@@ -1126,7 +1176,16 @@ export default function QuickTypeAssessment({
       } else {
         const stacking = computeInstinct(ns);
         setSelectedInstinct(stacking);
-        if (result) onComplete({ ...result, instinct: stacking });
+        if (result) {
+          // Show 2.5-second processing screen before revealing result
+          setPendingResultValue({ ...result, instinct: stacking });
+          setShowProcessing(true);
+          setProcessingMsg("mapping");
+          setTimeout(() => setProcessingMsg("finding"), 1200);
+          setTimeout(() => {
+            setShowProcessing(false);
+          }, 2500);
+        }
       }
     }
 

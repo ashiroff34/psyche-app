@@ -62,6 +62,19 @@ function getDailyCards() {
   return [DAILY_CHALLENGE_CARDS[idx1], DAILY_CHALLENGE_CARDS[idx2]];
 }
 
+// ─── Today's Insight affirmations (type-specific, identity-reinforcing) ──────
+const TYPE_AFFIRMATIONS: Record<number, string> = {
+  1: "Your standards aren't perfectionism — they're your integrity speaking.",
+  2: "Giving freely is your strength. Receiving is your practice.",
+  3: "Your worth isn't in the doing. It's in the being.",
+  4: "Your depth isn't a burden. It's your gift to the world.",
+  5: "Your mind is your compass. Trust what you observe.",
+  6: "Your loyalty is rare. It starts with trusting yourself.",
+  7: "Joy isn't just for tomorrow. You can have it now, fully.",
+  8: "Your power protects. Softness doesn't diminish it.",
+  9: "Your peace matters. Claim it without apology.",
+};
+
 // ─── Day 2 streak celebration copy (type-specific) ──────────────────────────
 const DAY2_COPY: Record<number, string> = {
   1: "Day 2. The discipline is real. You're already ahead of most.",
@@ -850,6 +863,33 @@ export default function HubView({
             onClick={onStreakShop}
           />
         </div>
+
+        {/* ── Today's Insight affirmation (type-aware, identity-reinforcing) ── */}
+        {enneagramType > 0 && TYPE_AFFIRMATIONS[enneagramType] && (
+          <motion.div
+            initial={{ opacity: 0, y: 6 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.15, duration: 0.4 }}
+            className="mb-4 rounded-2xl px-4 py-3"
+            style={{
+              background: `linear-gradient(135deg, ${TYPE_COLORS[enneagramType] ?? "#8b5cf6"}12, rgba(255,255,255,0.02))`,
+              border: `1px solid ${TYPE_COLORS[enneagramType] ?? "#8b5cf6"}28`,
+            }}
+          >
+            <p
+              className="text-[9px] font-bold uppercase tracking-[0.15em] mb-1.5"
+              style={{ color: TYPE_COLORS[enneagramType] ?? "#8b5cf6" }}
+            >
+              Today&apos;s insight
+            </p>
+            <p
+              className="text-sm italic leading-relaxed"
+              style={{ color: "rgba(255,255,255,0.72)" }}
+            >
+              &ldquo;{TYPE_AFFIRMATIONS[enneagramType]}&rdquo;
+            </p>
+          </motion.div>
+        )}
 
         {/* ── Stats row ── */}
         <motion.div
