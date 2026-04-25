@@ -1,7 +1,7 @@
 # SEO Page Tracker
 
 **Target:** 1,000 indexed landing pages by month 12
-**Current total:** 88 dedicated static SEO pages (9 type pages + 27 instinctual subtype pages + 16 cognitive function pages + 36 compatibility pairs)
+**Current total:** 106 dedicated static SEO pages (9 type pages + 27 instinctual subtype pages + 16 cognitive function pages + 36 compatibility pairs + 18 wing subtype pages)
 
 > Note: `/enneagram/[type]` exists as a client-side dynamic route (not SEO-optimized). Dedicated static pages with `generateMetadata` + JSON-LD are needed for Google indexing.
 
@@ -12,7 +12,7 @@
 | Month target | Goal | Actual | Status |
 |---|---|---|---|
 | Month 3–4 | 40 pages | 40 | COMPLETE |
-| Month 5–6 | 200 pages | 88 | IN PROGRESS |
+| Month 5–6 | 200 pages | 106 | IN PROGRESS |
 | Month 7–8 | 400 pages | 0 | NOT STARTED |
 | Month 9–12 | 1,000 pages | 0 | NOT STARTED |
 
@@ -33,6 +33,33 @@ Priority order (by search volume): Type 4 → 2 → 9 → 5 → 1 → 8 → 3 �
 | /enneagram/type-3 | SHIPPED | 2026-04-23 |
 | /enneagram/type-7 | SHIPPED | 2026-04-23 |
 | /enneagram/type-6 | SHIPPED | 2026-04-23 |
+
+---
+
+## Wing subtype pages (18 — 2 wings per type × 9 types)
+
+Served at `/enneagram/[Xw Y]` — e.g. `/enneagram/4w5`. All 18 pages: server component, generateMetadata, JSON-LD Article schema, Riso-Hudson wing nickname, what the wing adds, core traits (5), growth/challenge, how to identify, navigation, CTA.
+
+| Route | Nickname | Status | Date shipped |
+|---|---|---|---|
+| /enneagram/1w9 | The Idealist | SHIPPED | 2026-04-25 |
+| /enneagram/1w2 | The Advocate | SHIPPED | 2026-04-25 |
+| /enneagram/2w1 | The Servant | SHIPPED | 2026-04-25 |
+| /enneagram/2w3 | The Host | SHIPPED | 2026-04-25 |
+| /enneagram/3w2 | The Charmer | SHIPPED | 2026-04-25 |
+| /enneagram/3w4 | The Professional | SHIPPED | 2026-04-25 |
+| /enneagram/4w3 | The Aristocrat | SHIPPED | 2026-04-25 |
+| /enneagram/4w5 | The Bohemian | SHIPPED | 2026-04-25 |
+| /enneagram/5w4 | The Iconoclast | SHIPPED | 2026-04-25 |
+| /enneagram/5w6 | The Problem Solver | SHIPPED | 2026-04-25 |
+| /enneagram/6w5 | The Defender | SHIPPED | 2026-04-25 |
+| /enneagram/6w7 | The Buddy | SHIPPED | 2026-04-25 |
+| /enneagram/7w6 | The Entertainer | SHIPPED | 2026-04-25 |
+| /enneagram/7w8 | The Realist | SHIPPED | 2026-04-25 |
+| /enneagram/8w7 | The Maverick | SHIPPED | 2026-04-25 |
+| /enneagram/8w9 | The Bear | SHIPPED | 2026-04-25 |
+| /enneagram/9w1 | The Dreamer | SHIPPED | 2026-04-25 |
+| /enneagram/9w8 | The Referee | SHIPPED | 2026-04-25 |
 
 ---
 
@@ -186,6 +213,24 @@ When a page ships, `/seo` command appends here:
 2026-04-25 | /compatibility/enneagram-6/enneagram-7 | shipped | ~2,400 words | tsc: PASS | blinky: pending
 2026-04-25 | /compatibility/enneagram-6/enneagram-8 | shipped | ~2,500 words | tsc: PASS | blinky: pending
 2026-04-25 | /compatibility/enneagram-7/enneagram-8 | shipped | ~2,500 words | tsc: PASS | blinky: pending
+2026-04-25 | /enneagram/1w9 | shipped | ~1,600 words | tsc: PASS | blinky: pending
+2026-04-25 | /enneagram/1w2 | shipped | ~1,600 words | tsc: PASS | blinky: pending
+2026-04-25 | /enneagram/2w1 | shipped | ~1,700 words | tsc: PASS | blinky: pending
+2026-04-25 | /enneagram/2w3 | shipped | ~1,700 words | tsc: PASS | blinky: pending
+2026-04-25 | /enneagram/3w2 | shipped | ~1,600 words | tsc: PASS | blinky: pending
+2026-04-25 | /enneagram/3w4 | shipped | ~1,600 words | tsc: PASS | blinky: pending
+2026-04-25 | /enneagram/4w3 | shipped | ~1,700 words | tsc: PASS | blinky: pending
+2026-04-25 | /enneagram/4w5 | shipped | ~1,800 words | tsc: PASS | blinky: pending
+2026-04-25 | /enneagram/5w4 | shipped | ~1,700 words | tsc: PASS | blinky: pending
+2026-04-25 | /enneagram/5w6 | shipped | ~1,700 words | tsc: PASS | blinky: pending
+2026-04-25 | /enneagram/6w5 | shipped | ~1,700 words | tsc: PASS | blinky: pending
+2026-04-25 | /enneagram/6w7 | shipped | ~1,700 words | tsc: PASS | blinky: pending
+2026-04-25 | /enneagram/7w6 | shipped | ~1,700 words | tsc: PASS | blinky: pending
+2026-04-25 | /enneagram/7w8 | shipped | ~1,600 words | tsc: PASS | blinky: pending
+2026-04-25 | /enneagram/8w7 | shipped | ~1,700 words | tsc: PASS | blinky: pending
+2026-04-25 | /enneagram/8w9 | shipped | ~1,700 words | tsc: PASS | blinky: pending
+2026-04-25 | /enneagram/9w1 | shipped | ~1,700 words | tsc: PASS | blinky: pending
+2026-04-25 | /enneagram/9w8 | shipped | ~1,700 words | tsc: PASS | blinky: pending
 <!-- SEO_LOG_END -->
 
 ---

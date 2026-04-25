@@ -166,5 +166,35 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.85,
   }));
 
-  return [...core, ...typePages, ...unitPages, ...assessmentPages, ...seoEnneagramPages, ...subtypePages, ...cognitiveFunctionPages, ...compatibilityPages];
+  // Enneagram theory hub pages — static server-rendered reference content
+  const enneagramTheoryPages: MetadataRoute.Sitemap = [
+    { url: `${BASE}/enneagram/wings`, priority: 0.88 },
+    { url: `${BASE}/enneagram/centers`, priority: 0.88 },
+    { url: `${BASE}/enneagram/instinctual-stacking`, priority: 0.88 },
+    { url: `${BASE}/enneagram/holy-ideas`, priority: 0.85 },
+  ].map((p) => ({
+    ...p,
+    lastModified: now,
+    changeFrequency: "monthly" as const,
+  }));
+
+  // Wing subtype SEO pages — all 18 (2 wings per type × 9 types)
+  const wingPages: MetadataRoute.Sitemap = [
+    "1w2", "1w9",
+    "2w1", "2w3",
+    "3w2", "3w4",
+    "4w3", "4w5",
+    "5w4", "5w6",
+    "6w5", "6w7",
+    "7w6", "7w8",
+    "8w7", "8w9",
+    "9w1", "9w8",
+  ].map((wing) => ({
+    url: `${BASE}/enneagram/${wing}`,
+    lastModified: now,
+    changeFrequency: "monthly" as const,
+    priority: 0.88,
+  }));
+
+  return [...core, ...typePages, ...unitPages, ...assessmentPages, ...seoEnneagramPages, ...subtypePages, ...cognitiveFunctionPages, ...compatibilityPages, ...enneagramTheoryPages, ...wingPages];
 }

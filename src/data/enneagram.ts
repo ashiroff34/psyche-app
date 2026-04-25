@@ -307,8 +307,8 @@ Growth for Twos lies in humility. the recognition that they are not actually exe
     coreMotivation: "To be affirmed, to distinguish themselves from others, to have attention, to be admired.",
     coreFear: "Of being worthless or without inherent value apart from achievements.",
     coreDesire: "To feel valuable and worthwhile.",
-    passion: "Vanity (Ichazo) — elaborated as self-deceit by Naranjo. Shaping Presentation to Match What Each Situation Values. a natural adaptability in which how you come across is continuously adjusted to fit what will be recognized and rewarded in a given context. For the 3, this doesn't feel like performance. it feels like effectiveness, like knowing how to be the right person for the moment. (Ichazo; elaborated by Naranjo in Character & Neurosis)",
-    fixation: "Attention Tracking How You Are Coming Across and Being Received. a continuous orientation toward the social feedback loop: reading the room, adjusting in real time, monitoring whether the presentation is landing as intended. (Ichazo / Naranjo)",
+    passion: "Deceit (Ichazo) — rendered as Vanity in some sources; Naranjo names the passion self-deceit. Shaping Presentation to Match What Each Situation Values. a natural adaptability in which how you come across is continuously adjusted to fit what will be recognized and rewarded in a given context. For the 3, this doesn't feel like performance. it feels like effectiveness, like knowing how to be the right person for the moment. (Ichazo; elaborated by Naranjo in Character & Neurosis)",
+    fixation: "Vanity — Attention Tracking How You Are Coming Across and Being Received. a continuous orientation toward the social feedback loop: reading the room, adjusting in real time, monitoring whether the presentation is landing as intended. (Ichazo / Naranjo)",
     holyIdea: "Value That Exists Independent of What You Accomplish. the higher recognition that worth is intrinsic and doesn't need to be earned through achievement or recognition. Something real is already there before any performance begins. (Ichazo)",
     virtue: "Expressing What's Actually There Rather Than What's Expected. the capacity to be seen as you genuinely are rather than as the version that will be most valued; feeling from the inside out rather than adjusting from the outside in. (Naranjo / Riso & Hudson)",
     defenseM: "Absorbing a Role Until It Becomes Indistinguishable From Identity. taking on a persona, goal, or social position so completely that the distinction between the role and the self disappears. The 3 isn't consciously pretending. they have genuinely become the role. (Riso & Hudson, The Wisdom of the Enneagram)",
@@ -541,7 +541,7 @@ Growth for Fours lies in equanimity. learning to be present to whatever feeling 
       "How can I be more present in my body today?",
       "What's one way I could engage with the world that excites me?"
     ],
-    color: "#3D6B9C",
+    color: "#2980B9",
     icon: "",
     horneyGroup: 'withdrawn',
     harmonicGroup: 'competency',
@@ -749,7 +749,7 @@ Growth for Sixes lies in developing genuine courage. the capacity to trust their
       "What do I already have that I haven't fully appreciated?",
       "When was the last time I felt truly present and satisfied in a moment?"
     ],
-    color: "#5B8FD0",
+    color: "#1ABC9C",
     icon: "",
     horneyGroup: 'aggressive',
     harmonicGroup: 'positive_outlook',
