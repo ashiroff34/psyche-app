@@ -244,5 +244,21 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.85,
   }));
 
-  return [...core, ...typePages, ...unitPages, ...assessmentPages, ...seoEnneagramPages, ...subtypePages, ...cognitiveFunctionPages, ...compatibilityPages, ...enneagramTheoryPages, ...wingPages, ...relationshipPages, ...workPages, ...sameTypeCompatibilityPages, ...famousPages, ...growthPages, ...stressPages];
+  // Communication style pages — all 9 types
+  const communicationPages: MetadataRoute.Sitemap = ENNEAGRAM_TYPES.map((t) => ({
+    url: `${BASE}/enneagram/type-${t}/communication`,
+    lastModified: now,
+    changeFrequency: "monthly" as const,
+    priority: 0.85,
+  }));
+
+  // Parenting style pages — all 9 types
+  const parentingPages: MetadataRoute.Sitemap = ENNEAGRAM_TYPES.map((t) => ({
+    url: `${BASE}/enneagram/type-${t}/parenting`,
+    lastModified: now,
+    changeFrequency: "monthly" as const,
+    priority: 0.85,
+  }));
+
+  return [...core, ...typePages, ...unitPages, ...assessmentPages, ...seoEnneagramPages, ...subtypePages, ...cognitiveFunctionPages, ...compatibilityPages, ...enneagramTheoryPages, ...wingPages, ...relationshipPages, ...workPages, ...sameTypeCompatibilityPages, ...famousPages, ...growthPages, ...stressPages, ...communicationPages, ...parentingPages];
 }
