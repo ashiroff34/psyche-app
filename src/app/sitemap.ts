@@ -137,6 +137,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     [8, 9],
     [3, 4],
     [6, 9],
+    [1, 2],
+    [2, 3],
+    [2, 5],
+    [2, 6],
+    [2, 7],
+    [4, 6],
+    [4, 7],
   ];
   const compatibilityPages: MetadataRoute.Sitemap = shippedCompatibility.map(([a, b]) => ({
     url: `${BASE}/compatibility/enneagram-${a}/enneagram-${b}`,
