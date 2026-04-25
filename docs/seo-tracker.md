@@ -1,7 +1,7 @@
 # SEO Page Tracker
 
 **Target:** 1,000 indexed landing pages by month 12
-**Current total:** 61 dedicated static SEO pages (all 9 Enneagram types + all 16 cognitive function types + 36 compatibility pairs)
+**Current total:** 88 dedicated static SEO pages (9 type pages + 27 instinctual subtype pages + 16 cognitive function pages + 36 compatibility pairs)
 
 > Note: `/enneagram/[type]` exists as a client-side dynamic route (not SEO-optimized). Dedicated static pages with `generateMetadata` + JSON-LD are needed for Google indexing.
 
@@ -12,7 +12,7 @@
 | Month target | Goal | Actual | Status |
 |---|---|---|---|
 | Month 3–4 | 40 pages | 40 | COMPLETE |
-| Month 5–6 | 200 pages | 61 | IN PROGRESS |
+| Month 5–6 | 200 pages | 88 | IN PROGRESS |
 | Month 7–8 | 400 pages | 0 | NOT STARTED |
 | Month 9–12 | 1,000 pages | 0 | NOT STARTED |
 
@@ -33,6 +33,20 @@ Priority order (by search volume): Type 4 → 2 → 9 → 5 → 1 → 8 → 3 �
 | /enneagram/type-3 | SHIPPED | 2026-04-23 |
 | /enneagram/type-7 | SHIPPED | 2026-04-23 |
 | /enneagram/type-6 | SHIPPED | 2026-04-23 |
+
+---
+
+## Instinctual subtype pages (27 — all 9 types × 3 instincts, via generateStaticParams)
+
+Served at `/enneagram/subtypes/[slug]` — full `generateMetadata` + JSON-LD in layout, all 27 slugs pre-rendered.
+
+| Status | Count | Date shipped |
+|---|---|---|
+| ALL SHIPPED | 27/27 | 2026-04-24 |
+
+sp/1 sp/2 sp/3 sp/4 sp/5 sp/6 sp/7 sp/8 sp/9 — all SHIPPED  
+sx/1 sx/2 sx/3 sx/4 sx/5 sx/6 sx/7 sx/8 sx/9 — all SHIPPED  
+so/1 so/2 so/3 so/4 so/5 so/6 so/7 so/8 so/9 — all SHIPPED
 
 ---
 
