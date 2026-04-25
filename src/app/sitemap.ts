@@ -236,5 +236,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.85,
   }));
 
-  return [...core, ...typePages, ...unitPages, ...assessmentPages, ...seoEnneagramPages, ...subtypePages, ...cognitiveFunctionPages, ...compatibilityPages, ...enneagramTheoryPages, ...wingPages, ...relationshipPages, ...workPages, ...sameTypeCompatibilityPages, ...famousPages, ...growthPages];
+  // Stress/disintegration pages — all 9 types
+  const stressPages: MetadataRoute.Sitemap = ENNEAGRAM_TYPES.map((t) => ({
+    url: `${BASE}/enneagram/type-${t}/stress`,
+    lastModified: now,
+    changeFrequency: "monthly" as const,
+    priority: 0.85,
+  }));
+
+  return [...core, ...typePages, ...unitPages, ...assessmentPages, ...seoEnneagramPages, ...subtypePages, ...cognitiveFunctionPages, ...compatibilityPages, ...enneagramTheoryPages, ...wingPages, ...relationshipPages, ...workPages, ...sameTypeCompatibilityPages, ...famousPages, ...growthPages, ...stressPages];
 }
