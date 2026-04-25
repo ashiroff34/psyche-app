@@ -245,6 +245,13 @@ function TypeRevealScreen({
     return () => clearTimeout(t);
   }, []);
 
+  // Endowed progress: show "Achievement Unlocked" card 1.5s after reveal
+  const [showAchievement, setShowAchievement] = useState(false);
+  useEffect(() => {
+    const t = setTimeout(() => setShowAchievement(true), 1500);
+    return () => clearTimeout(t);
+  }, []);
+
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const handleContinue = () => {
@@ -488,6 +495,48 @@ function TypeRevealScreen({
           </div>
           <ArrowRight className="w-4 h-4 shrink-0" style={{ color: "rgba(255,255,255,0.4)" }} />
         </motion.a>
+
+        {/* Achievement Unlocked card — endowed progress moment */}
+        <AnimatePresence>
+          {showAchievement && (
+            <motion.div
+              key="achievement-unlocked"
+              initial={{ opacity: 0, scale: 0.92, y: 12 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.92, y: 12 }}
+              transition={{ type: "spring", stiffness: 280, damping: 22 }}
+              className="w-full mb-4 px-4 py-3 rounded-2xl flex items-center gap-3"
+              style={{
+                background: `${typeColor}14`,
+                border: `1px solid ${typeColor}35`,
+              }}
+            >
+              <div
+                className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0 text-lg"
+                style={{ background: `${typeColor}22`, border: `1px solid ${typeColor}44` }}
+              >
+                ✦
+              </div>
+              <div className="flex-1 min-w-0 text-left">
+                <p className="text-[10px] font-bold uppercase tracking-widest mb-0.5" style={{ color: `${typeColor}cc` }}>
+                  Achievement Unlocked
+                </p>
+                <p className="text-sm font-semibold" style={{ color: "rgba(255,255,255,0.88)" }}>
+                  Self-Aware
+                </p>
+                <p className="text-[11px]" style={{ color: "rgba(255,255,255,0.5)" }}>
+                  You know your type. The journey starts now.
+                </p>
+              </div>
+              <div
+                className="shrink-0 px-2.5 py-1 rounded-full text-xs font-bold"
+                style={{ background: `${typeColor}22`, color: typeColor }}
+              >
+                +25 tokens
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
 
         {/* CTA */}
         <motion.button
