@@ -1,7 +1,7 @@
 # SEO Page Tracker
 
 **Target:** 1,000 indexed landing pages by month 12
-**Current total:** 54 dedicated static SEO pages (all 9 Enneagram types + all 16 cognitive function types + 29 compatibility pairs)
+**Current total:** 61 dedicated static SEO pages (all 9 Enneagram types + all 16 cognitive function types + 36 compatibility pairs)
 
 > Note: `/enneagram/[type]` exists as a client-side dynamic route (not SEO-optimized). Dedicated static pages with `generateMetadata` + JSON-LD are needed for Google indexing.
 
@@ -12,7 +12,7 @@
 | Month target | Goal | Actual | Status |
 |---|---|---|---|
 | Month 3–4 | 40 pages | 40 | COMPLETE |
-| Month 5–6 | 200 pages | 54 | IN PROGRESS |
+| Month 5–6 | 200 pages | 61 | IN PROGRESS |
 | Month 7–8 | 400 pages | 0 | NOT STARTED |
 | Month 9–12 | 1,000 pages | 0 | NOT STARTED |
 
@@ -96,6 +96,13 @@ Priority order (by search interest): 4+5 → 2+8 → 9+1 → 4+9 → 2+9 → 1+7
 | /compatibility/enneagram-3/enneagram-5 | SHIPPED | 2026-04-25 |
 | /compatibility/enneagram-3/enneagram-7 | SHIPPED | 2026-04-25 |
 | /compatibility/enneagram-3/enneagram-8 | SHIPPED | 2026-04-25 |
+| /compatibility/enneagram-4/enneagram-8 | SHIPPED | 2026-04-25 |
+| /compatibility/enneagram-5/enneagram-6 | SHIPPED | 2026-04-25 |
+| /compatibility/enneagram-5/enneagram-7 | SHIPPED | 2026-04-25 |
+| /compatibility/enneagram-5/enneagram-9 | SHIPPED | 2026-04-25 |
+| /compatibility/enneagram-6/enneagram-7 | SHIPPED | 2026-04-25 |
+| /compatibility/enneagram-6/enneagram-8 | SHIPPED | 2026-04-25 |
+| /compatibility/enneagram-7/enneagram-8 | SHIPPED | 2026-04-25 |
 
 ---
 
@@ -158,6 +165,13 @@ When a page ships, `/seo` command appends here:
 2026-04-25 | /compatibility/enneagram-3/enneagram-5 | shipped | ~2,400 words | tsc: PASS | blinky: pending
 2026-04-25 | /compatibility/enneagram-3/enneagram-7 | shipped | ~2,400 words | tsc: PASS | blinky: pending
 2026-04-25 | /compatibility/enneagram-3/enneagram-8 | shipped | ~2,500 words | tsc: PASS | blinky: pending
+2026-04-25 | /compatibility/enneagram-4/enneagram-8 | shipped | ~2,500 words | tsc: PASS | blinky: pending
+2026-04-25 | /compatibility/enneagram-5/enneagram-6 | shipped | ~2,400 words | tsc: PASS | blinky: pending
+2026-04-25 | /compatibility/enneagram-5/enneagram-7 | shipped | ~2,400 words | tsc: PASS | blinky: pending
+2026-04-25 | /compatibility/enneagram-5/enneagram-9 | shipped | ~2,400 words | tsc: PASS | blinky: pending
+2026-04-25 | /compatibility/enneagram-6/enneagram-7 | shipped | ~2,400 words | tsc: PASS | blinky: pending
+2026-04-25 | /compatibility/enneagram-6/enneagram-8 | shipped | ~2,500 words | tsc: PASS | blinky: pending
+2026-04-25 | /compatibility/enneagram-7/enneagram-8 | shipped | ~2,500 words | tsc: PASS | blinky: pending
 <!-- SEO_LOG_END -->
 
 ---
