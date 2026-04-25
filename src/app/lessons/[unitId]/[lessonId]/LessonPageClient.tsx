@@ -10,6 +10,7 @@ import { useGameState } from "@/hooks/useGameState";
 import LessonEngine from "@/components/lessons/LessonEngine";
 import { Analytics } from "@/lib/analytics";
 import GroundingExercise from "@/components/GroundingExercise";
+import PostLessonUpgradeBanner, { incrementLessonCount } from "@/components/lessons/PostLessonUpgradeBanner";
 import type { Lesson } from "@/types/lessons";
 
 export default function LessonPageClient({
@@ -28,6 +29,7 @@ export default function LessonPageClient({
   const [error, setError] = useState<string | null>(null);
   const [completionShown, setCompletionShown] = useState(false);
   const [showGrounding, setShowGrounding] = useState(false);
+  const [completedLessonCount, setCompletedLessonCount] = useState(0);
   const lessonStartedAt = useRef<number>(Date.now());
 
   // Load and personalize lesson — run only once when both loaders are ready.
@@ -102,6 +104,8 @@ export default function LessonPageClient({
       game.updateTypeMastery(typeNum, masteryGain);
     }
 
+    const newCount = incrementLessonCount();
+    setCompletedLessonCount(newCount);
     setCompletionShown(true);
   };
 
@@ -114,10 +118,16 @@ export default function LessonPageClient({
   if (completionShown) {
     return (
       <div className="fixed inset-0 flex flex-col items-center justify-center z-50" style={{ background: "#0f0a1e" }}>
-        <motion.div initial={{ scale: 0.8, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ duration: 0.4 }}>
+        <motion.div
+          initial={{ scale: 0.8, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ duration: 0.4 }}
+          className="flex flex-col items-center"
+        >
           <div className="text-6xl mb-6 text-center">✦</div>
           <h2 className="text-2xl font-serif font-bold text-center mb-2" style={{ color: "rgba(255,255,255,0.95)" }}>Lesson Complete</h2>
           <p className="text-sm text-center" style={{ color: "rgba(255,255,255,0.5)" }}>Continuing to your practice...</p>
+          <PostLessonUpgradeBanner lessonCount={completedLessonCount} />
         </motion.div>
       </div>
     );
