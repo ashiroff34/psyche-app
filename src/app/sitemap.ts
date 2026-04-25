@@ -212,5 +212,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.85,
   }));
 
-  return [...core, ...typePages, ...unitPages, ...assessmentPages, ...seoEnneagramPages, ...subtypePages, ...cognitiveFunctionPages, ...compatibilityPages, ...enneagramTheoryPages, ...wingPages, ...relationshipPages, ...workPages];
+  // Same-type compatibility pages — all 9 same-type pairs
+  const sameTypeCompatibilityPages: MetadataRoute.Sitemap = ENNEAGRAM_TYPES.map((t) => ({
+    url: `${BASE}/compatibility/enneagram-${t}/enneagram-${t}`,
+    lastModified: now,
+    changeFrequency: "monthly" as const,
+    priority: 0.85,
+  }));
+
+  return [...core, ...typePages, ...unitPages, ...assessmentPages, ...seoEnneagramPages, ...subtypePages, ...cognitiveFunctionPages, ...compatibilityPages, ...enneagramTheoryPages, ...wingPages, ...relationshipPages, ...workPages, ...sameTypeCompatibilityPages];
 }
