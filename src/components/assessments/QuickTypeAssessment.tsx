@@ -1339,6 +1339,32 @@ export default function QuickTypeAssessment({
             <Check className="w-4 h-4" />
             This is me
           </button>
+
+          {/* Post-result upgrade CTA — non-blocking, below the result */}
+          <motion.a
+            href="/pricing"
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.9 }}
+            className="mt-4 flex items-start gap-3 rounded-2xl px-4 py-3 text-left"
+            style={{
+              background: "rgba(139,92,246,0.07)",
+              border: "1px solid rgba(139,92,246,0.2)",
+              textDecoration: "none",
+              display: "flex",
+            }}
+          >
+            <Zap className="w-4 h-4 shrink-0 mt-0.5 text-violet-400" />
+            <div className="min-w-0">
+              <p className="text-xs font-semibold mb-0.5" style={{ color: "rgba(255,255,255,0.8)" }}>
+                Want to go deeper?
+              </p>
+              <p className="text-[11px] leading-snug" style={{ color: "rgba(255,255,255,0.45)" }}>
+                Unlock your full type profile, subtypes, and tritype with Pro.
+              </p>
+            </div>
+            <BookOpen className="w-4 h-4 shrink-0 mt-0.5" style={{ color: "rgba(139,92,246,0.6)" }} />
+          </motion.a>
         </motion.div>
       </motion.div>
     );

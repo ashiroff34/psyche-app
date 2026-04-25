@@ -139,7 +139,10 @@ export default function PricingPage() {
         </Link>
 
         <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}>
-          <h1 className="text-3xl font-bold mb-2">Choose your depth</h1>
+          <h1 className="text-3xl font-bold mb-1">Choose your depth</h1>
+          <p className="text-xs mb-3" style={{ color: "rgba(255,255,255,0.32)" }}>
+            Thousands of people mapping their psyche
+          </p>
           <p className="text-sm opacity-60 mb-8 leading-relaxed">
             Free gets you far. Pro unlocks the layers that take years off the self-discovery curve.
           </p>

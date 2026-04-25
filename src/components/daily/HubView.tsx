@@ -78,6 +78,7 @@ import WeeklyChallengeCard from "./WeeklyChallengeCard";
 import IntegrationCompanion from "./IntegrationCompanion";
 import DailyInsightCard from "@/components/DailyInsightCard";
 import DailyObservationCard from "./DailyObservationCard";
+import StreakCard from "@/components/streak/StreakCard";
 import MorningPassionCheckIn from "./MorningPassionCheckIn";
 import TheoryPracticeCard from "./TheoryPracticeCard";
 import AudioReflection from "@/components/AudioReflection";
@@ -838,6 +839,17 @@ export default function HubView({
             </div>
           )}
         </motion.div>
+
+        {/* ── Streak Card ── */}
+        <div className="mb-4">
+          <StreakCard
+            streak={streak}
+            longest={longestStreak}
+            freezeTokens={streakFreezes}
+            enneagramType={enneagramType > 0 ? enneagramType : undefined}
+            onClick={onStreakShop}
+          />
+        </div>
 
         {/* ── Stats row ── */}
         <motion.div

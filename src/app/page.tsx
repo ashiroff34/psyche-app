@@ -259,7 +259,7 @@ function EnterScreen() {
         initial={{ opacity: 0, y: 6 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, delay: 0.4 }}
-        className="relative text-center leading-relaxed mb-6"
+        className="relative text-center leading-relaxed mb-3"
         style={{
           color: "rgba(255,255,255,0.45)",
           fontSize: "clamp(12px, 3.2vw, 14px)",
@@ -268,6 +268,22 @@ function EnterScreen() {
         }}
       >
         Typology gives you that map. Not transformation. Recognition.
+      </motion.p>
+
+      {/* Social proof */}
+      <motion.p
+        initial={{ opacity: 0, y: 4 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, delay: 0.45 }}
+        className="relative text-center mb-5"
+        style={{
+          color: "rgba(255,255,255,0.32)",
+          fontSize: "clamp(11px, 2.8vw, 12px)",
+          zIndex: 10,
+          letterSpacing: "0.01em",
+        }}
+      >
+        Thousands of people mapping their psyche
       </motion.p>
 
       {/* Proof pills (no motion) */}
