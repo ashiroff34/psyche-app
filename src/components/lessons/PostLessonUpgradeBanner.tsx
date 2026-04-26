@@ -92,7 +92,7 @@ export default function PostLessonUpgradeBanner({ lessonCount }: PostLessonUpgra
             className="text-sm font-medium leading-snug pr-6 mb-3"
             style={{ color: "rgba(255,255,255,0.88)" }}
           >
-            Enjoying Thyself? Unlock your full type profile, subtypes, and growth path.
+            Become someone who actually understands themselves. Pro takes you the rest of the way.
           </p>
 
           <Link

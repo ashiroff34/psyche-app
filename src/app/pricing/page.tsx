@@ -1,17 +1,15 @@
 "use client";
 
-// Pricing page with Ariely's 3-tier decoy pattern
+// Pricing page — Annual + Monthly + Free with 7-day trial on Pro
 //
-// Decoy effect (asymmetric dominance, Ariely 2008): when you add a third
-// option that is dominated by one but not the other, people shift toward
-// the dominator. Pro Quarterly ($24) is dominated by Pro Annual ($47/yr
-// = $3.92/mo), making Annual look like a steal vs. Monthly ($7.99/mo).
+// Annual ($47/yr = $3.92/mo) anchors against Monthly ($7.99/mo) — annual is
+// the highlighted "best value" option. 7-day free trial reduces activation
+// friction without the dishonesty of a 14-day trial people forget to cancel.
 //
 // Anchors between Finch Plus ($44/yr) and Calm ($69/yr).
 //
-// Loss-aversion at cancel and trust-based pricing (no scarcity
-// countdowns, no hidden annual-only tiers) follows the wellness-space
-// ethical standard post-Noom FTC settlement.
+// Trust-based pricing (no scarcity countdowns, no hidden annual-only tiers)
+// follows the wellness-space ethical standard post-Noom FTC settlement.
 
 import { useState } from "react";
 import Link from "next/link";
@@ -48,23 +46,6 @@ const PLANS: PlanProps[] = [
     packId: "",
     highlighted: false,
     isFree: true,
-  },
-  {
-    name: "Pro Quarterly",
-    price: "$24",
-    period: "/ 3 months",
-    perMonth: "$8.00/mo",
-    features: [
-      "Everything in Free",
-      "Shadow Work lab",
-      "Tritype deep-dive",
-      "Audio reflections",
-      "Advanced assessments",
-      "Priority new features",
-    ],
-    packId: "pro_quarterly",
-    highlighted: false,
-    badge: "",
   },
   {
     name: "Pro Annual",
@@ -163,8 +144,11 @@ export default function PricingPage() {
           <p className="text-xs mb-3" style={{ color: "rgba(255,255,255,0.32)" }}>
             Thousands of people mapping their psyche
           </p>
-          <p className="text-sm opacity-60 mb-8 leading-relaxed">
+          <p className="text-sm opacity-60 mb-2 leading-relaxed">
             Free gets you far. Pro unlocks the layers that take years off the self-discovery curve.
+          </p>
+          <p className="text-xs font-semibold mb-8" style={{ color: "rgba(167,139,250,0.9)" }}>
+            7 days free, then keep it or cancel. No charge until day 7.
           </p>
         </motion.div>
 

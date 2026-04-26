@@ -182,17 +182,35 @@ export default function MilestoneModal({ streakCount, enneagramType }: Milestone
                   <Share2 size={15} />
                   Share
                 </button>
-                <button
-                  onClick={handleDismiss}
-                  className="w-full py-3 rounded-2xl text-sm font-medium transition-all"
-                  style={{
-                    background: "rgba(255,255,255,0.06)",
-                    color: "rgba(255,255,255,0.5)",
-                    border: "1px solid rgba(255,255,255,0.08)",
-                  }}
-                >
-                  Keep Going
-                </button>
+                {activeMilestone.days >= 14 ? (
+                  <button
+                    onClick={() => {
+                      markMilestoneSeen(activeMilestone.days);
+                      setActiveMilestone(null);
+                      router.push("/pricing");
+                    }}
+                    className="w-full py-3 rounded-2xl text-sm font-semibold transition-all"
+                    style={{
+                      background: "rgba(217,70,239,0.12)",
+                      color: "rgba(240,171,252,0.95)",
+                      border: "1px solid rgba(217,70,239,0.3)",
+                    }}
+                  >
+                    See your full Pro profile
+                  </button>
+                ) : (
+                  <button
+                    onClick={handleDismiss}
+                    className="w-full py-3 rounded-2xl text-sm font-medium transition-all"
+                    style={{
+                      background: "rgba(255,255,255,0.06)",
+                      color: "rgba(255,255,255,0.5)",
+                      border: "1px solid rgba(255,255,255,0.08)",
+                    }}
+                  >
+                    Keep Going
+                  </button>
+                )}
               </div>
             </div>
           </motion.div>

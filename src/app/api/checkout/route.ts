@@ -53,6 +53,8 @@ export async function POST(req: NextRequest) {
         tokens: String(pack.tokens + pack.bonus),
         label: pack.label,
       },
+      // 7-day free trial on Pro subscriptions — outperforms 14-day on commitment speed
+      ...(isSubscription ? { subscription_data: { trial_period_days: 7 } } : {}),
       // Pre-fill email if we have it
       ...(email ? { customer_email: email } : {}),
       // Redirect back into the app after payment

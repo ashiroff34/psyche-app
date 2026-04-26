@@ -44,6 +44,19 @@ import ConfidenceBadge from "@/components/ConfidenceBadge";
 import TypeDiscoveryModal from "@/components/TypeDiscoveryModal";
 import TikTokTypeCard from "@/components/TikTokTypeCard";
 
+// ── Type-personalized paywall headlines (mirrors src/app/pricing/page.tsx) ─
+const TYPE_PAYWALL_HEADLINES: Record<number, string> = {
+  1: "Stop settling for a life that doesn't match your values.",
+  2: "Understand the people you love — and yourself — more deeply.",
+  3: "Know exactly what drives you, and what gets in the way.",
+  4: "Finally make sense of why you feel what you feel.",
+  5: "Go deeper into the framework than any book can take you.",
+  6: "Build the self-trust you've always wanted.",
+  7: "Stop running. Discover what you actually want.",
+  8: "Understand your power — and when to use it.",
+  9: "Find yourself without losing the peace.",
+};
+
 // ── Famous examples ───────────────────────────────────────────────────────
 const famousExamples: Record<number, { name: string; note: string }[]> = {
   1: [
@@ -1338,6 +1351,43 @@ function ResultsInner() {
                   <ChevronRight className="w-5 h-5" />
                 </Link>
               </div>
+
+              {/* Type-personalized Pro upsell — peak-emotional-moment paywall */}
+              {typeData && (
+                <Link
+                  href="/pricing"
+                  className="block p-5 rounded-2xl relative overflow-hidden transition-all hover:scale-[1.01]"
+                  style={{
+                    background: "linear-gradient(135deg, rgba(139,92,246,0.18), rgba(217,70,239,0.12))",
+                    border: "1px solid rgba(139,92,246,0.4)",
+                  }}
+                >
+                  <div
+                    className="absolute -top-10 -right-10 w-40 h-40 rounded-full pointer-events-none"
+                    style={{ background: "radial-gradient(circle, rgba(217,70,239,0.18), transparent 70%)" }}
+                  />
+                  <div className="relative">
+                    <div className="flex items-center gap-2 mb-2">
+                      <Sparkles className="w-4 h-4 text-violet-300" />
+                      <span className="text-[10px] font-bold uppercase tracking-widest text-violet-300">
+                        Go deeper, Type {typeNum}
+                      </span>
+                    </div>
+                    <p className="text-base font-semibold mb-1.5" style={{ color: "rgba(255,255,255,0.95)" }}>
+                      {TYPE_PAYWALL_HEADLINES[typeNum] ?? "Understand why you are the way you are."}
+                    </p>
+                    <p className="text-xs leading-relaxed mb-4" style={{ color: "rgba(255,255,255,0.6)" }}>
+                      Without subtypes, tritype, and Shadow Work, your type stays surface-level. Pro takes you the rest of the way.
+                    </p>
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs font-semibold text-violet-200">
+                        See your full Pro profile
+                      </span>
+                      <ArrowRight className="w-4 h-4 text-violet-200" />
+                    </div>
+                  </div>
+                </Link>
+              )}
 
               {/* Guided Journey */}
               <GuidedJourney source="enneagram" />

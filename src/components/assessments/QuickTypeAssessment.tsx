@@ -1416,10 +1416,10 @@ export default function QuickTypeAssessment({
             <Zap className="w-4 h-4 shrink-0 mt-0.5 text-violet-400" />
             <div className="min-w-0">
               <p className="text-xs font-semibold mb-0.5" style={{ color: "rgba(255,255,255,0.8)" }}>
-                Want to go deeper?
+                Without subtypes and tritype, this stays surface-level
               </p>
               <p className="text-[11px] leading-snug" style={{ color: "rgba(255,255,255,0.45)" }}>
-                Unlock your full type profile, subtypes, and tritype with Pro.
+                Pro unlocks your full profile, Shadow Work, and growth path. Try free for 7 days.
               </p>
             </div>
             <BookOpen className="w-4 h-4 shrink-0 mt-0.5" style={{ color: "rgba(139,92,246,0.6)" }} />
