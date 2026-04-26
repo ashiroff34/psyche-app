@@ -75,6 +75,20 @@ const TYPE_AFFIRMATIONS: Record<number, string> = {
   9: "Your peace matters. Claim it without apology.",
 };
 
+// ─── Pattern of the Day (Noom behavior chain tactic) ─────────────────────────
+// Trigger → Thought → Pattern. Rotates by day-of-week across 9 type entries.
+const TYPE_PATTERNS: Record<number, string> = {
+  1: "Trigger: Something isn't done right. Thought: 'If I don't fix this, no one will.' Pattern: You take it on — and resent it later.",
+  2: "Trigger: Someone seems to need help. Thought: 'They can't manage without me.' Pattern: You give — then feel overlooked when they don't notice.",
+  3: "Trigger: A chance to impress. Thought: 'My worth depends on this.' Pattern: You perform — and lose track of what you actually want.",
+  4: "Trigger: Someone doesn't notice your effort. Thought: 'I'm invisible.' Pattern: You pull away — before they can leave first.",
+  5: "Trigger: Someone wants more of your time. Thought: 'I'll run empty.' Pattern: You withdraw — and miss the connection you secretly wanted.",
+  6: "Trigger: Uncertainty appears. Thought: 'What if the worst happens?' Pattern: You plan for every disaster — and exhaust yourself before anything goes wrong.",
+  7: "Trigger: A difficult feeling surfaces. Thought: 'I can outrun this.' Pattern: You pivot to something exciting — and the feeling waits.",
+  8: "Trigger: You feel vulnerable. Thought: 'Weakness gets you hurt.' Pattern: You go harder — and the people closest to you feel pushed away.",
+  9: "Trigger: Conflict emerges. Thought: 'It's not worth the disruption.' Pattern: You go along — and slowly disappear.",
+};
+
 // ─── Day 2 streak celebration copy (type-specific) ──────────────────────────
 const DAY2_COPY: Record<number, string> = {
   1: "Day 2. The discipline is real. You're already ahead of most.",
@@ -891,6 +905,36 @@ export default function HubView({
               style={{ color: "rgba(255,255,255,0.72)" }}
             >
               &ldquo;{TYPE_AFFIRMATIONS[enneagramType]}&rdquo;
+            </p>
+          </motion.div>
+        )}
+
+        {/* ── Pattern of the Day (Noom behavior chain — trigger → thought → pattern) ── */}
+        {enneagramType > 0 && TYPE_PATTERNS[enneagramType] && (
+          <motion.div
+            initial={{ opacity: 0, y: 6 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2, duration: 0.4 }}
+            className="mb-4 rounded-2xl px-4 py-3"
+            style={{
+              background: "rgba(10,6,22,0.7)",
+              borderLeft: `3px solid ${TYPE_COLORS[enneagramType] ?? "#8b5cf6"}`,
+              border: `1px solid rgba(255,255,255,0.07)`,
+              borderLeftWidth: "3px",
+              borderLeftColor: TYPE_COLORS[enneagramType] ?? "#8b5cf6",
+            }}
+          >
+            <p
+              className="text-[9px] font-bold uppercase tracking-[0.15em] mb-1.5"
+              style={{ color: TYPE_COLORS[enneagramType] ?? "#8b5cf6" }}
+            >
+              Today&apos;s pattern
+            </p>
+            <p
+              className="text-sm leading-relaxed"
+              style={{ color: "rgba(255,255,255,0.72)" }}
+            >
+              {TYPE_PATTERNS[enneagramType]}
             </p>
           </motion.div>
         )}

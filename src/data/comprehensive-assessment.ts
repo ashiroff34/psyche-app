@@ -1,6 +1,6 @@
 // Comprehensive Enneagram Assessment
-// Modeled after validated instruments (RHETI, TAS, Wagner Enneagram Personality Style Scales)
-// Uses forced-choice pairs (like RHETI) and Likert scale statements
+// Modeled after validated instruments (iEQ9, TAS, Wagner Enneagram Personality Style Scales)
+// Uses forced-choice pairs and Likert scale statements
 // Covers: core type, wing, instinctual variant, tritype center preferences
 // 80+ items for statistical reliability
 
@@ -18,7 +18,7 @@ export interface ForcedChoicePair {
   b: { text: string; scores: Record<string, number> };
 }
 
-// Section 1: Core Type, Forced Choice Pairs (RHETI-style)
+// Section 1: Core Type, Forced Choice Pairs
 // Each pair contrasts two types. 36 pairs covers all pairwise comparisons of 9 types.
 export const coreTypePairs: ForcedChoicePair[] = [
   // 1 vs 2

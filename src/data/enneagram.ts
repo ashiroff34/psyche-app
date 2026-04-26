@@ -1028,7 +1028,7 @@ Growth for Nines lies in right action. taking directed, purposeful action toward
   }
 ];
 
-// Questionnaire based on discriminating constructs from Riso-Hudson (RHETI validation),
+// Questionnaire based on discriminating constructs from Riso-Hudson,
 // Naranjo's character & neurosis, and Wagner Enneagram Personality Style Scales (WEPSS).
 // Items target core motivations, defense mechanisms, and fixations rather than
 // surface behaviors, which reduces social desirability bias and cross-type contamination.

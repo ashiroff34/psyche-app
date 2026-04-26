@@ -352,7 +352,7 @@ const enneagramTimeline: TimelineNode[] = [
     summary:
       "Created the Levels of Development, nine levels of health per type, and built the most systematic modern Enneagram framework.",
     details:
-      "Don Richard Riso (1946-2012) and Russ Hudson (born 1960) together created the most comprehensive and systematic modern Enneagram framework. Their signature contribution is the Levels of Development: nine distinct levels of psychological health for each type, ranging from Level 1 (healthiest, most liberated) to Level 9 (most destructive, most fixated). This framework solved a major problem in Enneagram theory, the fact that two people of the same type can look radically different depending on their level of health. Riso and Hudson also developed the Riso-Hudson Enneagram Type Indicator (RHETI), one of the most validated Enneagram assessment instruments, and co-founded The Enneagram Institute. Their detailed type descriptions remain the standard reference for many practitioners.",
+      "Don Richard Riso (1946-2012) and Russ Hudson (born 1960) together created the most comprehensive and systematic modern Enneagram framework. Their signature contribution is the Levels of Development: nine distinct levels of psychological health for each type, ranging from Level 1 (healthiest, most liberated) to Level 9 (most destructive, most fixated). This framework solved a major problem in Enneagram theory, the fact that two people of the same type can look radically different depending on their level of health. Riso and Hudson also developed one of the most validated Enneagram assessment instruments, and co-founded The Enneagram Institute. Their detailed type descriptions remain the standard reference for many practitioners.",
     quote:
       "Personality is not a fixed entity but a dynamic process that shifts along a continuum of health.",
     quoteAttribution: "Don Riso & Russ Hudson",
@@ -363,7 +363,7 @@ const enneagramTimeline: TimelineNode[] = [
     ],
     contributions: [
       "Created the 9 Levels of Development for each type (healthy, average, unhealthy)",
-      "Developed the RHETI, Riso-Hudson Enneagram Type Indicator",
+      "Developed one of the most validated Enneagram assessment instruments",
       "Co-founded The Enneagram Institute",
       "Wrote the most detailed and systematic type descriptions available",
       "Integrated growth/stress lines (integration/disintegration arrows) with Levels",

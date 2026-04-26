@@ -295,7 +295,7 @@ const ALL_ASSESSMENTS: AssessmentItem[] = [
     icon: Sparkles,
     title: "Deep Assessment (iEQ9/WEPSS)",
     subtitle: "144-question scientific assessment",
-    description: "Based on RHETI, iEQ9, and WEPSS validated instruments. The most data-driven self-report option.",
+    description: "Based on iEQ9 and WEPSS validated instruments. The most data-driven self-report option.",
     timeEstimate: "~60 min",
     tags: ["153 Questions", "iEQ9 + WEPSS"],
     gradient: "from-indigo-500 to-violet-600",

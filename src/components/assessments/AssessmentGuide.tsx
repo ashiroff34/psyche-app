@@ -8,7 +8,7 @@ const guideSteps = [
   {
     icon: Brain,
     title: "Answer as your past self, not your ideal self",
-    content: "The RHETI (the most validated Enneagram test) specifically instructs: answer based on how you HAVE BEEN throughout your life, not how you'd like to be. If you've recently started working on yourself, answer as the person you were before that growth, that's your core pattern.",
+    content: "Validated Enneagram assessment research specifically instructs: answer based on how you HAVE BEEN throughout your life, not how you'd like to be. If you've recently started working on yourself, answer as the person you were before that growth, that's your core pattern.",
     tip: "Ask yourself: \"What would I have done at age 20?\" or \"What do I do when I'm tired and not trying to be my best?\"",
     color: "bg-indigo-500/20 text-indigo-300",
   },
@@ -29,7 +29,7 @@ const guideSteps = [
   {
     icon: Shield,
     title: "Go with your gut, not your analysis",
-    content: "Research on response bias shows that overthinking leads to social desirability bias, you unconsciously choose answers that make you look good. The RHETI recommends going with your first instinct. Your initial, uncensored reaction is usually more accurate than a carefully considered one.",
+    content: "Research on response bias shows that overthinking leads to social desirability bias, you unconsciously choose answers that make you look good. Enneagram assessment research recommends going with your first instinct. Your initial, uncensored reaction is usually more accurate than a carefully considered one.",
     tip: "Spend no more than 10-15 seconds per question. Your first reaction is usually your truest one.",
     color: "bg-emerald-500/20 text-emerald-300",
   },

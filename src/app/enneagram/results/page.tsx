@@ -516,9 +516,12 @@ function ResultsInner() {
                   <Share2 className="w-5 h-5 text-white" />
                 </div>
                 <div className="flex-1 min-w-0">
-                  <p className="text-sm font-bold text-white">Share to TikTok / Instagram</p>
-                  <p className="text-xs mt-0.5 leading-relaxed" style={{ color: "rgba(255,255,255,0.45)" }}>
-                    Generate your type card · earn +15 tokens
+                  <p className="text-sm font-bold text-white">Share your type</p>
+                  <p className="text-xs mt-0.5 leading-relaxed" style={{ color: "rgba(255,255,255,0.72)" }}>
+                    Find out if your partner is a compatible type &rarr;
+                  </p>
+                  <p className="text-[10px] mt-1" style={{ color: "rgba(255,255,255,0.35)" }}>
+                    +15 tokens
                   </p>
                 </div>
                 <ChevronRight className="w-4 h-4 flex-shrink-0" style={{ color: "rgba(255,255,255,0.35)" }} />

@@ -1128,70 +1128,74 @@ function StepChibiName({ type, onContinue }: { type: number; onContinue: () => v
   );
 }
 
-// ── Step 10: Implementation Intention ──────────────────────────────────────
-// Gollwitzer (1999): "if X then Y" plans produce 2-3x goal completion vs
-// general intentions. Capturing a specific anchor doubles daily return rate.
+// ── Step 10: Practice Time (Headspace implementation intention tactic) ────────
+// Headspace saw +7.5% app opens by asking when users want to practice during
+// onboarding. Tying a habit to an existing routine 2x follow-through rate.
+
+const PRACTICE_TIME_OPTIONS = [
+  { id: "morning", label: "Morning, with coffee", emoji: "☀️" },
+  { id: "midday", label: "Midday break", emoji: "🌤️" },
+  { id: "evening", label: "Evening wind-down", emoji: "🌙" },
+  { id: "flexible", label: "I'll decide later", emoji: "" },
+] as const;
+
+type PracticeTimeId = typeof PRACTICE_TIME_OPTIONS[number]["id"];
 
 function StepImplementationIntention({ onContinue }: { onContinue: () => void }) {
-  const [time, setTime] = useState("09:00");
-  const [submitted, setSubmitted] = useState(false);
+  const [selected, setSelected] = useState<PracticeTimeId | null>(null);
 
-  // Derive a friendly label from the time
-  function friendlyLabel(t: string): string {
-    const [h, m] = t.split(":").map(Number);
-    const period = h >= 12 ? "PM" : "AM";
-    const h12 = h === 0 ? 12 : h > 12 ? h - 12 : h;
-    return `${h12}:${m.toString().padStart(2, "0")} ${period}`;
-  }
-
-  function submit() {
-    const label = friendlyLabel(time);
+  function choose(id: PracticeTimeId) {
+    setSelected(id);
     try {
-      localStorage.setItem(
-        "psyche-implementation-intention",
-        JSON.stringify({ id: "time-picker", label: `at ${label}`, key: "time-picker", timeHint: time, capturedAt: new Date().toISOString() })
-      );
+      localStorage.setItem("practice-time", id);
     } catch {}
-    try { posthog.capture("implementation_intention_set", { time }); } catch {}
-    setSubmitted(true);
-    setTimeout(onContinue, 700);
+    try { posthog.capture("practice_time_selected", { choice: id }); } catch {}
+    setTimeout(onContinue, 420);
   }
 
   return (
     <div className="w-full max-w-md">
       <div className="text-center mb-8">
-        <h2 className="text-2xl font-bold mb-3">When will you check in?</h2>
-        <p className="text-sm opacity-70 leading-relaxed px-4">
-          Pick a time. This becomes your daily reminder.
+        <h2 className="text-2xl font-bold mb-3">When do you want to practice?</h2>
+        <p className="text-sm leading-relaxed px-4" style={{ color: "rgba(255,255,255,0.55)" }}>
+          People who tie habits to existing routines are 2x more likely to stick with them.
         </p>
       </div>
-      <div className="rounded-3xl p-6 flex flex-col items-center" style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)" }}>
-        <input
-          type="time"
-          value={time}
-          onChange={e => setTime(e.target.value)}
-          disabled={submitted}
-          aria-label="Daily reminder time"
-          className="text-4xl font-bold text-center py-4 px-6 rounded-2xl mb-4 w-full"
-          style={{
-            background: "rgba(139,92,246,0.08)",
-            border: "1px solid rgba(139,92,246,0.3)",
-            color: "white",
-            colorScheme: "dark",
-          }}
-        />
-        <p className="text-sm opacity-70 mb-6">{friendlyLabel(time)} every day</p>
+      <div className="flex flex-col gap-3">
+        {PRACTICE_TIME_OPTIONS.map((opt) => (
+          <button
+            key={opt.id}
+            onClick={() => choose(opt.id)}
+            className="w-full flex items-center gap-4 px-5 py-4 rounded-2xl text-left transition-all active:scale-[0.98]"
+            style={{
+              background: selected === opt.id
+                ? "linear-gradient(135deg, rgba(139,92,246,0.22), rgba(217,70,239,0.15))"
+                : "rgba(255,255,255,0.04)",
+              border: selected === opt.id
+                ? "1px solid rgba(139,92,246,0.5)"
+                : "1px solid rgba(255,255,255,0.08)",
+            }}
+          >
+            {opt.emoji && (
+              <span className="text-xl w-7 flex-shrink-0 text-center">{opt.emoji}</span>
+            )}
+            <span
+              className="text-sm font-medium"
+              style={{ color: selected === opt.id ? "rgba(255,255,255,0.95)" : "rgba(255,255,255,0.75)" }}
+            >
+              {opt.label}
+            </span>
+          </button>
+        ))}
+      </div>
+      <div className="text-center mt-6">
         <button
-          onClick={submit}
-          disabled={submitted}
-          className="w-full py-3.5 rounded-2xl font-bold text-white transition-all active:scale-[0.98] disabled:opacity-50"
-          style={{ background: "linear-gradient(135deg,#8b5cf6,#d946ef)" }}
+          onClick={() => { try { localStorage.setItem("practice-time", "skipped"); } catch {} onContinue(); }}
+          className="text-xs"
+          style={{ color: "rgba(255,255,255,0.35)" }}
         >
-          {submitted ? "Saved" : "Set reminder"}
+          Skip
         </button>
-        <p className="text-[11px] opacity-40 text-center mt-4 leading-snug">
-          You can change this anytime in settings.
-        </p>
       </div>
     </div>
   );
@@ -1980,7 +1984,7 @@ function OnboardingPageInner() {
           >
             <StepChibiName
               type={assessmentResult.type}
-              onContinue={() => setStep(11)}
+              onContinue={() => setStep(10)}
             />
           </motion.div>
         )}
@@ -2017,7 +2021,7 @@ function OnboardingPageInner() {
             className="min-h-screen flex items-center justify-center pt-8 pb-24 px-4"
           >
             <StepImplementationIntention
-              onContinue={() => setStep(7)}
+              onContinue={() => setStep(11)}
             />
           </motion.div>
         )}

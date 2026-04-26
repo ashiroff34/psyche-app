@@ -23,6 +23,7 @@ interface PlanProps {
   period: string;
   perMonth: string;
   badge?: string;
+  ctaLabel?: string;
   features: string[];
   packId: string;
   highlighted: boolean;
@@ -53,6 +54,7 @@ const PLANS: PlanProps[] = [
     period: "/ year",
     perMonth: "$3.92/mo",
     badge: "Best value",
+    ctaLabel: "Try Free for 7 Days",
     features: [
       "Everything in Free",
       "Shadow Work lab",
@@ -70,6 +72,7 @@ const PLANS: PlanProps[] = [
     price: "$7.99",
     period: "/ month",
     perMonth: "$7.99/mo",
+    ctaLabel: "Start Monthly",
     features: [
       "Everything in Free",
       "Shadow Work lab",
@@ -212,7 +215,7 @@ export default function PricingPage() {
                     color: "white",
                   }}
                 >
-                  {loading === plan.packId ? "Opening checkout..." : `Get ${plan.name}`}
+                  {loading === plan.packId ? "Opening checkout..." : (plan.ctaLabel ?? `Get ${plan.name}`)}
                 </button>
               )}
             </motion.div>
