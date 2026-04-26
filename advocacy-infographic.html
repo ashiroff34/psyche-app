@@ -1,0 +1,886 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>you know your type. but do you understand yourself? — Thyself</title>
+<meta name="description" content="An interactive self-knowledge audit. The 9 Enneagram types as avoidance strategies — and three questions to measure the gap between knowing and understanding." />
+<meta property="og:title" content="you know your type. but do you understand yourself?" />
+<meta property="og:description" content="A self-knowledge audit. The 9 Enneagram types as avoidance strategies." />
+<meta name="theme-color" content="#0f0a1e" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet" />
+
+<style>
+  /* ===== Design Tokens (from Thyself globals.css) ===== */
+  :root {
+    --bg:            #0f0a1e;
+    --bg-card:       rgba(255, 255, 255, 0.05);
+    --bg-card-hover: rgba(255, 255, 255, 0.08);
+    --border:        rgba(255, 255, 255, 0.09);
+    --border-strong: rgba(255, 255, 255, 0.14);
+    --text-primary:  rgba(255, 255, 255, 0.93);
+    --text-secondary:rgba(255, 255, 255, 0.58);
+    --text-muted:    rgba(255, 255, 255, 0.32);
+    --accent:        #8b5cf6;
+    --accent-soft:   #a78bfa;
+    --accent-glow:   rgba(139, 92, 246, 0.35);
+    --token:         #fbbf24;
+    --token-deep:    #f59e0b;
+    --radius-card:   16px;
+    --radius-lg:     20px;
+    --ease:          cubic-bezier(0.4, 0, 0.2, 1);
+    --base-url:      https://thyself.netlify.app;
+  }
+
+  /* ===== Reset ===== */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { overflow-x: hidden; -webkit-overflow-scrolling: touch; }
+  img { display: block; max-width: 100%; }
+  button { font-family: inherit; cursor: pointer; background: none; border: none; color: inherit; }
+
+  html { scroll-behavior: smooth; }
+  body {
+    min-height: 100vh;
+    background-color: var(--bg);
+    color: var(--text-primary);
+    font-family: "Inter", ui-sans-serif, system-ui, sans-serif;
+    font-size: 16px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    position: relative;
+  }
+
+  /* ===== Cosmic backdrop: dot grid + violet aurora blobs ===== */
+  .bg-dots {
+    position: fixed; inset: 0; pointer-events: none; z-index: 0;
+    background-image: radial-gradient(circle, rgba(139,92,246,0.12) 1px, transparent 1px);
+    background-size: 22px 22px;
+  }
+  .aurora {
+    position: fixed; pointer-events: none; z-index: 0;
+    width: 520px; height: 520px; border-radius: 50%;
+    filter: blur(120px); opacity: 0.55;
+    animation: drift 34s ease-in-out infinite alternate;
+  }
+  .aurora-1 { top: -180px; left: -160px; background: radial-gradient(circle, rgba(139,92,246,0.55), transparent 60%); }
+  .aurora-2 { bottom: -200px; right: -180px; background: radial-gradient(circle, rgba(129,140,248,0.45), transparent 60%); animation-delay: -12s; }
+  @keyframes drift {
+    0%   { transform: translate(0, 0) scale(1); }
+    100% { transform: translate(40px, -30px) scale(1.08); }
+  }
+
+  /* ===== Noise grain (from Thyself) ===== */
+  body::after {
+    content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 9998;
+    opacity: 0.032;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 600'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-repeat: repeat; background-size: 220px;
+  }
+
+  /* ===== Layout ===== */
+  .shell {
+    position: relative; z-index: 1;
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 64px 20px 96px;
+  }
+
+  /* ===== Typography ===== */
+  h1, h2, h3, h4 {
+    font-family: "Playfair Display", ui-serif, Georgia, serif;
+    color: rgba(255, 255, 255, 0.95);
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+  .eyebrow {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-family: "Inter", sans-serif;
+    font-size: 11px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--accent-soft);
+    padding: 6px 12px;
+    background: rgba(139, 92, 246, 0.1);
+    border: 1px solid rgba(139, 92, 246, 0.22);
+    border-radius: 999px;
+  }
+  .eyebrow .dot {
+    width: 5px; height: 5px; border-radius: 999px; background: var(--accent);
+    box-shadow: 0 0 8px var(--accent-glow);
+  }
+
+  .headline {
+    margin-top: 20px;
+    font-size: clamp(32px, 6vw, 52px);
+    line-height: 1.08;
+    max-width: 780px;
+  }
+
+  /* ===== Shimmer text sweep (from Thyself) ===== */
+  .shimmer-text {
+    background: linear-gradient(110deg, #c4b5fd 30%, #ffffff 48%, #a78bfa 55%, #818cf8 70%);
+    background-size: 250% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: shimmer-sweep 4s ease-in-out infinite;
+  }
+  @keyframes shimmer-sweep {
+    0%   { background-position: 200% center; }
+    100% { background-position: -200% center; }
+  }
+
+  .sub {
+    margin-top: 18px;
+    font-size: 17px;
+    color: var(--text-secondary);
+    max-width: 620px;
+    line-height: 1.6;
+  }
+
+  /* ===== Section header for grid ===== */
+  .section-hd {
+    margin-top: 56px; margin-bottom: 20px;
+    display: flex; align-items: baseline; justify-content: space-between; gap: 16px;
+    flex-wrap: wrap;
+  }
+  .section-hd h2 { font-size: 22px; }
+  .section-hd .hint { font-size: 13px; color: var(--text-muted); }
+
+  /* ===== Type grid ===== */
+  .type-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 14px;
+  }
+  @media (max-width: 640px) {
+    .type-grid { gap: 10px; }
+    .shell { padding: 48px 14px 80px; }
+  }
+
+  .tile {
+    position: relative;
+    display: flex; flex-direction: column; align-items: stretch;
+    padding: 16px 14px 14px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-card);
+    text-align: left;
+    overflow: hidden;
+    transition: transform 0.2s var(--ease), background 0.2s var(--ease), border-color 0.2s var(--ease), box-shadow 0.3s var(--ease);
+    min-height: 168px;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: rgba(139, 92, 246, 0.15);
+  }
+  .tile:hover {
+    background: var(--bg-card-hover);
+    border-color: rgba(139, 92, 246, 0.35);
+    transform: translateY(-2px);
+    box-shadow: 0 16px 40px rgba(139, 92, 246, 0.18);
+  }
+  .tile:active { transform: scale(0.97); }
+  .tile.is-selected {
+    background: rgba(139, 92, 246, 0.12);
+    border-color: var(--accent);
+    box-shadow: 0 0 0 2px rgba(139, 92, 246, 0.35), 0 16px 40px rgba(139, 92, 246, 0.25);
+  }
+  .tile.is-complete::after {
+    content: "✓";
+    position: absolute; top: 10px; right: 10px;
+    width: 20px; height: 20px; border-radius: 999px;
+    background: var(--accent);
+    color: #fff; font-size: 12px; font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 0 10px var(--accent-glow);
+  }
+
+  .tile-top {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 8px;
+  }
+  .tile-num {
+    font-family: "Playfair Display", serif;
+    font-size: 22px; font-weight: 700;
+    color: var(--text-primary);
+    opacity: 0.95;
+    display: inline-flex; align-items: baseline; gap: 4px;
+  }
+  .tile-num .sm { font-size: 11px; color: var(--text-muted); letter-spacing: 0.12em; text-transform: uppercase; font-family: "Inter", sans-serif; font-weight: 600; }
+  .tile-color {
+    width: 10px; height: 10px; border-radius: 999px;
+    box-shadow: 0 0 8px currentColor;
+  }
+
+  .chibi-wrap {
+    width: 100%; aspect-ratio: 1 / 1;
+    display: flex; align-items: center; justify-content: center;
+    margin-top: 6px; margin-bottom: 8px;
+    position: relative;
+    border-radius: 14px;
+    /* Light backdrop so the watercolor chibi interiors show properly */
+    background:
+      radial-gradient(ellipse at 50% 45%, rgba(255,255,255,0.96) 0%, rgba(248,245,255,0.92) 55%, rgba(232,226,248,0.88) 100%);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.6), 0 2px 12px rgba(0,0,0,0.25);
+    overflow: hidden;
+  }
+  .chibi-wrap::before {
+    content: "";
+    position: absolute; left: 15%; right: 15%; bottom: 6%;
+    height: 10px; border-radius: 50%;
+    background: radial-gradient(ellipse at center, rgba(139,92,246,0.22), transparent 70%);
+    filter: blur(2px);
+  }
+  .chibi-img {
+    width: 84%; height: 84%;
+    object-fit: contain;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.12));
+    animation: float 6s ease-in-out infinite;
+    position: relative; z-index: 1;
+  }
+  .tile:nth-child(odd) .chibi-img { animation-delay: -2s; }
+  .tile:nth-child(3n) .chibi-img { animation-delay: -4s; }
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50%      { transform: translateY(-6px); }
+  }
+  .chibi-fallback {
+    width: 72%; height: 72%;
+    display: flex; align-items: center; justify-content: center;
+    border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.12), rgba(255,255,255,0.03));
+    border: 1px solid var(--border);
+    font-family: "Playfair Display", serif;
+    font-size: 42px; font-weight: 700;
+    color: rgba(255,255,255,0.55);
+  }
+
+  .tile-label {
+    font-family: "Playfair Display", serif;
+    font-style: italic;
+    font-size: 14px;
+    color: var(--text-primary);
+    opacity: 0.92;
+    margin-top: auto;
+  }
+  .tile-nick {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-top: 2px;
+    letter-spacing: 0.02em;
+  }
+
+  /* ===== Detail panel (in-place expansion) ===== */
+  .detail {
+    margin-top: 20px;
+    border-radius: var(--radius-lg);
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    padding: 24px 22px 22px;
+    position: relative;
+    overflow: hidden;
+    animation: page-in 0.35s var(--ease);
+  }
+  .detail::before {
+    content: ""; position: absolute; inset: 0; pointer-events: none;
+    background:
+      repeating-linear-gradient(45deg, rgba(139,92,246,0.04) 0 1px, transparent 1px 12px),
+      repeating-linear-gradient(-45deg, rgba(139,92,246,0.04) 0 1px, transparent 1px 12px);
+    border-radius: inherit;
+  }
+  @keyframes page-in {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .detail-top {
+    display: flex; align-items: center; gap: 14px; margin-bottom: 14px;
+    position: relative; z-index: 1;
+  }
+  .detail-chibi {
+    width: 84px; height: 84px; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    background: radial-gradient(ellipse at 50% 45%, rgba(255,255,255,0.96) 0%, rgba(248,245,255,0.92) 55%, rgba(232,226,248,0.88) 100%);
+    border-radius: 14px;
+    border: 1px solid rgba(255,255,255,0.18);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.6), 0 2px 10px rgba(0,0,0,0.25);
+    overflow: hidden;
+  }
+  .detail-chibi img { width: 88%; height: 88%; object-fit: contain; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.12)); }
+  .detail-head h3 { font-size: 22px; line-height: 1.2; }
+  .detail-head .detail-sub {
+    font-size: 12px; color: var(--text-muted);
+    letter-spacing: 0.08em; text-transform: uppercase; font-weight: 600;
+    margin-top: 4px;
+  }
+  .close-x {
+    margin-left: auto; width: 34px; height: 34px; border-radius: 999px;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--text-secondary); font-size: 18px;
+    transition: background 0.2s, color 0.2s;
+  }
+  .close-x:hover { background: rgba(255,255,255,0.06); color: var(--text-primary); }
+  .close-x:active { transform: scale(0.92); }
+
+  .meta-grid {
+    display: grid; grid-template-columns: 1fr; gap: 12px;
+    margin: 14px 0 18px;
+    position: relative; z-index: 1;
+  }
+  @media (min-width: 560px) { .meta-grid { grid-template-columns: 1fr 1fr; gap: 12px; } }
+  .meta {
+    padding: 12px 14px;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+  }
+  .meta .k {
+    font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--accent-soft); font-weight: 700; margin-bottom: 6px;
+  }
+  .meta .v { font-size: 14px; color: var(--text-primary); opacity: 0.88; line-height: 1.5; }
+
+  /* ===== Audit questions ===== */
+  .audit-hd {
+    margin-top: 6px; margin-bottom: 10px;
+    display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap;
+    position: relative; z-index: 1;
+  }
+  .audit-hd h4 { font-size: 16px; }
+  .audit-hd .progress {
+    font-size: 12px; color: var(--text-muted); letter-spacing: 0.06em;
+  }
+
+  .q-card {
+    position: relative; z-index: 1;
+    margin-bottom: 10px;
+    padding: 14px 14px 12px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+  }
+  .q-text {
+    font-size: 14.5px; line-height: 1.55; color: var(--text-primary);
+    margin-bottom: 12px;
+  }
+  .q-text .q-idx { color: var(--accent-soft); font-weight: 700; margin-right: 6px; }
+
+  .q-opts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
+  .opt {
+    padding: 9px 6px;
+    font-size: 13px; font-weight: 600;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    color: var(--text-secondary);
+    transition: all 0.15s var(--ease);
+  }
+  .opt:hover { background: rgba(255,255,255,0.07); color: var(--text-primary); }
+  .opt:active { transform: scale(0.96); }
+  .opt.sel {
+    background: rgba(139, 92, 246, 0.22);
+    border-color: var(--accent);
+    color: #ffffff;
+    box-shadow: 0 0 0 1px var(--accent);
+  }
+
+  /* ===== Result ===== */
+  .result {
+    margin-top: 18px;
+    padding: 24px 22px;
+    border-radius: var(--radius-lg);
+    background: linear-gradient(180deg, rgba(139,92,246,0.14), rgba(139,92,246,0.04));
+    border: 1px solid rgba(139, 92, 246, 0.32);
+    box-shadow: 0 20px 60px rgba(139, 92, 246, 0.18);
+    position: relative; z-index: 1;
+    animation: page-in 0.45s var(--ease);
+  }
+  .gauge {
+    display: flex; align-items: center; gap: 18px; margin-bottom: 16px;
+  }
+  .gauge-ring {
+    position: relative;
+    width: 96px; height: 96px; flex-shrink: 0;
+  }
+  .gauge-ring svg { width: 100%; height: 100%; transform: rotate(-90deg); }
+  .gauge-ring .score {
+    position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+    font-family: "Playfair Display", serif;
+    font-weight: 700; font-size: 28px; color: #fff;
+  }
+  .gauge-label .tier {
+    font-family: "Playfair Display", serif; font-size: 20px; font-weight: 600;
+    color: rgba(255,255,255,0.96); line-height: 1.2;
+  }
+  .gauge-label .pts {
+    font-size: 12px; color: var(--text-muted); margin-top: 4px;
+    letter-spacing: 0.08em; text-transform: uppercase; font-weight: 600;
+  }
+  .result-body { font-size: 15px; color: var(--text-primary); line-height: 1.65; opacity: 0.92; }
+  .result-body p + p { margin-top: 10px; }
+
+  /* ===== CTA card ===== */
+  .cta-card {
+    margin-top: 20px;
+    padding: 20px 18px;
+    border-radius: var(--radius-lg);
+    background:
+      linear-gradient(135deg, rgba(139,92,246,0.18), rgba(129,140,248,0.12));
+    border: 1px solid rgba(139, 92, 246, 0.35);
+    display: flex; gap: 14px; align-items: center;
+    flex-wrap: wrap;
+  }
+  .token-chip {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 7px 12px; border-radius: 999px;
+    background: rgba(245,158,11,0.15);
+    border: 1px solid rgba(245,158,11,0.35);
+    color: var(--token);
+    font-weight: 700; font-size: 14px;
+    box-shadow: 0 0 16px rgba(245,158,11,0.22);
+  }
+  .token-chip .plus {
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-weight: 800; color: var(--token);
+  }
+  .cta-copy { flex: 1 1 260px; min-width: 220px; }
+  .cta-copy strong { color: var(--text-primary); font-weight: 600; }
+  .cta-copy p { font-size: 14px; color: var(--text-secondary); line-height: 1.55; }
+
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+    padding: 12px 20px;
+    font-size: 14px; font-weight: 600;
+    border-radius: 12px;
+    transition: transform 0.15s var(--ease), box-shadow 0.15s var(--ease), filter 0.15s;
+    text-decoration: none;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: rgba(139, 92, 246, 0.15);
+  }
+  .btn-primary {
+    background: linear-gradient(135deg, #8b5cf6, #6366f1);
+    color: #fff;
+    box-shadow: 0 8px 24px rgba(139, 92, 246, 0.4);
+  }
+  .btn-primary:hover { filter: brightness(1.06); box-shadow: 0 12px 32px rgba(139, 92, 246, 0.5); }
+  .btn-primary:active { transform: scale(0.97); }
+
+  .btn-ghost {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid var(--border);
+    color: var(--text-primary);
+  }
+  .btn-ghost:hover { background: rgba(255,255,255,0.08); }
+  .btn-ghost:active { transform: scale(0.97); }
+
+  /* ===== Footer ===== */
+  footer {
+    margin-top: 56px; padding-top: 24px;
+    border-top: 1px solid var(--border);
+    font-size: 13px; color: var(--text-muted);
+    text-align: center; line-height: 1.6;
+  }
+  footer a { color: var(--accent-soft); text-decoration: none; }
+  footer a:hover { color: #fff; }
+
+  /* ===== Focus rings ===== */
+  *:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 6px; }
+
+  /* ===== Utility ===== */
+  .hidden { display: none !important; }
+</style>
+</head>
+<body>
+
+<div class="bg-dots" aria-hidden="true"></div>
+<div class="aurora aurora-1" aria-hidden="true"></div>
+<div class="aurora aurora-2" aria-hidden="true"></div>
+
+<main class="shell">
+
+  <!-- Landing -->
+  <section class="hero">
+    <span class="eyebrow"><span class="dot"></span>Self-Knowledge Audit</span>
+    <h1 class="headline">
+      <span class="shimmer-text">you know your type.</span><br/>
+      but do you understand yourself?
+    </h1>
+    <p class="sub">
+      Knowing you're a Four is not the same as understanding what your Fourness avoids. Each of the nine types is a strategy for not feeling something specific. Pick yours. Answer three questions. See the gap.
+    </p>
+  </section>
+
+  <!-- Type grid -->
+  <section>
+    <div class="section-hd">
+      <h2>The 9 avoidance strategies</h2>
+      <span class="hint">Tap a type to begin</span>
+    </div>
+    <div class="type-grid" id="grid" role="list"></div>
+  </section>
+
+  <!-- Detail panel (injected) -->
+  <section id="detail-anchor"></section>
+
+  <footer>
+    Not affiliated with any certifying body. Frameworks: Ichazo, Naranjo, Riso &amp; Hudson, Chestnut.<br/>
+    A project by <a href="https://thyself.netlify.app" target="_blank" rel="noopener">Thyself</a>.
+  </footer>
+</main>
+
+<script>
+/* ───────── Type data ───────── */
+const TYPE_COLORS = {
+  1: "#B85C38", 2: "#C4607A", 3: "#C9921A",
+  4: "#7B5AAD", 5: "#2980B9", 6: "#27AE60",
+  7: "#1ABC9C", 8: "#9B2C2C", 9: "#8B7355",
+};
+
+const CHIBI_BASE = "/sprites/chibi";
+
+const TYPES = [
+  {
+    n: 1, label: "the critic", nick: "The Perfectionist",
+    avoidance: "Avoids inner badness by perfecting everything outside.",
+    wound: "A conviction that something is fundamentally wrong with them.",
+    cost: "Exhausting themselves holding everything to a standard that can never be met because the real target is themselves.",
+    qs: [
+      "Can you name the last time you let something be imperfect on purpose?",
+      "Do you know the difference between your values and your inner critic's voice?",
+      "Can you describe what your anger actually feels like before it becomes resentment?",
+    ],
+  },
+  {
+    n: 2, label: "the helper", nick: "The Giver",
+    avoidance: "Avoids feeling unlovable by making themselves indispensable.",
+    wound: "Belief they have no intrinsic worth, only instrumental worth.",
+    cost: "Giving strategically without knowing it and feeling betrayed when love isn't returned.",
+    qs: [
+      "Can you name what you actually need from the people you help?",
+      "Do you know when your generosity is genuine versus a bid for validation?",
+      "Can you identify the moment you start keeping score?",
+    ],
+  },
+  {
+    n: 3, label: "the achiever", nick: "The Performer",
+    avoidance: "Avoids failure by replacing their inner self with their image.",
+    wound: "Terror that without performance they are nothing.",
+    cost: "Moving so fast toward the next goal they never ask if it means something.",
+    qs: [
+      "Can you describe who you are when no one is watching?",
+      "Do you know what you actually feel versus what you think you should feel?",
+      "Can you name a goal you're pursuing for yourself rather than for how it looks?",
+    ],
+  },
+  {
+    n: 4, label: "the individualist", nick: "The Romantic",
+    avoidance: "Avoids being ordinary by amplifying what's missing.",
+    wound: "Sense of permanent deficiency.",
+    cost: "Romanticizing longing so fulfillment always feels just out of reach.",
+    qs: [
+      "Can you sit with something good without immediately sensing it slipping away?",
+      "Do you know the difference between genuine depth and dramatized pain?",
+      "Can you name one way you've used your identity to avoid action?",
+    ],
+  },
+  {
+    n: 5, label: "the observer", nick: "The Investigator",
+    avoidance: "Avoids depletion by withdrawing from the world entirely.",
+    wound: "Conviction the world will consume them and they have too little to give.",
+    cost: "Mistaking understanding for living.",
+    qs: [
+      "Can you name what you actually feel in real time, not after processing it alone?",
+      "Do you know which of your boundaries protect you versus isolate you?",
+      "Can you identify a relationship you've kept at arm's length to feel safe?",
+    ],
+  },
+  {
+    n: 6, label: "the loyalist", nick: "The Sceptic",
+    avoidance: "Avoids betrayal by doubting everything including themselves.",
+    wound: "Belief the world is unsafe and reliable support doesn't exist.",
+    cost: "So prepared for things to go wrong they sometimes create the threat.",
+    qs: [
+      "Can you tell the difference between intuition and anxiety?",
+      "Do you know when you're testing people versus trusting them?",
+      "Can you name a time doubt protected you versus when it was the obstacle?",
+    ],
+  },
+  {
+    n: 7, label: "the enthusiast", nick: "The Epicure",
+    avoidance: "Avoids pain by staying permanently in motion.",
+    wound: "Terror of being trapped in deprivation or suffering.",
+    cost: "Reframing everything before processing it so the original feeling never resolves.",
+    qs: [
+      "Can you sit with something painful without immediately reframing it?",
+      "Do you know which of your plans are genuine versus escape routes?",
+      "Can you name something you've been avoiding by staying busy?",
+    ],
+  },
+  {
+    n: 8, label: "the challenger", nick: "The Protector",
+    avoidance: "Avoids vulnerability by becoming impossible to hurt.",
+    wound: "Belief that softness means betrayal or control.",
+    cost: "Pushing people away before they can leave and calling it strength.",
+    qs: [
+      "Can you name something that genuinely hurt you without framing it as someone else's weakness?",
+      "Do you know where your intensity ends and your fear of intimacy begins?",
+      "Can you identify who you've protected by making yourself hard to reach?",
+    ],
+  },
+  {
+    n: 9, label: "the peacemaker", nick: "The Mediator",
+    avoidance: "Avoids conflict by disappearing into the background.",
+    wound: "Belief their presence and desires are too disruptive to matter.",
+    cost: "Accommodating everyone so thoroughly they lose their own wants.",
+    qs: [
+      "Can you name three things you want that aren't shaped by what someone else needs?",
+      "Do you know the difference between genuine acceptance and checked-out numbness?",
+      "Can you identify the last time you said no and actually meant it?",
+    ],
+  },
+];
+
+const OPT_VALUES = { yes: 33, kindof: 17, no: 0 };
+const OPT_LABELS = { yes: "yes", kindof: "kind of", no: "no" };
+
+/* Tier descriptions — same CTA paragraph across all three */
+const CTA_PARAGRAPH = "Thyself is a self-knowledge app built on the same frameworks that made you curious enough to take this quiz — Ichazo, Naranjo, Riso & Hudson — but designed to move you past the label and into the actual work. Claim 100 free tokens and start your type's first lesson today.";
+
+function tierFor(score) {
+  if (score >= 66) {
+    return {
+      title: "you have a foundation",
+      body: "Awareness exists. You can name the pattern when you see it in yourself, which most people can't. But naming a defense isn't the same as feeling its cost in real time, and the frameworks you've skimmed go deeper than you've gone. The next layer is where integration actually happens."
+    };
+  }
+  if (score >= 33) {
+    return {
+      title: "you're at the surface",
+      body: "You've recognised yourself in the type description. That's a beginning, not an arrival. What's missing is the root — the specific fear underneath the pattern, the early strategy it used to solve for, the cost it still charges you daily. Recognition without understanding is a mirror; understanding is a door."
+    };
+  }
+  return {
+    title: "the gap is real",
+    body: "Knowing the label and understanding the wound are different things. You have the vocabulary. What you don't yet have is the felt sense of how this strategy operates in your life, moment to moment, without your permission. That gap is closable. It just takes the right structure."
+  };
+}
+
+/* ───────── State ───────── */
+const answers = {};          // { "<type>-<qIdx>": "yes" | "kindof" | "no" }
+let selectedType = null;
+
+/* ───────── Render: grid ───────── */
+const grid = document.getElementById("grid");
+grid.innerHTML = TYPES.map(t => {
+  const color = TYPE_COLORS[t.n];
+  const src = `${CHIBI_BASE}/${t.n}-sp${t.n}.png`;
+  const complete = isComplete(t.n) ? "is-complete" : "";
+  return `
+    <button class="tile ${complete}" role="listitem" data-type="${t.n}" aria-label="Type ${t.n}, ${t.label}">
+      <div class="tile-top">
+        <span class="tile-num"><span class="sm">Type</span> ${t.n}</span>
+        <span class="tile-color" style="color:${color}; background:${color}"></span>
+      </div>
+      <div class="chibi-wrap">
+        <img class="chibi-img" src="${src}" alt="Type ${t.n} chibi"
+             onerror="this.outerHTML='<div class=&quot;chibi-fallback&quot;>${t.n}</div>'"/>
+      </div>
+      <div class="tile-label">${t.label}</div>
+      <div class="tile-nick">${t.nick}</div>
+    </button>
+  `;
+}).join("");
+
+grid.addEventListener("click", (e) => {
+  const btn = e.target.closest(".tile");
+  if (!btn) return;
+  const n = parseInt(btn.dataset.type, 10);
+  selectType(n);
+});
+
+function selectType(n) {
+  selectedType = n;
+  [...grid.children].forEach(c => {
+    c.classList.toggle("is-selected", parseInt(c.dataset.type, 10) === n);
+  });
+  renderDetail();
+  // Smooth scroll to detail
+  requestAnimationFrame(() => {
+    const el = document.getElementById("detail-anchor");
+    const top = el.getBoundingClientRect().top + window.scrollY - 12;
+    window.scrollTo({ top, behavior: "smooth" });
+  });
+}
+
+/* ───────── Render: detail + audit + result ───────── */
+const anchor = document.getElementById("detail-anchor");
+
+function renderDetail() {
+  if (selectedType == null) { anchor.innerHTML = ""; return; }
+  const t = TYPES.find(x => x.n === selectedType);
+  const src = `${CHIBI_BASE}/${t.n}-sp${t.n}.png`;
+  const color = TYPE_COLORS[t.n];
+
+  const done = isComplete(t.n);
+  const score = done ? computeScore(t.n) : null;
+
+  anchor.innerHTML = `
+    <div class="detail" aria-live="polite">
+      <div class="detail-top">
+        <div class="detail-chibi" style="border-color: ${hexA(color, 0.45)}; box-shadow: inset 0 1px 0 rgba(255,255,255,0.6), 0 0 0 2px ${hexA(color, 0.25)}, 0 2px 10px rgba(0,0,0,0.25);">
+          <img src="${src}" alt="Type ${t.n} chibi"
+               onerror="this.outerHTML='<div class=&quot;chibi-fallback&quot; style=&quot;font-size:32px&quot;>${t.n}</div>'"/>
+        </div>
+        <div class="detail-head">
+          <h3>${t.label}</h3>
+          <div class="detail-sub">Type ${t.n} · ${t.nick} · ${t.avoidance}</div>
+        </div>
+        <button class="close-x" aria-label="Close detail" data-close>×</button>
+      </div>
+
+      <div class="meta-grid">
+        <div class="meta">
+          <div class="k">The wound</div>
+          <div class="v">${t.wound}</div>
+        </div>
+        <div class="meta">
+          <div class="k">What it costs</div>
+          <div class="v">${t.cost}</div>
+        </div>
+      </div>
+
+      <div class="audit-hd">
+        <h4>Three-question audit</h4>
+        <span class="progress" id="prog">${answeredCount(t.n)} of 3 answered</span>
+      </div>
+
+      ${t.qs.map((q, i) => renderQ(t.n, i, q)).join("")}
+
+      <div id="result-mount">${done ? renderResult(t.n, score) : ""}</div>
+    </div>
+  `;
+
+  anchor.querySelector("[data-close]").addEventListener("click", () => {
+    selectedType = null;
+    [...grid.children].forEach(c => c.classList.remove("is-selected"));
+    anchor.innerHTML = "";
+  });
+
+  anchor.querySelectorAll(".opt").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const type = parseInt(btn.dataset.type, 10);
+      const qi = parseInt(btn.dataset.q, 10);
+      const val = btn.dataset.val;
+      answers[`${type}-${qi}`] = val;
+      renderDetail(); // simple re-render
+      // re-mark grid tile complete state
+      const tile = [...grid.children].find(c => parseInt(c.dataset.type, 10) === type);
+      if (tile) tile.classList.toggle("is-complete", isComplete(type));
+    });
+  });
+}
+
+function renderQ(type, i, text) {
+  const sel = answers[`${type}-${i}`];
+  const opt = (val) => `
+    <button class="opt ${sel === val ? "sel" : ""}" data-type="${type}" data-q="${i}" data-val="${val}">
+      ${OPT_LABELS[val]}
+    </button>`;
+  return `
+    <div class="q-card">
+      <div class="q-text"><span class="q-idx">${i + 1}.</span>${text}</div>
+      <div class="q-opts">
+        ${opt("yes")}${opt("kindof")}${opt("no")}
+      </div>
+    </div>
+  `;
+}
+
+function renderResult(type, score) {
+  const tier = tierFor(score);
+  // Ring math: circumference = 2*π*r; r=42 → ~264
+  const r = 42;
+  const c = 2 * Math.PI * r;
+  const pct = score / 99;
+  const dash = (c * pct).toFixed(1);
+  return `
+    <div class="result" role="region" aria-label="Your self-knowledge gap score">
+      <div class="gauge">
+        <div class="gauge-ring" aria-hidden="true">
+          <svg viewBox="0 0 100 100">
+            <circle cx="50" cy="50" r="${r}" fill="none" stroke="rgba(255,255,255,0.09)" stroke-width="8"/>
+            <circle cx="50" cy="50" r="${r}" fill="none" stroke="url(#g)" stroke-width="8" stroke-linecap="round"
+                    stroke-dasharray="${dash} ${c}" />
+            <defs>
+              <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#a78bfa"/>
+                <stop offset="100%" stop-color="#6366f1"/>
+              </linearGradient>
+            </defs>
+          </svg>
+          <div class="score">${score}<span style="font-size:14px;opacity:0.55;margin-left:2px">/99</span></div>
+        </div>
+        <div class="gauge-label">
+          <div class="tier">${tier.title}</div>
+          <div class="pts">Self-knowledge gap · ${Math.round((1 - pct) * 100)}%</div>
+        </div>
+      </div>
+      <div class="result-body">
+        <p>${tier.body}</p>
+        <p>${CTA_PARAGRAPH}</p>
+      </div>
+
+      <div class="cta-card">
+        <div class="token-chip"><span class="plus">(+)</span> 100 free tokens</div>
+        <div class="cta-copy">
+          <p><strong>Ready to close the gap?</strong> Open Thyself and start your Type ${type} lessons.</p>
+        </div>
+        <a class="btn btn-primary" href="https://thyself.netlify.app?utm_source=advocacy&utm_medium=infographic&utm_campaign=self_knowledge_audit&type=${type}" target="_blank" rel="noopener">
+          Open Thyself →
+        </a>
+      </div>
+
+      <div style="margin-top: 14px; display:flex; gap:10px; flex-wrap: wrap;">
+        <button class="btn btn-ghost" data-reset="${type}">Retake this audit</button>
+        <button class="btn btn-ghost" data-try-another>Try another type</button>
+      </div>
+    </div>
+  `;
+}
+
+/* Delegated clicks for result buttons */
+anchor.addEventListener("click", (e) => {
+  const reset = e.target.closest("[data-reset]");
+  if (reset) {
+    const t = parseInt(reset.dataset.reset, 10);
+    [0,1,2].forEach(i => delete answers[`${t}-${i}`]);
+    renderDetail();
+    const tile = [...grid.children].find(c => parseInt(c.dataset.type, 10) === t);
+    if (tile) tile.classList.remove("is-complete");
+    return;
+  }
+  if (e.target.closest("[data-try-another]")) {
+    selectedType = null;
+    [...grid.children].forEach(c => c.classList.remove("is-selected"));
+    anchor.innerHTML = "";
+    document.querySelector(".type-grid").scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+});
+
+/* ───────── Helpers ───────── */
+function answeredCount(type) {
+  return [0,1,2].reduce((acc, i) => acc + (answers[`${type}-${i}`] != null ? 1 : 0), 0);
+}
+function isComplete(type) { return answeredCount(type) === 3; }
+function computeScore(type) {
+  return [0,1,2].reduce((acc, i) => acc + (OPT_VALUES[answers[`${type}-${i}`]] || 0), 0);
+}
+function hexA(hex, a) {
+  const n = hex.replace("#","");
+  const r = parseInt(n.slice(0,2),16), g = parseInt(n.slice(2,4),16), b = parseInt(n.slice(4,6),16);
+  return `rgba(${r},${g},${b},${a})`;
+}
+</script>
+</body>
+</html>

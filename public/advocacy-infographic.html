@@ -1,0 +1,1349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>do you want to know yourself? — Thyself</title>
+<meta name="description" content="A short interactive introduction to the Enneagram. Find your core type and subtype through 27 short questions. Designed as a self-knowledge tool, not a clinical assessment." />
+<meta property="og:title" content="do you want to know yourself?" />
+<meta property="og:description" content="Find your Enneagram core type and subtype in under three minutes. An interactive introduction." />
+<meta name="theme-color" content="#0f0a1e" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet" />
+
+<style>
+  /* ===== Design Tokens (Thyself globals.css) ===== */
+  :root {
+    --bg:            #0f0a1e;
+    --bg-card:       rgba(255, 255, 255, 0.05);
+    --bg-card-hover: rgba(255, 255, 255, 0.08);
+    --border:        rgba(255, 255, 255, 0.09);
+    --border-strong: rgba(255, 255, 255, 0.14);
+    --text-primary:  rgba(255, 255, 255, 0.93);
+    --text-secondary:rgba(255, 255, 255, 0.58);
+    --text-muted:    rgba(255, 255, 255, 0.32);
+    --accent:        #8b5cf6;
+    --accent-soft:   #a78bfa;
+    --accent-glow:   rgba(139, 92, 246, 0.35);
+    --token:         #fbbf24;
+    --radius-card:   16px;
+    --radius-lg:     20px;
+    --ease:          cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { overflow-x: hidden; -webkit-overflow-scrolling: touch; }
+  img { display: block; max-width: 100%; }
+  button { font-family: inherit; cursor: pointer; background: none; border: none; color: inherit; }
+  html { scroll-behavior: smooth; }
+  body {
+    min-height: 100vh;
+    background-color: var(--bg);
+    color: var(--text-primary);
+    font-family: "Inter", ui-sans-serif, system-ui, sans-serif;
+    font-size: 16px; line-height: 1.55;
+    -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
+    position: relative;
+  }
+
+  /* ===== Cosmic backdrop ===== */
+  .bg-dots {
+    position: fixed; inset: 0; pointer-events: none; z-index: 0;
+    background-image: radial-gradient(circle, rgba(139,92,246,0.12) 1px, transparent 1px);
+    background-size: 22px 22px;
+  }
+  .aurora {
+    position: fixed; pointer-events: none; z-index: 0;
+    width: 520px; height: 520px; border-radius: 50%;
+    filter: blur(120px); opacity: 0.55;
+    animation: drift 34s ease-in-out infinite alternate;
+  }
+  .aurora-1 { top: -180px; left: -160px; background: radial-gradient(circle, rgba(139,92,246,0.55), transparent 60%); }
+  .aurora-2 { bottom: -200px; right: -180px; background: radial-gradient(circle, rgba(129,140,248,0.45), transparent 60%); animation-delay: -12s; }
+  @keyframes drift {
+    0%   { transform: translate(0, 0) scale(1); }
+    100% { transform: translate(40px, -30px) scale(1.08); }
+  }
+  body::after {
+    content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 9998;
+    opacity: 0.032;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 600'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-repeat: repeat; background-size: 220px;
+  }
+
+  /* ===== Layout ===== */
+  .shell {
+    position: relative; z-index: 1;
+    max-width: 820px; margin: 0 auto;
+    padding: 64px 20px 96px;
+  }
+  @media (max-width: 640px) { .shell { padding: 48px 16px 80px; } }
+
+  h1, h2, h3, h4 {
+    font-family: "Playfair Display", ui-serif, Georgia, serif;
+    color: rgba(255, 255, 255, 0.95);
+    font-weight: 600; letter-spacing: -0.01em;
+  }
+
+  .eyebrow {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: 11px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--accent-soft);
+    padding: 6px 12px;
+    background: rgba(139, 92, 246, 0.1);
+    border: 1px solid rgba(139, 92, 246, 0.22);
+    border-radius: 999px;
+  }
+  .eyebrow .dot {
+    width: 5px; height: 5px; border-radius: 999px; background: var(--accent);
+    box-shadow: 0 0 8px var(--accent-glow);
+  }
+
+  .headline {
+    margin-top: 20px;
+    font-size: clamp(32px, 6vw, 52px);
+    line-height: 1.08; max-width: 780px;
+  }
+  .sub {
+    margin-top: 20px;
+    font-size: 17px; color: var(--text-secondary);
+    max-width: 620px; line-height: 1.6;
+  }
+
+  .shimmer-text {
+    background: linear-gradient(110deg, #c4b5fd 30%, #ffffff 48%, #a78bfa 55%, #818cf8 70%);
+    background-size: 250% 100%;
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: shimmer-sweep 4s ease-in-out infinite;
+  }
+  @keyframes shimmer-sweep {
+    0%   { background-position: 200% center; }
+    100% { background-position: -200% center; }
+  }
+
+  /* ===== Buttons ===== */
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+    padding: 14px 22px;
+    font-size: 15px; font-weight: 600;
+    border-radius: 14px;
+    transition: transform 0.15s var(--ease), box-shadow 0.15s var(--ease), filter 0.15s, background 0.15s;
+    text-decoration: none;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: rgba(139, 92, 246, 0.15);
+  }
+  .btn-primary {
+    background: linear-gradient(135deg, #8b5cf6, #6366f1);
+    color: #fff;
+    box-shadow: 0 8px 24px rgba(139, 92, 246, 0.38);
+  }
+  .btn-primary:hover { filter: brightness(1.06); box-shadow: 0 12px 32px rgba(139, 92, 246, 0.5); }
+  .btn-primary:active { transform: scale(0.97); }
+  .btn-ghost {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid var(--border);
+    color: var(--text-primary);
+  }
+  .btn-ghost:hover { background: rgba(255,255,255,0.08); }
+  .btn-ghost:active { transform: scale(0.97); }
+  .btn-link {
+    color: var(--accent-soft); background: none; padding: 6px 10px;
+    font-size: 14px; font-weight: 500;
+  }
+  .btn-link:hover { color: #fff; text-decoration: underline; }
+
+  .cta-row { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 32px; }
+
+  /* ===== Screen fade ===== */
+  .screen { animation: page-in 0.45s var(--ease); }
+  @keyframes page-in {
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ===== Type Grid (preview + results) ===== */
+  .type-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 14px;
+    margin-top: 28px;
+  }
+  @media (max-width: 480px) { .type-grid { gap: 10px; } }
+
+  .tile {
+    position: relative;
+    display: flex; flex-direction: column; align-items: stretch;
+    padding: 14px 12px 12px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-card);
+    text-align: left; overflow: hidden;
+    transition: transform 0.2s var(--ease), background 0.2s var(--ease), border-color 0.2s var(--ease), box-shadow 0.3s var(--ease);
+    min-height: 168px;
+    touch-action: manipulation;
+  }
+  .tile:hover {
+    background: var(--bg-card-hover);
+    border-color: rgba(139, 92, 246, 0.35);
+    transform: translateY(-2px);
+    box-shadow: 0 16px 40px rgba(139, 92, 246, 0.18);
+  }
+  .tile:active { transform: scale(0.97); }
+
+  .tile-top { display: flex; align-items: center; justify-content: space-between; }
+  .tile-num {
+    font-family: "Playfair Display", serif;
+    font-size: 20px; font-weight: 700;
+    color: var(--text-primary); opacity: 0.95;
+  }
+  .tile-num .sm { font-size: 10px; color: var(--text-muted); letter-spacing: 0.12em; text-transform: uppercase; font-family: "Inter"; font-weight: 600; }
+  .tile-color { width: 10px; height: 10px; border-radius: 999px; box-shadow: 0 0 8px currentColor; }
+
+  .chibi-wrap {
+    width: 100%; aspect-ratio: 1 / 1;
+    margin: 6px 0 6px;
+    position: relative;
+    background: transparent; overflow: visible;
+  }
+  .chibi-wrap::before {
+    content: ""; position: absolute; left: 18%; right: 18%; bottom: 4%;
+    height: 10px; border-radius: 50%;
+    background: radial-gradient(ellipse at center, rgba(139,92,246,0.32), transparent 70%);
+    filter: blur(3px); z-index: 0;
+  }
+  .chibi-img {
+    position: absolute; inset: 0;
+    width: 88%; height: 88%; margin: auto;
+    object-fit: contain;
+    filter: drop-shadow(0 3px 10px rgba(0,0,0,0.45));
+    animation: float 6s ease-in-out infinite;
+    z-index: 1;
+  }
+  .tile:nth-child(odd) .chibi-img { animation-delay: -2s; }
+  .tile:nth-child(3n) .chibi-img { animation-delay: -4s; }
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50%      { transform: translateY(-6px); }
+  }
+
+  .tile-label {
+    font-family: "Playfair Display", serif;
+    font-style: italic;
+    font-size: 13px; color: var(--text-primary);
+    opacity: 0.92; margin-top: auto;
+  }
+  .tile-nick { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
+
+  /* ===== Quiz screen ===== */
+  .quiz-card {
+    margin-top: 28px;
+    padding: 28px 22px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    min-height: 340px;
+    display: flex; flex-direction: column;
+    animation: page-in 0.35s var(--ease);
+  }
+
+  .progress-shell {
+    margin-top: 16px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .progress-track {
+    flex: 1; height: 6px; border-radius: 999px;
+    background: rgba(255,255,255,0.08);
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%; border-radius: inherit;
+    background: linear-gradient(90deg, #a78bfa, #6366f1);
+    transition: width 0.4s var(--ease);
+  }
+  .progress-label {
+    font-size: 12px; color: var(--text-muted);
+    letter-spacing: 0.08em; font-weight: 600; white-space: nowrap;
+  }
+
+  .q-prompt {
+    margin-top: 22px;
+    font-size: 20px; line-height: 1.45;
+    font-family: "Playfair Display", serif;
+    font-weight: 500;
+    color: var(--text-primary);
+  }
+  @media (min-width: 640px) { .q-prompt { font-size: 22px; } }
+
+  .q-scale {
+    margin-top: 22px;
+    display: grid; grid-template-columns: 1fr; gap: 8px;
+  }
+  .scale-opt {
+    display: flex; align-items: center; gap: 12px;
+    padding: 12px 14px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    color: var(--text-secondary);
+    transition: all 0.15s var(--ease);
+    text-align: left;
+    width: 100%;
+  }
+  .scale-opt:hover { background: rgba(255,255,255,0.07); color: var(--text-primary); border-color: rgba(139,92,246,0.3); }
+  .scale-opt:active { transform: scale(0.98); }
+  .scale-opt.sel {
+    background: rgba(139,92,246,0.2);
+    border-color: var(--accent);
+    color: #fff;
+    box-shadow: 0 0 0 1px var(--accent);
+  }
+  .scale-dot {
+    width: 22px; height: 22px; border-radius: 999px;
+    border: 2px solid currentColor;
+    flex-shrink: 0; position: relative;
+  }
+  .scale-opt.sel .scale-dot::after {
+    content: ""; position: absolute; inset: 3px;
+    border-radius: 999px; background: currentColor;
+  }
+  .scale-label { font-size: 14px; font-weight: 500; }
+  .scale-hint { font-size: 12px; color: var(--text-muted); margin-left: auto; }
+  .scale-opt.sel .scale-hint { color: rgba(255,255,255,0.7); }
+
+  .quiz-foot {
+    margin-top: auto; padding-top: 20px;
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 13px; color: var(--text-muted);
+  }
+
+  /* ===== Result screen ===== */
+  .result-hero {
+    margin-top: 24px;
+    padding: 28px 22px;
+    background: linear-gradient(180deg, rgba(139,92,246,0.12), rgba(139,92,246,0.02));
+    border: 1px solid rgba(139, 92, 246, 0.32);
+    border-radius: var(--radius-lg);
+    box-shadow: 0 20px 60px rgba(139, 92, 246, 0.18);
+    display: flex; gap: 18px; align-items: center;
+    flex-wrap: wrap;
+  }
+  .result-chibi {
+    width: 140px; height: 140px; flex-shrink: 0;
+    position: relative;
+    background: transparent;
+  }
+  .result-chibi::before {
+    content: ""; position: absolute; left: 20%; right: 20%; bottom: 2%;
+    height: 14px; border-radius: 50%;
+    background: radial-gradient(ellipse at center, rgba(139,92,246,0.4), transparent 70%);
+    filter: blur(4px);
+  }
+  .result-chibi img {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    object-fit: contain;
+    filter: drop-shadow(0 4px 14px rgba(0,0,0,0.5));
+    animation: float 6s ease-in-out infinite;
+  }
+  .result-head { flex: 1; min-width: 240px; }
+  .result-head .kicker {
+    font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--accent-soft); font-weight: 700;
+  }
+  .result-head h2 { font-size: 30px; margin-top: 6px; line-height: 1.15; }
+  .result-head .nickname { font-size: 14px; color: var(--text-muted); margin-top: 4px; }
+  .result-head .avoidance {
+    margin-top: 12px;
+    font-size: 15px; color: var(--text-primary); opacity: 0.88;
+    line-height: 1.5;
+    font-family: "Playfair Display", serif;
+    font-style: italic;
+  }
+
+  .meta-grid {
+    display: grid; grid-template-columns: 1fr; gap: 12px;
+    margin-top: 18px;
+  }
+  @media (min-width: 560px) { .meta-grid { grid-template-columns: 1fr 1fr; } }
+  .meta {
+    padding: 14px 16px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+  }
+  .meta .k {
+    font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--accent-soft); font-weight: 700; margin-bottom: 6px;
+  }
+  .meta .v { font-size: 14px; color: var(--text-primary); opacity: 0.9; line-height: 1.55; }
+
+  /* Top-3 confidence chart */
+  .chart {
+    margin-top: 22px;
+    padding: 18px 18px 14px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-card);
+  }
+  .chart h4 { font-size: 15px; margin-bottom: 10px; }
+  .chart-note { font-size: 12px; color: var(--text-muted); margin-top: 8px; line-height: 1.5; }
+  .bar-row {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 10px; align-items: center;
+    padding: 6px 0;
+  }
+  .bar-label {
+    font-size: 13px; font-weight: 500; color: var(--text-primary);
+    min-width: 110px;
+  }
+  .bar-track {
+    height: 8px; border-radius: 999px;
+    background: rgba(255,255,255,0.06);
+    overflow: hidden;
+    min-width: 60px;
+  }
+  .bar-fill {
+    height: 100%; border-radius: inherit;
+    transition: width 0.6s var(--ease);
+  }
+  .bar-fill.top { background: linear-gradient(90deg, #a78bfa, #6366f1); }
+  .bar-fill.next { background: rgba(167, 139, 250, 0.55); }
+  .bar-pct { font-size: 12px; color: var(--text-muted); font-weight: 600; }
+
+  .close-call {
+    margin-top: 12px;
+    padding: 12px 14px;
+    background: rgba(245, 158, 11, 0.1);
+    border: 1px solid rgba(245, 158, 11, 0.28);
+    border-radius: 12px;
+    font-size: 13px; color: rgba(251, 191, 36, 0.95);
+    line-height: 1.55;
+  }
+  .close-call strong { color: #fcd34d; }
+
+  /* ===== Subtype screen ===== */
+  .subtype-card {
+    padding: 18px 18px 16px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-card);
+    transition: all 0.2s var(--ease);
+    cursor: pointer;
+    margin-bottom: 12px;
+  }
+  .subtype-card:hover {
+    border-color: rgba(139,92,246,0.35);
+    background: var(--bg-card-hover);
+  }
+  .subtype-card.sel {
+    border-color: var(--accent);
+    background: rgba(139,92,246,0.12);
+    box-shadow: 0 0 0 1px var(--accent);
+  }
+  .subtype-head { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+  .subtype-tag {
+    font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--accent-soft); font-weight: 800;
+    padding: 4px 8px; border-radius: 999px;
+    background: rgba(139,92,246,0.12);
+    border: 1px solid rgba(139,92,246,0.22);
+  }
+  .subtype-name { font-family: "Playfair Display", serif; font-size: 18px; font-weight: 600; color: #fff; }
+  .subtype-hint { font-size: 11px; color: var(--text-muted); }
+  .subtype-desc { margin-top: 8px; font-size: 14px; color: var(--text-primary); opacity: 0.88; line-height: 1.55; }
+
+  /* ===== Token / CTA ===== */
+  .cta-card {
+    margin-top: 22px;
+    padding: 20px 18px;
+    border-radius: var(--radius-lg);
+    background: linear-gradient(135deg, rgba(139,92,246,0.18), rgba(129,140,248,0.12));
+    border: 1px solid rgba(139, 92, 246, 0.35);
+    display: flex; gap: 14px; align-items: center; flex-wrap: wrap;
+  }
+  .token-chip {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 8px 14px; border-radius: 999px;
+    background: rgba(245,158,11,0.15);
+    border: 1px solid rgba(245,158,11,0.35);
+    color: var(--token);
+    font-weight: 700; font-size: 14px;
+    box-shadow: 0 0 16px rgba(245,158,11,0.22);
+  }
+  .token-chip .plus {
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-weight: 800;
+  }
+  .cta-copy { flex: 1 1 260px; min-width: 220px; }
+  .cta-copy strong { color: var(--text-primary); font-weight: 600; }
+  .cta-copy p { font-size: 14px; color: var(--text-secondary); line-height: 1.55; }
+
+  /* ===== Manifesto: Pascal-style unlabeled fragments ===== */
+  .screen-manifesto {
+    max-width: 640px;
+    margin: 0 auto;
+  }
+  .frag {
+    margin-top: 42px;
+    font-size: 16px; line-height: 1.65;
+    color: var(--text-primary); opacity: 0.92;
+  }
+  .frag-open { margin-top: 32px; }
+  .frag p { font-size: 16px; line-height: 1.7; }
+  .frag-turn p { font-size: 16.5px; }
+
+  /* Big-number stat block — meant to stop the reader */
+  .frag-stat {
+    margin: 48px 0 8px;
+    padding: 34px 28px;
+    text-align: center;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    background: linear-gradient(180deg, rgba(139,92,246,0.05), transparent);
+  }
+  .stat-line {
+    font-family: "Playfair Display", serif;
+    font-size: clamp(20px, 3.6vw, 26px);
+    line-height: 1.3;
+    color: rgba(255,255,255,0.96);
+    font-weight: 500;
+  }
+  .stat-line + .stat-line { margin-top: 14px; }
+  .stat-line.stat-hit {
+    color: #fcd34d;
+    font-weight: 600;
+  }
+
+  /* A solitary question, on its own, mid-page */
+  .frag-q {
+    margin-top: 40px;
+    text-align: center;
+    font-family: "Playfair Display", serif;
+    font-style: italic;
+    font-size: clamp(22px, 4vw, 28px);
+    color: rgba(255,255,255,0.92);
+  }
+  .frag-q p { font-size: inherit; line-height: 1.3; }
+
+  .arg-quote {
+    font-family: "Playfair Display", serif;
+    font-size: 19px; line-height: 1.45;
+    color: rgba(255,255,255,0.96);
+    padding: 4px 0 4px 20px;
+    border-left: 3px solid var(--accent);
+    font-style: italic;
+  }
+  .arg-quote cite {
+    display: block;
+    font-family: "Inter", sans-serif;
+    font-size: 12px; color: var(--text-muted);
+    font-style: normal; font-weight: 500;
+    margin-top: 10px; letter-spacing: 0.02em;
+  }
+
+  .fn {
+    color: var(--accent-soft);
+    font-size: 0.7em;
+    font-weight: 600;
+    margin-left: 1px;
+  }
+
+  /* ===== Preview tile: clickable states + detail panel ===== */
+  .tile.is-active {
+    background: rgba(139, 92, 246, 0.14);
+    border-color: var(--accent);
+    box-shadow: 0 0 0 1px var(--accent), 0 16px 40px rgba(139, 92, 246, 0.25);
+  }
+  .preview-detail {
+    margin-top: 18px;
+    padding: 22px 22px 20px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    animation: page-in 0.35s var(--ease);
+    position: relative;
+  }
+  .preview-detail .pd-top {
+    display: flex; gap: 14px; align-items: center;
+    margin-bottom: 12px;
+  }
+  .preview-detail .pd-mini {
+    width: 64px; height: 64px; flex-shrink: 0;
+    position: relative;
+  }
+  .preview-detail .pd-mini img {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%; object-fit: contain;
+    filter: drop-shadow(0 2px 8px rgba(0,0,0,0.4));
+  }
+  .preview-detail h3 {
+    font-size: 20px;
+    line-height: 1.2;
+  }
+  .preview-detail .pd-kicker {
+    font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase;
+    font-weight: 700; margin-bottom: 3px;
+  }
+  .preview-detail .pd-avoid {
+    font-family: "Playfair Display", serif;
+    font-style: italic;
+    font-size: 14.5px;
+    margin-top: 10px;
+    color: var(--text-primary); opacity: 0.9;
+    line-height: 1.5;
+  }
+  .preview-detail .pd-meta {
+    margin-top: 14px;
+    display: grid; grid-template-columns: 1fr; gap: 10px;
+  }
+  @media (min-width: 560px) { .preview-detail .pd-meta { grid-template-columns: 1fr 1fr; } }
+  .preview-detail .pd-cell {
+    padding: 10px 12px;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+  }
+  .preview-detail .pd-cell .k {
+    font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--accent-soft); font-weight: 700; margin-bottom: 4px;
+  }
+  .preview-detail .pd-cell .v {
+    font-size: 13px; color: var(--text-primary); opacity: 0.88; line-height: 1.5;
+  }
+  .preview-hint {
+    margin-top: 12px; margin-bottom: 0;
+    font-size: 13px; color: var(--text-muted); text-align: center;
+  }
+
+  /* ===== Footer / disclaimer ===== */
+  .disclaimer {
+    margin-top: 22px;
+    padding: 14px 16px;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    font-size: 12px; color: var(--text-muted); line-height: 1.6;
+  }
+
+  footer {
+    margin-top: 56px; padding-top: 24px;
+    border-top: 1px solid var(--border);
+    font-size: 12px; color: var(--text-muted);
+    text-align: center; line-height: 1.6;
+  }
+  footer a { color: var(--accent-soft); text-decoration: none; }
+  footer a:hover { color: #fff; }
+
+  *:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 6px; }
+
+  /* Smooth global button press */
+  button, [role="button"] {
+    transition: transform 0.15s var(--ease), box-shadow 0.15s ease, opacity 0.15s ease;
+  }
+</style>
+</head>
+<body>
+
+<div class="bg-dots" aria-hidden="true"></div>
+<div class="aurora aurora-1" aria-hidden="true"></div>
+<div class="aurora aurora-2" aria-hidden="true"></div>
+
+<main class="shell">
+  <div id="screen"></div>
+
+  <footer>
+    Psychological frameworks: Ichazo, Naranjo, Riso &amp; Hudson, Chestnut. Not a clinical assessment. A project by <a href="https://thyself.netlify.app" target="_blank" rel="noopener">Thyself</a>.
+  </footer>
+</main>
+
+<script>
+/* ═══════════════════════ DATA ═══════════════════════ */
+
+const TYPE_COLORS = {
+  1: "#B85C38", 2: "#C4607A", 3: "#C9921A",
+  4: "#7B5AAD", 5: "#2980B9", 6: "#27AE60",
+  7: "#1ABC9C", 8: "#9B2C2C", 9: "#8B7355",
+};
+
+const CHIBI_BASE = "/sprites/chibi";
+
+/* Core type data — avoidance, wound, cost, nickname, label */
+const TYPES = {
+  1: { label: "the critic", nick: "The Reformer", avoidance: "Avoids inner badness by perfecting everything outside.", wound: "A conviction that something is fundamentally wrong with them.", cost: "Exhausting themselves holding everything to a standard that can never be met because the real target is themselves." },
+  2: { label: "the helper", nick: "The Giver", avoidance: "Avoids feeling unlovable by making themselves indispensable.", wound: "Belief they have no intrinsic worth, only instrumental worth.", cost: "Giving strategically without knowing it and feeling betrayed when love isn't returned." },
+  3: { label: "the achiever", nick: "The Performer", avoidance: "Avoids failure by replacing their inner self with their image.", wound: "Terror that without performance they are nothing.", cost: "Moving so fast toward the next goal they never ask if it means something." },
+  4: { label: "the individualist", nick: "The Romantic", avoidance: "Avoids being ordinary by amplifying what's missing.", wound: "Sense of permanent deficiency.", cost: "Romanticizing longing so fulfillment always feels just out of reach." },
+  5: { label: "the observer", nick: "The Investigator", avoidance: "Avoids depletion by withdrawing from the world.", wound: "Conviction the world will consume them and they have too little to give.", cost: "Mistaking understanding for living." },
+  6: { label: "the loyalist", nick: "The Sceptic", avoidance: "Avoids betrayal by doubting everything including themselves.", wound: "Belief the world is unsafe and reliable support doesn't exist.", cost: "So prepared for things to go wrong they sometimes create the threat." },
+  7: { label: "the enthusiast", nick: "The Epicure", avoidance: "Avoids pain by staying permanently in motion.", wound: "Terror of being trapped in deprivation or suffering.", cost: "Reframing everything before processing it so the original feeling never resolves." },
+  8: { label: "the challenger", nick: "The Protector", avoidance: "Avoids vulnerability by becoming impossible to hurt.", wound: "Belief that softness means betrayal or control.", cost: "Pushing people away before they can leave and calling it strength." },
+  9: { label: "the peacemaker", nick: "The Mediator", avoidance: "Avoids conflict by disappearing into the background.", wound: "Belief their presence and desires are too disruptive to matter.", cost: "Accommodating everyone so thoroughly they lose their own wants." },
+};
+
+/* ═══════ 27 quiz items — 3 per type ═══════
+   Balanced: behavior / wound / less-flattering to control
+   social desirability bias. Equal-weighted scoring. */
+const QUIZ_ITEMS = [
+  // Type 1
+  { type: 1, text: "I notice small errors — a crooked picture, a typo — before most people do." },
+  { type: 1, text: "There's an inner voice that rarely lets me feel I've done enough." },
+  { type: 1, text: "I sometimes feel quietly superior to people who don't try as hard as I do." },
+  // Type 2
+  { type: 2, text: "I often know what the people around me need before they say it." },
+  { type: 2, text: "I find it easier to give than to ask for what I want directly." },
+  { type: 2, text: "I've felt angry or betrayed after helping someone and not being thanked the way I expected." },
+  // Type 3
+  { type: 3, text: "I adjust how I present myself depending on the room I'm in." },
+  { type: 3, text: "I feel empty or anxious when I'm not working toward something visible." },
+  { type: 3, text: "Sometimes I care more about how something looks than how it actually feels." },
+  // Type 4
+  { type: 4, text: "I've always felt there's something missing in me that other people seem to have." },
+  { type: 4, text: "What's just out of reach attracts me more than what's already here." },
+  { type: 4, text: "I've sometimes deepened my own pain because it felt like proof that I'm real." },
+  // Type 5
+  { type: 5, text: "Being around people drains me noticeably faster than being alone." },
+  { type: 5, text: "I want to fully understand something before I'll commit to acting on it." },
+  { type: 5, text: "I've kept people at a distance to protect my time, even people I care about." },
+  // Type 6
+  { type: 6, text: "I scan for what could go wrong before I trust that things are fine." },
+  { type: 6, text: "I test people to see if they're reliable, sometimes without realizing it." },
+  { type: 6, text: "I doubt my own decisions even after I've already made them." },
+  // Type 7
+  { type: 7, text: "I reframe hard things into lessons or silver linings before I've fully felt them." },
+  { type: 7, text: "Being trapped in one option feels worse to me than making the wrong choice." },
+  { type: 7, text: "I've avoided hard conversations by staying too busy for them." },
+  // Type 8
+  { type: 8, text: "I'd rather push back than admit something hurt me." },
+  { type: 8, text: "I decide quickly and expect others to keep up." },
+  { type: 8, text: "I've hidden soft feelings from people I love because showing them felt like giving up power." },
+  // Type 9
+  { type: 9, text: "I often don't know what I want because I've already tuned into what others want." },
+  { type: 9, text: "I go along with plans to keep the peace and then quietly resent it later." },
+  { type: 9, text: "I zone out or check out emotionally when things get tense, sometimes without noticing." },
+];
+
+/* 5-point Likert — standard Enneagram scale */
+const SCALE = [
+  { val: 0, label: "Not me",        hint: "0" },
+  { val: 1, label: "A little",      hint: "1" },
+  { val: 2, label: "Somewhat",      hint: "2" },
+  { val: 3, label: "Mostly me",     hint: "3" },
+  { val: 4, label: "Exactly me",    hint: "4" },
+];
+
+/* 27 subtype descriptions (Chestnut / Naranjo nomenclature) */
+const SUBTYPES = {
+  1: {
+    sp: { name: "Anxiety",       note: "countertype",   desc: "You turn the critic inward. You worry privately about being good enough, long before anyone else weighs in. Warm with those close to you, hard on yourself in silence." },
+    so: { name: "Inadaptability", note: "",             desc: "You carry yourself as a standard bearer — correct, principled, a visible model for how things should be done. Rigidity is how you manage a world that won't behave." },
+    sx: { name: "Zeal",          note: "",              desc: "Your perfectionism turns outward. You want the people close to you to rise to the standard you can see clearly, and your frustration has real heat." },
+  },
+  2: {
+    sp: { name: "Privilege",     note: "",              desc: "You draw care toward you by being endearing, charming, or young-at-heart — less by overt giving and more by being someone people want to protect." },
+    so: { name: "Ambition",      note: "countertype",   desc: "You help by leading, influencing, and building coalitions. Your generosity scales up — you want to matter to a room, not just a person." },
+    sx: { name: "Seduction",     note: "",              desc: "You pour yourself into specific people. Your love is focused and intense — a few irreplaceable bonds rather than a wide field." },
+  },
+  3: {
+    sp: { name: "Security",      note: "countertype",   desc: "You're embarrassed by flash. You want to be respected for what you actually built, not your image — the Three who quietly out-works everyone." },
+    so: { name: "Prestige",      note: "",              desc: "You know what success looks like in your world and pursue its markers directly. Status is currency, and you're fluent in it." },
+    sx: { name: "Charisma",      note: "",              desc: "You turn drive toward being wanted — magnetic, attentive, performing desirability. Often invested in a partner's success as an extension of your own." },
+  },
+  4: {
+    sp: { name: "Dauntless",     note: "countertype",   desc: "You suffer privately. You don't broadcast your pain — you carry it like a low-grade fever, enduring stoically without making others hold it." },
+    so: { name: "Shame",         note: "",              desc: "Your longing shows in public. You're acutely aware of where you fall in the social hierarchy and often compare yourself unfavorably to others." },
+    sx: { name: "Competition",   note: "",              desc: "Your pain has teeth. You want recognition so badly you'd rather argue for it than go unseen — demanding, assertive, unafraid of conflict." },
+  },
+  5: {
+    sp: { name: "Castle",        note: "",              desc: "Your life is a fortress of careful boundaries. Small footprint, reliable routines, a tiny inner circle. You guard your time like it's finite — because for you, it is." },
+    so: { name: "Totem",         note: "",              desc: "You belong where ideas are the currency. Your people are your fellow specialists, and connection happens through shared knowledge, not shared feelings." },
+    sx: { name: "Confidence",    note: "countertype",   desc: "You want one person you can truly merge with — not breadth, not safety, but depth. A rare, specific bond matters more than many shallow ones." },
+  },
+  6: {
+    sp: { name: "Warmth",        note: "phobic",        desc: "You manage fear by finding reliable people and staying close to them. Loyalty, friendship, and warmth are how you build a safer world." },
+    so: { name: "Duty",          note: "",              desc: "You trust the framework. Fear gets answered by having a clear code — rules, roles, causes, ideologies — and staying inside it faithfully." },
+    sx: { name: "Strength",      note: "counterphobic", desc: "You charge threats head-on. Others mistake your boldness for fearlessness, but you're attacking fear from the front rather than letting it attack you." },
+  },
+  7: {
+    sp: { name: "Family",        note: "",              desc: "You build a network of people, options, and resources that keeps you cushioned. Gluttony for comfort, optionality, and the next good thing." },
+    so: { name: "Sacrifice",     note: "countertype",   desc: "You defer pleasure to be good. The Seven who worries about being too much — holds back gratification and serves the group over self." },
+    sx: { name: "Suggestibility", note: "",             desc: "You enchant what's in front of you. Romantic, fantasy-prone, always keeping the honeymoon alive by polishing reality before it can fade." },
+  },
+  8: {
+    sp: { name: "Satisfaction",  note: "",              desc: "You keep things simple and physical. Direct, practical, blunt. Survival-focused. You don't waste words, and you're very hard to bullshit." },
+    so: { name: "Solidarity",    note: "",              desc: "You wield power for other people. Your fight is against injustice done to the vulnerable — protector, anti-bully, loyal to the group you defend." },
+    sx: { name: "Possession",    note: "countertype",   desc: "Your intensity is romantic. You want to take someone over and be taken over — the most emotional and passionate Eight, rebellious, magnetic." },
+  },
+  9: {
+    sp: { name: "Appetite",      note: "",              desc: "You soothe yourself with creature comforts — food, sleep, routine, familiar rhythms. The edges of life stay soft because you keep them that way." },
+    so: { name: "Participation", note: "",              desc: "You're the reliable friend, the glue, the group member who always shows up. You work hard to belong and lose yourself in the 'us.'" },
+    sx: { name: "Union",         note: "countertype",   desc: "You find yourself through one specific person. Their life becomes the center of yours. The most self-forgetting Nine — merging is your peace." },
+  },
+};
+
+/* ═══════════════════════ STATE ═══════════════════════ */
+
+function shuffle(arr) {
+  const a = arr.slice();
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+const items = shuffle(QUIZ_ITEMS); // randomize question order
+
+const state = {
+  screen: "hero",        // hero | argument | preview | quiz | core | subtype | final
+  quizIdx: 0,
+  answers: new Array(items.length).fill(null),
+  coreType: null,        // top scoring type 1-9
+  ranking: [],           // sorted [{ type, score, pct }]
+  subtype: null,         // 'sp' | 'so' | 'sx'
+  previewSelected: null, // which type tile is open on the preview screen (1-9 or null)
+};
+
+function totalScores() {
+  const totals = {1:0,2:0,3:0,4:0,5:0,6:0,7:0,8:0,9:0};
+  items.forEach((it, i) => {
+    if (state.answers[i] != null) totals[it.type] += state.answers[i];
+  });
+  return totals;
+}
+
+function computeRanking() {
+  const totals = totalScores();
+  // Max per type = 3 items × 4 = 12
+  const ranked = Object.entries(totals)
+    .map(([t, s]) => ({ type: parseInt(t, 10), score: s, pct: Math.round((s / 12) * 100) }))
+    .sort((a, b) => b.score - a.score);
+  return ranked;
+}
+
+/* ═══════════════════════ RENDER ═══════════════════════ */
+
+const root = document.getElementById("screen");
+
+function render() {
+  const el = ({
+    hero:     renderHero,
+    argument: renderArgument,
+    preview:  renderPreview,
+    quiz:     renderQuiz,
+    core:     renderCore,
+    subtype:  renderSubtype,
+    final:    renderFinal,
+  }[state.screen])();
+  root.innerHTML = el;
+  wire();
+  window.scrollTo({ top: 0, behavior: "instant" });
+}
+
+/* ───── HERO ───── */
+function renderHero() {
+  return `
+    <section class="screen">
+      <span class="eyebrow"><span class="dot"></span>A project on self-knowledge</span>
+      <h1 class="headline">
+        <span class="shimmer-text">the last person</span><br/>
+        you meet<br/>
+        is usually yourself.
+      </h1>
+      <p class="sub">
+        Think of the argument you've had with three different people over the course of your life. The job where you kept making the same quiet mistake. The relationships that ended for reasons you still can't quite name.
+      </p>
+      <p class="sub" style="margin-top: 14px; color: var(--text-primary); opacity: 0.82;">
+        The patterns you can't see are the ones running your life.
+      </p>
+      <div class="cta-row">
+        <button class="btn btn-primary" data-go="argument">Read something first</button>
+        <button class="btn btn-ghost" data-go="quiz">Take the quiz →</button>
+      </div>
+    </section>
+  `;
+}
+
+/* ───── MANIFESTO (no argument labels — Pascal-style fragments) ───── */
+function renderArgument() {
+  return `
+    <section class="screen screen-manifesto">
+      <button class="btn-link" data-go="hero" style="margin-bottom: 8px;">← Back</button>
+
+      <div class="frag frag-open">
+        <p>
+          There is a researcher named Tasha Eurich. Over several years, her team ran ten investigations with nearly five thousand people, trying to measure how well each one knew themselves.
+        </p>
+        <p style="margin-top: 14px;">
+          The finding, published in the <em>Harvard Business Review</em> in 2018:
+        </p>
+      </div>
+
+      <div class="frag-stat">
+        <div class="stat-line">95% of people believe they are self-aware.</div>
+        <div class="stat-line stat-hit">Only 10 to 15 percent actually are.</div>
+      </div>
+
+      <div class="frag frag-q">
+        <p>Which are you?</p>
+      </div>
+
+      <div class="frag">
+        <blockquote class="arg-quote">
+          "Until you make the unconscious conscious, it will direct your life and you will call it fate."
+          <cite>— Carl Jung, <em>Collected Works</em></cite>
+        </blockquote>
+      </div>
+
+      <div class="frag">
+        <p>
+          In 2007, researchers at UCLA ran a study. They put people in an fMRI scanner, showed them faces with difficult emotions, and asked them to either describe the emotion in words or pick a matching photograph.
+        </p>
+        <p style="margin-top: 12px;">
+          Naming the emotion — even silently — reduced activity in the amygdala, the brain's alarm system.<sup class="fn">1</sup>
+        </p>
+        <p style="margin-top: 12px; color: var(--text-secondary); font-style: italic;">
+          You are more regulated the more accurately you can describe yourself.
+        </p>
+      </div>
+
+      <div class="frag">
+        <blockquote class="arg-quote">
+          "Between stimulus and response there is a space. In that space is our power to choose our response. In our response lies our growth and our freedom."
+          <cite>— Viktor Frankl, <em>Man's Search for Meaning</em></cite>
+        </blockquote>
+        <p style="margin-top: 16px;">
+          Frankl wrote this after four concentration camps. He was describing the one piece of freedom he could not be stripped of.
+        </p>
+        <p style="margin-top: 12px;">
+          The space exists only for people who can notice themselves reacting. For everyone else, stimulus and response are fused.
+        </p>
+      </div>
+
+      <div class="frag">
+        <blockquote class="arg-quote">
+          "The unexamined life is not worth living."
+          <cite>— Socrates, <em>Apology</em> 38a</cite>
+        </blockquote>
+      </div>
+
+      <div class="frag frag-turn">
+        <p>
+          Among the older systems for noticing yourself is the Enneagram — a psychological taxonomy of nine specific avoidance strategies. Developed by Oscar Ichazo in the 1960s. Refined by the Chilean psychiatrist Claudio Naranjo at Berkeley in the 1970s. Formalized clinically by Riso, Hudson, and Chestnut in the decades since.
+        </p>
+        <p style="margin-top: 14px;">
+          Each of the nine describes one particular thing a human being is specifically avoiding feeling. Not a horoscope. Not a mood board. A map of how you got here.
+        </p>
+        <p style="margin-top: 14px; color: var(--text-primary); opacity: 0.92;">
+          One of the nine is probably yours.
+        </p>
+      </div>
+
+      <div class="cta-row" style="margin-top: 40px;">
+        <button class="btn btn-primary" data-go="quiz">Find out which →</button>
+        <button class="btn btn-ghost" data-go="preview">See the nine first</button>
+      </div>
+
+      <div class="disclaimer" style="margin-top: 28px;">
+        <sup class="fn">1</sup> Lieberman, M.D., et al. (2007). "Putting Feelings Into Words: Affect Labeling Disrupts Amygdala Activity in Response to Affective Stimuli," <em>Psychological Science</em>, 18(5), 421–428. · Eurich, T. (2018). "What Self-Awareness Really Is (and How to Cultivate It)," <em>Harvard Business Review</em>. · Jung, C.G., <em>Collected Works</em>. · Frankl, V., <em>Man's Search for Meaning</em>, Beacon Press, 1959. · Plato, <em>Apology</em> 38a, c. 399 BCE.
+      </div>
+    </section>
+  `;
+}
+
+/* ───── PREVIEW GRID (tap-to-expand) ───── */
+function renderPreview() {
+  const selected = state.previewSelected;
+  const tiles = Object.entries(TYPES).map(([n, t]) => {
+    const num = parseInt(n, 10);
+    const color = TYPE_COLORS[num];
+    const src = `${CHIBI_BASE}/${num}-sp${num}.png`;
+    const active = selected === num ? "is-active" : "";
+    return `
+      <button class="tile ${active}" data-preview-type="${num}" aria-label="Read about Type ${num}">
+        <div class="tile-top">
+          <span class="tile-num"><span class="sm">Type</span> ${num}</span>
+          <span class="tile-color" style="color:${color}; background:${color}"></span>
+        </div>
+        <div class="chibi-wrap">
+          <img class="chibi-img" src="${src}" alt="Type ${num} chibi" onerror="this.style.display='none'"/>
+        </div>
+        <div class="tile-label">${t.label}</div>
+        <div class="tile-nick">${t.nick}</div>
+      </button>
+    `;
+  }).join("");
+
+  let detail = "";
+  if (selected != null) {
+    const t = TYPES[selected];
+    const color = TYPE_COLORS[selected];
+    const src = `${CHIBI_BASE}/${selected}-sp${selected}.png`;
+    detail = `
+      <div class="preview-detail" id="preview-detail">
+        <div class="pd-top">
+          <div class="pd-mini">
+            <img src="${src}" alt="Type ${selected}" onerror="this.style.display='none'"/>
+          </div>
+          <div>
+            <div class="pd-kicker" style="color: ${color};">Type ${selected} · ${t.nick}</div>
+            <h3>${t.label}</h3>
+          </div>
+        </div>
+        <div class="pd-avoid">"${t.avoidance}"</div>
+        <div class="pd-meta">
+          <div class="pd-cell">
+            <div class="k">The wound</div>
+            <div class="v">${t.wound}</div>
+          </div>
+          <div class="pd-cell">
+            <div class="k">What it costs</div>
+            <div class="v">${t.cost}</div>
+          </div>
+        </div>
+        <p class="preview-hint">Tap another type to switch · tap this one again to close.</p>
+      </div>
+    `;
+  }
+
+  return `
+    <section class="screen">
+      <button class="btn-link" data-go="hero" style="margin-bottom: 8px;">← Back</button>
+      <span class="eyebrow"><span class="dot"></span>The nine</span>
+      <h1 class="headline" style="font-size: clamp(26px, 5vw, 38px);">
+        Each one is a way of <span class="shimmer-text">not feeling something.</span>
+      </h1>
+      <p class="sub">
+        Tap any type to read what it's specifically avoiding, what's underneath, and what it quietly costs. Don't try to pick yours from reading — your mind already knows which one sounds least threatening. The quiz is more honest than the grid.
+      </p>
+      <div class="type-grid">${tiles}</div>
+      ${detail}
+      <div class="cta-row" style="margin-top: 28px;">
+        <button class="btn btn-primary" data-go="quiz">Take the quiz →</button>
+      </div>
+    </section>
+  `;
+}
+
+/* ───── QUIZ ───── */
+function renderQuiz() {
+  const total = items.length;
+  const idx = state.quizIdx;
+  const item = items[idx];
+  const answered = state.answers.filter(a => a != null).length;
+  const pct = Math.round((idx / total) * 100);
+  const curAnswer = state.answers[idx];
+
+  const opts = SCALE.map(s => `
+    <button class="scale-opt ${curAnswer === s.val ? "sel" : ""}" data-answer="${s.val}">
+      <span class="scale-dot"></span>
+      <span class="scale-label">${s.label}</span>
+      <span class="scale-hint">${s.hint}</span>
+    </button>
+  `).join("");
+
+  return `
+    <section class="screen">
+      <div class="progress-shell">
+        <div class="progress-track"><div class="progress-fill" style="width:${pct}%"></div></div>
+        <div class="progress-label">${idx + 1} / ${total}</div>
+      </div>
+
+      <div class="quiz-card">
+        <div style="font-size: 11px; color: var(--text-muted); letter-spacing: 0.14em; text-transform: uppercase; font-weight: 600;">
+          How true is this for you?
+        </div>
+        <div class="q-prompt">"${item.text}"</div>
+        <div class="q-scale">${opts}</div>
+        <div class="quiz-foot">
+          ${idx > 0
+            ? `<button class="btn-link" data-quiz-prev>← Previous</button>`
+            : `<button class="btn-link" data-go="hero">← Restart</button>`}
+          <span>${answered} of ${total} answered</span>
+        </div>
+      </div>
+    </section>
+  `;
+}
+
+/* ───── CORE RESULT ───── */
+function renderCore() {
+  const ranked = state.ranking;
+  const top = ranked[0];
+  const second = ranked[1];
+  const third = ranked[2];
+  const t = TYPES[top.type];
+  const color = TYPE_COLORS[top.type];
+  const src = `${CHIBI_BASE}/${top.type}-sp${top.type}.png`;
+
+  const closeCall = (top.score - second.score) <= 1;
+
+  const barFor = (r, cls) => `
+    <div class="bar-row">
+      <div class="bar-label">Type ${r.type} · ${TYPES[r.type].label}</div>
+      <div class="bar-track"><div class="bar-fill ${cls}" style="width:${Math.max(r.pct, 3)}%"></div></div>
+      <div class="bar-pct">${r.pct}%</div>
+    </div>
+  `;
+
+  return `
+    <section class="screen">
+      <span class="eyebrow"><span class="dot"></span>Your likely core</span>
+      <div class="result-hero">
+        <div class="result-chibi">
+          <img src="${src}" alt="Type ${top.type} chibi" onerror="this.style.display='none'"/>
+        </div>
+        <div class="result-head">
+          <div class="kicker" style="color: ${color}; text-shadow: 0 0 12px ${hexA(color, 0.4)};">Type ${top.type}</div>
+          <h2>${t.label}</h2>
+          <div class="nickname">${t.nick}</div>
+          <div class="avoidance">"${t.avoidance}"</div>
+        </div>
+      </div>
+
+      <div class="meta-grid">
+        <div class="meta">
+          <div class="k">The wound</div>
+          <div class="v">${t.wound}</div>
+        </div>
+        <div class="meta">
+          <div class="k">What it costs</div>
+          <div class="v">${t.cost}</div>
+        </div>
+      </div>
+
+      <div class="chart">
+        <h4>Your top three candidates</h4>
+        ${barFor(top, "top")}
+        ${barFor(second, "next")}
+        ${barFor(third, "next")}
+        <div class="chart-note">
+          Scored as percentage of maximum (12 per type, 27 items total). Enneagram tests are directional — high scores on two types often mean you relate to both patterns, not that the test is wrong. Read both type descriptions and trust your felt sense.
+        </div>
+        ${closeCall ? `
+          <div class="close-call">
+            <strong>Close call.</strong> Your top two types are within one point. You may be <strong>Type ${top.type}</strong> with a <strong>Type ${second.type}</strong> wing, or you may be a <strong>Type ${second.type}</strong> whose pattern looks similar on the surface. The subtype step will help refine this.
+          </div>
+        ` : ""}
+      </div>
+
+      <div class="cta-row">
+        <button class="btn btn-primary" data-go="subtype">Refine with your subtype →</button>
+        <button class="btn btn-ghost" data-retake>Retake the quiz</button>
+      </div>
+    </section>
+  `;
+}
+
+/* ───── SUBTYPE ───── */
+function renderSubtype() {
+  const t = TYPES[state.coreType];
+  const subs = SUBTYPES[state.coreType];
+  const color = TYPE_COLORS[state.coreType];
+
+  const card = (key) => {
+    const s = subs[key];
+    const sel = state.subtype === key ? "sel" : "";
+    return `
+      <button class="subtype-card ${sel}" data-subtype="${key}" style="display:block; width:100%; text-align:left;">
+        <div class="subtype-head">
+          <span class="subtype-tag">${key.toUpperCase()}</span>
+          <span class="subtype-name">${s.name}</span>
+          ${s.note ? `<span class="subtype-hint">(${s.note})</span>` : ""}
+        </div>
+        <div class="subtype-desc">${s.desc}</div>
+      </button>
+    `;
+  };
+
+  return `
+    <section class="screen">
+      <button class="btn-link" data-go="core" style="margin-bottom: 8px;">← Back to result</button>
+      <span class="eyebrow"><span class="dot"></span>Step 2 · Subtype</span>
+      <h1 class="headline" style="font-size: clamp(24px, 5vw, 34px);">
+        How does your Type ${state.coreType} actually <span class="shimmer-text">show up?</span>
+      </h1>
+      <p class="sub">
+        Every type has three <strong style="color: var(--text-primary);">instinctual subtypes</strong> — self-preservation (sp), social (so), and sexual (sx). They share the same core, but the strategy expresses differently. Pick the one that feels most like you.
+      </p>
+      <div style="margin-top: 22px;">
+        ${card("sp")}
+        ${card("so")}
+        ${card("sx")}
+      </div>
+      <div class="cta-row">
+        <button class="btn btn-primary" data-go="final" ${!state.subtype ? "disabled style='opacity:0.4; cursor:not-allowed; pointer-events:none;'" : ""}>
+          See my full result →
+        </button>
+      </div>
+    </section>
+  `;
+}
+
+/* ───── FINAL ───── */
+function renderFinal() {
+  const t = TYPES[state.coreType];
+  const s = SUBTYPES[state.coreType][state.subtype];
+  const color = TYPE_COLORS[state.coreType];
+  const src = `${CHIBI_BASE}/${state.coreType}-${state.subtype}${state.coreType}.png`;
+  const codeLabel = `${state.coreType}${state.subtype}`;
+
+  return `
+    <section class="screen">
+      <span class="eyebrow"><span class="dot"></span>Your full result</span>
+      <div class="result-hero">
+        <div class="result-chibi">
+          <img src="${src}" alt="Type ${state.coreType}${state.subtype} chibi" onerror="this.style.display='none'"/>
+        </div>
+        <div class="result-head">
+          <div class="kicker" style="color: ${color}; text-shadow: 0 0 12px ${hexA(color, 0.4)};">Type ${codeLabel}</div>
+          <h2>${t.label} · ${s.name}</h2>
+          <div class="nickname">${t.nick} · ${state.subtype.toUpperCase()} subtype</div>
+          <div class="avoidance">"${s.desc}"</div>
+        </div>
+      </div>
+
+      <div class="meta-grid">
+        <div class="meta">
+          <div class="k">Core avoidance</div>
+          <div class="v">${t.avoidance}</div>
+        </div>
+        <div class="meta">
+          <div class="k">Underneath</div>
+          <div class="v">${t.wound}</div>
+        </div>
+      </div>
+
+      <div class="arg-block" style="margin-top: 22px; background: rgba(139,92,246,0.06); border-color: rgba(139,92,246,0.28);">
+        <div class="arg-k">The close</div>
+        <p class="arg-body" style="font-family: 'Playfair Display', serif; font-size: 18px; line-height: 1.5; font-style: italic;">
+          You now know which of the nine patterns you run. That is stage one. The actual work is learning to notice it in real time — before it chooses your next sentence for you.
+        </p>
+        <blockquote class="arg-quote" style="margin-top: 18px;">
+          "If you bring forth what is within you, what you bring forth will save you. If you do not bring forth what is within you, what you do not bring forth will destroy you."
+          <cite>— Gospel of Thomas, Logion 70 (c. 140 CE)</cite>
+        </blockquote>
+      </div>
+
+      <div class="cta-card">
+        <div class="token-chip"><span class="plus">(+)</span> 100 free tokens</div>
+        <div class="cta-copy">
+          <p><strong>Keep going.</strong> Thyself teaches the Enneagram as an ongoing practice — daily observations, lessons, integration work. Built on the frameworks cited here: Ichazo, Naranjo, Riso &amp; Hudson, Chestnut. Not a test to take once. A lens to live with. Start your Type ${state.coreType} path today.</p>
+        </div>
+        <a class="btn btn-primary" href="https://thyself.netlify.app?utm_source=advocacy&utm_medium=infographic&utm_campaign=discover_your_type&type=${codeLabel}" target="_blank" rel="noopener">
+          Begin the practice →
+        </a>
+      </div>
+
+      <div class="cta-row">
+        <button class="btn btn-ghost" data-retake>Retake the quiz</button>
+        <button class="btn-link" data-go="subtype">Change my subtype</button>
+      </div>
+
+      <div class="disclaimer">
+        <strong style="color: var(--text-primary);">Sources cited in this project.</strong><br/>
+        Eurich, T. (2018). "What Self-Awareness Really Is (and How to Cultivate It)," <em>Harvard Business Review</em>. · Jung, C.G., <em>Collected Works</em>. · Plato, <em>Apology</em>, c. 399 BCE. · Lieberman, M.D., et al. (2007). "Putting Feelings Into Words: Affect Labeling Disrupts Amygdala Activity in Response to Affective Stimuli," <em>Psychological Science</em>, 18(5). · Frankl, V., <em>Man's Search for Meaning</em>, Beacon Press. · <em>Gospel of Thomas</em>, Nag Hammadi Library. · Enneagram frameworks: Ichazo (Arica), Naranjo (<em>Character and Neurosis</em>), Riso &amp; Hudson (<em>The Wisdom of the Enneagram</em>), Chestnut (<em>The Complete Enneagram</em>).
+        <br/><br/>
+        <strong style="color: var(--text-primary);">On accuracy.</strong> This 27-item quiz is shorter than the RHETI (144 items) or iEQ9 (175) and is meant as a directional introduction — not a clinical diagnostic. If your result doesn't feel right, read the full Type descriptions on Thyself. The Enneagram is a self-identification tool; no instrument is a substitute for the work of actually knowing yourself.
+      </div>
+    </section>
+  `;
+}
+
+/* ═══════════════════════ WIRING ═══════════════════════ */
+
+function wire() {
+  // Screen navigation
+  root.querySelectorAll("[data-go]").forEach(b => {
+    b.addEventListener("click", () => {
+      const target = b.dataset.go;
+      if (target === "quiz") state.quizIdx = 0;
+      if (target === "subtype") state.subtype = null;
+      state.screen = target;
+      render();
+    });
+  });
+
+  // Retake
+  root.querySelectorAll("[data-retake]").forEach(b => {
+    b.addEventListener("click", () => {
+      state.answers = new Array(items.length).fill(null);
+      state.coreType = null;
+      state.ranking = [];
+      state.subtype = null;
+      state.quizIdx = 0;
+      state.screen = "hero";
+      render();
+    });
+  });
+
+  // Quiz answers
+  root.querySelectorAll("[data-answer]").forEach(b => {
+    b.addEventListener("click", () => {
+      const val = parseInt(b.dataset.answer, 10);
+      state.answers[state.quizIdx] = val;
+      // Auto-advance
+      setTimeout(() => {
+        if (state.quizIdx < items.length - 1) {
+          state.quizIdx += 1;
+          render();
+        } else {
+          // Quiz complete — compute results
+          state.ranking = computeRanking();
+          state.coreType = state.ranking[0].type;
+          state.screen = "core";
+          render();
+        }
+      }, 160);
+    });
+  });
+
+  // Quiz previous
+  root.querySelectorAll("[data-quiz-prev]").forEach(b => {
+    b.addEventListener("click", () => {
+      if (state.quizIdx > 0) { state.quizIdx -= 1; render(); }
+    });
+  });
+
+  // Subtype selection
+  root.querySelectorAll("[data-subtype]").forEach(b => {
+    b.addEventListener("click", () => {
+      state.subtype = b.dataset.subtype;
+      render();
+    });
+  });
+
+  // Preview tile toggle (tap to expand, tap again to close)
+  root.querySelectorAll("[data-preview-type]").forEach(b => {
+    b.addEventListener("click", () => {
+      const n = parseInt(b.dataset.previewType, 10);
+      state.previewSelected = (state.previewSelected === n) ? null : n;
+      render();
+      // Smooth scroll to detail when opening
+      if (state.previewSelected != null) {
+        requestAnimationFrame(() => {
+          const el = document.getElementById("preview-detail");
+          if (el) {
+            const top = el.getBoundingClientRect().top + window.scrollY - 16;
+            window.scrollTo({ top, behavior: "smooth" });
+          }
+        });
+      }
+    });
+  });
+}
+
+function hexA(hex, a) {
+  const n = hex.replace("#","");
+  const r = parseInt(n.slice(0,2),16), g = parseInt(n.slice(2,4),16), b = parseInt(n.slice(4,6),16);
+  return `rgba(${r},${g},${b},${a})`;
+}
+
+/* ═══════════════════════ INIT ═══════════════════════ */
+render();
+</script>
+</body>
+</html>

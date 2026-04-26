@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import {
   BookOpen,
   FlaskConical,
@@ -698,6 +699,105 @@ function ExploreTab({ myType }: { myType: number }) {
   );
 }
 
+// ─── Ritual entry overlay ─────────────────────────────────────────────────────
+
+function RitualEntryOverlay({
+  recommendation,
+  chibiSrc,
+  onBegin,
+  onClose,
+}: {
+  recommendation: Recommendation;
+  chibiSrc: string;
+  onBegin: () => void;
+  onClose: () => void;
+}) {
+  return (
+    <AnimatePresence>
+      <motion.div
+        key="ritual-backdrop"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        transition={{ duration: 0.25 }}
+        className="fixed inset-0 z-50"
+        style={{ background: "rgba(8,4,20,0.96)" }}
+        onClick={onClose}
+      />
+      <motion.div
+        key="ritual-content"
+        initial={{ opacity: 0, scale: 0.93, y: 24 }}
+        animate={{ opacity: 1, scale: 1, y: 0 }}
+        exit={{ opacity: 0, scale: 0.95, y: 12 }}
+        transition={{ type: "spring", damping: 26, stiffness: 280, delay: 0.05 }}
+        className="fixed inset-0 z-50 flex flex-col items-center justify-center px-8"
+        onClick={(e) => e.stopPropagation()}
+      >
+        {/* Chibi */}
+        <motion.img
+          src={chibiSrc}
+          alt="Your guide"
+          initial={{ y: 12, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ delay: 0.18, duration: 0.5 }}
+          className="w-28 h-28 object-contain mb-6"
+          style={{ filter: "drop-shadow(0 0 24px rgba(139,92,246,0.55))" }}
+        />
+
+        {/* Assessment info */}
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.28, duration: 0.4 }}
+          className="text-center max-w-xs"
+        >
+          <p
+            className="text-[10px] font-bold uppercase tracking-widest mb-3"
+            style={{ color: "rgba(139,92,246,0.7)" }}
+          >
+            Your next session
+          </p>
+          <h2
+            className="text-2xl font-serif font-bold mb-4 leading-tight"
+            style={{ color: "rgba(255,255,255,0.95)" }}
+          >
+            {recommendation.title}
+          </h2>
+          <p
+            className="text-sm leading-relaxed"
+            style={{ color: "rgba(255,255,255,0.52)" }}
+          >
+            {recommendation.why}
+          </p>
+        </motion.div>
+
+        {/* Actions */}
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.42, duration: 0.35 }}
+          className="flex flex-col items-center gap-4 mt-10"
+        >
+          <button
+            onClick={onBegin}
+            className={`px-10 py-3.5 rounded-2xl font-semibold text-white text-base bg-gradient-to-br ${recommendation.gradient}`}
+            style={{ boxShadow: "0 4px 24px rgba(139,92,246,0.45)" }}
+          >
+            Begin
+          </button>
+          <button
+            onClick={onClose}
+            className="text-sm"
+            style={{ color: "rgba(255,255,255,0.28)" }}
+          >
+            Not now
+          </button>
+        </motion.div>
+      </motion.div>
+    </AnimatePresence>
+  );
+}
+
 // ─── Main page ────────────────────────────────────────────────────────────────
 
 export default function AssessmentsPage() {
@@ -705,7 +805,26 @@ export default function AssessmentsPage() {
   const { schwartz, aspects } = usePsychometrics();
   const [pageMode, setPageMode] = useState<"know" | "explore" | "growth">("know");
   const [showAll, setShowAll] = useState(false);
+  const [ritualOpen, setRitualOpen] = useState(false);
+  const router = useRouter();
   const [activeTab, setActiveTab] = useState<Tab>("enneagram");
+
+  // Derive chibi sprite from profile
+  const chibiSrc = (() => {
+    if (typeof window === "undefined") return "/sprites/chibi/5-sp5.png";
+    try {
+      const raw = localStorage.getItem("psyche-profile");
+      if (raw) {
+        const p = JSON.parse(raw) as Record<string, string>;
+        const typeNum = p.enneagramType ?? p.enneagramCore ?? "5";
+        const subtype: string = p.enneagramSubtype ?? p.instinctualStacking ?? "";
+        const instinct = subtype.split("/")[0]?.toLowerCase() ?? "sp";
+        const prefix = ["sp", "sx", "so"].includes(instinct) ? instinct : "sp";
+        return `/sprites/chibi/${typeNum}-${prefix}${typeNum}.png`;
+      }
+    } catch {}
+    return "/sprites/chibi/5-sp5.png";
+  })();
 
   // Derive dimension completion from profile
   const hasType = !!(profile.enneagramType || profile.enneagramCore);
@@ -736,6 +855,18 @@ export default function AssessmentsPage() {
 
   return (
     <div className="min-h-screen pb-32 px-4 pt-10" style={{ background: "#0f0a1e" }}>
+        {/* Ritual entry overlay */}
+        {ritualOpen && (
+          <RitualEntryOverlay
+            recommendation={recommendation}
+            chibiSrc={chibiSrc}
+            onBegin={() => {
+              setRitualOpen(false);
+              router.push(recommendation.href);
+            }}
+            onClose={() => setRitualOpen(false)}
+          />
+        )}
       <div className="max-w-2xl mx-auto">
 
         {/* ── Know / Explore outer tabs ── */}
@@ -905,9 +1036,9 @@ export default function AssessmentsPage() {
           <p className="text-[10px] font-bold uppercase tracking-widest mb-3" style={{ color: "rgba(255,255,255,0.3)" }}>
             Your next session
           </p>
-          <Link
-            href={recommendation.href}
-            className="group block rounded-2xl overflow-hidden transition-all duration-200 hover:-translate-y-0.5 hover:shadow-2xl"
+          <button
+            onClick={() => setRitualOpen(true)}
+            className="group block w-full rounded-2xl overflow-hidden transition-all duration-200 hover:-translate-y-0.5 hover:shadow-2xl text-left"
             style={{ boxShadow: `0 8px 32px rgba(0,0,0,0.4)` }}
           >
             {/* Gradient header */}
@@ -964,7 +1095,7 @@ export default function AssessmentsPage() {
                 </span>
               </div>
             </div>
-          </Link>
+          </button>
         </motion.div>
 
         {/* ── New-user path: show 3-step journey when no type ── */}
