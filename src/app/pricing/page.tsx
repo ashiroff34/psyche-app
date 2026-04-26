@@ -142,10 +142,13 @@ export default function PricingPage() {
           </p>
           <h1 className="text-3xl font-bold mb-1">Choose your depth</h1>
           <p className="text-xs mb-3" style={{ color: "rgba(255,255,255,0.32)" }}>
-            Thousands of people mapping their psyche
+            Built on Ichazo, Naranjo, and Riso-Hudson &mdash; not pop psychology
           </p>
           <p className="text-sm opacity-60 mb-2 leading-relaxed">
             Free gets you far. Pro unlocks the layers that take years off the self-discovery curve.
+          </p>
+          <p className="text-xs mb-2" style={{ color: "rgba(255,255,255,0.5)" }}>
+            One therapy session is $200. A year of Thyself is $47.
           </p>
           <p className="text-xs font-semibold mb-8" style={{ color: "rgba(167,139,250,0.9)" }}>
             7 days free, then keep it or cancel. No charge until day 7.

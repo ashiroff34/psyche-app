@@ -293,5 +293,31 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.85,
   }));
 
-  return [...core, ...typePages, ...unitPages, ...assessmentPages, ...seoEnneagramPages, ...subtypePages, ...cognitiveFunctionPages, ...compatibilityPages, ...enneagramTheoryPages, ...wingPages, ...relationshipPages, ...workPages, ...sameTypeCompatibilityPages, ...famousPages, ...growthPages, ...stressPages, ...communicationPages, ...parentingPages, ...friendshipPages, ...childhoodPages, ...tritypeIndexPage, ...tritypeDetailPages];
+  // MBTI × Enneagram crossover pages — 144 combinations + index
+  // High-traffic search terms: "INFJ Enneagram 4", "INTJ Enneagram 5", etc.
+  const CROSSOVER_MBTI = [
+    "intj", "intp", "entj", "entp",
+    "infj", "infp", "enfj", "enfp",
+    "istj", "isfj", "estj", "esfj",
+    "istp", "isfp", "estp", "esfp",
+  ];
+  const CROSSOVER_ENNEAGRAM = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+  const personalityIndexPage: MetadataRoute.Sitemap = [
+    {
+      url: `${BASE}/personality`,
+      lastModified: now,
+      changeFrequency: "monthly" as const,
+      priority: 0.9,
+    },
+  ];
+  const personalityCrossoverPages: MetadataRoute.Sitemap = CROSSOVER_MBTI.flatMap((mbti) =>
+    CROSSOVER_ENNEAGRAM.map((ennType) => ({
+      url: `${BASE}/personality/${mbti}-enneagram-${ennType}`,
+      lastModified: now,
+      changeFrequency: "monthly" as const,
+      priority: 0.85,
+    }))
+  );
+
+  return [...core, ...typePages, ...unitPages, ...assessmentPages, ...seoEnneagramPages, ...subtypePages, ...cognitiveFunctionPages, ...compatibilityPages, ...enneagramTheoryPages, ...wingPages, ...relationshipPages, ...workPages, ...sameTypeCompatibilityPages, ...famousPages, ...growthPages, ...stressPages, ...communicationPages, ...parentingPages, ...friendshipPages, ...childhoodPages, ...tritypeIndexPage, ...tritypeDetailPages, ...personalityIndexPage, ...personalityCrossoverPages];
 }
