@@ -496,26 +496,46 @@
   .frag p { font-size: 16px; line-height: 1.7; }
   .frag-turn p { font-size: 16.5px; }
 
-  /* Big-number stat block — meant to stop the reader */
-  .frag-stat {
-    margin: 48px 0 8px;
-    padding: 34px 28px;
+  /* Dot grid stat — interactive infographic */
+  .dot-grid-wrap {
+    margin: 40px 0 8px;
+    padding: 32px 24px 28px;
     text-align: center;
-    border-top: 1px solid var(--border);
-    border-bottom: 1px solid var(--border);
-    background: linear-gradient(180deg, rgba(139,92,246,0.05), transparent);
+    background: linear-gradient(180deg, rgba(139,92,246,0.07), transparent);
+    border: 1px solid rgba(139,92,246,0.18);
+    border-radius: 18px;
+    cursor: pointer;
   }
-  .stat-line {
+  .dot-grid {
+    display: flex; flex-wrap: wrap; gap: 5px;
+    justify-content: center;
+    margin-bottom: 20px;
+    max-width: 320px; margin-left: auto; margin-right: auto;
+  }
+  .dot-grid .d {
+    width: 11px; height: 11px; border-radius: 50%;
+    background: rgba(255,255,255,0.12);
+    transition: background 0.3s, box-shadow 0.3s;
+    flex-shrink: 0;
+  }
+  .dot-grid .d.lit {
+    background: #a78bfa;
+    box-shadow: 0 0 6px rgba(167,139,250,0.7);
+  }
+  .dot-grid-label {
     font-family: "Playfair Display", serif;
-    font-size: clamp(20px, 3.6vw, 26px);
-    line-height: 1.3;
-    color: rgba(255,255,255,0.96);
-    font-weight: 500;
+    font-size: clamp(14px, 2.6vw, 17px);
+    color: rgba(255,255,255,0.7);
+    line-height: 1.5;
   }
-  .stat-line + .stat-line { margin-top: 14px; }
-  .stat-line.stat-hit {
-    color: #fcd34d;
-    font-weight: 600;
+  .dot-grid-label strong {
+    color: #fcd34d; font-weight: 700;
+    font-size: clamp(18px, 3.4vw, 24px); display: block;
+    margin-bottom: 4px;
+  }
+  .dot-grid-hint {
+    font-size: 11px; color: var(--text-muted); margin-top: 12px;
+    letter-spacing: 0.06em; text-transform: uppercase;
   }
 
   /* A solitary question, on its own, mid-page */
@@ -1236,24 +1256,22 @@ function renderHero() {
   `;
 }
 
-/* ───── MANIFESTO (no argument labels — Pascal-style fragments) ───── */
+/* ───── MANIFESTO — quotes + one interactive stat, no prose ───── */
 function renderArgument() {
+  // Build 100 dots, 12 lit (representing ~12% self-aware)
+  const dots = Array.from({ length: 100 }, (_, i) => `<div class="d${i < 12 ? ' lit' : ''}" data-dot="${i}"></div>`).join("");
+
   return `
     <section class="screen screen-manifesto">
-      <button class="btn-link" data-go="hero" style="margin-bottom: 8px;">← Back</button>
+      <button class="btn-link" data-go="hero" style="margin-bottom: 16px;">← Back</button>
 
-      <div class="frag frag-open">
-        <p>
-          There is a researcher named Tasha Eurich. Over several years, her team ran ten investigations with nearly five thousand people, trying to measure how well each one knew themselves.
-        </p>
-        <p style="margin-top: 14px;">
-          The finding, published in the <em>Harvard Business Review</em> in 2018:
-        </p>
-      </div>
-
-      <div class="frag-stat">
-        <div class="stat-line">95% of people believe they are self-aware.</div>
-        <div class="stat-line stat-hit">Only 10 to 15 percent actually are.</div>
+      <div class="dot-grid-wrap" id="dot-grid-wrap">
+        <div class="dot-grid" id="dot-grid">${dots}</div>
+        <div class="dot-grid-label">
+          <strong>10 to 15%</strong>
+          of adults are actually self-aware — despite 95% believing they are.
+        </div>
+        <div class="dot-grid-hint">Eurich, Harvard Business Review, 2018 &nbsp;·&nbsp; tap to animate</div>
       </div>
 
       <div class="frag frag-q">
@@ -1268,28 +1286,10 @@ function renderArgument() {
       </div>
 
       <div class="frag">
-        <p>
-          In 2007, researchers at UCLA ran a study. They put people in an fMRI scanner, showed them faces with difficult emotions, and asked them to either describe the emotion in words or pick a matching photograph.
-        </p>
-        <p style="margin-top: 12px;">
-          Naming the emotion — even silently — reduced activity in the amygdala, the brain's alarm system.<sup class="fn">1</sup>
-        </p>
-        <p style="margin-top: 12px; color: var(--text-secondary); font-style: italic;">
-          You are more regulated the more accurately you can describe yourself.
-        </p>
-      </div>
-
-      <div class="frag">
         <blockquote class="arg-quote">
           "Everything can be taken from a man but one thing: the last of the human freedoms — to choose one's attitude in any given set of circumstances, to choose one's own way."
           <cite>— Viktor Frankl, <em>Man's Search for Meaning</em></cite>
         </blockquote>
-        <p style="margin-top: 16px;">
-          Frankl wrote this after four concentration camps. He was describing the one piece of freedom he could not be stripped of.
-        </p>
-        <p style="margin-top: 12px;">
-          The space exists only for people who can notice themselves reacting. For everyone else, stimulus and response are fused.
-        </p>
       </div>
 
       <div class="frag">
@@ -1299,37 +1299,19 @@ function renderArgument() {
         </blockquote>
       </div>
 
-      <div class="frag">
-        <p>
-          This is not only a private problem.
-        </p>
-        <p style="margin-top: 12px;">
-          People who do not understand their own fear carry it into every institution they participate in. The leader who cannot distinguish conviction from ego. The voter who cannot name what they are actually afraid of. The parent who mistakes their own unmet need for their child's. Self-ignorance does not stay inside one person — it gets enacted, at scale, in the world.
-        </p>
-        <p style="margin-top: 12px; color: var(--text-secondary); font-style: italic;">
-          Democracies run on people making decisions. Most of those decisions are made from patterns the person has never examined.
+      <div class="frag" style="margin-top: 48px; text-align: center;">
+        <p style="font-family: 'Playfair Display', serif; font-size: clamp(16px, 3vw, 20px); font-style: italic; color: rgba(255,255,255,0.85); line-height: 1.5;">
+          One of nine patterns is probably yours.
         </p>
       </div>
 
-      <div class="frag frag-turn">
-        <p>
-          Among the older systems for noticing yourself is the Enneagram — a psychological taxonomy of nine specific avoidance strategies. Developed by Oscar Ichazo in the 1960s. Refined by the Chilean psychiatrist Claudio Naranjo through his work at Esalen and in the Bay Area in the 1970s. Formalized clinically by Riso, Hudson, and Chestnut in the decades since.
-        </p>
-        <p style="margin-top: 14px;">
-          Each of the nine describes one particular thing a human being is specifically avoiding feeling. Not a horoscope. Not a mood board. A map of how you got here.
-        </p>
-        <p style="margin-top: 14px; color: var(--text-primary); opacity: 0.92;">
-          One of the nine is probably yours.
-        </p>
-      </div>
-
-      <div class="cta-row" style="margin-top: 40px;">
+      <div class="cta-row" style="margin-top: 36px;">
         <button class="btn btn-primary" data-go="quiz">Find out which →</button>
         <button class="btn btn-ghost" data-go="preview">See the nine first</button>
       </div>
 
       <div class="disclaimer" style="margin-top: 28px;">
-        <sup class="fn">1</sup> Lieberman, M.D., et al. (2007). "Putting Feelings Into Words: Affect Labeling Disrupts Amygdala Activity in Response to Affective Stimuli," <em>Psychological Science</em>, 18(5), 421–428. · Eurich, T. (2018). "What Self-Awareness Really Is (and How to Cultivate It)," <em>Harvard Business Review</em>. · Jung, C.G., <em>Collected Works</em>. · Frankl, V., <em>Man's Search for Meaning</em>, Beacon Press, 1959. · Plato, <em>Apology</em> 38a, c. 399 BCE.
+        Eurich, T. (2018). <em>Harvard Business Review</em>. · Frankl, V., <em>Man's Search for Meaning</em>, Beacon Press. · Plato, <em>Apology</em> 38a. · Enneagram: Ichazo, Naranjo, Riso &amp; Hudson, Chestnut.
       </div>
     </section>
   `;
@@ -1720,6 +1702,37 @@ function wire() {
       render();
     });
   });
+
+  // Dot grid — tap to animate unlit dots fading out, then reset
+  const dotWrap = root.querySelector("#dot-grid-wrap");
+  if (dotWrap) {
+    let animating = false;
+    dotWrap.addEventListener("click", () => {
+      if (animating) return;
+      animating = true;
+      const unlitDots = [...root.querySelectorAll(".dot-grid .d:not(.lit)")];
+      // Shuffle for random fade order
+      for (let i = unlitDots.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [unlitDots[i], unlitDots[j]] = [unlitDots[j], unlitDots[i]];
+      }
+      unlitDots.forEach((d, i) => {
+        setTimeout(() => {
+          d.style.background = "rgba(255,255,255,0.04)";
+          d.style.transition = "background 0.4s";
+        }, i * 8);
+      });
+      setTimeout(() => {
+        unlitDots.forEach(d => {
+          d.style.background = "";
+          d.style.transition = "background 0.6s";
+        });
+        animating = false;
+        const hint = root.querySelector(".dot-grid-hint");
+        if (hint) hint.textContent = "Eurich, Harvard Business Review, 2018";
+      }, unlitDots.length * 8 + 1200);
+    });
+  }
 
   // About screen card toggles
   root.querySelectorAll(".about-card").forEach(card => {
