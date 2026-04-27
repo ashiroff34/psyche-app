@@ -725,9 +725,7 @@
   }
 
   /* ===== Pre-hero about screen ===== */
-  .about-screen {
-    max-width: 600px;
-  }
+  .about-screen { max-width: 600px; }
   .about-screen .about-kicker {
     font-size: 11px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase;
     color: var(--accent-soft); margin-bottom: 20px;
@@ -740,30 +738,49 @@
   .about-screen .about-intro {
     font-size: 15px; color: var(--text-secondary); line-height: 1.7; margin-bottom: 28px;
   }
-  .about-grid {
-    display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 32px;
-  }
-  @media (max-width: 520px) { .about-grid { grid-template-columns: 1fr; } }
-  .about-cell {
-    padding: 16px 18px;
+  .about-stack { display: flex; flex-direction: column; gap: 10px; margin-bottom: 32px; }
+  .about-card {
     background: rgba(255,255,255,0.04);
     border: 1px solid var(--border);
     border-radius: 14px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: border-color 0.18s;
   }
-  .about-cell .ac-label {
-    font-size: 10px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;
-    color: var(--accent-soft); margin-bottom: 6px;
+  .about-card:hover { border-color: var(--border-strong); }
+  .about-card.open { border-color: rgba(139,92,246,0.35); }
+  .about-card-header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 15px 18px;
+    gap: 12px;
   }
-  .about-cell .ac-body {
-    font-size: 13px; color: rgba(255,255,255,0.78); line-height: 1.6;
+  .about-card-header .ac-label {
+    font-size: 14px; font-weight: 500; color: var(--text-primary);
+    font-family: "Playfair Display", serif;
   }
-  .about-note {
-    font-size: 12px; color: var(--text-muted); line-height: 1.6;
-    padding: 12px 16px;
-    background: rgba(255,255,255,0.025);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    margin-bottom: 28px;
+  .about-card-header .ac-arrow {
+    font-size: 12px; color: var(--text-muted);
+    transition: transform 0.22s var(--ease);
+    flex-shrink: 0;
+  }
+  .about-card.open .ac-arrow { transform: rotate(180deg); color: var(--accent-soft); }
+  .about-card-body {
+    max-height: 0; overflow: hidden;
+    transition: max-height 0.32s cubic-bezier(0.4, 0, 0.2, 1), padding 0.22s;
+    padding: 0 18px;
+  }
+  .about-card.open .about-card-body {
+    max-height: 200px;
+    padding: 0 18px 16px;
+  }
+  .about-card-body p {
+    font-size: 13px; color: rgba(255,255,255,0.72); line-height: 1.65;
+    border-top: 1px solid var(--border);
+    padding-top: 14px;
+  }
+  .about-hint {
+    font-size: 12px; color: var(--text-muted); text-align: center;
+    margin-bottom: 24px; letter-spacing: 0.02em;
   }
 </style>
 </head>
@@ -785,42 +802,42 @@
     <p class="modal-sub">How this piece maps to the advocacy project criteria.</p>
 
     <div class="rubric-row">
-      <div class="rubric-label">Issue and Exigence</div>
+      <div class="rubric-label">the problem and why now</div>
       <div class="rubric-text">Research shows only 10 to 15 percent of adults are actually self-aware, despite 95 percent believing they are (Eurich, 2018). The conditions producing this gap are accelerating: algorithmic media rewards self-expression over self-examination, and productivity culture treats reflection as inefficiency. The harm is not only personal. Self-ignorance scales into families, workplaces, and political institutions. A rigorous and accessible tool for closing that gap is not a luxury; it is a civic one.</div>
     </div>
 
     <div class="rubric-row">
-      <div class="rubric-label">Target Audience</div>
+      <div class="rubric-label">who I made it for</div>
       <div class="rubric-text">Adults 18 to 34 who are intellectually curious but skeptical of self-help culture. They will engage with cited research and named clinical frameworks. They will not engage with anything that asks them to take its conclusions on faith or looks like a horoscope. A secondary audience is anyone who has dismissed the Enneagram as superficial, who can be reanchored by encountering it presented with historical lineage and source citations.</div>
     </div>
 
     <div class="rubric-row">
-      <div class="rubric-label">Purpose</div>
+      <div class="rubric-label">what I wanted to do</div>
       <div class="rubric-text">To shift the belief that self-knowledge is a luxury or a self-indulgence, and to convert that shift into one completable action: taking a 27-item diagnostic quiz grounded in the Enneagram frameworks of Ichazo, Naranjo, Riso and Hudson, and Chestnut. Awareness, diagnosis, and action are staged so none is demanded all at once.</div>
     </div>
 
     <div class="rubric-row">
-      <div class="rubric-label">Mode of Communication</div>
+      <div class="rubric-label">why this form</div>
       <div class="rubric-text">An interactive website was the only format that could both argue for self-knowledge and deliver the experience of it. Video and podcast require passive linear attention. A poster cannot house the quiz. A speech cannot be shared. The interactive web format lets the reader move at their own pace, generate their own data through the quiz, and arrive at a personalized conclusion in under three minutes. The result is a shareable URL.</div>
     </div>
 
     <div class="rubric-row">
-      <div class="rubric-label">Why the Mode Works</div>
+      <div class="rubric-label">how the form earns it</div>
       <div class="rubric-text">The thesis is that self-knowledge is something you must do, not something you can be told. Reading about self-knowledge is categorically different from being measured by 27 carefully weighted statements. The interactivity enacts the argument. Static formats can describe self-knowledge but cannot demonstrate it.</div>
     </div>
 
     <div class="rubric-row">
-      <div class="rubric-label">Appeal to Audience</div>
+      <div class="rubric-label">how it meets them where they are</div>
       <div class="rubric-text">The piece meets the audience's epistemic standards through cited statistics and named clinical frameworks. It meets their aesthetic preferences through a restrained design with no emojis and no mystical iconography. It respects their suspicion of being told what to think: the page never declares its argument; the reader assembles it from evidence placed deliberately. The quiz produces a personalized result, which is what the audience came for.</div>
     </div>
 
     <div class="rubric-row">
-      <div class="rubric-label">Call to Action</div>
+      <div class="rubric-label">what I am asking</div>
       <div class="rubric-text">The immediate action is to take the quiz and read the type and subtype result, completable in under three minutes. The sustained action is to continue at thyself.app, where the Enneagram is taught as an ongoing practice through daily observations and structured lessons built on the same frameworks cited in the piece. The first action is available in a single sitting. The second is a commitment to practice.</div>
     </div>
 
     <div class="rubric-row">
-      <div class="rubric-label">Additional Rhetorical Decisions</div>
+      <div class="rubric-label">some choices I made</div>
       <div class="rubric-text">Covert rather than declarative persuasion: argument labels like "The Claim" were removed after considering Brehm's reactance theory. The current piece presents evidence as found objects and lets the reader construct the conclusion, producing the self-persuasion effect Aronson identifies as more durable. Quiz design: three items per type, balanced for surface behavior and core wound, randomized at page load, with a close-call notice when scores fall within one point. Aesthetic restraint signals credibility before the reader reads a word.</div>
     </div>
   </div>
@@ -1023,37 +1040,47 @@ function render() {
 }
 
 /* ───── ABOUT (pre-hero context for professor) ───── */
+const ABOUT_CARDS = [
+  {
+    label: "what this is about",
+    body: "Most people believe they are self-aware. Research suggests only 10 to 15 percent actually are. The gap between those two numbers is where most avoidable harm in everyday life gets made, and it scales into every institution people participate in.",
+  },
+  {
+    label: "who it is for",
+    body: "People who are curious about themselves but suspicious of self-help culture. People who need cited research and a named framework before they trust something. People who have already dismissed personality typing as a horoscope.",
+  },
+  {
+    label: "why this form",
+    body: "An interactive website is the only format that can both argue for self-knowledge and deliver the experience of being measured by it. Reading about self-knowledge is categorically different from answering 27 carefully weighted statements. The medium enacts the thesis.",
+  },
+  {
+    label: "where it leads",
+    body: "Take the quiz. Read your type and subtype. Then continue at thyself.app to begin a structured learning path on your specific Enneagram type, built on the same frameworks cited in the piece.",
+  },
+];
+
 function renderAbout() {
+  const cards = ABOUT_CARDS.map((c, i) => `
+    <div class="about-card" data-card="${i}">
+      <div class="about-card-header">
+        <span class="ac-label">${c.label}</span>
+        <span class="ac-arrow">&#x25BE;</span>
+      </div>
+      <div class="about-card-body"><p>${c.body}</p></div>
+    </div>
+  `).join("");
+
   return `
     <section class="screen about-screen">
-      <div class="about-kicker">ENGL 138T · Advocacy Project</div>
+      <div class="about-kicker">ENGL 138T &nbsp;·&nbsp; Advocacy Project</div>
       <h2>do you want to know yourself?</h2>
       <p class="about-intro">
-        This is an interactive advocacy piece arguing that accurate self-knowledge is a prerequisite for ethical and effective living, both personally and civically. It takes the form of a diagnostic quiz grounded in the clinical Enneagram frameworks of Ichazo, Naranjo, Riso and Hudson, and Chestnut.
+        An interactive piece on self-knowledge. Press each card to read more, or go straight in.
       </p>
 
-      <div class="about-grid">
-        <div class="about-cell">
-          <div class="ac-label">Issue</div>
-          <div class="ac-body">Only 10 to 15 percent of adults are actually self-aware, despite 95 percent believing they are. The gap produces harm at the personal and civic level.</div>
-        </div>
-        <div class="about-cell">
-          <div class="ac-label">Audience</div>
-          <div class="ac-body">Adults 18 to 34 who are intellectually curious but skeptical of self-help culture. They respond to evidence, not assertion.</div>
-        </div>
-        <div class="about-cell">
-          <div class="ac-label">Mode</div>
-          <div class="ac-body">Interactive website. The only format that can both argue for self-knowledge and deliver the experience of being measured by it. The medium enacts the thesis.</div>
-        </div>
-        <div class="about-cell">
-          <div class="ac-label">Call to Action</div>
-          <div class="ac-body">Take the 27-item quiz. Read your type and subtype result. Continue at thyself.app to begin a structured learning path on your specific Enneagram type.</div>
-        </div>
-      </div>
+      <div class="about-stack">${cards}</div>
 
-      <div class="about-note">
-        The piece uses covert rather than declarative persuasion: no argument labels, no explicit thesis statement. The reader is led through evidence and arrives at the conclusion themselves. For the full rhetorical breakdown, click <strong>Rhetorical Notes</strong> in the bar at the top.
-      </div>
+      <p class="about-hint">full rhetorical breakdown &rarr; Rhetorical Notes above</p>
 
       <div class="cta-row">
         <button class="btn btn-primary" data-go="hero">Enter the piece &rarr;</button>
@@ -1568,6 +1595,15 @@ function wire() {
     b.addEventListener("click", () => {
       state.subtype = b.dataset.subtype;
       render();
+    });
+  });
+
+  // About screen card toggles
+  root.querySelectorAll(".about-card").forEach(card => {
+    card.addEventListener("click", () => {
+      const isOpen = card.classList.contains("open");
+      root.querySelectorAll(".about-card").forEach(c => c.classList.remove("open"));
+      if (!isOpen) card.classList.add("open");
     });
   });
 
