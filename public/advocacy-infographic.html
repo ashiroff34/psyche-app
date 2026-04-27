@@ -725,82 +725,122 @@
   }
 
   /* ===== Pre-hero about screen ===== */
-  .about-screen { max-width: 600px; }
+  .about-screen {
+    max-width: 600px;
+    position: relative;
+  }
 
-  .about-ornament {
-    display: flex; align-items: center; gap: 14px;
+  /* Radial glow spotlight behind the header */
+  .about-glow {
+    position: absolute;
+    top: -60px; left: 50%; transform: translateX(-50%);
+    width: 500px; height: 300px;
+    background: radial-gradient(ellipse at center, rgba(139,92,246,0.18) 0%, transparent 70%);
+    pointer-events: none; z-index: 0;
+  }
+
+  .about-header {
+    position: relative; z-index: 1;
+    text-align: center;
+    padding-bottom: 40px;
+  }
+
+  .about-eyebrow {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: 11px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--accent-soft);
+    padding: 6px 14px;
+    background: rgba(139,92,246,0.1);
+    border: 1px solid rgba(139,92,246,0.22);
+    border-radius: 999px;
     margin-bottom: 28px;
-  }
-  .about-ornament .orn-line {
-    flex: 1; height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(139,92,246,0.4), transparent);
-  }
-  .about-ornament .orn-dot {
-    width: 6px; height: 6px; border-radius: 50%;
-    background: var(--accent);
-    box-shadow: 0 0 10px var(--accent-glow);
   }
 
   .about-screen h2 {
     font-family: "Playfair Display", serif;
-    font-size: clamp(26px, 5vw, 40px);
-    font-weight: 600; line-height: 1.15;
-    margin-bottom: 10px;
-    color: var(--text-primary);
+    font-size: clamp(32px, 6vw, 52px);
+    font-weight: 600; line-height: 1.1;
+    margin-bottom: 16px;
   }
   .about-byline {
     font-size: 13px; color: var(--text-muted);
-    letter-spacing: 0.06em; margin-bottom: 10px;
+    letter-spacing: 0.08em; margin-bottom: 20px;
   }
   .about-screen .about-intro {
     font-size: 15px; color: var(--text-secondary);
-    line-height: 1.7; margin-bottom: 36px;
-    max-width: 480px;
+    line-height: 1.75; max-width: 440px;
+    margin: 0 auto;
+  }
+
+  /* Divider */
+  .about-divider {
+    display: flex; align-items: center; gap: 16px;
+    margin: 36px 0 28px;
+    position: relative; z-index: 1;
+  }
+  .about-divider::before, .about-divider::after {
+    content: ''; flex: 1; height: 1px;
+    background: linear-gradient(90deg, transparent, var(--border-strong));
+  }
+  .about-divider::after {
+    background: linear-gradient(270deg, transparent, var(--border-strong));
+  }
+  .about-divider-icon {
+    font-size: 14px; color: var(--text-muted); letter-spacing: 0.3em;
   }
 
   /* Cards */
-  .about-stack { display: flex; flex-direction: column; gap: 0; margin-bottom: 36px; }
+  .about-stack {
+    display: flex; flex-direction: column; gap: 0;
+    margin-bottom: 32px;
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    overflow: hidden;
+    position: relative; z-index: 1;
+  }
 
   .about-card {
     position: relative;
     cursor: pointer;
-    padding: 22px 24px 22px 36px;
+    padding: 20px 22px 20px 52px;
     border-bottom: 1px solid var(--border);
     transition: background 0.2s;
   }
-  .about-card:first-child { border-top: 1px solid var(--border); }
-  .about-card:hover { background: rgba(139,92,246,0.04); }
-  .about-card.open { background: rgba(139,92,246,0.07); }
+  .about-card:last-child { border-bottom: none; }
+  .about-card:hover { background: rgba(139,92,246,0.05); }
+  .about-card.open { background: rgba(139,92,246,0.08); }
 
-  /* animated left accent bar */
+  /* Animated left accent bar */
   .about-card::before {
     content: '';
     position: absolute; left: 0; top: 0; bottom: 0;
     width: 3px;
-    background: linear-gradient(180deg, var(--accent), #6366f1);
-    border-radius: 0 2px 2px 0;
+    background: linear-gradient(180deg, #a78bfa, #6366f1);
     transform: scaleY(0); transform-origin: top;
-    transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
   .about-card.open::before { transform: scaleY(1); }
+
+  /* Number badge */
+  .about-card::after {
+    content: attr(data-num);
+    position: absolute; left: 18px; top: 50%;
+    transform: translateY(-50%);
+    font-family: "Playfair Display", serif;
+    font-size: 11px; font-weight: 700; letter-spacing: 0.08em;
+    color: var(--text-muted);
+    transition: color 0.2s;
+  }
+  .about-card.open::after { color: var(--accent-soft); }
 
   .about-card-header {
     display: flex; align-items: center; justify-content: space-between; gap: 16px;
   }
-  .about-card-header .ac-num {
-    font-family: "Playfair Display", serif;
-    font-size: 11px; font-weight: 700;
-    color: var(--text-muted); letter-spacing: 0.1em;
-    flex-shrink: 0; min-width: 24px;
-    transition: color 0.2s;
-  }
-  .about-card.open .ac-num { color: var(--accent-soft); }
-
   .about-card-header .ac-label {
     flex: 1;
     font-family: "Playfair Display", serif;
-    font-size: 17px; font-style: italic; font-weight: 500;
-    color: rgba(255,255,255,0.82);
+    font-size: 16px; font-style: italic; font-weight: 500;
+    color: rgba(255,255,255,0.75);
     line-height: 1.3;
     transition: color 0.2s;
   }
@@ -808,35 +848,37 @@
 
   .about-card-header .ac-arrow {
     flex-shrink: 0;
-    width: 22px; height: 22px; border-radius: 50%;
+    width: 24px; height: 24px; border-radius: 50%;
     display: flex; align-items: center; justify-content: center;
-    background: rgba(255,255,255,0.06);
+    background: rgba(255,255,255,0.05);
     border: 1px solid var(--border);
-    font-size: 10px; color: var(--text-muted);
-    transition: transform 0.26s var(--ease), background 0.2s, color 0.2s, border-color 0.2s;
+    font-size: 9px; color: var(--text-muted);
+    transition: transform 0.28s var(--ease), background 0.2s, border-color 0.2s, color 0.2s;
   }
   .about-card.open .ac-arrow {
     transform: rotate(180deg);
-    background: rgba(139,92,246,0.18);
-    border-color: rgba(139,92,246,0.4);
+    background: rgba(139,92,246,0.2);
+    border-color: rgba(139,92,246,0.45);
     color: var(--accent-soft);
   }
 
   .about-card-body {
     display: grid; grid-template-rows: 0fr;
-    transition: grid-template-rows 0.3s cubic-bezier(0.4,0,0.2,1);
+    transition: grid-template-rows 0.32s cubic-bezier(0.4,0,0.2,1);
     overflow: hidden;
   }
   .about-card.open .about-card-body { grid-template-rows: 1fr; }
   .about-card-body-inner {
     overflow: hidden;
-    opacity: 0; transform: translateY(-6px);
-    transition: opacity 0.25s 0.08s, transform 0.25s 0.08s;
+    opacity: 0; transform: translateY(-5px);
+    transition: opacity 0.24s 0.1s var(--ease), transform 0.24s 0.1s var(--ease);
   }
   .about-card.open .about-card-body-inner { opacity: 1; transform: translateY(0); }
   .about-card-body p {
-    font-size: 14px; color: rgba(255,255,255,0.68);
-    line-height: 1.7; padding-top: 14px;
+    font-size: 14px; color: rgba(255,255,255,0.65);
+    line-height: 1.75; padding: 12px 0 6px;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    margin-top: 8px;
   }
 
   .about-hint {
@@ -845,7 +887,8 @@
     background: rgba(139,92,246,0.08);
     border: 1px solid rgba(139,92,246,0.2);
     border-radius: 999px; padding: 5px 14px;
-    margin-bottom: 28px; letter-spacing: 0.04em;
+    margin-bottom: 24px; letter-spacing: 0.04em;
+    position: relative; z-index: 1;
   }
 </style>
 </head>
@@ -933,12 +976,12 @@ const CHIBI_BASE = "/sprites/chibi";
 
 /* Core type data — avoidance, wound, cost, nickname, label */
 const TYPES = {
-  1: { label: "the critic", nick: "The Reformer", avoidance: "Avoids inner badness by perfecting everything outside.", wound: "A conviction that something is fundamentally wrong with them.", cost: "Exhausting themselves holding everything to a standard that can never be met because the real target is themselves." },
+  1: { label: "the reformer", nick: "The Perfectionist", avoidance: "Avoids inner badness by perfecting everything outside.", wound: "A conviction that something is fundamentally wrong with them.", cost: "Exhausting themselves holding everything to a standard that can never be met because the real target is themselves." },
   2: { label: "the helper", nick: "The Giver", avoidance: "Avoids feeling unlovable by making themselves indispensable.", wound: "Belief they have no intrinsic worth, only instrumental worth.", cost: "Giving strategically without knowing it and feeling betrayed when love isn't returned." },
   3: { label: "the achiever", nick: "The Performer", avoidance: "Avoids failure by replacing their inner self with their image.", wound: "Terror that without performance they are nothing.", cost: "Moving so fast toward the next goal they never ask if it means something." },
   4: { label: "the individualist", nick: "The Romantic", avoidance: "Avoids being ordinary by amplifying what's missing.", wound: "Sense of permanent deficiency.", cost: "Romanticizing longing so fulfillment always feels just out of reach." },
-  5: { label: "the observer", nick: "The Investigator", avoidance: "Avoids depletion by withdrawing from the world.", wound: "Conviction the world will consume them and they have too little to give.", cost: "Mistaking understanding for living." },
-  6: { label: "the loyalist", nick: "The Sceptic", avoidance: "Avoids betrayal by doubting everything including themselves.", wound: "Belief the world is unsafe and reliable support doesn't exist.", cost: "So prepared for things to go wrong they sometimes create the threat." },
+  5: { label: "the investigator", nick: "The Thinker", avoidance: "Avoids depletion by withdrawing from the world.", wound: "Conviction the world will consume them and they have too little to give.", cost: "Mistaking understanding for living." },
+  6: { label: "the loyalist", nick: "The Skeptic", avoidance: "Avoids anxiety by seeking certainty, allies, and systems they can trust.", wound: "Belief the world is unsafe and reliable support doesn't exist.", cost: "So prepared for things to go wrong they sometimes create the threat." },
   7: { label: "the enthusiast", nick: "The Epicure", avoidance: "Avoids pain by staying permanently in motion.", wound: "Terror of being trapped in deprivation or suffering.", cost: "Reframing everything before processing it so the original feeling never resolves." },
   8: { label: "the challenger", nick: "The Protector", avoidance: "Avoids vulnerability by becoming impossible to hurt.", wound: "Belief that softness means betrayal or control.", cost: "Pushing people away before they can leave and calling it strength." },
   9: { label: "the peacemaker", nick: "The Mediator", avoidance: "Avoids conflict by disappearing into the background.", wound: "Belief their presence and desires are too disruptive to matter.", cost: "Accommodating everyone so thoroughly they lose their own wants." },
@@ -998,13 +1041,13 @@ const SCALE = [
 /* 27 subtype descriptions (Chestnut / Naranjo nomenclature) */
 const SUBTYPES = {
   1: {
-    sp: { name: "Anxiety",       note: "countertype",   desc: "You turn the critic inward. You worry privately about being good enough, long before anyone else weighs in. Warm with those close to you, hard on yourself in silence." },
+    sp: { name: "Anxiety",       note: "",              desc: "You turn the critic inward. You worry privately about being good enough, long before anyone else weighs in. Warm with those close to you, hard on yourself in silence." },
     so: { name: "Inadaptability", note: "",             desc: "You carry yourself as a standard bearer — correct, principled, a visible model for how things should be done. Rigidity is how you manage a world that won't behave." },
-    sx: { name: "Zeal",          note: "",              desc: "Your perfectionism turns outward. You want the people close to you to rise to the standard you can see clearly, and your frustration has real heat." },
+    sx: { name: "Zeal",          note: "countertype",   desc: "Your perfectionism turns outward. You want the people close to you to rise to the standard you can see clearly, and your frustration has real heat." },
   },
   2: {
-    sp: { name: "Privilege",     note: "",              desc: "You draw care toward you by being endearing, charming, or young-at-heart — less by overt giving and more by being someone people want to protect." },
-    so: { name: "Ambition",      note: "countertype",   desc: "You help by leading, influencing, and building coalitions. Your generosity scales up — you want to matter to a room, not just a person." },
+    sp: { name: "Privilege",     note: "countertype",   desc: "You draw care toward you by being endearing, charming, or young-at-heart — less by overt giving and more by being someone people want to protect." },
+    so: { name: "Ambition",      note: "",              desc: "You help by leading, influencing, and building coalitions. Your generosity scales up — you want to matter to a room, not just a person." },
     sx: { name: "Seduction",     note: "",              desc: "You pour yourself into specific people. Your love is focused and intense — a few irreplaceable bonds rather than a wide field." },
   },
   3: {
@@ -1013,7 +1056,7 @@ const SUBTYPES = {
     sx: { name: "Charisma",      note: "",              desc: "You turn drive toward being wanted — magnetic, attentive, performing desirability. Often invested in a partner's success as an extension of your own." },
   },
   4: {
-    sp: { name: "Dauntless",     note: "countertype",   desc: "You suffer privately. You don't broadcast your pain — you carry it like a low-grade fever, enduring stoically without making others hold it." },
+    sp: { name: "Tenacity",      note: "countertype",   desc: "You suffer privately. You don't broadcast your pain — you carry it like a low-grade fever, enduring stoically without making others hold it." },
     so: { name: "Shame",         note: "",              desc: "Your longing shows in public. You're acutely aware of where you fall in the social hierarchy and often compare yourself unfavorably to others." },
     sx: { name: "Competition",   note: "",              desc: "Your pain has teeth. You want recognition so badly you'd rather argue for it than go unseen — demanding, assertive, unafraid of conflict." },
   },
@@ -1023,9 +1066,9 @@ const SUBTYPES = {
     sx: { name: "Confidence",    note: "countertype",   desc: "You want one person you can truly merge with — not breadth, not safety, but depth. A rare, specific bond matters more than many shallow ones." },
   },
   6: {
-    sp: { name: "Warmth",        note: "phobic",        desc: "You manage fear by finding reliable people and staying close to them. Loyalty, friendship, and warmth are how you build a safer world." },
+    sp: { name: "Warmth",        note: "",              desc: "You manage fear by finding reliable people and staying close to them. Loyalty, friendship, and warmth are how you build a safer world." },
     so: { name: "Duty",          note: "",              desc: "You trust the framework. Fear gets answered by having a clear code — rules, roles, causes, ideologies — and staying inside it faithfully." },
-    sx: { name: "Strength",      note: "counterphobic", desc: "You charge threats head-on. Others mistake your boldness for fearlessness, but you're attacking fear from the front rather than letting it attack you." },
+    sx: { name: "Strength",      note: "countertype",   desc: "You charge threats head-on. Others mistake your boldness for fearlessness, but you're attacking fear from the front rather than letting it attack you." },
   },
   7: {
     sp: { name: "Family",        note: "",              desc: "You build a network of people, options, and resources that keeps you cushioned. Gluttony for comfort, optionality, and the next good thing." },
@@ -1034,13 +1077,13 @@ const SUBTYPES = {
   },
   8: {
     sp: { name: "Satisfaction",  note: "",              desc: "You keep things simple and physical. Direct, practical, blunt. Survival-focused. You don't waste words, and you're very hard to bullshit." },
-    so: { name: "Solidarity",    note: "",              desc: "You wield power for other people. Your fight is against injustice done to the vulnerable — protector, anti-bully, loyal to the group you defend." },
-    sx: { name: "Possession",    note: "countertype",   desc: "Your intensity is romantic. You want to take someone over and be taken over — the most emotional and passionate Eight, rebellious, magnetic." },
+    so: { name: "Solidarity",    note: "countertype",   desc: "You wield power for other people. Your fight is against injustice done to the vulnerable — protector, anti-bully, loyal to the group you defend." },
+    sx: { name: "Possession",    note: "",              desc: "Your intensity is romantic. You want to take someone over and be taken over — the most emotional and passionate Eight, rebellious, magnetic." },
   },
   9: {
     sp: { name: "Appetite",      note: "",              desc: "You soothe yourself with creature comforts — food, sleep, routine, familiar rhythms. The edges of life stay soft because you keep them that way." },
-    so: { name: "Participation", note: "",              desc: "You're the reliable friend, the glue, the group member who always shows up. You work hard to belong and lose yourself in the 'us.'" },
-    sx: { name: "Union",         note: "countertype",   desc: "You find yourself through one specific person. Their life becomes the center of yours. The most self-forgetting Nine — merging is your peace." },
+    so: { name: "Participation", note: "countertype",   desc: "You're the reliable friend, the glue, the group member who always shows up. You work hard to belong and lose yourself in the 'us.'" },
+    sx: { name: "Fusion",        note: "",              desc: "You find yourself through one specific person. Their life becomes the center of yours. The most self-forgetting Nine — merging is your peace." },
   },
 };
 
@@ -1126,9 +1169,8 @@ const ABOUT_CARDS = [
 
 function renderAbout() {
   const cards = ABOUT_CARDS.map((c, i) => `
-    <div class="about-card" data-card="${i}">
+    <div class="about-card" data-card="${i}" data-num="0${i + 1}">
       <div class="about-card-header">
-        <span class="ac-num">0${i + 1}</span>
         <span class="ac-label">${c.label}</span>
         <span class="ac-arrow">&#x25BE;</span>
       </div>
@@ -1140,25 +1182,30 @@ function renderAbout() {
 
   return `
     <section class="screen about-screen">
-      <div class="about-ornament">
-        <div class="orn-line"></div>
-        <div class="orn-dot"></div>
-        <div class="orn-line"></div>
+      <div class="about-glow" aria-hidden="true"></div>
+
+      <div class="about-header">
+        <div class="about-eyebrow">
+          <span class="dot"></span>ENGL 138T &nbsp;&middot;&nbsp; Advocacy Project
+        </div>
+        <h2><span class="shimmer-text">do you want to know yourself?</span></h2>
+        <p class="about-byline">Arianna Shiroff &nbsp;&middot;&nbsp; Section 010</p>
+        <p class="about-intro">
+          An interactive piece on self-knowledge and why it matters. Tap each line to read the thinking behind it.
+        </p>
       </div>
 
-      <h2><span class="shimmer-text">do you want to know yourself?</span></h2>
-      <p class="about-byline">Arianna Shiroff &nbsp;&middot;&nbsp; ENGL 138T, Section 010</p>
-      <p class="about-intro">
-        An interactive advocacy piece. Tap each line to read more about the thinking behind it, or go straight in.
-      </p>
+      <div class="about-divider" aria-hidden="true">
+        <span class="about-divider-icon">&#x2726;</span>
+      </div>
 
       <div class="about-stack">${cards}</div>
 
-      <div>
-        <span class="about-hint">&#x2197; Rhetorical Notes &mdash; full breakdown in the bar above</span>
+      <div style="text-align:center;">
+        <span class="about-hint">&#x2197;&nbsp; full rhetorical breakdown in Rhetorical Notes above</span>
       </div>
 
-      <div class="cta-row" style="margin-top: 28px;">
+      <div class="cta-row" style="margin-top: 28px; justify-content: center;">
         <button class="btn btn-primary" data-go="hero">Enter the piece &rarr;</button>
       </div>
     </section>
@@ -1216,7 +1263,7 @@ function renderArgument() {
       <div class="frag">
         <blockquote class="arg-quote">
           "Until you make the unconscious conscious, it will direct your life and you will call it fate."
-          <cite>— Carl Jung, <em>Collected Works</em></cite>
+          <cite>— attributed to Carl Jung</cite>
         </blockquote>
       </div>
 
@@ -1234,7 +1281,7 @@ function renderArgument() {
 
       <div class="frag">
         <blockquote class="arg-quote">
-          "Between stimulus and response there is a space. In that space is our power to choose our response. In our response lies our growth and our freedom."
+          "Everything can be taken from a man but one thing: the last of the human freedoms — to choose one's attitude in any given set of circumstances, to choose one's own way."
           <cite>— Viktor Frankl, <em>Man's Search for Meaning</em></cite>
         </blockquote>
         <p style="margin-top: 16px;">
@@ -1266,7 +1313,7 @@ function renderArgument() {
 
       <div class="frag frag-turn">
         <p>
-          Among the older systems for noticing yourself is the Enneagram — a psychological taxonomy of nine specific avoidance strategies. Developed by Oscar Ichazo in the 1960s. Refined by the Chilean psychiatrist Claudio Naranjo at Berkeley in the 1970s. Formalized clinically by Riso, Hudson, and Chestnut in the decades since.
+          Among the older systems for noticing yourself is the Enneagram — a psychological taxonomy of nine specific avoidance strategies. Developed by Oscar Ichazo in the 1960s. Refined by the Chilean psychiatrist Claudio Naranjo through his work at Esalen and in the Bay Area in the 1970s. Formalized clinically by Riso, Hudson, and Chestnut in the decades since.
         </p>
         <p style="margin-top: 14px;">
           Each of the nine describes one particular thing a human being is specifically avoiding feeling. Not a horoscope. Not a mood board. A map of how you got here.
