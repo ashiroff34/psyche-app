@@ -656,7 +656,7 @@
   <div id="screen"></div>
 
   <footer>
-    Psychological frameworks: Ichazo, Naranjo, Riso &amp; Hudson, Chestnut. Not a clinical assessment. A project by <a href="https://thyself.netlify.app" target="_blank" rel="noopener">Thyself</a>.
+    Psychological frameworks: Ichazo, Naranjo, Riso &amp; Hudson, Chestnut. Not a clinical assessment. A project by <a href="https://thyself.app" target="_blank" rel="noopener">Thyself</a>.
   </footer>
 </main>
 
@@ -930,6 +930,18 @@ function renderArgument() {
         </blockquote>
       </div>
 
+      <div class="frag">
+        <p>
+          This is not only a private problem.
+        </p>
+        <p style="margin-top: 12px;">
+          People who do not understand their own fear carry it into every institution they participate in. The leader who cannot distinguish conviction from ego. The voter who cannot name what they are actually afraid of. The parent who mistakes their own unmet need for their child's. Self-ignorance does not stay inside one person — it gets enacted, at scale, in the world.
+        </p>
+        <p style="margin-top: 12px; color: var(--text-secondary); font-style: italic;">
+          Democracies run on people making decisions. Most of those decisions are made from patterns the person has never examined.
+        </p>
+      </div>
+
       <div class="frag frag-turn">
         <p>
           Among the older systems for noticing yourself is the Enneagram — a psychological taxonomy of nine specific avoidance strategies. Developed by Oscar Ichazo in the 1960s. Refined by the Chilean psychiatrist Claudio Naranjo at Berkeley in the 1970s. Formalized clinically by Riso, Hudson, and Chestnut in the decades since.
@@ -1123,11 +1135,14 @@ function renderCore() {
         <div class="chart-note">
           Scored as percentage of maximum (12 per type, 27 items total). Enneagram tests are directional — high scores on two types often mean you relate to both patterns, not that the test is wrong. Read both type descriptions and trust your felt sense.
         </div>
-        ${closeCall ? `
-          <div class="close-call">
-            <strong>Close call.</strong> Your top two types are within one point. You may be <strong>Type ${top.type}</strong> with a <strong>Type ${second.type}</strong> wing, or you may be a <strong>Type ${second.type}</strong> whose pattern looks similar on the surface. The subtype step will help refine this.
-          </div>
-        ` : ""}
+        ${closeCall ? (() => {
+          const t1 = top.type, t2 = second.type;
+          const isWing = Math.abs(t1 - t2) === 1 || (t1 === 1 && t2 === 9) || (t1 === 9 && t2 === 1);
+          const msg = isWing
+            ? `Your top two types are within one point. You may be <strong>Type ${t1}</strong> with a strong <strong>Type ${t2}</strong> wing — adjacent types often blend at this score gap.`
+            : `Your top two types are within one point. Types ${t1} and ${t2} are not wings of each other (wings are only neighboring types), so you may genuinely relate to both patterns. Read both descriptions carefully before deciding.`;
+          return `<div class="close-call"><strong>Close call.</strong> ${msg} The subtype step will help refine this.</div>`;
+        })() : ""}
       </div>
 
       <div class="cta-row">
@@ -1218,7 +1233,6 @@ function renderFinal() {
       </div>
 
       <div class="arg-block" style="margin-top: 22px; background: rgba(139,92,246,0.06); border-color: rgba(139,92,246,0.28);">
-        <div class="arg-k">The close</div>
         <p class="arg-body" style="font-family: 'Playfair Display', serif; font-size: 18px; line-height: 1.5; font-style: italic;">
           You now know which of the nine patterns you run. That is stage one. The actual work is learning to notice it in real time — before it chooses your next sentence for you.
         </p>
@@ -1233,7 +1247,7 @@ function renderFinal() {
         <div class="cta-copy">
           <p><strong>Keep going.</strong> Thyself teaches the Enneagram as an ongoing practice — daily observations, lessons, integration work. Built on the frameworks cited here: Ichazo, Naranjo, Riso &amp; Hudson, Chestnut. Not a test to take once. A lens to live with. Start your Type ${state.coreType} path today.</p>
         </div>
-        <a class="btn btn-primary" href="https://thyself.netlify.app?utm_source=advocacy&utm_medium=infographic&utm_campaign=discover_your_type&type=${codeLabel}" target="_blank" rel="noopener">
+        <a class="btn btn-primary" href="https://thyself.app?utm_source=advocacy&utm_medium=infographic&utm_campaign=discover_your_type&type=${codeLabel}" target="_blank" rel="noopener">
           Begin the practice →
         </a>
       </div>
@@ -1241,6 +1255,10 @@ function renderFinal() {
       <div class="cta-row">
         <button class="btn btn-ghost" data-retake>Retake the quiz</button>
         <button class="btn-link" data-go="subtype">Change my subtype</button>
+        <button class="btn btn-ghost" id="share-btn" style="display:inline-flex;align-items:center;gap:8px;">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+          Share this
+        </button>
       </div>
 
       <div class="disclaimer">
@@ -1266,6 +1284,24 @@ function wire() {
       render();
     });
   });
+
+  // Share button
+  const shareBtn = root.querySelector("#share-btn");
+  if (shareBtn) {
+    shareBtn.addEventListener("click", async () => {
+      const url = "https://thyself-audit.netlify.app";
+      const text = "do you want to know yourself? — find your Enneagram type in under 3 minutes";
+      if (navigator.share) {
+        try { await navigator.share({ title: text, url }); } catch (_) {}
+      } else {
+        await navigator.clipboard.writeText(url).catch(() => {});
+        shareBtn.textContent = "Link copied!";
+        setTimeout(() => {
+          shareBtn.innerHTML = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg> Share this`;
+        }, 2000);
+      }
+    });
+  }
 
   // Retake
   root.querySelectorAll("[data-retake]").forEach(b => {
