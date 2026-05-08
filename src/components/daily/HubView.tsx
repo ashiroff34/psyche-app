@@ -106,6 +106,7 @@ import IntegrationCompanion from "./IntegrationCompanion";
 import DailyInsightCard from "@/components/DailyInsightCard";
 import DailyObservationCard from "./DailyObservationCard";
 import StreakCard from "@/components/streak/StreakCard";
+import StreakSaver from "@/components/streak/StreakSaver";
 import MorningPassionCheckIn from "./MorningPassionCheckIn";
 import TheoryPracticeCard from "./TheoryPracticeCard";
 import AudioReflection from "@/components/AudioReflection";
@@ -413,6 +414,25 @@ export default function HubView({
   const countdown = useMidnightCountdown();
   // Show streak countdown when: user has a streak AND hasn't finished today's practice
   const streakAtRisk = streak > 0 && !warmupDoneToday;
+
+  // Loss-aversion modal: prompt the user before they lose a meaningful streak.
+  // Trigger when streak >= 3, daily goal not met, evening, and not dismissed today.
+  const STREAK_SAVER_DISMISS_KEY = `psyche-streak-saver-dismissed-${getDateKey()}`;
+  const [showStreakSaver, setShowStreakSaver] = useState(false);
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    if (streak < 3 || dailyGoalMet || warmupDoneToday) return;
+    if (new Date().getHours() < 18) return;
+    if (localStorage.getItem(STREAK_SAVER_DISMISS_KEY)) return;
+    // Slight delay so it doesn't fire during initial mount transitions
+    const t = setTimeout(() => setShowStreakSaver(true), 800);
+    return () => clearTimeout(t);
+  }, [streak, dailyGoalMet, warmupDoneToday, STREAK_SAVER_DISMISS_KEY]);
+
+  const dismissStreakSaver = () => {
+    try { localStorage.setItem(STREAK_SAVER_DISMISS_KEY, "1"); } catch {}
+    setShowStreakSaver(false);
+  };
 
   // Endowed progress: show a "head start" banner on first hub visit if user has XP from assessments
   const [showHeadStart, setShowHeadStart] = useState(false);
@@ -1911,6 +1931,16 @@ export default function HubView({
           </motion.div>
         )}
       </div>
+
+      {/* Loss-aversion: streak-saver modal (Duolingo-style intervention) */}
+      <StreakSaver
+        visible={showStreakSaver}
+        streak={streak}
+        freezeTokens={streakFreezes}
+        onSave={() => { dismissStreakSaver(); onStreakShop?.(); }}
+        onLetBreak={dismissStreakSaver}
+        onDismiss={dismissStreakSaver}
+      />
     </div>
   );
 }
