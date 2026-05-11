@@ -98,14 +98,14 @@ function TypeSelfWorkGate({
           Journal prompts, daily practices, and growth exercises for your type.
         </p>
         <Link
-          href="/store"
+          href="/pricing"
           className="px-6 py-2.5 rounded-xl font-bold text-white text-sm transition-all active:scale-95"
           style={{
             background: `linear-gradient(135deg, ${accent}, ${accent}bb)`,
             boxShadow: `0 4px 20px ${accent}44`,
           }}
         >
-          Get Pro to unlock
+          Try Pro Free for 7 Days
         </Link>
       </motion.div>
     </div>

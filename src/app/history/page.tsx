@@ -841,8 +841,8 @@ export default function HistoryPage() {
         </div>
         <h1 className="text-2xl font-serif font-bold mb-2" style={{ color: "rgba(255,255,255,0.92)" }}>Type History</h1>
         <p className="text-sm mb-8 max-w-xs" style={{ color: "rgba(255,255,255,0.45)" }}>Your full assessment history and type evolution over time.</p>
-        <Link href="/store" className="px-6 py-3 rounded-2xl font-bold text-white mb-4" style={{ background: "linear-gradient(135deg, #7c3aed, #6366f1)" }}>
-          Unlock in Store
+        <Link href="/pricing" className="px-6 py-3 rounded-2xl font-bold text-white mb-4" style={{ background: "linear-gradient(135deg, #7c3aed, #6366f1)" }}>
+          Try Pro Free for 7 Days
         </Link>
         <Link href="/profile" className="text-sm" style={{ color: "rgba(255,255,255,0.3)" }}>Back to Profile</Link>
       </div>

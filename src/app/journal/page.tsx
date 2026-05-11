@@ -2430,11 +2430,11 @@ function ProGate({ children }: { children: React.ReactNode }) {
           This is premium content. Requires a Thyself Pro subscription.
         </p>
         <Link
-          href="/store"
+          href="/pricing"
           className="block w-full py-3.5 rounded-2xl font-bold text-white text-sm mb-3 transition-all active:scale-95"
           style={{ background: "linear-gradient(135deg, #6366f1, #7c3aed)", boxShadow: "0 4px 20px rgba(99,102,241,0.4)" }}
         >
-          Get Thyself Pro →
+          Try Pro Free for 7 Days →
         </Link>
         <div className="p-4 rounded-2xl" style={{ background: "rgba(16,185,129,0.08)", border: "1px solid rgba(16,185,129,0.2)" }}>
           <p className="text-xs font-semibold mb-1" style={{ color: "#34d399" }}>Looking for Enneagram growth?</p>
