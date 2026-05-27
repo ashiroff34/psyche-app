@@ -196,7 +196,7 @@ export default function MilestoneModal({ streakCount, enneagramType }: Milestone
                       border: "1px solid rgba(217,70,239,0.3)",
                     }}
                   >
-                    See your full Pro profile
+                    Try Pro Free for 7 Days
                   </button>
                 ) : (
                   <button

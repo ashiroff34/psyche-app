@@ -1384,7 +1384,7 @@ function ResultsInner() {
                     </p>
                     <div className="flex items-center justify-between">
                       <span className="text-xs font-semibold text-violet-200">
-                        See your full Pro profile
+                        Try Pro Free for 7 Days
                       </span>
                       <ArrowRight className="w-4 h-4 text-violet-200" />
                     </div>

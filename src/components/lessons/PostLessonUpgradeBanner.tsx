@@ -105,7 +105,7 @@ export default function PostLessonUpgradeBanner({ lessonCount }: PostLessonUpgra
             }}
             onClick={handleDismiss}
           >
-            See what&apos;s included &rarr;
+            Try Pro Free for 7 Days &rarr;
           </Link>
         </motion.div>
       )}
