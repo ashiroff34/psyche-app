@@ -30,6 +30,7 @@ import {
 } from "lucide-react";
 import { enneagramTypes } from "@/data/enneagram";
 import { subtypes } from "@/data/subtypes";
+import { communityVoicesByType } from "@/data/community-voices";
 import {
   naranjoFramework,
   hornevianGroups,
@@ -547,6 +548,48 @@ function ResultsInner() {
             </Link>
           </div>
         </motion.div>
+
+        {/* Fellow Type voices. Identity anchoring at peak discovery moment.
+            Three observations sourced from Naranjo and Riso-Hudson clinical
+            patterns, framed as shared peer-group experience. */}
+        {communityVoicesByType[typeData.number] && (
+          <motion.div
+            initial={{ opacity: 1, y: 0 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="mb-8 rounded-3xl p-6"
+            style={{
+              background: "linear-gradient(135deg, rgba(139,92,246,0.10), rgba(217,70,239,0.06))",
+              border: "1px solid rgba(139,92,246,0.22)",
+            }}
+          >
+            <p
+              className="text-[10px] font-semibold tracking-wider uppercase mb-3"
+              style={{ color: "rgba(167,139,250,0.7)" }}
+            >
+              From other Type {typeData.number}s
+            </p>
+            <ul className="space-y-3">
+              {communityVoicesByType[typeData.number].map((voice) => (
+                <li
+                  key={voice}
+                  className="text-sm leading-relaxed pl-3"
+                  style={{
+                    color: "rgba(255,255,255,0.78)",
+                    borderLeft: "2px solid rgba(167,139,250,0.35)",
+                  }}
+                >
+                  {voice}
+                </li>
+              ))}
+            </ul>
+            <p
+              className="text-[11px] mt-4 leading-relaxed"
+              style={{ color: "rgba(255,255,255,0.4)" }}
+            >
+              Patterns drawn from Riso-Hudson and Naranjo clinical observation. You are not alone in this.
+            </p>
+          </motion.div>
+        )}
 
         {/* Tabs */}
         <div className="flex gap-1 p-1 rounded-2xl mb-6 overflow-x-auto" style={{ background: "rgba(255,255,255,0.06)" }}>
