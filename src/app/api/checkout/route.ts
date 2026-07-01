@@ -59,7 +59,12 @@ export async function POST(req: NextRequest) {
       ...(email ? { customer_email: email } : {}),
       // Redirect back into the app after payment
       success_url: `${origin}/store/success?session_id={CHECKOUT_SESSION_ID}&pack=${packId}`,
-      cancel_url: `${origin}/store?cancelled=1`,
+      // Abandoned Pro checkout returns to /pricing (type-personalized headline,
+      // therapy anchor, 7-day trial CTA) — never dump Pro intent into the token
+      // store. Token-pack cancels return to /store. Mirrors the leak fixed in 4ac0843.
+      cancel_url: isSubscription
+        ? `${origin}/pricing?checkout=cancelled`
+        : `${origin}/store?cancelled=1`,
       // Allow promotion codes
       allow_promotion_codes: true,
     });
