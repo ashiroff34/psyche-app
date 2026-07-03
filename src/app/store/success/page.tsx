@@ -52,6 +52,10 @@ function grantTokensLocally(tokens: number) {
 function grantProLocally() {
   try {
     localStorage.setItem("psyche-pro-unlocked", "true");
+    // Pro is sold on the cognitive results/learn pages as the way to unlock the
+    // function stack ("Try Pro Free for 7 Days"). Grant that content unlock too,
+    // or Pro subscribers hit the exact wall they just paid to remove.
+    localStorage.setItem("psyche-cognitive-unlocked", "true");
     const gs = JSON.parse(localStorage.getItem("psyche-game-state") || "{}");
     gs.tokens = (gs.tokens ?? 0) + 500; // Pro monthly bonus
     localStorage.setItem("psyche-game-state", JSON.stringify(gs));

@@ -29,7 +29,9 @@ export default function CognitivePremiumGate({ children }: Props) {
 
   useEffect(() => {
     try {
-      const isUnlocked = localStorage.getItem(UNLOCK_KEY) === "true";
+      const isUnlocked =
+        localStorage.getItem(UNLOCK_KEY) === "true" ||
+        localStorage.getItem("psyche-pro-unlocked") === "true";
       setUnlocked(isUnlocked);
 
       const gsRaw = localStorage.getItem("psyche-game-state");

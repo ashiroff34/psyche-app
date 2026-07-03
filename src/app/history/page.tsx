@@ -828,7 +828,10 @@ export default function HistoryPage() {
 
   useEffect(() => {
     setMounted(true);
-    setIsUnlocked(localStorage.getItem("psyche-cognitive-unlocked") === "true");
+    setIsUnlocked(
+      localStorage.getItem("psyche-cognitive-unlocked") === "true" ||
+      localStorage.getItem("psyche-pro-unlocked") === "true"
+    );
   }, []);
 
   if (!mounted) return <div style={{ minHeight: "100vh", background: "#0f0a1e" }} />;
