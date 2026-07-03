@@ -72,7 +72,10 @@ const PLANS: PlanProps[] = [
     price: "$7.99",
     period: "/ month",
     perMonth: "$7.99/mo",
-    ctaLabel: "Start Monthly",
+    // Monthly carries the same 7-day free trial as Annual (checkout applies it
+    // to every pro_* pack). Trial-framed CTA reverses the risk instead of
+    // signalling an immediate charge — matches the page's "No charge until day 7".
+    ctaLabel: "Try Free for 7 Days",
     features: [
       "Everything in Free",
       "Shadow Work lab",
