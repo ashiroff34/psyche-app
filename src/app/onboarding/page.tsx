@@ -14,6 +14,8 @@ import { TYPE_WPFA } from "@/data/wound-passion-fixation-armor";
 import { resolveTypeAwareCopy } from "@/hooks/useTypeAwareCopy";
 import { posthog, EVENTS, setUserProperty } from "@/lib/posthog";
 import { Analytics } from "@/lib/analytics";
+import { scheduleDailyReminder, buildPersonalizedNotification } from "@/lib/capacitor-notifications";
+import type { ImplementationIntent } from "@/lib/fresh-start";
 import TypeIdentityCard from "@/components/TypeIdentityCard";
 import { Share2 } from "lucide-react";
 import GuidingChibi from "@/components/onboarding/GuidingChibi";
@@ -1141,6 +1143,52 @@ const PRACTICE_TIME_OPTIONS = [
 
 type PracticeTimeId = typeof PRACTICE_TIME_OPTIONS[number]["id"];
 
+// Maps each concrete practice time to a reminder hour + anchor phrasing.
+// "flexible" (and the Skip button) intentionally schedules nothing.
+const PRACTICE_TIME_SCHEDULE: Record<PracticeTimeId, { hour: number; label: string; timeHint: string } | null> = {
+  morning: { hour: 8, label: "Morning coffee", timeHint: "8:00 AM" },
+  midday: { hour: 13, label: "Midday break", timeHint: "1:00 PM" },
+  evening: { hour: 19, label: "Evening wind-down", timeHint: "7:00 PM" },
+  flexible: null,
+};
+
+/** Read the user's enneagram type from psyche-profile, if it exists yet. */
+function readEnneagramType(): number | null {
+  try {
+    const raw = localStorage.getItem("psyche-profile");
+    if (!raw) return null;
+    const parsed = JSON.parse(raw) as { enneagramType?: number; enneagramCore?: number };
+    return parsed.enneagramType ?? parsed.enneagramCore ?? null;
+  } catch {
+    return null;
+  }
+}
+
+/**
+ * Persist the picked practice time as a full ImplementationIntent object under
+ * the key the app actually reads (psyche-implementation-intention) and schedule
+ * the anchored daily reminder. Without this, the picked time is inert — the
+ * Headspace implementation-intention tactic (+7.5% opens) never fires.
+ */
+async function persistImplementationIntent(id: PracticeTimeId): Promise<void> {
+  const meta = PRACTICE_TIME_SCHEDULE[id];
+  if (!meta) return; // flexible → no anchor, no schedule
+  const intent: ImplementationIntent = {
+    id,
+    label: meta.label,
+    key: id,
+    timeHint: meta.timeHint,
+    capturedAt: new Date().toISOString(),
+  };
+  try {
+    localStorage.setItem("psyche-implementation-intention", JSON.stringify(intent));
+  } catch {}
+  try {
+    const { title, body } = buildPersonalizedNotification(readEnneagramType());
+    await scheduleDailyReminder({ hour: meta.hour, minute: 0, title, body });
+  } catch {}
+}
+
 function StepImplementationIntention({ onContinue }: { onContinue: () => void }) {
   const [selected, setSelected] = useState<PracticeTimeId | null>(null);
 
@@ -1149,6 +1197,7 @@ function StepImplementationIntention({ onContinue }: { onContinue: () => void })
     try {
       localStorage.setItem("practice-time", id);
     } catch {}
+    void persistImplementationIntent(id);
     try { posthog.capture("practice_time_selected", { choice: id }); } catch {}
     setTimeout(onContinue, 420);
   }
