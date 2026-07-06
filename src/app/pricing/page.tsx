@@ -150,6 +150,9 @@ export default function PricingPage() {
           <p className="text-xs mb-3" style={{ color: "rgba(255,255,255,0.32)" }}>
             Built on Ichazo, Naranjo, and Riso-Hudson &mdash; not pop psychology
           </p>
+          <p className="text-xs mb-3 flex items-center gap-1.5" style={{ color: "rgba(255,255,255,0.5)" }}>
+            <Star className="w-3 h-3 text-violet-400 shrink-0" /> Thousands are mapping their psyche with Thyself
+          </p>
           <p className="text-sm opacity-60 mb-2 leading-relaxed">
             Free gets you far. Pro unlocks the layers that take years off the self-discovery curve.
           </p>
