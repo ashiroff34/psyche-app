@@ -10,7 +10,7 @@ import {
   BarChart3, Sparkles, ArrowRight, Copy, Check,
   Layers, History,
   GraduationCap, Dumbbell, Crown, Snowflake, Heart, Wand2,
-  AlertTriangle, Frown, HelpCircle
+  AlertTriangle, Frown, HelpCircle, Users
 } from "lucide-react";
 import { useProfile } from "@/hooks/useProfile";
 import { useGameState, trackWeeklyEvent } from "@/hooks/useGameState";
@@ -42,6 +42,7 @@ import { typeQuizQuestions } from "@/data/type-quizzes";
 import { introQuestions } from "@/data/intro-questions";
 import { rateCard, getCardPriority, type FSRSCard } from "@/lib/fsrs";
 import { instinctualStackings } from "@/data/subtypes";
+import { communityVoicesByType } from "@/data/community-voices";
 import { orderedTritypeThyselfs } from "@/data/tritypes";
 import FirstVisitWelcome from "@/components/daily/FirstVisitWelcome";
 import { safeGet } from "@/lib/safe-storage";
@@ -1040,6 +1041,10 @@ export default function DailyPage() {
   const challengeIdx = (dayOfYear + 2) % 7;
   const todayInsight = profile.enneagramType ? typeInsights[profile.enneagramType]?.[insightIdx] : null;
   const todayChallenge = profile.enneagramType ? typeChallenges[profile.enneagramType]?.[challengeIdx] : null;
+  // Identity-based social proof: one peer voice per day, rotated (matches community-voices.ts intent)
+  const todayVoice = profile.enneagramType
+    ? communityVoicesByType[profile.enneagramType]?.[dayOfYear % (communityVoicesByType[profile.enneagramType]?.length || 1)]
+    : null;
 
   // ── Question selection helpers ──
   const getQuestionsForModule = useCallback((moduleId: string, count: number): Question[] => {
@@ -2891,6 +2896,24 @@ export default function DailyPage() {
                     </div>
                   </div>
                   <p className="leading-relaxed" style={{ color: "rgba(255,255,255,0.82)" }}>{todayChallenge}</p>
+                </div>
+              </motion.div>
+            )}
+
+            {/* Community Voice — identity-based social proof, one peer voice per day */}
+            {todayVoice && (
+              <motion.div initial={{ opacity: 1, y: 0 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.18 }}>
+                <div className="p-6 rounded-3xl" style={{ background: "rgba(139,92,246,0.08)", border: "1px solid rgba(139,92,246,0.22)" }}>
+                  <div className="flex items-center gap-2.5 mb-4">
+                    <div className="w-9 h-9 rounded-xl flex items-center justify-center" style={{ background: "rgba(139,92,246,0.18)" }}>
+                      <Users className="w-4 h-4" style={{ color: "#a78bfa" }} />
+                    </div>
+                    <div>
+                      <div className="text-xs font-semibold" style={{ color: "#a78bfa" }}>Others Like You</div>
+                      <div className="text-[10px]" style={{ color: "rgba(255,255,255,0.38)" }}>What people who share your type notice</div>
+                    </div>
+                  </div>
+                  <p className="leading-relaxed font-serif text-[15px]" style={{ color: "rgba(255,255,255,0.85)" }}>{todayVoice}</p>
                 </div>
               </motion.div>
             )}
