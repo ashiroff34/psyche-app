@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { acquireNotificationLock, releaseNotificationLock } from "@/lib/notificationLock";
+import { resolveTypeAwareCopy } from "@/hooks/useTypeAwareCopy";
 import Link from "next/link";
 import {
   Flame,
@@ -31,6 +32,7 @@ interface BannerData {
   textColor: string;
   buttonClass: string;
   comebackDays?: number;
+  subMessage?: string;
 }
 
 // ─── Helpers ─────────────────────────────────────────────────────────────────
@@ -105,6 +107,12 @@ export default function RetentionBanner() {
         ? profile.streakCount
         : 0;
     const lastVisitDate = typeof profile.lastVisitDate === "string" ? profile.lastVisitDate : null;
+    const userType =
+      typeof profile.enneagramType === "number"
+        ? profile.enneagramType
+        : typeof profile.enneagramCore === "number"
+        ? profile.enneagramCore
+        : null;
 
     const currentLevel = getLevelFromXP(xp);
     const nextLevelXP = getXPForLevel(currentLevel + 1);
@@ -141,7 +149,8 @@ export default function RetentionBanner() {
         if (!claimed) {
           data = {
             variant: "comeback",
-            message: `Welcome back! You've been gone ${daysSince} day${daysSince !== 1 ? "s" : ""}. A comeback bonus is waiting on your daily page.`,
+            message: `${resolveTypeAwareCopy("reengagement.headline", userType)}. You've been gone ${daysSince} day${daysSince !== 1 ? "s" : ""}. A comeback bonus is waiting on your daily page.`,
+            subMessage: resolveTypeAwareCopy("reengagement.sub", userType),
             href: "/daily",
             actionLabel: "Go to Daily",
             icon: <Trophy className="w-4 h-4" />,
@@ -252,9 +261,16 @@ export default function RetentionBanner() {
             </div>
 
             {/* Message */}
-            <p className="flex-1 text-sm font-medium leading-snug" style={{ color: "rgba(255,255,255,0.85)" }}>
-              {banner.message}
-            </p>
+            <div className="flex-1">
+              <p className="text-sm font-medium leading-snug" style={{ color: "rgba(255,255,255,0.85)" }}>
+                {banner.message}
+              </p>
+              {banner.subMessage && (
+                <p className="text-xs mt-1 leading-snug" style={{ color: "rgba(255,255,255,0.5)" }}>
+                  {banner.subMessage}
+                </p>
+              )}
+            </div>
 
             {/* Dismiss */}
             <button

@@ -30,6 +30,7 @@ import {
 } from "lucide-react";
 import NextStepBanner from "@/components/NextStepBanner";
 import FirstVisitTooltip from "@/components/FirstVisitTooltip";
+import { resolveTypeAwareCopy } from "@/hooks/useTypeAwareCopy";
 
 // ─── Animations ──────────────────────────────────────────────────────────────
 
@@ -338,6 +339,7 @@ export default function StorePage() {
   const [mounted, setMounted] = useState(false);
   const [proUnlocked, setProUnlocked] = useState(false);
   const [checkingOut, setCheckingOut] = useState<string | null>(null);
+  const [userType, setUserType] = useState<number | null>(null);
 
   useEffect(() => {
     try {
@@ -345,6 +347,11 @@ export default function StorePage() {
       const gs = raw ? JSON.parse(raw) : {};
       setTokenBalance((gs.tokens as number) ?? 0);
       setProUnlocked(localStorage.getItem(PRO_UNLOCK_KEY) === "true");
+
+      const praw = localStorage.getItem("psyche-profile");
+      const p = praw ? JSON.parse(praw) : {};
+      const t = p?.enneagramType ?? p?.enneagramCore;
+      if (typeof t === "number") setUserType(t);
     } catch {
       setTokenBalance(0);
     }
@@ -542,6 +549,11 @@ export default function StorePage() {
 
                 {/* Name */}
                 <h3 className="font-bold text-lg mb-1" style={{ color: "rgba(255,255,255,0.92)" }}>{pack.name}</h3>
+
+                {/* Type-aware pack framing */}
+                <p className="text-xs mb-2 leading-snug" style={{ color: "rgba(255,255,255,0.45)" }}>
+                  {resolveTypeAwareCopy(`store.pack.${pack.id}`, userType)}
+                </p>
 
                 {/* Token amount */}
                 <div className="flex items-baseline gap-1.5 mb-1">
