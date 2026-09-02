@@ -131,7 +131,7 @@ function getRecommendation(
     return {
       dimensionId: "enneagram",
       title: "Quick Type Finder",
-      subtitle: "8 questions · ~3 minutes",
+      subtitle: "10 questions · ~3 minutes",
       why: "Start here. Your Enneagram type is the foundation. Everything else in the system builds on it. This takes 3 minutes and draws on Ichazo and Naranjo's original frameworks.",
       timeEstimate: "~3 min",
       href: "/assessments/quick",
@@ -235,7 +235,7 @@ const ALL_ASSESSMENTS: AssessmentItem[] = [
     tab: "enneagram",
     icon: Zap,
     title: "Quick Type Finder",
-    subtitle: "8 questions · Based on original theorists",
+    subtitle: "10 questions · Based on original theorists",
     description: "The fastest accurate path to your type. Uses Oscar Ichazo's triadic centers and Naranjo's core fixations to narrow your type in about 3 minutes.",
     timeEstimate: "~3 min",
     tags: ["8 Questions", "Ichazo · Naranjo"],

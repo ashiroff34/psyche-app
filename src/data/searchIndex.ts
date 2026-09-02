@@ -322,7 +322,7 @@ export const searchIndex: SearchItem[] = [
     subtitle: "Enneagram Assessment",
     category: "assessment",
     href: "/assessments/quick",
-    keywords: ["quick", "fast", "3 minutes", "ichazo", "naranjo", "8 questions", "centers"],
+    keywords: ["quick", "fast", "3 minutes", "ichazo", "naranjo", "10 questions", "centers"],
     preview: "8-question assessment based on Oscar Ichazo's triadic centers and Naranjo's core fixations. Fastest accurate path to your type.",
   },
   {

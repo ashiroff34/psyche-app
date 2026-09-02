@@ -29,7 +29,7 @@ export default function QuickAssessmentPage() {
           </h1>
         </div>
         <p className="text-xs mb-6" style={{ color: "rgba(255,255,255,0.45)" }}>
-          8 questions · Based on Ichazo, Naranjo, Riso &amp; Hudson · Most accurate short test
+          10 questions · Based on Ichazo, Naranjo, Riso &amp; Hudson · Most accurate short test
         </p>
       </div>
 

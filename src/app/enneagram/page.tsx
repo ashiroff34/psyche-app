@@ -379,7 +379,7 @@ export default function EnneagramPage() {
               <NextStepBanner
                 href="/onboarding?fromEnter=true"
                 label="Ready to find your type?"
-                sublabel="8 questions · ~3 minutes · instant result"
+                sublabel="10 questions · ~3 minutes · instant result"
                 icon={<MessageCircle className="w-5 h-5" />}
                 color="#0ea5e9"
                 dismissKey="enneagram-hub-assess"

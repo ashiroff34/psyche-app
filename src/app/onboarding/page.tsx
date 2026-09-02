@@ -133,7 +133,7 @@ function StepWelcome({ onNext }: { onNext: () => void }) {
         {" "} — each defined by what drives you at your deepest level: a core fear, a core desire, and a lifelong pattern of attention.
       </p>
       <p className="text-sm mb-8" style={{ color: "rgba(255,255,255,0.32)" }}>
-        8 questions · ~3 minutes · Instant result
+        10 questions · ~3 minutes · Instant result
       </p>
 
       <button
@@ -676,7 +676,7 @@ function StepTypePreview({ onNext, onBack }: { onNext: () => void; onBack: () =>
       </div>
 
       <p className="text-xs mb-8" style={{ color: "rgba(255,255,255,0.22)" }}>
-        8 questions · ~3 minutes · Ichazo, Naranjo, Riso-Hudson
+        10 questions · ~3 minutes · Ichazo, Naranjo, Riso-Hudson
       </p>
 
       <button
@@ -1505,7 +1505,7 @@ function OnboardingPageInner() {
   //   → Step 0: Welcome
   //   → Step 1: Name (optional, 5s tap-to-skip)
   //   → Step 2: Type Preview (what is the Enneagram)
-  //   → Step 3: Quiz (8 questions) + Subtype selection
+  //   → Step 3: Quiz (10 questions: 3 triage + 3 triad + 1 confirm + 3 instinct)
   //   → Step 4: Type Reveal (confetti, "This is me →")
   //   → Step 5: Email gate (save result / skip)
   //   → Step 6: All Set ("+50 tokens · Start Day 1 →")
