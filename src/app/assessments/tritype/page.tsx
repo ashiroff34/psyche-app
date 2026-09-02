@@ -13,6 +13,7 @@ import {
   type Tritype,
 } from "@/data/tritypes";
 import { useProfile } from "@/hooks/useProfile";
+import PostAssessmentUpsell from "@/components/PostAssessmentUpsell";
 
 type Phase = "intro" | "gut" | "gut-to-heart" | "heart" | "heart-to-head" | "head" | "results";
 
@@ -473,6 +474,16 @@ export default function TritypeAssessmentPage() {
               <p className="text-xs text-emerald-400">
                 Saved to your profile as tritype <strong>{code}</strong>
               </p>
+            </div>
+
+            {/* Peak-emotional Pro upsell — the tritype reveal is the highest-intent moment */}
+            <div className="mb-6">
+              <PostAssessmentUpsell
+                delay={0.2}
+                eyebrow="Beyond the code"
+                headline="Knowing your tritype is the start. Living it is the work."
+                body={`Without the tritype deep-dive, subtype layers, and Shadow Work, ${code} stays three numbers. Pro takes you the rest of the way.`}
+              />
             </div>
 
             {/* Actions */}

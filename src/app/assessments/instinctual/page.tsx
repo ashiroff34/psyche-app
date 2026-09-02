@@ -7,6 +7,7 @@ import { ArrowLeft, ArrowRight, CheckCircle2, Layers } from "lucide-react";
 import { instinctualQuestions } from "@/data/instinctualQuestions";
 import { instinctualVariants, instinctualStackings } from "@/data/subtypes";
 import { useProfile } from "@/hooks/useProfile";
+import PostAssessmentUpsell from "@/components/PostAssessmentUpsell";
 
 type Instinct = "sp" | "sx" | "so";
 
@@ -202,6 +203,16 @@ function ResultsView({
           </div>
         </motion.div>
       )}
+
+      {/* Peak-emotional Pro upsell — the stacking result is the highest-intent moment */}
+      <div className="mb-6">
+        <PostAssessmentUpsell
+          delay={0.35}
+          eyebrow="Beyond the stacking"
+          headline="Your stacking is the map. The 27 subtypes are the territory."
+          body="Without the subtype deep-dives, countertype patterns, and Shadow Work, your instinctual stacking stays a label. Pro takes you the rest of the way."
+        />
+      </div>
 
       {/* Actions */}
       <motion.div
