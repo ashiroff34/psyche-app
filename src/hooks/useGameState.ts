@@ -3,11 +3,24 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import { MS_PER_DAY } from "@/lib/date-utils";
 import { Analytics } from "@/lib/analytics";
+import { isBonusDayToday } from "@/lib/variable-rewards";
 
 // ─── Types ───────────────────────────────────────────────────────────────────
 
 export type League = "bronze" | "silver" | "gold" | "platinum" | "diamond";
 export type DailyGoal = "casual" | "regular" | "serious" | "insane";
+
+// ─── Bonus day ───────────────────────────────────────────────────────────────
+// One day in ~8 is a "bonus day" (see src/lib/variable-rewards.ts). The hub
+// banner promises "all tokens earned today are doubled", so every token award
+// path has to honour it or the promise is empty.
+
+const BONUS_DAY_MULTIPLIER = 2;
+
+function withBonusDay(amount: number): number {
+  if (typeof window === "undefined") return amount;
+  return isBonusDayToday() ? amount * BONUS_DAY_MULTIPLIER : amount;
+}
 
 export interface Badge {
   id: string;
@@ -753,6 +766,7 @@ export function useGameState() {
         if (dailyGoalMet && !prev.dailyGoalMet) bonusTokens += 15; // daily goal completion reward
         if (newLevel > oldLevel) bonusTokens += newLevel * 5; // level up reward
         if (newStreak > prev.streakCount && newStreak % 7 === 0) bonusTokens += 25; // weekly streak bonus
+        const awardedTokens = withBonusDay(bonusTokens);
 
         if (newLevel > oldLevel) {
           setLevelUpAnimation(true);
@@ -770,9 +784,9 @@ export function useGameState() {
           streakCount: newStreak,
           longestStreak,
           lastActivityDate: today,
-          tokens: prev.tokens + bonusTokens,
+          tokens: prev.tokens + awardedTokens,
           totalXPEarned: prev.totalXPEarned + finalAmount,
-          totalTokensEarned: prev.totalTokensEarned + bonusTokens,
+          totalTokensEarned: prev.totalTokensEarned + awardedTokens,
           xpHistory,
           weeklyStats: currentWS,
         };
@@ -802,10 +816,11 @@ export function useGameState() {
 
   const recordTokenDrop = useCallback(
     (amount: number) => {
+      const earned = withBonusDay(amount);
       update((prev) => ({
         ...prev,
-        tokens: prev.tokens + amount,
-        totalTokensEarned: prev.totalTokensEarned + amount,
+        tokens: prev.tokens + earned,
+        totalTokensEarned: prev.totalTokensEarned + earned,
         sessionsSinceTokenDrop: 0,
       }));
     },
@@ -821,10 +836,11 @@ export function useGameState() {
 
   const earnTokens = useCallback(
     (amount: number, _source: string) => {
+      const earned = withBonusDay(amount);
       update((prev) => ({
         ...prev,
-        tokens: prev.tokens + amount,
-        totalTokensEarned: prev.totalTokensEarned + amount,
+        tokens: prev.tokens + earned,
+        totalTokensEarned: prev.totalTokensEarned + earned,
       }));
     },
     [update]
@@ -835,10 +851,11 @@ export function useGameState() {
   const completeReading = useCallback(
     (readingId: string, tokenReward: number, xpReward: number) => {
       const today = getToday();
+      const earned = withBonusDay(tokenReward);
       update((prev) => ({
         ...prev,
-        tokens: prev.tokens + tokenReward,
-        totalTokensEarned: prev.totalTokensEarned + tokenReward,
+        tokens: prev.tokens + earned,
+        totalTokensEarned: prev.totalTokensEarned + earned,
         dailyXPEarned: (prev.dailyXPEarned ?? 0) + xpReward,
         totalXPEarned: prev.totalXPEarned + xpReward,
         xp: prev.xp + xpReward,
@@ -967,8 +984,8 @@ export function useGameState() {
         return {
           ...prev,
           badges: [...prev.badges, newBadge],
-          tokens: prev.tokens + 10, // bonus tokens for badge
-          totalTokensEarned: prev.totalTokensEarned + 10,
+          tokens: prev.tokens + withBonusDay(10), // bonus tokens for badge
+          totalTokensEarned: prev.totalTokensEarned + withBonusDay(10),
         };
       });
     },
@@ -1128,9 +1145,9 @@ export function useGameState() {
         ...prev,
         xp: newXP,
         level: getLevelFromXP(newXP),
-        tokens: prev.tokens + challenge.tokenReward,
+        tokens: prev.tokens + withBonusDay(challenge.tokenReward),
         totalXPEarned: prev.totalXPEarned + challenge.xpReward,
-        totalTokensEarned: prev.totalTokensEarned + challenge.tokenReward,
+        totalTokensEarned: prev.totalTokensEarned + withBonusDay(challenge.tokenReward),
         weeklyStats: { ...ws, rewardClaimed: true },
       };
     });
