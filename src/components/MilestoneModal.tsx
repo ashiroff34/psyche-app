@@ -187,7 +187,7 @@ export default function MilestoneModal({ streakCount, enneagramType }: Milestone
                     onClick={() => {
                       markMilestoneSeen(activeMilestone.days);
                       setActiveMilestone(null);
-                      router.push("/pricing");
+                      router.push("/pricing?from=streak_milestone");
                     }}
                     className="w-full py-3 rounded-2xl text-sm font-semibold transition-all"
                     style={{

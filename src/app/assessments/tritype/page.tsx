@@ -480,6 +480,7 @@ export default function TritypeAssessmentPage() {
             <div className="mb-6">
               <PostAssessmentUpsell
                 delay={0.2}
+                trigger="tritype_result"
                 eyebrow="Beyond the code"
                 headline="Knowing your tritype is the start. Living it is the work."
                 body={`Without the tritype deep-dive, subtype layers, and Shadow Work, ${code} stays three numbers. Pro takes you the rest of the way.`}

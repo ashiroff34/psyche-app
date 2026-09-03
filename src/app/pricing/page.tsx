@@ -2,6 +2,10 @@
 
 // Pricing page — Annual + Monthly + Free with 7-day trial on Pro
 //
+// Card order is deliberate: the highest total price (Annual $47) is read first
+// so Monthly and Free are judged against it. Leading with Free ($0) anchors the
+// page low and makes every paid tier read as a markup.
+//
 // Annual ($47/yr = $3.92/mo) anchors against Monthly ($7.99/mo) — annual is
 // the highlighted "best value" option. 7-day free trial reduces activation
 // friction without the dishonesty of a 14-day trial people forget to cancel.
@@ -11,11 +15,12 @@
 // Trust-based pricing (no scarcity countdowns, no hidden annual-only tiers)
 // follows the wellness-space ethical standard post-Noom FTC settlement.
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { ArrowLeft, Check, Sparkles, Shield, Star, Zap } from "lucide-react";
+import { ArrowLeft, Check, Shield, Star, Zap } from "lucide-react";
 import { useProfile } from "@/hooks/useProfile";
+import { Analytics, type Framework } from "@/lib/analytics";
 
 interface PlanProps {
   name: string;
@@ -28,26 +33,13 @@ interface PlanProps {
   packId: string;
   highlighted: boolean;
   isFree?: boolean;
+  /** Numeric price, for checkout_initiated. */
+  priceValue: number;
+  /** Billing period, for checkout_initiated. */
+  billingPeriod: "monthly" | "annual" | "lifetime";
 }
 
 const PLANS: PlanProps[] = [
-  {
-    name: "Free",
-    price: "$0",
-    period: "forever",
-    perMonth: "$0/mo",
-    features: [
-      "Full Enneagram assessment",
-      "Daily practice + streaks",
-      "Chibi companion",
-      "Big Five + Attachment",
-      "3 Mirror frameworks",
-      "Identity card + sharing",
-    ],
-    packId: "",
-    highlighted: false,
-    isFree: true,
-  },
   {
     name: "Pro Annual",
     price: "$47",
@@ -66,6 +58,8 @@ const PLANS: PlanProps[] = [
     ],
     packId: "pro_annual",
     highlighted: true,
+    priceValue: 47,
+    billingPeriod: "annual",
   },
   {
     name: "Pro Monthly",
@@ -85,8 +79,33 @@ const PLANS: PlanProps[] = [
     ],
     packId: "pro_monthly",
     highlighted: false,
+    priceValue: 7.99,
+    billingPeriod: "monthly",
+  },
+  {
+    name: "Free",
+    price: "$0",
+    period: "forever",
+    perMonth: "$0/mo",
+    features: [
+      "Full Enneagram assessment",
+      "Daily practice + streaks",
+      "Chibi companion",
+      "Big Five + Attachment",
+      "3 Mirror frameworks",
+      "Identity card + sharing",
+    ],
+    packId: "",
+    highlighted: false,
+    isFree: true,
+    priceValue: 0,
+    billingPeriod: "monthly",
   },
 ];
+
+// Bump this whenever the page's psychology changes, so PostHog can compare
+// conversion across variants. v2 = highest price first (anchoring).
+const PAYWALL_VARIANT = "pricing_annual_first_v2";
 
 const TYPE_PAYWALL_HEADLINES: Record<number, string> = {
   1: "Stop settling for a life that doesn't match your values.",
@@ -100,17 +119,69 @@ const TYPE_PAYWALL_HEADLINES: Record<number, string> = {
   9: "Find yourself without losing the peace.",
 };
 
+const LESSON_COUNT_KEY = "lessons-completed-count";
+
+/** Reads how many lessons this device has finished, for funnel segmentation. */
+function readLessonCount(): number {
+  try {
+    const raw = localStorage.getItem(LESSON_COUNT_KEY);
+    const n = raw !== null ? parseInt(raw, 10) : 0;
+    return isNaN(n) ? 0 : n;
+  } catch {
+    return 0;
+  }
+}
+
 export default function PricingPage() {
-  const { profile } = useProfile();
+  const { profile, loaded } = useProfile();
   const [loading, setLoading] = useState<string | null>(null);
+  // Where the user came from, so paywall_view and checkout_initiated share a
+  // trigger and the funnel can be segmented by entry point.
+  const triggerRef = useRef<string>("direct");
+  const viewTracked = useRef(false);
+
+  const framework: Framework = profile.enneagramType
+    ? "enneagram"
+    : profile.cognitiveType
+      ? "mbti"
+      : "mixed";
+
+  // paywall_view — the first step of the conversion funnel the admin dashboard
+  // charts. Without it, checkout_initiated and subscription_start have no
+  // denominator and conversion rate is unmeasurable.
+  useEffect(() => {
+    if (!loaded || viewTracked.current) return;
+    viewTracked.current = true;
+    try {
+      const params = new URLSearchParams(window.location.search);
+      triggerRef.current =
+        params.get("from") ??
+        (params.get("checkout") === "cancelled" ? "checkout_abandoned" : "direct");
+    } catch {
+      // keep the "direct" default
+    }
+    Analytics.paywallView({
+      trigger_event: triggerRef.current,
+      paywall_variant: PAYWALL_VARIANT,
+      framework,
+      user_lessons_completed: readLessonCount(),
+    });
+  }, [loaded, framework]);
 
   const paywallHeadline =
     profile.enneagramType && TYPE_PAYWALL_HEADLINES[profile.enneagramType]
       ? TYPE_PAYWALL_HEADLINES[profile.enneagramType]
       : "Understand why you are the way you are.";
 
-  async function handleCheckout(packId: string) {
+  async function handleCheckout(plan: PlanProps) {
+    const packId = plan.packId;
     if (!packId) return; // free tier
+    Analytics.checkoutInitiated({
+      product_id: packId,
+      price: plan.priceValue,
+      period: plan.billingPeriod,
+      trigger: triggerRef.current,
+    });
     setLoading(packId);
     try {
       const ctrl = new AbortController();
@@ -155,6 +226,13 @@ export default function PricingPage() {
           </p>
           <p className="text-sm opacity-60 mb-2 leading-relaxed">
             Free gets you far. Pro unlocks the layers that take years off the self-discovery curve.
+          </p>
+          {/* Loss frame — names what stays unchanged without Pro. Losses are
+              weighted heavier than equivalent gains (Kahneman & Tversky), and
+              the results-screen upsell already leads with this framing. */}
+          <p className="text-sm mb-2 leading-relaxed" style={{ color: "rgba(255,255,255,0.62)" }}>
+            Knowing your type is the easy part. Without the subtype, tritype, and shadow layers,
+            the pattern you just recognized keeps running anyway.
           </p>
           <p className="text-xs mb-2" style={{ color: "rgba(255,255,255,0.5)" }}>
             One therapy session is $200. A year of Thyself is $47.
@@ -210,7 +288,7 @@ export default function PricingPage() {
                 </Link>
               ) : (
                 <button
-                  onClick={() => handleCheckout(plan.packId)}
+                  onClick={() => handleCheckout(plan)}
                   disabled={!!loading}
                   className="w-full py-2.5 rounded-xl text-sm font-bold transition-all active:scale-[0.98] disabled:opacity-50"
                   style={{

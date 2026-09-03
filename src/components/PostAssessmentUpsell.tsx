@@ -30,6 +30,12 @@ interface PostAssessmentUpsellProps {
   body: string;
   /** Animation delay, to match the surrounding result sequence. */
   delay?: number;
+  /**
+   * Funnel label for this entry point, read by /pricing as paywall_view's
+   * trigger_event. Without it every upsell looks identical in PostHog and
+   * there is no way to tell which result screen actually converts.
+   */
+  trigger?: string;
 }
 
 export default function PostAssessmentUpsell({
@@ -37,6 +43,7 @@ export default function PostAssessmentUpsell({
   headline,
   body,
   delay = 0,
+  trigger = "post_assessment",
 }: PostAssessmentUpsellProps) {
   const [proUnlocked, setProUnlocked] = useState(true);
 
@@ -57,7 +64,7 @@ export default function PostAssessmentUpsell({
       transition={{ delay }}
     >
       <Link
-        href="/pricing"
+        href={`/pricing?from=${encodeURIComponent(trigger)}`}
         className="block p-5 rounded-2xl relative overflow-hidden transition-all hover:scale-[1.01]"
         style={{
           background: "linear-gradient(135deg, rgba(139,92,246,0.18), rgba(217,70,239,0.12))",

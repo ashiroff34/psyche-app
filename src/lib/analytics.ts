@@ -244,6 +244,9 @@ export const Analytics = {
   paywallView: (p: Extract<EventSchema, { event: "paywall_view" }>["properties"]) =>
     track({ event: "paywall_view", properties: p }),
 
+  checkoutInitiated: (p: Extract<EventSchema, { event: "checkout_initiated" }>["properties"]) =>
+    track({ event: "checkout_initiated", properties: p }),
+
   subscriptionStart: (p: Extract<EventSchema, { event: "subscription_start" }>["properties"]) =>
     track({ event: "subscription_start", properties: p }),
 

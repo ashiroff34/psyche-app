@@ -10,6 +10,7 @@ import { bigFiveItems, factorDescriptions } from "@/data/assessments/big-five";
 import { bigFiveFacets, facetsByFactor } from "@/data/bigFiveFacets";
 import { bigFiveCrossMap } from "@/data/bigFiveCrossMap";
 import { useProfile } from "@/hooks/useProfile";
+import PostAssessmentUpsell from "@/components/PostAssessmentUpsell";
 
 type FactorScore = { key: string; score: number; percentage: number };
 type FacetScore = { factor: string; facet: string; score: number; percentage: number };
@@ -250,6 +251,18 @@ function BigFiveResults({
           </div>
         </motion.div>
       )}
+
+      {/* Peak-end rule: the result screen is the highest-intent moment in the
+          flow, and it previously ended in Save / Back with no next step. */}
+      <div className="mb-6">
+        <PostAssessmentUpsell
+          eyebrow="Traits meet motive"
+          headline="Your traits describe what you do. Your type explains why."
+          body="Big Five measures behaviour. Pro adds the layer underneath it: your instinctual subtype, tritype, and the Shadow Work lab that shows where these traits came from."
+          delay={0.2}
+          trigger="big_five_result"
+        />
+      </div>
 
       <div className="flex flex-col gap-3">
         <button

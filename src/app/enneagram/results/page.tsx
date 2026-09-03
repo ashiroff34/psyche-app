@@ -1401,7 +1401,7 @@ function ResultsInner() {
               {/* Type-personalized Pro upsell — peak-emotional-moment paywall */}
               {typeData && (
                 <Link
-                  href="/pricing"
+                  href="/pricing?from=enneagram_result"
                   className="block p-5 rounded-2xl relative overflow-hidden transition-all hover:scale-[1.01]"
                   style={{
                     background: "linear-gradient(135deg, rgba(139,92,246,0.18), rgba(217,70,239,0.12))",

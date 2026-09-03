@@ -7,6 +7,7 @@ import { ArrowLeft, ArrowRight, Heart, CheckCircle2 } from "lucide-react";
 import { attachmentQuestions, ATTACHMENT_THRESHOLD } from "@/data/attachmentQuestions";
 import { attachmentStyles, enneagramAttachmentCorrelations, type AttachmentStyle } from "@/data/attachment";
 import { useProfile } from "@/hooks/useProfile";
+import PostAssessmentUpsell from "@/components/PostAssessmentUpsell";
 
 const LIKERT_LABELS = [
   { value: 1, label: "Strongly Disagree" },
@@ -312,6 +313,18 @@ function ResultPage({
           <p className="text-[10px] font-mono leading-relaxed" style={{ color: "rgba(255,255,255,0.3)" }}>
             Sources: Bowlby (1969, 1973). Attachment and Loss · Ainsworth et al. (1978). Patterns of Attachment · Bartholomew &amp; Horowitz (1991). Adult attachment styles · Main &amp; Solomon (1986). Disorganized attachment · ECR-R: Fraley, Waller &amp; Brennan (2000)
           </p>
+        </div>
+
+        {/* Peak-end rule: the result screen is the highest-intent moment in the
+            flow, and it previously ended in Retake with no next step. */}
+        <div className="mb-6">
+          <PostAssessmentUpsell
+            eyebrow="Where the pattern started"
+            headline="You know how you attach. Pro shows you why you learned to."
+            body="Attachment names the pattern. Without your instinctual subtype, tritype, and the Shadow Work lab, the childhood wiring underneath it stays out of view."
+            delay={0.5}
+            trigger="attachment_result"
+          />
         </div>
 
         {/* Actions */}

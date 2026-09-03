@@ -208,6 +208,7 @@ function ResultsView({
       <div className="mb-6">
         <PostAssessmentUpsell
           delay={0.35}
+          trigger="instinctual_result"
           eyebrow="Beyond the stacking"
           headline="Your stacking is the map. The 27 subtypes are the territory."
           body="Without the subtype deep-dives, countertype patterns, and Shadow Work, your instinctual stacking stays a label. Pro takes you the rest of the way."

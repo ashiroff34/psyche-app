@@ -96,7 +96,7 @@ export default function PostLessonUpgradeBanner({ lessonCount }: PostLessonUpgra
           </p>
 
           <Link
-            href="/pricing"
+            href="/pricing?from=post_lesson"
             className="inline-flex items-center gap-1 text-sm font-semibold rounded-xl px-4 py-2 transition"
             style={{
               background: "rgba(99,102,241,0.25)",
