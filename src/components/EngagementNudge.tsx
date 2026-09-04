@@ -29,6 +29,51 @@ interface Nudge {
 
 const IDLE_MINUTES = 3; // show idle nudge after this many minutes
 
+// ── Motivation-anchored copy ──────────────────────────────────────────────────
+//
+// Onboarding asks "What brought you here?" and stores the answers on
+// profile.motivations. Until now that answer was used once, on the All Set
+// screen, and never again. Tying the everyday nudge back to the reason the
+// user gave themselves is the strongest re-entry frame we have: it turns a
+// generic reminder into a callback to their own stated goal.
+//
+// Keys must stay in sync with MOTIVATIONS in src/app/onboarding/page.tsx.
+
+const MOTIVATION_NUDGES: Record<string, { title: string; body: string; returning: string }> = {
+  relationships: {
+    title: "The people you came here to understand",
+    body: "You said relationships brought you here. Today's practice adds another piece of that picture.",
+    returning: "Relationships brought you here. That work is still waiting where you left it.",
+  },
+  growth: {
+    title: "The change you came here for",
+    body: "You said you wanted to change something about yourself. Change is built out of ordinary days like this one.",
+    returning: "You came here to change something. Today is a fine day to pick it back up.",
+  },
+  curiosity: {
+    title: "Something you haven't looked at yet",
+    body: "You came here curious. Today's insight has a piece you haven't seen.",
+    returning: "You came here curious. There's new ground since you were last here.",
+  },
+  struggle: {
+    title: "The framework is still here",
+    body: "You came here needing something solid to hold onto. A few minutes today is enough.",
+    returning: "You came here needing a framework. It kept your place while you were gone.",
+  },
+  career: {
+    title: "Your working style, one layer deeper",
+    body: "You came here to understand how you work. Today's practice adds to that.",
+    returning: "You came here to understand how you work. That thread is still open.",
+  },
+};
+
+function primaryMotivation(profile: Record<string, unknown>): string | null {
+  const raw = profile.motivations;
+  if (!Array.isArray(raw)) return null;
+  const first = raw.find((m): m is string => typeof m === "string" && m in MOTIVATION_NUDGES);
+  return first ?? null;
+}
+
 // ── Contextual nudge pools ────────────────────────────────────────────────────
 
 function buildNudges(
@@ -38,6 +83,8 @@ function buildNudges(
   doneStreakToday: boolean
 ): Nudge[] {
   const nudges: Nudge[] = [];
+  const motivation = primaryMotivation(profile);
+  const motivationCopy = motivation ? MOTIVATION_NUDGES[motivation] : null;
 
   // Streak about to break, only if they haven't done their practice today yet
   if (streakCount > 0 && !doneStreakToday) {
@@ -92,13 +139,15 @@ function buildNudges(
     });
   }
 
-  // Long absence (3+ days)
+  // Long absence (3+ days), anchored to why they said they came when we know it
   if (daysSinceVisit >= 3) {
     nudges.push({
       id: "long-absence",
       icon: <Heart className="w-4 h-4 text-white" />,
       title: "Welcome back! We missed you",
-      body: `You've been away for ${daysSinceVisit} days. Your daily insight is waiting.`,
+      body: motivationCopy
+        ? `${daysSinceVisit} days away. ${motivationCopy.returning}`
+        : `You've been away for ${daysSinceVisit} days. Your daily insight is waiting.`,
       cta: "See today's insight",
       href: "/profile",
       accentClass: "from-pink-400 to-violet-500",
@@ -118,6 +167,22 @@ function buildNudges(
     9: { title: "Keep the momentum going", body: "A little practice today keeps your streak alive. Don't let it fade." },
   };
   const typeNudge = profile.enneagramType ? typeNudgeMap[profile.enneagramType as number] : null;
+
+  // Goal-anchored idle nudge takes precedence over the generic one when the
+  // user told us why they came. The type-personalized nudge below stays as the
+  // fallback for users who skipped the motivations step.
+  if (motivationCopy) {
+    nudges.push({
+      id: "idle-motivation",
+      icon: <Zap className="w-4 h-4 text-white" />,
+      title: motivationCopy.title,
+      body: motivationCopy.body,
+      cta: "Open today's insight",
+      href: "/daily",
+      accentClass: "from-violet-400 to-indigo-500",
+    });
+  }
+
   nudges.push({
     id: "idle-explore",
     icon: <Zap className="w-4 h-4 text-white" />,
