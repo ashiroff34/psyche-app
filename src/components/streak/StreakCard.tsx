@@ -3,7 +3,7 @@
 import { motion, useSpring, useTransform } from "framer-motion";
 import { useEffect, useRef } from "react";
 import { TYPE_COLORS } from "@/data/enneagram";
-import { scheduleStreakWarning } from "@/lib/capacitor-notifications";
+import { cancelStreakWarning, scheduleStreakWarning } from "@/lib/capacitor-notifications";
 
 interface Props {
   streak: number;
@@ -31,14 +31,22 @@ export default function StreakCard({ streak, longest, freezeTokens, enneagramTyp
     }
   }, [streak, springVal]);
 
+  // Visual at-risk state stays evening-only — the red flame should not nag all day.
   const atRisk = streak > 0 && new Date().getHours() >= 18;
 
-  // Fire a one-time evening push notification when streak becomes at-risk
+  // Schedule the 8pm push as soon as the app opens with an unmet daily goal.
+  // Gating this on the evening at-risk state meant the notification could only
+  // be scheduled by a user who happened to open the app between 6pm and 8pm —
+  // never the absent user it exists to reach. scheduleStreakWarning still
+  // refuses after 8pm and deduplicates to once per calendar day.
   useEffect(() => {
-    if (!atRisk || dailyCompleted) return;
-    // scheduleStreakWarning deduplicates via localStorage (once per calendar day)
+    if (streak <= 0) return;
+    if (dailyCompleted) {
+      cancelStreakWarning().catch(() => undefined);
+      return;
+    }
     scheduleStreakWarning(streak).catch(() => undefined);
-  }, [atRisk, dailyCompleted, streak]);
+  }, [dailyCompleted, streak]);
 
   return (
     <motion.div

@@ -85,18 +85,27 @@ export async function scheduleDailyReminder(opts: {
 
 const STREAK_WARNING_ID = 1002; // stable ID for one-time streak-at-risk notification
 
+/** localStorage key marking that today's streak warning is already resolved. */
+function streakWarnKey(): string {
+  return `streak-warned-${new Intl.DateTimeFormat("en-CA").format(new Date())}`;
+}
+
 /**
  * Schedule a one-time local notification for 8:00 PM today warning the user
  * their streak is at risk. Safe to call multiple times — deduplicated via
  * localStorage key `streak-warned-${today}` so only fires once per day.
+ *
+ * Call this as soon as the app opens with an unmet daily goal, not only in
+ * the evening: the whole point of the push is to reach a user who has already
+ * closed the app for the day. Cancel it with cancelStreakWarning() once the
+ * daily goal is met, so nobody gets a false alarm.
  *
  * Only schedules if it is currently before 8:00 PM local time.
  */
 export async function scheduleStreakWarning(streakCount: number): Promise<boolean> {
   if (!isNative()) return false;
   // Deduplicate: only warn once per calendar day
-  const today = new Intl.DateTimeFormat("en-CA").format(new Date());
-  const warnKey = `streak-warned-${today}`;
+  const warnKey = streakWarnKey();
   try {
     if (typeof window !== "undefined" && localStorage.getItem(warnKey)) return false;
   } catch {
@@ -133,6 +142,23 @@ export async function scheduleStreakWarning(streakCount: number): Promise<boolea
   } catch {
     return false;
   }
+}
+
+/**
+ * Cancel today's pending streak-at-risk notification and mark the day resolved
+ * so it cannot be rescheduled. Call this the moment the daily goal is met —
+ * a warning that fires after the user has already practiced trains them to
+ * ignore the notification that matters most.
+ */
+export async function cancelStreakWarning(): Promise<void> {
+  try {
+    if (typeof window !== "undefined") localStorage.setItem(streakWarnKey(), "1");
+  } catch {}
+  if (!isNative()) return;
+  try {
+    const { LocalNotifications } = await import("@capacitor/local-notifications");
+    await LocalNotifications.cancel({ notifications: [{ id: STREAK_WARNING_ID }] });
+  } catch {}
 }
 
 /** Cancel the scheduled daily reminder. */
