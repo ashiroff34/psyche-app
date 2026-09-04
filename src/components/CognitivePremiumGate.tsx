@@ -207,6 +207,23 @@ export default function CognitivePremiumGate({ children }: Props) {
             </Link>
           )}
 
+          {/* A blocked wall is the highest-intent moment this component ever
+              sees, and until now it offered exactly one price with nothing to
+              judge it against. Pro sits beside the token cost so the 300-token
+              spend is read as the narrow option, and the trial-framed CTA
+              reverses risk. Routes to /pricing — /store is tokens only. */}
+          <Link
+            href="/pricing?from=cognitive_gate"
+            className="block w-full text-center py-3 rounded-2xl text-sm font-semibold transition-all mt-3"
+            style={{
+              background: "rgba(139,92,246,0.12)",
+              border: "1px solid rgba(139,92,246,0.3)",
+              color: "#c4b5fd",
+            }}
+          >
+            Or unlock this and everything else &mdash; free for 7 days
+          </Link>
+
           <Link href="/daily"
             className="block text-center text-xs mt-4 transition-colors"
             style={{ color: "rgba(255,255,255,0.25)" }}

@@ -139,6 +139,10 @@ export default function PricingPage() {
   // trigger and the funnel can be segmented by entry point.
   const triggerRef = useRef<string>("direct");
   const viewTracked = useRef(false);
+  // Someone who opened Stripe and backed out is the highest-intent visitor on
+  // this page — they already clicked buy. Returning them to an unchanged page
+  // answers none of the doubt that stopped them.
+  const [abandonedCheckout, setAbandonedCheckout] = useState(false);
 
   const framework: Framework = profile.enneagramType
     ? "enneagram"
@@ -154,9 +158,10 @@ export default function PricingPage() {
     viewTracked.current = true;
     try {
       const params = new URLSearchParams(window.location.search);
+      const cancelled = params.get("checkout") === "cancelled";
+      setAbandonedCheckout(cancelled);
       triggerRef.current =
-        params.get("from") ??
-        (params.get("checkout") === "cancelled" ? "checkout_abandoned" : "direct");
+        params.get("from") ?? (cancelled ? "checkout_abandoned" : "direct");
     } catch {
       // keep the "direct" default
     }
@@ -212,6 +217,33 @@ export default function PricingPage() {
         <Link href="/daily" className="inline-flex items-center gap-2 text-sm opacity-60 mb-6">
           <ArrowLeft className="w-4 h-4" /> Back
         </Link>
+
+        {/* Returning from an abandoned Stripe checkout. The objection at that
+            moment is almost always "am I about to be charged" — so lead with
+            the answer, not with the offer again. Risk reversal restated at the
+            exact point the hesitation happened. */}
+        {abandonedCheckout && (
+          <motion.div
+            initial={{ opacity: 0, y: -6 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="p-4 rounded-2xl mb-5 flex items-start gap-3"
+            style={{
+              background: "rgba(139,92,246,0.12)",
+              border: "1px solid rgba(139,92,246,0.35)",
+            }}
+          >
+            <Shield className="w-4 h-4 mt-0.5 shrink-0 text-violet-300" />
+            <div>
+              <p className="text-sm font-semibold mb-1" style={{ color: "rgba(255,255,255,0.92)" }}>
+                Nothing was charged.
+              </p>
+              <p className="text-xs leading-relaxed" style={{ color: "rgba(255,255,255,0.6)" }}>
+                Your 7 days are free either way. Start the trial, look around, and if the deeper
+                layers are not for you, cancel before day 7 and you pay nothing.
+              </p>
+            </div>
+          </motion.div>
+        )}
 
         <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}>
           <p className="text-base font-semibold mb-2 leading-snug" style={{ color: "rgba(255,255,255,0.9)" }}>
