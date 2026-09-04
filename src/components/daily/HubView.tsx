@@ -110,6 +110,7 @@ import StreakSaver from "@/components/streak/StreakSaver";
 import MorningPassionCheckIn from "./MorningPassionCheckIn";
 import TheoryPracticeCard from "./TheoryPracticeCard";
 import AudioReflection from "@/components/AudioReflection";
+import ProgressHeatmap from "@/components/ProgressHeatmap";
 import ChibiSprite from "@/components/ChibiSprite";
 import type { PathNodeConfig } from "./NodeBottomSheet";
 import type { PathUnit } from "./PathView";
@@ -433,6 +434,18 @@ export default function HubView({
     try { localStorage.setItem(STREAK_SAVER_DISMISS_KEY, "1"); } catch {}
     setShowStreakSaver(false);
   };
+
+  // Progress illusion: 52-week activity grid. The daily quiz already writes XP
+  // per calendar day to psyche-activity-log; read it back so the user can see
+  // how far they have come rather than only what is left today.
+  const [activityData, setActivityData] = useState<Record<string, number>>({});
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    try {
+      const raw = localStorage.getItem("psyche-activity-log");
+      if (raw) setActivityData(JSON.parse(raw) as Record<string, number>);
+    } catch {}
+  }, [questionsAnsweredToday, dailyXPEarned]);
 
   // Endowed progress: show a "head start" banner on first hub visit if user has XP from assessments
   const [showHeadStart, setShowHeadStart] = useState(false);
@@ -1837,9 +1850,14 @@ export default function HubView({
           );
         })()}
 
+              {/* Progress illusion: visible record of every active day so far */}
+              <div className="mb-3">
+                <ProgressHeatmap activityData={activityData} goalXP={50} />
+              </div>
+
               {/* Progress shortcut */}
               <Link
-                href="/game"
+                href="/mastery"
                 className="flex items-center justify-between p-3 rounded-xl transition-all"
                 style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.07)" }}
               >
