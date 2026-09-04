@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useState, useCallback, useMemo } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import {
@@ -102,7 +102,33 @@ function getPersonalizedSubtitle(
   if (unitId === "your-mind" && profile.cognitiveType) {
     return `How your ${profile.cognitiveType} mind shapes your thinking`;
   }
+  if (profile.enneagramType && unitId === `type-${profile.enneagramType}`) {
+    return `Your type. ${subtitle}`;
+  }
   return subtitle;
+}
+
+// ── Type-First Ordering ──────────────────────────────────────────────────────
+
+/**
+ * Hoists the reader's own type unit to the front of the nine type deep-dives.
+ * All nine share the same prerequisite ("your-type"), so this changes reading
+ * order only, never unlock gating. Foundational, cognitive, exploration and
+ * philosophy units keep their authored positions, and each card still shows its
+ * authored UNIT number so the curriculum stays legible.
+ */
+function orderUnitsForType(
+  units: typeof LESSON_UNITS,
+  enneagramType: number | undefined
+): typeof LESSON_UNITS {
+  if (!enneagramType) return units;
+  const ownIdx = units.findIndex((u) => u.id === `type-${enneagramType}`);
+  const firstTypeIdx = units.findIndex((u) => /^type-[1-9]$/.test(u.id));
+  if (ownIdx === -1 || firstTypeIdx === -1 || ownIdx === firstTypeIdx) return units;
+  const reordered = [...units];
+  const [own] = reordered.splice(ownIdx, 1);
+  reordered.splice(firstTypeIdx, 0, own);
+  return reordered;
 }
 
 // ── Status Colors & Icons ────────────────────────────────────────────────────
@@ -239,6 +265,7 @@ function UnitCard({
   const status = getUnitStatus(unit.id);
   const progress = getUnitProgress(unit.id);
   const subtitle = getPersonalizedSubtitle(unit.id, unit.subtitle, profile);
+  const isOwnType = !!profile.enneagramType && unit.id === `type-${profile.enneagramType}`;
 
   const catColors = CATEGORY_COLORS[unit.category] ?? {
     accent: "#8b5cf6",
@@ -295,6 +322,11 @@ function UnitCard({
             <span className="text-xs font-bold text-slate-400">
               UNIT {unit.order}
             </span>
+            {isOwnType && (
+              <span className="text-xs font-bold text-violet-600 bg-violet-50 px-2 py-0.5 rounded-full">
+                Your type
+              </span>
+            )}
             {status === "completed" && (
               <span className="text-xs font-bold text-emerald-500 bg-emerald-50 px-2 py-0.5 rounded-full">
                 Complete
@@ -488,6 +520,13 @@ export default function LessonsPage() {
   const [practiceOpen, setPracticeOpen] = useState(false);
   const [noWeakSpotsToast, setNoWeakSpotsToast] = useState(false);
 
+  // The reader's own type deep-dive leads the nine type units, so a Type 9 does
+  // not scroll past eight units that are not about them before reaching theirs.
+  const orderedUnits = useMemo(
+    () => orderUnitsForType(LESSON_UNITS, profile?.enneagramType),
+    [profile?.enneagramType]
+  );
+
   const completedCount = LESSON_UNITS.filter((u) => isUnitCompleted(u.id)).length;
   const totalUnits = LESSON_UNITS.length;
   const petMessage =
@@ -576,7 +615,7 @@ export default function LessonsPage() {
       {/* Unit list */}
       <div className="px-4 sm:px-6 pb-28 max-w-2xl mx-auto">
         <div className="space-y-3">
-          {LESSON_UNITS.map((unit, i) => (
+          {orderedUnits.map((unit, i) => (
             <UnitCard key={unit.id} unit={unit} index={i} />
           ))}
         </div>
