@@ -6,13 +6,73 @@ interface Props {
   visible: boolean;
   streak: number;
   freezeTokens: number;
+  enneagramType?: number;
   onSave: () => void;      // consume a freeze token
   onLetBreak: () => void;  // acknowledge, reset streak
   onDismiss: () => void;   // close without deciding (e.g. still have time)
 }
 
-export default function StreakSaver({ visible, streak, freezeTokens, onSave, onLetBreak, onDismiss }: Props) {
+// ── Type-aware loss-aversion copy ────────────────────────────────────────
+// The streak-saver modal is the highest-emotion moment in the retention
+// loop, so the framing that lands differs sharply by core motivation:
+// a Nine disengages from urgency, an Eight disengages from being nudged.
+// Motivations follow Riso-Hudson: 1 correctness, 2 connection,
+// 3 achievement, 4 depth, 5 autonomy, 6 security, 7 possibility,
+// 8 control, 9 ease.
+
+interface SaverCopy {
+  withFreeze: string;
+  withoutFreeze: string;
+}
+
+const TYPE_SAVER_COPY: Record<number, SaverCopy> = {
+  1: {
+    withFreeze: "Use a streak save to keep the record intact. You can earn more by staying active.",
+    withoutFreeze: "You missed yesterday. One lesson before midnight keeps the record intact.",
+  },
+  2: {
+    withFreeze: "Use a streak save. This is the practice you keep for yourself.",
+    withoutFreeze: "You missed yesterday. One lesson before midnight, for you, not for anyone else.",
+  },
+  3: {
+    withFreeze: "Use a streak save and keep the run alive. You can earn more by staying active.",
+    withoutFreeze: "You missed yesterday. One lesson before midnight and the run stays alive.",
+  },
+  4: {
+    withFreeze: "Use a streak save. What you have been building is worth keeping.",
+    withoutFreeze: "You missed yesterday. That happens. One lesson before midnight and the thread holds.",
+  },
+  5: {
+    withFreeze: "A streak save costs one token and protects the streak. Your call.",
+    withoutFreeze: "You missed yesterday. The streak resets at midnight unless you complete a lesson.",
+  },
+  6: {
+    withFreeze: "Use a streak save. You have a backup for exactly this.",
+    withoutFreeze: "You missed yesterday. One lesson before midnight and you are covered.",
+  },
+  7: {
+    withFreeze: "Use a streak save and keep the run going. Plenty more ahead.",
+    withoutFreeze: "You missed yesterday. One quick lesson before midnight and you are back in it.",
+  },
+  8: {
+    withFreeze: "Use a streak save. Your streak, your call.",
+    withoutFreeze: "You missed yesterday. Complete a lesson before midnight or it resets. Your call.",
+  },
+  9: {
+    withFreeze: "Use a streak save. It is already there waiting, no pressure.",
+    withoutFreeze: "You missed yesterday. One small lesson keeps it going. No pressure either way.",
+  },
+};
+
+const DEFAULT_SAVER_COPY: SaverCopy = {
+  withFreeze: "Use a streak save to protect it. You can earn more by staying active.",
+  withoutFreeze: "You missed yesterday. Your streak will reset at midnight unless you complete a lesson now.",
+};
+
+export default function StreakSaver({ visible, streak, freezeTokens, enneagramType, onSave, onLetBreak, onDismiss }: Props) {
   const hasFreezes = freezeTokens > 0;
+  const copy = (enneagramType ? TYPE_SAVER_COPY[enneagramType] : undefined) ?? DEFAULT_SAVER_COPY;
+  const body = hasFreezes ? copy.withFreeze : copy.withoutFreeze;
 
   return (
     <AnimatePresence>
@@ -56,9 +116,7 @@ export default function StreakSaver({ visible, streak, freezeTokens, onSave, onL
                 Your {streak}-day streak is at risk
               </h2>
               <p style={{ fontSize: "0.85rem", color: "rgba(255,255,255,0.5)", lineHeight: 1.5 }}>
-                {hasFreezes
-                  ? "Use a streak save to protect it. You can earn more by staying active."
-                  : "You missed yesterday. Your streak will reset at midnight unless you complete a lesson now."}
+                {body}
               </p>
             </div>
 

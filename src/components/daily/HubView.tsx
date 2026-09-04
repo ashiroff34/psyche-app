@@ -1955,6 +1955,7 @@ export default function HubView({
         visible={showStreakSaver}
         streak={streak}
         freezeTokens={streakFreezes}
+        enneagramType={enneagramType > 0 ? enneagramType : undefined}
         onSave={() => { dismissStreakSaver(); onStreakShop?.(); }}
         onLetBreak={dismissStreakSaver}
         onDismiss={dismissStreakSaver}
