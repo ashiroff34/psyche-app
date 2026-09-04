@@ -402,7 +402,7 @@ function TypeRevealScreen({
             />
           </div>
           <p className="text-[10px] mt-2" style={{ color: "rgba(255,255,255,0.35)" }}>
-            This is one data point from a 12-question quiz. Real confidence comes from weeks of self-observation.
+            This is one data point from a 10-question quiz. Real confidence comes from weeks of self-observation.
           </p>
         </motion.div>
 
@@ -1550,6 +1550,36 @@ function OnboardingPageInner() {
       try { localStorage.setItem("psyche-onboarding-name", displayName); } catch {}
     }
   }, [displayName]);
+
+  // Top-of-funnel instrumentation. Without these two events the aha-moment
+  // funnel has no denominator: quiz_completed only fires for users who finish,
+  // so drop-off between landing and the type reveal is invisible.
+  const onboardingStartedRef = useRef(false);
+  const quizStartedRef = useRef(false);
+
+  useEffect(() => {
+    if (onboardingStartedRef.current) return;
+    onboardingStartedRef.current = true;
+    try {
+      const savedStep = parseInt(localStorage.getItem("psyche-onboarding-step") ?? "0", 10);
+      posthog.capture(EVENTS.ONBOARDING_STARTED, {
+        entry: fromEnter ? "enter" : isManual ? "manual" : savedStep > 0 ? "resume" : "fresh",
+        resumed_at_step: savedStep > 0 ? savedStep : null,
+      });
+    } catch {}
+  }, [fromEnter, isManual]);
+
+  useEffect(() => {
+    if (step !== 3 || quizStartedRef.current) return;
+    quizStartedRef.current = true;
+    try {
+      posthog.capture(EVENTS.QUIZ_STARTED, {
+        assessment: "quick_type_finder",
+        length: 10,
+        source: "onboarding",
+      });
+    } catch {}
+  }, [step]);
 
   useEffect(() => {
     try {
