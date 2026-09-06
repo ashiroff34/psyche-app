@@ -85,9 +85,9 @@ export async function scheduleDailyReminder(opts: {
 
 const STREAK_WARNING_ID = 1002; // stable ID for one-time streak-at-risk notification
 
-/** localStorage key marking that today's streak warning is already resolved. */
-function streakWarnKey(): string {
-  return `streak-warned-${new Intl.DateTimeFormat("en-CA").format(new Date())}`;
+/** localStorage key marking that a given day's streak warning is already resolved. */
+function streakWarnKey(date: Date = new Date()): string {
+  return `streak-warned-${new Intl.DateTimeFormat("en-CA").format(date)}`;
 }
 
 /**
@@ -137,6 +137,53 @@ export async function scheduleStreakWarning(streakCount: number): Promise<boolea
         },
       ],
     });
+    localStorage.setItem(warnKey, "1");
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+/**
+ * Schedule tomorrow's 8:00 PM streak-at-risk warning ahead of time.
+ *
+ * scheduleStreakWarning() can only reach a user who opens the app that day —
+ * which is never the user about to churn. Call this the moment today's goal is
+ * met so the warning for the next day is already sitting on the device: a user
+ * who does not open the app at all tomorrow still hears that their streak ends
+ * tonight. Uses the same notification ID as today's warning, so
+ * cancelStreakWarning() clears it when tomorrow's goal is met.
+ */
+export async function scheduleTomorrowStreakWarning(streakCount: number): Promise<boolean> {
+  if (!isNative()) return false;
+  if (streakCount <= 0) return false;
+  const fireAt = new Date();
+  fireAt.setDate(fireAt.getDate() + 1);
+  fireAt.setHours(20, 0, 0, 0);
+  const warnKey = streakWarnKey(fireAt);
+  try {
+    if (typeof window !== "undefined" && localStorage.getItem(warnKey)) return false;
+  } catch {
+    return false;
+  }
+  try {
+    const { LocalNotifications } = await import("@capacitor/local-notifications");
+    const perm = await LocalNotifications.checkPermissions();
+    if (perm.display !== "granted") return false;
+    await LocalNotifications.cancel({ notifications: [{ id: STREAK_WARNING_ID }] });
+    await LocalNotifications.schedule({
+      notifications: [
+        {
+          id: STREAK_WARNING_ID,
+          title: "Streak at risk",
+          body: `Your ${streakCount}-day streak is at risk tonight. Keep it going.`,
+          schedule: { at: fireAt, allowWhileIdle: true },
+          smallIcon: "ic_stat_icon_config_sample",
+          iconColor: "#F59E0B",
+        },
+      ],
+    });
+    // Mark tomorrow resolved so the next app open does not reschedule over it.
     localStorage.setItem(warnKey, "1");
     return true;
   } catch {
