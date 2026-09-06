@@ -44,19 +44,8 @@ import NextStepBanner from "@/components/NextStepBanner";
 import ConfidenceBadge from "@/components/ConfidenceBadge";
 import TypeDiscoveryModal from "@/components/TypeDiscoveryModal";
 import TikTokTypeCard from "@/components/TikTokTypeCard";
+import { getPaywallCopy } from "@/data/type-paywall-copy";
 
-// ── Type-personalized paywall headlines (mirrors src/app/pricing/page.tsx) ─
-const TYPE_PAYWALL_HEADLINES: Record<number, string> = {
-  1: "Stop settling for a life that doesn't match your values.",
-  2: "Understand the people you love — and yourself — more deeply.",
-  3: "Know exactly what drives you, and what gets in the way.",
-  4: "Finally make sense of why you feel what you feel.",
-  5: "Go deeper into the framework than any book can take you.",
-  6: "Build the self-trust you've always wanted.",
-  7: "Stop running. Discover what you actually want.",
-  8: "Understand your power — and when to use it.",
-  9: "Find yourself without losing the peace.",
-};
 
 // ── Famous examples ───────────────────────────────────────────────────────
 const famousExamples: Record<number, { name: string; note: string }[]> = {
@@ -1420,10 +1409,10 @@ function ResultsInner() {
                       </span>
                     </div>
                     <p className="text-base font-semibold mb-1.5" style={{ color: "rgba(255,255,255,0.95)" }}>
-                      {TYPE_PAYWALL_HEADLINES[typeNum] ?? "Understand why you are the way you are."}
+                      {getPaywallCopy(typeNum).headline}
                     </p>
                     <p className="text-xs leading-relaxed mb-4" style={{ color: "rgba(255,255,255,0.6)" }}>
-                      Without subtypes, tritype, and Shadow Work, your type stays surface-level. Pro takes you the rest of the way.
+                      {getPaywallCopy(typeNum).lossFrame}
                     </p>
                     <div className="flex items-center justify-between">
                       <span className="text-xs font-semibold text-violet-200">

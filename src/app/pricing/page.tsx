@@ -21,6 +21,7 @@ import { motion } from "framer-motion";
 import { ArrowLeft, Check, Shield, Star, Zap } from "lucide-react";
 import { useProfile } from "@/hooks/useProfile";
 import { Analytics, type Framework } from "@/lib/analytics";
+import { getPaywallCopy } from "@/data/type-paywall-copy";
 
 interface PlanProps {
   name: string;
@@ -106,19 +107,6 @@ const PLANS: PlanProps[] = [
 // Bump this whenever the page's psychology changes, so PostHog can compare
 // conversion across variants. v2 = highest price first (anchoring).
 const PAYWALL_VARIANT = "pricing_annual_first_v2";
-
-const TYPE_PAYWALL_HEADLINES: Record<number, string> = {
-  1: "Stop settling for a life that doesn't match your values.",
-  2: "Understand the people you love — and yourself — more deeply.",
-  3: "Know exactly what drives you, and what gets in the way.",
-  4: "Finally make sense of why you feel what you feel.",
-  5: "Go deeper into the framework than any book can take you.",
-  6: "Build the self-trust you've always wanted.",
-  7: "Stop running. Discover what you actually want.",
-  8: "Understand your power — and when to use it.",
-  9: "Find yourself without losing the peace.",
-};
-
 const LESSON_COUNT_KEY = "lessons-completed-count";
 
 /** Reads how many lessons this device has finished, for funnel segmentation. */
@@ -173,10 +161,10 @@ export default function PricingPage() {
     });
   }, [loaded, framework]);
 
-  const paywallHeadline =
-    profile.enneagramType && TYPE_PAYWALL_HEADLINES[profile.enneagramType]
-      ? TYPE_PAYWALL_HEADLINES[profile.enneagramType]
-      : "Understand why you are the way you are.";
+  // Headline, loss frame, and benefit line all adapt to the user's type. The
+  // headline alone was doing the personalization work while the argument
+  // underneath it stayed identical for all nine types.
+  const paywallCopy = getPaywallCopy(profile.enneagramType);
 
   async function handleCheckout(plan: PlanProps) {
     const packId = plan.packId;
@@ -247,7 +235,7 @@ export default function PricingPage() {
 
         <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}>
           <p className="text-base font-semibold mb-2 leading-snug" style={{ color: "rgba(255,255,255,0.9)" }}>
-            {paywallHeadline}
+            {paywallCopy.headline}
           </p>
           <h1 className="text-3xl font-bold mb-1">Choose your depth</h1>
           <p className="text-xs mb-3" style={{ color: "rgba(255,255,255,0.32)" }}>
@@ -257,14 +245,13 @@ export default function PricingPage() {
             <Star className="w-3 h-3 text-violet-400 shrink-0" /> Thousands are mapping their psyche with Thyself
           </p>
           <p className="text-sm opacity-60 mb-2 leading-relaxed">
-            Free gets you far. Pro unlocks the layers that take years off the self-discovery curve.
+            Free gets you far. {paywallCopy.proBenefit}
           </p>
           {/* Loss frame — names what stays unchanged without Pro. Losses are
               weighted heavier than equivalent gains (Kahneman & Tversky), and
               the results-screen upsell already leads with this framing. */}
           <p className="text-sm mb-2 leading-relaxed" style={{ color: "rgba(255,255,255,0.62)" }}>
-            Knowing your type is the easy part. Without the subtype, tritype, and shadow layers,
-            the pattern you just recognized keeps running anyway.
+            {paywallCopy.lossFrame}
           </p>
           <p className="text-xs mb-2" style={{ color: "rgba(255,255,255,0.5)" }}>
             One therapy session is $200. A year of Thyself is $47.
