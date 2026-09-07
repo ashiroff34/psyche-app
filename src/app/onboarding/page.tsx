@@ -629,17 +629,12 @@ function TypeRevealScreen({
 
 // ── Step 2: Type Preview ──────────────────────────────────────────────────────
 
-const TYPE_PREVIEW_DATA = [
-  { num: 1, name: "The Reformer", color: "#B85C38" },
-  { num: 2, name: "The Helper", color: "#C4607A" },
-  { num: 3, name: "The Achiever", color: "#C9921A" },
-  { num: 4, name: "The Individualist", color: "#7B5AAD" },
-  { num: 5, name: "The Investigator", color: "#3D6B9C" },
-  { num: 6, name: "The Loyalist", color: "#7A8FA6" },
-  { num: 7, name: "The Enthusiast", color: "#5B8FD0" },
-  { num: 8, name: "The Challenger", color: "#9B2C2C" },
-  { num: 9, name: "The Peacemaker", color: "#8B7355" },
-];
+// Derived from the canonical type data so the preview grid matches the reveal
+// screen. Previously hardcoded, which had drifted for Types 5 and 7.
+const TYPE_PREVIEW_DATA = Array.from({ length: 9 }, (_, i) => {
+  const t = enneagramTypes.find((e) => e.number === i + 1);
+  return { num: i + 1, name: t?.name ?? `Type ${i + 1}`, color: t?.color ?? "#a78bfa" };
+});
 
 function StepTypePreview({ onNext, onBack }: { onNext: () => void; onBack: () => void }) {
   return (
