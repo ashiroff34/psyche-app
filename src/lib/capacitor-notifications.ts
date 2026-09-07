@@ -90,6 +90,78 @@ function streakWarnKey(date: Date = new Date()): string {
   return `streak-warned-${new Intl.DateTimeFormat("en-CA").format(date)}`;
 }
 
+// ── Type-aware streak warning copy ───────────────────────────────────────
+// The 8pm streak warning is the only layer of the loss-aversion stack that
+// reaches a user who never opens the app that day, so its framing carries
+// the most weight. A single generic push wastes that: a Nine disengages
+// from urgency and an Eight disengages from being nudged, so the same
+// sentence that saves a Three's streak costs a Nine's. Motivations follow
+// Riso-Hudson: 1 correctness, 2 connection, 3 achievement, 4 depth,
+// 5 autonomy, 6 security, 7 possibility, 8 control, 9 ease. Copy mirrors
+// TYPE_SAVER_COPY in StreakSaver so the push and the modal speak in one voice.
+
+interface StreakWarningCopy {
+  title: string;
+  body: (streakCount: number) => string;
+}
+
+const TYPE_STREAK_WARNING: Record<number, StreakWarningCopy> = {
+  1: {
+    title: "Your streak record",
+    body: (n) => `Your ${n} day streak ends at midnight. One lesson keeps the record intact.`,
+  },
+  2: {
+    title: "Your practice is waiting",
+    body: (n) => `Your ${n} day streak ends at midnight. One lesson, for you, not for anyone else.`,
+  },
+  3: {
+    title: "Your run is still alive",
+    body: (n) => `Your ${n} day streak ends at midnight. One lesson keeps the run going.`,
+  },
+  4: {
+    title: "The thread still holds",
+    body: (n) => `Your ${n} day streak ends at midnight. One lesson and what you built stays whole.`,
+  },
+  5: {
+    title: "Streak resets at midnight",
+    body: (n) => `Your ${n} day streak resets at midnight unless you complete a lesson. Your call.`,
+  },
+  6: {
+    title: "Your streak tonight",
+    body: (n) => `Your ${n} day streak ends at midnight. One lesson and you are covered.`,
+  },
+  7: {
+    title: "Still time tonight",
+    body: (n) => `Your ${n} day streak ends at midnight. One quick lesson and you are back in it.`,
+  },
+  8: {
+    title: "Streak ends at midnight",
+    body: (n) => `Your ${n} day streak ends at midnight unless you finish a lesson. Your call.`,
+  },
+  9: {
+    title: "Your streak is still here",
+    body: (n) => `Your ${n} day streak ends at midnight. One small lesson keeps it going. No pressure.`,
+  },
+};
+
+const DEFAULT_STREAK_WARNING: StreakWarningCopy = {
+  title: "Streak at risk",
+  body: (n) => `Your ${n} day streak is at risk tonight. Keep it going.`,
+};
+
+/**
+ * Build the 8pm streak warning title + body for the user's Enneagram type,
+ * falling back to neutral copy when no type is set.
+ */
+export function buildStreakWarningNotification(
+  streakCount: number,
+  enneagramType?: number | null
+): { title: string; body: string } {
+  const copy =
+    (enneagramType ? TYPE_STREAK_WARNING[enneagramType] : undefined) ?? DEFAULT_STREAK_WARNING;
+  return { title: copy.title, body: copy.body(streakCount) };
+}
+
 /**
  * Schedule a one-time local notification for 8:00 PM today warning the user
  * their streak is at risk. Safe to call multiple times — deduplicated via
@@ -102,7 +174,10 @@ function streakWarnKey(date: Date = new Date()): string {
  *
  * Only schedules if it is currently before 8:00 PM local time.
  */
-export async function scheduleStreakWarning(streakCount: number): Promise<boolean> {
+export async function scheduleStreakWarning(
+  streakCount: number,
+  enneagramType?: number | null
+): Promise<boolean> {
   if (!isNative()) return false;
   // Deduplicate: only warn once per calendar day
   const warnKey = streakWarnKey();
@@ -122,6 +197,7 @@ export async function scheduleStreakWarning(streakCount: number): Promise<boolea
     }
     // Cancel any previous streak warning before scheduling a fresh one
     await LocalNotifications.cancel({ notifications: [{ id: STREAK_WARNING_ID }] });
+    const warning = buildStreakWarningNotification(streakCount, enneagramType);
     // Fire at 8:00 PM today
     const fireAt = new Date();
     fireAt.setHours(20, 0, 0, 0);
@@ -129,8 +205,8 @@ export async function scheduleStreakWarning(streakCount: number): Promise<boolea
       notifications: [
         {
           id: STREAK_WARNING_ID,
-          title: "Streak at risk",
-          body: `Your ${streakCount}-day streak is at risk tonight. Keep it going.`,
+          title: warning.title,
+          body: warning.body,
           schedule: { at: fireAt, allowWhileIdle: true },
           smallIcon: "ic_stat_icon_config_sample",
           iconColor: "#F59E0B",
@@ -154,7 +230,10 @@ export async function scheduleStreakWarning(streakCount: number): Promise<boolea
  * tonight. Uses the same notification ID as today's warning, so
  * cancelStreakWarning() clears it when tomorrow's goal is met.
  */
-export async function scheduleTomorrowStreakWarning(streakCount: number): Promise<boolean> {
+export async function scheduleTomorrowStreakWarning(
+  streakCount: number,
+  enneagramType?: number | null
+): Promise<boolean> {
   if (!isNative()) return false;
   if (streakCount <= 0) return false;
   const fireAt = new Date();
@@ -171,12 +250,13 @@ export async function scheduleTomorrowStreakWarning(streakCount: number): Promis
     const perm = await LocalNotifications.checkPermissions();
     if (perm.display !== "granted") return false;
     await LocalNotifications.cancel({ notifications: [{ id: STREAK_WARNING_ID }] });
+    const warning = buildStreakWarningNotification(streakCount, enneagramType);
     await LocalNotifications.schedule({
       notifications: [
         {
           id: STREAK_WARNING_ID,
-          title: "Streak at risk",
-          body: `Your ${streakCount}-day streak is at risk tonight. Keep it going.`,
+          title: warning.title,
+          body: warning.body,
           schedule: { at: fireAt, allowWhileIdle: true },
           smallIcon: "ic_stat_icon_config_sample",
           iconColor: "#F59E0B",

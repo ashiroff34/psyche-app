@@ -46,12 +46,12 @@ export default function StreakCard({ streak, longest, freezeTokens, enneagramTyp
     if (streak <= 0) return;
     if (dailyCompleted) {
       cancelStreakWarning()
-        .then(() => scheduleTomorrowStreakWarning(streak))
+        .then(() => scheduleTomorrowStreakWarning(streak, enneagramType))
         .catch(() => undefined);
       return;
     }
-    scheduleStreakWarning(streak).catch(() => undefined);
-  }, [dailyCompleted, streak]);
+    scheduleStreakWarning(streak, enneagramType).catch(() => undefined);
+  }, [dailyCompleted, streak, enneagramType]);
 
   return (
     <motion.div
