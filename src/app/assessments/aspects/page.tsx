@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { ArrowLeft } from "lucide-react";
 import { ASPECT_ITEMS, scoreAspects, ASPECTS } from "@/data/psychometrics/big-five-aspects";
 import { usePsychometrics } from "@/hooks/usePsychometrics";
+import PostAssessmentUpsell from "@/components/PostAssessmentUpsell";
 
 const SCALE = [
   { v: 1, label: "Strongly disagree" },
@@ -87,6 +88,19 @@ export default function AspectsAssessmentPage() {
               </div>
             </>
           )}
+          {/* Peak-end rule: the result screen is the highest-intent moment in
+              this flow, and it previously ended in a plain navigation link with
+              no next step. Loss frame first, trial-framed CTA second. */}
+          <div className="mb-6">
+            <PostAssessmentUpsell
+              delay={0.2}
+              trigger="aspects_result"
+              eyebrow="Aspects meet motive"
+              headline="Your aspects show the split. Your type shows what caused it."
+              body="Ten aspects map where the two halves of a factor pull apart. Pro adds the layer underneath: the instinctual subtype and tritype that made one half load bearing, and the Shadow Work lab where the quieter half usually lives."
+            />
+          </div>
+
           <Link href="/mirrors" className="block w-full py-3 text-center rounded-2xl font-semibold" style={{ background: "linear-gradient(135deg,#8b5cf6,#d946ef)" }}>
             See triangulation
           </Link>
