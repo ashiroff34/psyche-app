@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { ArrowLeft } from "lucide-react";
 import { RF_ITEMS, scoreRegulatoryFocus } from "@/data/psychometrics/regulatory-focus";
 import { usePsychometrics } from "@/hooks/usePsychometrics";
+import PostAssessmentUpsell from "@/components/PostAssessmentUpsell";
 
 const SCALE = [
   { v: 1, label: "Strongly disagree" },
@@ -74,6 +75,18 @@ export default function RegulatoryFocusPage() {
               </p>
             </>
           )}
+          {/* Peak-end rule: this result previously ended in "Done" with no
+              next step, dropping the highest-intent moment in the flow. */}
+          <div className="mb-6">
+            <PostAssessmentUpsell
+              delay={0.2}
+              trigger="regulatory_focus_result"
+              eyebrow="Focus meets pattern"
+              headline="You know which way you lean. Not yet why you lean that way."
+              body="Promotion and prevention describe how you move toward what you want. Pro adds what sits underneath the movement: your instinctual subtype, your tritype, and the Shadow Work lab where those motivations get examined rather than only measured."
+            />
+          </div>
+
           <Link href="/mirrors" className="block w-full py-3 text-center rounded-2xl font-semibold" style={{ background: "linear-gradient(135deg,#8b5cf6,#d946ef)" }}>
             Done
           </Link>

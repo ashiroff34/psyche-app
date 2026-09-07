@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { ArrowLeft, TrendingUp } from "lucide-react";
 import { DECENTERING_ITEMS, scoreDecentering, interpretDecentering } from "@/data/psychometrics/decentering-index";
 import { useProfile } from "@/hooks/useProfile";
+import PostAssessmentUpsell from "@/components/PostAssessmentUpsell";
 
 const SCALE = [
   { v: 1, label: "Rarely true" },
@@ -115,6 +116,19 @@ export default function DecenteringPage() {
               )}
             </>
           )}
+
+          {/* Peak-end rule: the score lands, then the screen previously sent
+              the user back to practice with nothing to act on. The number only
+              moves with the practice Pro carries, so the loss frame is literal. */}
+          <div className="mb-6">
+            <PostAssessmentUpsell
+              delay={0.2}
+              trigger="decentering_result"
+              eyebrow="Measured, not yet practiced"
+              headline="You can measure decentering. Practicing it is the harder part."
+              body="This score tells you how well you step back from your own thinking. Pro is where that becomes a practice: Shadow Work, audio reflections, and type specific self observation work. Without it the number tends to read the same next month."
+            />
+          </div>
 
           <Link href="/daily" className="block w-full py-3 text-center rounded-2xl font-semibold" style={{ background: "linear-gradient(135deg,#8b5cf6,#d946ef)" }}>
             Back to practice

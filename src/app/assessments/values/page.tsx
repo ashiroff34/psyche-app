@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { ArrowLeft, ArrowRight, CheckCircle } from "lucide-react";
 import { SCHWARTZ_ITEMS, scoreSchwartz, SCHWARTZ_VALUES } from "@/data/psychometrics/schwartz-values";
 import { usePsychometrics } from "@/hooks/usePsychometrics";
+import PostAssessmentUpsell from "@/components/PostAssessmentUpsell";
 
 const SCALE = [
   { v: 1, label: "Not like me" },
@@ -81,6 +82,19 @@ export default function ValuesAssessmentPage() {
               </div>
             </>
           )}
+          {/* Peak-end rule: the result screen is the highest-intent moment in
+              this flow, and it previously ended in a plain navigation link with
+              no next step. Loss frame first, trial-framed CTA second. */}
+          <div className="mb-6">
+            <PostAssessmentUpsell
+              delay={0.2}
+              trigger="values_result"
+              eyebrow="Values meet motive"
+              headline="Your values say what matters. Your type says why it had to."
+              body="Schwartz mapping shows what you prioritize. Pro adds the layer underneath it: the instinctual subtype and tritype that shaped those priorities, and the Shadow Work lab where the least emphasized values usually live."
+            />
+          </div>
+
           <Link href="/mirrors" className="block w-full py-3 text-center rounded-2xl font-semibold" style={{ background: "linear-gradient(135deg,#8b5cf6,#d946ef)" }}>
             See triangulation
           </Link>
