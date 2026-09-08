@@ -31,8 +31,11 @@ export default function StreakCard({ streak, longest, freezeTokens, enneagramTyp
     }
   }, [streak, springVal]);
 
-  // Visual at-risk state stays evening-only — the red flame should not nag all day.
-  const atRisk = streak > 0 && new Date().getHours() >= 18;
+  // Visual at-risk state stays evening-only — the red flame should not nag all day —
+  // and never fires once today's goal is met. A warning that shows up after the
+  // user has already done the work teaches them to ignore the warning, which
+  // costs the one evening it actually needed to land.
+  const atRisk = streak > 0 && !dailyCompleted && new Date().getHours() >= 18;
 
   // Schedule the 8pm push as soon as the app opens with an unmet daily goal.
   // Gating this on the evening at-risk state meant the notification could only
