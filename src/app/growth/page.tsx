@@ -17,6 +17,7 @@ import { collectTextCorpus, analyzeLinguistics, computeGrowthVector, generateFut
 import { generateBlindSpotInsights } from "@/lib/blind-spot-radar";
 import { getDialogue, DIALOGUE_INTEGRATION_TYPE } from "@/data/shadow-dialogue";
 import { TYPE_FORMATION } from "@/data/formation-map";
+import { useTypeAwareCopy } from "@/hooks/useTypeAwareCopy";
 
 // ─── Token gate for Enneagram Growth Path ────────────────────────────────────
 const ENNEAGRAM_GROWTH_UNLOCK_KEY = "psyche-enneagram-growth-unlocked";
@@ -95,6 +96,9 @@ const TYPE_GROWTH_MESSAGES: Record<number, string> = {
 // ─── Enneagram Growth Gate ────────────────────────────────────────────────────
 
 function EnneagramGrowthGate({ children }: { children: React.ReactNode }) {
+  // The unlock pitch adapts to the user's type. The path itself is the same;
+  // what changes is the reason it is worth 300 tokens to this person.
+  const copy = useTypeAwareCopy();
   const [unlocked, setUnlocked] = useState<boolean | null>(null);
   const [tokens, setTokens] = useState(0);
   const [spending, setSpending] = useState(false);
@@ -152,9 +156,9 @@ function EnneagramGrowthGate({ children }: { children: React.ReactNode }) {
             style={{ background: "rgba(16,185,129,0.15)", border: "1px solid rgba(16,185,129,0.35)", backdropFilter: "blur(12px)" }}>
             <Leaf className="w-7 h-7" style={{ color: "#34d399" }} />
           </div>
-          <h1 className="text-2xl font-serif font-bold mb-2" style={{ color: "rgba(255,255,255,0.95)" }}>Enneagram Growth Path</h1>
+          <h1 className="text-2xl font-serif font-bold mb-2" style={{ color: "rgba(255,255,255,0.95)" }}>{copy("growth.gate.headline")}</h1>
           <p className="text-sm leading-relaxed mb-2" style={{ color: "rgba(255,255,255,0.52)" }}>
-            Type-specific growth prompts, integration practices, and daily reflection rooted in the Enneagram tradition.
+            {copy("growth.gate.sub")}
           </p>
           <p className="text-xs mb-6" style={{ color: "rgba(255,255,255,0.3)" }}>
             No subscription needed. Unlock once with tokens earned through daily practice.

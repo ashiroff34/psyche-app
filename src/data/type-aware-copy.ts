@@ -206,7 +206,39 @@ export const TYPE_AWARE_COPY: Record<string, TypeAwareCopyEntry> = {
     9: "Easy, onto the next thing",
     default: "Quiz complete",
   },
+  // ─────────────────────────────────────────────────────────────────────
+  // SURFACE 7: Enneagram Growth Path unlock gate (/growth)
+  //
+  // A 300 token spend is a real decision, and the gate was pitching all
+  // nine types the same paragraph. The promise underneath is identical;
+  // only the reason it matters to this user changes.
+  // ─────────────────────────────────────────────────────────────────────
+  "growth.gate.headline": {
+    1: "A growth path with a clear method",
+    2: "Growth that is yours, not for anyone else",
+    3: "A growth path you can actually measure",
+    4: "A growth path shaped to your specific pattern",
+    5: "The growth material, without the filler",
+    6: "A growth path you can rely on",
+    7: "A growth path that keeps opening up",
+    8: "Your growth, on your terms",
+    9: "One simple path, no pressure",
+    default: "Enneagram Growth Path",
+  },
+  "growth.gate.sub": {
+    1: "Integration practices and daily prompts built on the Enneagram tradition, so the work is grounded rather than improvised.",
+    2: "Integration practices and daily prompts for your type, in a space where nobody needs anything from you.",
+    3: "Integration practices, daily prompts, and tracked growth edges, so progress is visible rather than assumed.",
+    4: "Integration practices and daily prompts written for your type specifically, not the same page every Four has already read.",
+    5: "Integration practices and daily prompts drawn from the primary Enneagram sources. Dense, specific, no padding.",
+    6: "Integration practices and daily prompts from the established Enneagram tradition, in the same place every day.",
+    7: "Integration practices, daily prompts, perspective swaps, and shadow dialogues. New material every day.",
+    8: "Integration practices and daily prompts for your type. Unlock it once, use it how you want, no subscription.",
+    9: "Integration practices and one daily prompt for your type. Nothing to decide, nothing stacking up.",
+    default: "Type specific growth prompts, integration practices, and daily reflection rooted in the Enneagram tradition.",
+  },
 };
+
 
 // ─── Helper: get the right variant based on type ────────────────────────
 
