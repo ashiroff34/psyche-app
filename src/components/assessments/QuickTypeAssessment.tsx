@@ -1401,7 +1401,7 @@ export default function QuickTypeAssessment({
 
           {/* Post-result upgrade CTA — non-blocking, below the result */}
           <motion.a
-            href="/pricing"
+            href="/pricing?from=quick_result"
             initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.9 }}

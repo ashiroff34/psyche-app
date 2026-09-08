@@ -2430,7 +2430,7 @@ function ProGate({ children }: { children: React.ReactNode }) {
           This is premium content. Requires a Thyself Pro subscription.
         </p>
         <Link
-          href="/pricing"
+          href="/pricing?from=inner_work_lab_gate"
           className="block w-full py-3.5 rounded-2xl font-bold text-white text-sm mb-3 transition-all active:scale-95"
           style={{ background: "linear-gradient(135deg, #6366f1, #7c3aed)", boxShadow: "0 4px 20px rgba(99,102,241,0.4)" }}
         >

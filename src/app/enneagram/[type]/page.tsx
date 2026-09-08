@@ -98,7 +98,7 @@ function TypeSelfWorkGate({
           Journal prompts, daily practices, and growth exercises for your type.
         </p>
         <Link
-          href="/pricing"
+          href="/pricing?from=type_page_gate"
           className="px-6 py-2.5 rounded-xl font-bold text-white text-sm transition-all active:scale-95"
           style={{
             background: `linear-gradient(135deg, ${accent}, ${accent}bb)`,
