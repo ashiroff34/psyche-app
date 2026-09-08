@@ -343,7 +343,10 @@ function TypeRevealScreen({
           The {typeName}
         </motion.p>
 
-        {/* Evocative sentence */}
+        {/* Evocative sentence. This is the aha line, so the recognition-tuned
+            sentence wins. The type-aware "reveal.welcome" variants read as
+            welcome-to-the-app copy (some mention pricing or sources), which
+            lands wrong at the moment of recognition. Kept as the fallback. */}
         <motion.p
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
@@ -351,7 +354,7 @@ function TypeRevealScreen({
           className="text-base leading-relaxed mb-6 font-serif italic"
           style={{ color: "rgba(255,255,255,0.72)" }}
         >
-          {resolveTypeAwareCopy("reveal.welcome", result.type) || revealSentence}
+          {revealSentence || resolveTypeAwareCopy("reveal.welcome", result.type)}
         </motion.p>
 
         {/* W/P/F/A bullets */}
