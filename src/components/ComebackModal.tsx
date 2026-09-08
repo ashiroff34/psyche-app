@@ -19,11 +19,37 @@ function daysBetween(isoA: string, isoB: string): number {
   return Math.max(0, Math.floor(Math.abs(b - a) / 86400000));
 }
 
+// ─── Type-aware comeback line ────────────────────────────────────────────────
+//
+// The segment ladder below scales warmth to the length of the absence, but
+// until now every type read the same subtext, and absence does not land the
+// same way for all nine. A One returns carrying a broken standard; a Nine
+// returns braced for pressure that would make leaving easier next time; a
+// Three returns doing arithmetic on lost ground.
+//
+// This line is appended to the segment subtext, so the ladder still sets the
+// pacing and this only sets the aim. Motivations follow Riso-Hudson core-desire
+// framing, not pop-psych traits. No dashes, emoji, or mystical language: this
+// text ships verbatim to users.
+
+const TYPE_COMEBACK_LINE: Record<number, string> = {
+  1: "Nothing here is behind schedule, because there was no schedule to fall behind on. The standard you are measuring this against is one you set, and you are allowed to set it down.",
+  2: "Nobody needed you to keep this going, which is exactly why it is worth doing. This one is yours.",
+  3: "No ground was lost. What you understood about yourself before you left is still true, and it did not depreciate while you were busy.",
+  4: "The gap you are feeling is not evidence that something is missing in you. You left and you came back, which is a more ordinary story than it feels like from the inside.",
+  5: "You do not have to re-read anything to resume. Pick up wherever your attention actually is, not wherever you think you should be.",
+  6: "This is not a test you are failing. People leave and return here constantly, and the practice was built expecting it.",
+  7: "There is nothing tedious waiting for you. Start with whatever looks most interesting today and let the rest sit.",
+  8: "Nobody is going to make anything of this. You decided to come back, on your terms, and that is the whole transaction.",
+  9: "There is no pressure here and nothing to catch up on. One small thing today is complete in itself.",
+};
+
 // ─── Types ───────────────────────────────────────────────────────────────────
 
 interface ModalData {
   daysSince: number;
   userType: string | null;
+  enneagramType: number | null;
 }
 
 // ─── Component ───────────────────────────────────────────────────────────────
@@ -64,7 +90,7 @@ export default function ComebackModal() {
     // Only show if no other notification is currently visible
     if (!acquireNotificationLock("comeback-modal")) return;
 
-    setData({ daysSince, userType });
+    setData({ daysSince, userType, enneagramType });
 
     setShow(true);
     sessionStorage.setItem("comeback-shown", "true");
@@ -150,7 +176,9 @@ export default function ComebackModal() {
       ? `We missed you, ${data.userType}.`
       : "We missed you.";
 
-  const subtextEl =
+  const typeLine = data.enneagramType ? TYPE_COMEBACK_LINE[data.enneagramType] : null;
+
+  const segmentSubtextEl =
     segment === "gentle" ? (
       <p className="text-sm" style={{ color: "rgba(255,255,255,0.5)" }}>
         {daysSince === 1
@@ -176,6 +204,17 @@ export default function ComebackModal() {
           : `${daysSince} days away. The pattern waited. No judgment, just glad you're back.`}
       </p>
     );
+
+  const subtextEl = (
+    <>
+      {segmentSubtextEl}
+      {typeLine && (
+        <p className="text-sm mt-2.5" style={{ color: "rgba(255,255,255,0.42)" }}>
+          {typeLine}
+        </p>
+      )}
+    </>
+  );
 
   const ctaLabel =
     segment === "gentle" ? "Continue →"
