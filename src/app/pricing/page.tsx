@@ -256,8 +256,24 @@ export default function PricingPage() {
           <p className="text-xs mb-2" style={{ color: "rgba(255,255,255,0.5)" }}>
             One therapy session is $200. A year of Thyself is $47.
           </p>
-          <p className="text-xs font-semibold mb-8" style={{ color: "rgba(167,139,250,0.9)" }}>
+          <p className="text-xs font-semibold mb-2" style={{ color: "rgba(167,139,250,0.9)" }}>
             7 days free, then keep it or cancel. No charge until day 7.
+          </p>
+          {/* A risk-reversal promise the reader cannot act on is not risk
+              reversal. The page told people to cancel before day 7 without
+              saying anywhere how, and support email is currently the only
+              cancellation path in the product. Naming it removes the unanswered
+              "how do I get out of this" objection at the decision point. */}
+          <p className="text-xs mb-8" style={{ color: "rgba(255,255,255,0.45)" }}>
+            To cancel, email{" "}
+            <a
+              href="mailto:support@thyself.app?subject=Cancel%20my%20Thyself%20Pro%20subscription"
+              className="underline"
+              style={{ color: "rgba(167,139,250,0.8)" }}
+            >
+              support@thyself.app
+            </a>{" "}
+            and we will take care of it. No forms, no phone call.
           </p>
         </motion.div>
 
