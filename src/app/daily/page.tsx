@@ -814,10 +814,10 @@ export default function DailyPage() {
   useEffect(() => {
     if (!loaded) return;
     let cancelled = false;
-    import("@/data/daily-insights-index").then(({ getTodayInsight }) => {
+    import("@/data/daily-insights-index").then(({ getTodayInsightForType }) => {
       if (cancelled) return;
       try {
-        const insight = getTodayInsight();
+        const insight = getTodayInsightForType(profile.enneagramType ?? profile.enneagramCore);
         if (insight?.quote && insight?.author) {
           setDailyInsightData(insight);
         } else {
@@ -830,7 +830,7 @@ export default function DailyPage() {
       if (!cancelled) setDailyInsightData(insightFallback);
     });
     return () => { cancelled = true; };
-  }, [loaded]);
+  }, [loaded, profile.enneagramType, profile.enneagramCore]);
 
   // ── Load from localStorage ──
   useEffect(() => {

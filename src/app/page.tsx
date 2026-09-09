@@ -21,7 +21,7 @@ import {
 import ChibiSprite from "@/components/ChibiSprite";
 import PetCompanion from "@/components/PetCompanion";
 import OuroborosLogo from "@/components/OuroborosLogo";
-import { getTodayInsight } from "@/data/daily-insights-index";
+import { getTodayInsightForType } from "@/data/daily-insights-index";
 
 // ── Helpers ──────────────────────────────────────────────────────────────────
 
@@ -666,7 +666,7 @@ function DashboardScreen({
   const tokens = gameState.tokens ?? profile.tokens ?? 0;
   const xp = gameState.xp ?? profile.xp ?? 0;
   const hearts = gameState.hearts ?? gameState.maxHearts ?? 5;
-  const insight = getTodayInsight();
+  const insight = getTodayInsightForType(enneagramType ?? profile.enneagramCore);
 
   // Greeting text
   const greeting = getGreeting();
