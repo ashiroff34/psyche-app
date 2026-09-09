@@ -107,6 +107,7 @@ export type EventSchema =
   | { event: "subscription_start";        properties: { product_id: string; price: number; period: "monthly" | "annual" | "lifetime"; revenue_cat_id?: string } }
   | { event: "subscription_cancel";       properties: { product_id: string; period: "monthly" | "annual" | "lifetime"; revenue_cat_id?: string; cancel_reason?: string } }
   | { event: "checkout_initiated";        properties: { product_id: string; price: number; period: "monthly" | "annual" | "lifetime"; trigger: string } }
+  | { event: "checkout_failed";           properties: { product_id: string; price: number; period: "monthly" | "annual" | "lifetime"; trigger: string; reason: string } }
 
   // ── Journal ────────────────────────────────────────────────────────────────
   | { event: "journal_entry_created";     properties: { prompt_id: string; word_count: number; framework: Framework; type_facet?: string; mood?: string; resonated?: boolean } }
@@ -246,6 +247,9 @@ export const Analytics = {
 
   checkoutInitiated: (p: Extract<EventSchema, { event: "checkout_initiated" }>["properties"]) =>
     track({ event: "checkout_initiated", properties: p }),
+
+  checkoutFailed: (p: Extract<EventSchema, { event: "checkout_failed" }>["properties"]) =>
+    track({ event: "checkout_failed", properties: p }),
 
   subscriptionStart: (p: Extract<EventSchema, { event: "subscription_start" }>["properties"]) =>
     track({ event: "subscription_start", properties: p }),

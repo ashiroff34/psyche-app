@@ -131,6 +131,11 @@ export default function PricingPage() {
   // this page — they already clicked buy. Returning them to an unchanged page
   // answers none of the doubt that stopped them.
   const [abandonedCheckout, setAbandonedCheckout] = useState(false);
+  // A checkout that fails silently is the most expensive failure on this page:
+  // the user has already decided to pay. /store surfaces the same failure with
+  // a toast; /pricing swallowed it and reset the button, so the highest-intent
+  // click in the funnel looked to the user like the button simply did nothing.
+  const [checkoutError, setCheckoutError] = useState<string | null>(null);
 
   const framework: Framework = profile.enneagramType
     ? "enneagram"
@@ -176,6 +181,7 @@ export default function PricingPage() {
       trigger: triggerRef.current,
     });
     setLoading(packId);
+    setCheckoutError(null);
     try {
       const ctrl = new AbortController();
       const timeout = setTimeout(() => ctrl.abort(), 15000);
@@ -190,13 +196,37 @@ export default function PricingPage() {
         signal: ctrl.signal,
       });
       clearTimeout(timeout);
-      const data = await res.json();
-      if (data.url) window.location.href = data.url;
+      const data = await res.json() as { url?: string; error?: string };
+      if (data.url) {
+        window.location.href = data.url;
+        return;
+      }
+      reportCheckoutFailure(plan, data.error ?? "no_checkout_url");
     } catch (e) {
       console.error("Checkout failed:", e);
+      reportCheckoutFailure(plan, e instanceof Error ? e.message : "network_error");
     } finally {
       setLoading(null);
     }
+  }
+
+  /** Tells the user what happened and makes the drop-off visible in the funnel. */
+  function reportCheckoutFailure(plan: PlanProps, reason: string) {
+    // Without this event, every technical checkout failure is indistinguishable
+    // from a user changing their mind — the largest step-down in the funnel
+    // (checkout_initiated to subscription_start) has no attribution.
+    Analytics.checkoutFailed({
+      product_id: plan.packId,
+      price: plan.priceValue,
+      period: plan.billingPeriod,
+      trigger: triggerRef.current,
+      reason,
+    });
+    setCheckoutError(
+      reason.includes("not configured")
+        ? "Checkout is not open yet. Your trial is still waiting when it is."
+        : "Checkout did not open. Nothing was charged \u2014 try again, or email support@thyself.app.",
+    );
   }
 
   return (
@@ -276,6 +306,24 @@ export default function PricingPage() {
             and we will take care of it. No forms, no phone call.
           </p>
         </motion.div>
+
+        {checkoutError && (
+          <motion.div
+            initial={{ opacity: 0, y: -6 }}
+            animate={{ opacity: 1, y: 0 }}
+            role="alert"
+            className="p-4 rounded-2xl mb-4 flex items-start gap-3"
+            style={{
+              background: "rgba(244,63,94,0.1)",
+              border: "1px solid rgba(244,63,94,0.3)",
+            }}
+          >
+            <Shield className="w-4 h-4 mt-0.5 shrink-0 text-rose-300" />
+            <p className="text-xs leading-relaxed" style={{ color: "rgba(255,255,255,0.75)" }}>
+              {checkoutError}
+            </p>
+          </motion.div>
+        )}
 
         <div className="space-y-4">
           {PLANS.map((plan, i) => (
