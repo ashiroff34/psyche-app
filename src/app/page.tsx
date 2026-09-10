@@ -22,6 +22,7 @@ import ChibiSprite from "@/components/ChibiSprite";
 import PetCompanion from "@/components/PetCompanion";
 import OuroborosLogo from "@/components/OuroborosLogo";
 import { getTodayInsightForType } from "@/data/daily-insights-index";
+import { useStreakWarning } from "@/hooks/useStreakWarning";
 
 // ── Helpers ──────────────────────────────────────────────────────────────────
 
@@ -681,6 +682,12 @@ function DashboardScreen({
   const dailyGoal = 10; // default goal
   const dailyPct = Math.min(100, Math.round((questionsAnswered / dailyGoal) * 100));
   const hasDailyProgress = questionsAnswered > 0;
+
+  // The home dashboard is the app's launch route, so it has to arm the 8pm
+  // streak warning itself. Leaving that to the daily hub meant the push only
+  // reached users who had already gone two screens deep — the opposite of who
+  // it is for.
+  useStreakWarning(streak, questionsAnswered >= dailyGoal, enneagramType);
 
   // Type quote
   const typeQuote = enneagramType ? dashboardTypeQuotes[enneagramType as number] : null;

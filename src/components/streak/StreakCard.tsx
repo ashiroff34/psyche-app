@@ -3,7 +3,7 @@
 import { motion, useSpring, useTransform } from "framer-motion";
 import { useEffect, useRef } from "react";
 import { TYPE_COLORS } from "@/data/enneagram";
-import { cancelStreakWarning, scheduleStreakWarning, scheduleTomorrowStreakWarning } from "@/lib/capacitor-notifications";
+import { useStreakWarning } from "@/hooks/useStreakWarning";
 
 interface Props {
   streak: number;
@@ -37,24 +37,10 @@ export default function StreakCard({ streak, longest, freezeTokens, enneagramTyp
   // costs the one evening it actually needed to land.
   const atRisk = streak > 0 && !dailyCompleted && new Date().getHours() >= 18;
 
-  // Schedule the 8pm push as soon as the app opens with an unmet daily goal.
-  // Gating this on the evening at-risk state meant the notification could only
-  // be scheduled by a user who happened to open the app between 6pm and 8pm —
-  // never the absent user it exists to reach. scheduleStreakWarning still
-  // refuses after 8pm and deduplicates to once per calendar day.
-  // Once today is done, pre-schedule tomorrow's 8pm warning. A push that can
-  // only be scheduled by opening the app never reaches the user who stops
-  // opening it — the one the warning exists for.
-  useEffect(() => {
-    if (streak <= 0) return;
-    if (dailyCompleted) {
-      cancelStreakWarning()
-        .then(() => scheduleTomorrowStreakWarning(streak, enneagramType))
-        .catch(() => undefined);
-      return;
-    }
-    scheduleStreakWarning(streak, enneagramType).catch(() => undefined);
-  }, [dailyCompleted, streak, enneagramType]);
+  // Arm the 8pm push (and pre-arm tomorrow's once today is done). Shared with
+  // the home dashboard so the warning is scheduled on whichever screen the user
+  // actually lands on, not only the daily hub.
+  useStreakWarning(streak, !!dailyCompleted, enneagramType);
 
   return (
     <motion.div
