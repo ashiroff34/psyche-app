@@ -7,6 +7,7 @@ import Link from "next/link";
 import { BookOpen, Feather, GitCompare, ChevronDown, ChevronUp, Brain, Lock } from "lucide-react";
 import { cognitiveFunctions, mbtiTypes } from "@/data/cognitive-functions";
 import { useProfile } from "@/hooks/useProfile";
+import { getPaywallCopy } from "@/data/type-paywall-copy";
 import { markTopicComplete } from "@/hooks/useGameState";
 import GuidedJourney from "@/components/GuidedJourney";
 import NextStepBanner from "@/components/NextStepBanner";
@@ -1297,6 +1298,7 @@ function ResultsContent() {
 export default function CognitiveResultsPage() {
   const [mounted, setMounted] = useState(false);
   const [isUnlocked, setIsUnlocked] = useState(false);
+  const { profile } = useProfile();
 
   useEffect(() => {
     setMounted(true);
@@ -1308,13 +1310,19 @@ export default function CognitiveResultsPage() {
 
   if (!mounted) return <div style={{ minHeight: "100vh", background: "#0f0a1e" }} />;
 
+  // The Enneagram type is the one thing this gate knows that a generic wellness
+  // paywall does not. A Two and a Five are not weighing the same purchase, so
+  // lead with their motivation before the cognitive-specific pitch.
+  const paywallCopy = getPaywallCopy(profile.enneagramType ?? profile.enneagramCore);
+
   if (!isUnlocked) {
     return (
       <div className="min-h-screen flex flex-col items-center justify-center px-6 text-center" style={{ background: "#0f0a1e" }}>
         <div className="w-16 h-16 rounded-2xl flex items-center justify-center mb-6" style={{ background: "rgba(139,92,246,0.15)", border: "1px solid rgba(139,92,246,0.3)" }}>
           <Lock className="w-7 h-7" style={{ color: "#a78bfa" }} />
         </div>
-        <h1 className="text-2xl font-serif font-bold mb-2" style={{ color: "rgba(255,255,255,0.92)" }}>Your mind, fully mapped</h1>
+        <h1 className="text-2xl font-serif font-bold mb-2" style={{ color: "rgba(255,255,255,0.92)" }}>{paywallCopy.headline}</h1>
+        <p className="text-sm mb-3 max-w-xs" style={{ color: "rgba(255,255,255,0.5)" }}>{paywallCopy.lossFrame}</p>
         <p className="text-sm mb-8 max-w-xs" style={{ color: "rgba(255,255,255,0.45)" }}>Four letters barely scratch the surface. Unlock your full function stack, shadow states, and grip patterns to understand why you think the way you do. Built on Jung, not pop psychology.</p>
         <Link href="/pricing?from=cognitive_result" className="px-6 py-3 rounded-2xl font-bold text-white mb-4" style={{ background: "linear-gradient(135deg, #7c3aed, #6366f1)" }}>
           Try Pro Free for 7 Days
