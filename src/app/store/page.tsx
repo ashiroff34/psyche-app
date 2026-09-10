@@ -31,6 +31,15 @@ import {
 import NextStepBanner from "@/components/NextStepBanner";
 import FirstVisitTooltip from "@/components/FirstVisitTooltip";
 import { resolveTypeAwareCopy } from "@/hooks/useTypeAwareCopy";
+import {
+  PRO_ANNUAL_PER_MONTH,
+  PRO_ANNUAL_PRICE,
+  PRO_ANNUAL_SAVINGS,
+  PRO_ANNUAL_SAVINGS_PERCENT,
+  PRO_MONTHLY_PRICE,
+  PRO_TRIAL_DAYS,
+  formatPrice,
+} from "@/data/pro-pricing";
 
 // ─── Animations ──────────────────────────────────────────────────────────────
 
@@ -120,7 +129,7 @@ const PRO_FEATURES = [
   { icon: Coins, label: "500 bonus tokens every month" },
 ];
 
-// localStorage key for Pro unlock (simulated. real payment not wired yet)
+// localStorage key for Pro unlock. Set by /store/success after Stripe confirms.
 const PRO_UNLOCK_KEY = "psyche-pro-unlocked";
 
 const FREE_EARN = [
@@ -614,6 +623,9 @@ export default function StorePage() {
                     <h3 className="text-2xl font-serif font-bold" style={{ color: "rgba(255,255,255,0.95)" }}>Premium Subscription</h3>
                   </div>
                   <p style={{ color: "rgba(255,255,255,0.5)" }}>Unlock the full Thyself experience with Pro.</p>
+                  <p className="text-sm font-semibold mt-2" style={{ color: "#a78bfa" }}>
+                    {PRO_TRIAL_DAYS} days free, then keep it or cancel. No charge until day {PRO_TRIAL_DAYS}.
+                  </p>
                 </div>
 
                 {/* Billing toggle */}
@@ -636,7 +648,7 @@ export default function StorePage() {
                   >
                     Annual
                     <span className="ml-1.5 px-1.5 py-0.5 rounded-md text-[10px] font-bold" style={{ background: "rgba(52,211,153,0.15)", color: "#34d399" }}>
-                      -33%
+                      -{PRO_ANNUAL_SAVINGS_PERCENT}%
                     </span>
                   </button>
                 </div>
@@ -663,7 +675,9 @@ export default function StorePage() {
                 <div>
                   <div className="flex items-baseline gap-1">
                     <span className="text-4xl font-extrabold" style={{ color: "rgba(255,255,255,0.95)" }}>
-                      {billingCycle === "monthly" ? "$4.99" : "$39.99"}
+                      {billingCycle === "monthly"
+                        ? formatPrice(PRO_MONTHLY_PRICE)
+                        : formatPrice(PRO_ANNUAL_PRICE)}
                     </span>
                     <span className="font-medium" style={{ color: "rgba(255,255,255,0.5)" }}>
                       /{billingCycle === "monthly" ? "month" : "year"}
@@ -671,7 +685,8 @@ export default function StorePage() {
                   </div>
                   {billingCycle === "annual" && (
                     <p className="text-sm font-semibold mt-1" style={{ color: "#34d399" }}>
-                      That&apos;s just $3.33/month. Save $19.89/year.
+                      That&apos;s just ${PRO_ANNUAL_PER_MONTH.toFixed(2)}/month. Save $
+                      {PRO_ANNUAL_SAVINGS.toFixed(2)}/year.
                     </p>
                   )}
                 </div>
@@ -685,9 +700,7 @@ export default function StorePage() {
                     ? "Pro Active"
                     : (checkingOut === "pro_monthly" || checkingOut === "pro_annual")
                       ? "Redirecting..."
-                      : billingCycle === "monthly"
-                        ? "Subscribe Monthly"
-                        : "Subscribe Annually (Save 33%)"}
+                      : `Try Free for ${PRO_TRIAL_DAYS} Days`}
                 </button>
               </div>
             </div>

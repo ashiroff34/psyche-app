@@ -6,9 +6,13 @@
 // so Monthly and Free are judged against it. Leading with Free ($0) anchors the
 // page low and makes every paid tier read as a markup.
 //
-// Annual ($47/yr = $3.92/mo) anchors against Monthly ($7.99/mo) — annual is
-// the highlighted "best value" option. 7-day free trial reduces activation
-// friction without the dishonesty of a 14-day trial people forget to cancel.
+// Annual anchors against Monthly — annual is the highlighted "best value"
+// option. The 7-day free trial reduces activation friction without the
+// dishonesty of a 14-day trial people forget to cancel.
+//
+// Every price on this page comes from @/data/pro-pricing, which /store reads
+// too. They used to be hardcoded separately and had drifted apart, so the same
+// subscription was quoted at two different prices in one app.
 //
 // Anchors between Finch Plus ($44/yr) and Calm ($69/yr).
 //
@@ -22,6 +26,13 @@ import { ArrowLeft, Check, Shield, Star, Zap } from "lucide-react";
 import { useProfile } from "@/hooks/useProfile";
 import { Analytics, type Framework } from "@/lib/analytics";
 import { getPaywallCopy } from "@/data/type-paywall-copy";
+import {
+  PRO_ANNUAL_PER_MONTH,
+  PRO_ANNUAL_PRICE,
+  PRO_MONTHLY_PRICE,
+  PRO_TRIAL_DAYS,
+  formatPrice,
+} from "@/data/pro-pricing";
 
 interface PlanProps {
   name: string;
@@ -43,11 +54,11 @@ interface PlanProps {
 const PLANS: PlanProps[] = [
   {
     name: "Pro Annual",
-    price: "$47",
+    price: formatPrice(PRO_ANNUAL_PRICE),
     period: "/ year",
-    perMonth: "$3.92/mo",
+    perMonth: `$${PRO_ANNUAL_PER_MONTH.toFixed(2)}/mo`,
     badge: "Best value",
-    ctaLabel: "Try Free for 7 Days",
+    ctaLabel: `Try Free for ${PRO_TRIAL_DAYS} Days`,
     features: [
       "Everything in Free",
       "Shadow Work lab",
@@ -59,18 +70,18 @@ const PLANS: PlanProps[] = [
     ],
     packId: "pro_annual",
     highlighted: true,
-    priceValue: 47,
+    priceValue: PRO_ANNUAL_PRICE,
     billingPeriod: "annual",
   },
   {
     name: "Pro Monthly",
-    price: "$7.99",
+    price: formatPrice(PRO_MONTHLY_PRICE),
     period: "/ month",
-    perMonth: "$7.99/mo",
+    perMonth: `${formatPrice(PRO_MONTHLY_PRICE)}/mo`,
     // Monthly carries the same 7-day free trial as Annual (checkout applies it
     // to every pro_* pack). Trial-framed CTA reverses the risk instead of
     // signalling an immediate charge — matches the page's "No charge until day 7".
-    ctaLabel: "Try Free for 7 Days",
+    ctaLabel: `Try Free for ${PRO_TRIAL_DAYS} Days`,
     features: [
       "Everything in Free",
       "Shadow Work lab",
@@ -80,7 +91,7 @@ const PLANS: PlanProps[] = [
     ],
     packId: "pro_monthly",
     highlighted: false,
-    priceValue: 7.99,
+    priceValue: PRO_MONTHLY_PRICE,
     billingPeriod: "monthly",
   },
   {
@@ -256,8 +267,9 @@ export default function PricingPage() {
                 Nothing was charged.
               </p>
               <p className="text-xs leading-relaxed" style={{ color: "rgba(255,255,255,0.6)" }}>
-                Your 7 days are free either way. Start the trial, look around, and if the deeper
-                layers are not for you, cancel before day 7 and you pay nothing.
+                Your {PRO_TRIAL_DAYS} days are free either way. Start the trial, look around, and
+                if the deeper layers are not for you, cancel before day {PRO_TRIAL_DAYS} and you pay
+                nothing.
               </p>
             </div>
           </motion.div>
@@ -284,10 +296,10 @@ export default function PricingPage() {
             {paywallCopy.lossFrame}
           </p>
           <p className="text-xs mb-2" style={{ color: "rgba(255,255,255,0.5)" }}>
-            One therapy session is $200. A year of Thyself is $47.
+            One therapy session is $200. A year of Thyself is {formatPrice(PRO_ANNUAL_PRICE)}.
           </p>
           <p className="text-xs font-semibold mb-2" style={{ color: "rgba(167,139,250,0.9)" }}>
-            7 days free, then keep it or cancel. No charge until day 7.
+            {PRO_TRIAL_DAYS} days free, then keep it or cancel. No charge until day {PRO_TRIAL_DAYS}.
           </p>
           {/* A risk-reversal promise the reader cannot act on is not risk
               reversal. The page told people to cancel before day 7 without
