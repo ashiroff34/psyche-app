@@ -27,6 +27,7 @@ import {
   UserPlus,
 } from "lucide-react";
 import OuroborosLogo from "@/components/OuroborosLogo";
+import { useStreakWarning } from "@/hooks/useStreakWarning";
 import SearchComponent from "@/components/Search";
 
 // ── Bottom Tab Bar (5 main tabs, Duolingo-style) ──────────────────────────
@@ -415,6 +416,9 @@ export default function Navigation() {
   const [storeUnlocked, setStoreUnlocked] = useState(false);
   const [storeLockToast, setStoreLockToast] = useState(false);
   const [tokenCount, setTokenCount] = useState(0);
+  const [streakCount, setStreakCount] = useState(0);
+  const [dailyGoalDone, setDailyGoalDone] = useState(false);
+  const [navEnneagramType, setNavEnneagramType] = useState<number | null>(null);
   const isGoingBackRef = useRef(false);
 
   useEffect(() => {
@@ -430,6 +434,19 @@ export default function Navigation() {
           days = Math.floor((Date.now() - new Date(gs.accountCreated).getTime()) / MS_PER_DAY);
         }
         setStoreUnlocked(tokens > 0 || days >= 2);
+
+        // Streak + today's goal, for the 8pm warning armed below. dailyGoalMet
+        // is only meaningful for the day it was written, so a flag left over
+        // from yesterday must not suppress tonight's warning.
+        const today = new Intl.DateTimeFormat("en-CA").format(new Date());
+        setStreakCount((gs.streakCount as number) ?? 0);
+        setDailyGoalDone(gs.dailyGoalDate === today && !!gs.dailyGoalMet);
+      } catch {}
+      try {
+        const profileRaw = localStorage.getItem("psyche-profile");
+        if (!profileRaw) return;
+        const profile = JSON.parse(profileRaw);
+        setNavEnneagramType(profile.enneagramType ?? profile.enneagramCore ?? null);
       } catch {}
     }
     readTokens();
@@ -442,6 +459,14 @@ export default function Navigation() {
       window.removeEventListener("psyche-profile-change", handler);
     };
   }, [pathname]);
+
+  // Arm the 8pm streak-at-risk push from the nav, which layout renders on every
+  // route. Previously only the home dashboard and the daily hub's StreakCard
+  // armed it, so a session that opened straight onto Know / Pet / Store / You —
+  // any of the four other bottom tabs — left the evening warning unscheduled.
+  // The scheduler refuses after 8pm and deduplicates per calendar day, so this
+  // extra caller costs nothing when another screen already armed it.
+  useStreakWarning(streakCount, dailyGoalDone, navEnneagramType);
 
   // Store page history in localStorage so back button always works
   useEffect(() => {
