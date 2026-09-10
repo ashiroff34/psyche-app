@@ -30,6 +30,7 @@ import NodeSheet from "@/components/learn/NodeSheet";
 import { useMergedLearnState } from "@/hooks/useMergedLearnState";
 import type { LessonWithStatus, UnitWithStatus } from "@/hooks/useMergedLearnState";
 import QuizFullscreen from "@/components/daily/QuizFullscreen";
+import { isGoldenQuestion, GOLDEN_MULTIPLIER } from "@/lib/variable-rewards";
 import LessonBriefOverlay from "@/components/daily/LessonBriefOverlay";
 import DailyReading from "@/components/daily/DailyReading";
 import { getDailyReading } from "@/data/dailyReadings";
@@ -1107,6 +1108,13 @@ export default function DailyPage() {
     return getQuestionsForModule(activeModule, config?.count ?? 15);
   }, [activeModule, getQuestionsForModule]);
 
+  // Deterministic per question+day, so the badge shown before answering and the
+  // multiplier applied after it can never disagree.
+  const goldenQuestion = useMemo(() => {
+    const q = moduleQuestions[moduleQ];
+    return q ? isGoldenQuestion(q.id) : false;
+  }, [moduleQuestions, moduleQ]);
+
   // ── XP calculation ──
   const calculateXP = (correct: boolean, moduleId: string, currentStreak: number): number => {
     const baseXP = moduleId === "cross" ? 20 : 10;
@@ -1140,7 +1148,10 @@ export default function DailyPage() {
     const newStreak = correct ? correctStreak + 1 : 0;
     setCorrectStreak(newStreak);
 
-    const xpGained = calculateXP(correct, activeModule!, newStreak);
+    // Golden question: an anticipatory variable reward. Unlike the surprise bonus
+    // below (revealed after answering), the multiplier is announced BEFORE the
+    // answer, so the cue precedes the behavior it is meant to reinforce.
+    const xpGained = calculateXP(correct, activeModule!, newStreak) * (goldenQuestion ? GOLDEN_MULTIPLIER : 1);
     if (xpGained > 0) {
       gameEarnXP(xpGained, "daily-quiz");
       addXP(xpGained);
@@ -2672,7 +2683,8 @@ export default function DailyPage() {
               hearts={gameStateRaw.hearts}
               maxHearts={gameStateRaw.maxHearts ?? 5}
               heartsRefillTime={gameStateRaw.heartsRefillTime}
-              xpBonusLabel={surpriseBonusActive ? "+2x BONUS! Lucky streak!" : xpGainAnimation?.source?.includes("BONUS") ? xpGainAnimation.source : null}
+              golden={goldenQuestion}
+              xpBonusLabel={surpriseBonusActive ? "+2x BONUS! Lucky streak!" : goldenQuestion ? `+${GOLDEN_MULTIPLIER}x GOLDEN!` : xpGainAnimation?.source?.includes("BONUS") ? xpGainAnimation.source : null}
               longestStreak={gameStateRaw.longestStreak}
               currentStreak={streak}
               enneagramType={profile.enneagramType ?? 5}

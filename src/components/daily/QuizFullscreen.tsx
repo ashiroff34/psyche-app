@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef, useMemo } from "react";
 import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, CheckCircle, XCircle, Heart, Zap, Trophy, ArrowRight, Star, BookOpen, Timer, Flag } from "lucide-react";
+import { X, CheckCircle, XCircle, Heart, Zap, Trophy, ArrowRight, Star, BookOpen, Timer, Flag, Sparkles } from "lucide-react";
 import ChibiSprite from "@/components/ChibiSprite";
 import type { ChibiState } from "@/components/ChibiSprite";
 import KeepGoingCard from "@/components/daily/KeepGoingCard";
@@ -12,6 +12,7 @@ import TokenDropOverlay, { rollTokenDrop, type TokenDrop } from "@/components/da
 import { useRewards } from "@/components/Rewards";
 import type { PathNodeConfig } from "@/components/daily/NodeBottomSheet";
 import { stableShuffleOptions } from "@/lib/shuffleOptions";
+import { GOLDEN_MULTIPLIER } from "@/lib/variable-rewards";
 
 interface Question {
   id: string;
@@ -51,6 +52,7 @@ interface Props {
   onTokenDropClaimed?: (amount: number) => void;
   nextNode?: PathNodeConfig | null;  // for "keep going" after warmup
   onKeepGoing?: () => void;
+  golden?: boolean;         // this question pays a token multiplier, announced before answering
 }
 
 export default function QuizFullscreen({
@@ -79,6 +81,7 @@ export default function QuizFullscreen({
   onTokenDropClaimed,
   nextNode,
   onKeepGoing,
+  golden = false,
 }: Props) {
   const router = useRouter();
   const q = questions[currentIdx];
@@ -882,6 +885,20 @@ export default function QuizFullscreen({
               className="flex-1 rounded-2xl rounded-tl-sm px-4 py-3"
               style={{ background: "rgba(255,255,255,0.07)", border: "1px solid rgba(255,255,255,0.08)" }}
             >
+              {golden && (
+                <motion.div
+                  initial={{ opacity: 0, y: -4 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.25 }}
+                  className="inline-flex items-center gap-1.5 mb-2 px-2 py-0.5 rounded-full"
+                  style={{ background: "rgba(250,204,21,0.14)", border: "1px solid rgba(250,204,21,0.35)" }}
+                >
+                  <Sparkles className="w-3 h-3" style={{ color: "#facc15" }} />
+                  <span className="text-[0.65rem] font-black tracking-wide" style={{ color: "#fde68a" }}>
+                    GOLDEN QUESTION, {GOLDEN_MULTIPLIER}x XP
+                  </span>
+                </motion.div>
+              )}
               <div className="flex items-start justify-between gap-2">
                 <p className="text-base font-bold leading-snug flex-1" style={{ color: "rgba(255,255,255,0.93)" }}>
                   {q.q}
