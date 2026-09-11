@@ -11,6 +11,7 @@ import { getPaywallCopy } from "@/data/type-paywall-copy";
 import { markTopicComplete } from "@/hooks/useGameState";
 import GuidedJourney from "@/components/GuidedJourney";
 import NextStepBanner from "@/components/NextStepBanner";
+import { PRO_TRIAL_DAYS } from "@/data/pro-pricing";
 
 // ─── Beebe Thyself Data ────────────────────────────────────────────────────
 
@@ -1325,7 +1326,7 @@ export default function CognitiveResultsPage() {
         <p className="text-sm mb-3 max-w-xs" style={{ color: "rgba(255,255,255,0.5)" }}>{paywallCopy.lossFrame}</p>
         <p className="text-sm mb-8 max-w-xs" style={{ color: "rgba(255,255,255,0.45)" }}>Four letters barely scratch the surface. Unlock your full function stack, shadow states, and grip patterns to understand why you think the way you do. Built on Jung, not pop psychology.</p>
         <Link href="/pricing?from=cognitive_result" className="px-6 py-3 rounded-2xl font-bold text-white mb-4" style={{ background: "linear-gradient(135deg, #7c3aed, #6366f1)" }}>
-          Try Pro Free for 7 Days
+          Try Pro Free for {PRO_TRIAL_DAYS} Days
         </Link>
         <Link href="/assessments" className="text-sm" style={{ color: "rgba(255,255,255,0.3)" }}>Back to Assessments</Link>
       </div>

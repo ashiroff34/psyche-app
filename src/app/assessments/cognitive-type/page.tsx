@@ -8,6 +8,7 @@ import LikertAssessment from "@/components/assessments/LikertAssessment";
 import AssessmentGuide from "@/components/assessments/AssessmentGuide";
 import { cognitiveTypeItems, typeStacks } from "@/data/assessments/cognitive-type";
 import { useProfile } from "@/hooks/useProfile";
+import { PRO_TRIAL_DAYS } from "@/data/pro-pricing";
 
 function determineCognitiveTypeFromScores(functionScores: Record<string, number>): string {
   // For each of the 16 types, calculate how well the user's function scores match the type's stack
@@ -56,7 +57,7 @@ export default function CognitiveTypePage() {
         <h1 className="text-2xl font-serif font-bold mb-2" style={{ color: "rgba(255,255,255,0.92)" }}>Your mind, fully mapped</h1>
         <p className="text-sm mb-8 max-w-xs" style={{ color: "rgba(255,255,255,0.45)" }}>Four letters barely scratch the surface. Unlock your full function stack, shadow states, and grip patterns to understand why you think the way you do. Built on Jung, not pop psychology.</p>
         <Link href="/pricing?from=cognitive_type_gate" className="px-6 py-3 rounded-2xl font-bold text-white mb-4" style={{ background: "linear-gradient(135deg, #7c3aed, #6366f1)" }}>
-          Try Pro Free for 7 Days
+          Try Pro Free for {PRO_TRIAL_DAYS} Days
         </Link>
         <Link href="/assessments" className="text-sm" style={{ color: "rgba(255,255,255,0.3)" }}>Back to Assessments</Link>
       </div>

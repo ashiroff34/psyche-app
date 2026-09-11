@@ -13,6 +13,7 @@ import { useProfile } from "@/hooks/useProfile";
 import { markTopicComplete } from "@/hooks/useGameState";
 import NextStepBanner from "@/components/NextStepBanner";
 import { Compass as CompassIcon, Users2 } from "lucide-react";
+import { PRO_TRIAL_DAYS } from "@/data/pro-pricing";
 
 /* ═══════════════════════════════════════════════════════════════════
    Advanced Enneagram content paywall
@@ -174,7 +175,7 @@ function ProSelfWorkGate({ children }: { children: React.ReactNode }) {
           className="w-full max-w-xs py-3.5 rounded-2xl font-bold text-white text-sm transition-all active:scale-95 text-center block mb-3"
           style={{ background: "linear-gradient(135deg, #d97706, #f59e0b)", boxShadow: "0 4px 24px rgba(245,158,11,0.45)" }}
         >
-          Unlock Self Work — Free for 7 days →
+          Unlock Self Work — Free for {PRO_TRIAL_DAYS} days →
         </Link>
         <p className="text-xs" style={{ color: "rgba(255,255,255,0.28)" }}>
           Earn Pro access through 25+ referrals · already a member? <Link href="/pricing?from=restore_link" style={{ color: "rgba(251,191,36,0.6)" }}>restore</Link>

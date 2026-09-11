@@ -8,6 +8,7 @@ import ChibiSprite from "@/components/ChibiSprite";
 import { useVerifiedShare } from "@/hooks/useVerifiedShare";
 import { TYPE_WPFA } from "@/data/wound-passion-fixation-armor";
 import { resolveTypeAwareCopy } from "@/hooks/useTypeAwareCopy";
+import { PRO_TRIAL_DAYS } from "@/data/pro-pricing";
 
 // ─── Quiz save/resume key ─────────────────────────────────────────────────────
 const QUIZ_SAVE_KEY = "psyche-quiz-progress-quick";
@@ -1419,7 +1420,7 @@ export default function QuickTypeAssessment({
                 Without subtypes and tritype, this stays surface-level
               </p>
               <p className="text-[11px] leading-snug" style={{ color: "rgba(255,255,255,0.45)" }}>
-                Pro unlocks your full profile, Shadow Work, and growth path. Try free for 7 days.
+                Pro unlocks your full profile, Shadow Work, and growth path. Try free for {PRO_TRIAL_DAYS} days.
               </p>
             </div>
             <BookOpen className="w-4 h-4 shrink-0 mt-0.5" style={{ color: "rgba(139,92,246,0.6)" }} />

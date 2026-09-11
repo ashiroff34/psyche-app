@@ -45,6 +45,7 @@ import ConfidenceBadge from "@/components/ConfidenceBadge";
 import TypeDiscoveryModal from "@/components/TypeDiscoveryModal";
 import TikTokTypeCard from "@/components/TikTokTypeCard";
 import { getPaywallCopy } from "@/data/type-paywall-copy";
+import { PRO_TRIAL_DAYS } from "@/data/pro-pricing";
 
 
 // ── Famous examples ───────────────────────────────────────────────────────
@@ -1416,7 +1417,7 @@ function ResultsInner() {
                     </p>
                     <div className="flex items-center justify-between">
                       <span className="text-xs font-semibold text-violet-200">
-                        Try Pro Free for 7 Days
+                        Try Pro Free for {PRO_TRIAL_DAYS} Days
                       </span>
                       <ArrowRight className="w-4 h-4 text-violet-200" />
                     </div>

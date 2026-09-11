@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { X } from "lucide-react";
+import { PRO_TRIAL_DAYS } from "@/data/pro-pricing";
 
 const COMPLETED_COUNT_KEY = "lessons-completed-count";
 
@@ -105,7 +106,7 @@ export default function PostLessonUpgradeBanner({ lessonCount }: PostLessonUpgra
             }}
             onClick={handleDismiss}
           >
-            Try Pro Free for 7 Days &rarr;
+            Try Pro Free for {PRO_TRIAL_DAYS} Days &rarr;
           </Link>
         </motion.div>
       )}

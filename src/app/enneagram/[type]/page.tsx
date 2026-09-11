@@ -30,6 +30,7 @@ import { typeVignettes } from "@/data/vignettes";
 import TypeVignetteSection from "@/components/TypeVignette";
 import { relationshipDynamics } from "@/data/relationshipDynamics";
 import { Lock } from "lucide-react";
+import { PRO_TRIAL_DAYS } from "@/data/pro-pricing";
 
 // ─── Self-Work content gate ────────────────────────────────────────────────────
 // Journal prompts, daily practices, and myths are Pro-level self-work content.
@@ -105,7 +106,7 @@ function TypeSelfWorkGate({
             boxShadow: `0 4px 20px ${accent}44`,
           }}
         >
-          Try Pro Free for 7 Days
+          Try Pro Free for {PRO_TRIAL_DAYS} Days
         </Link>
       </motion.div>
     </div>

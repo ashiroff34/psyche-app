@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import { Lock, Zap, Brain, ArrowRight, Layers, Eye, Activity } from "lucide-react";
 import Link from "next/link";
+import { PRO_TRIAL_DAYS } from "@/data/pro-pricing";
 
 const UNLOCK_KEY = "psyche-cognitive-unlocked";
 const UNLOCK_COST = 300;
@@ -221,7 +222,7 @@ export default function CognitivePremiumGate({ children }: Props) {
               color: "#c4b5fd",
             }}
           >
-            Or unlock this and everything else &mdash; free for 7 days
+            Or unlock this and everything else &mdash; free for {PRO_TRIAL_DAYS} days
           </Link>
 
           <Link href="/daily"

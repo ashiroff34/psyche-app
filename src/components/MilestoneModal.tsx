@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { streakMilestones, type StreakMilestone } from "@/data/streakMilestones";
 import { getReferralShareUrl } from "@/lib/referral";
 import { Share2 } from "lucide-react";
+import { PRO_TRIAL_DAYS } from "@/data/pro-pricing";
 
 interface MilestoneModalProps {
   streakCount: number;
@@ -196,7 +197,7 @@ export default function MilestoneModal({ streakCount, enneagramType }: Milestone
                       border: "1px solid rgba(217,70,239,0.3)",
                     }}
                   >
-                    Try Pro Free for 7 Days
+                    Try Pro Free for {PRO_TRIAL_DAYS} Days
                   </button>
                 ) : (
                   <button

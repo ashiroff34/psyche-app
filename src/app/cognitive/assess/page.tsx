@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { Lock } from "lucide-react";
 import Link from "next/link";
+import { PRO_TRIAL_DAYS } from "@/data/pro-pricing";
 
 function CognitiveAssessRedirect() {
   const router = useRouter();
@@ -33,7 +34,7 @@ export default function CognitiveAssessPage() {
         <h1 className="text-2xl font-serif font-bold mb-2" style={{ color: "rgba(255,255,255,0.92)" }}>Your mind, fully mapped</h1>
         <p className="text-sm mb-8 max-w-xs" style={{ color: "rgba(255,255,255,0.45)" }}>Four letters barely scratch the surface. Unlock your full function stack, shadow states, and grip patterns to understand why you think the way you do. Built on Jung, not pop psychology.</p>
         <Link href="/pricing?from=cognitive_assess_gate" className="px-6 py-3 rounded-2xl font-bold text-white mb-4" style={{ background: "linear-gradient(135deg, #7c3aed, #6366f1)" }}>
-          Try Pro Free for 7 Days
+          Try Pro Free for {PRO_TRIAL_DAYS} Days
         </Link>
         <Link href="/assessments" className="text-sm" style={{ color: "rgba(255,255,255,0.3)" }}>Back to Assessments</Link>
       </div>
