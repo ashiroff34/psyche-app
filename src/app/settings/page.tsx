@@ -451,17 +451,41 @@ export default function SettingsPage() {
     // (no-ops on web; web is handled by service worker above)
     (async () => {
       try {
-        const { scheduleDailyReminder, cancelDailyReminder, hourForTimePreset } = await import("@/lib/capacitor-notifications");
+        const { scheduleDailyReminder, cancelDailyReminder, hourForTimePreset, buildPersonalizedNotification } = await import("@/lib/capacitor-notifications");
         if (updated.dailyReminders) {
+          // Same personalized copy onboarding schedules. Without this the
+          // reminder silently downgrades to the generic fallback the moment a
+          // user toggles reminders or changes their time in Settings.
+          const { title, body } = buildPersonalizedNotification(
+            profile.enneagramType ?? profile.enneagramCore ?? null
+          );
           await scheduleDailyReminder({
             hour: hourForTimePreset(updated.reminderTime),
             minute: 0,
-            title: "Thyself",
-            body: "Your daily check-in is ready. 60 seconds of noticing.",
+            title,
+            body,
           });
         } else {
           await cancelDailyReminder();
         }
+      } catch {}
+    })();
+  };
+
+  // Re-schedule the daily reminder when the type changes, so an already
+  // scheduled notification does not keep speaking to the previous type.
+  const rescheduleReminderForType = (typeNumber: number) => {
+    if (!notifPrefs.dailyReminders) return;
+    (async () => {
+      try {
+        const { scheduleDailyReminder, hourForTimePreset, buildPersonalizedNotification } = await import("@/lib/capacitor-notifications");
+        const { title, body } = buildPersonalizedNotification(typeNumber);
+        await scheduleDailyReminder({
+          hour: hourForTimePreset(notifPrefs.reminderTime),
+          minute: 0,
+          title,
+          body,
+        });
       } catch {}
     })();
   };
@@ -784,6 +808,7 @@ export default function SettingsPage() {
                               updateProfile({ enneagramType: t });
                               notifyProfileChanged();
                               setShowManualTypePicker(false);
+                              rescheduleReminderForType(t);
                             }}
                             className="py-2 rounded-xl text-sm font-bold transition-all hover:-translate-y-0.5"
                             style={{
