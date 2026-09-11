@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import Stripe from "stripe";
+import { PRO_TRIAL_DAYS } from "@/data/pro-pricing";
 
 // Price IDs are set per environment in Stripe Dashboard.
 // Map pack IDs to Stripe Price IDs via env vars.
@@ -53,8 +54,14 @@ export async function POST(req: NextRequest) {
         tokens: String(pack.tokens + pack.bonus),
         label: pack.label,
       },
-      // 7-day free trial on Pro subscriptions — outperforms 14-day on commitment speed
-      ...(isSubscription ? { subscription_data: { trial_period_days: 7 } } : {}),
+      // Free trial on Pro subscriptions — 7 days outperforms 14 on commitment
+      // speed. The length is imported, not literal: /pricing, /store and the
+      // post-assessment upsell all promise this number to the user, and the
+      // one place that actually sets it must not be able to drift away from
+      // the promise the way the Pro price once did.
+      ...(isSubscription
+        ? { subscription_data: { trial_period_days: PRO_TRIAL_DAYS } }
+        : {}),
       // Pre-fill email if we have it
       ...(email ? { customer_email: email } : {}),
       // Redirect back into the app after payment

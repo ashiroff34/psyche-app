@@ -29,6 +29,8 @@ import { getPaywallCopy } from "@/data/type-paywall-copy";
 import {
   PRO_ANNUAL_PER_MONTH,
   PRO_ANNUAL_PRICE,
+  PRO_ANNUAL_SAVINGS,
+  PRO_ANNUAL_SAVINGS_PERCENT,
   PRO_MONTHLY_PRICE,
   PRO_TRIAL_DAYS,
   formatPrice,
@@ -40,6 +42,12 @@ interface PlanProps {
   period: string;
   perMonth: string;
   badge?: string;
+  /**
+   * Quantified saving vs. the monthly card. "Best value" is a claim the reader
+   * has to verify by multiplying $7.99 by twelve; stating the delta does that
+   * arithmetic for them, which is the whole point of an anchor.
+   */
+  savingsNote?: string;
   ctaLabel?: string;
   features: string[];
   packId: string;
@@ -58,6 +66,7 @@ const PLANS: PlanProps[] = [
     period: "/ year",
     perMonth: `$${PRO_ANNUAL_PER_MONTH.toFixed(2)}/mo`,
     badge: "Best value",
+    savingsNote: `Save $${PRO_ANNUAL_SAVINGS.toFixed(2)} a year \u2014 ${PRO_ANNUAL_SAVINGS_PERCENT}% off monthly`,
     ctaLabel: `Try Free for ${PRO_TRIAL_DAYS} Days`,
     features: [
       "Everything in Free",
@@ -119,6 +128,11 @@ const PLANS: PlanProps[] = [
 // conversion across variants. v2 = highest price first (anchoring).
 const PAYWALL_VARIANT = "pricing_annual_first_v2";
 const LESSON_COUNT_KEY = "lessons-completed-count";
+// Same key /store reads. /store already refuses to sell Pro twice; /pricing did
+// not, so a paying subscriber arriving here (15 surfaces link to /pricing) was
+// offered a free trial they have already used and could open a second Stripe
+// subscription for the same account.
+const PRO_UNLOCK_KEY = "psyche-pro-unlocked";
 
 /** Reads how many lessons this device has finished, for funnel segmentation. */
 function readLessonCount(): number {
@@ -147,6 +161,17 @@ export default function PricingPage() {
   // a toast; /pricing swallowed it and reset the button, so the highest-intent
   // click in the funnel looked to the user like the button simply did nothing.
   const [checkoutError, setCheckoutError] = useState<string | null>(null);
+  // Existing subscriber. Starts false so a genuine prospect never has the offer
+  // withheld while localStorage is read; the effect below corrects it on mount.
+  const [proUnlocked, setProUnlocked] = useState(false);
+
+  useEffect(() => {
+    try {
+      setProUnlocked(localStorage.getItem(PRO_UNLOCK_KEY) === "true");
+    } catch {
+      // treat an unreadable store as "not subscribed" and show the offer
+    }
+  }, []);
 
   const framework: Framework = profile.enneagramType
     ? "enneagram"
@@ -158,7 +183,9 @@ export default function PricingPage() {
   // charts. Without it, checkout_initiated and subscription_start have no
   // denominator and conversion rate is unmeasurable.
   useEffect(() => {
-    if (!loaded || viewTracked.current) return;
+    // A subscriber viewing this page is not a paywall impression. Counting them
+    // deflates conversion rate against a denominator that can never convert.
+    if (!loaded || proUnlocked || viewTracked.current) return;
     viewTracked.current = true;
     try {
       const params = new URLSearchParams(window.location.search);
@@ -175,7 +202,7 @@ export default function PricingPage() {
       framework,
       user_lessons_completed: readLessonCount(),
     });
-  }, [loaded, framework]);
+  }, [loaded, proUnlocked, framework]);
 
   // Headline, loss frame, and benefit line all adapt to the user's type. The
   // headline alone was doing the personalization work while the argument
@@ -185,6 +212,7 @@ export default function PricingPage() {
   async function handleCheckout(plan: PlanProps) {
     const packId = plan.packId;
     if (!packId) return; // free tier
+    if (proUnlocked) return; // already subscribed — never open a second subscription
     Analytics.checkoutInitiated({
       product_id: packId,
       price: plan.priceValue,
@@ -251,7 +279,7 @@ export default function PricingPage() {
             moment is almost always "am I about to be charged" — so lead with
             the answer, not with the offer again. Risk reversal restated at the
             exact point the hesitation happened. */}
-        {abandonedCheckout && (
+        {abandonedCheckout && !proUnlocked && (
           <motion.div
             initial={{ opacity: 0, y: -6 }}
             animate={{ opacity: 1, y: 0 }}
@@ -283,6 +311,16 @@ export default function PricingPage() {
           <p className="text-xs mb-3" style={{ color: "rgba(255,255,255,0.32)" }}>
             Built on Ichazo, Naranjo, and Riso-Hudson &mdash; not pop psychology
           </p>
+          {/* Everything from here to the trial promise is an argument aimed at
+              someone deciding whether to pay. A subscriber reading "without Pro
+              this stays out of reach" is being sold something they already own,
+              which reads as the product not knowing who they are. */}
+          {proUnlocked ? (
+            <p className="text-sm mb-3 leading-relaxed" style={{ color: "rgba(167,139,250,0.9)" }}>
+              Pro is active on this device. Every depth below is already yours.
+            </p>
+          ) : (
+            <>
           <p className="text-xs mb-3 flex items-center gap-1.5" style={{ color: "rgba(255,255,255,0.5)" }}>
             <Star className="w-3 h-3 text-violet-400 shrink-0" /> Thousands are mapping their psyche with Thyself
           </p>
@@ -301,6 +339,8 @@ export default function PricingPage() {
           <p className="text-xs font-semibold mb-2" style={{ color: "rgba(167,139,250,0.9)" }}>
             {PRO_TRIAL_DAYS} days free, then keep it or cancel. No charge until day {PRO_TRIAL_DAYS}.
           </p>
+            </>
+          )}
           {/* A risk-reversal promise the reader cannot act on is not risk
               reversal. The page told people to cancel before day 7 without
               saying anywhere how, and support email is currently the only
@@ -362,6 +402,11 @@ export default function PricingPage() {
                 <div>
                   <p className="text-lg font-bold">{plan.name}</p>
                   <p className="text-xs opacity-60">{plan.perMonth}</p>
+                  {plan.savingsNote && (
+                    <p className="text-[11px] font-semibold mt-0.5" style={{ color: "#34d399" }}>
+                      {plan.savingsNote}
+                    </p>
+                  )}
                 </div>
                 <div className="text-right">
                   <p className="text-2xl font-black">{plan.price}</p>
@@ -379,12 +424,12 @@ export default function PricingPage() {
               {plan.isFree ? (
                 <Link href="/daily" className="block w-full py-2.5 text-center rounded-xl text-sm font-semibold"
                   style={{ background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.1)", color: "rgba(255,255,255,0.8)" }}>
-                  Current plan
+                  {proUnlocked ? "Included in Pro" : "Current plan"}
                 </Link>
               ) : (
                 <button
                   onClick={() => handleCheckout(plan)}
-                  disabled={!!loading}
+                  disabled={!!loading || proUnlocked}
                   className="w-full py-2.5 rounded-xl text-sm font-bold transition-all active:scale-[0.98] disabled:opacity-50"
                   style={{
                     background: plan.highlighted
@@ -394,7 +439,11 @@ export default function PricingPage() {
                     color: "white",
                   }}
                 >
-                  {loading === plan.packId ? "Opening checkout..." : (plan.ctaLabel ?? `Get ${plan.name}`)}
+                  {proUnlocked
+                    ? "Pro active"
+                    : loading === plan.packId
+                      ? "Opening checkout..."
+                      : (plan.ctaLabel ?? `Get ${plan.name}`)}
                 </button>
               )}
             </motion.div>

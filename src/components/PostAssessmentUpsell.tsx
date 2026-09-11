@@ -18,6 +18,7 @@ import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { Sparkles, ArrowRight } from "lucide-react";
+import { PRO_TRIAL_DAYS } from "@/data/pro-pricing";
 
 const PRO_UNLOCK_KEY = "psyche-pro-unlocked";
 
@@ -90,7 +91,7 @@ export default function PostAssessmentUpsell({
           </p>
           <div className="flex items-center justify-between">
             <span className="text-xs font-semibold text-violet-200">
-              Try Pro Free for 7 Days
+              Try Pro Free for {PRO_TRIAL_DAYS} Days
             </span>
             <ArrowRight className="w-4 h-4 text-violet-200" />
           </div>
