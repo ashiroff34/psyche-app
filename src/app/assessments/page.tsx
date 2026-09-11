@@ -26,6 +26,7 @@ import {
   Eye,
 } from "lucide-react";
 import { useProfile } from "@/hooks/useProfile";
+import { resolveTypeAwareCopy } from "@/hooks/useTypeAwareCopy";
 import { usePsychometrics } from "@/hooks/usePsychometrics";
 import { enneagramTypes } from "@/data/enneagram";
 import EnneagramCircle from "@/components/EnneagramCircle";
@@ -126,6 +127,9 @@ function getRecommendation(
   hasCognitive: boolean,
   hasBigFive: boolean,
   isContested: boolean,
+  // The recommended assessment does not change with type; only the reason it
+  // is worth the user's time does. Null before the user has been typed.
+  userType: number | null,
 ): Recommendation {
   if (!hasType) {
     return {
@@ -144,7 +148,7 @@ function getRecommendation(
       dimensionId: "instinct",
       title: "Instinctual Stacking",
       subtitle: "30 forced-choice questions · SP, SX, SO",
-      why: "You have your type. Now find your subtype. Your instinctual stacking shapes which version of your type you actually live. Two Type 5s with different stackings can feel like entirely different people.",
+      why: resolveTypeAwareCopy("assessments.why.instinct", userType),
       timeEstimate: "~5 min",
       href: "/assessments/instinctual",
       gradient: "from-fuchsia-500 to-pink-600",
@@ -156,7 +160,7 @@ function getRecommendation(
       dimensionId: "tritype",
       title: "Tritype Assessment",
       subtitle: "27 forced-choice questions · Gut, Heart, Head",
-      why: "Your tritype reveals which type from each intelligence center you draw on most. It explains why two people of the same type can feel so different in relationships and under stress.",
+      why: resolveTypeAwareCopy("assessments.why.tritype", userType),
       timeEstimate: "~8 min",
       href: "/assessments/tritype",
       gradient: "from-indigo-500 to-violet-600",
@@ -168,7 +172,7 @@ function getRecommendation(
       dimensionId: "cognitive",
       title: "Jungian Self-Identification",
       subtitle: "Study your function stack, identify your type",
-      why: "Adding your cognitive type reveals the 'how' behind your Enneagram 'why.' The intersection of your Jungian function stack and your Enneagram fixation is where the deepest patterns become visible.",
+      why: resolveTypeAwareCopy("assessments.why.cognitive", userType),
       timeEstimate: "~15 min",
       href: "/assessments/jungian-self-id",
       gradient: "from-sky-400 to-blue-600",
@@ -180,7 +184,7 @@ function getRecommendation(
       dimensionId: "bigfive",
       title: "Big Five Personality (OCEAN)",
       subtitle: "120 items · The scientific gold standard",
-      why: "You've mapped your Enneagram and cognitive picture. The Big Five adds the empirically validated layer. It cross-validates your other results and surfaces trait-level nuance that motivation-based frameworks miss.",
+      why: resolveTypeAwareCopy("assessments.why.bigfive", userType),
       timeEstimate: "~15 min",
       href: "/assessments/big-five",
       gradient: "from-emerald-400 to-teal-600",
@@ -838,7 +842,8 @@ export default function AssessmentsPage() {
   const isContested = !!profile.isTypeContested;
 
   const completedDimensions = [hasType, hasInstinct, hasTritype, hasCognitive, hasBigFive].filter(Boolean).length;
-  const recommendation = getRecommendation(hasType, hasInstinct, hasTritype, hasCognitive, hasBigFive, isContested);
+  const recommendedForType = profile.enneagramType ?? profile.enneagramCore ?? null;
+  const recommendation = getRecommendation(hasType, hasInstinct, hasTritype, hasCognitive, hasBigFive, isContested, recommendedForType);
   const recDimension = DIMENSIONS.find(d => d.id === recommendation.dimensionId) ?? DIMENSIONS[0];
 
   const dimStatus = [
@@ -851,7 +856,7 @@ export default function AssessmentsPage() {
 
   const filteredAll = ALL_ASSESSMENTS.filter(a => a.tab === activeTab);
 
-  const myType = profile.enneagramType ?? profile.enneagramCore ?? 0;
+  const myType = recommendedForType ?? 0;
 
   return (
     <div className="min-h-screen pb-32 px-4 pt-10" style={{ background: "#0f0a1e" }}>

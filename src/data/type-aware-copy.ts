@@ -237,6 +237,67 @@ export const TYPE_AWARE_COPY: Record<string, TypeAwareCopyEntry> = {
     9: "Integration practices and one daily prompt for your type. Nothing to decide, nothing stacking up.",
     default: "Type specific growth prompts, integration practices, and daily reflection rooted in the Enneagram tradition.",
   },
+
+  // ─────────────────────────────────────────────────────────────────────
+  // SURFACE 8: Next-assessment recommendation on /assessments
+  //
+  // The hub recommends the next unmapped dimension and explains why it is
+  // worth the time. That reason was identical for all nine types, and the
+  // instinct variant illustrated the point with a Type 5 even when the
+  // reader was already typed as something else. The assessment being
+  // recommended does not change; the reason it matters to this person does.
+  //
+  // Only the branches where the type is already known are personalized.
+  // The first recommendation runs before typing, so it keeps the default.
+  // ─────────────────────────────────────────────────────────────────────
+  "assessments.why.instinct": {
+    1: "You have your type. The subtype is where it gets precise. Your instinctual stacking decides which arena your standards actually fire in, and two Ones with different stackings correct entirely different things.",
+    2: "You have your type. The subtype is where it gets personal. Your instinctual stacking decides who you move toward and what being needed looks like, and two Twos with different stackings give in completely different ways.",
+    3: "You have your type. The subtype is where the picture sharpens. Your instinctual stacking decides what counts as winning to you, and two Threes with different stackings chase different scoreboards entirely.",
+    4: "You have your type. The subtype is what makes the reading yours rather than every Four's. Your instinctual stacking shapes how longing actually shows up, and two Fours with different stackings can feel like different people.",
+    5: "You have your type. The subtype is the next real variable. Your instinctual stacking determines what you conserve and where you spend, and two Fives with different stackings guard entirely different resources.",
+    6: "You have your type. The subtype is what makes the model hold up. Your instinctual stacking decides where you look for security, and two Sixes with different stackings handle the same threat in opposite ways.",
+    7: "You have your type. The subtype is the layer that keeps opening. Your instinctual stacking decides which possibilities pull hardest, and two Sevens with different stackings want completely different things.",
+    8: "You have your type. The subtype is where the read gets accurate. Your instinctual stacking decides what you take control of first, and two Eights with different stackings protect different territory.",
+    9: "You have your type. The subtype is one short step from here. Your instinctual stacking shapes what you merge with and what you go numb to, and two Nines with different stackings check out over different things.",
+    default: "You have your type. Now find your subtype. Your instinctual stacking shapes which version of your type you actually live. Two Type 5s with different stackings can feel like entirely different people.",
+  },
+  "assessments.why.tritype": {
+    1: "Your tritype names which type you lead with in each of the three centers. It explains why your standards land the way they do in relationships and under pressure, and where the correction reflex is actually coming from.",
+    2: "Your tritype names which type you lead with in each of the three centers. It explains why your way of caring looks different from other Twos, and which part of you takes over when you are running on empty.",
+    3: "Your tritype names which type you lead with in each of the three centers. It is the layer that explains performance patterns the core type alone cannot account for, and it sharpens the whole profile.",
+    4: "Your tritype names which type you lead with in each of the three centers. It is the most specific thing the system can tell you, and it is why two Fours can share a type and almost nothing else.",
+    5: "Your tritype names which type you lead with in each of the three centers. It adds real resolution to the model rather than restating your core type in new words.",
+    6: "Your tritype names which type you lead with in each of the three centers. It explains which strategy you reach for when doubt arrives, and it comes from Fauvre's forced-choice method rather than guesswork.",
+    7: "Your tritype names which type you lead with in each of the three centers. Three types instead of one, and it explains why the same Seven can look so different depending on the room.",
+    8: "Your tritype names which type you lead with in each of the three centers. It shows what is under the directness, and where the intensity is actually sourced.",
+    9: "Your tritype names which type you lead with in each of the three centers. Twenty seven questions, forced choice, nothing to weigh up on your own.",
+    default: "Your tritype reveals which type from each intelligence center you draw on most. It explains why two people of the same type can feel so different in relationships and under stress.",
+  },
+  "assessments.why.cognitive": {
+    1: "Your Enneagram type explains what you are correcting for. The Jungian function stack explains the machinery doing it, and the overlap is where the pattern becomes specific enough to work with.",
+    2: "Your Enneagram type explains why you move toward people. The Jungian function stack explains how you read them, and together they show where attunement turns into losing track of yourself.",
+    3: "Your Enneagram type explains what you are driving at. The Jungian function stack explains how you process and decide, and the intersection is where the profile gets genuinely hard to argue with.",
+    4: "Your Enneagram type explains what you feel. The Jungian function stack explains how that feeling gets processed, and the intersection is the most specific portrait the app can build of you.",
+    5: "Your Enneagram type explains the motivation. The Jungian function stack explains the mechanism. Jung's original model, Beebe's shadow work, and the point where the two systems intersect.",
+    6: "Your Enneagram type explains what you are scanning for. The Jungian function stack explains how you process what you find, and both come from the primary sources rather than a repackaged version.",
+    7: "Your Enneagram type explains what pulls you forward. The Jungian function stack explains how your mind actually moves, and it is a genuinely different lens rather than the same material again.",
+    8: "Your Enneagram type explains what you protect. The Jungian function stack explains how you take in information and decide, and the overlap is where the blind spot usually sits.",
+    9: "Your Enneagram type explains what you keep smooth. The Jungian function stack explains how you process, and it is a study format rather than another long questionnaire.",
+    default: "Adding your cognitive type reveals the 'how' behind your Enneagram 'why.' The intersection of your Jungian function stack and your Enneagram fixation is where the deepest patterns become visible.",
+  },
+  "assessments.why.bigfive": {
+    1: "The Big Five is the empirically validated layer. It checks the rest of your profile against trait data rather than self report alone, which is the difference between a description you agree with and one that holds up.",
+    2: "The Big Five adds the measured layer. It shows where your warmth sits relative to everyone else, which is hard to see from inside a pattern built on reading other people.",
+    3: "The Big Five is the scientific gold standard, and it is the part of your profile that would survive outside scrutiny. It cross validates everything else you have mapped.",
+    4: "The Big Five is the layer that is not about self perception. It places your profile against population data, and the gaps between how you score and how you see yourself are usually the interesting part.",
+    5: "The Big Five is the most rigorously validated model in personality psychology. One hundred twenty IPIP NEO items, facet level resolution, and it cross checks the motivation based frameworks you have already completed.",
+    6: "The Big Five is the part of your profile with the strongest evidence base behind it. It cross validates your other results rather than asking you to take them on faith.",
+    7: "The Big Five is a completely different lens on the same person. Trait level rather than motivation based, with facet detail your Enneagram results cannot reach.",
+    8: "The Big Five is the layer nobody can wave away. Validated instrument, population norms, and a straight answer about where you actually sit.",
+    9: "The Big Five completes the map. It is the last dimension, it cross checks everything else, and then the profile is done.",
+    default: "You've mapped your Enneagram and cognitive picture. The Big Five adds the empirically validated layer. It cross-validates your other results and surfaces trait-level nuance that motivation-based frameworks miss.",
+  },
 };
 
 
