@@ -387,11 +387,11 @@ export default function EnneagramTypePage({ typeNum }: { typeNum: number }) {
             Discover your Enneagram type
           </h2>
           <p style={{ fontSize: "0.9rem", color: textBody, marginBottom: "1.5rem", lineHeight: 1.6 }}>
-            Take the free Thyself assessment. 175 scored items, grounded in Ichazo, Naranjo, and Riso-Hudson.
+            Take the free Thyself Enneagram Assessment. Six questions to your type, grounded in Ichazo, Naranjo, and Riso-Hudson.
           </p>
           <div style={{ display: "flex", gap: "0.75rem", justifyContent: "center", flexWrap: "wrap" }}>
             <Link
-              href="/assessments"
+              href="/assessments/quick"
               style={{
                 display: "inline-block", padding: "0.75rem 1.5rem", borderRadius: "999px",
                 background: color, color: "#fff", fontWeight: 700, fontSize: "0.9rem", textDecoration: "none",
