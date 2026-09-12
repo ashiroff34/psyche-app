@@ -391,7 +391,7 @@ export default function EnneagramTypePage({ typeNum }: { typeNum: number }) {
           </p>
           <div style={{ display: "flex", gap: "0.75rem", justifyContent: "center", flexWrap: "wrap" }}>
             <Link
-              href="/assessments/quick"
+              href="/assessments/quick?from=seo_type_page"
               style={{
                 display: "inline-block", padding: "0.75rem 1.5rem", borderRadius: "999px",
                 background: color, color: "#fff", fontWeight: 700, fontSize: "0.9rem", textDecoration: "none",

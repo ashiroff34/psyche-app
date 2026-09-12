@@ -1,13 +1,34 @@
 "use client";
 
+import { useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { ArrowLeft, Zap } from "lucide-react";
 import QuickTypeAssessment from "@/components/assessments/QuickTypeAssessment";
 import { useProfile } from "@/hooks/useProfile";
+import { posthog, EVENTS } from "@/lib/posthog";
 
 export default function QuickAssessmentPage() {
   const router = useRouter();
   const { addXP, recordAssessment, updateProfile } = useProfile();
+
+  // Funnel instrumentation. This page is the landing point for SEO type-page
+  // CTAs, so without these events the organic search path to the aha moment
+  // has no denominator and no completion count. Mirrors the onboarding events.
+  const sourceRef = useRef("direct");
+  const quizStartedRef = useRef(false);
+
+  useEffect(() => {
+    if (quizStartedRef.current) return;
+    quizStartedRef.current = true;
+    try {
+      sourceRef.current = new URLSearchParams(window.location.search).get("from") ?? "direct";
+      posthog.capture(EVENTS.QUIZ_STARTED, {
+        assessment: "quick_type_finder",
+        length: 10,
+        source: sourceRef.current,
+      });
+    } catch {}
+  }, []);
 
   return (
     <div className="min-h-screen pb-32">
@@ -37,12 +58,32 @@ export default function QuickAssessmentPage() {
         onComplete={(result) => {
           // type === 0 means user skipped the quiz
           if (!result.type) {
+            try {
+              posthog.capture(EVENTS.QUIZ_SKIPPED, {
+                assessment: "quick_type_finder",
+                source: sourceRef.current,
+              });
+            } catch {}
             router.push("/assessments");
             return;
           }
           recordAssessment("quick", result.confidence, result.type);
           addXP(50, "quick-assessment-complete");
           const instinct = (result as { instinct?: string }).instinct ?? "SP";
+          try {
+            posthog.capture(EVENTS.QUIZ_COMPLETED, {
+              enneagramType: result.type,
+              confidence: result.confidence,
+              runnerUp: result.runnerUp,
+              instinct,
+              source: `quick_page_${sourceRef.current}`,
+            });
+            posthog.capture(EVENTS.TYPE_REVEALED, {
+              enneagramType: result.type,
+              instinct,
+              source: `quick_page_${sourceRef.current}`,
+            });
+          } catch {}
           // Persist instinct to profile so chibi sprites sync across the app
           // (ChibiSprite reads profile.instinctualStacking; without this, every
           // chibi falls back to "sp" regardless of what the user answered).
