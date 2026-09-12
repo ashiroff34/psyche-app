@@ -9,6 +9,7 @@ import { useVerifiedShare } from "@/hooks/useVerifiedShare";
 import { TYPE_WPFA } from "@/data/wound-passion-fixation-armor";
 import { resolveTypeAwareCopy } from "@/hooks/useTypeAwareCopy";
 import { PRO_TRIAL_DAYS } from "@/data/pro-pricing";
+import { useProUnlocked } from "@/hooks/useProUnlocked";
 
 // ─── Quiz save/resume key ─────────────────────────────────────────────────────
 const QUIZ_SAVE_KEY = "psyche-quiz-progress-quick";
@@ -879,6 +880,8 @@ export default function QuickTypeAssessment({
     } catch { return 0; }
   });
 
+  const proUnlocked = useProUnlocked();
+
   // ── Share hook for result screen (+20 tokens) ─────────────────────────────
   const resultShareHook = useVerifiedShare({
     shareId: `quiz-result-${result?.type ?? 0}`,
@@ -1401,6 +1404,7 @@ export default function QuickTypeAssessment({
           </button>
 
           {/* Post-result upgrade CTA — non-blocking, below the result */}
+          {!proUnlocked && (
           <motion.a
             href="/pricing?from=quick_result"
             initial={{ opacity: 0, y: 8 }}
@@ -1425,6 +1429,7 @@ export default function QuickTypeAssessment({
             </div>
             <BookOpen className="w-4 h-4 shrink-0 mt-0.5" style={{ color: "rgba(139,92,246,0.6)" }} />
           </motion.a>
+          )}
         </motion.div>
       </motion.div>
     );

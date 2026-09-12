@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { X } from "lucide-react";
 import { PRO_TRIAL_DAYS } from "@/data/pro-pricing";
+import { useProUnlocked } from "@/hooks/useProUnlocked";
 
 const COMPLETED_COUNT_KEY = "lessons-completed-count";
 
@@ -55,10 +56,11 @@ interface PostLessonUpgradeBannerProps {
 
 export default function PostLessonUpgradeBanner({ lessonCount }: PostLessonUpgradeBannerProps) {
   const [visible, setVisible] = useState(false);
+  const proUnlocked = useProUnlocked();
 
   useEffect(() => {
-    setVisible(shouldShowUpgradeBanner(lessonCount));
-  }, [lessonCount]);
+    setVisible(!proUnlocked && shouldShowUpgradeBanner(lessonCount));
+  }, [lessonCount, proUnlocked]);
 
   function handleDismiss() {
     dismissToday();

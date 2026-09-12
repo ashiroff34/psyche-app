@@ -46,6 +46,7 @@ import TypeDiscoveryModal from "@/components/TypeDiscoveryModal";
 import TikTokTypeCard from "@/components/TikTokTypeCard";
 import { getPaywallCopy } from "@/data/type-paywall-copy";
 import { PRO_TRIAL_DAYS } from "@/data/pro-pricing";
+import { useProUnlocked } from "@/hooks/useProUnlocked";
 
 
 // ── Famous examples ───────────────────────────────────────────────────────
@@ -295,6 +296,7 @@ function ResultsInner() {
   // Detect first-ever type discovery (profile had no type before this page loaded)
   // Must use useEffect. localStorage is not available during SSR
   const [isFirstDiscovery, setIsFirstDiscovery] = useState(false);
+  const proUnlocked = useProUnlocked();
   useEffect(() => {
     try {
       const raw = localStorage.getItem("psyche-profile");
@@ -1389,7 +1391,7 @@ function ResultsInner() {
               </div>
 
               {/* Type-personalized Pro upsell — peak-emotional-moment paywall */}
-              {typeData && (
+              {typeData && !proUnlocked && (
                 <Link
                   href="/pricing?from=enneagram_result"
                   className="block p-5 rounded-2xl relative overflow-hidden transition-all hover:scale-[1.01]"

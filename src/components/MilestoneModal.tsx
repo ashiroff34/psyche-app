@@ -7,6 +7,7 @@ import { streakMilestones, type StreakMilestone } from "@/data/streakMilestones"
 import { getReferralShareUrl } from "@/lib/referral";
 import { Share2 } from "lucide-react";
 import { PRO_TRIAL_DAYS } from "@/data/pro-pricing";
+import { useProUnlocked } from "@/hooks/useProUnlocked";
 
 interface MilestoneModalProps {
   streakCount: number;
@@ -30,6 +31,7 @@ function markMilestoneSeen(days: number) {
 export default function MilestoneModal({ streakCount, enneagramType }: MilestoneModalProps) {
   const [activeMilestone, setActiveMilestone] = useState<StreakMilestone | null>(null);
   const router = useRouter();
+  const proUnlocked = useProUnlocked();
 
   useEffect(() => {
     // Find the highest milestone that applies and hasn't been seen
@@ -183,7 +185,7 @@ export default function MilestoneModal({ streakCount, enneagramType }: Milestone
                   <Share2 size={15} />
                   Share
                 </button>
-                {activeMilestone.days >= 14 ? (
+                {activeMilestone.days >= 14 && !proUnlocked ? (
                   <button
                     onClick={() => {
                       markMilestoneSeen(activeMilestone.days);
