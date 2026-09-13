@@ -62,3 +62,18 @@ Its streak hero has no at-risk state. The founder should decide whether to delet
 ## Actions taken
 
 None. No hook gap was found, so nothing was implemented.
+
+---
+
+## PM recheck (14:55)
+
+Second scheduled run today. No commits have touched `src/` since the morning pass (`192329c`).
+I spot-checked each hook again and all six are still wired: `StreakCard.tsx:92`,
+`variable-rewards.ts:47/79/90`, `Navigation.tsx:469`, `onboarding/page.tsx:504`,
+`page.tsx:287` and `HubView.tsx:422`.
+
+There is one uncommitted change in the working tree that this bot did not make: the deletion of
+`src/app/personality/[mbti]-enneagram-[type]/page.tsx`. It matches the routing-gotcha rule
+(single `[slug]` route). It does not affect any retention hook. The bot left it alone.
+
+**Actions taken:** none. No gap was found.
