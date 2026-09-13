@@ -48,6 +48,7 @@ import { orderedTritypeThyselfs } from "@/data/tritypes";
 import FirstVisitWelcome from "@/components/daily/FirstVisitWelcome";
 import { safeGet } from "@/lib/safe-storage";
 import { MS_PER_DAY } from "@/lib/date-utils";
+import { PRO_TRIAL_DAYS } from "@/data/pro-pricing";
 
 /* ═══════════════════════════════════════════════════════════════════════════
    UTILITY: Seeded PRNG (deterministic shuffle per day)
@@ -608,11 +609,17 @@ export default function DailyPage() {
   const unitLimitActive = daysSinceCreated >= UNIT_LIMIT_ACTIVATES_DAY;
 
   const handleLessonNodeTap = (lesson: LessonWithStatus, unit: UnitWithStatus) => {
-    // Beta users bypass daily unit limit entirely
-    const isBeta = (() => { try { return localStorage.getItem("psyche-beta-access") === "true"; } catch { return false; } })();
+    // Beta users and Pro subscribers bypass the daily unit limit entirely. A
+    // subscriber told "come back tomorrow" mid-trial is a cancellation reason.
+    const hasUnlimitedUnits = (() => {
+      try {
+        return localStorage.getItem("psyche-beta-access") === "true"
+          || localStorage.getItem("psyche-pro-unlocked") === "true";
+      } catch { return false; }
+    })();
 
     // Only gate non-completed lessons (don't block reviewing done lessons)
-    if (!isBeta && unitLimitActive && lesson.status !== "completed") {
+    if (!hasUnlimitedUnits && unitLimitActive && lesson.status !== "completed") {
       const startedToday = getTodayStartedUnits();
       const isNewUnitToday = !startedToday.has(unit.id);
       if (isNewUnitToday && startedToday.size >= DAILY_UNIT_LIMIT) {
@@ -2278,6 +2285,17 @@ export default function DailyPage() {
                     ? `Unlock with 1 Token (${gameStateRaw.tokens ?? 0} left)`
                     : "Not enough tokens"}
                 </button>
+                {/* Wanting another unit is peak intent. With no tokens the only
+                    answer was "come back tomorrow", so offer the paid path. */}
+                {(gameStateRaw.tokens ?? 0) < 1 && (
+                  <Link
+                    href="/pricing?from=daily_unit_limit"
+                    className="block text-xs font-bold underline underline-offset-2 mb-3"
+                    style={{ color: "#c4b5fd" }}
+                  >
+                    Or try Pro free for {PRO_TRIAL_DAYS} days, no daily limit →
+                  </Link>
+                )}
                 <button
                   onClick={() => setUnitLimitGate(null)}
                   className="w-full py-2.5 rounded-2xl text-sm font-medium"
@@ -2480,6 +2498,15 @@ export default function DailyPage() {
                   ? `+ Unlock with 1 Token (${gameStateRaw.tokens ?? 0} left)`
                   : <span style={{ color: "rgba(255,255,255,0.5)" }}>Not enough tokens</span>}
               </button>
+              {(gameStateRaw.tokens ?? 0) < 1 && (
+                <Link
+                  href="/pricing?from=daily_unit_limit"
+                  className="block text-xs font-bold underline underline-offset-2 mb-3"
+                  style={{ color: "#c4b5fd" }}
+                >
+                  Or try Pro free for {PRO_TRIAL_DAYS} days, no daily limit →
+                </Link>
+              )}
               {streakDeclined ? (
                 <p className="text-sm text-center py-2" style={{ color: "rgba(255,255,255,0.5)" }}>Got it. no streak repair for today.</p>
               ) : (
