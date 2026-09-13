@@ -77,3 +77,26 @@ There is one uncommitted change in the working tree that this bot did not make: 
 (single `[slug]` route). It does not affect any retention hook. The bot left it alone.
 
 **Actions taken:** none. No gap was found.
+
+---
+
+## Evening recheck
+
+Third scheduled run today. Three commits touched `src/` after the PM recheck (`52d1d24`). None of them removes or weakens a hook.
+
+- `a1bff6d` changes the upgrade banner copy after a lesson so it matches the user's type (`src/components/lessons/PostLessonUpgradeBanner.tsx`). This is a small boost to **identity reinforcement (hook 3)**.
+- `2dab5f0` lets Pro subscribers skip the 2 units a day cap (`src/app/daily/page.tsx:~612`). It also adds a trial link to the unit limit modals when the user has no tokens left. The streak repair path in the second modal (`streakDeclined`) is unchanged, so **loss aversion (hook 1)** still works.
+- `447101f` makes `/assessments/jungian-self-id` redirect to `/cognitive/assess`. This is routing only and has no hook impact.
+
+Every hook anchor was checked again and is still present:
+
+| Hook | Anchor |
+|---|---|
+| 1. Loss aversion | `StreakCard.tsx:92`, `Navigation.tsx:469`, `HubView.tsx:422` |
+| 2. Variable reward | `variable-rewards.ts:47/79/90`, `QuizFullscreen.tsx:308` |
+| 5. Social proof | `page.tsx:287` |
+| 6. Endowed progress | `onboarding/page.tsx:504` |
+
+The follow-up carried over from earlier passes is still open: `DashboardScreen` is still never rendered.
+
+**Actions taken:** none. No gap was found, so no app code was changed.
