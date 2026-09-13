@@ -64,7 +64,13 @@ function ShadowWorkGate({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     try {
-      setUnlocked(localStorage.getItem(SHADOW_UNLOCK_KEY) === "true");
+      // Shadow Work lab is the first Pro feature listed on /pricing, and this
+      // gate only renders inside ProGate, so without the Pro check every user
+      // who reached it had already paid and was asked for tokens anyway.
+      setUnlocked(
+        localStorage.getItem(SHADOW_UNLOCK_KEY) === "true" ||
+        localStorage.getItem(PRO_UNLOCK_KEY) === "true",
+      );
       const gs = JSON.parse(localStorage.getItem("psyche-game-state") || "{}");
       setTokens(typeof gs.tokens === "number" ? gs.tokens : 0);
     } catch { setUnlocked(false); }

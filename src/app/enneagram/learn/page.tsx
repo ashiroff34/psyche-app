@@ -29,7 +29,12 @@ function AdvancedContentGate({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     try {
-      setUnlocked(localStorage.getItem(ENNEAGRAM_ADV_UNLOCK_KEY) === "true");
+      // /pricing sells "Tritype deep-dive" as Pro. Subscribers must not be
+      // asked to spend tokens on content they already pay for.
+      setUnlocked(
+        localStorage.getItem(ENNEAGRAM_ADV_UNLOCK_KEY) === "true" ||
+        localStorage.getItem("psyche-pro-unlocked") === "true",
+      );
       const gs = JSON.parse(localStorage.getItem("psyche-game-state") || "{}");
       setTokens(typeof gs.tokens === "number" ? gs.tokens : 0);
     } catch { setUnlocked(false); }
@@ -106,6 +111,17 @@ function AdvancedContentGate({ children }: { children: React.ReactNode }) {
           <p className="text-xs mt-3" style={{ color: "rgba(255,255,255,0.28)" }}>
             Earn tokens through daily practice · {ENNEAGRAM_ADV_UNLOCK_COST - tokens} more needed
           </p>
+        )}
+        {/* A disabled button was the whole answer for someone who wants this
+            now and cannot afford it. Pro includes it, so offer that path. */}
+        {tokens < ENNEAGRAM_ADV_UNLOCK_COST && (
+          <Link
+            href="/pricing?from=advanced_enneagram_gate"
+            className="text-xs font-bold underline underline-offset-2 mt-2"
+            style={{ color: "#c4b5fd" }}
+          >
+            Or try Pro free for {PRO_TRIAL_DAYS} days, tritypes included →
+          </Link>
         )}
       </motion.div>
 
@@ -1066,7 +1082,7 @@ function LearnContent() {
                 : { color: "rgba(255,255,255,0.45)" }
               }>
               {tab.label}
-              {tab.premium && !advUnlocked && <Lock className="w-3 h-3 opacity-50" />}
+              {tab.premium && !advUnlocked && !proUnlocked && <Lock className="w-3 h-3 opacity-50" />}
               {tab.pro && !proUnlocked && <Sparkles className="w-3 h-3 opacity-50" />}
             </button>
           ))}
