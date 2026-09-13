@@ -6,6 +6,8 @@ import Link from "next/link";
 import { X } from "lucide-react";
 import { PRO_TRIAL_DAYS } from "@/data/pro-pricing";
 import { useProUnlocked } from "@/hooks/useProUnlocked";
+import { useProfile } from "@/hooks/useProfile";
+import { getPaywallCopy } from "@/data/type-paywall-copy";
 
 const COMPLETED_COUNT_KEY = "lessons-completed-count";
 
@@ -57,6 +59,15 @@ interface PostLessonUpgradeBannerProps {
 export default function PostLessonUpgradeBanner({ lessonCount }: PostLessonUpgradeBannerProps) {
   const [visible, setVisible] = useState(false);
   const proUnlocked = useProUnlocked();
+  const { profile } = useProfile();
+
+  // Three lessons in, the reader has shown what they came for. A Five is
+  // weighing depth and a Two is weighing closeness, so a typed reader gets the
+  // Pro benefit stated in their own motivation. Untyped readers keep the
+  // identity line.
+  const pitch = profile.enneagramType
+    ? getPaywallCopy(profile.enneagramType).proBenefit
+    : "Become someone who actually understands themselves. Pro takes you the rest of the way.";
 
   useEffect(() => {
     setVisible(!proUnlocked && shouldShowUpgradeBanner(lessonCount));
@@ -95,7 +106,7 @@ export default function PostLessonUpgradeBanner({ lessonCount }: PostLessonUpgra
             className="text-sm font-medium leading-snug pr-6 mb-3"
             style={{ color: "rgba(255,255,255,0.88)" }}
           >
-            Become someone who actually understands themselves. Pro takes you the rest of the way.
+            {pitch}
           </p>
 
           <Link
