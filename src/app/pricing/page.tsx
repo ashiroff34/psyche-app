@@ -72,8 +72,8 @@ const PLANS: PlanProps[] = [
       "Everything in Free",
       "Shadow Work lab",
       "Tritype deep-dive",
-      "Audio reflections",
-      "Advanced assessments",
+      "Advanced Enneagram tabs",
+      "Cognitive Functions Assessment",
       "No daily lesson limit",
       "Priority new features",
       "500 bonus tokens",
@@ -96,9 +96,11 @@ const PLANS: PlanProps[] = [
       "Everything in Free",
       "Shadow Work lab",
       "Tritype deep-dive",
-      "Audio reflections",
-      "Advanced assessments",
+      "Advanced Enneagram tabs",
+      "Cognitive Functions Assessment",
       "No daily lesson limit",
+      // grantProLocally credits 500 tokens on every pro_* pack, not just annual.
+      "500 bonus tokens",
     ],
     packId: "pro_monthly",
     highlighted: false,
@@ -128,7 +130,8 @@ const PLANS: PlanProps[] = [
 
 // Bump this whenever the page's psychology changes, so PostHog can compare
 // conversion across variants. v2 = highest price first (anchoring).
-const PAYWALL_VARIANT = "pricing_annual_first_v2";
+// v3 = feature lists name only benefits Pro actually gates.
+const PAYWALL_VARIANT = "pricing_annual_first_v3";
 const LESSON_COUNT_KEY = "lessons-completed-count";
 // Same key /store reads. /store already refuses to sell Pro twice; /pricing did
 // not, so a paying subscriber arriving here (15 surfaces link to /pricing) was

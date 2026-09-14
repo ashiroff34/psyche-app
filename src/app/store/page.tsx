@@ -125,7 +125,7 @@ const PRO_FEATURES = [
   { icon: BookOpen, label: "No daily lesson limit" },
   { icon: Palette, label: "10 exclusive avatar outfits & backgrounds" },
   { icon: Zap, label: "Priority access to new features" },
-  { icon: Coins, label: "500 bonus tokens every month" },
+  { icon: Coins, label: "500 bonus tokens when you start" },
 ];
 
 // localStorage key for Pro unlock. Set by /store/success after Stripe confirms.

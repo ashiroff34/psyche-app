@@ -126,7 +126,7 @@ export default function DecenteringPage() {
               trigger="decentering_result"
               eyebrow="Measured, not yet practiced"
               headline="You can measure decentering. Practicing it is the harder part."
-              body="This score tells you how well you step back from your own thinking. Pro is where that becomes a practice: Shadow Work, audio reflections, and type specific self observation work. Without it the number tends to read the same next month."
+              body="This score tells you how well you step back from your own thinking. Pro is where that becomes a practice: Shadow Work, the cognitive functions, and type specific self observation work. Without it the number tends to read the same next month."
             />
           </div>
 
