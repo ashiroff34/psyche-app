@@ -131,13 +131,33 @@ const PLANS: PlanProps[] = [
 // Bump this whenever the page's psychology changes, so PostHog can compare
 // conversion across variants. v2 = highest price first (anchoring).
 // v3 = feature lists name only benefits Pro actually gates.
-const PAYWALL_VARIANT = "pricing_annual_first_v3";
+// v4 = arriving from a locked wall echoes that wall above the plans.
+const PAYWALL_VARIANT = "pricing_annual_first_v4";
 const LESSON_COUNT_KEY = "lessons-completed-count";
 // Same key /store reads. /store already refuses to sell Pro twice; /pricing did
 // not, so a paying subscriber arriving here (15 surfaces link to /pricing) was
 // offered a free trial they have already used and could open a second Stripe
 // subscription for the same account.
 const PRO_UNLOCK_KEY = "psyche-pro-unlocked";
+
+// Entry points that are a locked Pro wall, mapped to the thing the user was
+// trying to open. Four of these walls (Type History, the cognitive path, Type
+// Self Work, the per-type practices) are real Pro benefits the plan cards never
+// name, so a user who clicked "Try Pro" on one landed on a page that never
+// mentioned it. Echoing the wall answers "does this actually get me that?" at
+// the point of payment. Every entry is verified against its gate's unlock check.
+const GATE_FEATURES: Record<string, string> = {
+  inner_work_lab_gate: "the Shadow Work lab",
+  type_history_gate: "Type History",
+  cognitive_gate: "the cognitive functions section",
+  cognitive_learn_gate: "the full cognitive functions path",
+  cognitive_assess_gate: "the Cognitive Functions Assessment",
+  cognitive_type_gate: "the Cognitive Functions Assessment",
+  type_self_work_gate: "Type Self Work",
+  type_page_gate: "the practices and journal prompts for your type",
+  advanced_enneagram_gate: "tritypes, stackings and the advanced Enneagram tabs",
+  daily_unit_limit: "lessons past today's limit",
+};
 
 /** Reads how many lessons this device has finished, for funnel segmentation. */
 function readLessonCount(): number {
@@ -169,6 +189,8 @@ export default function PricingPage() {
   // Existing subscriber. Starts false so a genuine prospect never has the offer
   // withheld while localStorage is read; the effect below corrects it on mount.
   const [proUnlocked, setProUnlocked] = useState(false);
+  // The locked feature the user clicked through from, if any. See GATE_FEATURES.
+  const [gateFeature, setGateFeature] = useState<string | null>(null);
 
   useEffect(() => {
     try {
@@ -198,6 +220,7 @@ export default function PricingPage() {
       setAbandonedCheckout(cancelled);
       triggerRef.current =
         params.get("from") ?? (cancelled ? "checkout_abandoned" : "direct");
+      setGateFeature(GATE_FEATURES[triggerRef.current] ?? null);
     } catch {
       // keep the "direct" default
     }
@@ -363,6 +386,22 @@ export default function PricingPage() {
             and we will take care of it. No forms, no phone call.
           </p>
         </motion.div>
+
+        {gateFeature && !proUnlocked && (
+          <div
+            className="p-3.5 rounded-2xl mb-4 flex items-start gap-3"
+            style={{
+              background: "rgba(139,92,246,0.08)",
+              border: "1px solid rgba(139,92,246,0.25)",
+            }}
+          >
+            <Check className="w-4 h-4 mt-0.5 shrink-0 text-violet-300" />
+            <p className="text-xs leading-relaxed" style={{ color: "rgba(255,255,255,0.72)" }}>
+              You were opening {gateFeature}. Both Pro plans include it, free for
+              your first {PRO_TRIAL_DAYS} days.
+            </p>
+          </div>
+        )}
 
         {checkoutError && (
           <motion.div
