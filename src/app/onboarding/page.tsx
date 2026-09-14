@@ -693,11 +693,11 @@ function StepTypePreview({ onNext, onBack }: { onNext: () => void; onBack: () =>
 // ── Step 11: What brought you here? ──────────────────────────────────────────
 
 const MOTIVATION_OPTIONS = [
-  { id: "curiosity", emoji: "🔍", label: "Curiosity", desc: "I just want to understand myself better" },
-  { id: "relationships", emoji: "💞", label: "Relationships", desc: "Understanding others (or a specific person)" },
-  { id: "growth", emoji: "🌱", label: "Growth", desc: "I want to change something about myself" },
-  { id: "career", emoji: "🎯", label: "Career", desc: "Understand my working style and strengths" },
-  { id: "struggle", emoji: "😔", label: "Struggle", desc: "I'm going through something and need a framework" },
+  { id: "curiosity", label: "Curiosity", desc: "I just want to understand myself better" },
+  { id: "relationships", label: "Relationships", desc: "Understanding others (or a specific person)" },
+  { id: "growth", label: "Growth", desc: "I want to change something about myself" },
+  { id: "career", label: "Career", desc: "Understand my working style and strengths" },
+  { id: "struggle", label: "Struggle", desc: "I'm going through something and need a framework" },
 ] as const;
 
 const MOTIVATION_MESSAGES: Record<string, string> = {
@@ -753,7 +753,6 @@ function StepMotivations({ onContinue }: { onContinue: (motivations: string[]) =
                 border: `1px solid ${isSelected ? "rgba(139,92,246,0.5)" : "rgba(255,255,255,0.08)"}`,
               }}
             >
-              <span className="text-2xl flex-shrink-0">{opt.emoji}</span>
               <div className="flex-1 min-w-0">
                 <p className="text-sm font-semibold" style={{ color: isSelected ? "#c4b5fd" : "rgba(255,255,255,0.85)" }}>
                   {opt.label}
@@ -1133,10 +1132,10 @@ function StepChibiName({ type, onContinue }: { type: number; onContinue: () => v
 // onboarding. Tying a habit to an existing routine 2x follow-through rate.
 
 const PRACTICE_TIME_OPTIONS = [
-  { id: "morning", label: "Morning, with coffee", emoji: "☀️" },
-  { id: "midday", label: "Midday break", emoji: "🌤️" },
-  { id: "evening", label: "Evening wind-down", emoji: "🌙" },
-  { id: "flexible", label: "I'll decide later", emoji: "" },
+  { id: "morning", label: "Morning, with coffee" },
+  { id: "midday", label: "Midday break" },
+  { id: "evening", label: "Evening wind-down" },
+  { id: "flexible", label: "I'll decide later" },
 ] as const;
 
 type PracticeTimeId = typeof PRACTICE_TIME_OPTIONS[number]["id"];
@@ -1223,9 +1222,6 @@ function StepImplementationIntention({ onContinue }: { onContinue: () => void })
                 : "1px solid rgba(255,255,255,0.08)",
             }}
           >
-            {opt.emoji && (
-              <span className="text-xl w-7 flex-shrink-0 text-center">{opt.emoji}</span>
-            )}
             <span
               className="text-sm font-medium"
               style={{ color: selected === opt.id ? "rgba(255,255,255,0.95)" : "rgba(255,255,255,0.75)" }}

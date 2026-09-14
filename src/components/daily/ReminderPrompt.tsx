@@ -11,6 +11,7 @@ import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Bell, X } from "lucide-react";
 import { posthog } from "@/lib/posthog";
+import { scheduleDailyReminder, buildPersonalizedNotification } from "@/lib/capacitor-notifications";
 
 function friendlyLabel(t: string): string {
   const [h, m] = t.split(":").map(Number);
@@ -41,15 +42,35 @@ export default function ReminderPrompt() {
     setShow(true);
   }, []);
 
-  function save() {
+  /** Read the user's enneagram type from psyche-profile, if it exists yet. */
+  function readEnneagramType(): number | null {
+    try {
+      const raw = localStorage.getItem("psyche-profile");
+      if (!raw) return null;
+      const parsed = JSON.parse(raw) as { enneagramType?: number; enneagramCore?: number };
+      return parsed.enneagramType ?? parsed.enneagramCore ?? null;
+    } catch {
+      return null;
+    }
+  }
+
+  async function save() {
     const label = friendlyLabel(time);
+    const [hour, minute] = time.split(":").map(Number);
     try {
       localStorage.setItem(
         "psyche-implementation-intention",
         JSON.stringify({ id: "time-picker", label: `at ${label}`, key: "time-picker", timeHint: time, capturedAt: new Date().toISOString() })
       );
     } catch {}
-    try { posthog.capture("reminder_set_from_hub", { time }); } catch {}
+    // The card promises a reminder tomorrow, so actually schedule one. Without
+    // this the picked time was stored and nothing ever fired.
+    let scheduled = false;
+    try {
+      const { title, body } = buildPersonalizedNotification(readEnneagramType());
+      scheduled = await scheduleDailyReminder({ hour, minute, title, body });
+    } catch {}
+    try { posthog.capture("reminder_set_from_hub", { time, scheduled }); } catch {}
     setSaved(true);
     setTimeout(() => setShow(false), 1200);
   }
@@ -94,7 +115,7 @@ export default function ReminderPrompt() {
           }}
         />
         <button
-          onClick={save}
+          onClick={() => void save()}
           disabled={saved}
           className="py-2 px-5 rounded-xl font-semibold text-sm text-white disabled:opacity-50"
           style={{ background: "linear-gradient(135deg,#8b5cf6,#d946ef)" }}
