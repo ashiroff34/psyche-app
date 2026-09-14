@@ -33,3 +33,16 @@ Two commits touched `src/` since that pass. Neither removes or weakens a hook, a
 ## Actions taken
 
 None. No gap was found, so nothing was implemented.
+
+---
+
+## Recheck — 2026-09-14 (later pass)
+
+Two `feat:` commits landed after the morning pass (`4858a3b`). Neither touches a hook anchor:
+
+- `27aabbf` adds type-aware copy to `src/components/PostAssessmentUpsell.tsx`. This is conversion copy and adds a little identity framing (hook 3). It changes no retention mechanic.
+- `38c22c1` trims the Pro benefit lists on `src/app/pricing/page.tsx`, `src/app/store/page.tsx`, and `src/app/assessments/decentering/page.tsx`. This is conversion copy only.
+
+All anchors were grepped again and are present: `StreakCard.tsx:92`, `Navigation.tsx:469`, `HubView.tsx:422/429`, `QuizFullscreen.tsx:308`, `variable-rewards.ts:47/79/90`, `onboarding/page.tsx:239/504`, `page.tsx:287`.
+
+**Result: all six hooks are still wired.** No gap was found, so nothing was implemented. The follow-ups listed above are unchanged.
