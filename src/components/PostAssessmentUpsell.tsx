@@ -19,6 +19,8 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import { Sparkles, ArrowRight } from "lucide-react";
 import { PRO_TRIAL_DAYS } from "@/data/pro-pricing";
+import { useProfile } from "@/hooks/useProfile";
+import { getPaywallCopy } from "@/data/type-paywall-copy";
 
 const PRO_UNLOCK_KEY = "psyche-pro-unlocked";
 
@@ -47,6 +49,15 @@ export default function PostAssessmentUpsell({
   trigger = "post_assessment",
 }: PostAssessmentUpsellProps) {
   const [proUnlocked, setProUnlocked] = useState(true);
+  const { profile } = useProfile();
+
+  // The caller's body explains what this assessment can't reach. A typed
+  // reader also gets the Pro benefit stated in their own motivation, the same
+  // line /pricing and the primary results screens use. Untyped readers see the
+  // caller's copy only.
+  const typeBenefit = profile.enneagramType
+    ? getPaywallCopy(profile.enneagramType).proBenefit
+    : null;
 
   useEffect(() => {
     try {
@@ -86,9 +97,17 @@ export default function PostAssessmentUpsell({
           <p className="text-base font-semibold mb-1.5" style={{ color: "rgba(255,255,255,0.95)" }}>
             {headline}
           </p>
-          <p className="text-xs leading-relaxed mb-4" style={{ color: "rgba(255,255,255,0.6)" }}>
+          <p
+            className={`text-xs leading-relaxed ${typeBenefit ? "mb-2" : "mb-4"}`}
+            style={{ color: "rgba(255,255,255,0.6)" }}
+          >
             {body}
           </p>
+          {typeBenefit && (
+            <p className="text-xs leading-relaxed mb-4" style={{ color: "rgba(221,214,254,0.85)" }}>
+              {typeBenefit}
+            </p>
+          )}
           <div className="flex items-center justify-between">
             <span className="text-xs font-semibold text-violet-200">
               Try Pro Free for {PRO_TRIAL_DAYS} Days
