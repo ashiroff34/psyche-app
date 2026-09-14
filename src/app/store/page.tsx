@@ -23,7 +23,6 @@ import {
   Gem,
   Palette,
   Heart,
-  Eye,
   Wand2,
   ArrowLeft,
   Gamepad2,
@@ -122,9 +121,9 @@ const TOKEN_USES = [
 
 const PRO_FEATURES = [
   { icon: Brain, label: "Inner Work Lab. Jungian shadow work, type dynamics, cognitive reframing" },
-  { icon: Eye, label: "Ad-free experience" },
+  { icon: Target, label: "Tritypes, stackings and advanced Enneagram tabs included" },
+  { icon: BookOpen, label: "No daily lesson limit" },
   { icon: Palette, label: "10 exclusive avatar outfits & backgrounds" },
-  { icon: Target, label: "Advanced type analysis reports" },
   { icon: Zap, label: "Priority access to new features" },
   { icon: Coins, label: "500 bonus tokens every month" },
 ];
@@ -439,7 +438,7 @@ export default function StorePage() {
             </span>
           </h1>
           <p className="text-lg max-w-2xl mx-auto mb-6" style={{ color: "rgba(255,255,255,0.5)" }}>
-            Two tiers of content. Enneagram tools unlock with tokens you earn for free. Jungian depth tools require Pro.
+            Two ways in. Unlock Enneagram tools one at a time with tokens you earn for free, or go Pro for the Jungian depth tools, advanced Enneagram tabs and no daily lesson limit.
           </p>
           {/* Two-tier explainer */}
           <div className="flex flex-col sm:flex-row gap-3 max-w-lg mx-auto">
@@ -456,7 +455,7 @@ export default function StorePage() {
               <Crown className="w-4 h-4 mt-0.5 flex-shrink-0" style={{ color: "#818cf8" }} />
               <div>
                 <p className="text-xs font-bold mb-0.5" style={{ color: "#818cf8" }}>Jungian · Pro</p>
-                <p className="text-xs" style={{ color: "rgba(255,255,255,0.45)" }}>Inner Work Lab, shadow work, type dynamics. requires Pro subscription</p>
+                <p className="text-xs" style={{ color: "rgba(255,255,255,0.45)" }}>Inner Work Lab, shadow work, type dynamics, advanced Enneagram tabs, no daily lesson limit</p>
               </div>
             </div>
           </div>
